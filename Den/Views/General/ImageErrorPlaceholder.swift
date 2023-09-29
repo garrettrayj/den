@@ -16,7 +16,7 @@ struct ImageErrorPlaceholder: View {
     var body: some View {
         Image(systemName: "photo")
             .imageScale(imageScale)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(.tertiary)
             .padding()
     }
 }

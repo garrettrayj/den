@@ -13,42 +13,25 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedFavicon: View {
-    @Environment(\.displayScale) private var displayScale
     @Environment(\.isEnabled) private var isEnabled
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.faviconSize) private var faviconSize
+    @Environment(\.faviconPixelSize) private var faviconPixelSize
 
     let url: URL?
-    let baseSize = CGSize(width: 16, height: 16)
-
-    private var scaledSize: CGSize {
-        return CGSize(
-            width: baseSize.width * dynamicTypeSize.layoutScalingFactor,
-            height: baseSize.height * dynamicTypeSize.layoutScalingFactor
-        )
-    }
-
-    private var thumbnailPixelSize: CGSize {
-        CGSize(
-            width: scaledSize.width * displayScale,
-            height: scaledSize.height * displayScale
-        )
-    }
 
     var body: some View {
         WebImage(
             url: url,
-            options: [.decodeFirstFrameOnly],
-            context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+            options: [.decodeFirstFrameOnly, .delayPlaceholder, .lowPriority],
+            context: [.imageThumbnailPixelSize: faviconPixelSize]
         )
         .resizable()
         .placeholder {
             Image(systemName: "dot.radiowaves.up.forward")
-                .resizable()
                 .foregroundStyle(.primary)
-                .padding(2)
         }
         .scaledToFit()
-        .frame(width: scaledSize.width, height: scaledSize.height)
+        .frame(width: faviconSize.width, height: faviconSize.height)
         .clipShape(RoundedRectangle(cornerRadius: 2))
         .grayscale(isEnabled ? 0 : 1)
     }

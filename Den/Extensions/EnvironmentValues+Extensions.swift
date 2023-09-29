@@ -20,6 +20,30 @@ private struct UseSystemBrowserKey: EnvironmentKey {
 }
 
 extension EnvironmentValues {
+    var faviconSize: CGSize {
+        ImageSize.favicon.scaled(by: dynamicTypeSize.layoutScalingFactor)
+    }
+
+    var faviconPixelSize: CGSize {
+        faviconSize.scaled(by: displayScale)
+    }
+
+    var largeThumbnailSize: CGSize {
+        ImageSize.largeThumbnail.scaled(by: dynamicTypeSize.layoutScalingFactor)
+    }
+
+    var largeThumbnailPixelSize: CGSize {
+        largeThumbnailSize.scaled(by: displayScale)
+    }
+
+    var smallThumbnailSize: CGSize {
+        ImageSize.smallThumbnail.scaled(by: dynamicTypeSize.layoutScalingFactor)
+    }
+
+    var smallThumbnailPixelSize: CGSize {
+        smallThumbnailSize.scaled(by: displayScale)
+    }
+
     var userTint: Color? {
         get { self[UserTintKey.self] }
         set { self[UserTintKey.self] = newValue }

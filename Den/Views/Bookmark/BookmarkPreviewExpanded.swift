@@ -29,7 +29,7 @@ struct BookmarkPreviewExpanded: View {
                             PreviewDateline(date: date)
                         }
                         if feed.hideImages != true, let url = bookmark.image {
-                            PreviewImage(
+                            LargeThumbnail(
                                 url: url,
                                 isRead: false,
                                 width: CGFloat(bookmark.imageWidth),

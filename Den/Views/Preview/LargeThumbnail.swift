@@ -1,5 +1,5 @@
 //
-//  PreviewImage.swift
+//  LargeThumbnail.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/3/22.
@@ -12,10 +12,10 @@ import SwiftUI
 
 import SDWebImageSwiftUI
 
-struct PreviewImage: View {
-    @Environment(\.displayScale) private var displayScale
+struct LargeThumbnail: View {
     @Environment(\.isEnabled) private var isEnabled
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.largeThumbnailSize) private var largeThumbnailSize
+    @Environment(\.largeThumbnailPixelSize) private var largeThumbnailPixelSize
 
     let url: URL
     let isRead: Bool
@@ -34,22 +34,6 @@ struct PreviewImage: View {
         return width / height
     }
 
-    static let baseSize = CGSize(width: 384, height: 216)
-
-    private var scaledSize: CGSize {
-        return CGSize(
-            width: PreviewImage.baseSize.width * dynamicTypeSize.layoutScalingFactor,
-            height: PreviewImage.baseSize.height * dynamicTypeSize.layoutScalingFactor
-        )
-    }
-
-    private var thumbnailPixelSize: CGSize {
-        CGSize(
-            width: scaledSize.width * displayScale,
-            height: scaledSize.height * displayScale
-        )
-    }
-
     var body: some View {
         Group {
             if aspectRatio == nil {
@@ -58,23 +42,23 @@ struct PreviewImage: View {
                         WebImage(
                             url: url,
                             options: [.delayPlaceholder, .lowPriority],
-                            context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                            context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
                         )
-                            .resizable()
-                            .placeholder { ImageErrorPlaceholder() }
-                            .grayscale(isEnabled ? 0 : 1)
-                            .overlay(.background.opacity(isRead ? 0.5 : 0))
-                            .modifier(ImageBorderModifier(cornerRadius: 4))
-                            .scaledToFit()
+                        .resizable()
+                        .placeholder { ImageErrorPlaceholder() }
+                        .grayscale(isEnabled ? 0 : 1)
+                        .overlay(.background.opacity(isRead ? 0.5 : 0))
+                        .modifier(ImageBorderModifier(cornerRadius: 4))
+                        .scaledToFit()
                     }
-                    .aspectRatio(16/9, contentMode: .fill)
                 }
+                .aspectRatio(16/9, contentMode: .fit)
             } else if aspectRatio! < 0.5 {
                 ImageDepression(padding: 8) {
                     WebImage(
                         url: url,
                         options: [.delayPlaceholder, .lowPriority],
-                        context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                        context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
                     )
                         .resizable()
                         .placeholder { ImageErrorPlaceholder() }
@@ -82,16 +66,16 @@ struct PreviewImage: View {
                         .overlay(.background.opacity(isRead ? 0.5 : 0))
                         .aspectRatio(aspectRatio, contentMode: .fit)
                         .frame(
-                            maxHeight: scaledSize.height > 0 ? min(scaledSize.height, 400) : nil,
+                            maxHeight: largeThumbnailSize.height > 0 ? min(largeThumbnailSize.height, 400) : nil,
                             alignment: .top
                         )
                 }
-            } else if let width = width, width < scaledSize.width {
+            } else if let width = width, width < largeThumbnailSize.width {
                 ImageDepression(padding: 8) {
                     WebImage(
                         url: url,
                         options: [.delayPlaceholder, .lowPriority],
-                        context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                        context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
                     )
                         .resizable()
                         .placeholder { ImageErrorPlaceholder() }
@@ -105,7 +89,7 @@ struct PreviewImage: View {
                 WebImage(
                     url: url,
                     options: [.delayPlaceholder, .lowPriority],
-                    context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                    context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
                 )
                 .resizable()
                 .placeholder { ImageErrorPlaceholder() }

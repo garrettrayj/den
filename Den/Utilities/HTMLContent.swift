@@ -105,8 +105,8 @@ struct HTMLContent {
             {
                 // Width and height must be greater than thumbnail size if specified
                 // to help filter hidden images
-                if CGFloat(width) >= PreviewThumbnail.baseSize.width
-                    && CGFloat(height) >= PreviewThumbnail.baseSize.height {
+                if CGFloat(width) >= ImageSize.smallThumbnail.width
+                    && CGFloat(height) >= ImageSize.smallThumbnail.height {
 
                     images.append(RankedImage(
                         url: url.absoluteURL,

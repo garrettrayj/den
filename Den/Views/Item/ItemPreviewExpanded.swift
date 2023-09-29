@@ -28,7 +28,7 @@ struct ItemPreviewExpanded: View {
                     ItemTags(item: item)
                 }
                 if !feed.hideImages, let url = item.image {
-                    PreviewImage(
+                    LargeThumbnail(
                         url: url,
                         isRead: item.read,
                         width: CGFloat(item.imageWidth),
