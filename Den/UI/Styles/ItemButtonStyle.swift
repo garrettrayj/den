@@ -15,14 +15,46 @@ struct ItemButtonStyle: ButtonStyle {
 
     @Binding var read: Bool
 
+    var roundedBottom: Bool = false
+    var roundedTop: Bool = false
+
     func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .foregroundStyle(
-                isEnabled ?
-                    read ? .secondary : .primary
-                    :
-                    .tertiary
+        ZStack {
+            configuration.label
+                .foregroundStyle(
+                    isEnabled ?
+                        read ? .secondary : .primary
+                        :
+                        .tertiary
+                )
+                .modifier(HoverHighlightModifier())
+        }
+        .background(
+            UnevenRoundedRectangle(
+                cornerRadii: .init(
+                    topLeading: roundedTop ? 8 : 0,
+                    bottomLeading: roundedBottom ? 8 : 0,
+                    bottomTrailing: roundedBottom ? 8 : 0,
+                    topTrailing: roundedTop ? 8 : 0
+                )
             )
-            .modifier(HoverHighlightModifier())
+            #if os(macOS)
+            .fill(.background.quinary)
+            #else
+            .background(Color(.secondarySystemGroupedBackground))
+            #endif
+            .strokeBorder(.separator)
+            .padding(.top, roundedTop ? 0 : -1)
+        )
+        .clipShape(
+            UnevenRoundedRectangle(
+                cornerRadii: .init(
+                    topLeading: roundedTop ? 8 : 0,
+                    bottomLeading: roundedBottom ? 8 : 0,
+                    bottomTrailing: roundedBottom ? 8 : 0,
+                    topTrailing: roundedTop ? 8 : 0
+                )
+            )
+        )
     }
 }

@@ -22,7 +22,6 @@ struct ArticleHero: View {
 
     var aspectRatio: CGFloat? {
         guard width > 0, height > 0 else { return nil }
-
         return width / height
     }
 
@@ -67,7 +66,7 @@ struct ArticleHero: View {
                 .indicator(.activity)
                 .modifier(ImageBorderModifier(cornerRadius: 4))
             }
-            .aspectRatio(16/9, contentMode: .fill)
+            .aspectRatio(16/9, contentMode: .fit)
         } else if width < scaledSize.width {
             ImageDepression(padding: 12) {
                 WebImage(

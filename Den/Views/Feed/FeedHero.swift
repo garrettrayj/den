@@ -38,8 +38,10 @@ struct FeedHero: View {
                 .background(.background)
                 .overlay(.thinMaterial)
         }
-        .clipped()
-        .modifier(RoundedContainerModifier())
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .overlay(
+            RoundedRectangle(cornerRadius: 8).strokeBorder(.separator)
+        )
         .padding([.horizontal, .top])
     }
 }

@@ -18,11 +18,9 @@ struct FeedItemCompressed: View {
     var body: some View {
         VStack(spacing: 0) {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
-            Divider()
-            ItemActionView(item: item, feed: feed, profile: profile) {
+            ItemActionView(item: item, feed: feed, profile: profile, roundedBottom: true) {
                 ItemPreviewCompressed(item: item, feed: feed)
             }
         }
-        .modifier(RoundedContainerModifier())
     }
 }

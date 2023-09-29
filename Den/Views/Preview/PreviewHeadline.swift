@@ -15,7 +15,10 @@ struct PreviewHeadline: View {
     let browserView: Bool
 
     var body: some View {
-        suffixedTitle.font(.headline).lineLimit(6).imageScale(.small)
+        suffixedTitle
+            .font(.headline)
+            .lineLimit(6)
+            .imageScale(.small)
     }
 
     var suffixedTitle: Text {

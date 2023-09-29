@@ -61,7 +61,7 @@ struct ArticleLayout: View {
                                 .font(.caption2)
                             }
                         } else {
-                            Text("No Date", comment: "Date missing message.")
+                            Text("No Date", comment: "Date missing message.").font(.caption2)
                         }
                     }
 

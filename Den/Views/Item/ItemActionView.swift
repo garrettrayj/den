@@ -17,6 +17,9 @@ struct ItemActionView<Content: View>: View {
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
+    var roundedBottom: Bool = false
+    var roundedTop: Bool = false
+
     @ViewBuilder var content: Content
 
     var body: some View {
@@ -30,13 +33,17 @@ struct ItemActionView<Content: View>: View {
                     },
                     label: { content.modifier(DraggableItemModifier(item: item)) }
                 )
-                .buttonStyle(ItemButtonStyle(read: $item.read))
+                .buttonStyle(
+                    ItemButtonStyle(read: $item.read, roundedBottom: roundedBottom, roundedTop: roundedTop)
+                )
                 .accessibilityIdentifier("ItemAction")
             } else {
                 NavigationLink(value: SubDetailPanel.item(item)) {
                     content.modifier(DraggableItemModifier(item: item))
                 }
-                .buttonStyle(ItemButtonStyle(read: $item.read))
+                .buttonStyle(
+                    ItemButtonStyle(read: $item.read, roundedBottom: roundedBottom, roundedTop: roundedTop)
+                )
                 .accessibilityIdentifier("ItemAction")
             }
         }

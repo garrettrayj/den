@@ -54,14 +54,12 @@ struct Sidebar: View {
                 Section {
                     InboxNavLink(profile: profile)
                     TrendingNavLink(profile: profile)
-                    OrganizerNavLink()
                 } header: {
                     Text("All Feeds", comment: "Sidebar section header.")
                 }
                 #else
                 InboxNavLink(profile: profile)
                 TrendingNavLink(profile: profile)
-                OrganizerNavLink()
                 #endif
                 PagesSection(
                     profile: profile,
@@ -71,6 +69,9 @@ struct Sidebar: View {
                 )
                 if !profile.tagsArray.isEmpty {
                     TagsSection(profile: profile)
+                }
+                Section {
+                    OrganizerNavLink()
                 }
             }
         }

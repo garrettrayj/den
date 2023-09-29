@@ -28,14 +28,35 @@ struct CardNote<CaptionContent: View, IconContent: View>: View {
     }
 
     var body: some View {
-        VStack(spacing: 8) {
-            icon.foregroundStyle(.tertiary).fontWeight(.bold).imageScale(.large)
-            VStack {
-                title.fontWeight(.medium)
-                caption.font(.caption)
-            }.foregroundStyle(.secondary)
+        HStack {
+            Spacer(minLength: 0)
+            VStack(spacing: 8) {
+                icon.foregroundStyle(.tertiary).fontWeight(.bold).imageScale(.large)
+                VStack {
+                    title.fontWeight(.medium)
+                    caption.font(.caption)
+                }.foregroundStyle(.secondary)
+            }
+            .padding()
+            Spacer(minLength: 0)
         }
-        .padding()
+        .background(
+            UnevenRoundedRectangle(
+                cornerRadii: .init(
+                    topLeading: 0,
+                    bottomLeading: 8,
+                    bottomTrailing: 8,
+                    topTrailing: 0
+                )
+            )
+            #if os(macOS)
+            .fill(.background.quinary)
+            #else
+            .fill(Color(.secondarySystemGroupedBackground))
+            #endif
+            .strokeBorder(.separator)
+            .padding(.top, -1)
+        )
     }
 }
 

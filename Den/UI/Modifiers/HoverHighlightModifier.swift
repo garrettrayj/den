@@ -21,11 +21,7 @@ struct HoverHighlightModifier: ViewModifier {
             .onHover { isHovered = $0 }
             .background {
                 if isEnabled && isHovered {
-                    if colorScheme == .dark {
-                        Rectangle().fill(.fill.tertiary)
-                    } else {
-                        Rectangle().fill(.thinMaterial)
-                    }
+                    Rectangle().fill(.fill.quaternary)
                 }
             }
     }

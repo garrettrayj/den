@@ -33,33 +33,23 @@ struct Gadget: View {
                     AllRead()
                 } else {
                     ForEach(visibilityFilteredItems) { item in
-                        Group {
-                            ItemActionView(item: item, feed: feed, profile: profile) {
-                                if feed.wrappedPreviewStyle.rawValue == 1 {
-                                    ItemPreviewExpanded(item: item, feed: feed)
-                                } else {
-                                    ItemPreviewCompressed(item: item, feed: feed)
-                                }
-                            }
-                            if item != visibilityFilteredItems.last {
-                                Divider()
+                        ItemActionView(
+                            item: item,
+                            feed: feed,
+                            profile: profile,
+                            roundedBottom: visibilityFilteredItems.last == item
+                        ) {
+                            if feed.wrappedPreviewStyle.rawValue == 1 {
+                                ItemPreviewExpanded(item: item, feed: feed)
+                            } else {
+                                ItemPreviewCompressed(item: item, feed: feed)
                             }
                         }
                     }
                 }
             } header: {
-                VStack(spacing: 0) {
-                    FeedNavLink(feed: feed)
-                        .buttonStyle(FeedTitleButtonStyle())
-                        #if os(macOS)
-                        .background(.background.quinary)
-                        #else
-                        .background(Color(.secondarySystemGroupedBackground))
-                        #endif
-                    Divider()
-                }
+                FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
             }
         }
-        .modifier(RoundedContainerModifier())
     }
 }

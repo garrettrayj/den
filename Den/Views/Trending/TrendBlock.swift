@@ -66,6 +66,5 @@ struct TrendBlock: View {
             .padding()
         }
         .buttonStyle(BasicHoverButtonStyle())
-        .modifier(RoundedContainerModifier())
     }
 }

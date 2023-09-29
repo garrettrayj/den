@@ -83,7 +83,7 @@ struct SidebarToolbar: ToolbarContent {
                         }
                     } label: {
                         Label {
-                            Text("Edit Pages", comment: "Button label.")
+                            Text("Edit Pages & Tags", comment: "Button label.")
                         } icon: {
                             Image(systemName: "pencil")
                         }

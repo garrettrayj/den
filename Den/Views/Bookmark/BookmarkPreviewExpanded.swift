@@ -18,7 +18,6 @@ struct BookmarkPreviewExpanded: View {
     var body: some View {
         VStack(spacing: 0) {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
-            Divider()
             BookmarkActionView(bookmark: bookmark, feed: feed) {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
@@ -48,6 +47,5 @@ struct BookmarkPreviewExpanded: View {
                 .padding()
             }
         }
-        .modifier(RoundedContainerModifier())
     }
 }

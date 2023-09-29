@@ -18,7 +18,6 @@ struct BookmarkPreviewCompressed: View {
     var body: some View {
         VStack(spacing: 0) {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
-            Divider()
             BookmarkActionView(bookmark: bookmark, feed: feed) {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 4) {
@@ -40,6 +39,5 @@ struct BookmarkPreviewCompressed: View {
                 .padding()
             }
         }
-        .modifier(RoundedContainerModifier())
     }
 }
