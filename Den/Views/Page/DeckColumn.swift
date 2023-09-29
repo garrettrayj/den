@@ -1,5 +1,5 @@
 //
-//  Gadget.swift
+//  DeckColumn.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/18/20.
@@ -10,13 +10,21 @@
 
 import SwiftUI
 
-struct Gadget: View {
+struct DeckColumn: View {
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
     let hideRead: Bool
     let items: [Item]
     let filteredItems: [Item]
+
+    init(feed: Feed, profile: Profile, hideRead: Bool, items: [Item]) {
+        self.feed = feed
+        self.profile = profile
+        self.hideRead = hideRead
+        self.items = items
+        self.filteredItems = items.visibilityFiltered(hideRead ? false : nil)
+    }
 
     var body: some View {
         LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {

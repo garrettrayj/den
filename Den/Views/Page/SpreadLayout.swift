@@ -27,13 +27,11 @@ struct SpreadLayout: View {
                     ForEach(columnData(width: geometry.size.width), id: \.0) { _, feeds in
                         LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
                             ForEach(feeds) { feed in
-                                SpreadLayoutFeed(
+                                SpreadGroup(
                                     feed: feed,
                                     profile: profile,
                                     hideRead: hideRead,
-                                    items: items.forFeed(feed: feed),
-                                    filteredItems: items.forFeed(feed: feed)
-                                        .visibilityFiltered(hideRead ? false : nil)
+                                    items: items.forFeed(feed: feed)
                                 )
                             }
                         }

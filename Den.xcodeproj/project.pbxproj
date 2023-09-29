@@ -96,7 +96,7 @@
 		683C35992A9F188700568E9A /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DE2273BD42D00C6BB69 /* FeedView.swift */; };
 		683C359A2A9F188700568E9A /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687C27782631F6A000099FCA /* FileManager+Extensions.swift */; };
 		683C359B2A9F188700568E9A /* FilterReadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FF63F52921DB900012A275 /* FilterReadButton.swift */; };
-		683C359C2A9F188700568E9A /* Gadget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4134A24727F2B00D1DC7B /* Gadget.swift */; };
+		683C359C2A9F188700568E9A /* DeckColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4134A24727F2B00D1DC7B /* DeckColumn.swift */; };
 		683C359D2A9F188700568E9A /* SpreadLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED797E29C29A6800D85B4F /* SpreadLayout.swift */; };
 		683C359E2A9F188700568E9A /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6887D40825B35B83004A170D /* History+CoreDataClass.swift */; };
 		683C359F2A9F188700568E9A /* HistoryOptionsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681F0C252933F4C10037C609 /* HistoryOptionsSection.swift */; };
@@ -361,7 +361,7 @@
 		6862A59A2A25B6DF000CAB19 /* RelativeRefreshedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */; };
 		6862A59E2A26D90F000CAB19 /* PagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862A59D2A26D90F000CAB19 /* PagePicker.swift */; };
 		6863A3F42AC1E5C700A7DC61 /* NullSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68958DC92ABF1598007B9D9D /* NullSymbol.swift */; };
-		6863A3FD2AC5A63400A7DC61 /* SpreadLayoutFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6863A3FC2AC5A63400A7DC61 /* SpreadLayoutFeed.swift */; };
+		6863A3FD2AC5A63400A7DC61 /* SpreadGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6863A3FC2AC5A63400A7DC61 /* SpreadGroup.swift */; };
 		6863A3FF2AC60AE800A7DC61 /* BackedDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6863A3FE2AC60AE800A7DC61 /* BackedDivider.swift */; };
 		6863A4012AC6E37400A7DC61 /* LayoutUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6863A4002AC6E37400A7DC61 /* LayoutUtility.swift */; };
 		68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6865452F274AC3B600BAE03E /* PageSymbols.plist */; };
@@ -464,7 +464,7 @@
 		68C41318247263C700D1DC7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68C41317247263C700D1DC7B /* Assets.xcassets */; };
 		68C4131B247263C700D1DC7B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68C4131A247263C700D1DC7B /* Preview Assets.xcassets */; };
 		68C413462472773100D1DC7B /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C413452472773100D1DC7B /* PageView.swift */; };
-		68C4134B24727F2B00D1DC7B /* Gadget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4134A24727F2B00D1DC7B /* Gadget.swift */; };
+		68C4134B24727F2B00D1DC7B /* DeckColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4134A24727F2B00D1DC7B /* DeckColumn.swift */; };
 		68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */; };
 		68C4FA262474927800D2C0D6 /* ProfileOptionsForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4FA252474927800D2C0D6 /* ProfileOptionsForm.swift */; };
 		68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */ = {isa = PBXBuildFile; fileRef = 68CAC50B292954C7002D9EB9 /* Demo.opml */; };
@@ -700,7 +700,7 @@
 		6862A5972A2585B7000CAB19 /* Localizations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Localizations; sourceTree = "<group>"; };
 		6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeRefreshedDate.swift; sourceTree = "<group>"; };
 		6862A59D2A26D90F000CAB19 /* PagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagePicker.swift; sourceTree = "<group>"; };
-		6863A3FC2AC5A63400A7DC61 /* SpreadLayoutFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpreadLayoutFeed.swift; sourceTree = "<group>"; };
+		6863A3FC2AC5A63400A7DC61 /* SpreadGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpreadGroup.swift; sourceTree = "<group>"; };
 		6863A3FE2AC60AE800A7DC61 /* BackedDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackedDivider.swift; sourceTree = "<group>"; };
 		6863A4002AC6E37400A7DC61 /* LayoutUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutUtility.swift; sourceTree = "<group>"; };
 		6865452F274AC3B600BAE03E /* PageSymbols.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PageSymbols.plist; sourceTree = "<group>"; };
@@ -811,7 +811,7 @@
 		68C4131F247263C700D1DC7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68C41341247263D800D1DC7B /* Den.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Den.entitlements; sourceTree = "<group>"; };
 		68C413452472773100D1DC7B /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
-		68C4134A24727F2B00D1DC7B /* Gadget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gadget.swift; sourceTree = "<group>"; };
+		68C4134A24727F2B00D1DC7B /* DeckColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckColumn.swift; sourceTree = "<group>"; };
 		68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeedSheet.swift; sourceTree = "<group>"; };
 		68C4FA252474927800D2C0D6 /* ProfileOptionsForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOptionsForm.swift; sourceTree = "<group>"; };
 		68CAC50B292954C7002D9EB9 /* Demo.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Demo.opml; sourceTree = "<group>"; };
@@ -1417,12 +1417,12 @@
 				68701DFA273E57DB00C6BB69 /* HistoryUtility.swift */,
 				68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */,
 				687F22222A5A460300B76919 /* ImportExportUtility.swift */,
+				6863A4002AC6E37400A7DC61 /* LayoutUtility.swift */,
 				68B6CBDD290F2E7C00B5E3AB /* MediaTypeUtility.swift */,
 				687D9CAF24A8CABD00EB7F46 /* OPMLGenerator.swift */,
 				68D58E6824955321007ED1AC /* OPMLReader.swift */,
 				68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */,
 				6880EBDE27A8B5DE00B479F4 /* SymbolLibrary.swift */,
-				6863A4002AC6E37400A7DC61 /* LayoutUtility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1445,11 +1445,12 @@
 			isa = PBXGroup;
 			children = (
 				6829A50B28C6479900F75C5A /* AllRead.swift */,
+				687F488F269165EE00EA2498 /* AppErrorSheet.swift */,
+				6863A3FE2AC60AE800A7DC61 /* BackedDivider.swift */,
 				683041B127542E2000BE7631 /* BoardView.swift */,
 				6880EBEA27AEF12000B479F4 /* ButtonChevron.swift */,
 				68E6C5612A6C86D300CA46B2 /* CardNote.swift */,
 				681C0DDB2A7F531E007B1A7E /* CheckForUpdates.swift */,
-				687F488F269165EE00EA2498 /* AppErrorSheet.swift */,
 				68FF63F52921DB900012A275 /* FilterReadButton.swift */,
 				68D486BD26C9896300AF5B59 /* IconSelector.swift */,
 				6856DB3B2AB7FB510094615E /* IconSelectorButton.swift */,
@@ -1464,7 +1465,6 @@
 				6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */,
 				687FEF172A421B190042977E /* WebAddressTextField.swift */,
 				680F494F29AA56BE0083B664 /* WithItems.swift */,
-				6863A3FE2AC60AE800A7DC61 /* BackedDivider.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -1486,10 +1486,10 @@
 				68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */,
 				687925A12A60C1DB00188A83 /* AppSettingsUITests.swift */,
 				68D286282A64223A007AD876 /* AppSidebarUITests.swift */,
-				6879259D2A60C1DB00188A83 /* OrganizerUITests.swift */,
 				687925A32A60C1DB00188A83 /* FeedUITests.swift */,
 				687925A02A60C1DB00188A83 /* InboxUITests.swift */,
 				6879259C2A60C1DB00188A83 /* ItemUITests.swift */,
+				6879259D2A60C1DB00188A83 /* OrganizerUITests.swift */,
 				6879259F2A60C1DB00188A83 /* PageUITests.swift */,
 				6872F49E2A79CCF400C51EC8 /* ProfileOptionsUITests.swift */,
 				687925A22A60C1DB00188A83 /* SearchUITests.swift */,
@@ -1540,16 +1540,16 @@
 		68FC2567275E0D820073979F /* Page */ = {
 			isa = PBXGroup;
 			children = (
+				68C4134A24727F2B00D1DC7B /* DeckColumn.swift */,
 				68ED798429C29B2700D85B4F /* DeckLayout.swift */,
 				6856DB3E2AB8DC3D0094615E /* DeletePageButton.swift */,
-				68C4134A24727F2B00D1DC7B /* Gadget.swift */,
 				688FD917247750350006A2DE /* PageInspector.swift */,
 				68F6FB9C29ADDF6D001F74B9 /* PageLayoutPicker.swift */,
 				68FF63EF2921C56E0012A275 /* PageToolbar.swift */,
 				68C413452472773100D1DC7B /* PageView.swift */,
+				6863A3FC2AC5A63400A7DC61 /* SpreadGroup.swift */,
 				68ED797E29C29A6800D85B4F /* SpreadLayout.swift */,
 				68ED798229C29A8B00D85B4F /* TimelineLayout.swift */,
-				6863A3FC2AC5A63400A7DC61 /* SpreadLayoutFeed.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -1954,6 +1954,7 @@
 				683C35E32A9F188700568E9A /* AccentColorSelector.swift in Sources */,
 				683C355A2A9F188700568E9A /* AllRead.swift in Sources */,
 				683C355B2A9F188700568E9A /* AnalyzeTask.swift in Sources */,
+				683C35742A9F188700568E9A /* AppErrorSheet.swift in Sources */,
 				6856DB3A2AB795E90094615E /* Array+Extensions.swift in Sources */,
 				6856DB032AB58A5B0094615E /* ArticleHero.swift in Sources */,
 				6856DB042AB58A5E0094615E /* ArticleLayout.swift in Sources */,
@@ -1982,8 +1983,8 @@
 				683C356D2A9F188700568E9A /* ClearImageCacheButton.swift in Sources */,
 				683C356E2A9F188700568E9A /* Collection+Extensions.swift in Sources */,
 				683C356F2A9F188700568E9A /* Color+Extensions.swift in Sources */,
-				683C35742A9F188700568E9A /* AppErrorSheet.swift in Sources */,
 				683C35752A9F188700568E9A /* CrashUtility.swift in Sources */,
+				683C359C2A9F188700568E9A /* DeckColumn.swift in Sources */,
 				683C35772A9F188700568E9A /* DeckLayout.swift in Sources */,
 				6856DB342AB77EE80094615E /* DeleteBookmarkButton.swift in Sources */,
 				6856DB462AB8EEC40094615E /* DeleteFeedButton.swift in Sources */,
@@ -2020,7 +2021,6 @@
 				683C35992A9F188700568E9A /* FeedView.swift in Sources */,
 				683C359A2A9F188700568E9A /* FileManager+Extensions.swift in Sources */,
 				683C359B2A9F188700568E9A /* FilterReadButton.swift in Sources */,
-				683C359C2A9F188700568E9A /* Gadget.swift in Sources */,
 				683C359E2A9F188700568E9A /* History+CoreDataClass.swift in Sources */,
 				683C359F2A9F188700568E9A /* HistoryOptionsSection.swift in Sources */,
 				683C35A02A9F188700568E9A /* HistoryUtility.swift in Sources */,
@@ -2034,7 +2034,6 @@
 				683C35A62A9F188700568E9A /* ImageMIMEType.swift in Sources */,
 				683C35A72A9F188700568E9A /* ImageSelection.swift in Sources */,
 				683C35A82A9F188700568E9A /* ImportButton.swift in Sources */,
-				6863A3F42AC1E5C700A7DC61 /* NullSymbol.swift in Sources */,
 				683C35A92A9F188700568E9A /* ImportExportUtility.swift in Sources */,
 				683C35AA2A9F188700568E9A /* Inbox.swift in Sources */,
 				683C35AB2A9F188700568E9A /* InboxNavLink.swift in Sources */,
@@ -2072,15 +2071,16 @@
 				683C35CA2A9F188700568E9A /* NoFeeds.swift in Sources */,
 				683C357B2A9F188700568E9A /* NoticeLabelStyle.swift in Sources */,
 				683C35CB2A9F188700568E9A /* Notification+Extensions.swift in Sources */,
+				6863A3F42AC1E5C700A7DC61 /* NullSymbol.swift in Sources */,
 				683C35CC2A9F188700568E9A /* OpenInBrowserButton.swift in Sources */,
 				683C35CD2A9F188700568E9A /* OpenInBrowserLabel.swift in Sources */,
 				683C35CE2A9F188700568E9A /* OPMLFile.swift in Sources */,
 				683C35CF2A9F188700568E9A /* OPMLGenerator.swift in Sources */,
 				683C35D02A9F188700568E9A /* OPMLReader.swift in Sources */,
 				6856DB132AB58B220094615E /* Organizer.swift in Sources */,
-				6856DB1B2AB58B920094615E /* OrganizerNavLink.swift in Sources */,
 				6856DB122AB58B200094615E /* OrganizerInfoPanel.swift in Sources */,
 				6856DB142AB58B260094615E /* OrganizerInspector.swift in Sources */,
+				6856DB1B2AB58B920094615E /* OrganizerNavLink.swift in Sources */,
 				6856DB112AB58B1D0094615E /* OrganizerOptionsPanel.swift in Sources */,
 				6856DB2F2AB6E2EA0094615E /* OrganizerToolbar.swift in Sources */,
 				683C35D12A9F188700568E9A /* Page+CoreDataClass.swift in Sources */,
@@ -2191,6 +2191,7 @@
 				68352D1629B16C5F0073CEFD /* AccentColorSelector.swift in Sources */,
 				6829A50C28C6479900F75C5A /* AllRead.swift in Sources */,
 				68B6CBE22910B84E00B5E3AB /* AnalyzeTask.swift in Sources */,
+				687F4890269165EE00EA2498 /* AppErrorSheet.swift in Sources */,
 				6856DB392AB795BF0094615E /* Array+Extensions.swift in Sources */,
 				68CE2C3D28CEEBF000ED1CF9 /* ArticleHero.swift in Sources */,
 				6856DAF02AB413950094615E /* ArticleLayout.swift in Sources */,
@@ -2200,6 +2201,7 @@
 				682591F629D805FB00E5EF3B /* AtomFeedMetaUpdate.swift in Sources */,
 				68B6CBE62910BD0E00B5E3AB /* AtomFeedUpdate.swift in Sources */,
 				68B6CBE82910C54500B5E3AB /* AtomItemLoad.swift in Sources */,
+				6863A3FF2AC60AE800A7DC61 /* BackedDivider.swift in Sources */,
 				6895C98E2A880D6600BD4C21 /* BasicHoverButtonStyle.swift in Sources */,
 				683041B227542E2000BE7631 /* BoardView.swift in Sources */,
 				68599B582AB082790057FEA8 /* Bookmark+CoreDataClass.swift in Sources */,
@@ -2212,7 +2214,6 @@
 				683CEC60250966410005F305 /* Bundle+Extensions.swift in Sources */,
 				6880EBEB27AEF12000B479F4 /* ButtonChevron.swift in Sources */,
 				68E6C5622A6C86D300CA46B2 /* CardNote.swift in Sources */,
-				6863A3FD2AC5A63400A7DC61 /* SpreadLayoutFeed.swift in Sources */,
 				68E9BDBA279D00DE003BA111 /* CGSize+Extensions.swift in Sources */,
 				681C0DDC2A7F531E007B1A7E /* CheckForUpdates.swift in Sources */,
 				68E6C5642A6CC48E00CA46B2 /* CleanupUtility.swift in Sources */,
@@ -2220,9 +2221,8 @@
 				687FEEF32A3DDCE10042977E /* ClearImageCacheButton.swift in Sources */,
 				680253782A1C80F90034B0E4 /* Collection+Extensions.swift in Sources */,
 				54F8EA4829B418A600955BB6 /* Color+Extensions.swift in Sources */,
-				687F4890269165EE00EA2498 /* AppErrorSheet.swift in Sources */,
 				68701DF7273E51AC00C6BB69 /* CrashUtility.swift in Sources */,
-				6863A4012AC6E37400A7DC61 /* LayoutUtility.swift in Sources */,
+				68C4134B24727F2B00D1DC7B /* DeckColumn.swift in Sources */,
 				68ED798529C29B2700D85B4F /* DeckLayout.swift in Sources */,
 				6856DB332AB77CDE0094615E /* DeleteBookmarkButton.swift in Sources */,
 				6856DB452AB8EE7F0094615E /* DeleteFeedButton.swift in Sources */,
@@ -2259,7 +2259,6 @@
 				68701DE3273BD42D00C6BB69 /* FeedView.swift in Sources */,
 				687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */,
 				68FF63F62921DB900012A275 /* FilterReadButton.swift in Sources */,
-				68C4134B24727F2B00D1DC7B /* Gadget.swift in Sources */,
 				6887D40925B35B83004A170D /* History+CoreDataClass.swift in Sources */,
 				681F0C262933F4C10037C609 /* HistoryOptionsSection.swift in Sources */,
 				68701DFB273E57DB00C6BB69 /* HistoryUtility.swift in Sources */,
@@ -2293,6 +2292,7 @@
 				68B6CBEA2910CA1C00B5E3AB /* JSONFeedUpdate.swift in Sources */,
 				68B6CBEC2910CA3000B5E3AB /* JSONItemLoad.swift in Sources */,
 				680649842A0E491000B6E6E7 /* Landing.swift in Sources */,
+				6863A4012AC6E37400A7DC61 /* LayoutUtility.swift in Sources */,
 				6880EBE327A8F63E00B479F4 /* LinkableItem.swift in Sources */,
 				68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */,
 				68FF63F42921D9C50012A275 /* MarkAllReadUnreadButton.swift in Sources */,
@@ -2317,9 +2317,9 @@
 				687D9CB024A8CABD00EB7F46 /* OPMLGenerator.swift in Sources */,
 				68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */,
 				6851F0DB2AAB9CF8000F7CBC /* Organizer.swift in Sources */,
-				6851F0EF2AAEC290000F7CBC /* OrganizerNavLink.swift in Sources */,
 				6851F0F12AAF7314000F7CBC /* OrganizerInfoPanel.swift in Sources */,
 				6851F0E32AAD77E8000F7CBC /* OrganizerInspector.swift in Sources */,
+				6851F0EF2AAEC290000F7CBC /* OrganizerNavLink.swift in Sources */,
 				6851F0F32AAF7327000F7CBC /* OrganizerOptionsPanel.swift in Sources */,
 				6856DB2E2AB6E2730094615E /* OrganizerToolbar.swift in Sources */,
 				680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */,
@@ -2374,6 +2374,7 @@
 				683E3F47293BC18C00B16814 /* SidebarStatus.swift in Sources */,
 				687FEF0D2A3FB0BC0042977E /* SidebarToolbar.swift in Sources */,
 				680206B32A1150ED00AC3FC5 /* SplitView.swift in Sources */,
+				6863A3FD2AC5A63400A7DC61 /* SpreadGroup.swift in Sources */,
 				68ED797F29C29A6800D85B4F /* SpreadLayout.swift in Sources */,
 				680744C028E95CD80008A09D /* Start.swift in Sources */,
 				6845BD5824F90F450008B296 /* String+Extensions.swift in Sources */,
@@ -2385,7 +2386,6 @@
 				68599B6C2AB104250057FEA8 /* TagsMenu.swift in Sources */,
 				68599B682AB0EF6C0057FEA8 /* TagsSection.swift in Sources */,
 				68599B662AB0E25C0057FEA8 /* TagView.swift in Sources */,
-				6863A3FF2AC60AE800A7DC61 /* BackedDivider.swift in Sources */,
 				68ED798329C29A8B00D85B4F /* TimelineLayout.swift in Sources */,
 				6856DB252AB635700094615E /* TransferableBookmark.swift in Sources */,
 				683C35412A9E570900568E9A /* TransferableFeed.swift in Sources */,
@@ -2422,10 +2422,10 @@
 				68E83BFE2A6004590014DC64 /* AppLaunchUITests.swift in Sources */,
 				687925A92A60C1DB00188A83 /* AppSettingsUITests.swift in Sources */,
 				68D286292A64223A007AD876 /* AppSidebarUITests.swift in Sources */,
-				687925A52A60C1DB00188A83 /* OrganizerUITests.swift in Sources */,
 				687925AB2A60C1DB00188A83 /* FeedUITests.swift in Sources */,
 				687925A82A60C1DB00188A83 /* InboxUITests.swift in Sources */,
 				687925A42A60C1DB00188A83 /* ItemUITests.swift in Sources */,
+				687925A52A60C1DB00188A83 /* OrganizerUITests.swift in Sources */,
 				687925A72A60C1DB00188A83 /* PageUITests.swift in Sources */,
 				6872F4A12A79CCF400C51EC8 /* ProfileOptionsUITests.swift in Sources */,
 				687925AA2A60C1DB00188A83 /* SearchUITests.swift in Sources */,

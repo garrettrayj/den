@@ -26,13 +26,11 @@ struct DeckLayout: View {
                 LazyHStack(alignment: .top, spacing: 8) {
                     ForEach(page.feedsArray) { feed in
                         ScrollView(.vertical, showsIndicators: false) {
-                            Gadget(
+                            DeckColumn(
                                 feed: feed,
                                 profile: profile,
                                 hideRead: hideRead,
-                                items: items.forFeed(feed: feed), 
-                                filteredItems: items.forFeed(feed: feed)
-                                    .visibilityFiltered(hideRead ? false : nil)
+                                items: items.forFeed(feed: feed)
                             )
                             .padding(.vertical)
                         }
