@@ -28,7 +28,7 @@ struct OrganizerOptionsPanel: View {
                             Text(verbatim: "\(choice.rawValue)").tag(choice)
                         }
                     } label: {
-                        Text("Preview Limit", comment: "Picker label.")
+                        Text("Item Limit", comment: "Picker label.")
                     }
                     Toggle(sources: sources, isOn: \.browserView) {
                         Text("Open in Browser", comment: "Toggle label.")

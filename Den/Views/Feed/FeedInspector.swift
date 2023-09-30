@@ -16,10 +16,12 @@ struct FeedInspector: View {
 
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
-
+    
+    @State private var itemLimitHasChanged: Bool = false
+    @State private var showingHideTeaserOption: Bool = false
+    @State private var webAddressHasChanged: Bool = false
     @State private var webAddressIsValid: Bool?
     @State private var webAddressValidationMessage: WebAddressValidationMessage?
-    @State private var showingHideTeaserOption: Bool = false
 
     var body: some View {
         Form {
@@ -34,6 +36,11 @@ struct FeedInspector: View {
                     )
                     .onChange(of: feed.page) {
                         self.feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
                     }
                 }
             } header: {
@@ -47,15 +54,6 @@ struct FeedInspector: View {
             }
         }
         .formStyle(.grouped)
-        .onDisappear {
-            if viewContext.hasChanges {
-                do {
-                    try viewContext.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            }
-        }
         #if os(iOS)
         .clipped()
         .background(Color(.systemGroupedBackground).ignoresSafeArea(.all))
@@ -74,33 +72,43 @@ struct FeedInspector: View {
                     Image(systemName: "character.cursor.ibeam")
                 }
             }
-            .lineLimit(1)
-
-            LabeledContent {
-                WebAddressTextField(
-                    text: $feed.urlString,
-                    isValid: $webAddressIsValid,
-                    validationMessage: $webAddressValidationMessage
-                )
-                .labelsHidden()
-                .scaledToFit()
-                .multilineTextAlignment(.trailing)
-            } label: {
-                Label {
-                    Text("Address", comment: "Web address text field label.")
-                } icon: {
-                    Image(systemName: "dot.radiowaves.up.forward")
+            .onReceive(
+                feed.publisher(for: \.title)
+                    .debounce(for: 1, scheduler: DispatchQueue.main)
+                    .removeDuplicates()
+            ) { _ in
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
                 }
             }
 
+            WebAddressTextField(
+                urlString: $feed.urlString,
+                isValid: $webAddressIsValid,
+                validationMessage: $webAddressValidationMessage
+            )
+            .multilineTextAlignment(.trailing)
+            .onReceive(
+                feed.publisher(for: \.url)
+                    .debounce(for: 1, scheduler: DispatchQueue.main)
+                    .removeDuplicates()
+            ) { _ in
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                    webAddressHasChanged = true
+                }
+            }
         } footer: {
             if let validationMessage = webAddressValidationMessage {
-                validationMessage.text
-            } else if feed.changedValues().keys.contains("url") {
-                Text(
-                    "Web address change will be applied on next refresh.",
-                    comment: "Feed inspector guidance."
-                ).font(.footnote)
+                validationMessage.text.font(.footnote)
             }
         }
     }
@@ -112,11 +120,26 @@ struct FeedInspector: View {
                     Text(verbatim: "\(choice.rawValue)").tag(choice)
                 }
             } label: {
-                Text("Preview Limit", comment: "Picker label.")
+                Text("Item Limit", comment: "Picker label.")
+            }
+            .onChange(of: feed.itemLimit) {
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
+                itemLimitHasChanged = true
             }
 
             Toggle(isOn: $feed.browserView) {
                 Text("Open in Browser", comment: "Toggle label.")
+            }
+            .onChange(of: feed.browserView) {
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
             }
 
             #if os(iOS)
@@ -124,25 +147,60 @@ struct FeedInspector: View {
                 Toggle(isOn: $feed.readerMode) {
                     Text("Enter Reader Mode", comment: "Toggle label.")
                 }
+                .onChange(of: feed.readerMode) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
             }
             #endif
 
             Toggle(isOn: $feed.largePreviews) {
                 Text("Large Previews", comment: "Toggle label.")
             }
+            .onChange(of: feed.previewStyle) {
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
+            }
 
             if feed.largePreviews {
                 Toggle(isOn: $feed.hideTeasers) {
                     Text("Hide Teasers", comment: "Toggle label.")
+                }
+                .onChange(of: feed.hideTeasers) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
                 }
             }
 
             Toggle(isOn: $feed.hideBylines) {
                 Text("Hide Bylines", comment: "Toggle label.")
             }
+            .onChange(of: feed.hideBylines) {
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
+            }
 
             Toggle(isOn: $feed.hideImages) {
                 Text("Hide Images", comment: "Toggle label.")
+            }
+            .onChange(of: feed.hideImages) {
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
             }
         } header: {
             Text("Previews", comment: "Inspector section header.")
@@ -155,13 +213,6 @@ struct FeedInspector: View {
                 ).font(.footnote)
             }
             #endif
-
-            if feed.changedValues().keys.contains("itemLimit") {
-                Text(
-                    "Preview limit will be applied on next refresh.",
-                    comment: "Feed inspector guidance."
-                ).font(.footnote)
-            }
         }
     }
 }

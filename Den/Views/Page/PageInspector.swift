@@ -28,15 +28,6 @@ struct PageInspector: View {
                 Text("Danger Zone")
             }
         }
-        .onDisappear {
-            if viewContext.hasChanges {
-                do {
-                    try viewContext.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            }
-        }
         #if os(iOS)
         .environment(\.editMode, .constant(.active))
         .clipped()
@@ -56,8 +47,27 @@ struct PageInspector: View {
                     Image(systemName: "character.cursor.ibeam")
                 }
             }
+            .onReceive(
+                page.publisher(for: \.name)
+                    .debounce(for: 1, scheduler: DispatchQueue.main)
+                    .removeDuplicates()
+            ) { _ in
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            }
 
-            IconSelectorButton(symbol: $page.wrappedSymbol)
+            IconSelectorButton(symbol: $page.wrappedSymbol).onChange(of: page.symbol) {
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
+            }
         }
     }
 
@@ -103,7 +113,12 @@ struct PageInspector: View {
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
-
-        page.objectWillChange.send()
+        
+        do {
+            try viewContext.save()
+            page.objectWillChange.send()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
     }
 }

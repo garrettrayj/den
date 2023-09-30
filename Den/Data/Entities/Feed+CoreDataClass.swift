@@ -43,8 +43,8 @@ public class Feed: NSManagedObject {
     }
 
     public var urlString: String {
-        get {url?.absoluteString ?? ""}
-        set {url = URL(string: newValue)}
+        get { url?.absoluteString ?? "" }
+        set { url = URL(string: newValue) }
     }
 
     public var needsMetaUpdate: Bool {

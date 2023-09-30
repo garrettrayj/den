@@ -32,7 +32,7 @@ struct NewFeedSheet: View {
                 if targetPage != nil {
                     Section {
                         WebAddressTextField(
-                            text: $webAddress,
+                            urlString: $webAddress,
                             isValid: $webAddressIsValid,
                             validationMessage: $webAddressValidationMessage
                         )

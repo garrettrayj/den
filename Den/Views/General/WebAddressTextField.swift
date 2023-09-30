@@ -11,9 +11,11 @@
 import SwiftUI
 
 struct WebAddressTextField: View {
-    @Binding var text: String
+    @Binding var urlString: String
     @Binding var isValid: Bool?
     @Binding var validationMessage: WebAddressValidationMessage?
+    
+    @State private var text: String = ""
 
     var body: some View {
         // Note: Prompt text contains an invisible separator after "https" to prevent link coloring
@@ -22,7 +24,7 @@ struct WebAddressTextField: View {
             prompt: Text("https⁣://example.com/feed", comment: "Web address text field prompt.")
         ) {
             Label {
-                Text("Address", comment: "Web address text field label.")
+                Text("URL", comment: "Web address text field label.")
             } icon: {
                 Image(systemName: "dot.radiowaves.up.forward")
             }
@@ -36,8 +38,8 @@ struct WebAddressTextField: View {
             validate()
         }
         .onAppear {
-            if text != "" {
-                validate()
+            if urlString != "" {
+                text = urlString
             }
         }
     }
@@ -46,30 +48,33 @@ struct WebAddressTextField: View {
         validationMessage = nil
         isValid = nil
 
-        let trimmedInput = text.trimmingCharacters(in: .whitespacesAndNewlines)
-
-        if trimmedInput == "" {
+        if text == "" {
             self.failValidation(.cannotBeBlank)
             return
         }
 
-        if trimmedInput.containsWhitespace {
+        if text.containsWhitespace {
             self.failValidation(.mustNotContainSpaces)
             return
         }
 
-        if trimmedInput.prefix(7).lowercased() != "http://"
-            && trimmedInput.prefix(8).lowercased() != "https://" {
+        if text.prefix(7).lowercased() != "http://"
+            && text.prefix(8).lowercased() != "https://" {
             self.failValidation(.mustBeginWithHTTP)
             return
         }
 
-        if URL(string: trimmedInput) == nil {
+        if URL(string: text) == nil {
             self.failValidation(.parseError)
             return
         }
 
         isValid = true
+        validationMessage = nil
+        
+        if urlString != text {
+            urlString = text
+        }
     }
 
     private func failValidation(_ message: WebAddressValidationMessage) {
