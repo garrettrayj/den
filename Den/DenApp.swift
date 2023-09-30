@@ -21,11 +21,8 @@ import Sparkle
 
 @main
 struct DenApp: App {
-    @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openURL) private var openURL
-    @Environment(\.undoManager) var undoManager
 
-    @AppStorage("FeedRefreshTimeout") private var feedRefreshTimeout: Int = 30
     @AppStorage("LastCleanup") private var lastCleanup: Double?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
@@ -85,12 +82,9 @@ struct DenApp: App {
 
         #if os(macOS)
         Settings {
-            SettingsForm(
-                feedRefreshTimeout: $feedRefreshTimeout,
-                userColorScheme: $userColorScheme
-            )
-            .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            .preferredColorScheme(userColorScheme.colorScheme)
+            SettingsForm(userColorScheme: $userColorScheme)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .preferredColorScheme(userColorScheme.colorScheme)
         }
         #endif
     }

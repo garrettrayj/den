@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct SettingsForm: View {
-    @Binding var feedRefreshTimeout: Int
     @Binding var userColorScheme: UserColorScheme
 
     var body: some View {
