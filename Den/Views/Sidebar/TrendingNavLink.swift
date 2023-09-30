@@ -13,8 +13,10 @@ import SwiftUI
 struct TrendingNavLink: View {
     @ObservedObject var profile: Profile
 
+    @Binding var detailPanel: DetailPanel?
+    
     var body: some View {
-        NavigationLink(value: DetailPanel.trending) {
+        Button {} label: {
             Label {
                 Text("Trending", comment: "Button label.")
                     .lineLimit(1)
@@ -23,6 +25,8 @@ struct TrendingNavLink: View {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
         }
+        .buttonStyle(.plain)
+        .tag(DetailPanel.trending)
         .accessibilityIdentifier("TrendingNavLink")
     }
 }

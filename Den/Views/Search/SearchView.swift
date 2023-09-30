@@ -35,6 +35,7 @@ struct SearchView: View {
                         comment: "Search query empty guidance."
                     )
                 }
+                .navigationTitle(Text("Search", comment: "Navigation title."))
             } else {
                 WithItems(
                     scopeObject: profile,
@@ -47,6 +48,9 @@ struct SearchView: View {
                         query: query,
                         items: items
                     )
+                    .navigationTitle(
+                        Text("Search")
+                    )
                     .toolbar {
                         SearchToolbar(hideRead: $hideRead, query: query, items: items)
                     }
@@ -55,7 +59,6 @@ struct SearchView: View {
         }
         .onAppear { saveSearch() }
         .onChange(of: query) { saveSearch() }
-        .navigationTitle(Text("Search", comment: "Navigation title."))
     }
 
     private func saveSearch() {

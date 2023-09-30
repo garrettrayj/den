@@ -45,7 +45,7 @@ struct SearchLayout: View {
                 ContentUnavailableView {
                     Label {
                         Text(
-                            "No Unread Results for\n“\(query)”",
+                            "No Unread Results for “\(query)”",
                             comment: "No unread search results title."
                         )
                     } icon: {
@@ -71,6 +71,18 @@ struct SearchLayout: View {
                         }
                     }
                     .edgesIgnoringSafeArea(.horizontal)
+                    #if os(macOS)
+                    .navigationSubtitle(
+                        Text("Results for “\(query)”", comment: "Navigation subtitle.")
+                    )
+                    #else
+                    .toolbar {
+                        ToolbarItem(placement: .status) {
+                            Text("Results for “\(query)”", comment: "Bottom bar status.")
+                                .font(.caption)
+                        }
+                    }
+                    #endif
                 }
             }
         }

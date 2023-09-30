@@ -23,26 +23,25 @@ struct PageNavLink: View {
     @Binding var showingNewFeedSheet: Bool
 
     var body: some View {
-        NavigationLink(value: DetailPanel.page(page)) {
-            Label {
-                #if os(macOS)
-                WithItems(scopeObject: page, readFilter: false) { items in
-                    TextField(text: $page.wrappedName) { page.nameText }.badge(items.count)
-                }
-                #else
-                if editMode?.wrappedValue.isEditing == true {
-                    TextField(text: $page.wrappedName) { page.nameText }
-                } else {
-                    WithItems(scopeObject: page, readFilter: false) { items in
-                        page.nameText.badge(items.count)
-                    }
-                }
-                #endif
-            } icon: {
-                Image(systemName: page.wrappedSymbol)
+        Label {
+            #if os(macOS)
+            WithItems(scopeObject: page, readFilter: false) { items in
+                TextField(text: $page.wrappedName) { page.nameText }.badge(items.count)
             }
-            .lineLimit(1)
+            #else
+            if editMode?.wrappedValue.isEditing == true {
+                TextField(text: $page.wrappedName) { page.nameText }
+            } else {
+                WithItems(scopeObject: page, readFilter: false) { items in
+                    page.nameText.badge(items.count)
+                }
+            }
+            #endif
+        } icon: {
+            Image(systemName: page.wrappedSymbol)
         }
+        .lineLimit(1)
+        .tag(DetailPanel.page(page))
         .contentShape(Rectangle())
         .onDrop(
             of: [.denFeed, .url, .text],

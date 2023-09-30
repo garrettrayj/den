@@ -19,22 +19,21 @@ struct TagNavLink: View {
     @ObservedObject var tag: Tag
 
     var body: some View {
-        NavigationLink(value: DetailPanel.tag(tag)) {
-            Label {
-                #if os(macOS)
-                TextField(text: $tag.wrappedName) { tag.nameText }.badge(tag.bookmarksArray.count)
-                #else
-                if editMode?.wrappedValue.isEditing == true {
-                    TextField(text: $tag.wrappedName) { tag.nameText }
-                } else {
-                    tag.nameText.badge(tag.bookmarksArray.count)
-                }
-                #endif
-            } icon: {
-                Image(systemName: "tag")
+        Label {
+            #if os(macOS)
+            TextField(text: $tag.wrappedName) { tag.nameText }.badge(tag.bookmarksArray.count)
+            #else
+            if editMode?.wrappedValue.isEditing == true {
+                TextField(text: $tag.wrappedName) { tag.nameText }
+            } else {
+                tag.nameText.badge(tag.bookmarksArray.count)
             }
-            .lineLimit(1)
+            #endif
+        } icon: {
+            Image(systemName: "tag")
         }
+        .lineLimit(1)
+        .tag(DetailPanel.tag(tag))
         .contentShape(Rectangle())
         .onDrop(
             of: [.denBookmark, .denItem],
