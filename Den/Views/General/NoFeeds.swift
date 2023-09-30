@@ -11,12 +11,14 @@
 import SwiftUI
 
 struct NoFeeds: View {
+    var symbol = "folder"
+
     var body: some View {
         ContentUnavailableView {
             Label {
                 Text("No Feeds", comment: "Empty page title.")
             } icon: {
-                NullSymbol()
+                Image(systemName: symbol)
             }
         } description: {
             #if os(macOS)

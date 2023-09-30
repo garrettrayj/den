@@ -31,7 +31,7 @@ struct TagView: View {
                         Label {
                             Text("No Bookmarks", comment: "Content unavailable title.")
                         } icon: {
-                            NullSymbol()
+                            Image(systemName: "bookmark")
                         }
                     }
                 } else {

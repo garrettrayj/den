@@ -29,23 +29,11 @@ struct ItemButtonStyle: ButtonStyle {
                 )
                 .modifier(HoverHighlightModifier())
         }
-        .background(
-            UnevenRoundedRectangle(
-                cornerRadii: .init(
-                    topLeading: roundedTop ? 8 : 0,
-                    bottomLeading: roundedBottom ? 8 : 0,
-                    bottomTrailing: roundedBottom ? 8 : 0,
-                    topTrailing: roundedTop ? 8 : 0
-                )
-            )
-            #if os(macOS)
-            .fill(.background.quinary)
-            #else
-            .background(Color(.secondarySystemGroupedBackground))
-            #endif
-            .strokeBorder(.separator)
-            .padding(.top, roundedTop ? 0 : -1)
-        )
+        #if os(macOS)
+        .background(.background)
+        #else
+        .background(Color(.secondarySystemGroupedBackground))
+        #endif
         .clipShape(
             UnevenRoundedRectangle(
                 cornerRadii: .init(

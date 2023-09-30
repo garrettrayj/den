@@ -37,7 +37,10 @@ struct DeckLayout: View {
                         .scrollClipDisabled()
                         .containerRelativeFrame(
                             .horizontal,
-                            count: columnCount(width: geometry.size.width),
+                            count: Columnizer.calculateColumnCount(
+                                width: geometry.size.width,
+                                layoutScalingFactor: dynamicTypeSize.layoutScalingFactor
+                            ),
                             spacing: 8
                         )
                     }
@@ -48,10 +51,5 @@ struct DeckLayout: View {
             .scrollClipDisabled()
             .contentMargins(.horizontal, 16)
         }
-    }
-
-    private func columnCount(width: CGFloat) -> Int {
-        let adjustedWidth = width / dynamicTypeSize.layoutScalingFactor
-        return max(1, Int((adjustedWidth / log2(adjustedWidth)) / 30))
     }
 }

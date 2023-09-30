@@ -48,12 +48,15 @@ struct SpreadGroup: View {
                             ItemPreviewCompressed(item: item, feed: feed)
                         }
                     }
+                    if item != filteredItems.last {
+                        BackedDivider()
+                    }
                 }
             }
         } header: {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
         } footer: {
-            Spacer()
+            Spacer(minLength: 8)
         }
     }
 }

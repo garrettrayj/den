@@ -18,5 +18,6 @@ struct ImageErrorPlaceholder: View {
             .imageScale(imageScale)
             .foregroundStyle(.tertiary)
             .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

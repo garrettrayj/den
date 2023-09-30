@@ -30,7 +30,7 @@ struct Organizer: View {
                             Spacer()
                             Group {
                                 if feed.feedData == nil {
-                                    NullSymbol().foregroundStyle(.yellow)
+                                    Image(systemName: "questionmark.folder").foregroundStyle(.yellow)
                                     Text("No Data", comment: "Organizer row status.")
                                 } else if let error = feed.feedData?.wrappedError {
                                     Image(systemName: "bolt.horizontal").foregroundStyle(.red)

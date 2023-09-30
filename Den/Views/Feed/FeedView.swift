@@ -53,6 +53,9 @@ struct FeedView: View {
                     .inspector(isPresented: $showingInspector) {
                         FeedInspector(feed: feed, profile: profile)
                     }
+                    #if os(iOS)
+                    .toolbarBackground(.visible)
+                    #endif
                 }
             }
         }

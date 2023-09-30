@@ -40,7 +40,12 @@ struct CardNote<CaptionContent: View, IconContent: View>: View {
             .padding()
             Spacer(minLength: 0)
         }
-        .background(
+        #if os(macOS)
+        .background(.background)
+        #else
+        .background(Color(.secondarySystemGroupedBackground))
+        #endif
+        .clipShape(
             UnevenRoundedRectangle(
                 cornerRadii: .init(
                     topLeading: 0,
@@ -49,13 +54,6 @@ struct CardNote<CaptionContent: View, IconContent: View>: View {
                     topTrailing: 0
                 )
             )
-            #if os(macOS)
-            .fill(.background.quinary)
-            #else
-            .fill(Color(.secondarySystemGroupedBackground))
-            #endif
-            .strokeBorder(.separator)
-            .padding(.top, -1)
         )
     }
 }

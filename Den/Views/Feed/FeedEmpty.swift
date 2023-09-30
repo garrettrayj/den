@@ -19,11 +19,16 @@ struct FeedEmpty: View {
                 Label {
                     Text("Feed Empty", comment: "Content unavailable title.")
                 } icon: {
-                    NullSymbol()
+                    Image(systemName: "questionmark.folder")
                 }
             }
         } else {
-            CardNote(Text("Feed Empty", comment: "No items message."))
+            CardNote(
+                Text("Feed Empty", comment: "No items message."),
+                icon: {
+                    Image(systemName: "questionmark.folder")
+                }
+            )
         }
     }
 }

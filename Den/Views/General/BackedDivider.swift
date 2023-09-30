@@ -14,7 +14,7 @@ struct BackedDivider: View {
     var body: some View {
         Divider()
             #if os(macOS)
-            .background(.background.quinary)
+            .background(.background)
             #else
             .background(Color(.secondarySystemGroupedBackground))
             #endif

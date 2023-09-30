@@ -19,7 +19,7 @@ struct Inbox: View {
         WithItems(scopeObject: profile) { items in
             Group {
                 if profile.feedsArray.isEmpty {
-                    NoFeeds()
+                    NoFeeds(symbol: "tray")
                 } else if items.isEmpty {
                     ContentUnavailableView {
                         Label {

@@ -22,22 +22,11 @@ struct FeedTitleButtonStyle: ButtonStyle {
                 .padding(.vertical, 12)
                 .modifier(HoverHighlightModifier())
         }
-        .background(
-            UnevenRoundedRectangle(
-                cornerRadii: .init(
-                    topLeading: 8,
-                    bottomLeading: 0,
-                    bottomTrailing: 0,
-                    topTrailing: 8
-                )
-            )
-            #if os(macOS)
-            .fill(.background.quinary)
-            #else
-            .fill(Color(.secondarySystemGroupedBackground))
-            #endif
-            .strokeBorder(.separator)
-        )
+        #if os(macOS)
+        .background(.background)
+        #else
+        .background(Color(.secondarySystemGroupedBackground))
+        #endif
         .clipShape(
             UnevenRoundedRectangle(
                 cornerRadii: .init(

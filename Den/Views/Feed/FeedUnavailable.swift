@@ -62,7 +62,7 @@ struct FeedUnavailable: View {
     @ViewBuilder
     var icon: some View {
         if feedData == nil {
-            NullSymbol()
+            Image(systemName: "questionmark.folder")
         } else if feedData?.wrappedError != nil {
             Image(systemName: "bolt.horizontal")
         } else {

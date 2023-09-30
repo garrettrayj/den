@@ -24,7 +24,16 @@ struct SpreadLayout: View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
                 HStack(alignment: .top, spacing: 8) {
-                    ForEach(columnData(width: geometry.size.width), id: \.0) { _, feeds in
+                    ForEach(
+                        Columnizer.columnize(
+                            columnCount: Columnizer.calculateColumnCount(
+                                width: geometry.size.width,
+                                layoutScalingFactor: dynamicTypeSize.layoutScalingFactor
+                            ),
+                            list: page.feedsArray
+                        ),
+                        id: \.0
+                    ) { _, feeds in
                         LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
                             ForEach(feeds) { feed in
                                 SpreadGroup(
@@ -40,30 +49,5 @@ struct SpreadLayout: View {
                 .padding()
             }
         }
-    }
-
-    private func columnData(width: CGFloat) -> [(Int, [Feed])] {
-        let adjustedWidth = width / dynamicTypeSize.layoutScalingFactor
-        let columns: Int = max(1, Int((adjustedWidth / log2(adjustedWidth)) / 30))
-        var gridArray: [(Int, [Feed])] = []
-
-        var currentCol: Int = 0
-        while currentCol < columns {
-            gridArray.append((currentCol, []))
-            currentCol += 1
-        }
-
-        var currentIndex: Int = 0
-        for object in page.feedsArray {
-            gridArray[currentIndex].1.append(object)
-
-            if currentIndex == (columns - 1) {
-                currentIndex = 0
-            } else {
-                currentIndex += 1
-            }
-        }
-
-        return gridArray
     }
 }

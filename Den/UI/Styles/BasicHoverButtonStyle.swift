@@ -15,15 +15,11 @@ struct BasicHoverButtonStyle: ButtonStyle {
         ZStack {
             configuration.label.modifier(HoverHighlightModifier())
         }
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                #if os(macOS)
-                .fill(.background.quinary)
-                #else
-                .fill(Color(.secondarySystemGroupedBackground))
-                #endif
-                .strokeBorder(.separator)
-        )
+        #if os(macOS)
+        .background(.background)
+        #else
+        .background(Color(.secondarySystemGroupedBackground))
+        #endif
         .clipShape(
             RoundedRectangle(cornerRadius: 8)
         )

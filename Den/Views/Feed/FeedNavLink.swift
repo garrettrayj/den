@@ -14,14 +14,17 @@ struct FeedNavLink: View {
     @ObservedObject var feed: Feed
 
     var body: some View {
-        NavigationLink(value: SubDetailPanel.feed(feed)) {
-            HStack {
-                FeedTitleLabel(title: feed.titleText, favicon: feed.feedData?.favicon)
-                    .modifier(DraggableFeedModifier(feed: feed))
-                Spacer()
-                ButtonChevron()
+        VStack(spacing: 0) {
+            NavigationLink(value: SubDetailPanel.feed(feed)) {
+                HStack {
+                    FeedTitleLabel(title: feed.titleText, favicon: feed.feedData?.favicon)
+                        .modifier(DraggableFeedModifier(feed: feed))
+                    Spacer()
+                    ButtonChevron()
+                }
             }
+            .accessibilityIdentifier("FeedNavLink")
+            BackedDivider()
         }
-        .accessibilityIdentifier("FeedNavLink")
     }
 }

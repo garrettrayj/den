@@ -41,6 +41,7 @@ struct Landing: View {
             .toolbar {
                 ToolbarItem {
                     NewProfileButton(showingNewProfileSheet: $showingNewProfileSheet)
+                        .labelStyle(.titleAndIcon)
                 }
             }
             #if os(iOS)
@@ -55,7 +56,7 @@ struct Landing: View {
             if profiles.isEmpty {
                 ContentUnavailableView {
                     Label {
-                        Text("No Profiles Available", comment: "Landing title.")
+                        Text("No Profiles", comment: "Landing title.")
                     } icon: {
                         ProgressView()
                     }
@@ -63,14 +64,10 @@ struct Landing: View {
                     Text(
                         """
                         If you have used the app before then data sync could be in progress. \
-                        Please wait a minute.
+                        Please wait a minute. \n
+                        If you're new or have disabled cloud sync then create a new profile to begin.
                         """,
                         comment: "Landing guidance message."
-                    )
-                    .padding(.top)
-                    Text(
-                         "If you're new or have disabled cloud sync then create a new profile to begin.",
-                         comment: "Landing guidance message."
                     )
                 }
             } else {
