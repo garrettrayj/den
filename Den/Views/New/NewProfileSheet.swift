@@ -44,6 +44,7 @@ struct NewProfileSheet: View {
                         profile.wrappedName = name
                         profile.tintOption = color
                         currentProfileID = profile.id?.uuidString
+                        profile.objectWillChange.send()
                         dismiss()
                     } label: {
                         Text("Create Profile", comment: "Button label.")

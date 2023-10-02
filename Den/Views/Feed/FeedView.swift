@@ -62,5 +62,9 @@ struct FeedView: View {
         #if os(iOS)
         .background(Color(.systemGroupedBackground))
         #endif
+        
+        .onAppear {
+            print(feed.feedData?.favicon?.absoluteString)
+        }
     }
 }

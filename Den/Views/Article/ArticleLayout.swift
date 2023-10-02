@@ -27,19 +27,12 @@ struct ArticleLayout: View {
     let imageWidth: CGFloat
     let imageHeight: CGFloat
 
-    var maxContentWidth: CGFloat {
-        CGFloat(700) * dynamicTypeSize.layoutScalingFactor
-    }
-
     var body: some View {
         ScrollView(.vertical) {
             HStack {
                 Spacer()
-                VStack(alignment: .leading, spacing: 16) {
-                    FeedTitleLabel(
-                        title: feed.titleText,
-                        favicon: feed.feedData?.favicon
-                    ).font(.title3)
+                VStack(alignment: .leading, spacing: 0) {
+                    FeedTitleLabel(feed: feed).font(.title3)
 
                     VStack(alignment: .leading, spacing: 4) {
                         title
@@ -64,6 +57,7 @@ struct ArticleLayout: View {
                             Text("No Date", comment: "Date missing message.").font(.caption2)
                         }
                     }
+                    .padding(.top, 20)
 
                     if
                         let url = image,
@@ -75,6 +69,7 @@ struct ArticleLayout: View {
                             width: imageWidth,
                             height: imageHeight
                         )
+                        .padding(.top, 20)
                     }
 
                     if bodyContent != nil || summaryContent != nil {
@@ -82,10 +77,11 @@ struct ArticleLayout: View {
                             content: bodyContent ?? summaryContent!,
                             baseURL: link
                         )
+                        .frame(maxWidth: .infinity)
                     }
                 }
                 .multilineTextAlignment(.leading)
-                .frame(maxWidth: maxContentWidth)
+                .frame(maxWidth: 720 * dynamicTypeSize.layoutScalingFactor)
                 Spacer()
             }
             .padding(.horizontal, 24)

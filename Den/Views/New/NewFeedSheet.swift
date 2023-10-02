@@ -24,7 +24,6 @@ struct NewFeedSheet: View {
     @State private var webAddressIsValid: Bool?
     @State private var webAddressValidationMessage: WebAddressValidationMessage?
     @State private var loading: Bool = false
-    @State private var newFeed: Feed?
 
     var body: some View {
         NavigationStack {
@@ -87,13 +86,27 @@ struct NewFeedSheet: View {
 
     private var submitButton: some View {
         Button {
-            Task {
-                addFeed()
-                await RefreshManager.refresh(feed: newFeed!)
-                newFeed?.page?.profile?.objectWillChange.send()
-                webAddress = ""
-                dismiss()
+            loading = true
+            guard
+                let url = URL(string: webAddress.trimmingCharacters(in: .whitespacesAndNewlines)),
+                let page = targetPage
+            else { return }
+
+            let newFeed = Feed.create(in: viewContext, page: page, url: url, prepend: true)
+
+            do {
+                try viewContext.save()
+                Task {
+                    await RefreshManager.refresh(feed: newFeed)
+                    newFeed.page?.profile?.objectWillChange.send()
+                    dismiss()
+                    webAddress = ""
+                    loading = false
+                }
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
             }
+
         } label: {
             Text("Add Feed", comment: "Button label.")
         }
@@ -114,18 +127,14 @@ struct NewFeedSheet: View {
         }
     }
 
-    private func addFeed() {
+    private func addFeed() -> Feed? {
         guard
             let url = URL(string: webAddress.trimmingCharacters(in: .whitespacesAndNewlines)),
             let page = targetPage
-        else { return }
+        else { return nil }
 
-        newFeed = Feed.create(in: viewContext, page: page, url: url, prepend: true)
+        let newFeed = Feed.create(in: viewContext, page: page, url: url, prepend: true)
 
-        do {
-            try viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
+        return newFeed
     }
 }

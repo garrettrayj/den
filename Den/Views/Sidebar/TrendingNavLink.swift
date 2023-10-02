@@ -14,7 +14,7 @@ struct TrendingNavLink: View {
     @ObservedObject var profile: Profile
 
     @Binding var detailPanel: DetailPanel?
-    
+
     var body: some View {
         Button {} label: {
             Label {

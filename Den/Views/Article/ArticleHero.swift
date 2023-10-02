@@ -67,6 +67,7 @@ struct ArticleHero: View {
                 .modifier(ImageBorderModifier(cornerRadius: 4))
             }
             .aspectRatio(16/9, contentMode: .fit)
+            .frame(maxWidth: .infinity)
         } else if width < scaledSize.width {
             ImageDepression(padding: 12) {
                 WebImage(
@@ -84,7 +85,7 @@ struct ArticleHero: View {
                 )
                 .modifier(ImageBorderModifier(cornerRadius: 4))
             }
-            .scaledToFill()
+            .frame(maxWidth: .infinity)
         } else {
             WebImage(
                 url: url,

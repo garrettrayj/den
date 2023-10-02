@@ -14,7 +14,7 @@ struct WebAddressTextField: View {
     @Binding var urlString: String
     @Binding var isValid: Bool?
     @Binding var validationMessage: WebAddressValidationMessage?
-    
+
     @State private var text: String = ""
 
     var body: some View {
@@ -71,7 +71,7 @@ struct WebAddressTextField: View {
 
         isValid = true
         validationMessage = nil
-        
+
         if urlString != text {
             urlString = text
         }

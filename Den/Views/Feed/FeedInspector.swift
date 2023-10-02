@@ -16,7 +16,7 @@ struct FeedInspector: View {
 
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
-    
+
     @State private var itemLimitHasChanged: Bool = false
     @State private var showingHideTeaserOption: Bool = false
     @State private var webAddressHasChanged: Bool = false
