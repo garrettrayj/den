@@ -82,7 +82,6 @@
 		683C35852A9F188700568E9A /* FeedInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD930247A34830006A2DE /* FeedInspector.swift */; };
 		683C35882A9F188700568E9A /* FeedData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */; };
 		683C35892A9F188700568E9A /* FeedEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB25702A4A0B220082D890 /* FeedEmpty.swift */; };
-		683C358A2A9F188700568E9A /* FeedFavicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B482870C45B006EC915 /* FeedFavicon.swift */; };
 		683C358B2A9F188700568E9A /* FeedHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AEAF829954AC70054B084 /* FeedHero.swift */; };
 		683C358C2A9F188700568E9A /* FeedItemCompressed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F6FB9629ADDA41001F74B9 /* FeedItemCompressed.swift */; };
 		683C358D2A9F188700568E9A /* FeedItemExpanded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBC227A46C2200B479F4 /* FeedItemExpanded.swift */; };
@@ -499,7 +498,6 @@
 		68F56B3D286F5C20006EC915 /* Trending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B3C286F5C20006EC915 /* Trending.swift */; };
 		68F56B452870C067006EC915 /* TrendBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B442870C067006EC915 /* TrendBlock.swift */; };
 		68F56B472870C123006EC915 /* TrendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B462870C123006EC915 /* TrendView.swift */; };
-		68F56B492870C45B006EC915 /* FeedFavicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B482870C45B006EC915 /* FeedFavicon.swift */; };
 		68F56B5A28739041006EC915 /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B5928739041006EC915 /* Inbox.swift */; };
 		68F56B6728782886006EC915 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B6628782886006EC915 /* ItemView.swift */; };
 		68F56B6B287832A9006EC915 /* ItemActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B6A287832A9006EC915 /* ItemActionView.swift */; };
@@ -850,7 +848,6 @@
 		68F56B3C286F5C20006EC915 /* Trending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trending.swift; sourceTree = "<group>"; };
 		68F56B442870C067006EC915 /* TrendBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendBlock.swift; sourceTree = "<group>"; };
 		68F56B462870C123006EC915 /* TrendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendView.swift; sourceTree = "<group>"; };
-		68F56B482870C45B006EC915 /* FeedFavicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFavicon.swift; sourceTree = "<group>"; };
 		68F56B5928739041006EC915 /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
 		68F56B6628782886006EC915 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 		68F56B6A287832A9006EC915 /* ItemActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemActionView.swift; sourceTree = "<group>"; };
@@ -937,7 +934,6 @@
 			children = (
 				6856DB442AB8EE7F0094615E /* DeleteFeedButton.swift */,
 				68BB25702A4A0B220082D890 /* FeedEmpty.swift */,
-				68F56B482870C45B006EC915 /* FeedFavicon.swift */,
 				681AEAF829954AC70054B084 /* FeedHero.swift */,
 				688FD930247A34830006A2DE /* FeedInspector.swift */,
 				6870EBDA29C9556400E15154 /* FeedLayout.swift */,
@@ -2002,7 +1998,6 @@
 				683C35842A9F188700568E9A /* Feed+CoreDataClass.swift in Sources */,
 				683C35882A9F188700568E9A /* FeedData+CoreDataClass.swift in Sources */,
 				683C35892A9F188700568E9A /* FeedEmpty.swift in Sources */,
-				683C358A2A9F188700568E9A /* FeedFavicon.swift in Sources */,
 				683C358B2A9F188700568E9A /* FeedHero.swift in Sources */,
 				683C35852A9F188700568E9A /* FeedInspector.swift in Sources */,
 				683C358C2A9F188700568E9A /* FeedItemCompressed.swift in Sources */,
@@ -2240,7 +2235,6 @@
 				6887D41C25B6D016004A170D /* Feed+CoreDataClass.swift in Sources */,
 				680E57E824D29F2200196F6D /* FeedData+CoreDataClass.swift in Sources */,
 				68BB25712A4A0B220082D890 /* FeedEmpty.swift in Sources */,
-				68F56B492870C45B006EC915 /* FeedFavicon.swift in Sources */,
 				681AEAF929954AC70054B084 /* FeedHero.swift in Sources */,
 				688FD931247A34830006A2DE /* FeedInspector.swift in Sources */,
 				68F6FB9729ADDA41001F74B9 /* FeedItemCompressed.swift in Sources */,

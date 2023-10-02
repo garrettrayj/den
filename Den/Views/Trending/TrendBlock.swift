@@ -11,7 +11,13 @@
 import NaturalLanguage
 import SwiftUI
 
+import SDWebImageSwiftUI
+
 struct TrendBlock: View {
+    @Environment(\.isEnabled) private var isEnabled
+    @Environment(\.faviconSize) private var faviconSize
+    @Environment(\.faviconPixelSize) private var faviconPixelSize
+    
     @ObservedObject var trend: Trend
 
     var symbol: String? {
@@ -41,7 +47,20 @@ struct TrendBlock: View {
                         ForEach(uniqueFaviconURLs.chunked(by: 10), id: \.self) { favicons in
                             GridRow {
                                 ForEach(favicons, id: \.self) { favicon in
-                                    FeedFavicon(url: favicon)
+                                    WebImage(
+                                        url: favicon,
+                                        options: [.decodeFirstFrameOnly, .delayPlaceholder, .lowPriority],
+                                        context: [.imageThumbnailPixelSize: faviconPixelSize]
+                                    )
+                                    .resizable()
+                                    .placeholder {
+                                        Image(systemName: "dot.radiowaves.up.forward")
+                                            .foregroundStyle(.primary)
+                                    }
+                                    .scaledToFit()
+                                    .frame(width: faviconSize.width, height: faviconSize.height)
+                                    .clipShape(RoundedRectangle(cornerRadius: 2))
+                                    .grayscale(isEnabled ? 0 : 1)
                                 }
                             }
                         }

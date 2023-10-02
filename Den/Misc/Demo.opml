@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <opml version="1.0" xmlns:den="https://den.io/xml/opml">
 	<head>
-		<title>Demo Oct 2, 2023 at 6:26 AM</title>
+		<title>Demo Oct 2, 2023 at 11:39 AM</title>
 	</head>
 	<body>
 		<outline den:icon="newspaper" text="News" title="News">
@@ -20,7 +20,7 @@
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Fox Business" title="Fox Business" type="rss" xmlUrl="https://moxie.foxbusiness.com/google-publisher/latest.xml" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="SCOTUSblog" title="SCOTUSblog" type="rss" xmlUrl="https://www.scotusblog.com/feed/" />
 		</outline>
-		<outline den:icon="cpu" text="Tech" title="Tech">
+		<outline den:icon="cpu" text="Technology" title="Technology">
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="GeekWire" title="GeekWire" type="rss" xmlUrl="https://www.geekwire.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Futurism" title="Futurism" type="rss" xmlUrl="https://futurism.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="AnandTech" title="AnandTech" type="rss" xmlUrl="https://www.anandtech.com/rss/" />
@@ -87,7 +87,7 @@
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Game Informer" title="Game Informer" type="rss" xmlUrl="https://www.gameinformer.com/rss.xml" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="BoardGameGeek" title="BoardGameGeek" type="rss" xmlUrl="https://boardgamegeek.com/rss/blog/1" />
 		</outline>
-		<outline den:icon="theatermask.and.paintbrush" text="Inspiration" title="Inspiration">
+		<outline den:icon="theatermask.and.paintbrush" text="Design" title="Design">
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Design Milk" title="Design Milk" type="rss" xmlUrl="https://design-milk.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Yanko Design" title="Yanko Design" type="rss" xmlUrl="https://www.yankodesign.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Fox is Black" title="The Fox is Black" type="rss" xmlUrl="https://thefoxisblack.com/feed/" />
