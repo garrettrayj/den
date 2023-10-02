@@ -39,9 +39,11 @@ object,
 video {
     border: 0;
     display: block;
+    margin: 20px auto;
+}
+
+iframe.den-scale-fix {
     height: auto;
-    margin: 20px 0;
-    max-width: 100%;
 }
 
 audio {
@@ -106,7 +108,12 @@ blockquote {
     font: -apple-system-title3;
     margin: 20px 0;
     overflow: hidden;
-    padding: 16px;
+    padding: 20px;
+    text-align: start;
+}
+
+blockquote * {
+    margin: 12px 0;
 }
 
 blockquote > :first-child {
@@ -115,6 +122,10 @@ blockquote > :first-child {
 
 blockquote > :last-child {
     margin-bottom: 0;
+}
+
+blockquote img {
+    outline: 0;
 }
 
 /* Figures */
@@ -140,11 +151,15 @@ figure video {
 
 figure blockquote {
     background: transparent;
-    padding: 4px;
+    padding: 8px;
 }
 
 figure p {
     margin: 12px 0;
+}
+
+figure img {
+    outline: 0;
 }
 
 figcaption {
@@ -173,10 +188,16 @@ img + br,
 iframe + br,
 object + br,
 video + br,
+h1 + br,
+h2 + br,
+h3 + br,
+h4 + br,
 p + br,
 hr + br,
-br + br {
-  display: none;
+br + br,
+figure + br,
+blockquote + br {
+    display: none;
 }
 
 br:first-child {
@@ -205,7 +226,7 @@ table, th, td {
 }
 
 td, th {
-    padding: 4px;
+    padding: 4px 6px;
 }
 
 th {
@@ -214,7 +235,30 @@ th {
 
 /* Wordpress and WP plugins */
 
+
 ul.swiper-wrapper {
     list-style: none;
     padding: 0;
+}
+
+ul.swiper-wrapper li {
+    display: block;
+}
+
+ul.swiper-wrapper li figure {
+    margin: 0 0 20px;
+}
+
+.wp-block-gallery ul {
+    list-style: none;
+    margin: 12px 0;
+    padding: 0;
+}
+
+.wp-block-gallery ul li {
+    display: block;
+}
+
+.wp-block-gallery ul li figure {
+    margin: 0 0 12px;
 }

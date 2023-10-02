@@ -45,12 +45,26 @@ struct HTMLContent {
             return nil
         }
 
-        // Apply <iframe> scaling fix
         do {
+            // Remove blank text nodes
+            for element in try doc.getElementsMatchingOwnText(#"^\s+$"#) {
+                try element.textNodes().forEach { try $0.remove() }
+            }
+
+            // Apply <iframe> scaling fix
             for element in try doc.getElementsByTag("iframe") {
-                let width: String? = try? element.attr("width")
-                let height: String? = try? element.attr("height")
-                try element.attr("style", "aspect-ratio: \(width ?? "16") / \(height ?? "9");")
+                guard
+                    let rawWidth: String = try? element.attr("width"),
+                    let rawHeight: String = try? element.attr("height"),
+                    let width = Int(rawWidth),
+                    let height = Int(rawHeight)
+                else {
+                   continue
+                }
+
+                try element
+                    .attr("style", "aspect-ratio: \(width) / \(height);")
+                    .addClass("den-scale-fix")
             }
         } catch {
             Logger.main.error("HTML sanitization error: \(error)")

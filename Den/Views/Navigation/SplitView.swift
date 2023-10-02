@@ -89,7 +89,6 @@ struct SplitView: View {
             }
         }
         .onChange(of: currentProfileID) {
-            profile.objectWillChange.send()
             detailPanel = nil
         }
         .onChange(of: detailPanel) {

@@ -75,10 +75,9 @@ struct Sidebar: View {
         .listStyle(.sidebar)
         .badgeProminence(.decreased)
         .refreshable {
-            await Task {
-                await RefreshManager.refresh(profile: profile)
-            }.value
+            await RefreshManager.refresh(profile: profile)
         }
+        .id(profile.id) // Needed for refreshable action to update when switching profiles
         .searchable(
             text: $searchInput,
             placement: .sidebar,
@@ -146,7 +145,11 @@ struct Sidebar: View {
         #endif
         .sheet(
             isPresented: $showingProfileOptions,
-            onDismiss: saveChanges,
+            onDismiss: {
+                if !profile.isDeleted {
+                    saveChanges()
+                }
+            },
             content: {
                 ProfileOptionsSheet(
                     profile: profile,

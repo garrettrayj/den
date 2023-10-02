@@ -42,9 +42,7 @@ struct DenApp: App {
                 .environment(\.useSystemBrowser, useSystemBrowser)
                 .environmentObject(networkMonitor)
                 .preferredColorScheme(userColorScheme.colorScheme)
-                .task {
-                    performCleanup()
-                }
+                .task { performCleanup() }
         }
         .commands {
             #if canImport(Sparkle)
