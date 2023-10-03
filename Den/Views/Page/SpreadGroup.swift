@@ -38,7 +38,6 @@ struct SpreadGroup: View {
                 ForEach(filteredItems) { item in
                     ItemActionView(
                         item: item,
-                        feed: feed,
                         profile: profile,
                         roundedBottom: item == filteredItems.last
                     ) {

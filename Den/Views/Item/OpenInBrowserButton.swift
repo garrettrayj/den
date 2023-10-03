@@ -17,28 +17,22 @@ struct OpenInBrowserButton<Content: View>: View {
 
     let url: URL
     var readerMode: Bool?
-    var preTask: (() -> Void)?
 
     @ViewBuilder let label: Content
 
     var body: some View {
-        Button {
-            preTask?()
-            #if os(macOS)
-            openURL(url)
-            #else
-            if useSystemBrowser {
+        if useSystemBrowser {
+            Button {
                 openURL(url)
-            } else {
-                BuiltInBrowser.openURL(
-                    url: url,
-                    controlTintColor: userTint,
-                    readerMode: readerMode
-                )
+            } label: {
+                label
             }
-            #endif
-        } label: {
-            label
+        } else {
+            NavigationLink {
+                BrowserView(url: url, readerMode: readerMode)
+            } label: {
+                label
+            }
         }
     }
 }

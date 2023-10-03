@@ -26,9 +26,6 @@ struct ImportExportUtility {
                 if let itemLimit = opmlFeed.previewLimit {
                     feed.wrappedItemLimit = itemLimit
                 }
-                if let browserView = opmlFeed.openInBrowser {
-                    feed.browserView = browserView
-                }
                 if let readerMode = opmlFeed.readerMode {
                     feed.readerMode = readerMode
                 }

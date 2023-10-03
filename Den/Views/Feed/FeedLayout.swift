@@ -44,7 +44,6 @@ struct FeedLayout: View {
                             ) { item in
                                 ItemActionView(
                                     item: item,
-                                    feed: feed,
                                     profile: profile,
                                     roundedBottom: true,
                                     roundedTop: true

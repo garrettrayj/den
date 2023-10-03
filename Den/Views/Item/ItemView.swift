@@ -17,37 +17,29 @@ struct ItemView: View {
     @ObservedObject var item: Item
     @ObservedObject var profile: Profile
 
-    var maxContentWidth: CGFloat {
-        CGFloat(700) * dynamicTypeSize.layoutScalingFactor
-    }
-
     var body: some View {
-        if item.managedObjectContext == nil || item.feedData?.feed == nil {
-            ContentUnavailableView {
-                Label {
-                    Text("Item Deleted", comment: "Object removed message.")
-                } icon: {
-                    Image(systemName: "trash")
+        Group {
+            if item.managedObjectContext == nil || item.feedData?.feed == nil {
+                ContentUnavailableView {
+                    Label {
+                        Text("Item Deleted", comment: "Object removed message.")
+                    } icon: {
+                        Image(systemName: "trash")
+                    }
                 }
-            }
-        } else {
-            ArticleLayout(
-                feed: item.feedData!.feed!,
-                title: item.titleText,
-                author: item.author,
-                date: item.published,
-                summaryContent: item.summary,
-                bodyContent: item.body,
-                link: item.link,
-                image: item.image,
-                imageWidth: CGFloat(item.imageWidth),
-                imageHeight: CGFloat(item.imageHeight)
-            )
-            .background(.background)
-            .toolbar { ItemToolbar(item: item, profile: profile) }
-            .navigationTitle(Text(verbatim: ""))
-            .onAppear {
-                HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
+            } else {
+                BrowserView(
+                    url: item.link,
+                    readerMode: item.feedData?.feed?.readerMode,
+                    extraToolbar: {
+                        ToolbarItem {
+                            TagsMenu(item: item, profile: profile)
+                        }
+                    }
+                )
+                .onAppear {
+                    HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
+                }
             }
         }
     }

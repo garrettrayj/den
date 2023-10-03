@@ -12,9 +12,10 @@ import SwiftUI
 
 struct ItemActionView<Content: View>: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.openURL) private var openURL
+    @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     @ObservedObject var item: Item
-    @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
     var roundedBottom: Bool = false
@@ -23,61 +24,38 @@ struct ItemActionView<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
-        Group {
-            if feed.browserView == true, let url = item.link {
-                OpenInBrowserButton(
-                    url: url,
-                    readerMode: feed.readerMode,
-                    preTask: {
+        if let url = item.link {
+            Group {
+                if useSystemBrowser {
+                    Button {
+                        openURL(url)
                         HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
-                    },
-                    label: { content.modifier(DraggableItemModifier(item: item)) }
-                )
-                .buttonStyle(
-                    ItemButtonStyle(read: $item.read, roundedBottom: roundedBottom, roundedTop: roundedTop)
-                )
-                .accessibilityIdentifier("ItemAction")
-            } else {
-                NavigationLink(value: SubDetailPanel.item(item)) {
-                    content.modifier(DraggableItemModifier(item: item))
+                    } label: {
+                        content.modifier(DraggableItemModifier(item: item))
+                    }
+                } else {
+                    NavigationLink(value: SubDetailPanel.item(item)) {
+                        content.modifier(DraggableItemModifier(item: item))
+                    }
                 }
-                .buttonStyle(
-                    ItemButtonStyle(read: $item.read, roundedBottom: roundedBottom, roundedTop: roundedTop)
-                )
-                .accessibilityIdentifier("ItemAction")
             }
-        }
-        .contextMenu {
-            #if os(iOS)
-            ControlGroup {
+            .buttonStyle(
+                ItemButtonStyle(read: $item.read, roundedBottom: roundedBottom, roundedTop: roundedTop)
+            )
+            .accessibilityIdentifier("ItemAction")
+            .contextMenu {
+                #if os(iOS)
+                ControlGroup {
+                    ReadUnreadButton(item: item, profile: profile)
+                    TagsMenu(item: item, profile: profile)
+                }
+                #else
                 ReadUnreadButton(item: item, profile: profile)
                 TagsMenu(item: item, profile: profile)
-            }
-            #else
-            ReadUnreadButton(item: item, profile: profile)
-            TagsMenu(item: item, profile: profile)
-            #endif
-
-            NavigationLink(value: SubDetailPanel.item(item)) {
-                Label {
-                    Text("Go to Item", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "chevron.forward")
-                }
-            }
-
-            if let link = item.link {
-                OpenInBrowserButton(
-                    url: link,
-                    readerMode: feed.readerMode,
-                    preTask: {
-                        HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
-                    },
-                    label: { OpenInBrowserLabel() }
-                )
+                #endif
 
                 Button {
-                    PasteboardUtility.copyURL(url: link)
+                    PasteboardUtility.copyURL(url: url)
                 } label: {
                     Label {
                         Text("Copy Link", comment: "Button label.")
@@ -85,7 +63,7 @@ struct ItemActionView<Content: View>: View {
                         Image(systemName: "doc.on.doc")
                     }
                 }
-                ShareButton(url: link)
+                ShareButton(url: url)
             }
         }
     }

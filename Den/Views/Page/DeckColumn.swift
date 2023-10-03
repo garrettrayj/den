@@ -39,7 +39,6 @@ struct DeckColumn: View {
                     ForEach(filteredItems) { item in
                         ItemActionView(
                             item: item,
-                            feed: feed,
                             profile: profile,
                             roundedBottom: filteredItems.last == item
                         ) {

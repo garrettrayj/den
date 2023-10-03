@@ -16,7 +16,7 @@ struct FeedTitleLabel: View {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.faviconSize) private var faviconSize
     @Environment(\.faviconPixelSize) private var faviconPixelSize
-    
+
     @ObservedObject var feed: Feed
 
     var body: some View {

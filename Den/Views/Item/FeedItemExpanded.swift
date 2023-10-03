@@ -18,7 +18,7 @@ struct FeedItemExpanded: View {
     var body: some View {
         VStack(spacing: 0) {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
-            ItemActionView(item: item, feed: feed, profile: profile, roundedBottom: true) {
+            ItemActionView(item: item, profile: profile, roundedBottom: true) {
                 ItemPreviewExpanded(item: item, feed: feed)
             }
         }

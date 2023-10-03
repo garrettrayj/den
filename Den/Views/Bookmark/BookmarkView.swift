@@ -29,23 +29,7 @@ struct BookmarkView: View {
                 }
             }
         } else {
-            ArticleLayout(
-                feed: bookmark.feed!,
-                title: bookmark.titleText,
-                author: bookmark.author,
-                date: bookmark.published,
-                summaryContent: bookmark.summary,
-                bodyContent: bookmark.body,
-                link: bookmark.link,
-                image: bookmark.image,
-                imageWidth: CGFloat(bookmark.imageWidth),
-                imageHeight: CGFloat(bookmark.imageHeight)
-            )
-            .background(.background)
-            .navigationTitle(Text(verbatim: ""))
-            .toolbar {
-                BookmarkToolbar(bookmark: bookmark)
-            }
+            // TODO
         }
     }
 }
