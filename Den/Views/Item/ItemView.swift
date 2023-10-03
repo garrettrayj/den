@@ -18,27 +18,25 @@ struct ItemView: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        Group {
-            if item.managedObjectContext == nil || item.feedData?.feed == nil {
-                ContentUnavailableView {
-                    Label {
-                        Text("Item Deleted", comment: "Object removed message.")
-                    } icon: {
-                        Image(systemName: "trash")
+        if let url = item.link, item.managedObjectContext != nil && item.feedData?.feed != nil {
+            BrowserView(
+                url: url,
+                readerMode: item.feedData?.feed?.readerMode,
+                extraToolbar: {
+                    ToolbarItem {
+                        TagsMenu(item: item, profile: profile)
                     }
                 }
-            } else {
-                BrowserView(
-                    url: item.link,
-                    readerMode: item.feedData?.feed?.readerMode,
-                    extraToolbar: {
-                        ToolbarItem {
-                            TagsMenu(item: item, profile: profile)
-                        }
-                    }
-                )
-                .onAppear {
-                    HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
+            )
+            .onAppear {
+                HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
+            }
+        } else {
+            ContentUnavailableView {
+                Label {
+                    Text("Item Deleted", comment: "Object removed message.")
+                } icon: {
+                    Image(systemName: "trash")
                 }
             }
         }

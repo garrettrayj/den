@@ -42,14 +42,12 @@ struct TagView: View {
                                     if feed.wrappedPreviewStyle == .expanded {
                                         BookmarkPreviewExpanded(
                                             bookmark: bookmark,
-                                            feed: feed,
-                                            profile: profile
+                                            feed: feed
                                         )
                                     } else {
                                         BookmarkPreviewCompressed(
                                             bookmark: bookmark,
-                                            feed: feed,
-                                            profile: profile
+                                            feed: feed
                                         )
                                     }
                                 }

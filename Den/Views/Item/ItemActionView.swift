@@ -53,7 +53,6 @@ struct ItemActionView<Content: View>: View {
                 ReadUnreadButton(item: item, profile: profile)
                 TagsMenu(item: item, profile: profile)
                 #endif
-
                 Button {
                     PasteboardUtility.copyURL(url: url)
                 } label: {

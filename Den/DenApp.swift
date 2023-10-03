@@ -80,7 +80,7 @@ struct DenApp: App {
 
         #if os(macOS)
         Settings {
-            SettingsForm(userColorScheme: $userColorScheme)
+            SettingsForm(userColorScheme: $userColorScheme, useSystemBrowser: $useSystemBrowser)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .preferredColorScheme(userColorScheme.colorScheme)
         }

@@ -17,7 +17,7 @@ struct ItemPreviewExpanded: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                PreviewHeadline(title: item.titleText, browserView: feed.browserView)
+                PreviewHeadline(title: item.titleText)
                 if !feed.hideBylines, let author = item.author {
                     PreviewAuthor(author: author)
                 }

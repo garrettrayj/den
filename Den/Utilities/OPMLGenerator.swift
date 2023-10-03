@@ -44,7 +44,6 @@ struct OPMLGenerator {
                     "type": feed.feedData?.format?.lowercased() ?? "rss",
                     "xmlUrl": feed.urlString,
                     "den:previewLimit": String(feed.wrappedItemLimit),
-                    "den:openInBrowser": String(feed.browserView),
                     "den:previewStyle": feed.wrappedPreviewStyle.stringRepresentation,
                     "den:hideTeasers": String(feed.hideTeasers),
                     "den:hideBylines": String(feed.hideBylines),

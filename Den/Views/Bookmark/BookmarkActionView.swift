@@ -11,42 +11,40 @@
 import SwiftUI
 
 struct BookmarkActionView<Content: View>: View {
+    @Environment(\.openURL) private var openURL
+    @Environment(\.useSystemBrowser) private var useSystemBrowser
+
     @ObservedObject var bookmark: Bookmark
-    @ObservedObject var feed: Feed
 
     @ViewBuilder var content: Content
 
     var body: some View {
-        Group {
-            if feed.browserView == true, let url = bookmark.link {
-                OpenInBrowserButton(url: url, readerMode: feed.readerMode) {
-                    content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
+        if let url = bookmark.link {
+            Group {
+                if useSystemBrowser {
+                    Button {
+                        openURL(url)
+                    } label: {
+                        content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
+                    }
+                } else {
+                    NavigationLink(value: SubDetailPanel.bookmark(bookmark)) {
+                        content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
+                    }
                 }
-                .buttonStyle(ItemButtonStyle(read: .constant(false)))
-                .accessibilityIdentifier("BookmarkAction")
-            } else {
+            }
+            .buttonStyle(ItemButtonStyle(read: .constant(false)))
+            .accessibilityIdentifier("BookmarkAction")
+            .contextMenu {
                 NavigationLink(value: SubDetailPanel.bookmark(bookmark)) {
-                    content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
-                }
-                .buttonStyle(ItemButtonStyle(read: .constant(false)))
-                .accessibilityIdentifier("BookmarkAction")
-            }
-        }
-        .contextMenu {
-            NavigationLink(value: SubDetailPanel.bookmark(bookmark)) {
-                Label {
-                    Text("Go to Item", comment: "Context Button label.")
-                } icon: {
-                    Image(systemName: "chevron.forward")
-                }
-            }
-
-            if let link = bookmark.link {
-                OpenInBrowserButton(url: link, readerMode: feed.readerMode) {
-                    OpenInBrowserLabel()
+                    Label {
+                        Text("Go to Item", comment: "Context Button label.")
+                    } icon: {
+                        Image(systemName: "chevron.forward")
+                    }
                 }
                 Button {
-                    PasteboardUtility.copyURL(url: link)
+                    PasteboardUtility.copyURL(url: url)
                 } label: {
                     Label {
                         Text("Copy Link", comment: "Context Button label.")
@@ -54,10 +52,9 @@ struct BookmarkActionView<Content: View>: View {
                         Image(systemName: "doc.on.doc")
                     }
                 }
-                ShareButton(url: link)
+                ShareButton(url: url)
+                DeleteBookmarkButton(bookmark: bookmark)
             }
-
-            DeleteBookmarkButton(bookmark: bookmark)
         }
     }
 }

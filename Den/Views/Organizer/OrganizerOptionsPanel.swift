@@ -30,22 +30,11 @@ struct OrganizerOptionsPanel: View {
                     } label: {
                         Text("Item Limit", comment: "Picker label.")
                     }
-                    Toggle(sources: sources, isOn: \.browserView) {
-                        Text("Open in Browser", comment: "Toggle label.")
-                    }
+                    #if os(iOS)
                     Toggle(sources: sources, isOn: \.readerMode) {
-                        HStack(spacing: 4) {
-                            Text("Reader Mode", comment: "Toggle label.")
-                            Text(verbatim: "iOS")
-                                .font(.caption2.weight(.semibold))
-                                .foregroundStyle(.secondary)
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 2)
-                                .background(
-                                    Capsule().fill(.quaternary)
-                                )
-                        }
+                        Text("Reader Mode", comment: "Toggle label.")
                     }
+                    #endif
                     Toggle(sources: sources, isOn: \.largePreviews) {
                         Text("Large Previews", comment: "Toggle label.")
                     }

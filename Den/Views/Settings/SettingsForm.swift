@@ -12,11 +12,15 @@ import SwiftUI
 
 struct SettingsForm: View {
     @Binding var userColorScheme: UserColorScheme
+    @Binding var useSystemBrowser: Bool
 
     var body: some View {
         Form {
             Section {
                 UserColorSchemePicker(userColorScheme: $userColorScheme).pickerStyle(.segmented)
+                Toggle(isOn: $useSystemBrowser) {
+                    Text("Use System Browser", comment: "Toggle label.")
+                }
             } header: {
                 Text("General", comment: "Settings section header.")
             }
@@ -29,7 +33,7 @@ struct SettingsForm: View {
             }
         }
         .formStyle(.grouped)
-        .frame(width: 400, height: 240)
+        .frame(width: 400, height: 300)
         .navigationTitle(Text("Settings", comment: "Navigation title."))
     }
 }

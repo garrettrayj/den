@@ -11,15 +11,14 @@
 import SwiftUI
 
 struct BrowserView<ExtraToolbar: ToolbarContent>: View {
-    var url: URL?
+    var url: URL
     var readerMode: Bool?
     var extraToolbar: ExtraToolbar?
 
     @StateObject var browserViewModel = BrowserViewModel()
-    
-    
+
     init(
-        url: URL? = nil,
+        url: URL,
         readerMode: Bool? = nil,
         @ToolbarContentBuilder extraToolbar: @escaping () -> ExtraToolbar?
     ) {
@@ -27,7 +26,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
         self.readerMode = readerMode
         self.extraToolbar = extraToolbar()
     }
-    
+
     var body: some View {
         #if os(macOS)
         BrowserWebView(viewModel: browserViewModel)
@@ -58,11 +57,10 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
 
 extension BrowserView where ExtraToolbar == Never {
     init(
-        url: URL? = nil,
+        url: URL,
         readerMode: Bool? = nil
     ) {
         self.url = url
         self.readerMode = readerMode
     }
 }
-

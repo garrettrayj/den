@@ -17,7 +17,7 @@ struct BrowserWebView {
     func makeWebView(context: Context) -> WKWebView {
         let wkWebView = WKWebView()
         wkWebView.isInspectable = true
-        
+
         viewModel.webView = wkWebView
 
         return wkWebView

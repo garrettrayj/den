@@ -13,15 +13,14 @@ import SwiftUI
 struct BookmarkPreviewCompressed: View {
     @ObservedObject var bookmark: Bookmark
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
 
     var body: some View {
         VStack(spacing: 0) {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
-            BookmarkActionView(bookmark: bookmark, feed: feed) {
+            BookmarkActionView(bookmark: bookmark) {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 4) {
-                        PreviewHeadline(title: bookmark.titleText, browserView: feed.browserView)
+                        PreviewHeadline(title: bookmark.titleText)
                         if !feed.hideBylines, let author = bookmark.author {
                             PreviewAuthor(author: author)
                         }

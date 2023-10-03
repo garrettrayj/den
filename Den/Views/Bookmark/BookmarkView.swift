@@ -20,7 +20,19 @@ struct BookmarkView: View {
     }
 
     var body: some View {
-        if bookmark.managedObjectContext == nil || bookmark.feed == nil {
+        if
+            let url = bookmark.link,
+            !bookmark.isDeleted && bookmark.managedObjectContext != nil {
+            BrowserView(
+                url: url,
+                readerMode: bookmark.feed?.readerMode,
+                extraToolbar: {
+                    ToolbarItem {
+                        DeleteBookmarkButton(bookmark: bookmark)
+                    }
+                }
+            )
+        } else {
             ContentUnavailableView {
                 Label {
                     Text("Bookmark Deleted", comment: "Object removed message.")
@@ -28,8 +40,6 @@ struct BookmarkView: View {
                     Image(systemName: "trash")
                 }
             }
-        } else {
-            // TODO
         }
     }
 }

@@ -131,28 +131,15 @@ struct FeedInspector: View {
                 itemLimitHasChanged = true
             }
 
-            Toggle(isOn: $feed.browserView) {
-                Text("Open in Browser", comment: "Toggle label.")
+            #if os(iOS)
+            Toggle(isOn: $feed.readerMode) {
+                Text("Reader Mode", comment: "Toggle label.")
             }
-            .onChange(of: feed.browserView) {
+            .onChange(of: feed.readerMode) {
                 do {
                     try viewContext.save()
                 } catch {
                     CrashUtility.handleCriticalError(error as NSError)
-                }
-            }
-
-            #if os(iOS)
-            if feed.browserView {
-                Toggle(isOn: $feed.readerMode) {
-                    Text("Enter Reader Mode", comment: "Toggle label.")
-                }
-                .onChange(of: feed.readerMode) {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
                 }
             }
             #endif
