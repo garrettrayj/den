@@ -67,7 +67,7 @@ struct OrganizerInspector: View {
             }
         }
         #if os(iOS)
-        .background(Color(.systemGroupedBackground))
+        .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
         #endif
     }
 }

@@ -23,13 +23,8 @@ struct WebAddressTextField: View {
             text: $text,
             prompt: Text("https⁣://example.com/feed", comment: "Web address text field prompt.")
         ) {
-            Label {
-                Text("URL", comment: "Web address text field label.")
-            } icon: {
-                Image(systemName: "dot.radiowaves.up.forward")
-            }
+            Text("Web Address", comment: "Text field label.")
         }
-        .lineLimit(1)
         .disableAutocorrection(true)
         #if os(iOS)
         .textInputAutocapitalization(.never)

@@ -58,7 +58,6 @@ struct FeedLayout: View {
                             .modifier(SafeAreaModifier(geometry: geometry))
                         }
                     }
-
                     Divider()
                     metaSection.modifier(SafeAreaModifier(geometry: geometry))
                 }

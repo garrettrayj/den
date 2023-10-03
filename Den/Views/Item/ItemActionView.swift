@@ -40,7 +40,7 @@ struct ItemActionView<Content: View>: View {
                 }
             }
             .buttonStyle(
-                ItemButtonStyle(read: $item.read, roundedBottom: roundedBottom, roundedTop: roundedTop)
+                PreviewButtonStyle(read: $item.read, roundedBottom: roundedBottom, roundedTop: roundedTop)
             )
             .accessibilityIdentifier("ItemAction")
             .contextMenu {

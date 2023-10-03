@@ -25,7 +25,72 @@ struct FeedInspector: View {
 
     var body: some View {
         Form {
-            generalSection
+            Section {
+                TextField(
+                    text: $feed.wrappedTitle,
+                    prompt: Text("Untitled", comment: "Text field prompt.")
+                ) {
+                    Text("Title", comment: "Text field label.")
+                }
+                .labelsHidden()
+                .onReceive(
+                    feed.publisher(for: \.title)
+                        .debounce(for: 1, scheduler: DispatchQueue.main)
+                        .removeDuplicates()
+                ) { _ in
+                    if viewContext.hasChanges {
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
+                    }
+                }
+            } header: {
+                Text("Title", comment: "Inspector section header.")
+            }
+            
+            Section {
+                WebAddressTextField(
+                    urlString: $feed.urlString,
+                    isValid: $webAddressIsValid,
+                    validationMessage: $webAddressValidationMessage
+                )
+                .labelsHidden()
+                .onChange(of: feed.url) {
+                    webAddressHasChanged = true
+                }
+                .onReceive(
+                    feed.publisher(for: \.url)
+                        .debounce(for: 1, scheduler: DispatchQueue.main)
+                        .removeDuplicates()
+                ) { _ in
+                    if viewContext.hasChanges {
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
+                    }
+                }
+            } header: {
+                Text("Address", comment: "Inspector section header.")
+            } footer: {
+                Group {
+                    if let validationMessage = webAddressValidationMessage {
+                        validationMessage.text
+                    } else if webAddressHasChanged {
+                        Text(
+                            "URL change will be applied on next refresh.",
+                            comment: "Feed inspector guidance."
+                        )
+                    }
+                }
+                .font(.footnote)
+                .foregroundColor(.secondary)
+                Spacer(minLength: 0)
+            }
+
             previewsSection
 
             Section {
@@ -56,61 +121,8 @@ struct FeedInspector: View {
         .formStyle(.grouped)
         #if os(iOS)
         .clipped()
-        .background(Color(.systemGroupedBackground).ignoresSafeArea(.all))
+        .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
         #endif
-    }
-
-    private var generalSection: some View {
-        Section {
-            TextField(
-                text: $feed.wrappedTitle,
-                prompt: Text("Untitled", comment: "Text field prompt.")
-            ) {
-                Label {
-                    Text("Title", comment: "Text field label.")
-                } icon: {
-                    Image(systemName: "character.cursor.ibeam")
-                }
-            }
-            .onReceive(
-                feed.publisher(for: \.title)
-                    .debounce(for: 1, scheduler: DispatchQueue.main)
-                    .removeDuplicates()
-            ) { _ in
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            }
-
-            WebAddressTextField(
-                urlString: $feed.urlString,
-                isValid: $webAddressIsValid,
-                validationMessage: $webAddressValidationMessage
-            )
-            .multilineTextAlignment(.trailing)
-            .onReceive(
-                feed.publisher(for: \.url)
-                    .debounce(for: 1, scheduler: DispatchQueue.main)
-                    .removeDuplicates()
-            ) { _ in
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                    webAddressHasChanged = true
-                }
-            }
-        } footer: {
-            if let validationMessage = webAddressValidationMessage {
-                validationMessage.text.font(.footnote)
-            }
-        }
     }
 
     private var previewsSection: some View {
@@ -123,12 +135,12 @@ struct FeedInspector: View {
                 Text("Item Limit", comment: "Picker label.")
             }
             .onChange(of: feed.itemLimit) {
+                itemLimitHasChanged = true
                 do {
                     try viewContext.save()
                 } catch {
                     CrashUtility.handleCriticalError(error as NSError)
                 }
-                itemLimitHasChanged = true
             }
 
             #if os(iOS)
@@ -192,14 +204,25 @@ struct FeedInspector: View {
         } header: {
             Text("Previews", comment: "Inspector section header.")
         } footer: {
-            #if os(iOS)
-            if useSystemBrowser == true {
-                Text(
-                    "System web browser in use. \"Enter Reader Mode\" will be ignored.",
-                    comment: "Feed inspector guidance."
-                ).font(.footnote)
+            VStack(alignment: .leading, spacing: 8) {
+                #if os(iOS)
+                if useSystemBrowser == true {
+                    Text(
+                        "System web browser in use. \"Reader Mode\" is ignored.",
+                        comment: "Feed inspector guidance."
+                    ).font(.footnote)
+                }
+                #endif
+                if itemLimitHasChanged {
+                    Text(
+                        "Item limit change will be applied on next refresh.",
+                        comment: "Feed inspector guidance."
+                    )
+                }
             }
-            #endif
+            .font(.footnote)
+            .foregroundColor(.secondary)
+            Spacer(minLength: 0)
         }
     }
 }

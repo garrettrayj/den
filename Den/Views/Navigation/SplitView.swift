@@ -69,7 +69,7 @@ struct SplitView: View {
             )
             #if os(iOS)
             .toolbarTitleDisplayMode(.inline)
-            .background(Color(.systemGroupedBackground))
+            .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
             #endif
         }
         .tint(userTint)

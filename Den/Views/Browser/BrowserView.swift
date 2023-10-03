@@ -50,6 +50,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
         #else
         SafariView(url: url, readerMode: readerMode)
             .toolbar(.hidden)
+            .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
             .ignoresSafeArea()
         #endif
     }

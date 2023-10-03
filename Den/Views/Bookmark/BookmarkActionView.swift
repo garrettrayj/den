@@ -33,7 +33,7 @@ struct BookmarkActionView<Content: View>: View {
                     }
                 }
             }
-            .buttonStyle(ItemButtonStyle(read: .constant(false)))
+            .buttonStyle(PreviewButtonStyle(read: .constant(false)))
             .accessibilityIdentifier("BookmarkAction")
             .contextMenu {
                 NavigationLink(value: SubDetailPanel.bookmark(bookmark)) {

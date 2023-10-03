@@ -23,15 +23,15 @@ struct NewPageSheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                TextField(
-                    text: $name,
-                    prompt: Text("Untitled", comment: "Page name placeholder.")
-                ) {
-                    Label {
+                Section {
+                    TextField(
+                        text: $name,
+                        prompt: Text("Untitled", comment: "Page name placeholder.")
+                    ) {
                         Text("Name")
-                    } icon: {
-                        Image(systemName: "character.cursor.ibeam")
                     }
+                } header: {
+                    Text("Name", comment: "New page section header.")
                 }
 
                 IconSelectorButton(symbol: $symbol)

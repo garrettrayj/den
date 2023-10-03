@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ItemButtonStyle: ButtonStyle {
+struct PreviewButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
 
     @Binding var read: Bool

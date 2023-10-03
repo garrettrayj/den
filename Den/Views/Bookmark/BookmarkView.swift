@@ -15,10 +15,6 @@ struct BookmarkView: View {
 
     @ObservedObject var bookmark: Bookmark
 
-    var maxContentWidth: CGFloat {
-        CGFloat(700) * dynamicTypeSize.layoutScalingFactor
-    }
-
     var body: some View {
         if
             let url = bookmark.link,

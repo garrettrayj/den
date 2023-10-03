@@ -19,7 +19,47 @@ struct PageInspector: View {
 
     var body: some View {
         Form {
-            generalSection
+            Section {
+                TextField(
+                    text: $page.wrappedName,
+                    prompt: Text("Untitled", comment: "Text field prompt.")
+                ) {
+                    Label {
+                        Text("Name", comment: "Text field label.")
+                    } icon: {
+                        Image(systemName: "character.cursor.ibeam")
+                    }
+                }
+                .labelsHidden()
+                .onReceive(
+                    page.publisher(for: \.name)
+                        .debounce(for: 1, scheduler: DispatchQueue.main)
+                        .removeDuplicates()
+                ) { _ in
+                    if viewContext.hasChanges {
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
+                    }
+                }
+            } header: {
+                Text("Name", comment: "Inspector section header.")
+            }
+            
+            Section {
+                IconSelectorButton(symbol: $page.wrappedSymbol).onChange(of: page.symbol) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            } header: {
+                Text("Icon", comment: "Inspector section header.")
+            }
+            
             feedsSection
 
             Section {
@@ -31,44 +71,8 @@ struct PageInspector: View {
         #if os(iOS)
         .environment(\.editMode, .constant(.active))
         .clipped()
-        .background(Color(.systemGroupedBackground).ignoresSafeArea(.all))
+        .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
         #endif
-    }
-
-    private var generalSection: some View {
-        Section {
-            TextField(
-                text: $page.wrappedName,
-                prompt: Text("Untitled", comment: "Text field prompt.")
-            ) {
-                Label {
-                    Text("Name", comment: "Text field label.")
-                } icon: {
-                    Image(systemName: "character.cursor.ibeam")
-                }
-            }
-            .onReceive(
-                page.publisher(for: \.name)
-                    .debounce(for: 1, scheduler: DispatchQueue.main)
-                    .removeDuplicates()
-            ) { _ in
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            }
-
-            IconSelectorButton(symbol: $page.wrappedSymbol).onChange(of: page.symbol) {
-                do {
-                    try viewContext.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            }
-        }
     }
 
     private var feedsSection: some View {
@@ -76,7 +80,6 @@ struct PageInspector: View {
             if page.feedsArray.isEmpty {
                 Text("Page Empty", comment: "Page settings feeds empty message.")
                     .foregroundStyle(.secondary)
-
             } else {
                 List {
                     ForEach(page.feedsArray) { feed in

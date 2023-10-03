@@ -32,7 +32,7 @@ struct SafariView: UIViewControllerRepresentable {
 
         let safariViewController = SFSafariViewController(url: url, configuration: config)
         safariViewController.delegate = context.coordinator
-        safariViewController.preferredBarTintColor = .systemBackground
+        // safariViewController.preferredBarTintColor = .systemBackground
 
         if let userTint = userTint {
             safariViewController.preferredControlTintColor = UIColor(userTint)
