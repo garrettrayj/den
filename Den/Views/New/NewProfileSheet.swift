@@ -22,17 +22,17 @@ struct NewProfileSheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                TextField(
-                    text: $name,
-                    prompt: Text("Untitled", comment: "Profile name placeholder.")
-                ) {
-                    Label {
+                Section {
+                    TextField(
+                        text: $name,
+                        prompt: Text("Untitled", comment: "Profile name placeholder.")
+                    ) {
                         Text("Name", comment: "Text field label.")
-                    } icon: {
-                        Image(systemName: "character.cursor.ibeam")
                     }
+                    .labelsHidden()
+                } header: {
+                    Text("Name", comment: "New profile section header.")
                 }
-
                 AccentColorSelector(selection: $color)
             }
             .formStyle(.grouped)
@@ -51,7 +51,6 @@ struct NewProfileSheet: View {
                     }
                     .accessibilityIdentifier("CreateProfile")
                 }
-
                 ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
                         dismiss()

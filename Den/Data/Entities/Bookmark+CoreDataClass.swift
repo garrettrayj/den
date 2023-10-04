@@ -31,8 +31,6 @@ public class Bookmark: NSManagedObject {
         bookmark.tag = tag
         bookmark.feed = item.feedData?.feed
         bookmark.title = item.title
-        bookmark.body = item.body
-        bookmark.summary = item.summary
         bookmark.teaser = item.teaser
         bookmark.author = item.author
         bookmark.image = item.image

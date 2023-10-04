@@ -30,11 +30,16 @@ struct NewPageSheet: View {
                     ) {
                         Text("Name")
                     }
+                    .labelsHidden()
                 } header: {
                     Text("Name", comment: "New page section header.")
                 }
 
-                IconSelectorButton(symbol: $symbol)
+                Section {
+                    IconSelectorButton(symbol: $symbol)
+                } header: {
+                    Text("Icon", comment: "New page section header.")
+                }
             }
             .formStyle(.grouped)
             .navigationTitle(Text("New Page", comment: "Navigation title."))
