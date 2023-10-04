@@ -34,6 +34,10 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                 browserViewModel.url = url
                 browserViewModel.loadURL()
             }
+            .onDisappear {
+                // Fix for videos continuing to play after view is dismissed
+                browserViewModel.loadBlank()
+            }
             .navigationBarBackButtonHidden()
             .navigationTitle(browserViewModel.url?.host() ?? "")
             .ignoresSafeArea()
