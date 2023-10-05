@@ -54,19 +54,19 @@ final class PageUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Space"].tap()
+        app.textFields["Science"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
             }
         } else {
-            app.staticTexts["Space"].tap()
+            app.staticTexts["Science"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -84,19 +84,19 @@ final class PageUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Space"].tap()
+        app.textFields["Science"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
             }
         } else {
-            app.staticTexts["Space"].tap()
+            app.staticTexts["Science"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -125,19 +125,19 @@ final class PageUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Space"].tap()
+        app.textFields["Science"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
             }
         } else {
-            app.staticTexts["Space"].tap()
+            app.staticTexts["Science"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -166,19 +166,19 @@ final class PageUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Space"].tap()
+        app.textFields["Science"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
             }
         } else {
-            app.staticTexts["Space"].tap()
+            app.staticTexts["Science"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {

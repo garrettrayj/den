@@ -34,7 +34,7 @@ final class TrendingUITests: UITestCase {
         }
         #endif
 
-        app.buttons["TrendingNavLink"].tap()
+        app.staticTexts["TrendingNavLink"].tap()
 
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()

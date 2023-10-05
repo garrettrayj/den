@@ -14,7 +14,7 @@ final class InboxUITests: UITestCase {
     func testInbox() throws {
         let app = launchApp(inMemory: false)
 
-        app.buttons["InboxNavLink"].tap()
+        app.staticTexts["InboxNavLink"].tap()
 
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()
@@ -63,10 +63,10 @@ final class InboxUITests: UITestCase {
         }
         #endif
 
-        if !app.buttons["InboxNavLink"].waitForExistence(timeout: 2) {
+        if !app.staticTexts["InboxNavLink"].waitForExistence(timeout: 2) {
             XCTFail("Inbox button did not appear in time")
         }
-        app.buttons["InboxNavLink"].tap()
+        app.staticTexts["InboxNavLink"].tap()
 
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()

@@ -15,14 +15,9 @@ struct TrendingNavLink: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var detailPanel: DetailPanel?
-
     var body: some View {
         Label {
             Text("Trending", comment: "Button label.")
-                #if os(macOS)
-                .foregroundStyle(isEnabled ? .primary : .tertiary)
-                #endif
                 .lineLimit(1)
                 .badge(profile.trends.containingUnread().count)
         } icon: {

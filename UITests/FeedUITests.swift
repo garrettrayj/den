@@ -15,19 +15,19 @@ final class FeedUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Space"].tap()
+        app.textFields["Science"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
             }
         } else {
-            app.staticTexts["Space"].tap()
+            app.staticTexts["Science"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -38,7 +38,7 @@ final class FeedUITests: UITestCase {
 
         app.buttons["FeedNavLink"].firstMatch.tap()
 
-        if !app.staticTexts["Universe Today"].waitForExistence(timeout: 2) {
+        if !app.staticTexts["Futurity"].waitForExistence(timeout: 2) {
             XCTFail("Feed title did not appear in time")
         }
 
@@ -49,19 +49,19 @@ final class FeedUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Space"].tap()
+        app.textFields["Science"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
             }
         } else {
-            app.staticTexts["Space"].tap()
+            app.staticTexts["Science"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -104,23 +104,23 @@ final class FeedUITests: UITestCase {
         app.buttons["LoadDemo"].tap()
 
         #if os(macOS)
-        app.textFields["Space"].tap()
+        app.textFields["Science"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
             }
         } else {
             if XCUIDevice.shared.orientation.isLandscape {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
                 app.buttons["ToggleSidebar"].tap()
             } else {
-                app.staticTexts["Space"].tap()
+                app.staticTexts["Science"].tap()
                 app.tap()
             }
         }

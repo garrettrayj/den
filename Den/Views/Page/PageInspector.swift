@@ -47,7 +47,7 @@ struct PageInspector: View {
             } header: {
                 Text("Name", comment: "Inspector section header.")
             }
-            
+
             Section {
                 IconSelectorButton(symbol: $page.wrappedSymbol).onChange(of: page.symbol) {
                     do {
@@ -59,7 +59,7 @@ struct PageInspector: View {
             } header: {
                 Text("Icon", comment: "Inspector section header.")
             }
-            
+
             feedsSection
 
             Section {

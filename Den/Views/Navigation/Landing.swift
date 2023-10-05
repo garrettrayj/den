@@ -37,6 +37,7 @@ struct Landing: View {
             }
             #if os(iOS)
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
+            .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem {
@@ -44,9 +45,6 @@ struct Landing: View {
                         .labelStyle(.titleAndIcon)
                 }
             }
-            #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-            #endif
         }
     }
 
@@ -63,12 +61,13 @@ struct Landing: View {
                 } description: {
                     Text(
                         """
-                        If you have used the app before then data sync could be in progress. \
+                        If you have used the app before then sync may be in progress. \
                         Please wait a minute. \n
-                        If you're new or have disabled cloud sync then create a new profile to begin.
+                        If you are new or have disabled cloud sync then create a profile to begin.
                         """,
                         comment: "Landing guidance message."
                     )
+                    .padding(.top)
                 }
             } else {
                 VStack(spacing: 0) {

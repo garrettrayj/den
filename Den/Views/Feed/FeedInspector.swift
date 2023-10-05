@@ -49,7 +49,7 @@ struct FeedInspector: View {
             } header: {
                 Text("Title", comment: "Inspector section header.")
             }
-            
+
             Section {
                 WebAddressTextField(
                     urlString: $feed.urlString,

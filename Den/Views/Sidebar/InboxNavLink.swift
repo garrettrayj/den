@@ -16,15 +16,10 @@ struct InboxNavLink: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var detailPanel: DetailPanel?
-
     var body: some View {
         Label {
             WithItems(scopeObject: profile, readFilter: false) { items in
                 Text("Inbox", comment: "Button label.")
-                    #if os(macOS)
-                    .foregroundStyle(isEnabled ? .primary : .tertiary)
-                    #endif
                     .lineLimit(1)
                     .badge(items.count)
             }

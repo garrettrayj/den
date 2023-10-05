@@ -38,7 +38,7 @@ class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate {
             webView?.load(URLRequest(url: url))
         }
     }
-    
+
     func loadBlank() {
         webView?.loadHTMLString("<html/>", baseURL: nil)
     }
