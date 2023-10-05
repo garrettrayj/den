@@ -1580,7 +1580,6 @@
 				683C362B2A9F188700568E9A /* Resources */,
 				683C36392A9F188700568E9A /* Embed Foundation Extensions */,
 				683C363B2A9F188700568E9A /* ShellScript */,
-				683C363C2A9F188700568E9A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1843,25 +1842,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		683C363C2A9F188700568E9A /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/Scripts/CodeSign.sh\n";
-			showEnvVarsInLog = 0;
 		};
 		68906F822A761D1F00803350 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
