@@ -61,6 +61,6 @@ struct NewProfileSheet: View {
                 }
             }
         }
-        .frame(minWidth: 360, minHeight: 224)
+        .frame(minWidth: 360, minHeight: 260)
     }
 }

@@ -66,6 +66,6 @@ struct NewPageSheet: View {
                 }
             }
         }
-        .frame(minWidth: 360, minHeight: 152)
+        .frame(minWidth: 360, minHeight: 240)
     }
 }

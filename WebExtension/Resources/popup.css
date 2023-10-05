@@ -29,7 +29,7 @@ body {
 
 @supports not (-webkit-touch-callout: none) { /* Mac */
     body {
-      width: 260px;
+      width: 300px;
     }
 }
 
