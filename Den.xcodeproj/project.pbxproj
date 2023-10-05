@@ -244,6 +244,13 @@
 		683E3F45293BC02A00B16814 /* NewFeedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F44293BC02A00B16814 /* NewFeedButton.swift */; };
 		683E3F47293BC18C00B16814 /* SidebarStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F46293BC18C00B16814 /* SidebarStatus.swift */; };
 		683E3F49293BC19800B16814 /* RefreshButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F48293BC19800B16814 /* RefreshButton.swift */; };
+		6841520A2ACE9ECE00ABE5E2 /* BackedDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6863A3FE2AC60AE800A7DC61 /* BackedDivider.swift */; };
+		6841520B2ACE9ED800ABE5E2 /* BrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E558352ACC02EC0010E424 /* BrowserView.swift */; };
+		6841520C2ACE9EDB00ABE5E2 /* BrowserToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA45152A39B2EF000A288B /* BrowserToolbar.swift */; };
+		6841520D2ACE9EEA00ABE5E2 /* BrowserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6820507D2ACB530600C937BE /* BrowserViewModel.swift */; };
+		6841520E2ACE9F0300ABE5E2 /* ThinLinearProgressViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E558332ACBE9220010E424 /* ThinLinearProgressViewStyle.swift */; };
+		6841520F2ACE9F1200ABE5E2 /* BrowserWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682050782ACB504A00C937BE /* BrowserWebView.swift */; };
+		684152102ACE9F2F00ABE5E2 /* SpreadGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6863A3FC2AC5A63400A7DC61 /* SpreadGroup.swift */; };
 		6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */; };
 		6845BCF424EBE4750008B296 /* AtomFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF324EBE4750008B296 /* AtomFeed+Extensions.swift */; };
 		6845BCF624EBE49A0008B296 /* JSONFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF524EBE49A0008B296 /* JSONFeed+Extensions.swift */; };
@@ -1930,6 +1937,7 @@
 				683C355A2A9F188700568E9A /* AllRead.swift in Sources */,
 				683C355B2A9F188700568E9A /* AnalyzeTask.swift in Sources */,
 				683C35742A9F188700568E9A /* AppErrorSheet.swift in Sources */,
+				6841520D2ACE9EEA00ABE5E2 /* BrowserViewModel.swift in Sources */,
 				6856DB3A2AB795E90094615E /* Array+Extensions.swift in Sources */,
 				683C355C2A9F188700568E9A /* AtomFeed+Extensions.swift in Sources */,
 				683C355D2A9F188700568E9A /* AtomFeedEntry+Extensions.swift in Sources */,
@@ -1962,6 +1970,7 @@
 				6856DB462AB8EEC40094615E /* DeleteFeedButton.swift in Sources */,
 				6856DB402AB8DD180094615E /* DeletePageButton.swift in Sources */,
 				683C35782A9F188700568E9A /* DeleteProfileButton.swift in Sources */,
+				684152102ACE9F2F00ABE5E2 /* SpreadGroup.swift in Sources */,
 				6856DB492AB923A10094615E /* DeleteTagButton.swift in Sources */,
 				683C35792A9F188700568E9A /* Den.xcdatamodel in Sources */,
 				683C357A2A9F188700568E9A /* DenApp.swift in Sources */,
@@ -2004,6 +2013,7 @@
 				683C35A52A9F188700568E9A /* ImageErrorPlaceholder.swift in Sources */,
 				683C35A62A9F188700568E9A /* ImageMIMEType.swift in Sources */,
 				683C35A72A9F188700568E9A /* ImageSelection.swift in Sources */,
+				6841520B2ACE9ED800ABE5E2 /* BrowserView.swift in Sources */,
 				682050762AC7743800C937BE /* ImageSize.swift in Sources */,
 				683C35A82A9F188700568E9A /* ImportButton.swift in Sources */,
 				683C35A92A9F188700568E9A /* ImportExportUtility.swift in Sources */,
@@ -2032,6 +2042,7 @@
 				683C35C32A9F188700568E9A /* MediaTypeUtility.swift in Sources */,
 				683C35C42A9F188700568E9A /* NavigationStore.swift in Sources */,
 				683C35C52A9F188700568E9A /* NetworkMonitor.swift in Sources */,
+				6841520E2ACE9F0300ABE5E2 /* ThinLinearProgressViewStyle.swift in Sources */,
 				683C35C62A9F188700568E9A /* NewFeedButton.swift in Sources */,
 				683C35C72A9F188700568E9A /* NewFeedSheet.swift in Sources */,
 				683C35C82A9F188700568E9A /* NewPageButton.swift in Sources */,
@@ -2052,6 +2063,7 @@
 				6856DB122AB58B200094615E /* OrganizerInfoPanel.swift in Sources */,
 				6856DB142AB58B260094615E /* OrganizerInspector.swift in Sources */,
 				6856DB1B2AB58B920094615E /* OrganizerNavLink.swift in Sources */,
+				6841520A2ACE9ECE00ABE5E2 /* BackedDivider.swift in Sources */,
 				6856DB112AB58B1D0094615E /* OrganizerOptionsPanel.swift in Sources */,
 				6856DB2F2AB6E2EA0094615E /* OrganizerToolbar.swift in Sources */,
 				683C35D12A9F188700568E9A /* Page+CoreDataClass.swift in Sources */,
@@ -2060,6 +2072,7 @@
 				683C35D52A9F188700568E9A /* PageLayout.swift in Sources */,
 				683C35D62A9F188700568E9A /* PageLayoutPicker.swift in Sources */,
 				683C361D2A9F188700568E9A /* PageNavDropDelegate.swift in Sources */,
+				6841520F2ACE9F1200ABE5E2 /* BrowserWebView.swift in Sources */,
 				683C35D72A9F188700568E9A /* PageNavLink.swift in Sources */,
 				683C35D82A9F188700568E9A /* PagePicker.swift in Sources */,
 				683C35D92A9F188700568E9A /* PagesSection.swift in Sources */,
@@ -2125,6 +2138,7 @@
 				683C360D2A9F188700568E9A /* Trending.swift in Sources */,
 				683C360F2A9F188700568E9A /* TrendingNavLink.swift in Sources */,
 				683C36102A9F188700568E9A /* TrendingToolbar.swift in Sources */,
+				6841520C2ACE9EDB00ABE5E2 /* BrowserToolbar.swift in Sources */,
 				683C36112A9F188700568E9A /* TrendItem+CoreDataClass.swift in Sources */,
 				683C36122A9F188700568E9A /* TrendLayout.swift in Sources */,
 				683C36132A9F188700568E9A /* TrendToolbar.swift in Sources */,
