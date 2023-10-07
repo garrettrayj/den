@@ -34,8 +34,20 @@ class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     @Published var browserError: Error?
 
     func loadURL() {
-        if let url = url {
-            webView?.load(URLRequest(url: url))
+        guard
+            let url = url,
+            let configuration = webView?.configuration
+        else {
+            return
+        }
+
+        Task {
+            if let contentRuleList = await ContentRuleListUtility.shared.getContentRuleList() {
+                await MainActor.run {
+                    configuration.userContentController.add(contentRuleList)
+                }
+            }
+            await webView?.load(URLRequest(url: url))
         }
     }
 

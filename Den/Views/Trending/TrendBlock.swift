@@ -44,7 +44,7 @@ struct TrendBlock: View {
                     trend.titleText.font(.title2.weight(.medium))
 
                     Grid {
-                        ForEach(uniqueFaviconURLs.chunked(by: 10), id: \.self) { favicons in
+                        ForEach(uniqueFaviconURLs.chunked(by: 9), id: \.self) { favicons in
                             GridRow {
                                 ForEach(favicons, id: \.self) { favicon in
                                     WebImage(

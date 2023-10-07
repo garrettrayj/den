@@ -73,6 +73,7 @@ struct SplitView: View {
             #endif
         }
         .tint(userTint)
+        .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
         .onOpenURL { url in
             if case .page(let page) = detailPanel {
                 newFeedPageID = page.id?.uuidString

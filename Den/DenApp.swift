@@ -44,6 +44,7 @@ struct DenApp: App {
                 .preferredColorScheme(userColorScheme.colorScheme)
                 .task { performCleanup() }
         }
+        .handlesExternalEvents(matching: ["*"])
         .commands {
             #if canImport(Sparkle)
             CommandGroup(after: .appInfo) {
