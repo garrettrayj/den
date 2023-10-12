@@ -1,5 +1,5 @@
 //
-//  SpreadGroup.swift
+//  FeedItemGroup.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/28/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct SpreadGroup: View {
+struct FeedItemGroup: View {
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 

@@ -30,9 +30,6 @@ struct OrganizerOptionsPanel: View {
                     } label: {
                         Text("Item Limit", comment: "Picker label.")
                     }
-                    Toggle(sources: sources, isOn: \.readerMode) {
-                        Text("Reader Mode", comment: "Toggle label.")
-                    }
                     Toggle(sources: sources, isOn: \.largePreviews) {
                         Text("Large Previews", comment: "Toggle label.")
                     }
@@ -46,7 +43,15 @@ struct OrganizerOptionsPanel: View {
                         Text("Hide Images", comment: "Toggle label.")
                     }
                 } header: {
-                    Text("Previews", comment: "Inspector panel header.")
+                    Text("Previews", comment: "Inspector section header.")
+                }
+                
+                Section {
+                    Toggle(sources: sources, isOn: \.readerMode) {
+                        Text("Use Reader Automatically", comment: "Toggle label.")
+                    }
+                } header: {
+                    Text("Viewing", comment: "Inspector section header.")
                 }
 
                 Section {
@@ -58,7 +63,7 @@ struct OrganizerOptionsPanel: View {
                         Text("Page", comment: "Picker label.")
                     }
                 } header: {
-                    Text("Move", comment: "Inspector header.")
+                    Text("Move", comment: "Inspector section header.")
                 }
 
                 Section {

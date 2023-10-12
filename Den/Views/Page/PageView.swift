@@ -38,8 +38,8 @@ struct PageView: View {
                         NoFeeds()
                     } else {
                         switch pageLayout.wrappedValue {
-                        case .spread:
-                            SpreadLayout(
+                        case .grouped:
+                            GroupedLayout(
                                 page: page,
                                 profile: profile,
                                 hideRead: $hideRead,
@@ -94,7 +94,7 @@ struct PageView: View {
         _showingInspector = showingInspector
 
         pageLayout = .init(
-            wrappedValue: PageLayout.spread,
+            wrappedValue: PageLayout.grouped,
             "PageLayout_\(page.id?.uuidString ?? "NoID")"
         )
     }

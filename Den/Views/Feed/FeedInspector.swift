@@ -92,6 +92,21 @@ struct FeedInspector: View {
             }
 
             previewsSection
+            
+            Section {
+                Toggle(isOn: $feed.readerMode) {
+                    Text("Use Reader Automatically", comment: "Toggle label.")
+                }
+                .onChange(of: feed.readerMode) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            } header: {
+                Text("Viewing", comment: "Inspector section header.")
+            }
 
             Section {
                 if let profile = feed.page?.profile {
@@ -136,16 +151,6 @@ struct FeedInspector: View {
             }
             .onChange(of: feed.itemLimit) {
                 itemLimitHasChanged = true
-                do {
-                    try viewContext.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            }
-            Toggle(isOn: $feed.readerMode) {
-                Text("Reader Mode", comment: "Toggle label.")
-            }
-            .onChange(of: feed.readerMode) {
                 do {
                     try viewContext.save()
                 } catch {

@@ -81,18 +81,23 @@ struct BrowserToolbar: ToolbarContent {
                 Label {
                     Text("Formatting", comment: "Button label.")
                 } icon: {
-                    if browserViewModel.showingReader {
-                        Image(systemName: "doc.plaintext").padding(.horizontal, 2.5).foregroundStyle(.tint)
-                    } else {
-                        if browserViewModel.isReaderable {
-                            Image(systemName: "doc.plaintext").padding(.horizontal, 2.5)
-                        } else {
-                            Image(systemName: "textformat.size")
+                    if browserViewModel.isReaderable {
+                        Group {
+                            if browserViewModel.showingReader {
+                                Image(systemName: "doc.plaintext").foregroundStyle(.tint)
+                            } else {
+                                Image(systemName: "doc.plaintext")
+                            }
                         }
+                        .padding(.horizontal, 3)
+                    } else {
+                        Image(systemName: "textformat.size")
                     }
                 }
+                .font(.callout.weight(.medium))
                 .imageScale(.large)
                 .padding(4)
+                .contentShape(.rect)
             } primaryAction: {
                 if browserViewModel.showingReader {
                     browserViewModel.hideReader()

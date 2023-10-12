@@ -11,7 +11,7 @@
 import Foundation
 
 enum PageLayout: Int, CaseIterable {
-    case spread   = 0
+    case grouped  = 0
     case deck     = 1
     case timeline = 2
 }

@@ -1,5 +1,5 @@
 //
-//  SpreadLayout.swift
+//  GroupedLayout.swift
 //  Den
 //
 //  Created by Garrett Johnson on 3/15/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct SpreadLayout: View {
+struct GroupedLayout: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var page: Page
@@ -36,7 +36,7 @@ struct SpreadLayout: View {
                     ) { _, feeds in
                         LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
                             ForEach(feeds) { feed in
-                                SpreadGroup(
+                                FeedItemGroup(
                                     feed: feed,
                                     profile: profile,
                                     hideRead: hideRead,

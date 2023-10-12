@@ -16,11 +16,11 @@ struct PageLayoutPicker: View {
     var body: some View {
         Picker(selection: $pageLayout) {
             Label {
-                Text("Spread", comment: "Page layout option label.")
+                Text("Grouped", comment: "Page layout option label.")
             } icon: {
                 Image(systemName: "rectangle.grid.3x2")
             }
-            .tag(PageLayout.spread)
+            .tag(PageLayout.grouped)
             .accessibilityIdentifier("SpreadLayout")
 
             Label {

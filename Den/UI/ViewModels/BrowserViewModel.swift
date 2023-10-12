@@ -135,7 +135,9 @@ class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate, WKScri
         mercuryObject = try? decoder.decode(MercuryObject.self, from: jsonData)
 
         if mercuryObject != nil {
-            isReaderable = true
+            withAnimation {
+                isReaderable = true
+            }
         }
         
         if useReaderAutomatically {
