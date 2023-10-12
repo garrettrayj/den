@@ -34,13 +34,10 @@ class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate, WKScri
     @Published var canGoForward = false
     @Published var isLoading = true
     @Published var browserError: Error?
+    @Published var isReaderable = false
     @Published var showingReader = false
     @Published var mercuryObject: MercuryObject?
     @Published var useReaderAutomatically = false
-    
-    var isReaderable: Bool {
-        mercuryObject != nil
-    }
 
     func loadURL(url: URL?) {
         guard
@@ -137,6 +134,10 @@ class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate, WKScri
 
         mercuryObject = try? decoder.decode(MercuryObject.self, from: jsonData)
 
+        if mercuryObject != nil {
+            isReaderable = true
+        }
+        
         if useReaderAutomatically {
             showReader()
         }

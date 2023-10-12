@@ -54,8 +54,8 @@ struct BrowserToolbar: ToolbarContent {
             .disabled(!browserViewModel.canGoForward)
         }
         ToolbarItem(placement: .navigation) {
-            if browserViewModel.showingReader {
-                Menu {
+            Menu {
+                if browserViewModel.showingReader {
                     Button {
                         browserViewModel.hideReader()
                     } label: {
@@ -65,20 +65,7 @@ struct BrowserToolbar: ToolbarContent {
                             Image(systemName: "doc.plaintext")
                         }
                     }
-                    .disabled(!browserViewModel.isReaderable)
-                } label: {
-                    Label {
-                        Text("Formatting", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "textformat.size")
-                    }
-                } primaryAction: {
-                    browserViewModel.hideReader()
-                }
-                .menuIndicator(.hidden)
-                .foregroundStyle(.red)
-            } else {
-                Menu {
+                } else {
                     Button {
                         browserViewModel.showReader()
                     } label: {
@@ -89,17 +76,33 @@ struct BrowserToolbar: ToolbarContent {
                         }
                     }
                     .disabled(!browserViewModel.isReaderable)
-                } label: {
-                    Label {
-                        Text("Formatting", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "textformat.size")
+                }
+            } label: {
+                Label {
+                    Text("Formatting", comment: "Button label.")
+                } icon: {
+                    if browserViewModel.showingReader {
+                        Image(systemName: "doc.plaintext").padding(.horizontal, 2.5).foregroundStyle(.tint)
+                    } else {
+                        if browserViewModel.isReaderable {
+                            Image(systemName: "doc.plaintext").padding(.horizontal, 2.5)
+                        } else {
+                            Image(systemName: "textformat.size")
+                        }
                     }
-                } primaryAction: {
+                }
+                .imageScale(.large)
+                .padding(4)
+            } primaryAction: {
+                if browserViewModel.showingReader {
+                    browserViewModel.hideReader()
+                } else if browserViewModel.isReaderable {
                     browserViewModel.showReader()
                 }
-                .menuIndicator(.hidden)
             }
+            .menuStyle(.button)
+            .buttonStyle(.plain)
+            .menuIndicator(.hidden)
         }
         ToolbarItem {
             if browserViewModel.isLoading {
