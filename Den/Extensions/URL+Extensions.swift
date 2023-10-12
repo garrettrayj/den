@@ -16,4 +16,13 @@ extension URL {
             .replacingOccurrences(of: "feed:", with: "")
             .replacingOccurrences(of: "den:", with: "")
     }
+
+    var removingQueries: URL {
+        if var components = URLComponents(string: absoluteString) {
+            components.query = nil
+            return components.url ?? self
+        } else {
+            return self
+        }
+    }
 }

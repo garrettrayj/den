@@ -21,7 +21,7 @@ struct BookmarkView: View {
             !bookmark.isDeleted && bookmark.managedObjectContext != nil {
             BrowserView(
                 url: url,
-                readerMode: bookmark.feed?.readerMode,
+                useReaderAutomatically: bookmark.feed?.readerMode,
                 extraToolbar: {
                     ToolbarItem {
                         DeleteBookmarkButton(bookmark: bookmark)

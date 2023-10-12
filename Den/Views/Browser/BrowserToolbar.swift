@@ -53,6 +53,54 @@ struct BrowserToolbar: ToolbarContent {
             }
             .disabled(!browserViewModel.canGoForward)
         }
+        ToolbarItem(placement: .navigation) {
+            if browserViewModel.showingReader {
+                Menu {
+                    Button {
+                        browserViewModel.hideReader()
+                    } label: {
+                        Label {
+                            Text("Hide Reader", comment: "Button label.")
+                        } icon: {
+                            Image(systemName: "doc.plaintext")
+                        }
+                    }
+                    .disabled(!browserViewModel.isReaderable)
+                } label: {
+                    Label {
+                        Text("Formatting", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "textformat.size")
+                    }
+                } primaryAction: {
+                    browserViewModel.hideReader()
+                }
+                .menuIndicator(.hidden)
+                .foregroundStyle(.red)
+            } else {
+                Menu {
+                    Button {
+                        browserViewModel.showReader()
+                    } label: {
+                        Label {
+                            Text("Show Reader", comment: "Button label.")
+                        } icon: {
+                            Image(systemName: "doc.plaintext")
+                        }
+                    }
+                    .disabled(!browserViewModel.isReaderable)
+                } label: {
+                    Label {
+                        Text("Formatting", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "textformat.size")
+                    }
+                } primaryAction: {
+                    browserViewModel.showReader()
+                }
+                .menuIndicator(.hidden)
+            }
+        }
         ToolbarItem {
             if browserViewModel.isLoading {
                 Button {

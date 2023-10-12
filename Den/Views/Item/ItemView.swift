@@ -21,7 +21,9 @@ struct ItemView: View {
         if let url = item.link, item.managedObjectContext != nil && item.feedData?.feed != nil {
             BrowserView(
                 url: url,
-                readerMode: item.feedData?.feed?.readerMode,
+                useReaderAutomatically: item.feedData?.feed?.readerMode,
+                readerPublishedDate: item.published,
+                readerByline: item.author,
                 extraToolbar: {
                     ToolbarItem {
                         TagsMenu(item: item, profile: profile)

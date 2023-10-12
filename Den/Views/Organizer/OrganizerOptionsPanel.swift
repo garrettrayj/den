@@ -30,11 +30,9 @@ struct OrganizerOptionsPanel: View {
                     } label: {
                         Text("Item Limit", comment: "Picker label.")
                     }
-                    #if os(iOS)
                     Toggle(sources: sources, isOn: \.readerMode) {
                         Text("Reader Mode", comment: "Toggle label.")
                     }
-                    #endif
                     Toggle(sources: sources, isOn: \.largePreviews) {
                         Text("Large Previews", comment: "Toggle label.")
                     }

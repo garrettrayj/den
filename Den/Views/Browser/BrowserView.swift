@@ -12,45 +12,64 @@ import SwiftUI
 
 struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     var url: URL
-    var readerMode: Bool?
+    var useReaderAutomatically: Bool?
+    var readerPublishedDate: Date?
+    var readerByline: String?
     var extraToolbar: ExtraToolbar?
 
     @StateObject var browserViewModel = BrowserViewModel()
 
     init(
         url: URL,
-        readerMode: Bool? = nil,
+        useReaderAutomatically: Bool? = nil,
+        readerPublishedDate: Date? = nil,
+        readerByline: String? = nil,
         @ToolbarContentBuilder extraToolbar: @escaping () -> ExtraToolbar?
     ) {
         self.url = url
-        self.readerMode = readerMode
+        self.useReaderAutomatically = useReaderAutomatically
+        self.readerPublishedDate = readerPublishedDate
+        self.readerByline = readerByline
         self.extraToolbar = extraToolbar()
     }
 
     var body: some View {
         #if os(macOS)
-        BrowserWebView(viewModel: browserViewModel)
-            .onAppear {
-                browserViewModel.url = url
-                browserViewModel.loadURL()
-            }
-            .onDisappear {
-                // Fix for videos continuing to play after view is dismissed
-                browserViewModel.loadBlank()
-            }
-            .navigationBarBackButtonHidden()
-            .navigationTitle(browserViewModel.url?.host() ?? "")
-            .ignoresSafeArea()
-            .overlay(alignment: .top) {
-                if browserViewModel.isLoading {
-                    ProgressView(value: browserViewModel.estimatedProgress, total: 1)
-                        .progressViewStyle(ThinLinearProgressViewStyle())
+        ZStack(alignment: .top) {
+            BrowserWebView(viewModel: browserViewModel)
+                .onAppear {
+                    browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
+                    browserViewModel.loadURL(url: url)
                 }
+                .onDisappear {
+                    // Fix for videos continuing to play after view is dismissed
+                    browserViewModel.loadBlank()
+                }
+                .navigationBarBackButtonHidden()
+                .navigationTitle(browserViewModel.url?.host() ?? "")
+                .toolbar {
+                    BrowserToolbar(browserViewModel: browserViewModel)
+                    extraToolbar
+                }
+                .padding(.top, 1)
+                .ignoresSafeArea()
+                .overlay(alignment: .top) {
+                    if browserViewModel.isLoading {
+                        ProgressView(value: browserViewModel.estimatedProgress, total: 1)
+                            .progressViewStyle(ThinLinearProgressViewStyle())
+                    }
+                }
+
+            if browserViewModel.showingReader == true {
+                ReaderWebView(
+                    browserViewModel: browserViewModel,
+                    publishedDate: readerPublishedDate,
+                    byline: readerByline
+                )
+                .transition(.flipFromBottom)
+                .ignoresSafeArea()
             }
-            .toolbar {
-                BrowserToolbar(browserViewModel: browserViewModel)
-                extraToolbar
-            }
+        }
         #else
         SafariView(url: url, readerMode: readerMode)
             .toolbar(.hidden)
@@ -63,9 +82,13 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
 extension BrowserView where ExtraToolbar == Never {
     init(
         url: URL,
-        readerMode: Bool? = nil
+        useReaderAutomatically: Bool? = nil,
+        readerPublishedDate: Date? = nil,
+        readerByline: String? = nil
     ) {
         self.url = url
-        self.readerMode = readerMode
+        self.useReaderAutomatically = useReaderAutomatically
+        self.readerPublishedDate = readerPublishedDate
+        self.readerByline = readerByline
     }
 }

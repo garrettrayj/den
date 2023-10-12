@@ -1,0 +1,26 @@
+/**
+ Mac CSS addendum
+ */
+body {
+    font-size: 110%;
+    line-height: 150%;
+    padding: 32px;
+}
+
+blockquote {
+    font-size: 106%;
+    line-height: 136%;
+}
+
+figure {
+    font-size: 80%
+}
+
+#den-title {
+    font-size: 190%;
+}
+
+#den-author,
+#den-date-published {
+    font-size: 100%;
+}

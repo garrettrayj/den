@@ -255,6 +255,20 @@
 		684152142AD008C100ABE5E2 /* EasyListMinContentBlocker.json in Resources */ = {isa = PBXBuildFile; fileRef = 684152132AD008C100ABE5E2 /* EasyListMinContentBlocker.json */; };
 		684152152AD0092300ABE5E2 /* EasyListMinContentBlocker.json in Resources */ = {isa = PBXBuildFile; fileRef = 684152132AD008C100ABE5E2 /* EasyListMinContentBlocker.json */; };
 		684152162AD00A1100ABE5E2 /* ContentRuleListUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152112AD0036600ABE5E2 /* ContentRuleListUtility.swift */; };
+		684152222AD2763400ABE5E2 /* ReaderWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152212AD2763400ABE5E2 /* ReaderWebView.swift */; };
+		6841522B2AD3716500ABE5E2 /* Reader.css in Resources */ = {isa = PBXBuildFile; fileRef = 6841522A2AD3716500ABE5E2 /* Reader.css */; };
+		6841522C2AD3717A00ABE5E2 /* Reader.css in Resources */ = {isa = PBXBuildFile; fileRef = 6841522A2AD3716500ABE5E2 /* Reader.css */; };
+		6841522E2AD38C4100ABE5E2 /* ReaderMac.css in Resources */ = {isa = PBXBuildFile; fileRef = 6841522D2AD38C4100ABE5E2 /* ReaderMac.css */; };
+		684152302AD5501E00ABE5E2 /* ParseForReader.js in Resources */ = {isa = PBXBuildFile; fileRef = 6841522F2AD5501E00ABE5E2 /* ParseForReader.js */; };
+		684152312AD5502100ABE5E2 /* ParseForReader.js in Resources */ = {isa = PBXBuildFile; fileRef = 6841522F2AD5501E00ABE5E2 /* ParseForReader.js */; };
+		684152332AD552AB00ABE5E2 /* ReaderWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152212AD2763400ABE5E2 /* ReaderWebView.swift */; };
+		684152352AD5546E00ABE5E2 /* Mercury.js in Resources */ = {isa = PBXBuildFile; fileRef = 684152342AD5546E00ABE5E2 /* Mercury.js */; };
+		684152362AD5546E00ABE5E2 /* Mercury.js in Resources */ = {isa = PBXBuildFile; fileRef = 684152342AD5546E00ABE5E2 /* Mercury.js */; };
+		684152382AD559C300ABE5E2 /* MercuryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152372AD559C300ABE5E2 /* MercuryObject.swift */; };
+		684152392AD559C300ABE5E2 /* MercuryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152372AD559C300ABE5E2 /* MercuryObject.swift */; };
+		6841523D2AD6A38C00ABE5E2 /* ReaderMac.css in Resources */ = {isa = PBXBuildFile; fileRef = 6841522D2AD38C4100ABE5E2 /* ReaderMac.css */; };
+		6841523F2AD6C65600ABE5E2 /* ReaderInit.js in Resources */ = {isa = PBXBuildFile; fileRef = 6841523E2AD6C65600ABE5E2 /* ReaderInit.js */; };
+		684152402AD6C65600ABE5E2 /* ReaderInit.js in Resources */ = {isa = PBXBuildFile; fileRef = 6841523E2AD6C65600ABE5E2 /* ReaderInit.js */; };
 		6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */; };
 		6845BCF424EBE4750008B296 /* AtomFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF324EBE4750008B296 /* AtomFeed+Extensions.swift */; };
 		6845BCF624EBE49A0008B296 /* JSONFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF524EBE49A0008B296 /* JSONFeed+Extensions.swift */; };
@@ -629,6 +643,13 @@
 		683E3F48293BC19800B16814 /* RefreshButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshButton.swift; sourceTree = "<group>"; };
 		684152112AD0036600ABE5E2 /* ContentRuleListUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentRuleListUtility.swift; sourceTree = "<group>"; };
 		684152132AD008C100ABE5E2 /* EasyListMinContentBlocker.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EasyListMinContentBlocker.json; sourceTree = "<group>"; };
+		684152212AD2763400ABE5E2 /* ReaderWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderWebView.swift; sourceTree = "<group>"; };
+		6841522A2AD3716500ABE5E2 /* Reader.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Reader.css; sourceTree = "<group>"; };
+		6841522D2AD38C4100ABE5E2 /* ReaderMac.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = ReaderMac.css; sourceTree = "<group>"; };
+		6841522F2AD5501E00ABE5E2 /* ParseForReader.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = ParseForReader.js; sourceTree = "<group>"; };
+		684152342AD5546E00ABE5E2 /* Mercury.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Mercury.js; sourceTree = "<group>"; };
+		684152372AD559C300ABE5E2 /* MercuryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercuryObject.swift; sourceTree = "<group>"; };
+		6841523E2AD6C65600ABE5E2 /* ReaderInit.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = ReaderInit.js; sourceTree = "<group>"; };
 		6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFeedItem+Extensions.swift"; sourceTree = "<group>"; };
 		6845BCF324EBE4750008B296 /* AtomFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomFeed+Extensions.swift"; sourceTree = "<group>"; };
 		6845BCF524EBE49A0008B296 /* JSONFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFeed+Extensions.swift"; sourceTree = "<group>"; };
@@ -991,6 +1012,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		684152272AD2837B00ABE5E2 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6887CDC72A7F526D00E99C3F /* UpdaterViewModel.swift */,
+				6820507D2ACB530600C937BE /* BrowserViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		6845BCF924EBE4B60008B296 /* FeedKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1016,6 +1046,11 @@
 				6845BCFD24EC00DA0008B296 /* FeedIcon.png */,
 				68D58E6A2498481A007ED1AC /* OPMLIcon.png */,
 				6865452F274AC3B600BAE03E /* PageSymbols.plist */,
+				6841522A2AD3716500ABE5E2 /* Reader.css */,
+				6841522D2AD38C4100ABE5E2 /* ReaderMac.css */,
+				6841522F2AD5501E00ABE5E2 /* ParseForReader.js */,
+				684152342AD5546E00ABE5E2 /* Mercury.js */,
+				6841523E2AD6C65600ABE5E2 /* ReaderInit.js */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1177,6 +1212,7 @@
 		6880EBE427ABEDB600B479F4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				684152272AD2837B00ABE5E2 /* ViewModels */,
 				6856DB202AB630D80094615E /* DropDelegates */,
 				687FEF0E2A40A6050042977E /* Enumerations */,
 				687C27962634A84600099FCA /* Modifiers */,
@@ -1187,8 +1223,7 @@
 				68906F8E2A78F58900803350 /* NavigationStore.swift */,
 				68ED797A29BD97DE00D85B4F /* NetworkMonitor.swift */,
 				680F495129AB2A240083B664 /* RefreshedDateStorage.swift */,
-				6887CDC72A7F526D00E99C3F /* UpdaterViewModel.swift */,
-				6820507D2ACB530600C937BE /* BrowserViewModel.swift */,
+				684152372AD559C300ABE5E2 /* MercuryObject.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1249,6 +1284,7 @@
 			children = (
 				682050782ACB504A00C937BE /* BrowserWebView.swift */,
 				68E558312ACBCEE20010E424 /* SafariView.swift */,
+				684152212AD2763400ABE5E2 /* ReaderWebView.swift */,
 			);
 			path = Representables;
 			sourceTree = "<group>";
@@ -1747,11 +1783,16 @@
 				683C36302A9F188700568E9A /* FeedIcon.png in Resources */,
 				684152152AD0092300ABE5E2 /* EasyListMinContentBlocker.json in Resources */,
 				683C36312A9F188700568E9A /* LaunchScreen.storyboard in Resources */,
+				6841522C2AD3717A00ABE5E2 /* Reader.css in Resources */,
+				6841523D2AD6A38C00ABE5E2 /* ReaderMac.css in Resources */,
 				683C36322A9F188700568E9A /* Localizable.strings in Resources */,
 				683C36332A9F188700568E9A /* OPMLIcon.png in Resources */,
 				683C36342A9F188700568E9A /* PageSymbols.plist in Resources */,
+				684152402AD6C65600ABE5E2 /* ReaderInit.js in Resources */,
 				683C36352A9F188700568E9A /* Preview Assets.xcassets in Resources */,
+				684152362AD5546E00ABE5E2 /* Mercury.js in Resources */,
 				683C36362A9F188700568E9A /* Settings.bundle in Resources */,
+				684152312AD5502100ABE5E2 /* ParseForReader.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1781,10 +1822,15 @@
 				6845BCFE24EC00DA0008B296 /* FeedIcon.png in Resources */,
 				684152142AD008C100ABE5E2 /* EasyListMinContentBlocker.json in Resources */,
 				68906F832A78B85900803350 /* LaunchScreen.storyboard in Resources */,
+				6841522E2AD38C4100ABE5E2 /* ReaderMac.css in Resources */,
 				6862A5922A23EEE4000CAB19 /* Localizable.strings in Resources */,
 				68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */,
 				68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */,
+				684152352AD5546E00ABE5E2 /* Mercury.js in Resources */,
+				6841523F2AD6C65600ABE5E2 /* ReaderInit.js in Resources */,
 				68C4131B247263C700D1DC7B /* Preview Assets.xcassets in Resources */,
+				6841522B2AD3716500ABE5E2 /* Reader.css in Resources */,
+				684152302AD5501E00ABE5E2 /* ParseForReader.js in Resources */,
 				68E6C5412A68E61C00CA46B2 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1930,6 +1976,7 @@
 				6841520D2ACE9EEA00ABE5E2 /* BrowserViewModel.swift in Sources */,
 				6856DB3A2AB795E90094615E /* Array+Extensions.swift in Sources */,
 				683C355C2A9F188700568E9A /* AtomFeed+Extensions.swift in Sources */,
+				684152332AD552AB00ABE5E2 /* ReaderWebView.swift in Sources */,
 				683C355D2A9F188700568E9A /* AtomFeedEntry+Extensions.swift in Sources */,
 				683C355E2A9F188700568E9A /* AtomFeedMetaUpdate.swift in Sources */,
 				683C355F2A9F188700568E9A /* AtomFeedUpdate.swift in Sources */,
@@ -2052,6 +2099,7 @@
 				683C35D02A9F188700568E9A /* OPMLReader.swift in Sources */,
 				6856DB132AB58B220094615E /* Organizer.swift in Sources */,
 				6856DB122AB58B200094615E /* OrganizerInfoPanel.swift in Sources */,
+				684152392AD559C300ABE5E2 /* MercuryObject.swift in Sources */,
 				6856DB142AB58B260094615E /* OrganizerInspector.swift in Sources */,
 				6856DB1B2AB58B920094615E /* OrganizerNavLink.swift in Sources */,
 				6841520A2ACE9ECE00ABE5E2 /* BackedDivider.swift in Sources */,
@@ -2168,6 +2216,7 @@
 				6856DB392AB795BF0094615E /* Array+Extensions.swift in Sources */,
 				6845BCF424EBE4750008B296 /* AtomFeed+Extensions.swift in Sources */,
 				684DFA0124B6515A0023D6DB /* AtomFeedEntry+Extensions.swift in Sources */,
+				684152222AD2763400ABE5E2 /* ReaderWebView.swift in Sources */,
 				682591F629D805FB00E5EF3B /* AtomFeedMetaUpdate.swift in Sources */,
 				68B6CBE62910BD0E00B5E3AB /* AtomFeedUpdate.swift in Sources */,
 				682050792ACB504A00C937BE /* BrowserWebView.swift in Sources */,
@@ -2210,6 +2259,7 @@
 				6856DB1E2AB593500094615E /* DraggableItemModifier.swift in Sources */,
 				6897242D299440B4003DAC4C /* DynamicTypeSize+Extensions.swift in Sources */,
 				6835738529602A7F00843A8E /* EnvironmentValues+Extensions.swift in Sources */,
+				684152382AD559C300ABE5E2 /* MercuryObject.swift in Sources */,
 				6851F0EB2AAEC1B5000F7CBC /* ExportButton.swift in Sources */,
 				6887D41C25B6D016004A170D /* Feed+CoreDataClass.swift in Sources */,
 				680E57E824D29F2200196F6D /* FeedData+CoreDataClass.swift in Sources */,

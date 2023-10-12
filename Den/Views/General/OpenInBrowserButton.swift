@@ -16,7 +16,7 @@ struct OpenInBrowserButton<Content: View>: View {
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     let url: URL
-    var readerMode: Bool?
+    var useReaderAutomatically: Bool?
 
     @ViewBuilder let label: Content
 
@@ -29,7 +29,7 @@ struct OpenInBrowserButton<Content: View>: View {
             }
         } else {
             NavigationLink {
-                BrowserView(url: url, readerMode: readerMode)
+                BrowserView(url: url, useReaderAutomatically: useReaderAutomatically)
             } label: {
                 label
             }

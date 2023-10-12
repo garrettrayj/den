@@ -142,8 +142,6 @@ struct FeedInspector: View {
                     CrashUtility.handleCriticalError(error as NSError)
                 }
             }
-
-            #if os(iOS)
             Toggle(isOn: $feed.readerMode) {
                 Text("Reader Mode", comment: "Toggle label.")
             }
@@ -154,8 +152,6 @@ struct FeedInspector: View {
                     CrashUtility.handleCriticalError(error as NSError)
                 }
             }
-            #endif
-
             Toggle(isOn: $feed.largePreviews) {
                 Text("Large Previews", comment: "Toggle label.")
             }

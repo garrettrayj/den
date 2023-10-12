@@ -1,0 +1,277 @@
+/**
+ Reader Styles
+ 
+ See https://github.com/WebKit/webkit/blob/main/Source/WebCore/css/CSSValueKeywords.in
+ for Apple specific CSS values
+ */
+
+:root {
+    color-scheme: light dark;
+}
+
+* {
+    max-width: 100%;
+}
+
+body {
+    background: -apple-system-background;
+    accent-color: $TINT_COLOR;
+    font: -apple-system-body;
+    margin: 0 auto;
+    padding: 16px;
+    max-width: 700px;
+}
+
+/* Header */
+
+body > header {
+    margin-bottom: 20px;
+}
+
+#den-title {
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+#den-author,
+#den-date-published {
+    font: -apple-system-subheadline;
+    margin: 4px 0;
+}
+
+/* Embeds */
+
+img {
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: block;
+    height: auto;
+    margin: 20px auto;
+    outline: 1px solid -apple-system-separator;
+    outline-offset: -1px;
+}
+
+img.den-no-border {
+    outline: 0;
+}
+
+img[src^=data] {
+    display: none;
+}
+
+iframe {
+    border: 0;
+    border-radius: 8px;
+    display: block;
+    height: auto;
+    margin: 20px auto;
+}
+
+object,
+video {
+    border: 0;
+    display: block;
+    height: auto;
+    margin: 20px 0;
+    max-width: 100%;
+}
+
+audio {
+    margin: 20px 0;
+}
+
+img[align="right"] {
+    float: right;
+    margin: 0 0 16px 16px;
+}
+
+img[align="left"] {
+    float: left;
+    margin: 0 16px 16px 0;
+}
+
+img[width="1"] {
+    display: none;
+}
+
+img:not([src]) {
+    display: none;
+}
+
+canvas, svg {
+    display: none;
+}
+
+/* Typography */
+
+h1 {
+    font: -apple-system-title0;
+    font-weight: 600;
+}
+
+h2 {
+    font: -apple-system-title1;
+    font-weight: 700;
+}
+
+h3 {
+    font: -apple-system-title2;
+    font-weight: 700;
+}
+
+h4 {
+    font: -apple-system-title3;
+    font-weight: 700;
+}
+
+/* Content Sectioning */
+
+p {
+    margin: 20px 0;
+}
+
+hr {
+    border-top: 1px solid -apple-system-separator;
+}
+
+/* Block Quotes */
+
+blockquote {
+    background: rgba(160, 160, 160, 0.15);
+    border-radius: 8px;
+    font: -apple-system-title3;
+    margin: 20px auto;
+    overflow: hidden;
+    padding: 0 16px;
+}
+
+blockquote::before,
+blockquote::after {
+    content: "";
+    display: block;
+    margin-top: 16px;
+}
+
+blockquote p {
+    margin: 12px 0;
+}
+
+/* Figures */
+
+figure {
+    background: rgba(160, 160, 160, 0.15);
+    border-radius: 8px;
+    font: -apple-system-caption1;
+    font-style: italic;
+    font-weight: 400;
+    margin: 20px 0;
+    overflow: hidden;
+    padding: 0 12px;
+}
+
+figure::before,
+figure::after {
+    content: "";
+    display: block;
+    margin-top: 12px;
+}
+
+figure img,
+figure picture,
+figure iframe,
+figure object,
+figure video {
+    border-radius: 4px;
+    margin: 8px auto;
+}
+
+figure blockquote {
+    background: transparent;
+    margin: 16px 0;
+    overflow: visible;
+    padding: 0 4px;
+}
+
+figure p,
+figcaption {
+    margin: 8px 0;
+}
+
+/* Links */
+
+a {
+    color: $TINT_COLOR;
+    text-decoration: none;
+}
+
+a:visited {
+    filter: brightness(0.85);
+}
+
+/* Lists */
+
+li {
+    margin: 12px 0;
+}
+
+li img {
+    display: inline-block;
+    margin: 0;
+    vertical-align: top;
+}
+
+li figure {
+    display: inline-block;
+    margin: 0;
+    vertical-align: top;
+}
+
+/* Remove Extra Whitespace */
+
+div + br,
+img + br,
+iframe + br,
+object + br,
+video + br,
+p + br,
+hr + br,
+br + br {
+  display: none;
+}
+
+br:first-child {
+    display: none;
+}
+
+span:empty,
+p:empty,
+div:empty,
+figure:empty {
+    display: none;
+}
+
+/* Tables */
+
+table {
+    border-collapse: collapse;
+    font: -apple-system-body;
+    margin: 20px auto;
+}
+
+table, th, td {
+    border: 1px solid -apple-system-label;
+}
+
+td, th {
+    padding: 4px 6px;
+}
+
+th {
+    font-weight: bold;
+}
+
+/* Ad Cleanup */
+
+.ad-wrapper {
+    display: none;
+}

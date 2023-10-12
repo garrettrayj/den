@@ -8,13 +8,15 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import Foundation
+import SwiftUI
 import WebKit
 
-class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate {
+class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate, WKScriptMessageHandler {
     weak var webView: WKWebView? {
         didSet {
             webView?.navigationDelegate = self
+            webView?.configuration.userContentController.add(self, name: "reader")
+
             Task {
                 await MainActor.run {
                     webView?.publisher(for: \.canGoBack).assign(to: &$canGoBack)
@@ -32,21 +34,22 @@ class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     @Published var canGoForward = false
     @Published var isLoading = true
     @Published var browserError: Error?
+    @Published var showingReader = false
+    @Published var mercuryObject: MercuryObject?
+    @Published var useReaderAutomatically = false
+    
+    var isReaderable: Bool {
+        mercuryObject != nil
+    }
 
-    func loadURL() {
+    func loadURL(url: URL?) {
         guard
-            let url = url,
-            let configuration = webView?.configuration
+            let url = url
         else {
             return
         }
 
         Task {
-            if let contentRuleList = await ContentRuleListUtility.shared.getContentRuleList() {
-                await MainActor.run {
-                    configuration.userContentController.add(contentRuleList)
-                }
-            }
             await webView?.load(URLRequest(url: url))
         }
     }
@@ -56,6 +59,7 @@ class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     }
 
     func goBack() {
+        showingReader = false
         webView?.goBack()
     }
 
@@ -69,7 +73,20 @@ class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     }
 
     func reload() {
+        showingReader = false
         webView?.reload()
+    }
+
+    func showReader() {
+        withAnimation {
+            showingReader = true
+        }
+    }
+    
+    func hideReader() {
+        withAnimation {
+            showingReader = false
+        }
     }
 
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
@@ -87,5 +104,41 @@ class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     ) {
         isLoading = false
         browserError = error
+    }
+
+    func userContentController(
+        _ userContentController: WKUserContentController,
+        didReceive message: WKScriptMessage
+    ) {
+        guard
+            message.name == "reader",
+            let jsonString = message.body as? String
+        else { return }
+
+        let jsonData = Data(jsonString.utf8)
+        let decoder = JSONDecoder()
+
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+
+        decoder.dateDecodingStrategy = .custom({ decoder in
+            let container = try decoder.singleValueContainer()
+            let dateString = try container.decode(String.self)
+
+            if let date = formatter.date(from: dateString) {
+                return date
+            }
+
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Cannot decode date string \(dateString)"
+            )
+        })
+
+        mercuryObject = try? decoder.decode(MercuryObject.self, from: jsonData)
+
+        if useReaderAutomatically {
+            showReader()
+        }
     }
 }
