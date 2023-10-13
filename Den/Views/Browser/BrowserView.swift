@@ -68,7 +68,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
 
             if browserViewModel.showingReader == true {
                 ReaderWebView(browserViewModel: browserViewModel)
-                    .transition(.flipFromBottom)
+                    .transition(.move(edge: .bottom))
                     .ignoresSafeArea()
                     .onAppear {
                         browserViewModel.setReaderZoom(readerZoom)
@@ -85,12 +85,11 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
             }
         }
         .background {
-            // Zoom controls in background for keyboard shortcuts
-            if browserViewModel.showingReader {
-                PageZoomControlGroup(zoomLevel: $readerZoom)
-            } else {
-                PageZoomControlGroup(zoomLevel: $browserZoom)
-            }
+            // Controls in background for keyboard shortcuts
+            ToggleReaderButton(browserViewModel: browserViewModel)
+            ZoomControlGroup(
+                zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom
+            )
         }
         .onChange(of: browserZoom) {
             browserViewModel.setBrowserZoom(browserZoom)

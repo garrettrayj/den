@@ -267,12 +267,14 @@
 		6841523D2AD6A38C00ABE5E2 /* ReaderMac.css in Resources */ = {isa = PBXBuildFile; fileRef = 6841522D2AD38C4100ABE5E2 /* ReaderMac.css */; };
 		6841523F2AD6C65600ABE5E2 /* ReaderInit.js in Resources */ = {isa = PBXBuildFile; fileRef = 6841523E2AD6C65600ABE5E2 /* ReaderInit.js */; };
 		684152402AD6C65600ABE5E2 /* ReaderInit.js in Resources */ = {isa = PBXBuildFile; fileRef = 6841523E2AD6C65600ABE5E2 /* ReaderInit.js */; };
-		684152422AD7B4DB00ABE5E2 /* PageZoomControlGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152412AD7B4DB00ABE5E2 /* PageZoomControlGroup.swift */; };
-		684152432AD7B4DB00ABE5E2 /* PageZoomControlGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152412AD7B4DB00ABE5E2 /* PageZoomControlGroup.swift */; };
+		684152422AD7B4DB00ABE5E2 /* ZoomControlGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152412AD7B4DB00ABE5E2 /* ZoomControlGroup.swift */; };
+		684152432AD7B4DB00ABE5E2 /* ZoomControlGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152412AD7B4DB00ABE5E2 /* ZoomControlGroup.swift */; };
 		684152452AD7B4ED00ABE5E2 /* PageZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152442AD7B4ED00ABE5E2 /* PageZoomLevel.swift */; };
 		684152462AD7B4ED00ABE5E2 /* PageZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152442AD7B4ED00ABE5E2 /* PageZoomLevel.swift */; };
 		684152482AD7B6AE00ABE5E2 /* CaseIterable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152472AD7B6AE00ABE5E2 /* CaseIterable+Extensions.swift */; };
 		684152492AD7B6AE00ABE5E2 /* CaseIterable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152472AD7B6AE00ABE5E2 /* CaseIterable+Extensions.swift */; };
+		684152512AD932B000ABE5E2 /* ToggleReaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152502AD932B000ABE5E2 /* ToggleReaderButton.swift */; };
+		684152522AD9339100ABE5E2 /* ToggleReaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152502AD932B000ABE5E2 /* ToggleReaderButton.swift */; };
 		6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */; };
 		6845BCF424EBE4750008B296 /* AtomFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF324EBE4750008B296 /* AtomFeed+Extensions.swift */; };
 		6845BCF624EBE49A0008B296 /* JSONFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF524EBE49A0008B296 /* JSONFeed+Extensions.swift */; };
@@ -653,9 +655,10 @@
 		684152342AD5546E00ABE5E2 /* Mercury.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Mercury.js; sourceTree = "<group>"; };
 		684152372AD559C300ABE5E2 /* MercuryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercuryObject.swift; sourceTree = "<group>"; };
 		6841523E2AD6C65600ABE5E2 /* ReaderInit.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = ReaderInit.js; sourceTree = "<group>"; };
-		684152412AD7B4DB00ABE5E2 /* PageZoomControlGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageZoomControlGroup.swift; sourceTree = "<group>"; };
+		684152412AD7B4DB00ABE5E2 /* ZoomControlGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomControlGroup.swift; sourceTree = "<group>"; };
 		684152442AD7B4ED00ABE5E2 /* PageZoomLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageZoomLevel.swift; sourceTree = "<group>"; };
 		684152472AD7B6AE00ABE5E2 /* CaseIterable+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+Extensions.swift"; sourceTree = "<group>"; };
+		684152502AD932B000ABE5E2 /* ToggleReaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleReaderButton.swift; sourceTree = "<group>"; };
 		6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFeedItem+Extensions.swift"; sourceTree = "<group>"; };
 		6845BCF324EBE4750008B296 /* AtomFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomFeed+Extensions.swift"; sourceTree = "<group>"; };
 		6845BCF524EBE49A0008B296 /* JSONFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFeed+Extensions.swift"; sourceTree = "<group>"; };
@@ -1474,7 +1477,8 @@
 			children = (
 				68DA45152A39B2EF000A288B /* BrowserToolbar.swift */,
 				68E558352ACC02EC0010E424 /* BrowserView.swift */,
-				684152412AD7B4DB00ABE5E2 /* PageZoomControlGroup.swift */,
+				684152412AD7B4DB00ABE5E2 /* ZoomControlGroup.swift */,
+				684152502AD932B000ABE5E2 /* ToggleReaderButton.swift */,
 			);
 			path = Browser;
 			sourceTree = "<group>";
@@ -2005,6 +2009,7 @@
 				683C35662A9F188700568E9A /* CGSize+Extensions.swift in Sources */,
 				683C35682A9F188700568E9A /* CheckForUpdates.swift in Sources */,
 				683C356B2A9F188700568E9A /* CleanupUtility.swift in Sources */,
+				684152522AD9339100ABE5E2 /* ToggleReaderButton.swift in Sources */,
 				683C356C2A9F188700568E9A /* ClearDataButton.swift in Sources */,
 				683C356D2A9F188700568E9A /* ClearImageCacheButton.swift in Sources */,
 				683C356E2A9F188700568E9A /* Collection+Extensions.swift in Sources */,
@@ -2123,7 +2128,7 @@
 				683C35D92A9F188700568E9A /* PagesSection.swift in Sources */,
 				683C35DA2A9F188700568E9A /* PageToolbar.swift in Sources */,
 				683C35DB2A9F188700568E9A /* PageView.swift in Sources */,
-				684152432AD7B4DB00ABE5E2 /* PageZoomControlGroup.swift in Sources */,
+				684152432AD7B4DB00ABE5E2 /* ZoomControlGroup.swift in Sources */,
 				684152462AD7B4ED00ABE5E2 /* PageZoomLevel.swift in Sources */,
 				683C35DC2A9F188700568E9A /* PasteboardUtility.swift in Sources */,
 				683C35DD2A9F188700568E9A /* Persistence.swift in Sources */,
@@ -2335,6 +2340,7 @@
 				68ED797B29BD97DE00D85B4F /* NetworkMonitor.swift in Sources */,
 				683E3F45293BC02A00B16814 /* NewFeedButton.swift in Sources */,
 				68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */,
+				684152512AD932B000ABE5E2 /* ToggleReaderButton.swift in Sources */,
 				687FEF122A40A87B0042977E /* NewPageButton.swift in Sources */,
 				6856DAF92AB4BC4F0094615E /* NewPageSheet.swift in Sources */,
 				687FEEFF2A3F97260042977E /* NewProfileButton.swift in Sources */,
@@ -2366,7 +2372,7 @@
 				68A2188D29D9D4AE005F42C7 /* PagesSection.swift in Sources */,
 				68FF63F02921C56E0012A275 /* PageToolbar.swift in Sources */,
 				68C413462472773100D1DC7B /* PageView.swift in Sources */,
-				684152422AD7B4DB00ABE5E2 /* PageZoomControlGroup.swift in Sources */,
+				684152422AD7B4DB00ABE5E2 /* ZoomControlGroup.swift in Sources */,
 				684152452AD7B4ED00ABE5E2 /* PageZoomLevel.swift in Sources */,
 				68D17EE82A459E7000AF8A73 /* PasteboardUtility.swift in Sources */,
 				68F6FBA129AF5937001F74B9 /* Persistence.swift in Sources */,

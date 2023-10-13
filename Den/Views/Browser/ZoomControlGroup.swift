@@ -1,5 +1,5 @@
 //
-//  PageZoomControlGroup.swift
+//  ZoomControlGroup.swift
 //  Den
 //
 //  Created by Garrett Johnson on 10/12/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct PageZoomControlGroup: View {
+struct ZoomControlGroup: View {
     @Binding var zoomLevel: PageZoomLevel
 
     var body: some View {

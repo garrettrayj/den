@@ -203,6 +203,14 @@ struct Sidebar: View {
                 showingExporter = false
             }
         }
+        .background {
+            // Buttons in background for keyboard shortcuts
+            ZStack {
+                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
+                NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+                NewTagButton(showingNewTagSheet: $showingNewTagSheet)
+            }.opacity(0)
+        }
     }
 
     private func saveChanges() {
