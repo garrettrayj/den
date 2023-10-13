@@ -92,7 +92,7 @@ struct FeedInspector: View {
             }
 
             previewsSection
-            
+
             Section {
                 Toggle(isOn: $feed.readerMode) {
                     Text("Use Reader Automatically", comment: "Toggle label.")

@@ -11,7 +11,7 @@
 import Foundation
 
 // swiftlint:disable identifier_name
-struct MercuryObject: Codable {
+struct MercuryObject: Codable, Equatable {
     var title: String?
     var content: String?
     var author: String?
@@ -26,4 +26,8 @@ struct MercuryObject: Codable {
     var direction: String?
     var total_pages: Int?
     var rendered_pages: Int?
+
+    static func ==(lhs: MercuryObject, rhs: MercuryObject) -> Bool {
+        return lhs.title == rhs.title && lhs.content == rhs.content
+    }
 }

@@ -39,9 +39,9 @@ document.addEventListener('readystatechange', event => {
         break;
     case "interactive":
         fixIframeScaling();
+        fixImageSrcset();
         break;
     case "complete":
-        fixImageSrcset();
         fixImageSize();
         break;
     }

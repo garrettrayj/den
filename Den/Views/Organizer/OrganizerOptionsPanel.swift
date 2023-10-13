@@ -45,7 +45,7 @@ struct OrganizerOptionsPanel: View {
                 } header: {
                     Text("Previews", comment: "Inspector section header.")
                 }
-                
+
                 Section {
                     Toggle(sources: sources, isOn: \.readerMode) {
                         Text("Use Reader Automatically", comment: "Toggle label.")

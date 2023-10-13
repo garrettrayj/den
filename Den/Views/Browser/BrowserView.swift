@@ -11,6 +11,9 @@
 import SwiftUI
 
 struct BrowserView<ExtraToolbar: ToolbarContent>: View {
+    @Environment(\.self) private var environment
+    @Environment(\.userTint) private var userTint
+
     var url: URL
     var useReaderAutomatically: Bool?
     var readerPublishedDate: Date?
@@ -18,6 +21,9 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     var extraToolbar: ExtraToolbar?
 
     @StateObject var browserViewModel = BrowserViewModel()
+
+    @AppStorage("BrowserZoom") var browserZoom: PageZoomLevel = .oneHundredPercent
+    @AppStorage("ReaderZoom") var readerZoom: PageZoomLevel = .oneHundredPercent
 
     init(
         url: URL,
@@ -36,9 +42,11 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     var body: some View {
         #if os(macOS)
         ZStack(alignment: .top) {
-            BrowserWebView(viewModel: browserViewModel)
+            BrowserWebView(browserViewModel: browserViewModel)
                 .onAppear {
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
+                    browserViewModel.userTintHex = userTint?.hexString(environment: environment)
+                    browserViewModel.setBrowserZoom(browserZoom)
                     browserViewModel.loadURL(url: url)
                 }
                 .onDisappear {
@@ -48,27 +56,47 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                 .navigationBarBackButtonHidden()
                 .navigationTitle(browserViewModel.url?.host() ?? "")
                 .toolbar {
-                    BrowserToolbar(browserViewModel: browserViewModel)
+                    BrowserToolbar(
+                        browserViewModel: browserViewModel,
+                        browserZoom: $browserZoom,
+                        readerZoom: $readerZoom
+                    )
                     extraToolbar
                 }
                 .padding(.top, 1)
                 .ignoresSafeArea()
-                .overlay(alignment: .top) {
-                    if browserViewModel.isLoading {
-                        ProgressView(value: browserViewModel.estimatedProgress, total: 1)
-                            .progressViewStyle(ThinLinearProgressViewStyle())
-                    }
-                }
 
             if browserViewModel.showingReader == true {
-                ReaderWebView(
-                    browserViewModel: browserViewModel,
-                    publishedDate: readerPublishedDate,
-                    byline: readerByline
-                )
-                .transition(.flipFromBottom)
-                .ignoresSafeArea()
+                ReaderWebView(browserViewModel: browserViewModel)
+                    .transition(.flipFromBottom)
+                    .ignoresSafeArea()
+                    .onAppear {
+                        browserViewModel.setReaderZoom(readerZoom)
+                        browserViewModel.loadReader()
+                    }
+                    .onChange(of: browserViewModel.mercuryObject) {
+                        browserViewModel.loadReader()
+                    }
             }
+
+            if browserViewModel.isLoading {
+                ProgressView(value: browserViewModel.estimatedProgress, total: 1)
+                    .progressViewStyle(ThinLinearProgressViewStyle())
+            }
+        }
+        .background {
+            // Zoom controls in background for keyboard shortcuts
+            if browserViewModel.showingReader {
+                PageZoomControlGroup(zoomLevel: $readerZoom)
+            } else {
+                PageZoomControlGroup(zoomLevel: $browserZoom)
+            }
+        }
+        .onChange(of: browserZoom) {
+            browserViewModel.setBrowserZoom(browserZoom)
+        }
+        .onChange(of: readerZoom) {
+            browserViewModel.setReaderZoom(readerZoom)
         }
         #else
         SafariView(url: url, readerMode: readerMode)

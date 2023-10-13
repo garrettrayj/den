@@ -11,22 +11,22 @@
 import SwiftUI
 import WebKit
 
-class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate, WKScriptMessageHandler {
-    weak var webView: WKWebView? {
+class BrowserViewModel: NSObject, ObservableObject {
+    weak var browserWebView: WKWebView? {
         didSet {
-            webView?.navigationDelegate = self
-            webView?.configuration.userContentController.add(self, name: "reader")
-
             Task {
                 await MainActor.run {
-                    webView?.publisher(for: \.canGoBack).assign(to: &$canGoBack)
-                    webView?.publisher(for: \.canGoForward).assign(to: &$canGoForward)
-                    webView?.publisher(for: \.estimatedProgress).assign(to: &$estimatedProgress)
-                    webView?.publisher(for: \.url).assign(to: &$url)
+                    browserWebView?.publisher(for: \.canGoBack).assign(to: &$canGoBack)
+                    browserWebView?.publisher(for: \.canGoForward).assign(to: &$canGoForward)
+                    browserWebView?.publisher(for: \.estimatedProgress).assign(to: &$estimatedProgress)
+                    browserWebView?.publisher(for: \.url).assign(to: &$url)
+                    browserWebView?.publisher(for: \.isLoading).assign(to: &$isLoading)
                 }
             }
         }
     }
+
+    weak var readerWebView: WKWebView?
 
     @Published var url: URL?
     @Published var estimatedProgress: Double = 0
@@ -38,40 +38,32 @@ class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate, WKScri
     @Published var showingReader = false
     @Published var mercuryObject: MercuryObject?
     @Published var useReaderAutomatically = false
+    @Published var userTintHex: String?
 
     func loadURL(url: URL?) {
-        guard
-            let url = url
-        else {
-            return
-        }
-
-        Task {
-            await webView?.load(URLRequest(url: url))
-        }
+        guard let url = url else { return }
+        browserWebView?.load(URLRequest(url: url))
     }
 
     func loadBlank() {
-        webView?.loadHTMLString("<html/>", baseURL: nil)
+        browserWebView?.loadHTMLString("<html/>", baseURL: nil)
     }
 
     func goBack() {
-        showingReader = false
-        webView?.goBack()
+        browserWebView?.goBack()
     }
 
     func goForward() {
-        webView?.goForward()
+        browserWebView?.goForward()
     }
 
     func stop() {
-        webView?.stopLoading()
-        isLoading = false
+        browserWebView?.stopLoading()
     }
 
     func reload() {
         showingReader = false
-        webView?.reload()
+        browserWebView?.reload()
     }
 
     func showReader() {
@@ -79,69 +71,94 @@ class BrowserViewModel: NSObject, ObservableObject, WKNavigationDelegate, WKScri
             showingReader = true
         }
     }
-    
+
     func hideReader() {
         withAnimation {
+            useReaderAutomatically = false
             showingReader = false
         }
     }
 
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        isLoading = true
+    func setBrowserZoom(_ level: PageZoomLevel) {
+        browserWebView?.pageZoom = CGFloat(level.rawValue) / 100
     }
 
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        isLoading = false
+    func setReaderZoom(_ level: PageZoomLevel) {
+        readerWebView?.pageZoom = CGFloat(level.rawValue) / 100
     }
 
-    func webView(
-        _ webView: WKWebView,
-        didFailProvisionalNavigation navigation: WKNavigation!,
-        withError error: Error
-    ) {
-        isLoading = false
-        browserError = error
-    }
-
-    func userContentController(
-        _ userContentController: WKUserContentController,
-        didReceive message: WKScriptMessage
-    ) {
+    func loadReader() {
         guard
-            message.name == "reader",
-            let jsonString = message.body as? String
-        else { return }
-
-        let jsonData = Data(jsonString.utf8)
-        let decoder = JSONDecoder()
-
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-
-        decoder.dateDecodingStrategy = .custom({ decoder in
-            let container = try decoder.singleValueContainer()
-            let dateString = try container.decode(String.self)
-
-            if let date = formatter.date(from: dateString) {
-                return date
-            }
-
-            throw DecodingError.dataCorruptedError(
-                in: container,
-                debugDescription: "Cannot decode date string \(dateString)"
-            )
-        })
-
-        mercuryObject = try? decoder.decode(MercuryObject.self, from: jsonData)
-
-        if mercuryObject != nil {
-            withAnimation {
-                isReaderable = true
-            }
+            let title = mercuryObject?.title,
+            let content = mercuryObject?.content
+        else {
+            readerWebView?.loadHTMLString("Womp womp", baseURL: url)
+            return
         }
-        
-        if useReaderAutomatically {
-            showReader()
+
+        var html = """
+            <html>
+            <head>
+            <title>Den Reader</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no" />
+            <style>\(readerStyles)</style>
+            </head>
+            <body>
+            <header>
+            <h1 id="den-title">\(title)</h1>
+        """
+
+        if let byline = mercuryObject?.author {
+            html += "<p id=\"den-author\">\(byline)</p>"
         }
+
+        if let date = mercuryObject?.date_published {
+            html += """
+            <p id="den-date-published">
+                \(date.formatted(date: .complete, time: .shortened))
+                (\(date.formatted(.relative(presentation: .numeric))))
+            </p>
+            """
+        }
+
+        if
+            let leadImageURL = mercuryObject?.lead_image_url,
+            !content.prefix(1000).contains("<img") && !content.prefix(1000).contains("<picture")
+        {
+            html += "<img src=\"\(leadImageURL.absoluteString)\" />"
+        }
+
+        html += """
+            </header>
+            <main>
+            \(content)
+            </body>
+            </html>
+        """
+
+        readerWebView?.loadHTMLString(html, baseURL: url)
+    }
+
+    var readerStyles: String {
+        guard
+            let path = Bundle.main.path(forResource: "Reader", ofType: "css"),
+            var styles = try? String(contentsOfFile: path)
+        else {
+            return ""
+        }
+
+        #if os(macOS)
+        if
+            let path = Bundle.main.path(forResource: "ReaderMac", ofType: "css"),
+            let macStyles = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()
+        {
+            styles += macStyles
+        }
+        #endif
+
+        return styles.replacingOccurrences(
+            of: "$TINT_COLOR",
+            with: userTintHex ?? "accentcolor"
+        )
     }
 }

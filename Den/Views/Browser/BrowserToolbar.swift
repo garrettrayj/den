@@ -17,6 +17,9 @@ struct BrowserToolbar: ToolbarContent {
 
     @ObservedObject var browserViewModel: BrowserViewModel
 
+    @Binding var browserZoom: PageZoomLevel
+    @Binding var readerZoom: PageZoomLevel
+
     var body: some ToolbarContent {
         ToolbarItem(placement: .navigation) {
             Button {
@@ -54,8 +57,8 @@ struct BrowserToolbar: ToolbarContent {
             .disabled(!browserViewModel.canGoForward)
         }
         ToolbarItem(placement: .navigation) {
-            Menu {
-                if browserViewModel.showingReader {
+            if browserViewModel.showingReader {
+                Menu {
                     Button {
                         browserViewModel.hideReader()
                     } label: {
@@ -65,7 +68,28 @@ struct BrowserToolbar: ToolbarContent {
                             Image(systemName: "doc.plaintext")
                         }
                     }
-                } else {
+
+                    PageZoomControlGroup(zoomLevel: $readerZoom)
+                } label: {
+                    Label {
+                        Text("Formatting", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "doc.plaintext")
+                            .foregroundStyle(.tint)
+                            .padding(.horizontal, 2.5)
+                    }
+                    .font(.callout.weight(.medium))
+                    .imageScale(.large)
+                    .padding(4)
+                    .contentShape(.rect)
+                } primaryAction: {
+                    browserViewModel.hideReader()
+                }
+                .menuStyle(.button)
+                .buttonStyle(.plain)
+                .menuIndicator(.hidden)
+            } else {
+                Menu {
                     Button {
                         browserViewModel.showReader()
                     } label: {
@@ -76,38 +100,31 @@ struct BrowserToolbar: ToolbarContent {
                         }
                     }
                     .disabled(!browserViewModel.isReaderable)
-                }
-            } label: {
-                Label {
-                    Text("Formatting", comment: "Button label.")
-                } icon: {
-                    if browserViewModel.isReaderable {
-                        Group {
-                            if browserViewModel.showingReader {
-                                Image(systemName: "doc.plaintext").foregroundStyle(.tint)
-                            } else {
-                                Image(systemName: "doc.plaintext")
-                            }
+
+                    PageZoomControlGroup(zoomLevel: $browserZoom)
+                } label: {
+                    Label {
+                        Text("Formatting", comment: "Button label.")
+                    } icon: {
+                        if browserViewModel.isReaderable {
+                            Image(systemName: "doc.plaintext").padding(.horizontal, 2.5)
+                        } else {
+                            Image(systemName: "textformat.size")
                         }
-                        .padding(.horizontal, 3)
-                    } else {
-                        Image(systemName: "textformat.size")
+                    }
+                    .font(.callout.weight(.medium))
+                    .imageScale(.large)
+                    .padding(4)
+                    .contentShape(.rect)
+                } primaryAction: {
+                    if browserViewModel.isReaderable {
+                        browserViewModel.showReader()
                     }
                 }
-                .font(.callout.weight(.medium))
-                .imageScale(.large)
-                .padding(4)
-                .contentShape(.rect)
-            } primaryAction: {
-                if browserViewModel.showingReader {
-                    browserViewModel.hideReader()
-                } else if browserViewModel.isReaderable {
-                    browserViewModel.showReader()
-                }
+                .menuStyle(.button)
+                .buttonStyle(.plain)
+                .menuIndicator(.hidden)
             }
-            .menuStyle(.button)
-            .buttonStyle(.plain)
-            .menuIndicator(.hidden)
         }
         ToolbarItem {
             if browserViewModel.isLoading {
