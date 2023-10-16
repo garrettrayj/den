@@ -24,8 +24,6 @@ struct DenApp: App {
     @Environment(\.openURL) private var openURL
 
     @AppStorage("LastCleanup") private var lastCleanup: Double?
-    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
-    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
     @StateObject private var networkMonitor = NetworkMonitor()
 
@@ -39,9 +37,9 @@ struct DenApp: App {
         WindowGroup {
             RootView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .environment(\.useSystemBrowser, useSystemBrowser)
+
                 .environmentObject(networkMonitor)
-                .preferredColorScheme(userColorScheme.colorScheme)
+
                 .task { performCleanup() }
         }
         .handlesExternalEvents(matching: ["*"])
@@ -77,14 +75,6 @@ struct DenApp: App {
         }
         #if os(macOS)
         .defaultSize(width: 1200, height: 800)
-        #endif
-
-        #if os(macOS)
-        Settings {
-            SettingsForm(userColorScheme: $userColorScheme, useSystemBrowser: $useSystemBrowser)
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .preferredColorScheme(userColorScheme.colorScheme)
-        }
         #endif
     }
 

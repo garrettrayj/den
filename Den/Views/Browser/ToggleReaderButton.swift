@@ -12,7 +12,7 @@ import SwiftUI
 
 struct ToggleReaderButton: View {
     @ObservedObject var browserViewModel: BrowserViewModel
-    
+
     var body: some View {
         Button {
             browserViewModel.toggleReader()

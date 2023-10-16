@@ -19,7 +19,11 @@ struct UserColorSchemePicker: View {
             Text("Light", comment: "User color scheme picker option.").tag(UserColorScheme.light)
             Text("Dark", comment: "User color scheme picker option.").tag(UserColorScheme.dark)
         } label: {
-            Text("Appearance", comment: "Picker label.")
+            Label {
+                Text("Appearance", comment: "Picker label.")
+            } icon: {
+                Image(systemName: "paintpalette")
+            }
         }
     }
 }

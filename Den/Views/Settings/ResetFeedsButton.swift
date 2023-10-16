@@ -1,5 +1,5 @@
 //
-//  ClearDataButton.swift
+//  ResetFeedsButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/20/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ClearDataButton: View {
+struct ResetFeedsButton: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
@@ -21,9 +21,9 @@ struct ClearDataButton: View {
             }
         } label: {
             Label {
-                Text("Clear Data", comment: "Button label.")
+                Text("Reset Feeds", comment: "Button label.")
             } icon: {
-                Image(systemName: "clear")
+                Image(systemName: "arrow.counterclockwise")
             }
         }
         .accessibilityIdentifier("ClearData")

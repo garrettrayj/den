@@ -25,8 +25,9 @@ struct Sidebar: View {
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
     @Binding var refreshing: Bool
+    @Binding var userColorScheme: UserColorScheme
+    @Binding var useSystemBrowser: Bool
     @Binding var showingNewFeedSheet: Bool
-    @Binding var showingNewProfileSheet: Bool
 
     @State private var exporterIsPresented: Bool = false
     @State private var isEditing = false
@@ -34,7 +35,7 @@ struct Sidebar: View {
     @State private var searchInput = ""
     @State private var showingExporter: Bool = false
     @State private var showingImporter: Bool = false
-    @State private var showingProfileOptions = false
+    @State private var showingSettings = false
     @State private var showingNewPageSheet = false
     @State private var showingNewTagSheet = false
 
@@ -109,9 +110,8 @@ struct Sidebar: View {
                 showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
                 showingNewPageSheet: $showingNewPageSheet,
-                showingNewProfileSheet: $showingNewProfileSheet,
                 showingNewTagSheet: $showingNewTagSheet,
-                showingProfileOptions: $showingProfileOptions,
+                showingSettings: $showingSettings,
                 profiles: profiles,
                 refreshProgress: refreshProgress
             )
@@ -120,8 +120,6 @@ struct Sidebar: View {
         .safeAreaInset(edge: .bottom) {
             VStack(alignment: .leading) {
                 Menu {
-                    NewProfileButton(showingNewProfileSheet: $showingNewProfileSheet)
-                        .labelStyle(.titleAndIcon)
                     ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
                         .pickerStyle(.inline)
                 } label: {
@@ -144,16 +142,18 @@ struct Sidebar: View {
         }
         #endif
         .sheet(
-            isPresented: $showingProfileOptions,
+            isPresented: $showingSettings,
             onDismiss: {
                 if !profile.isDeleted {
                     saveChanges()
                 }
             },
             content: {
-                ProfileOptionsSheet(
-                    profile: profile,
-                    currentProfileID: $currentProfileID
+                SettingsSheet(
+                    profiles: profiles,
+                    currentProfileID: $currentProfileID,
+                    userColorScheme: $userColorScheme,
+                    useSystemBrowser: $useSystemBrowser
                 )
             }
         )

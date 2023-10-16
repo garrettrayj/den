@@ -98,7 +98,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
             browserViewModel.setReaderZoom(readerZoom)
         }
         #else
-        SafariView(url: url, readerMode: readerMode)
+        SafariView(url: url, readerMode: useReaderAutomatically)
             .toolbar(.hidden)
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
             .ignoresSafeArea()

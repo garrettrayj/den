@@ -23,9 +23,8 @@ struct SidebarToolbar: ToolbarContent {
     @Binding var showingImporter: Bool
     @Binding var showingNewFeedSheet: Bool
     @Binding var showingNewPageSheet: Bool
-    @Binding var showingNewProfileSheet: Bool
     @Binding var showingNewTagSheet: Bool
-    @Binding var showingProfileOptions: Bool
+    @Binding var showingSettings: Bool
 
     let profiles: [Profile]
     let refreshProgress: Progress
@@ -49,7 +48,7 @@ struct SidebarToolbar: ToolbarContent {
                 ImportButton(showingImporter: $showingImporter)
                 ExportButton(showingExporter: $showingExporter)
                 OrganizerNavLink(detailPanel: $detailPanel)
-                ProfileOptionsButton(showingProfileOptions: $showingProfileOptions)
+                SettingsButton(showingSettings: $showingSettings)
             } label: {
                 Label {
                     Text("Menu", comment: "Button label.")
@@ -94,7 +93,7 @@ struct SidebarToolbar: ToolbarContent {
                     ImportButton(showingImporter: $showingImporter)
                     ExportButton(showingExporter: $showingExporter)
                     OrganizerNavLink(detailPanel: $detailPanel)
-                    ProfileOptionsButton(showingProfileOptions: $showingProfileOptions)
+                    SettingsButton(showingSettings: $showingSettings)
                 } label: {
                     Label {
                         Text("Preferences", comment: "Menu label.")
@@ -108,7 +107,6 @@ struct SidebarToolbar: ToolbarContent {
         }
         ToolbarItem(placement: .bottomBar) {
             Menu {
-                NewProfileButton(showingNewProfileSheet: $showingNewProfileSheet)
                 ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
             } label: {
                 Label {

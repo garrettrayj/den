@@ -15,7 +15,8 @@ struct Landing: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @Binding var currentProfileID: String?
-    @Binding var showingNewProfileSheet: Bool
+
+    @State private var showingNewProfileSheet = false
 
     let profiles: [Profile]
 
@@ -41,8 +42,7 @@ struct Landing: View {
             #endif
             .toolbar {
                 ToolbarItem {
-                    NewProfileButton(showingNewProfileSheet: $showingNewProfileSheet)
-                        .labelStyle(.titleAndIcon)
+                    NewProfileButton().labelStyle(.titleAndIcon)
                 }
             }
         }

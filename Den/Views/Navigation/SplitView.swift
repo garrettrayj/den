@@ -22,7 +22,8 @@ struct SplitView: View {
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
-    @Binding var showingNewProfileSheet: Bool
+    @Binding var userColorScheme: UserColorScheme
+    @Binding var useSystemBrowser: Bool
 
     let profiles: [Profile]
     let refreshProgress: Progress = Progress()
@@ -49,8 +50,9 @@ struct SplitView: View {
                 newFeedPageID: $newFeedPageID,
                 newFeedWebAddress: $newFeedWebAddress,
                 refreshing: $refreshing,
+                userColorScheme: $userColorScheme,
+                useSystemBrowser: $useSystemBrowser,
                 showingNewFeedSheet: $showingNewFeedSheet,
-                showingNewProfileSheet: $showingNewProfileSheet,
                 profiles: profiles,
                 refreshProgress: refreshProgress
             )

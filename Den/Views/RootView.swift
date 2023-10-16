@@ -17,9 +17,11 @@ struct RootView: View {
 
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
-    @State private var showingNewProfileSheet = false
 
     @SceneStorage("CurrentProfileID") private var currentProfileID: String?
+
+    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
+    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.name, order: .forward),
@@ -33,18 +35,20 @@ struct RootView: View {
                 SplitView(
                     profile: profile,
                     currentProfileID: $currentProfileID,
-                    showingNewProfileSheet: $showingNewProfileSheet,
+                    userColorScheme: $userColorScheme,
+                    useSystemBrowser: $useSystemBrowser,
                     profiles: Array(profiles)
                 )
                 .environment(\.userTint, profile.tintColor)
             } else {
                 Landing(
                     currentProfileID: $currentProfileID,
-                    showingNewProfileSheet: $showingNewProfileSheet,
                     profiles: Array(profiles)
                 )
             }
         }
+        .environment(\.useSystemBrowser, useSystemBrowser)
+        .preferredColorScheme(userColorScheme.colorScheme)
         .onReceive(NotificationCenter.default.publisher(for: .appErrored, object: nil)) { output in
             if let message = output.userInfo?["message"] as? String {
                 appErrorMessage = message
@@ -54,20 +58,5 @@ struct RootView: View {
         .sheet(isPresented: $showingAppErrorSheet) {
             AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
         }
-        .sheet(
-            isPresented: $showingNewProfileSheet,
-            onDismiss: {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            },
-            content: {
-                NewProfileSheet(currentProfileID: $currentProfileID)
-            }
-        )
     }
 }

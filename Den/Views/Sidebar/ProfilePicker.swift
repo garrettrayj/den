@@ -27,6 +27,5 @@ struct ProfilePicker: View {
         } label: {
             Text("Choose Profile", comment: "Picker label.")
         }
-        .tint(userTint)
     }
 }

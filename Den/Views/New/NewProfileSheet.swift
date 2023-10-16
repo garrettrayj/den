@@ -14,8 +14,6 @@ struct NewProfileSheet: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 
-    @Binding var currentProfileID: String?
-
     @State private var name: String = ""
     @State private var color: AccentColor?
 
@@ -33,7 +31,12 @@ struct NewProfileSheet: View {
                 } header: {
                     Text("Name", comment: "New profile section header.")
                 }
-                AccentColorSelector(selection: $color)
+
+                Section {
+                    AccentColorSelector(selection: $color)
+                } header: {
+                    Text("Customization", comment: "Section header.")
+                }
             }
             .formStyle(.grouped)
             .navigationTitle(Text("New Profile", comment: "Navigation title."))
@@ -43,7 +46,6 @@ struct NewProfileSheet: View {
                         let profile = Profile.create(in: viewContext)
                         profile.wrappedName = name
                         profile.tintOption = color
-                        currentProfileID = profile.id?.uuidString
                         profile.objectWillChange.send()
                         dismiss()
                     } label: {
@@ -61,6 +63,6 @@ struct NewProfileSheet: View {
                 }
             }
         }
-        .frame(minWidth: 360, minHeight: 260)
+        .frame(minWidth: 360, minHeight: 308)
     }
 }

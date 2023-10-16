@@ -28,6 +28,24 @@
       }
     },
     {
+      "identity" : "punycodeswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gumob/PunycodeSwift.git",
+      "state" : {
+        "revision" : "4356ec54e073741449640d3d50a1fd24fd1e1b8b",
+        "version" : "2.1.0"
+      }
+    },
+    {
+      "identity" : "safariconverterlib",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AdguardTeam/SafariConverterLib/",
+      "state" : {
+        "branch" : "master",
+        "revision" : "73f0622fe3b07bfb1b15a76eaea8d711c1ec69ef"
+      }
+    },
+    {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
@@ -70,6 +88,15 @@
       "state" : {
         "revision" : "f0ceaf5cc9f3f23daa0ccb6dcebd79fc96ccc7d9",
         "version" : "2.5.0"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser",
+      "state" : {
+        "revision" : "6b2aa2748a7881eebb9f84fb10c01293e15b52ca",
+        "version" : "0.5.0"
       }
     },
     {

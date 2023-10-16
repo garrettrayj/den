@@ -11,18 +11,35 @@
 import SwiftUI
 
 struct NewProfileButton: View {
-    @Binding var showingNewProfileSheet: Bool
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @State private var showingSheet = false
 
     var body: some View {
         Button {
-            showingNewProfileSheet = true
+            showingSheet = true
         } label: {
             Label {
                 Text("New Profile", comment: "Button label.").lineLimit(1)
             } icon: {
-                Image(systemName: "person.crop.circle.badge.plus")
+                Image(systemName: "person.badge.plus")
             }
         }
         .accessibilityIdentifier("NewProfile")
+        .sheet(
+            isPresented: $showingSheet,
+            onDismiss: {
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            },
+            content: {
+                NewProfileSheet()
+            }
+        )
     }
 }
