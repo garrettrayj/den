@@ -14,7 +14,7 @@ struct SettingsSheet: View {
     @Environment(\.dismiss) private var dismiss
 
     let profiles: [Profile]
-    
+
     @Binding var currentProfileID: String?
     @Binding var userColorScheme: UserColorScheme
     @Binding var useSystemBrowser: Bool

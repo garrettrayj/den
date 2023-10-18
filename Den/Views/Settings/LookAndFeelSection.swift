@@ -17,7 +17,7 @@ struct LookAndFeelSection: View {
     var body: some View {
         Section {
             UserColorSchemePicker(userColorScheme: $userColorScheme)
-            
+
             Toggle(isOn: $useSystemBrowser) {
                 Label {
                     Text("Use System Browser", comment: "Toggle label.")

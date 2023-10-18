@@ -96,12 +96,34 @@ class BrowserViewModel: NSObject, ObservableObject {
     }
 
     func loadReader() {
+        var baseURL: URL?
+
+        if
+            let pageURL = url,
+            var pageURLComponents = URLComponents(url: pageURL, resolvingAgainstBaseURL: false)
+        {
+            pageURLComponents.path = ""
+            baseURL = pageURLComponents.url
+        }
+
+        readerWebView?.loadHTMLString(readerHTML, baseURL: baseURL)
+    }
+
+    private var readerHTML: String {
         guard
             let title = mercuryObject?.title,
             let content = mercuryObject?.content
         else {
-            readerWebView?.loadHTMLString("Womp womp", baseURL: url)
-            return
+            return """
+            <html>
+            <head>
+            <title>Reader Unavailable</title>
+            </head>
+            <body>
+            <h1>Reader Unavailable</h1>
+            </body>
+            </html>
+            """
         }
 
         var html = """
@@ -143,11 +165,11 @@ class BrowserViewModel: NSObject, ObservableObject {
             </body>
             </html>
         """
-
-        readerWebView?.loadHTMLString(html, baseURL: url)
+        
+        return html
     }
 
-    var readerStyles: String {
+    private var readerStyles: String {
         guard
             let path = Bundle.main.path(forResource: "Reader", ofType: "css"),
             var styles = try? String(contentsOfFile: path)

@@ -20,6 +20,12 @@ struct BrowserWebView {
         wkWebView.navigationDelegate = context.coordinator
         wkWebView.configuration.userContentController.add(context.coordinator, name: "reader")
 
+        Task {
+            for ruleList in await ContentFiltertUtility.getRuleLists() {
+                wkWebView.configuration.userContentController.add(ruleList)
+            }
+        }
+        
         addMercuryScript(wkWebView.configuration.userContentController)
         addParseForReaderScript(wkWebView.configuration.userContentController)
 

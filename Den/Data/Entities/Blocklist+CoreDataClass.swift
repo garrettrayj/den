@@ -26,6 +26,15 @@ public class Blocklist: NSManagedObject {
         set { name = newValue }
     }
 
+    public var urlString: String {
+        get { url?.absoluteString ?? "" }
+        set { url = URL(string: newValue) }
+    }
+
+    public var blocklistStatus: BlocklistStatus? {
+        (value(forKey: "blocklistStatus") as? [BlocklistStatus])?.first
+    }
+
     static func create(
         in managedObjectContext: NSManagedObjectContext
     ) -> Blocklist {

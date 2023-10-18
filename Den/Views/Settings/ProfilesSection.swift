@@ -14,9 +14,9 @@ struct ProfilesSection: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     let profiles: [Profile]
-    
+
     @Binding var currentProfileID: String?
-    
+
     @State private var selection: Profile?
     @State private var showingNewProfile = false
 

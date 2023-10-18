@@ -23,6 +23,14 @@ function fixImageSrcset() {
             img.removeAttribute("srcset");
         }
     });
+    
+    document.querySelectorAll("source").forEach(function(source) {
+        // Remove "data:" srcset attributes (www.thestreet.com)
+        var srcset = source.getAttribute("srcset");
+        if (typeof srcset === "string" && srcset.slice(0, 4) === "data") {
+            source.removeAttribute("srcset");
+        }
+    });
 }
 
 function fixIframeScaling() {
@@ -33,16 +41,8 @@ function fixIframeScaling() {
     });
 }
 
-document.addEventListener('readystatechange', event => {
-    switch (document.readyState) {
-        case "loading":
-        break;
-    case "interactive":
-        fixIframeScaling();
-        fixImageSrcset();
-        break;
-    case "complete":
-        fixImageSize();
-        break;
-    }
+window.addEventListener('load', function() {
+    fixIframeScaling();
+    fixImageSrcset();
+    fixImageSize();
 });

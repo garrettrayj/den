@@ -4,6 +4,20 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="URI"/>
+        <fetchedProperty name="blocklistStatus" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="BlocklistStatus" predicateString="blocklistId = $FETCH_SOURCE.id"/>
+        </fetchedProperty>
+    </entity>
+    <entity name="BlocklistStatus" representedClassName="BlocklistStatus" syncable="YES" codeGenerationType="category">
+        <attribute name="blocklistId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="errorsCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="overLimit" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="refreshed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="totalConvertedCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <fetchedProperty name="blocklist" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Blocklist" predicateString="id = $FETCH_SOURCE.blocklistId"/>
+        </fetchedProperty>
     </entity>
     <entity name="Bookmark" representedClassName="Bookmark" syncable="YES" codeGenerationType="category">
         <attribute name="author" optional="YES" attributeType="String"/>
@@ -197,5 +211,6 @@
         <memberEntity name="FeedData"/>
         <memberEntity name="Trend"/>
         <memberEntity name="TrendItem"/>
+        <memberEntity name="BlocklistStatus"/>
     </configuration>
 </model>

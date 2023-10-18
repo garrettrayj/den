@@ -25,35 +25,24 @@ struct BlocklistsSection: View {
                 Text("No Blocklists")
             } else {
                 ForEach(blocklists) { blocklist in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            blocklist.nameText
-                            if let url = blocklist.url {
-                                Text(url.absoluteString).font(.caption)
+                    NavigationLink {
+                        BlocklistSettings(blocklist: blocklist)
+                    } label: {
+                        Label {
+                            VStack(alignment: .leading) {
+                                blocklist.nameText
+                                if let url = blocklist.url {
+                                    Text(url.absoluteString).font(.caption)
+                                }
                             }
+                        } icon: {
+                            Image(systemName: "square.slash")
                         }
-                        Spacer()
-                        Button(role: .destructive) {
-                            viewContext.delete(blocklist)
-                            do {
-                                try viewContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
-                        } label: {
-                            Label {
-                                Text("Delete", comment: "Button label.")
-                            } icon: {
-                                Image(systemName: "trash").symbolRenderingMode(.multicolor)
-                            }
-                        }
-                        .labelStyle(.iconOnly)
-                        .buttonStyle(.borderless)
                     }
                 }
                 .onDelete(perform: delete)
             }
-            
+
             Button {
                 showingNewBlocklist = true
             } label: {

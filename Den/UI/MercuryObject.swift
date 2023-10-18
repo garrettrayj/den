@@ -27,7 +27,7 @@ struct MercuryObject: Codable, Equatable {
     var total_pages: Int?
     var rendered_pages: Int?
 
-    static func ==(lhs: MercuryObject, rhs: MercuryObject) -> Bool {
+    static func == (lhs: MercuryObject, rhs: MercuryObject) -> Bool {
         return lhs.title == rhs.title && lhs.content == rhs.content
     }
 }
