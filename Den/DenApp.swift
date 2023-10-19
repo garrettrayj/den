@@ -23,8 +23,6 @@ import Sparkle
 struct DenApp: App {
     @Environment(\.openURL) private var openURL
 
-    @AppStorage("LastCleanup") private var lastCleanup: Double?
-
     @StateObject private var networkMonitor = NetworkMonitor()
 
     let persistenceController = PersistenceController.shared
@@ -37,10 +35,7 @@ struct DenApp: App {
         WindowGroup {
             RootView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-
                 .environmentObject(networkMonitor)
-
-                .task { performCleanup() }
         }
         .handlesExternalEvents(matching: ["*"])
         .commands {
@@ -87,28 +82,6 @@ struct DenApp: App {
         )
         #endif
         setupImageHandling()
-    }
-
-    private func performCleanup() {
-        if let lastCleaned = lastCleanup {
-            let nextCleanup = Date(timeIntervalSince1970: lastCleaned) + 7 * 24 * 60 * 60
-            if nextCleanup > .now {
-                Logger.main.debug("Next cleanup after \(nextCleanup.formatted(), privacy: .public)")
-            }
-            return
-        }
-
-        persistenceController.container.performBackgroundTask { context in
-            guard let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile] else { return }
-            for profile in profiles {
-                try? CleanupUtility.removeExpiredHistory(context: context, profile: profile)
-                CleanupUtility.trimSearches(context: context, profile: profile)
-            }
-            try? CleanupUtility.purgeOrphans(context: context)
-            try? context.save()
-        }
-
-        lastCleanup = Date.now.timeIntervalSince1970
     }
 
     private func setupImageHandling() {

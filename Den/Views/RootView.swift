@@ -20,6 +20,7 @@ struct RootView: View {
 
     @SceneStorage("CurrentProfileID") private var currentProfileID: String?
 
+    @AppStorage("MaintenanceTimestamp") private var maintenanceTimestamp: Double?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
@@ -58,5 +59,33 @@ struct RootView: View {
         .sheet(isPresented: $showingAppErrorSheet) {
             AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
         }
+        .task { await performMaintenance() }
+    }
+    
+    private func performMaintenance() async {
+        if let maintenanceTimestamp = maintenanceTimestamp {
+            let nextMaintenanceDate = Date(
+                timeIntervalSince1970: maintenanceTimestamp
+            ) + 7 * 24 * 60 * 60
+            
+            if nextMaintenanceDate > .now {
+                Logger.main.debug("""
+                Next maintenance operation will be performed after \
+                \(nextMaintenanceDate.formatted(), privacy: .public)
+                """)
+            }
+
+            return
+        }
+
+        for profile in profiles {
+            try? CleanupUtility.removeExpiredHistory(context: viewContext, profile: profile)
+            CleanupUtility.trimSearches(context: viewContext, profile: profile)
+        }
+        
+        try? CleanupUtility.purgeOrphans(context: viewContext)
+        try? viewContext.save()
+
+        maintenanceTimestamp = Date.now.timeIntervalSince1970
     }
 }
