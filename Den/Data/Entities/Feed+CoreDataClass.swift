@@ -46,6 +46,11 @@ public class Feed: NSManagedObject {
         get { url?.absoluteString ?? "" }
         set { url = URL(string: newValue) }
     }
+    
+    public var useBlocklists: Bool {
+        get { !disableBlocklists }
+        set { disableBlocklists = !newValue }
+    }
 
     public var needsMetaUpdate: Bool {
         feedData?.metaFetched == nil

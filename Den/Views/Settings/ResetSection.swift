@@ -18,6 +18,5 @@ struct ResetSection: View {
         } header: {
             Text("Reset", comment: "Section header.")
         }
-        .buttonStyle(.plain)
     }
 }

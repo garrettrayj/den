@@ -104,6 +104,17 @@ struct FeedInspector: View {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
+
+                Toggle(isOn: $feed.useBlocklists) {
+                    Text("Use Blocklists", comment: "Toggle label.")
+                }
+                .onChange(of: feed.disableBlocklists) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
             } header: {
                 Text("Viewing", comment: "Inspector section header.")
             }

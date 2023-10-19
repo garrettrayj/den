@@ -70,7 +70,6 @@ struct ProfileSettings: View {
                         Image(systemName: "person.crop.circle.badge.minus")
                     }
                 }
-                .buttonStyle(.borderless)
                 .alert(
                     Text("Delete Profile?", comment: "Alert title."),
                     isPresented: $showingAlert,
@@ -103,6 +102,7 @@ struct ProfileSettings: View {
                 Text("Danger Zone", comment: "Section header.")
             }
         }
+        .buttonStyle(.borderless)
         .formStyle(.grouped)
         .navigationTitle(profile.nameText)
     }

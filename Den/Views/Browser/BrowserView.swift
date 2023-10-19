@@ -15,6 +15,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     @Environment(\.userTint) private var userTint
 
     var url: URL
+    var useBlocklists: Bool?
     var useReaderAutomatically: Bool?
     var readerPublishedDate: Date?
     var readerByline: String?
@@ -27,12 +28,14 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
 
     init(
         url: URL,
+        useBlocklists: Bool? = nil,
         useReaderAutomatically: Bool? = nil,
         readerPublishedDate: Date? = nil,
         readerByline: String? = nil,
         @ToolbarContentBuilder extraToolbar: @escaping () -> ExtraToolbar?
     ) {
         self.url = url
+        self.useBlocklists = useBlocklists
         self.useReaderAutomatically = useReaderAutomatically
         self.readerPublishedDate = readerPublishedDate
         self.readerByline = readerByline
@@ -42,7 +45,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     var body: some View {
         #if os(macOS)
         ZStack(alignment: .top) {
-            BrowserWebView(browserViewModel: browserViewModel)
+            BrowserWebView(browserViewModel: browserViewModel, useBlocklists: useBlocklists ?? true)
                 .onAppear {
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
                     browserViewModel.userTintHex = userTint?.hexString(environment: environment)
@@ -109,11 +112,13 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
 extension BrowserView where ExtraToolbar == Never {
     init(
         url: URL,
+        useBlocklists: Bool? = nil,
         useReaderAutomatically: Bool? = nil,
         readerPublishedDate: Date? = nil,
         readerByline: String? = nil
     ) {
         self.url = url
+        self.useBlocklists = useBlocklists
         self.useReaderAutomatically = useReaderAutomatically
         self.readerPublishedDate = readerPublishedDate
         self.readerByline = readerByline

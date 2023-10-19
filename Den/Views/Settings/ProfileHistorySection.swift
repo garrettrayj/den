@@ -59,11 +59,10 @@ struct ProfileHistorySection: View {
                     Image(systemName: "clear")
                 }
             }
-            .buttonStyle(.borderless)
             .disabled(historyCount == 0)
             .accessibilityIdentifier("ClearHistory")
 
-            ResetFeedsButton(profile: profile).buttonStyle(.borderless)
+            ResetFeedsButton(profile: profile)
         } header: {
             Text("History", comment: "Section header.")
         }

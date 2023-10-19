@@ -21,6 +21,7 @@ struct ItemView: View {
         if let url = item.link, item.managedObjectContext != nil && item.feedData?.feed != nil {
             BrowserView(
                 url: url,
+                useBlocklists: item.feedData?.feed?.useBlocklists,
                 useReaderAutomatically: item.feedData?.feed?.readerMode,
                 readerPublishedDate: item.published,
                 readerByline: item.author,

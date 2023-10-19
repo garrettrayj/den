@@ -37,7 +37,7 @@ struct ProfilesSection: View {
                     }
                 }
             }
-            NewProfileButton().buttonStyle(.borderless)
+            NewProfileButton()
         } header: {
             Text("Profiles", comment: "Section header.")
         }

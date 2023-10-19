@@ -14,6 +14,8 @@ import WebKit
 struct BrowserWebView {
     @ObservedObject var browserViewModel: BrowserViewModel
     
+    var useBlocklists = true
+
     @FetchRequest(sortDescriptors: [])
     private var blocklists: FetchedResults<Blocklist>
     
@@ -23,11 +25,13 @@ struct BrowserWebView {
         wkWebView.navigationDelegate = context.coordinator
         wkWebView.configuration.userContentController.add(context.coordinator, name: "reader")
 
-        Task {
-            for ruleList in await BlocklistManager.getContentRuleLists(
-                blocklists: Array(blocklists)
-            ) {
-                wkWebView.configuration.userContentController.add(ruleList)
+        if useBlocklists {
+            Task {
+                for ruleList in await BlocklistManager.getContentRuleLists(
+                    blocklists: Array(blocklists)
+                ) {
+                    wkWebView.configuration.userContentController.add(ruleList)
+                }
             }
         }
         

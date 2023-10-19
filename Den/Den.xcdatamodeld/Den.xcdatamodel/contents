@@ -37,6 +37,7 @@
     </entity>
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
         <attribute name="browserView" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="disableBlocklists" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="hideBylines" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="hideImages" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="hideTeasers" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

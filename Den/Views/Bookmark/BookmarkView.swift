@@ -18,9 +18,11 @@ struct BookmarkView: View {
     var body: some View {
         if
             let url = bookmark.link,
-            !bookmark.isDeleted && bookmark.managedObjectContext != nil {
+            !bookmark.isDeleted && bookmark.managedObjectContext != nil 
+        {
             BrowserView(
                 url: url,
+                useBlocklists: bookmark.feed?.useBlocklists,
                 useReaderAutomatically: bookmark.feed?.readerMode,
                 extraToolbar: {
                     ToolbarItem {

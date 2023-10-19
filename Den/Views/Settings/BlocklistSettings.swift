@@ -126,8 +126,8 @@ struct BlocklistSettings: View {
             } header: {
                 Text("Management")
             }
-            .buttonStyle(.borderless)
         }
+        .buttonStyle(.borderless)
         .formStyle(.grouped)
         .navigationTitle(blocklist.nameText)
     }

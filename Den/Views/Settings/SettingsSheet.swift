@@ -30,6 +30,7 @@ struct SettingsSheet: View {
                 BlocklistsSection()
                 ResetSection()
             }
+            .buttonStyle(.borderless)
             .formStyle(.grouped)
             .navigationTitle(Text("Settings", comment: "Navigation title."))
             .toolbar {

@@ -52,7 +52,6 @@ struct BlocklistsSection: View {
                     Image(systemName: "plus")
                 }
             }
-            .buttonStyle(.borderless)
         } header: {
             Text("Blocklists", comment: "Section header.")
         }
