@@ -62,7 +62,10 @@ struct ReaderWebView {
                 browserActions.contains(navigationAction.navigationType)
             {
                 decisionHandler(.cancel)
-                browserViewModel.loadURL(url: url)
+                
+                Task {
+                    await browserViewModel.loadURL(url: url)
+                }
             } else {
                 decisionHandler(.allow)
             }

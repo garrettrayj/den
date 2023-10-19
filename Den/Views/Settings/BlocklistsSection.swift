@@ -47,7 +47,7 @@ struct BlocklistsSection: View {
                 showingNewBlocklist = true
             } label: {
                 Label {
-                    Text("Add Blocklist")
+                    Text("New Blocklist")
                 } icon: {
                     Image(systemName: "plus")
                 }

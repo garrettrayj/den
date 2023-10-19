@@ -14,26 +14,11 @@ import WebKit
 struct BrowserWebView {
     @ObservedObject var browserViewModel: BrowserViewModel
     
-    var useBlocklists = true
-
-    @FetchRequest(sortDescriptors: [])
-    private var blocklists: FetchedResults<Blocklist>
-    
     func makeWebView(context: Context) -> WKWebView {
         let wkWebView = WKWebView()
         wkWebView.isInspectable = true
         wkWebView.navigationDelegate = context.coordinator
         wkWebView.configuration.userContentController.add(context.coordinator, name: "reader")
-
-        if useBlocklists {
-            Task {
-                for ruleList in await BlocklistManager.getContentRuleLists(
-                    blocklists: Array(blocklists)
-                ) {
-                    wkWebView.configuration.userContentController.add(ruleList)
-                }
-            }
-        }
         
         addMercuryScript(wkWebView.configuration.userContentController)
         addParseForReaderScript(wkWebView.configuration.userContentController)

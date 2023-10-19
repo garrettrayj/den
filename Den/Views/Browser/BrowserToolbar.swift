@@ -59,6 +59,7 @@ struct BrowserToolbar: ToolbarContent {
         ToolbarItem(placement: .navigation) {
             Menu {
                 ToggleReaderButton(browserViewModel: browserViewModel)
+                ToggleBlocklistsButton(browserViewModel: browserViewModel)
                 ZoomControlGroup(
                     zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom
                 )

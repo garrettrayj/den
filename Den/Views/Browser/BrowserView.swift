@@ -25,6 +25,9 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
 
     @AppStorage("BrowserZoom") var browserZoom: PageZoomLevel = .oneHundredPercent
     @AppStorage("ReaderZoom") var readerZoom: PageZoomLevel = .oneHundredPercent
+    
+    @FetchRequest(sortDescriptors: [])
+    private var blocklists: FetchedResults<Blocklist>
 
     init(
         url: URL,
@@ -45,12 +48,14 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     var body: some View {
         #if os(macOS)
         ZStack(alignment: .top) {
-            BrowserWebView(browserViewModel: browserViewModel, useBlocklists: useBlocklists ?? true)
-                .onAppear {
+            BrowserWebView(browserViewModel: browserViewModel)
+                .task {
+                    browserViewModel.blocklists = Array(blocklists)
+                    browserViewModel.useBlocklists = useBlocklists ?? true
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
                     browserViewModel.userTintHex = userTint?.hexString(environment: environment)
                     browserViewModel.setBrowserZoom(browserZoom)
-                    browserViewModel.loadURL(url: url)
+                    await browserViewModel.loadURL(url: url)
                 }
                 .onDisappear {
                     // Fix for videos continuing to play after view is dismissed

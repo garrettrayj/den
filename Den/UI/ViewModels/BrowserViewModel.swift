@@ -37,11 +37,28 @@ class BrowserViewModel: NSObject, ObservableObject {
     @Published var isReaderable = false
     @Published var showingReader = false
     @Published var mercuryObject: MercuryObject?
+    @Published var useBlocklists = true
+    @Published var contentRulesListsLoaded = false
     @Published var useReaderAutomatically = false
     @Published var userTintHex: String?
+    @Published var blocklists: [Blocklist] = []
 
-    func loadURL(url: URL?) {
+    @MainActor
+    func loadURL(url: URL?) async {
         guard let url = url else { return }
+        
+        if useBlocklists && !contentRulesListsLoaded {
+            for ruleList in await BlocklistManager.getContentRuleLists(
+                blocklists: blocklists
+            ) {
+                browserWebView?.configuration.userContentController.add(ruleList)
+            }
+            contentRulesListsLoaded = true
+        } else if !useBlocklists && contentRulesListsLoaded {
+            browserWebView?.configuration.userContentController.removeAllContentRuleLists()
+            contentRulesListsLoaded = false
+        }
+        
         browserWebView?.load(URLRequest(url: url))
     }
 
@@ -64,6 +81,12 @@ class BrowserViewModel: NSObject, ObservableObject {
     func reload() {
         showingReader = false
         browserWebView?.reload()
+    }
+    
+    @MainActor
+    func toggleBlocklists() async {
+        useBlocklists.toggle()
+        await loadURL(url: url)
     }
 
     func showReader() {
