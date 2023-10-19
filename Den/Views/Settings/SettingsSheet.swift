@@ -43,6 +43,6 @@ struct SettingsSheet: View {
                 }
             }
         }
-        .frame(minWidth: 480, minHeight: 600)
+        .frame(minWidth: 300, minHeight: 300)
     }
 }

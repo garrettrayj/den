@@ -10,10 +10,11 @@
 
 import SwiftUI
 
+// swiftlint:disable type_body_length
 struct BrowserToolbar: ToolbarContent {
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.displayScale) private var displayScale
-    @Environment(\.openURL) private var openURL
+    #if !os(macOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
 
     @ObservedObject var browserViewModel: BrowserViewModel
 
@@ -21,103 +22,25 @@ struct BrowserToolbar: ToolbarContent {
     @Binding var readerZoom: PageZoomLevel
 
     var body: some ToolbarContent {
+        #if os(macOS)
         ToolbarItem(placement: .navigation) {
-            Button {
-                dismiss()
-            } label: {
-                Text("Done", comment: "Button label.")
-                    .font(.body.weight(.semibold))
-                    .padding(.horizontal, 4)
-            }
+            DoneButton()
         }
         ToolbarItem(placement: .navigation) {
-            Button {
-                browserViewModel.goBack()
-            } label: {
-                Label {
-                    Text("Go Back", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "chevron.backward")
-                }
-                .padding(.horizontal, 3)
-            }
-            .disabled(!browserViewModel.canGoBack)
+            GoBackButton(browserViewModel: browserViewModel)
         }
         ToolbarItem(placement: .navigation) {
-            Button {
-                browserViewModel.goForward()
-            } label: {
-                Label {
-                    Text("Go Forward", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "chevron.forward")
-                }
-                .padding(.horizontal, 3)
-            }
-            .disabled(!browserViewModel.canGoForward)
+            GoForwardButton(browserViewModel: browserViewModel)
         }
         ToolbarItem(placement: .navigation) {
-            Menu {
-                ToggleReaderButton(browserViewModel: browserViewModel)
-                ToggleBlocklistsButton(browserViewModel: browserViewModel)
-                ZoomControlGroup(
-                    zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom
-                )
-            } label: {
-                Group {
-                    if browserViewModel.showingReader {
-                        Label {
-                            Text("Formatting", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "doc.plaintext")
-                                .foregroundStyle(.tint)
-                                .padding(.horizontal, 3)
-                        }
-                    } else {
-                        Label {
-                            Text("Formatting", comment: "Button label.")
-                        } icon: {
-                            if browserViewModel.isReaderable {
-                                Image(systemName: "doc.plaintext").padding(.horizontal, 3)
-                            } else {
-                                Image(systemName: "textformat.size")
-                            }
-                        }
-                    }
-                }
-                .font(.body.weight(.medium))
-                .imageScale(.large)
-                .padding(4)
-                .contentShape(.rect)
-            } primaryAction: {
-                browserViewModel.toggleReader()
-            }
-            .menuStyle(.button)
-            .buttonStyle(.plain)
-            .menuIndicator(.hidden)
+            FormatMenu(
+                browserViewModel: browserViewModel,
+                browserZoom: $browserZoom,
+                readerZoom: $readerZoom
+            )
         }
         ToolbarItem {
-            if browserViewModel.isLoading {
-                Button {
-                    browserViewModel.stop()
-                } label: {
-                    Label {
-                        Text("Stop Loading", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "xmark")
-                    }
-                }
-            } else {
-                Button {
-                    browserViewModel.reload()
-                } label: {
-                    Label {
-                        Text("Reload", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "arrow.clockwise")
-                    }
-                }
-            }
+            StopReloadButton(browserViewModel: browserViewModel)
         }
         ToolbarItem {
             if let url = browserViewModel.url {
@@ -126,12 +49,92 @@ struct BrowserToolbar: ToolbarContent {
         }
         ToolbarItem {
             if let url = browserViewModel.url {
-                Button {
-                    openURL(url)
-                } label: {
+                Link(destination: url) {
                     OpenInBrowserLabel()
+                }
+                .buttonStyle(.bordered)
+            }
+        }
+        #else
+        if horizontalSizeClass == .compact {
+            ToolbarItem(placement: .navigation) {
+                DoneButton()
+            }
+            ToolbarItem {
+                FormatMenu(
+                    browserViewModel: browserViewModel,
+                    browserZoom: $browserZoom,
+                    readerZoom: $readerZoom
+                )
+            }
+            ToolbarItem {
+                StopReloadButton(browserViewModel: browserViewModel)
+            }
+            Group {
+                ToolbarItem(placement: .bottomBar) {
+                    GoBackButton(browserViewModel: browserViewModel)
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    GoForwardButton(browserViewModel: browserViewModel)
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    if let url = browserViewModel.url {
+                        ShareButton(url: url)
+                    }
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    if let url = browserViewModel.url {
+                        Link(destination: url) {
+                            OpenInBrowserLabel()
+                        }
+                    }
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
+            }
+        } else {
+            ToolbarItem(placement: .navigation) {
+                DoneButton()
+            }
+            ToolbarItem(placement: .navigation) {
+                GoBackButton(browserViewModel: browserViewModel)
+            }
+            ToolbarItem(placement: .navigation) {
+                GoForwardButton(browserViewModel: browserViewModel)
+            }
+            ToolbarItem(placement: .navigation) {
+                FormatMenu(
+                    browserViewModel: browserViewModel,
+                    browserZoom: $browserZoom,
+                    readerZoom: $readerZoom
+                )
+            }
+            ToolbarItem {
+                StopReloadButton(browserViewModel: browserViewModel)
+            }
+            ToolbarItem {
+                if let url = browserViewModel.url {
+                    ShareButton(url: url)
+                }
+            }
+            ToolbarItem {
+                if let url = browserViewModel.url {
+                    Link(destination: url) {
+                        OpenInBrowserLabel()
+                    }
                 }
             }
         }
+        #endif
     }
 }

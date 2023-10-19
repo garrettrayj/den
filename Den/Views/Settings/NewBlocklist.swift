@@ -21,6 +21,19 @@ struct NewBlocklist: View {
     var body: some View {
         NavigationStack {
             Form {
+                Menu {
+                    ForEach(BlocklistPreset.allCases, id: \.self) { blocklistPreset in
+                        Button {
+                            name = blocklistPreset.name
+                            urlString = blocklistPreset.url.absoluteString
+                        } label: {
+                            Text(blocklistPreset.name)
+                        }
+                    }
+                } label: {
+                    Text("Presets", comment: "Menu label.")
+                }
+                
                 Section {
                     TextField(
                         text: $name,
@@ -41,6 +54,8 @@ struct NewBlocklist: View {
                 } header: {
                     Text("URL", comment: "Section header.")
                 }
+                
+                
             }
             .disabled(isCreating)
             .formStyle(.grouped)
@@ -66,24 +81,8 @@ struct NewBlocklist: View {
                     }
                     .disabled(isCreating)
                 }
-
-                ToolbarItem {
-                    Menu {
-                        ForEach(BlocklistPreset.allCases, id: \.self) { blocklistPreset in
-                            Button {
-                                name = blocklistPreset.name
-                                urlString = blocklistPreset.url.absoluteString
-                            } label: {
-                                Text(blocklistPreset.name)
-                            }
-                        }
-                    } label: {
-                        Text("Presets", comment: "Button label.")
-                    }
-                    .menuStyle(.button)
-                }
             }
-            .frame(minWidth: 360, minHeight: 200)
+            .frame(minWidth: 360, minHeight: 300)
         }
     }
 

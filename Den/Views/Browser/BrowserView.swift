@@ -46,7 +46,6 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     }
 
     var body: some View {
-        #if os(macOS)
         ZStack(alignment: .top) {
             BrowserWebView(browserViewModel: browserViewModel)
                 .task {
@@ -61,23 +60,17 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                     // Fix for videos continuing to play after view is dismissed
                     browserViewModel.loadBlank()
                 }
-                .navigationBarBackButtonHidden()
-                .navigationTitle(browserViewModel.url?.host() ?? "")
-                .toolbar {
-                    BrowserToolbar(
-                        browserViewModel: browserViewModel,
-                        browserZoom: $browserZoom,
-                        readerZoom: $readerZoom
-                    )
-                    extraToolbar
-                }
+                #if os(macOS)
                 .padding(.top, 1)
-                .ignoresSafeArea()
-
+                #endif
+                
             if browserViewModel.showingReader == true {
                 ReaderWebView(browserViewModel: browserViewModel)
-                    .transition(.move(edge: .bottom))
-                    .ignoresSafeArea()
+                    #if os(macOS)
+                    .transition(.flipFromBottom)
+                    #else
+                    .transition(.flipFromTop)
+                    #endif
                     .onAppear {
                         browserViewModel.setReaderZoom(readerZoom)
                         browserViewModel.loadReader()
@@ -92,6 +85,17 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                     .progressViewStyle(ThinLinearProgressViewStyle())
             }
         }
+        .ignoresSafeArea(edges: [.top, .horizontal])
+        .navigationBarBackButtonHidden()
+        .navigationTitle(browserViewModel.url?.host() ?? "")
+        .toolbar {
+            BrowserToolbar(
+                browserViewModel: browserViewModel,
+                browserZoom: $browserZoom,
+                readerZoom: $readerZoom
+            )
+            extraToolbar
+        }
         .background {
             // Controls in background for keyboard shortcuts
             ToggleReaderButton(browserViewModel: browserViewModel)
@@ -105,11 +109,8 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
         .onChange(of: readerZoom) {
             browserViewModel.setReaderZoom(readerZoom)
         }
-        #else
-        SafariView(url: url, readerMode: useReaderAutomatically)
-            .toolbar(.hidden)
-            .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
-            .ignoresSafeArea()
+        #if os(iOS)
+        .toolbarBackground(.visible)
         #endif
     }
 }

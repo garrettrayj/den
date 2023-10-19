@@ -12,6 +12,9 @@ import SwiftUI
 
 struct ItemView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var item: Item
@@ -26,9 +29,21 @@ struct ItemView: View {
                 readerPublishedDate: item.published,
                 readerByline: item.author,
                 extraToolbar: {
+                    #if os(macOS)
                     ToolbarItem {
                         TagsMenu(item: item, profile: profile)
                     }
+                    #else
+                    if horizontalSizeClass == .compact {
+                        ToolbarItem(placement: .bottomBar) {
+                            TagsMenu(item: item, profile: profile)
+                        }
+                    } else {
+                        ToolbarItem {
+                            TagsMenu(item: item, profile: profile)
+                        }
+                    }
+                    #endif
                 }
             )
             .onAppear {

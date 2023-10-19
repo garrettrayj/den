@@ -54,5 +54,9 @@ struct ZoomControlGroup: View {
                 Image(systemName: "textformat.size")
             }
         }
+        #if os(iOS)
+        .labelsHidden()
+        #endif
+        .controlGroupStyle(.compactMenu)
     }
 }

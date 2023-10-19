@@ -27,6 +27,7 @@ struct ToggleReaderButton: View {
                 Image(systemName: "doc.plaintext")
             }
         }
+        .disabled(!browserViewModel.isReaderable)
         .keyboardShortcut("r", modifiers: [.command, .shift], localization: .withoutMirroring)
     }
 }
