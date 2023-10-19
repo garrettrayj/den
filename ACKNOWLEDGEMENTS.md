@@ -1,7 +1,7 @@
 # Acknowledgements
 This project makes use of the following third party libraries:
 
-## AEXML (4.6.1)
+## AEXML
 
 Copyright (c) 2014-2021 Marko Tadić <tadija@me.com> http://tadija.net
 
@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-## FeedKit (9.1.2)
+## FeedKit
 
 The MIT License (MIT)
 
@@ -254,7 +254,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 
-## Punycode (2.1.0)
+## Punycode
 
 MIT License
 
@@ -956,7 +956,7 @@ the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
 
-## SDWebImage (5.18.2)
+## SDWebImage
 
 Copyright (c) 2009-2020 Olivier Poitrey rs@dailymotion.com
  
@@ -980,7 +980,7 @@ THE SOFTWARE.
 
 
 
-## SDWebImageSVGCoder (1.7.0)
+## SDWebImageSVGCoder
 
 Copyright (c) 2018 lizhuoli1126@126.com <lizhuoli1126@126.com>
 
@@ -1003,7 +1003,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## SDWebImageSwiftUI (2.2.3)
+## SDWebImageSwiftUI
 
 Copyright (c) 2019 lizhuoli1126@126.com <lizhuoli1126@126.com>
 
@@ -1026,7 +1026,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## SDWebImageWebPCoder (0.13.0)
+## SDWebImageWebPCoder
 
 Copyright (c) 2018 Bogdan Poplauschi
 
@@ -1049,7 +1049,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## Sparkle (2.5.0)
+## Sparkle
 
 Copyright (c) 2006-2013 Andy Matuschak.
 Copyright (c) 2009-2013 Elgato Systems GmbH.
@@ -1187,7 +1187,7 @@ IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 
-## swift-argument-parser (0.5.0)
+## swift-argument-parser
 
                                  Apache License
                            Version 2.0, January 2004
@@ -1402,7 +1402,7 @@ POSSIBILITY OF SUCH DAMAGE.
     otherwise be required by Sections 4(a), 4(b) and 4(d) of the License.
 
 
-## HTMLEntities (4.0.1)
+## HTMLEntities
 
                                  Apache License
                            Version 2.0, January 2004
@@ -1607,7 +1607,7 @@ POSSIBILITY OF SUCH DAMAGE.
    limitations under the License.
 
 
-## SwiftSoup (2.6.1)
+## SwiftSoup
 
 MIT License
 

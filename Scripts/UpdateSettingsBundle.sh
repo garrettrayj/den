@@ -25,5 +25,5 @@ version="$MARKETING_VERSION"
 build="$CURRENT_PROJECT_VERSION"
 
 /usr/libexec/PlistBuddy \
-    -x -c "set PreferenceSpecifiers:3:DefaultValue $version ($build)" \
+    -x -c "set PreferenceSpecifiers:0:DefaultValue $version ($build)" \
     "${SRCROOT}/Settings.bundle/Root.plist"

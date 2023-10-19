@@ -3,10 +3,10 @@ options:
   prefix: LicensePlist
   htmlPath: ./Den/Misc/Acknowledgements.html
   markdownPath: ACKNOWLEDGEMENTS.md
-  addVersionNumbers: true
+  addVersionNumbers: false
   suppressOpeningDirectory: true
   failIfMissingLicense: false
-  singlePage: true
+  singlePage: false
 
 github:
   - owner: postlight
