@@ -16,6 +16,7 @@ struct NewBlocklist: View {
 
     @State private var name: String = ""
     @State private var urlString: String = ""
+    @State private var isCreating = false
 
     var body: some View {
         NavigationStack {
@@ -41,15 +42,20 @@ struct NewBlocklist: View {
                     Text("URL", comment: "Section header.")
                 }
             }
+            .disabled(isCreating)
             .formStyle(.grouped)
             .navigationTitle(Text("New Blocklist", comment: "Navigation title."))
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        addBlocklist()
+                        isCreating = true
+                        Task {
+                            await addBlocklist()
+                        }
                     } label: {
                         Text("Add Blocklist", comment: "Button Label")
                     }
+                    .disabled(isCreating)
                 }
 
                 ToolbarItem(placement: .cancellationAction) {
@@ -58,6 +64,7 @@ struct NewBlocklist: View {
                     } label: {
                         Text("Cancel", comment: "Button Label")
                     }
+                    .disabled(isCreating)
                 }
 
                 ToolbarItem {
@@ -80,12 +87,17 @@ struct NewBlocklist: View {
         }
     }
 
-    private func addBlocklist() {
+    private func addBlocklist() async {
         guard let url = URL(string: urlString) else { return }
 
-        var blocklist = Blocklist.create(in: viewContext)
+        let blocklist = Blocklist.create(in: viewContext)
         blocklist.name = name
         blocklist.url = url
+        
+        await BlocklistManager.refreshContentRulesList(
+            blocklist: blocklist,
+            context: viewContext
+        )
 
         do {
             try viewContext.save()

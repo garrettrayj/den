@@ -13,7 +13,10 @@ import WebKit
 
 struct BrowserWebView {
     @ObservedObject var browserViewModel: BrowserViewModel
-
+    
+    @FetchRequest(sortDescriptors: [])
+    private var blocklists: FetchedResults<Blocklist>
+    
     func makeWebView(context: Context) -> WKWebView {
         let wkWebView = WKWebView()
         wkWebView.isInspectable = true
@@ -21,7 +24,9 @@ struct BrowserWebView {
         wkWebView.configuration.userContentController.add(context.coordinator, name: "reader")
 
         Task {
-            for ruleList in await ContentFiltertUtility.getRuleLists() {
+            for ruleList in await BlocklistManager.getContentRuleLists(
+                blocklists: Array(blocklists)
+            ) {
                 wkWebView.configuration.userContentController.add(ruleList)
             }
         }

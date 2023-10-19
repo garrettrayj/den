@@ -15,6 +15,8 @@ struct BlocklistSettings: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var blocklist: Blocklist
+    
+    @State private var isRefreshing = false
 
     var body: some View {
         Form {
@@ -82,9 +84,14 @@ struct BlocklistSettings: View {
 
             Section {
                 Button {
+                    isRefreshing = true
                     Task {
-                        await ContentFiltertUtility.refreshContentRulesList(blocklist: blocklist)
+                        await BlocklistManager.refreshContentRulesList(
+                            blocklist: blocklist,
+                            context: viewContext
+                        )
                         blocklist.objectWillChange.send()
+                        isRefreshing = false
                     }
                 } label: {
                     Label {
@@ -93,13 +100,21 @@ struct BlocklistSettings: View {
                         Image(systemName: "arrow.clockwise")
                     }
                 }
+                .disabled(isRefreshing)
+                
                 Button(role: .destructive) {
-                    viewContext.delete(blocklist)
-                    do {
-                        try viewContext.save()
-                        dismiss()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
+                    Task {
+                        await BlocklistManager.removeContentRulesList(
+                            identifier: blocklist.id?.uuidString
+                        )
+                        viewContext.delete(blocklist)
+                        
+                        do {
+                            try viewContext.save()
+                            dismiss()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
                     }
                 } label: {
                     Label {

@@ -29,6 +29,9 @@ struct RootView: View {
         SortDescriptor(\.created, order: .forward)
     ])
     private var profiles: FetchedResults<Profile>
+    
+    @FetchRequest(sortDescriptors: [])
+    private var blocklists: FetchedResults<Blocklist>
 
     var body: some View {
         Group {
@@ -59,7 +62,13 @@ struct RootView: View {
         .sheet(isPresented: $showingAppErrorSheet) {
             AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
         }
-        .task { await performMaintenance() }
+        .task {
+            await BlocklistManager.initializeMissingContentRulesLists(
+                blocklists: Array(blocklists),
+                context: viewContext
+            )
+            await performMaintenance()
+        }
     }
     
     private func performMaintenance() async {
@@ -82,8 +91,16 @@ struct RootView: View {
             try? CleanupUtility.removeExpiredHistory(context: viewContext, profile: profile)
             CleanupUtility.trimSearches(context: viewContext, profile: profile)
         }
-        
+
         try? CleanupUtility.purgeOrphans(context: viewContext)
+        
+        let blocklists = Array(blocklists)
+        await BlocklistManager.cleanupContentRulesLists(blocklists: blocklists)
+        await BlocklistManager.refreshAllContentRulesLists(
+            blocklists: blocklists,
+            context: viewContext
+        )
+
         try? viewContext.save()
 
         maintenanceTimestamp = Date.now.timeIntervalSince1970

@@ -7,3 +7,4 @@ identifier_name:
     - op
 disabled_rules:
    - inclusive_language
+   - trailing_whitespace
