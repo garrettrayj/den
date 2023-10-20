@@ -37,21 +37,18 @@ struct InboxToolbar: ToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem(placement: .primaryAction) {
-                Menu {
-                    MarkAllReadUnreadButton(unreadCount: items.unread().count) {
-                        await HistoryUtility.toggleReadUnread(items: Array(items))
-                        profile.objectWillChange.send()
-                        for page in profile.pagesArray {
-                            page.objectWillChange.send()
-                        }
-                    }
-                    FilterReadButton(hideRead: $hideRead)
-                } label: {
-                    Label {
-                        Text("Menu", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "ellipsis.circle")
+            ToolbarItem(placement: .bottomBar) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                    profile.objectWillChange.send()
+                    for page in profile.pagesArray {
+                        page.objectWillChange.send()
                     }
                 }
             }

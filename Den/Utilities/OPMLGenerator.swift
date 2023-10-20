@@ -47,7 +47,9 @@ struct OPMLGenerator {
                     "den:previewStyle": feed.wrappedPreviewStyle.stringRepresentation,
                     "den:hideTeasers": String(feed.hideTeasers),
                     "den:hideBylines": String(feed.hideBylines),
-                    "den:hideImages": String(feed.hideImages)
+                    "den:hideImages": String(feed.hideImages),
+                    "den:useReaderAutomatically": String(feed.readerMode),
+                    "den:useBlocklists": String(feed.useBlocklists)
                 ]
                 pageOutline.addChild(name: "outline", attributes: attributes)
             }

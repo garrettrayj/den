@@ -10,7 +10,6 @@
 
 import SwiftUI
 
-// swiftlint:disable type_body_length
 struct BrowserToolbar: ToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass

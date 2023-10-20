@@ -26,9 +26,6 @@ struct ImportExportUtility {
                 if let itemLimit = opmlFeed.previewLimit {
                     feed.wrappedItemLimit = itemLimit
                 }
-                if let readerMode = opmlFeed.readerMode {
-                    feed.readerMode = readerMode
-                }
                 if let previewStyle = opmlFeed.previewStyle {
                     feed.wrappedPreviewStyle = previewStyle
                 }
@@ -40,6 +37,12 @@ struct ImportExportUtility {
                 }
                 if let hideImages = opmlFeed.hideImages {
                     feed.hideImages = hideImages
+                }
+                if let readerMode = opmlFeed.readerMode {
+                    feed.readerMode = readerMode
+                }
+                if let useBlocklists = opmlFeed.useBlocklists {
+                    feed.useBlocklists = useBlocklists
                 }
             }
         }

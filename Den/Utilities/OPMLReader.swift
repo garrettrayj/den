@@ -24,12 +24,12 @@ final class OPMLReader {
         var title: String
         var url: URL
         var previewLimit: Int?
-        var openInBrowser: Bool?
-        var readerMode: Bool?
         var previewStyle: PreviewStyle?
         var hideTeasers: Bool?
         var hideBylines: Bool?
         var hideImages: Bool?
+        var readerMode: Bool?
+        var useBlocklists: Bool?
     }
 
     var outlineFolders: [Folder] = []
@@ -76,12 +76,6 @@ final class OPMLReader {
                 if let previewLimit = feedElement.attributes["den:previewLimit"] {
                     feed.previewLimit = Int(previewLimit)
                 }
-                if let openInBrowser = feedElement.attributes["den:openInBrowser"] {
-                    feed.openInBrowser = Bool(openInBrowser)
-                }
-                if let readerMode = feedElement.attributes["den:readerMode"] {
-                    feed.readerMode = Bool(readerMode)
-                }
                 if let previewStyle = feedElement.attributes["den:previewStyle"] {
                     feed.previewStyle = PreviewStyle(from: previewStyle)
                 }
@@ -93,6 +87,12 @@ final class OPMLReader {
                 }
                 if let hideImages = feedElement.attributes["den:hideImages"] {
                     feed.hideImages = Bool(hideImages)
+                }
+                if let readerMode = feedElement.attributes["den:useReaderAutomatically"] {
+                    feed.readerMode = Bool(readerMode)
+                }
+                if let useBlocklists = feedElement.attributes["den:useBlocklists"] {
+                    feed.useBlocklists = Bool(useBlocklists)
                 }
 
                 folder.feeds.append(feed)

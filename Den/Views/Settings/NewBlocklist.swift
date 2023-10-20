@@ -33,7 +33,6 @@ struct NewBlocklist: View {
                 } label: {
                     Text("Presets", comment: "Menu label.")
                 }
-                
                 Section {
                     TextField(
                         text: $name,
@@ -45,7 +44,6 @@ struct NewBlocklist: View {
                 } header: {
                     Text("Name", comment: "Section header.")
                 }
-
                 Section {
                     TextField(text: $urlString) {
                         Text("URL", comment: "Text field label.")
@@ -54,8 +52,6 @@ struct NewBlocklist: View {
                 } header: {
                     Text("URL", comment: "Section header.")
                 }
-                
-                
             }
             .disabled(isCreating)
             .formStyle(.grouped)
@@ -72,7 +68,6 @@ struct NewBlocklist: View {
                     }
                     .disabled(isCreating)
                 }
-
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
                         dismiss()

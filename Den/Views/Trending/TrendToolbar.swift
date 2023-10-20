@@ -40,22 +40,19 @@ struct TrendToolbar: ToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem(placement: .primaryAction) {
-                Menu {
-                    MarkAllReadUnreadButton(unreadCount: items.unread().count) {
-                        await HistoryUtility.toggleReadUnread(items: Array(items))
-                        trend.objectWillChange.send()
-                        profile.objectWillChange.send()
-                        if hideRead {
-                            dismiss()
-                        }
-                    }
-                    FilterReadButton(hideRead: $hideRead)
-                } label: {
-                    Label {
-                        Text("Menu", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "ellipsis.circle")
+            ToolbarItem(placement: .bottomBar) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                    trend.objectWillChange.send()
+                    profile.objectWillChange.send()
+                    if hideRead {
+                        dismiss()
                     }
                 }
             }

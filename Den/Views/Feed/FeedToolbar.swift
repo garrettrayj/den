@@ -38,22 +38,20 @@ struct FeedToolbar: ToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem(placement: .primaryAction) {
-                Menu {
-                    MarkAllReadUnreadButton(unreadCount: items.unread().count) {
-                        await HistoryUtility.toggleReadUnread(items: Array(items))
-                        feed.objectWillChange.send()
-                    }
-                    FilterReadButton(hideRead: $hideRead)
-                    InspectorToggleButton(showingInspector: $showingInspector)
-                } label: {
-                    Label {
-                        Text("Menu", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "ellipsis.circle")
-                    }
+            ToolbarItem {
+                InspectorToggleButton(showingInspector: $showingInspector)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                    feed.objectWillChange.send()
                 }
-                .accessibilityIdentifier("FeedMenu")
             }
         } else {
             ToolbarItem(placement: .primaryAction) {
