@@ -56,6 +56,6 @@ struct NewTagSheet: View {
                 }
             }
         }
-        .frame(minWidth: 360, minHeight: 140)
+        .frame(minWidth: 360, minHeight: 148)
     }
 }

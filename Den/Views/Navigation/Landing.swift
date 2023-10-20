@@ -61,9 +61,9 @@ struct Landing: View {
                 } description: {
                     Text(
                         """
-                        If you have used the app before then sync may be in progress. \
+                        If you have used the app on another device then synchronization may be in progress. \
                         Please wait a minute. \n
-                        If you are new or have disabled cloud sync then create a profile to begin.
+                        If you are new or cloud sync is disabled then create a profile to begin.
                         """,
                         comment: "Landing guidance message."
                     )

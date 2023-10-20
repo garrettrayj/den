@@ -36,7 +36,7 @@ struct IconSelector: View {
                 }
             }
         }
-        .frame(minWidth: 600, minHeight: 480)
+        .frame(minWidth: 360, minHeight: 480)
     }
 
     let gridItem = GridItem(.adaptive(minimum: 40), spacing: 4, alignment: .center)
