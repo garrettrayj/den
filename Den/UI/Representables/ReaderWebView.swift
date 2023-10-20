@@ -18,6 +18,7 @@ struct ReaderWebView {
         let wkWebView = WKWebView()
         wkWebView.isInspectable = true
         wkWebView.navigationDelegate = context.coordinator
+        wkWebView.configuration.defaultWebpagePreferences.preferredContentMode = .mobile
 
         addReaderInitScript(wkWebView.configuration.userContentController)
 

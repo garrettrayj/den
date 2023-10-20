@@ -1,5 +1,5 @@
 //
-//  ToggleReaderButton.swift
+//  HideReaderButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 10/13/23.
@@ -10,24 +10,19 @@
 
 import SwiftUI
 
-struct ToggleReaderButton: View {
+struct HideReaderButton: View {
     @ObservedObject var browserViewModel: BrowserViewModel
 
     var body: some View {
         Button {
-            browserViewModel.toggleReader()
+            browserViewModel.hideReader()
         } label: {
             Label {
-                if browserViewModel.showingReader {
-                    Text("Hide Reader", comment: "Button label.")
-                } else {
-                    Text("Show Reader", comment: "Button label.")
-                }
+                Text("Hide Reader", comment: "Button label.")
             } icon: {
-                Image(systemName: "doc.plaintext")
+                Image(systemName: "rectangle.portrait.slash")
             }
         }
-        .disabled(!browserViewModel.isReaderable)
         .keyboardShortcut("r", modifiers: [.command, .shift], localization: .withoutMirroring)
     }
 }

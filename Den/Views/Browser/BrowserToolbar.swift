@@ -32,11 +32,7 @@ struct BrowserToolbar: ToolbarContent {
             GoForwardButton(browserViewModel: browserViewModel)
         }
         ToolbarItem(placement: .navigation) {
-            FormatMenu(
-                browserViewModel: browserViewModel,
-                browserZoom: $browserZoom,
-                readerZoom: $readerZoom
-            )
+            formatMenu
         }
         ToolbarItem {
             StopReloadButton(browserViewModel: browserViewModel)
@@ -60,11 +56,7 @@ struct BrowserToolbar: ToolbarContent {
                 DoneButton()
             }
             ToolbarItem {
-                FormatMenu(
-                    browserViewModel: browserViewModel,
-                    browserZoom: $browserZoom,
-                    readerZoom: $readerZoom
-                )
+                formatMenu
             }
             ToolbarItem {
                 StopReloadButton(browserViewModel: browserViewModel)
@@ -112,11 +104,7 @@ struct BrowserToolbar: ToolbarContent {
                 GoForwardButton(browserViewModel: browserViewModel)
             }
             ToolbarItem(placement: .navigation) {
-                FormatMenu(
-                    browserViewModel: browserViewModel,
-                    browserZoom: $browserZoom,
-                    readerZoom: $readerZoom
-                )
+                formatMenu
             }
             ToolbarItem {
                 StopReloadButton(browserViewModel: browserViewModel)
@@ -135,5 +123,14 @@ struct BrowserToolbar: ToolbarContent {
             }
         }
         #endif
+    }
+    
+    @ViewBuilder
+    private var formatMenu: some View {
+        if browserViewModel.showingReader {
+            ReaderFormatMenu(browserViewModel: browserViewModel, readerZoom: $readerZoom)
+        } else {
+            BrowserFormatMenu(browserViewModel: browserViewModel, browserZoom: $browserZoom)
+        }
     }
 }

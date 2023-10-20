@@ -73,10 +73,10 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                     #endif
                     .onAppear {
                         browserViewModel.setReaderZoom(readerZoom)
-                        browserViewModel.loadReader()
+                        browserViewModel.loadReader(initialZoom: readerZoom)
                     }
                     .onChange(of: browserViewModel.mercuryObject) {
-                        browserViewModel.loadReader()
+                        browserViewModel.loadReader(initialZoom: readerZoom)
                     }
             }
 
@@ -95,13 +95,6 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                 readerZoom: $readerZoom
             )
             extraToolbar
-        }
-        .background {
-            // Controls in background for keyboard shortcuts
-            ToggleReaderButton(browserViewModel: browserViewModel)
-            ZoomControlGroup(
-                zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom
-            )
         }
         .onChange(of: browserZoom) {
             browserViewModel.setBrowserZoom(browserZoom)

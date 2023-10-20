@@ -115,10 +115,17 @@ class BrowserViewModel: NSObject, ObservableObject {
     }
 
     func setReaderZoom(_ level: PageZoomLevel) {
+        #if os(macOS)
         readerWebView?.pageZoom = CGFloat(level.rawValue) / 100
+        #else
+        let script = """
+        document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='\(level.rawValue)%'
+        """
+        readerWebView?.evaluateJavaScript(script, completionHandler: nil)
+        #endif
     }
 
-    func loadReader() {
+    func loadReader(initialZoom: PageZoomLevel) {
         var baseURL: URL?
 
         if
@@ -129,10 +136,14 @@ class BrowserViewModel: NSObject, ObservableObject {
             baseURL = pageURLComponents.url
         }
 
-        readerWebView?.loadHTMLString(readerHTML, baseURL: baseURL)
+        readerWebView?.loadHTMLString(
+            generateReaderHTML(initialZoom: initialZoom),
+            baseURL: baseURL
+        )
     }
 
-    private var readerHTML: String {
+    // swiftlint:disable function_body_length
+    private func generateReaderHTML(initialZoom: PageZoomLevel) -> String {
         guard
             let title = mercuryObject?.title,
             let content = mercuryObject?.content
@@ -156,7 +167,7 @@ class BrowserViewModel: NSObject, ObservableObject {
             <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no" />
             <style>\(readerStyles)</style>
             </head>
-            <body>
+            <body style="-webkit-text-size-adjust: \(initialZoom.rawValue)%;">
             <header>
             <h1 id="den-title">\(title)</h1>
         """
