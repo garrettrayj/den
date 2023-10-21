@@ -481,6 +481,8 @@
 		6899FC792AE2A75000367E8B /* ShowReaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6899FC782AE2A75000367E8B /* ShowReaderButton.swift */; };
 		6899FC7C2AE2D6C400367E8B /* ShowReaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6899FC782AE2A75000367E8B /* ShowReaderButton.swift */; };
 		6899FC7D2AE2D6DD00367E8B /* ReaderFormatMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688466F32AE264340071B86A /* ReaderFormatMenu.swift */; };
+		6899FC7F2AE3515500367E8B /* ToggleReaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6899FC7E2AE3515500367E8B /* ToggleReaderButton.swift */; };
+		6899FC802AE3518400367E8B /* ToggleReaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6899FC7E2AE3515500367E8B /* ToggleReaderButton.swift */; };
 		68A2188D29D9D4AE005F42C7 /* PagesSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2188C29D9D4AE005F42C7 /* PagesSection.swift */; };
 		68A2188F29DC2E86005F42C7 /* SafeAreaModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2188E29DC2E86005F42C7 /* SafeAreaModifier.swift */; };
 		68AC3A172910EEB500D60273 /* WorkingTrend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC3A162910EEB500D60273 /* WorkingTrend.swift */; };
@@ -853,6 +855,7 @@
 		6897242C299440B4003DAC4C /* DynamicTypeSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicTypeSize+Extensions.swift"; sourceTree = "<group>"; };
 		68998B842504C87400FDB6EE /* SearchLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLayout.swift; sourceTree = "<group>"; };
 		6899FC782AE2A75000367E8B /* ShowReaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowReaderButton.swift; sourceTree = "<group>"; };
+		6899FC7E2AE3515500367E8B /* ToggleReaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleReaderButton.swift; sourceTree = "<group>"; };
 		689EDBF8269188580055811A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		68A2188C29D9D4AE005F42C7 /* PagesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesSection.swift; sourceTree = "<group>"; };
 		68A2188E29DC2E86005F42C7 /* SafeAreaModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaModifier.swift; sourceTree = "<group>"; };
@@ -1531,6 +1534,7 @@
 				68E9F64D2AE1837900A27E19 /* StopReloadButton.swift */,
 				68E9F6412AE1528800A27E19 /* ToggleBlocklistsButton.swift */,
 				684152412AD7B4DB00ABE5E2 /* ZoomControlGroup.swift */,
+				6899FC7E2AE3515500367E8B /* ToggleReaderButton.swift */,
 			);
 			path = Browser;
 			sourceTree = "<group>";
@@ -2107,6 +2111,7 @@
 				683C35902A9F188700568E9A /* FeedNavLink.swift in Sources */,
 				683C35932A9F188700568E9A /* FeedTitleButtonStyle.swift in Sources */,
 				683C35942A9F188700568E9A /* FeedTitleLabel.swift in Sources */,
+				6899FC802AE3518400367E8B /* ToggleReaderButton.swift in Sources */,
 				683C35952A9F188700568E9A /* FeedToolbar.swift in Sources */,
 				683C35962A9F188700568E9A /* FeedUnavailable.swift in Sources */,
 				683C35972A9F188700568E9A /* FeedUpdateTask.swift in Sources */,
@@ -2366,6 +2371,7 @@
 				687FEF162A416F2C0042977E /* FeedNavLink.swift in Sources */,
 				68701DF3273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift in Sources */,
 				6885C42226D37259002C41B0 /* FeedTitleLabel.swift in Sources */,
+				6899FC7F2AE3515500367E8B /* ToggleReaderButton.swift in Sources */,
 				68FF63F22921D88F0012A275 /* FeedToolbar.swift in Sources */,
 				68FC25552758B2250073979F /* FeedUnavailable.swift in Sources */,
 				685ABADE290F187C0080110A /* FeedUpdateTask.swift in Sources */,

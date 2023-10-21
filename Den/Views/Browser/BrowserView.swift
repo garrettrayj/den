@@ -48,6 +48,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     var body: some View {
         ZStack(alignment: .top) {
             BrowserWebView(browserViewModel: browserViewModel)
+                .ignoresSafeArea(edges: [.top, .horizontal])
                 .task {
                     browserViewModel.blocklists = Array(blocklists)
                     browserViewModel.useBlocklists = useBlocklists ?? true
@@ -85,7 +86,11 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                     .progressViewStyle(ThinLinearProgressViewStyle())
             }
         }
-        .ignoresSafeArea(edges: [.top, .horizontal])
+        .background {
+            // Buttons in background to fix keyboard shortcuts
+            ToggleReaderButton(browserViewModel: browserViewModel)
+            ZoomControlGroup(zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom)
+        }
         .navigationBarBackButtonHidden()
         .navigationTitle(browserViewModel.url?.host() ?? "")
         .toolbar {

@@ -56,7 +56,8 @@ struct ZoomControlGroup: View {
         }
         #if os(iOS)
         .labelsHidden()
-        #endif
         .controlGroupStyle(.compactMenu)
+        #endif
+        
     }
 }
