@@ -16,9 +16,10 @@
 body {
     background: -apple-system-background;
     accent-color: $TINT_COLOR;
-    font: -apple-system-body;
-    margin: 0 auto;
-    padding: 16px;
+    font: -apple-system-tall-body;
+    font-size: 18px;
+    margin: 32px auto 64px;
+    padding: 0 28px;
     max-width: 700px;
 }
 
@@ -36,6 +37,7 @@ body > header {
 #den-author,
 #den-date-published {
     font: -apple-system-subheadline;
+    font-size: 16px;
     margin: 4px 0;
 }
 
@@ -106,21 +108,25 @@ canvas, svg {
 
 h1 {
     font: -apple-system-title0;
+    font-size: 34px;
     font-weight: 600;
 }
 
 h2 {
     font: -apple-system-title1;
+    font-size: 30px;
     font-weight: 700;
 }
 
 h3 {
     font: -apple-system-title2;
+    font-size: 24px;
     font-weight: 700;
 }
 
 h4 {
     font: -apple-system-title3;
+    font-size: 20px;
     font-weight: 700;
 }
 
@@ -139,7 +145,7 @@ hr {
 blockquote {
     background: rgba(160, 160, 160, 0.15);
     border-radius: 8px;
-    font: -apple-system-title3;
+    font-size: 19px;
     margin: 20px auto;
     overflow: hidden;
     padding: 0 16px;
@@ -162,6 +168,7 @@ figure {
     background: rgba(160, 160, 160, 0.15);
     border-radius: 8px;
     font: -apple-system-caption1;
+    font-size: 14px;
     font-style: italic;
     font-weight: 400;
     margin: 20px 0;
@@ -255,6 +262,7 @@ figure:empty {
 table {
     border-collapse: collapse;
     font: -apple-system-body;
+    font-size: 16px;
     margin: 20px auto;
 }
 

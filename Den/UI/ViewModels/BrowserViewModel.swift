@@ -211,15 +211,6 @@ class BrowserViewModel: NSObject, ObservableObject {
             return ""
         }
 
-        #if os(macOS)
-        if
-            let path = Bundle.main.path(forResource: "ReaderMac", ofType: "css"),
-            let macStyles = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()
-        {
-            styles += macStyles
-        }
-        #endif
-
         return styles.replacingOccurrences(
             of: "$TINT_COLOR",
             with: userTintHex ?? "accentcolor"

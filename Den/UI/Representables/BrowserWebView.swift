@@ -18,6 +18,7 @@ struct BrowserWebView {
         let wkWebView = WKWebView()
         wkWebView.isInspectable = true
         wkWebView.navigationDelegate = context.coordinator
+        wkWebView.configuration.mediaTypesRequiringUserActionForPlayback = .all
         wkWebView.configuration.userContentController.add(context.coordinator, name: "reader")
         
         addMercuryScript(wkWebView.configuration.userContentController)

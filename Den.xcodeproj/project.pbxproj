@@ -258,7 +258,6 @@
 		684152222AD2763400ABE5E2 /* ReaderWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152212AD2763400ABE5E2 /* ReaderWebView.swift */; };
 		6841522B2AD3716500ABE5E2 /* Reader.css in Resources */ = {isa = PBXBuildFile; fileRef = 6841522A2AD3716500ABE5E2 /* Reader.css */; };
 		6841522C2AD3717A00ABE5E2 /* Reader.css in Resources */ = {isa = PBXBuildFile; fileRef = 6841522A2AD3716500ABE5E2 /* Reader.css */; };
-		6841522E2AD38C4100ABE5E2 /* ReaderMac.css in Resources */ = {isa = PBXBuildFile; fileRef = 6841522D2AD38C4100ABE5E2 /* ReaderMac.css */; };
 		684152302AD5501E00ABE5E2 /* ParseForReader.js in Resources */ = {isa = PBXBuildFile; fileRef = 6841522F2AD5501E00ABE5E2 /* ParseForReader.js */; };
 		684152312AD5502100ABE5E2 /* ParseForReader.js in Resources */ = {isa = PBXBuildFile; fileRef = 6841522F2AD5501E00ABE5E2 /* ParseForReader.js */; };
 		684152332AD552AB00ABE5E2 /* ReaderWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152212AD2763400ABE5E2 /* ReaderWebView.swift */; };
@@ -266,7 +265,6 @@
 		684152362AD5546E00ABE5E2 /* Mercury.js in Resources */ = {isa = PBXBuildFile; fileRef = 684152342AD5546E00ABE5E2 /* Mercury.js */; };
 		684152382AD559C300ABE5E2 /* MercuryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152372AD559C300ABE5E2 /* MercuryObject.swift */; };
 		684152392AD559C300ABE5E2 /* MercuryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152372AD559C300ABE5E2 /* MercuryObject.swift */; };
-		6841523D2AD6A38C00ABE5E2 /* ReaderMac.css in Resources */ = {isa = PBXBuildFile; fileRef = 6841522D2AD38C4100ABE5E2 /* ReaderMac.css */; };
 		6841523F2AD6C65600ABE5E2 /* ReaderInit.js in Resources */ = {isa = PBXBuildFile; fileRef = 6841523E2AD6C65600ABE5E2 /* ReaderInit.js */; };
 		684152402AD6C65600ABE5E2 /* ReaderInit.js in Resources */ = {isa = PBXBuildFile; fileRef = 6841523E2AD6C65600ABE5E2 /* ReaderInit.js */; };
 		684152422AD7B4DB00ABE5E2 /* ZoomControlGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152412AD7B4DB00ABE5E2 /* ZoomControlGroup.swift */; };
@@ -685,7 +683,6 @@
 		684152112AD0036600ABE5E2 /* BlocklistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistManager.swift; sourceTree = "<group>"; };
 		684152212AD2763400ABE5E2 /* ReaderWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderWebView.swift; sourceTree = "<group>"; };
 		6841522A2AD3716500ABE5E2 /* Reader.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Reader.css; sourceTree = "<group>"; };
-		6841522D2AD38C4100ABE5E2 /* ReaderMac.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = ReaderMac.css; sourceTree = "<group>"; };
 		6841522F2AD5501E00ABE5E2 /* ParseForReader.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = ParseForReader.js; sourceTree = "<group>"; };
 		684152342AD5546E00ABE5E2 /* Mercury.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Mercury.js; sourceTree = "<group>"; };
 		684152372AD559C300ABE5E2 /* MercuryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercuryObject.swift; sourceTree = "<group>"; };
@@ -1118,7 +1115,6 @@
 				6841522F2AD5501E00ABE5E2 /* ParseForReader.js */,
 				6841522A2AD3716500ABE5E2 /* Reader.css */,
 				6841523E2AD6C65600ABE5E2 /* ReaderInit.js */,
-				6841522D2AD38C4100ABE5E2 /* ReaderMac.css */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1862,7 +1858,6 @@
 				683C36352A9F188700568E9A /* Preview Assets.xcassets in Resources */,
 				6841522C2AD3717A00ABE5E2 /* Reader.css in Resources */,
 				684152402AD6C65600ABE5E2 /* ReaderInit.js in Resources */,
-				6841523D2AD6A38C00ABE5E2 /* ReaderMac.css in Resources */,
 				683C36362A9F188700568E9A /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1900,7 +1895,6 @@
 				68C4131B247263C700D1DC7B /* Preview Assets.xcassets in Resources */,
 				6841522B2AD3716500ABE5E2 /* Reader.css in Resources */,
 				6841523F2AD6C65600ABE5E2 /* ReaderInit.js in Resources */,
-				6841522E2AD38C4100ABE5E2 /* ReaderMac.css in Resources */,
 				68E6C5412A68E61C00CA46B2 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
