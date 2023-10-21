@@ -29,14 +29,14 @@ struct ImportExportUtility {
                 if let previewStyle = opmlFeed.previewStyle {
                     feed.wrappedPreviewStyle = previewStyle
                 }
-                if let hideTeasers = opmlFeed.hideTeasers {
-                    feed.hideTeasers = hideTeasers
+                if let showExcerpts = opmlFeed.showExcerpts {
+                    feed.showExcerpts = showExcerpts
                 }
-                if let hideBylines = opmlFeed.hideBylines {
-                    feed.hideBylines = hideBylines
+                if let showBylines = opmlFeed.showBylines {
+                    feed.showBylines = showBylines
                 }
-                if let hideImages = opmlFeed.hideImages {
-                    feed.hideImages = hideImages
+                if let showImages = opmlFeed.showImages {
+                    feed.showImages = showImages
                 }
                 if let readerMode = opmlFeed.readerMode {
                     feed.readerMode = readerMode

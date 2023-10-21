@@ -25,9 +25,9 @@ final class OPMLReader {
         var url: URL
         var previewLimit: Int?
         var previewStyle: PreviewStyle?
-        var hideTeasers: Bool?
-        var hideBylines: Bool?
-        var hideImages: Bool?
+        var showExcerpts: Bool?
+        var showBylines: Bool?
+        var showImages: Bool?
         var readerMode: Bool?
         var useBlocklists: Bool?
         var allowJavaScript: Bool?
@@ -81,14 +81,14 @@ final class OPMLReader {
                 if let previewStyle = feedElement.attributes["den:previewStyle"] {
                     feed.previewStyle = PreviewStyle(from: previewStyle)
                 }
-                if let hideTeasers = feedElement.attributes["den:hideTeasers"] {
-                    feed.hideTeasers = Bool(hideTeasers)
+                if let showExcerpts = feedElement.attributes["den:showExcerpts"] {
+                    feed.showExcerpts = Bool(showExcerpts)
                 }
-                if let hideBylines = feedElement.attributes["den:hideBylines"] {
-                    feed.hideBylines = Bool(hideBylines)
+                if let showBylines = feedElement.attributes["den:showBylines"] {
+                    feed.showBylines = Bool(showBylines)
                 }
-                if let hideImages = feedElement.attributes["den:hideImages"] {
-                    feed.hideImages = Bool(hideImages)
+                if let showImages = feedElement.attributes["den:showImages"] {
+                    feed.showImages = Bool(showImages)
                 }
                 if let readerMode = feedElement.attributes["den:useReaderAutomatically"] {
                     feed.readerMode = Bool(readerMode)

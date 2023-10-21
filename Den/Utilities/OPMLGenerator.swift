@@ -45,9 +45,9 @@ struct OPMLGenerator {
                     "xmlUrl": feed.urlString,
                     "den:previewLimit": String(feed.wrappedItemLimit),
                     "den:previewStyle": feed.wrappedPreviewStyle.stringRepresentation,
-                    "den:hideTeasers": String(feed.hideTeasers),
-                    "den:hideBylines": String(feed.hideBylines),
-                    "den:hideImages": String(feed.hideImages),
+                    "den:showTeasers": String(feed.showExcerpts),
+                    "den:showBylines": String(feed.showBylines),
+                    "den:showImages": String(feed.showImages),
                     "den:useReaderAutomatically": String(feed.readerMode),
                     "den:useBlocklists": String(feed.useBlocklists),
                     "den:allowJavaScript": String(feed.allowJavaScript)
