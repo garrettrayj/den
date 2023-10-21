@@ -17,7 +17,8 @@ struct PageView: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-    @Binding var showingInspector: Bool
+    
+    @SceneStorage("ShowingPageInspector") private var showingInspector = false
 
     private var pageLayout: AppStorage<PageLayout>
 
@@ -84,14 +85,12 @@ struct PageView: View {
     init(
         page: Page,
         profile: Profile,
-        hideRead: Binding<Bool>,
-        showingInspector: Binding<Bool>
+        hideRead: Binding<Bool>
     ) {
         self.page = page
         self.profile = profile
 
         _hideRead = hideRead
-        _showingInspector = showingInspector
 
         pageLayout = .init(
             wrappedValue: PageLayout.grouped,

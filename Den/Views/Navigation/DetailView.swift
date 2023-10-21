@@ -18,8 +18,6 @@ struct DetailView: View {
     @Binding var refreshing: Bool
     @Binding var path: NavigationPath
 
-    @SceneStorage("ShowingInspector") private var showingInspector = false
-
     var body: some View {
         NavigationStack(path: $path) {
             Group {
@@ -27,13 +25,12 @@ struct DetailView: View {
                 case .inbox:
                     Inbox(profile: profile, hideRead: $hideRead)
                 case .organizer:
-                    Organizer(profile: profile, showingInspector: $showingInspector)
+                    Organizer(profile: profile)
                 case .page(let page):
                     PageView(
                         page: page,
                         profile: profile,
-                        hideRead: $hideRead,
-                        showingInspector: $showingInspector
+                        hideRead: $hideRead
                     )
                 case .search(let query):
                     SearchView(profile: profile, hideRead: $hideRead, query: query)
@@ -52,7 +49,7 @@ struct DetailView: View {
                     case .bookmark(let bookmark):
                         BookmarkView(bookmark: bookmark)
                     case .feed(let feed):
-                        FeedView(feed: feed, hideRead: $hideRead, showingInspector: $showingInspector)
+                        FeedView(feed: feed, hideRead: $hideRead)
                     case .item(let item):
                         ItemView(item: item, profile: profile)
                     case .trend(let trend):

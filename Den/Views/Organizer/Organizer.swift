@@ -16,9 +16,9 @@ struct Organizer: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var showingInspector: Bool
-
     @State private var selection = Set<Feed>()
+    
+    @SceneStorage("ShowingOrganizerInspector") private var showingInspector = false
 
     var body: some View {
         List(selection: $selection) {
