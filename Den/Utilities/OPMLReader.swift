@@ -30,6 +30,7 @@ final class OPMLReader {
         var hideImages: Bool?
         var readerMode: Bool?
         var useBlocklists: Bool?
+        var allowJavaScript: Bool?
     }
 
     var outlineFolders: [Folder] = []
@@ -93,6 +94,9 @@ final class OPMLReader {
                 }
                 if let useBlocklists = feedElement.attributes["den:useBlocklists"] {
                     feed.useBlocklists = Bool(useBlocklists)
+                }
+                if let allowJavaScript = feedElement.attributes["den:allowJavaScript"] {
+                    feed.allowJavaScript = Bool(allowJavaScript)
                 }
 
                 folder.feeds.append(feed)

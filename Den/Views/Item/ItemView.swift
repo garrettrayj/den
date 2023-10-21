@@ -26,6 +26,7 @@ struct ItemView: View {
                 url: url,
                 useBlocklists: item.feedData?.feed?.useBlocklists,
                 useReaderAutomatically: item.feedData?.feed?.readerMode,
+                allowJavaScript: item.feedData?.feed?.allowJavaScript,
                 readerPublishedDate: item.published,
                 readerByline: item.author,
                 extraToolbar: {

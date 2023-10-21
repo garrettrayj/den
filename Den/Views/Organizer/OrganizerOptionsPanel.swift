@@ -50,6 +50,14 @@ struct OrganizerOptionsPanel: View {
                     Toggle(sources: sources, isOn: \.readerMode) {
                         Text("Use Reader Automatically", comment: "Toggle label.")
                     }
+                    
+                    Toggle(sources: sources, isOn: \.useBlocklists) {
+                        Text("Use Blocklists", comment: "Toggle label.")
+                    }
+                    
+                    Toggle(sources: sources, isOn: \.allowJavaScript) {
+                        Text("Allow JavaScript", comment: "Toggle label.")
+                    }
                 } header: {
                     Text("Viewing", comment: "Inspector section header.")
                 }

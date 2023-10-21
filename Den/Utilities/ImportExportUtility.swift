@@ -44,6 +44,9 @@ struct ImportExportUtility {
                 if let useBlocklists = opmlFeed.useBlocklists {
                     feed.useBlocklists = useBlocklists
                 }
+                if let allowJavaScript = opmlFeed.allowJavaScript {
+                    feed.allowJavaScript = allowJavaScript
+                }
             }
         }
 

@@ -115,6 +115,17 @@ struct FeedInspector: View {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
+                
+                Toggle(isOn: $feed.allowJavaScript) {
+                    Text("Allow JavaScript", comment: "Toggle label.")
+                }
+                .onChange(of: feed.disableJavaScript) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
             } header: {
                 Text("Viewing", comment: "Inspector section header.")
             }

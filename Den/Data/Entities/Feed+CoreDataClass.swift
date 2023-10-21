@@ -51,6 +51,11 @@ public class Feed: NSManagedObject {
         get { !disableBlocklists }
         set { disableBlocklists = !newValue }
     }
+    
+    public var allowJavaScript: Bool {
+        get { !disableJavaScript }
+        set { disableJavaScript = !newValue }
+    }
 
     public var needsMetaUpdate: Bool {
         feedData?.metaFetched == nil

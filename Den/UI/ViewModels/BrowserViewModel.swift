@@ -42,6 +42,7 @@ class BrowserViewModel: NSObject, ObservableObject {
     @Published var useReaderAutomatically = false
     @Published var userTintHex: String?
     @Published var blocklists: [Blocklist] = []
+    @Published var allowJavaScript = true
 
     @MainActor
     func loadURL(url: URL?) async {
@@ -59,6 +60,11 @@ class BrowserViewModel: NSObject, ObservableObject {
             contentRulesListsLoaded = false
         }
         
+        browserWebView?
+            .configuration
+            .defaultWebpagePreferences
+            .allowsContentJavaScript = allowJavaScript
+
         browserWebView?.load(URLRequest(url: url))
     }
 
@@ -86,6 +92,12 @@ class BrowserViewModel: NSObject, ObservableObject {
     @MainActor
     func toggleBlocklists() async {
         useBlocklists.toggle()
+        await loadURL(url: url)
+    }
+    
+    @MainActor
+    func toggleJavaScript() async {
+        allowJavaScript.toggle()
         await loadURL(url: url)
     }
 

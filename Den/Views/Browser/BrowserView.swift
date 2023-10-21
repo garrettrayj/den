@@ -17,8 +17,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     var url: URL
     var useBlocklists: Bool?
     var useReaderAutomatically: Bool?
-    var readerPublishedDate: Date?
-    var readerByline: String?
+    var allowJavaScript: Bool?
     var extraToolbar: ExtraToolbar?
 
     @StateObject var browserViewModel = BrowserViewModel()
@@ -33,6 +32,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
         url: URL,
         useBlocklists: Bool? = nil,
         useReaderAutomatically: Bool? = nil,
+        allowJavaScript: Bool? = nil,
         readerPublishedDate: Date? = nil,
         readerByline: String? = nil,
         @ToolbarContentBuilder extraToolbar: @escaping () -> ExtraToolbar?
@@ -40,8 +40,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
         self.url = url
         self.useBlocklists = useBlocklists
         self.useReaderAutomatically = useReaderAutomatically
-        self.readerPublishedDate = readerPublishedDate
-        self.readerByline = readerByline
+        self.allowJavaScript = allowJavaScript
         self.extraToolbar = extraToolbar()
     }
 
@@ -53,6 +52,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                     browserViewModel.blocklists = Array(blocklists)
                     browserViewModel.useBlocklists = useBlocklists ?? true
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
+                    browserViewModel.allowJavaScript = allowJavaScript ?? true
                     browserViewModel.userTintHex = userTint?.hexString(environment: environment)
                     browserViewModel.setBrowserZoom(browserZoom)
                     await browserViewModel.loadURL(url: url)
@@ -118,13 +118,11 @@ extension BrowserView where ExtraToolbar == Never {
         url: URL,
         useBlocklists: Bool? = nil,
         useReaderAutomatically: Bool? = nil,
-        readerPublishedDate: Date? = nil,
-        readerByline: String? = nil
+        allowJavaScript: Bool? = nil
     ) {
         self.url = url
         self.useBlocklists = useBlocklists
         self.useReaderAutomatically = useReaderAutomatically
-        self.readerPublishedDate = readerPublishedDate
-        self.readerByline = readerByline
+        self.allowJavaScript = allowJavaScript
     }
 }
