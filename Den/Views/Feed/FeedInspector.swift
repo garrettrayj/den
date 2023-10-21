@@ -191,8 +191,8 @@ struct FeedInspector: View {
             }
 
             if feed.largePreviews {
-                Toggle(isOn: $feed.hideTeasers) {
-                    Text("Hide Teasers", comment: "Toggle label.")
+                Toggle(isOn: $feed.showExcerpts) {
+                    Text("Show Excerpts", comment: "Toggle label.")
                 }
                 .onChange(of: feed.hideTeasers) {
                     do {
@@ -203,8 +203,8 @@ struct FeedInspector: View {
                 }
             }
 
-            Toggle(isOn: $feed.hideBylines) {
-                Text("Hide Bylines", comment: "Toggle label.")
+            Toggle(isOn: $feed.showBylines) {
+                Text("Show Bylines", comment: "Toggle label.")
             }
             .onChange(of: feed.hideBylines) {
                 do {
@@ -214,8 +214,8 @@ struct FeedInspector: View {
                 }
             }
 
-            Toggle(isOn: $feed.hideImages) {
-                Text("Hide Images", comment: "Toggle label.")
+            Toggle(isOn: $feed.showImages) {
+                Text("Show Images", comment: "Toggle label.")
             }
             .onChange(of: feed.hideImages) {
                 do {

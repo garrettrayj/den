@@ -52,7 +52,7 @@ struct LargeThumbnail: View {
                         .scaledToFit()
                     }
                 }
-                .aspectRatio(16/9, contentMode: .fit)
+                .aspectRatio(16/9, contentMode: .fill)
             } else if aspectRatio! < 0.5 {
                 ImageDepression(padding: 8) {
                     WebImage(

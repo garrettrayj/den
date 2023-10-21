@@ -45,6 +45,7 @@ final class OPMLReader {
         }
     }
 
+    // swiftlint:disable cyclomatic_complexity
     private func parseDocument(xmlDoc: AEXMLDocument) {
         let folderElements = xmlDoc.root["body"].children
 

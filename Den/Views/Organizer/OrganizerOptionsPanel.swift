@@ -33,14 +33,14 @@ struct OrganizerOptionsPanel: View {
                     Toggle(sources: sources, isOn: \.largePreviews) {
                         Text("Large Previews", comment: "Toggle label.")
                     }
-                    Toggle(sources: sources, isOn: \.hideTeasers) {
-                        Text("Hide Teasers", comment: "Toggle label.")
+                    Toggle(sources: sources, isOn: \.showExcerpts) {
+                        Text("Show Excerpts", comment: "Toggle label.")
                     }
-                    Toggle(sources: sources, isOn: \.hideBylines) {
-                        Text("Hide Bylines", comment: "Toggle label.")
+                    Toggle(sources: sources, isOn: \.showBylines) {
+                        Text("Show Bylines", comment: "Toggle label.")
                     }
-                    Toggle(sources: sources, isOn: \.hideImages) {
-                        Text("Hide Images", comment: "Toggle label.")
+                    Toggle(sources: sources, isOn: \.showImages) {
+                        Text("Show Images", comment: "Toggle label.")
                     }
                 } header: {
                     Text("Previews", comment: "Inspector section header.")

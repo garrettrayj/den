@@ -218,7 +218,7 @@ class BrowserViewModel: NSObject, ObservableObject {
     private var readerStyles: String {
         guard
             let path = Bundle.main.path(forResource: "Reader", ofType: "css"),
-            var styles = try? String(contentsOfFile: path)
+            let styles = try? String(contentsOfFile: path)
         else {
             return ""
         }

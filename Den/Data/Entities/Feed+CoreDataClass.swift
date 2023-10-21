@@ -47,6 +47,21 @@ public class Feed: NSManagedObject {
         set { url = URL(string: newValue) }
     }
     
+    public var showExcerpts: Bool {
+        get { !hideTeasers }
+        set { hideTeasers = !newValue }
+    }
+    
+    public var showImages: Bool {
+        get { !hideImages }
+        set { hideImages = !newValue }
+    }
+    
+    public var showBylines: Bool {
+        get { !hideBylines }
+        set { hideBylines = !newValue }
+    }
+    
     public var useBlocklists: Bool {
         get { !disableBlocklists }
         set { disableBlocklists = !newValue }
