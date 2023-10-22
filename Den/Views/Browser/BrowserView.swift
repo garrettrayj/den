@@ -47,7 +47,6 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     var body: some View {
         ZStack(alignment: .top) {
             BrowserWebView(browserViewModel: browserViewModel)
-                .ignoresSafeArea(edges: [.top, .horizontal])
                 .task {
                     browserViewModel.blocklists = Array(blocklists)
                     browserViewModel.useBlocklists = useBlocklists ?? true
@@ -64,14 +63,11 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                 #if os(macOS)
                 .padding(.top, 1)
                 #endif
+                .ignoresSafeArea(edges: [.top, .horizontal])
                 
             if browserViewModel.showingReader == true {
                 ReaderWebView(browserViewModel: browserViewModel)
-                    #if os(macOS)
-                    .transition(.flipFromBottom)
-                    #else
-                    .transition(.flipFromTop)
-                    #endif
+                    .ignoresSafeArea(edges: [.top, .horizontal])
                     .onAppear {
                         browserViewModel.setReaderZoom(readerZoom)
                         browserViewModel.loadReader(initialZoom: readerZoom)
@@ -79,6 +75,11 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                     .onChange(of: browserViewModel.mercuryObject) {
                         browserViewModel.loadReader(initialZoom: readerZoom)
                     }
+                    #if os(macOS)
+                    .transition(.flipFromBottom)
+                    #else
+                    .transition(.flipFromTop)
+                    #endif
             }
 
             if browserViewModel.isLoading {
