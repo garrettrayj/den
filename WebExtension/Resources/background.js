@@ -1,17 +1,15 @@
-function updateBadge(count) {
-    var badgeText = ""
-    if (count > 0) {
-        badgeText = String(count)
-        browser.browserAction.enable()
-    } else {
-        browser.browserAction.disable()
-    }
+browser.tabs.onActivated.addListener(function(activeInfo) {
+    // Toolbar button disabled by default
+    browser.browserAction.disable()
     
-    browser.browserAction.setBadgeText({text: badgeText})
-}
-
-browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.subject === "results") {
-        updateBadge(request.data.length)
-    }
+    browser
+        .tabs
+        .sendMessage(activeInfo.tabId, {"subject": "sense", "sender": "popup"})
+        .then(function(results) {
+            let count = results.data.length
+            if (count > 0) {
+                browser.browserAction.setBadgeText({tabId: activeInfo.tabId, text: String(count)})
+                browser.browserAction.enable()
+            }
+        });
 });

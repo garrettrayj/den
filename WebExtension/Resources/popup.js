@@ -1,24 +1,23 @@
-/**
- Send a request to scan for feeds to the content script.
- */
+// Send a request to scan for feeds to the content script.
 function scanActiveTab() {
     browser
         .tabs
         .query({active: true, currentWindow: true})
-        .then((tabs) => {
-            browser.tabs.sendMessage(tabs[0].id, {"subject": "sense", "sender": "popup"}).then(results => {
-                if (results.data.length > 0) {
-                    createResultsList(results.data)
-                } else {
-                    document.getElementById("no-results-message").innerHTML = browser.i18n.getMessage("no_results")
-                }
-            });
+        .then(function(tabs) {
+            browser
+                .tabs
+                .sendMessage(tabs[0].id, {"subject": "sense", "sender": "popup"})
+                .then(function(results) {
+                    if (results.data.length > 0) {
+                        createResultsList(results.data);
+                    } else {
+                        document.getElementById("no-results-message").innerHTML = browser.i18n.getMessage("no_results");
+                    }
+                });
         });
 }
 
-/**
- Display detectected feeds.
- */
+// Display scan results.
 function createResultsList(results) {
     var list = document.createElement("div");
     list.id = "results-list"
@@ -30,32 +29,31 @@ function createResultsList(results) {
     document.body.replaceChildren(list);
 }
 
-/**
- Create a row for a single feed result.
- */
+
+// Create a feed result row.
 function createResultRow(result) {
-    var row = document.createElement("div");
+    let row = document.createElement("div");
     row.classList.add("row")
     
-    var descriptionCol = document.createElement("div");
+    let descriptionCol = document.createElement("div");
     descriptionCol.classList.add('description')
     row.appendChild(descriptionCol);
     
-    var title = document.createElement("div");
+    let title = document.createElement("div");
     title.classList.add('title')
     title.innerHTML = result.title;
     descriptionCol.appendChild(title);
 
-    var feedURL = document.createElement("div");
+    let feedURL = document.createElement("div");
     feedURL.classList.add('feed-url')
     feedURL.innerHTML = result.url;
     descriptionCol.appendChild(feedURL);
     
-    var openCol = document.createElement("div");
+    let openCol = document.createElement("div");
     openCol.classList.add('action')
     row.appendChild(openCol);
     
-    var openBtn = document.createElement("button");
+    let openBtn = document.createElement("button");
     openBtn.classList.add('open-btn')
     openBtn.innerHTML = '<i id="open-icon"></i>'
     openBtn.onclick = function() {
@@ -63,11 +61,11 @@ function createResultRow(result) {
     }
     openCol.appendChild(openBtn)
     
-    var copyCol = document.createElement("div");
+    let copyCol = document.createElement("div");
     copyCol.classList.add('action')
     row.appendChild(copyCol);
     
-    var copyBtn = document.createElement("button");
+    let copyBtn = document.createElement("button");
     copyBtn.classList.add('copy-btn')
     copyBtn.innerHTML = '<i id="copy-icon"></i>'
     copyBtn.onclick = function(e) {
@@ -78,20 +76,18 @@ function createResultRow(result) {
     return row
 }
 
-/**
- Copy text to clipboard
- */
+// Copy text to clipboard
 function pasteboardCopy(text) {
     navigator.clipboard.writeText(text);
     
     let copiedMessage = browser.i18n.getMessage("copied", text)
     
-    var status = document.createElement("div")
+    let status = document.createElement("div")
     status.classList.add("status")
     status.innerHTML = copiedMessage
     
     const statuses = document.getElementsByClassName("status")
-    var i = 0;
+    let i = 0;
     while (statuses.length) {
         statuses[i].parentNode.removeChild(statuses[i])
     }
@@ -99,7 +95,5 @@ function pasteboardCopy(text) {
     document.body.appendChild(status);
 }
 
-/**
- Show feeds for the active tab when popup is opened.
- */
+// Show feeds for the active tab when popup is opened.
 scanActiveTab()

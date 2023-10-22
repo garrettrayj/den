@@ -22,14 +22,14 @@ body {
 
 @supports (-webkit-touch-callout: none) { /* iOS */
     body {
-      background: -apple-system-grouped-background;
-      min-width: 300px;
+        background: -apple-system-grouped-background;
+        min-width: 300px;
     }
 }
 
 @supports not (-webkit-touch-callout: none) { /* Mac */
     body {
-      width: 300px;
+        width: 260px;
     }
 }
 
