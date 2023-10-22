@@ -19,7 +19,7 @@ struct DoneButton: View {
         } label: {
             Text("Done", comment: "Button label.")
                 #if os(macOS)
-                .font(.body.weight(.semibold))
+                .font(.body.weight(.medium))
                 .padding(.horizontal, 4)
                 #endif
         }

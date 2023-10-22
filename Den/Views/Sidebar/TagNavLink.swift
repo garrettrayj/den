@@ -17,20 +17,32 @@ struct TagNavLink: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var tag: Tag
+    
+    @Binding var detailPanel: DetailPanel?
 
     var body: some View {
-        Label {
+        Group {
             #if os(macOS)
-            TextField(text: $tag.wrappedName) { tag.nameText }.badge(tag.bookmarksArray.count)
+            Label {
+                TextField(text: $tag.wrappedName) { tag.nameText }.badge(tag.bookmarksArray.count)
+            } icon: {
+                Image(systemName: "tag")
+            }
             #else
             if editMode?.wrappedValue.isEditing == true {
                 TextField(text: $tag.wrappedName) { tag.nameText }
             } else {
-                tag.nameText.badge(tag.bookmarksArray.count)
+                Button {
+                    detailPanel = .tag(tag)
+                } label: {
+                    Label {
+                        tag.nameText.badge(tag.bookmarksArray.count)
+                    } icon: {
+                        Image(systemName: "tag")
+                    }
+                }
             }
             #endif
-        } icon: {
-            Image(systemName: "tag")
         }
         .lineLimit(1)
         .tag(DetailPanel.tag(tag))

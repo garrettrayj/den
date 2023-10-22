@@ -106,18 +106,12 @@ struct SidebarToolbar: ToolbarContent {
             }
         }
         ToolbarItem(placement: .bottomBar) {
-            Menu {
-                ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
-            } label: {
-                Label {
-                    profile.nameText
-                } icon: {
-                    Image(systemName: "person.crop.circle")
-                }
-            }
-            .menuOrder(.fixed)
+            ProfilePickerMenu(
+                profile: profile,
+                profiles: profiles,
+                currentProfileID: $currentProfileID
+            )
             .disabled(refreshing)
-            .accessibilityIdentifier("ProfileMenu")
         }
         ToolbarItem(placement: .status) {
             SidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)

@@ -53,26 +53,28 @@ struct Sidebar: View {
             } else {
                 #if os(macOS)
                 Section {
-                    InboxNavLink(profile: profile)
-                    TrendingNavLink(profile: profile)
+                    InboxNavLink(profile: profile, detailPanel: $detailPanel)
+                    TrendingNavLink(profile: profile, detailPanel: $detailPanel)
                 } header: {
                     Text("All Feeds", comment: "Sidebar section header.")
                 }
                 #else
-                InboxNavLink(profile: profile)
-                TrendingNavLink(profile: profile)
+                InboxNavLink(profile: profile, detailPanel: $detailPanel)
+                TrendingNavLink(profile: profile, detailPanel: $detailPanel)
                 #endif
                 PagesSection(
                     profile: profile,
+                    detailPanel: $detailPanel,
                     newFeedPageID: $newFeedPageID,
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet
                 )
                 if !profile.tagsArray.isEmpty {
-                    TagsSection(profile: profile)
+                    TagsSection(profile: profile, detailPanel: $detailPanel)
                 }
             }
         }
+        .buttonStyle(.plain)
         .listStyle(.sidebar)
         .badgeProminence(.decreased)
         .refreshable {
@@ -119,20 +121,11 @@ struct Sidebar: View {
         #if os(macOS)
         .safeAreaInset(edge: .bottom) {
             VStack(alignment: .leading) {
-                Menu {
-                    ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
-                        .pickerStyle(.inline)
-                } label: {
-                    Label {
-                        profile.nameText
-                    } icon: {
-                        Image(systemName: "person.crop.circle").imageScale(.large)
-                    }
-                }
-                .menuStyle(.borderlessButton)
-                .menuIndicator(.hidden)
-                .menuOrder(.fixed)
-                .accessibilityIdentifier("ProfileMenu")
+                ProfilePickerMenu(
+                    profile: profile,
+                    profiles: profiles,
+                    currentProfileID: $currentProfileID
+                )
                 .disabled(refreshing)
 
                 SidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)

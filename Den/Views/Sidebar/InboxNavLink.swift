@@ -15,16 +15,22 @@ struct InboxNavLink: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var profile: Profile
+    
+    @Binding var detailPanel: DetailPanel?
 
     var body: some View {
-        Label {
-            WithItems(scopeObject: profile, readFilter: false) { items in
-                Text("Inbox", comment: "Button label.")
-                    .lineLimit(1)
-                    .badge(items.count)
+        Button {
+            detailPanel = .inbox
+        } label: {
+            Label {
+                WithItems(scopeObject: profile, readFilter: false) { items in
+                    Text("Inbox", comment: "Button label.")
+                        .lineLimit(1)
+                        .badge(items.count)
+                }
+            } icon: {
+                Image(systemName: "tray")
             }
-        } icon: {
-            Image(systemName: "tray")
         }
         .tag(DetailPanel.inbox)
         .accessibilityIdentifier("InboxNavLink")

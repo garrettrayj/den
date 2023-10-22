@@ -14,11 +14,13 @@ struct TagsSection: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
+    
+    @Binding var detailPanel: DetailPanel?
 
     var body: some View {
         Section {
             ForEach(profile.tagsArray) { tag in
-                TagNavLink(tag: tag)
+                TagNavLink(tag: tag, detailPanel: $detailPanel)
             }
             .onMove(perform: moveTags)
             .onDelete(perform: deleteTags)

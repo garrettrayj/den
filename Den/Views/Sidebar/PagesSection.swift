@@ -15,6 +15,7 @@ struct PagesSection: View {
 
     @ObservedObject var profile: Profile
 
+    @Binding var detailPanel: DetailPanel?
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
     @Binding var showingNewFeedSheet: Bool
@@ -24,6 +25,7 @@ struct PagesSection: View {
             ForEach(profile.pagesArray) { page in
                 PageNavLink(
                     page: page,
+                    detailPanel: $detailPanel,
                     newFeedPageID: $newFeedPageID,
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet

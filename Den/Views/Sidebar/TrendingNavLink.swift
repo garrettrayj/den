@@ -14,14 +14,20 @@ struct TrendingNavLink: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var profile: Profile
+    
+    @Binding var detailPanel: DetailPanel?
 
     var body: some View {
-        Label {
-            Text("Trending", comment: "Button label.")
-                .lineLimit(1)
-                .badge(profile.trends.containingUnread().count)
-        } icon: {
-            Image(systemName: "chart.line.uptrend.xyaxis")
+        Button {
+            detailPanel = .trending
+        } label: {
+            Label {
+                Text("Trending", comment: "Button label.")
+                    .lineLimit(1)
+                    .badge(profile.trends.containingUnread().count)
+            } icon: {
+                Image(systemName: "chart.line.uptrend.xyaxis")
+            }
         }
         .tag(DetailPanel.trending)
         .accessibilityIdentifier("TrendingNavLink")

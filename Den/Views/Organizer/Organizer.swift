@@ -18,7 +18,11 @@ struct Organizer: View {
 
     @State private var selection = Set<Feed>()
     
+    #if os(macOS)
+    @SceneStorage("ShowingOrganizerInspector") private var showingInspector = true
+    #else
     @SceneStorage("ShowingOrganizerInspector") private var showingInspector = false
+    #endif
 
     var body: some View {
         List(selection: $selection) {

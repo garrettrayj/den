@@ -18,27 +18,38 @@ struct PageNavLink: View {
 
     @ObservedObject var page: Page
 
+    @Binding var detailPanel: DetailPanel?
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
     @Binding var showingNewFeedSheet: Bool
 
     var body: some View {
-        Label {
+        Group {
             #if os(macOS)
-            WithItems(scopeObject: page, readFilter: false) { items in
-                TextField(text: $page.wrappedName) { page.nameText }.badge(items.count)
+            Label {
+                WithItems(scopeObject: page, readFilter: false) { items in
+                    TextField(text: $page.wrappedName) { page.nameText }.badge(items.count)
+                }
+            } icon: {
+                Image(systemName: page.wrappedSymbol)
             }
             #else
             if editMode?.wrappedValue.isEditing == true {
                 TextField(text: $page.wrappedName) { page.nameText }
             } else {
-                WithItems(scopeObject: page, readFilter: false) { items in
-                    page.nameText.badge(items.count)
+                Button {
+                    detailPanel = .page(page)
+                } label: {
+                    Label {
+                        WithItems(scopeObject: page, readFilter: false) { items in
+                            page.nameText.badge(items.count)
+                        }
+                    } icon: {
+                        Image(systemName: page.wrappedSymbol)
+                    }
                 }
             }
             #endif
-        } icon: {
-            Image(systemName: page.wrappedSymbol)
         }
         .lineLimit(1)
         .tag(DetailPanel.page(page))
