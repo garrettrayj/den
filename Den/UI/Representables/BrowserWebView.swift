@@ -12,6 +12,8 @@ import SwiftUI
 import WebKit
 
 struct BrowserWebView {
+    @Environment(\.openURL) private var openURL
+    
     @ObservedObject var browserViewModel: BrowserViewModel
     
     func makeWebView(context: Context) -> WKWebView {
@@ -65,9 +67,11 @@ struct BrowserWebView {
 
     class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
         let browserViewModel: BrowserViewModel
+        let openURL: OpenURLAction
 
-        init(browserViewModel: BrowserViewModel) {
+        init(browserViewModel: BrowserViewModel, openURL: OpenURLAction) {
             self.browserViewModel = browserViewModel
+            self.openURL = openURL
         }
 
         func webView(
@@ -77,7 +81,24 @@ struct BrowserWebView {
         ) {
             browserViewModel.browserError = error
         }
+        
+        func webView(
+            _ webView: WKWebView,
+            decidePolicyFor navigationAction: WKNavigationAction,
+            decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+        ) {
+            // Open external links in system browser
+            if navigationAction.targetFrame == nil {
+                if let url = navigationAction.request.url {
+                    openURL(url)
+                }
+                decisionHandler(.cancel)
+                return
+            }
 
+            decisionHandler(.allow)
+        }
+  
         func userContentController(
             _ userContentController: WKUserContentController,
             didReceive message: WKScriptMessage
@@ -137,7 +158,10 @@ extension BrowserWebView: NSViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(browserViewModel: browserViewModel)
+        Coordinator(
+            browserViewModel: browserViewModel,
+            openURL: openURL
+        )
     }
 }
 #else
@@ -150,7 +174,10 @@ extension BrowserWebView: UIViewRepresentable {
      }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(browserViewModel: browserViewModel)
+        Coordinator(
+            browserViewModel: browserViewModel,
+            openURL: openURL
+        )
     }
 }
 #endif

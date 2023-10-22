@@ -12,6 +12,8 @@ import SwiftUI
 import WebKit
 
 struct ReaderWebView {
+    @Environment(\.openURL) private var openURL
+
     @ObservedObject var browserViewModel: BrowserViewModel
 
     func makeWebView(context: Context) -> WKWebView {
@@ -46,9 +48,11 @@ struct ReaderWebView {
 
     class Coordinator: NSObject, WKNavigationDelegate {
         let browserViewModel: BrowserViewModel
+        let openURL: OpenURLAction
 
-        init(browserViewModel: BrowserViewModel) {
+        init(browserViewModel: BrowserViewModel, openURL: OpenURLAction) {
             self.browserViewModel = browserViewModel
+            self.openURL = openURL
         }
 
         func webView(
@@ -56,20 +60,28 @@ struct ReaderWebView {
             decidePolicyFor navigationAction: WKNavigationAction,
             decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
         ) {
-            let browserActions: Set<WKNavigationType> = [.linkActivated]
+            // Open external links in system browser
+            if navigationAction.targetFrame == nil {
+                if let url = navigationAction.request.url {
+                    openURL(url)
+                }
+                decisionHandler(.cancel)
+                return
+            }
 
+            let browserActions: Set<WKNavigationType> = [.linkActivated]
             if
                 let url = navigationAction.request.url,
                 browserActions.contains(navigationAction.navigationType)
             {
-                decisionHandler(.cancel)
-                
                 Task {
                     await browserViewModel.loadURL(url: url)
                 }
-            } else {
-                decisionHandler(.allow)
+                decisionHandler(.cancel)
+                return
             }
+            
+            decisionHandler(.allow)
         }
     }
 }
@@ -77,7 +89,7 @@ struct ReaderWebView {
 #if os(macOS)
 extension ReaderWebView: NSViewRepresentable {
     func makeCoordinator() -> Coordinator {
-        Coordinator(browserViewModel: browserViewModel)
+        Coordinator(browserViewModel: browserViewModel, openURL: openURL)
     }
 
     func makeNSView(context: Context) -> WKWebView {
@@ -90,7 +102,7 @@ extension ReaderWebView: NSViewRepresentable {
 #else
 extension ReaderWebView: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
-        Coordinator(browserViewModel: browserViewModel)
+        Coordinator(browserViewModel: browserViewModel, openURL: openURL)
     }
 
     func makeUIView(context: Context) -> WKWebView {
