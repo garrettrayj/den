@@ -14,7 +14,7 @@ final class InboxUITests: UITestCase {
     func testInbox() throws {
         let app = launchApp(inMemory: false)
 
-        app.staticTexts["InboxNavLink"].tap()
+        app.buttons["InboxNavLink"].tap()
 
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()
@@ -48,11 +48,11 @@ final class InboxUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
         app.buttons["CreateProfile"].firstMatch.tap()
 
-        if !app.buttons["NewPage"].waitForExistence(timeout: 2) {
+        if !app.outlineRows.buttons["NewPage"].waitForExistence(timeout: 2) {
             XCTFail("New Page button did not appear in time")
         }
 
-        app.buttons["NewPage"].tap()
+        app.outlineRows.buttons["NewPage"].tap()
         app.buttons["CreatePage"].tap()
 
         #if os(iOS)
@@ -63,10 +63,10 @@ final class InboxUITests: UITestCase {
         }
         #endif
 
-        if !app.staticTexts["InboxNavLink"].waitForExistence(timeout: 2) {
+        if !app.buttons["InboxNavLink"].waitForExistence(timeout: 2) {
             XCTFail("Inbox button did not appear in time")
         }
-        app.staticTexts["InboxNavLink"].tap()
+        app.buttons["InboxNavLink"].tap()
 
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()

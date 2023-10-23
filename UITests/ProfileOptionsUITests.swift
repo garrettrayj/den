@@ -16,19 +16,19 @@ final class ProfileOptionsUITests: UITestCase {
 
         #if os(macOS)
         app.popUpButtons["SidebarMenu"].tap()
-        app.menuItems["ShowProfileOptions"].tap()
+        app.menuItems["ShowSettings"].tap()
         #else
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
         }
         app.buttons["SidebarMenu"].forceTap()
-        app.buttons["ShowProfileOptions"].tap()
+        app.buttons["ShowSettings"].tap()
         #endif
 
-        if !app.buttons["Cancel"].waitForExistence(timeout: 4) {
+        if !app.buttons["Close"].waitForExistence(timeout: 4) {
             XCTFail("Profile options sheet did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "09-ProfileOptions")
+        attachScreenshot(of: app.windows.firstMatch, named: "09-Settings")
     }
 }

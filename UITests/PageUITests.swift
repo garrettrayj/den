@@ -20,12 +20,24 @@ final class PageUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
         app.buttons["CreateProfile"].firstMatch.tap()
 
-        if !app.buttons["NewPage"].waitForExistence(timeout: 2) {
+        if !app.outlineRows.buttons["NewPage"].waitForExistence(timeout: 2) {
             XCTFail("New Page button did not appear in time")
         }
 
-        app.buttons["NewPage"].tap()
+        app.outlineRows.buttons["NewPage"].tap()
         app.buttons["CreatePage"].tap()
+        
+        #if os(macOS)
+        if !app.outlineRows.textFields["Untitled"].waitForExistence(timeout: 2) {
+            XCTFail("Page button did not appear in time")
+        }
+        app.outlineRows.textFields["Untitled"].tap()
+        #else
+        if !app.collectionViews.buttons["Untitled"].waitForExistence(timeout: 2) {
+            XCTFail("Page button did not appear in time")
+        }
+        app.collectionViews.buttons["Untitled"].tap()
+        #endif
 
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()
@@ -43,14 +55,14 @@ final class PageUITests: UITestCase {
         }
         #endif
 
-        if !app.staticTexts["Untitled"].waitForExistence(timeout: 2) {
+        if !app.staticTexts["No Feeds"].waitForExistence(timeout: 2) {
             XCTFail("Page title did not appear in time")
         }
 
         attachScreenshot(of: app.windows.firstMatch, named: "PageEmpty")
     }
 
-    func testPageSpreadLayout() throws {
+    func testPageGroupedLayout() throws {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
@@ -108,11 +120,7 @@ final class PageUITests: UITestCase {
         #if os(macOS)
         app.radioButtons["TimelineLayout"].tap()
         #else
-        if app.windows.firstMatch.horizontalSizeClass == .compact {
-            app.buttons["PageMenu"].forceTap()
-        } else {
-            app.buttons["PageLayoutPicker"].tap()
-        }
+        app.buttons["PageLayoutPicker"].tap()
         app.buttons["TimelineLayout"].tap()
         #endif
 
@@ -149,11 +157,7 @@ final class PageUITests: UITestCase {
         #if os(macOS)
         app.radioButtons["DeckLayout"].tap()
         #else
-        if app.windows.firstMatch.horizontalSizeClass == .compact {
-            app.buttons["PageMenu"].forceTap()
-        } else {
-            app.buttons["PageLayoutPicker"].tap()
-        }
+        app.buttons["PageLayoutPicker"].tap()
         app.buttons["DeckLayout"].tap()
         #endif
 
@@ -184,12 +188,6 @@ final class PageUITests: UITestCase {
             } else {
                 app.tap()
             }
-        }
-        #endif
-
-        #if os(iOS)
-        if app.windows.firstMatch.horizontalSizeClass == .compact {
-            app.buttons["PageMenu"].forceTap()
         }
         #endif
 

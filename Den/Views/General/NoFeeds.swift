@@ -24,7 +24,7 @@ struct NoFeeds: View {
             #if os(macOS)
             Text(
                 """
-                Open a syndication link, drag a URL onto the page list, \
+                Open a feed link, drag a URL onto the page list, \
                 or go to “\(Image(systemName: "ellipsis.circle" )) > New Feed” to enter a web address. \
                 Use the Safari extension to discover feeds on websites.
                 """,
@@ -35,7 +35,7 @@ struct NoFeeds: View {
             if UIDevice.current.userInterfaceIdiom == .phone {
                 Text(
                     """
-                    Open a syndication link or go to “\(Image(systemName: "ellipsis.circle" )) > New Feed” \
+                    Open a feed link or go to “\(Image(systemName: "ellipsis.circle" )) > New Feed” \
                     from the home/sidebar view to enter a web address. \
                     Use the Safari extension to discover feeds on websites.
                     """,
@@ -45,7 +45,7 @@ struct NoFeeds: View {
             } else {
                 Text(
                     """
-                    Open a syndication link, drag a URL onto the page list, \
+                    Open a feed link, drag a URL onto the page list, \
                     or go to “\(Image(systemName: "ellipsis.circle" )) > New Feed” \
                     from the home/sidebar view to enter a web address. \
                     Use the Safari extension to discover feeds on websites.
@@ -53,6 +53,7 @@ struct NoFeeds: View {
                     comment: "No feeds guidance (iPad)."
                 )
                 .imageScale(.small)
+                .frame(maxWidth: 480)
             }
             #endif
         }

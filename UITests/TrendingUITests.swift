@@ -20,10 +20,10 @@ final class TrendingUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
         app.buttons["CreateProfile"].firstMatch.tap()
 
-        if !app.buttons["NewPage"].waitForExistence(timeout: 2) {
+        if !app.outlineRows.buttons["NewPage"].waitForExistence(timeout: 2) {
             XCTFail("New Page button did not appear in time")
         }
-        app.buttons["NewPage"].tap()
+        app.outlineRows.buttons["NewPage"].tap()
         app.buttons["CreatePage"].tap()
 
         #if os(iOS)
@@ -34,7 +34,7 @@ final class TrendingUITests: UITestCase {
         }
         #endif
 
-        app.staticTexts["TrendingNavLink"].tap()
+        app.buttons["TrendingNavLink"].tap()
 
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()

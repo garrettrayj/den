@@ -26,6 +26,7 @@ struct FeedUnavailable: View {
             } description: {
                 caption
             }
+            .padding()
         } else {
             CardNote(
                 title,

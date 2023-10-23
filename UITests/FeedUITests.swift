@@ -72,12 +72,6 @@ final class FeedUITests: UITestCase {
 
         app.buttons["FeedNavLink"].firstMatch.tap()
 
-        #if os(iOS)
-        if app.windows.firstMatch.horizontalSizeClass == .compact {
-            app.buttons["FeedMenu"].forceTap()
-        }
-        #endif
-
         if !app.buttons["ToggleInspector"].waitForExistence(timeout: 2) {
             XCTFail("Feed options button did not appear in time")
         }
