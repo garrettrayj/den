@@ -69,7 +69,7 @@ struct DenApp: App {
             }
         }
         #if os(macOS)
-        .defaultSize(width: 1200, height: 800)
+        .defaultSize(width: 1280, height: 800)
         #endif
     }
 

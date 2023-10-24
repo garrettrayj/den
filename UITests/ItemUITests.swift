@@ -18,20 +18,16 @@ final class ItemUITests: UITestCase {
         app.textFields["Science"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
+        app.buttons["Science"].tap()
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
                 app.tap()
-            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
             }
         } else {
             if XCUIDevice.shared.orientation.isLandscape {
-                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
                 app.buttons["ToggleSidebar"].tap()
             } else {
-                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
                 app.tap()
             }
         }
@@ -41,6 +37,41 @@ final class ItemUITests: UITestCase {
 
         sleep(3)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "07-ItemView")
+        attachScreenshot(of: app.windows.firstMatch, named: "ItemView")
+    }
+    
+    func testItemReader() throws {
+        let app = launchApp(inMemory: false)
+
+        #if os(macOS)
+        app.textFields["Science"].tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
+        #else
+        app.buttons["Science"].tap()
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular &&
+                app.windows.firstMatch.verticalSizeClass == .compact {
+                app.tap()
+            }
+        } else {
+            if XCUIDevice.shared.orientation.isLandscape {
+                app.buttons["ToggleSidebar"].tap()
+            } else {
+                app.tap()
+            }
+        }
+        #endif
+
+        app.buttons["ItemAction"].firstMatch.tap()
+        sleep(4)
+        
+        #if os(macOS)
+        app.popUpButtons["FormatMenu"].buttons.firstMatch.tap()
+        #else
+        app.buttons["FormatMenu"].tap()
+        #endif
+        sleep(2)
+
+        attachScreenshot(of: app.windows.firstMatch, named: "ItemReader")
     }
 }

@@ -24,5 +24,6 @@ struct ShowReaderButton: View {
             }
         }
         .keyboardShortcut("r", modifiers: [.command, .shift], localization: .withoutMirroring)
+        .accessibilityLabel("ShowReader")
     }
 }

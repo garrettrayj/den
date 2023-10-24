@@ -1,10 +1,12 @@
 <h1><img src="Den/Assets.xcassets/AppIcon.appiconset/AppIcon-macOS-128pt@2x.png" alt="App Icon" width="128" height="128" align="center"> Den for RSS</h1>
 
-Create custom landscape views of what's happening with a modern aggregator app made for skimming.
+Create custom landscape views of what's happening with a modern dashboard-style news aggregator.
 
 <img src="Screenshot.png" alt="Screenshot" />
 
-The key idea is that people are empowered to be more informed and less distracted by clean design, privacy, and complete control over what they follow. Made for iPhone, iPad, and Mac; Intuitive navigation makes browsing easy on small devices while flexible layouts make the most of larger screens.
+The key idea behind Den is that folks are empowered to be more informed and less distracted by clean design, privacy, and complete control over what they follow. It’s made especially for the information manatees; for those who enjoy doing their own thing and don’t always swim with the school fishes.
+
+What sets it apart from other syndication apps is a focus on showing more items upfront. Using it is less like reading email and more like perusing a buffet of headlines. The design lends itself to comparing sources and revealing overarching narratives.
 
 ## Install
 
@@ -23,6 +25,8 @@ Alternatively, for Mac only, download the [latest release](https://github.com/ga
 <dd>Support for the formats used by most feeds.</dd>
 <dt>Import and Export</dt>
 <dd>Backup and restore feeds using common OPML files.</dd>
+<dt>Reader Mode</dt>
+<dd>Remove clutter when viewing items.</dd>
 <dt>Trending</dt>
 <dd>Browse by common subjects found through natural language processing.</dd>
 <dt>Bookmarks</dt>
@@ -33,6 +37,8 @@ Alternatively, for Mac only, download the [latest release](https://github.com/ga
 <dd>Discover feeds on webpages with the companion browser extension.</dd>
 <dt>Organizer</dt>
 <dd>View feed response information and change options in bulk.</dd>
+<dt>Blocklists</dt>
+<dd>Stop ads and other annoyances with your preferred filter lists.</dd>
 </dl>
 
 ## Connect

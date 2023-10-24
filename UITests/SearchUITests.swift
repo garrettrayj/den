@@ -45,12 +45,12 @@ final class SearchUITests: UITestCase {
         // situation of taking a screenshot of search results.
         #if os(iOS)
         if UIDevice.current.userInterfaceIdiom == .phone {
-            attachScreenshot(of: app, named: "08-Search")
+            attachScreenshot(of: app, named: "Search")
         } else {
-            attachScreenshot(of: app.windows.firstMatch, named: "08-Search")
+            attachScreenshot(of: app.windows.firstMatch, named: "Search")
         }
         #else
-        attachScreenshot(of: app.windows.firstMatch, named: "08-Search")
+        attachScreenshot(of: app.windows.firstMatch, named: "Search")
         #endif
     }
 

@@ -21,7 +21,7 @@ final class AppSidebarUITests: UITestCase {
 
         app.buttons["CreateProfile"].firstMatch.tap()
 
-        attachScreenshot(of: app.windows.firstMatch, named: "AppSidebarGetStarted")
+        attachScreenshot(of: app.windows.firstMatch, named: "GetStarted")
     }
 
     func testAppSidebarAppMenu() throws {
@@ -33,6 +33,6 @@ final class AppSidebarUITests: UITestCase {
         app.buttons["SidebarMenu"].forceTap()
         #endif
 
-        attachScreenshot(of: app.windows.firstMatch, named: "AppSidebarAppMenu")
+        attachScreenshot(of: app.windows.firstMatch, named: "AppMenu")
     }
 }

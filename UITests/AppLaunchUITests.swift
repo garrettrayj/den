@@ -49,6 +49,6 @@ final class AppLaunchUITests: UITestCase {
         // Wait for images to load
         sleep(3)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "01-AppPoster")
+        attachScreenshot(of: app.windows.firstMatch, named: "AppPoster")
     }
 }

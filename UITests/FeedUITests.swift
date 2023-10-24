@@ -42,7 +42,7 @@ final class FeedUITests: UITestCase {
             XCTFail("Feed title did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "05-FeedViewCompressed")
+        attachScreenshot(of: app.windows.firstMatch, named: "FeedViewCompressed")
     }
 
     func testFeedInspector() throws {
@@ -80,7 +80,7 @@ final class FeedUITests: UITestCase {
 
         sleep(2)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "06-FeedInspector")
+        attachScreenshot(of: app.windows.firstMatch, named: "FeedInspector")
     }
 
     func testFeedViewNoData() throws {

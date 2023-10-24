@@ -11,7 +11,7 @@
 import XCTest
 
 final class OrganizerUITests: UITestCase {
-    func testDiagnostics() throws {
+    func testOrganizer() throws {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
@@ -48,7 +48,7 @@ final class OrganizerUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "Organizer")
     }
 
-    func testDiagnosticsEmpty() throws {
+    func testOrganizerEmpty() throws {
         let app = launchApp(inMemory: true)
 
         if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {

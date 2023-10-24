@@ -16,37 +16,40 @@ struct BrowserFormatMenu: View {
     @Binding var browserZoom: PageZoomLevel
     
     var body: some View {
-        if browserViewModel.isReaderable {
-            Menu {
-                ShowReaderButton(browserViewModel: browserViewModel)
-                ToggleBlocklistsButton(browserViewModel: browserViewModel)
-                ToggleJavaScriptButton(browserViewModel: browserViewModel)
-                #if os(macOS)
-                ZoomControlGroup(zoomLevel: $browserZoom)
-                #endif
-            } label: {
-                Label {
-                    Text("Formatting", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "doc.plaintext")
+        Group {
+            if browserViewModel.isReaderable {
+                Menu {
+                    ShowReaderButton(browserViewModel: browserViewModel)
+                    ToggleBlocklistsButton(browserViewModel: browserViewModel)
+                    ToggleJavaScriptButton(browserViewModel: browserViewModel)
+                    #if os(macOS)
+                    ZoomControlGroup(zoomLevel: $browserZoom)
+                    #endif
+                } label: {
+                    Label {
+                        Text("Formatting", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "doc.plaintext")
+                    }
+                } primaryAction: {
+                    browserViewModel.toggleReader()
                 }
-            } primaryAction: {
-                browserViewModel.toggleReader()
-            }
-        } else {
-            Menu {
-                ToggleBlocklistsButton(browserViewModel: browserViewModel)
-                ToggleJavaScriptButton(browserViewModel: browserViewModel)
-                #if os(macOS)
-                ZoomControlGroup(zoomLevel: $browserZoom)
-                #endif
-            } label: {
-                Label {
-                    Text("Formatting", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "textformat.size")
+            } else {
+                Menu {
+                    ToggleBlocklistsButton(browserViewModel: browserViewModel)
+                    ToggleJavaScriptButton(browserViewModel: browserViewModel)
+                    #if os(macOS)
+                    ZoomControlGroup(zoomLevel: $browserZoom)
+                    #endif
+                } label: {
+                    Label {
+                        Text("Formatting", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "textformat.size")
+                    }
                 }
             }
         }
+        .accessibilityLabel("FormatMenu")
     }
 }
