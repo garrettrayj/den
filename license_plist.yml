@@ -2,7 +2,6 @@ options:
   outputPath: "./Settings.bundle"
   prefix: LicensePlist
   htmlPath: ./Den/Misc/Acknowledgements.html
-  markdownPath: ACKNOWLEDGEMENTS.md
   addVersionNumbers: false
   suppressOpeningDirectory: true
   failIfMissingLicense: false

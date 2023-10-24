@@ -4,8 +4,6 @@
 //  Created by Garrett Johnson on 12/25/20.
 //  Copyright © 2020 Garrett Johnson
 //
-//  SPDX-License-Identifier: MIT
-//
 
 import CoreData
 import OSLog
@@ -15,10 +13,6 @@ import SDWebImage
 import SDWebImageWebPCoder
 import SDWebImageSVGCoder
 
-#if canImport(Sparkle)
-import Sparkle
-#endif
-
 @main
 struct DenApp: App {
     @Environment(\.openURL) private var openURL
@@ -26,10 +20,6 @@ struct DenApp: App {
     @StateObject private var networkMonitor = NetworkMonitor()
 
     let persistenceController = PersistenceController.shared
-
-    #if canImport(Sparkle)
-    private let updaterController: SPUStandardUpdaterController
-    #endif
 
     var body: some Scene {
         WindowGroup {
@@ -39,11 +29,6 @@ struct DenApp: App {
         }
         .handlesExternalEvents(matching: ["*"])
         .commands {
-            #if canImport(Sparkle)
-            CommandGroup(after: .appInfo) {
-                CheckForUpdatesView(updater: updaterController.updater)
-            }
-            #endif
             ToolbarCommands()
             SidebarCommands()
             InspectorCommands()
@@ -74,13 +59,6 @@ struct DenApp: App {
     }
 
     init() {
-        #if canImport(Sparkle)
-        updaterController = SPUStandardUpdaterController(
-            startingUpdater: true,
-            updaterDelegate: nil,
-            userDriverDelegate: nil
-        )
-        #endif
         setupImageHandling()
     }
 

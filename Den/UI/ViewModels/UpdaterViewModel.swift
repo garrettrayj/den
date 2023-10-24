@@ -5,8 +5,7 @@
 //  Created by Garrett Johnson on 8/5/23.
 //  Copyright © 2023 Garrett Johnson
 //
-//  SPDX-License-Identifier: MIT
-//
+
 
 #if canImport(Sparkle)
 import Foundation
