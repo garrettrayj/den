@@ -20,7 +20,13 @@ struct AllRead: View {
                     Image(systemName: "checkmark")
                 }
             } description: {
-                Text("Turn off filter to show hidden items.", comment: "All read guidance.")
+                Text(
+                    """
+                    Turn filter \(Image(systemName: "line.3.horizontal.decrease.circle")) off \
+                    to show hidden items.
+                    """,
+                    comment: "All read guidance."
+                )
             }
             .padding()
         } else {
