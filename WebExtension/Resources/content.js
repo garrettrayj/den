@@ -6,14 +6,13 @@ const formats = {
 
 // Detect syndication feeds configured for auto-discovery.
 function senseFeeds() {
-    let selectors = []
+    let selectors = [];
     for (const [type, name] of Object.entries(formats)) {
-        selectors.push('link[type="' + type + '"]')
+        selectors.push('link[type="' + type + '"]');
     }
+    const links = Array.from(document.querySelectorAll(selectors.join(", ")));
     
-    const links = Array.from(document.querySelectorAll(selectors.join(", ")))
-    
-    return links.flatMap(extractResult)
+    return links.flatMap(extractResult);
 }
 
 // No matter how you pass in the URL string, the URL will come out absolute.
@@ -44,10 +43,21 @@ function extractResult(el) {
     return [{"title": title, "url": url}]
 }
 
-// Respond to requests from extension background and popup scripts
+let feeds = senseFeeds();
+
+// Initial toolbar count
+browser.runtime.sendMessage({"subject": "results", "data": feeds});
+
+// Update toolbar count for pages already initialized
+window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+        browser.runtime.sendMessage({"subject": "results", "data": feeds});
+    }
+});
+
+// Respond to requests from extension popup script
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.subject == "sense") {
-        let feeds = senseFeeds();
-        sendResponse({"subject": "results", "sender": "content", "data": feeds})
+        sendResponse({"subject": "results", "data": feeds});
     }
 });

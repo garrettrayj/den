@@ -6,7 +6,7 @@ function scanActiveTab() {
         .then(function(tabs) {
             browser
                 .tabs
-                .sendMessage(tabs[0].id, {"subject": "sense", "sender": "popup"})
+                .sendMessage(tabs[0].id, {"subject": "sense"})
                 .then(function(results) {
                     if (results.data.length > 0) {
                         createResultsList(results.data);
@@ -19,7 +19,7 @@ function scanActiveTab() {
 
 // Display scan results.
 function createResultsList(results) {
-    var list = document.createElement("div");
+    let list = document.createElement("div");
     list.id = "results-list"
     
     results.forEach(result => {
