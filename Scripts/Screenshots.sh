@@ -119,7 +119,11 @@ function capture_ios {
 
 start_time=$SECONDS
 
-capture_ios
+if [ $1 = "mac" ]; then
+    capture_mac
+else
+    capture_ios
+fi
 
 elapsed=$(( SECONDS - start_time ))
 
