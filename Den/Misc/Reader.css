@@ -18,8 +18,8 @@ body {
     accent-color: $TINT_COLOR;
     font: -apple-system-tall-body;
     font-size: 18px;
-    margin: 32px auto 72px;
-    padding: 0 28px;
+    margin: 20px auto 64px;
+    padding: 0 20px;
     max-width: 700px;
 }
 
@@ -108,8 +108,8 @@ canvas, svg {
 
 h1 {
     font: -apple-system-title0;
-    font-size: 34px;
-    font-weight: 600;
+    font-size: 32px;
+    font-weight: 700;
 }
 
 h2 {

@@ -41,6 +41,7 @@ struct DeckLayout: View {
                             ),
                             spacing: 8
                         )
+                        .padding(.bottom, geometry.safeAreaInsets.bottom)
                     }
                 }
                 .scrollTargetLayout()
@@ -48,6 +49,8 @@ struct DeckLayout: View {
             .scrollTargetBehavior(.viewAligned)
             .scrollClipDisabled()
             .contentMargins(.horizontal, 16)
+            .toolbarBackground(.visible)
+            .ignoresSafeArea(edges: .bottom)
         }
     }
 }

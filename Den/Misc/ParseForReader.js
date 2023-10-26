@@ -1,9 +1,13 @@
 function parseForReader() {
-    Mercury.parse().then(function(result) {
+    Mercury.parse(window.location.href).then(function(result) {
         window.webkit.messageHandlers.reader.postMessage(JSON.stringify(result));
     });
 }
 
 window.addEventListener("pageshow", function(event) {
-    parseForReader();
+    if (event.persisted) {
+        parseForReader()
+    }
 });
+
+parseForReader()

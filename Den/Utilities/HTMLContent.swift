@@ -43,14 +43,16 @@ struct HTMLContent {
             return nil
         }
 
-        do {
-            // Remove blank text nodes
-            for element in try doc.getElementsMatchingOwnText(#"^\s+$"#) {
-                try element.textNodes().forEach { try $0.remove() }
+        // Remove blank text nodes
+        if let blankTextElements = try? doc.getElementsMatchingOwnText(#"^\s+$"#) {
+            for element in blankTextElements {
+                try? element.textNodes().forEach { try $0.remove() }
             }
+        }
 
-            // Apply <iframe> scaling fix
-            for element in try doc.getElementsByTag("iframe") {
+        // Apply <iframe> scaling fix
+        if let inlineFrames = try? doc.getElementsByTag("iframe") {
+            for element in inlineFrames {
                 guard
                     let rawWidth: String = try? element.attr("width"),
                     let rawHeight: String = try? element.attr("height"),
@@ -59,13 +61,26 @@ struct HTMLContent {
                 else {
                    continue
                 }
-
-                try element
-                    .attr("style", "aspect-ratio: \(width) / \(height);")
-                    .addClass("den-scale-fix")
+                _ = try? element.attr("style", "aspect-ratio: \(width) / \(height);")
             }
-        } catch {
-            Logger.main.error("HTML sanitization error: \(error)")
+        }
+        
+        // Add class to small images
+        if let images = try? doc.getElementsByTag("img") {
+            for element in images {
+                guard
+                    let rawWidth: String = try? element.attr("width"),
+                    let rawHeight: String = try? element.attr("height"),
+                    let width = Int(rawWidth),
+                    let height = Int(rawHeight)
+                else {
+                   continue
+                }
+                
+                if width < 200 && height < 200 {
+                    _ = try? element.addClass("den-no-border")
+                }
+            }
         }
 
         return try? doc.body()?.html()
@@ -142,8 +157,7 @@ struct HTMLContent {
             .addTags("figure", "figcaption", "hr")
 
             // Media
-            .addTags("picture", "source")
-            .addAttributes("source", "srcset", "media", "src", "type")
+            .addTags("picture")
 
             // Embeds
             .addTags("iframe", "object", "video", "audio")
@@ -157,7 +171,7 @@ struct HTMLContent {
             .addAttributes("script", "src", "type", "charset", "async")
 
             // Everything
-            .addAttributes(":all", "class", "id", "dir")
+            .addAttributes(":all", "dir")
 
         return whitelist
     }

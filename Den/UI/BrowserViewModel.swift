@@ -156,7 +156,7 @@ class BrowserViewModel: NSObject, ObservableObject {
     private func generateReaderHTML(initialZoom: PageZoomLevel) -> String {
         guard
             let title = mercuryObject?.title,
-            let content = mercuryObject?.content
+            let content = mercuryObject?.cleanedContent
         else {
             return """
             <html>
@@ -199,7 +199,7 @@ class BrowserViewModel: NSObject, ObservableObject {
             let leadImageURL = mercuryObject?.lead_image_url,
             !content.prefix(1000).contains("<img") && !content.prefix(1000).contains("<picture")
         {
-            html += "<img src=\"\(leadImageURL.absoluteString)\" />"
+            html += "<img src=\"\(leadImageURL)\" />"
         }
 
         html += """

@@ -71,7 +71,6 @@ struct PageView: View {
                         items: items
                     )
                 }
-                .toolbarBackground(pageLayout.wrappedValue == .deck ? .visible : .automatic)
                 .navigationTitle(page.nameText)
                 .inspector(isPresented: $showingInspector) {
                     PageInspector(page: page)

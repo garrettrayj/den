@@ -83,6 +83,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
             if browserViewModel.isLoading {
                 ProgressView(value: browserViewModel.estimatedProgress, total: 1)
                     .progressViewStyle(ThinLinearProgressViewStyle())
+                    .ignoresSafeArea(edges: .horizontal)
             }
         }
         .background {

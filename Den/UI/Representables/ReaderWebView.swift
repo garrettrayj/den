@@ -20,28 +20,9 @@ struct ReaderWebView {
         wkWebView.navigationDelegate = context.coordinator
         wkWebView.configuration.defaultWebpagePreferences.preferredContentMode = .mobile
 
-        addReaderInitScript(wkWebView.configuration.userContentController)
-
         browserViewModel.readerWebView = wkWebView
 
         return wkWebView
-    }
-
-    private func addReaderInitScript(_ contentController: WKUserContentController) {
-        guard
-            let path = Bundle.main.path(forResource: "ReaderInit", ofType: "js"),
-            let script = try? String(contentsOfFile: path)
-        else {
-            return
-        }
-
-        let userScript = WKUserScript(
-            source: script,
-            injectionTime: .atDocumentStart,
-            forMainFrameOnly: true
-        )
-
-        contentController.addUserScript(userScript)
     }
 
     class Coordinator: NSObject, WKNavigationDelegate {

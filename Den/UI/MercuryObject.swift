@@ -14,7 +14,7 @@ struct MercuryObject: Codable, Equatable {
     var content: String?
     var author: String?
     var date_published: Date?
-    var lead_image_url: URL?
+    var lead_image_url: String?
     var dek: String?
     var next_page_url: String?
     var url: String?
@@ -26,6 +26,12 @@ struct MercuryObject: Codable, Equatable {
     var rendered_pages: Int?
 
     static func == (lhs: MercuryObject, rhs: MercuryObject) -> Bool {
-        return lhs.title == rhs.title && lhs.content == rhs.content
+        return lhs.url == rhs.url
+    }
+    
+    var cleanedContent: String? {
+        guard let content = content else { return nil }
+
+        return HTMLContent(source: content).sanitizedHTML()
     }
 }
