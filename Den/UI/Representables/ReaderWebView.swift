@@ -19,6 +19,9 @@ struct ReaderWebView {
         wkWebView.isInspectable = true
         wkWebView.navigationDelegate = context.coordinator
         wkWebView.configuration.defaultWebpagePreferences.preferredContentMode = .mobile
+        #if os(iOS)
+        wkWebView.scrollView.clipsToBounds = false
+        #endif
 
         browserViewModel.readerWebView = wkWebView
 

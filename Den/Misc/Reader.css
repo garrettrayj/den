@@ -19,8 +19,8 @@ body {
     font: -apple-system-tall-body;
     font-size: 18px;
     margin: 20px auto 64px;
-    padding: 0 20px;
-    max-width: 700px;
+    padding: 0 16px;
+    max-width: 780px;
 }
 
 /* Header */
@@ -35,10 +35,14 @@ body > header {
 }
 
 #den-author,
-#den-date-published {
+#den-dateline {
     font: -apple-system-subheadline;
     font-size: 16px;
     margin: 4px 0;
+}
+
+#den-dateline-relative {
+    white-space: nowrap;
 }
 
 /* Embeds */

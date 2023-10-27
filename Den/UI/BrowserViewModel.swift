@@ -188,9 +188,11 @@ class BrowserViewModel: NSObject, ObservableObject {
 
         if let date = mercuryObject?.date_published {
             html += """
-            <p id="den-date-published">
+            <p id="den-dateline">
                 \(date.formatted(date: .complete, time: .shortened))
+                <span id="den-dateline-relative">
                 (\(date.formatted(.relative(presentation: .numeric))))
+                </span>
             </p>
             """
         }

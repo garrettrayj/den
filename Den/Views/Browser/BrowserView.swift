@@ -43,73 +43,102 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     }
 
     var body: some View {
-        ZStack(alignment: .top) {
-            BrowserWebView(browserViewModel: browserViewModel)
-                .task {
-                    browserViewModel.blocklists = Array(blocklists)
-                    browserViewModel.useBlocklists = useBlocklists ?? true
-                    browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
-                    browserViewModel.allowJavaScript = allowJavaScript ?? true
-                    browserViewModel.userTintHex = userTint?.hexString(environment: environment)
-                    browserViewModel.setBrowserZoom(browserZoom)
-                    await browserViewModel.loadURL(url: url)
+        BrowserWebView(browserViewModel: browserViewModel)
+            .task {
+                browserViewModel.blocklists = Array(blocklists)
+                browserViewModel.useBlocklists = useBlocklists ?? true
+                browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
+                browserViewModel.allowJavaScript = allowJavaScript ?? true
+                browserViewModel.userTintHex = userTint?.hexString(environment: environment)
+                browserViewModel.setBrowserZoom(browserZoom)
+                await browserViewModel.loadURL(url: url)
+            }
+            .onDisappear {
+                // Fix for videos continuing to play after view is dismissed
+                browserViewModel.loadBlank()
+            }
+            #if os(macOS)
+            .padding(.top, 1)
+            #endif
+            .ignoresSafeArea()
+            .navigationBarBackButtonHidden()
+            .navigationTitle(browserViewModel.url?.host() ?? "")
+            .toolbar {
+                BrowserToolbar(
+                    browserViewModel: browserViewModel,
+                    browserZoom: $browserZoom,
+                    readerZoom: $readerZoom
+                )
+                extraToolbar
+            }
+            .toolbarBackground(.visible)
+            .overlay(alignment: .top) {
+                if browserViewModel.showingReader == true {
+                    ReaderWebView(browserViewModel: browserViewModel)
+                        .ignoresSafeArea()
+                        .onAppear {
+                            browserViewModel.setReaderZoom(readerZoom)
+                            browserViewModel.loadReader(initialZoom: readerZoom)
+                        }
+                        .onChange(of: browserViewModel.mercuryObject) {
+                            browserViewModel.loadReader(initialZoom: readerZoom)
+                        }
+                        #if os(macOS)
+                        .transition(.flipFromBottom)
+                        #else
+                        .transition(.flipFromTop)
+                        #endif        
                 }
-                .onDisappear {
-                    // Fix for videos continuing to play after view is dismissed
-                    browserViewModel.loadBlank()
-                }
-                #if os(macOS)
-                .padding(.top, 1)
-                #endif
-                .ignoresSafeArea(edges: [.top, .horizontal])
                 
-            if browserViewModel.showingReader == true {
-                ReaderWebView(browserViewModel: browserViewModel)
-                    .ignoresSafeArea(edges: [.top, .horizontal])
-                    .onAppear {
-                        browserViewModel.setReaderZoom(readerZoom)
-                        browserViewModel.loadReader(initialZoom: readerZoom)
-                    }
-                    .onChange(of: browserViewModel.mercuryObject) {
-                        browserViewModel.loadReader(initialZoom: readerZoom)
-                    }
-                    #if os(macOS)
-                    .transition(.flipFromBottom)
-                    #else
-                    .transition(.flipFromTop)
-                    #endif
+                if browserViewModel.isLoading {
+                    ProgressView(value: browserViewModel.estimatedProgress, total: 1)
+                        .progressViewStyle(ThinLinearProgressViewStyle())
+                        .ignoresSafeArea(edges: .horizontal)
+                }
             }
+        
+        /*
+        GeometryReader { geometry in
+            
+            
+            ZStack(alignment: .top) {
+                
+                    
+                
 
-            if browserViewModel.isLoading {
-                ProgressView(value: browserViewModel.estimatedProgress, total: 1)
-                    .progressViewStyle(ThinLinearProgressViewStyle())
-                    .ignoresSafeArea(edges: .horizontal)
+                if browserViewModel.isLoading {
+                    ProgressView(value: browserViewModel.estimatedProgress, total: 1)
+                        .progressViewStyle(ThinLinearProgressViewStyle())
+                        .ignoresSafeArea(edges: .horizontal)
+                }
             }
+            .background {
+                // Buttons in background to fix keyboard shortcuts
+                ToggleReaderButton(browserViewModel: browserViewModel)
+                ZoomControlGroup(zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom)
+            }
+            .navigationBarBackButtonHidden()
+            .navigationTitle(browserViewModel.url?.host() ?? "")
+            .toolbar {
+                BrowserToolbar(
+                    browserViewModel: browserViewModel,
+                    browserZoom: $browserZoom,
+                    readerZoom: $readerZoom
+                )
+                extraToolbar
+            }
+            .onChange(of: browserZoom) {
+                browserViewModel.setBrowserZoom(browserZoom)
+            }
+            .onChange(of: readerZoom) {
+                browserViewModel.setReaderZoom(readerZoom)
+            }
+            #if os(iOS)
+            .toolbarBackground(.visible)
+            #endif
+             
         }
-        .background {
-            // Buttons in background to fix keyboard shortcuts
-            ToggleReaderButton(browserViewModel: browserViewModel)
-            ZoomControlGroup(zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom)
-        }
-        .navigationBarBackButtonHidden()
-        .navigationTitle(browserViewModel.url?.host() ?? "")
-        .toolbar {
-            BrowserToolbar(
-                browserViewModel: browserViewModel,
-                browserZoom: $browserZoom,
-                readerZoom: $readerZoom
-            )
-            extraToolbar
-        }
-        .onChange(of: browserZoom) {
-            browserViewModel.setBrowserZoom(browserZoom)
-        }
-        .onChange(of: readerZoom) {
-            browserViewModel.setReaderZoom(readerZoom)
-        }
-        #if os(iOS)
-        .toolbarBackground(.visible)
-        #endif
+         */
     }
 }
 
