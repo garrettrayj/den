@@ -38,7 +38,7 @@ struct SidebarStatus: View {
                     comment: "Status message."
                 )
                 #else
-                Text("Pull to refresh.", comment: "Status message.")
+                Text("Pull to Refresh", comment: "Status message.")
                 #endif
             }
         }

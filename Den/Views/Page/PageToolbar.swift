@@ -56,6 +56,14 @@ struct PageToolbar: ToolbarContent {
                 Spacer()
             }
             ToolbarItem(placement: .bottomBar) {
+                if let profile = page.profile {
+                    PageStatus(profile: profile, items: items)
+                }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     page.objectWillChange.send()

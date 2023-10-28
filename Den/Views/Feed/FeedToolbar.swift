@@ -46,6 +46,14 @@ struct FeedToolbar: ToolbarContent {
                 Spacer()
             }
             ToolbarItem(placement: .bottomBar) {
+                if let profile = feed.page?.profile {
+                    FeedStatus(profile: profile, items: items)
+                }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     feed.objectWillChange.send()

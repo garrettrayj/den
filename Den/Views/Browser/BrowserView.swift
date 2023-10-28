@@ -59,8 +59,8 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
             }
             #if os(macOS)
             .padding(.top, 1)
-            #endif
             .ignoresSafeArea()
+            #endif
             .navigationBarBackButtonHidden()
             .navigationTitle(browserViewModel.url?.host() ?? "")
             .toolbar {
@@ -75,7 +75,6 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
             .overlay(alignment: .top) {
                 if browserViewModel.showingReader == true {
                     ReaderWebView(browserViewModel: browserViewModel)
-                        .ignoresSafeArea()
                         .onAppear {
                             browserViewModel.setReaderZoom(readerZoom)
                             browserViewModel.loadReader(initialZoom: readerZoom)
@@ -85,6 +84,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                         }
                         #if os(macOS)
                         .transition(.flipFromBottom)
+                        .ignoresSafeArea()
                         #else
                         .transition(.flipFromTop)
                         #endif        
@@ -96,36 +96,10 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                         .ignoresSafeArea(edges: .horizontal)
                 }
             }
-        
-        /*
-        GeometryReader { geometry in
-            
-            
-            ZStack(alignment: .top) {
-                
-                    
-                
-
-                if browserViewModel.isLoading {
-                    ProgressView(value: browserViewModel.estimatedProgress, total: 1)
-                        .progressViewStyle(ThinLinearProgressViewStyle())
-                        .ignoresSafeArea(edges: .horizontal)
-                }
-            }
             .background {
                 // Buttons in background to fix keyboard shortcuts
                 ToggleReaderButton(browserViewModel: browserViewModel)
                 ZoomControlGroup(zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom)
-            }
-            .navigationBarBackButtonHidden()
-            .navigationTitle(browserViewModel.url?.host() ?? "")
-            .toolbar {
-                BrowserToolbar(
-                    browserViewModel: browserViewModel,
-                    browserZoom: $browserZoom,
-                    readerZoom: $readerZoom
-                )
-                extraToolbar
             }
             .onChange(of: browserZoom) {
                 browserViewModel.setBrowserZoom(browserZoom)
@@ -133,12 +107,6 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
             .onChange(of: readerZoom) {
                 browserViewModel.setReaderZoom(readerZoom)
             }
-            #if os(iOS)
-            .toolbarBackground(.visible)
-            #endif
-             
-        }
-         */
     }
 }
 
