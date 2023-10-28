@@ -34,17 +34,31 @@ struct SplitView: View {
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
-    @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
+    @SceneStorage("RawDetailPanel") private var rawDetailPanel: String?
     @SceneStorage("Navigation") private var navigationData: Data?
 
     @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
+        let detailPanelBinding = Binding<DetailPanel?>(
+            get: {
+                guard let rawDetailPanel = rawDetailPanel else { return nil }
+                return DetailPanel(rawValue: rawDetailPanel)
+            },
+            set: {
+                if let newValue = $0 {
+                    self.rawDetailPanel = newValue.rawValue
+                } else {
+                    self.rawDetailPanel = nil
+                }
+            }
+        )
+        
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Sidebar(
                 profile: profile,
                 currentProfileID: $currentProfileID,
-                detailPanel: $detailPanel,
+                detailPanel: detailPanelBinding,
                 newFeedPageID: $newFeedPageID,
                 newFeedWebAddress: $newFeedWebAddress,
                 refreshing: $refreshing,
@@ -62,7 +76,7 @@ struct SplitView: View {
         } detail: {
             DetailView(
                 profile: profile,
-                detailPanel: $detailPanel,
+                detailPanel: detailPanelBinding,
                 hideRead: $hideRead,
                 refreshing: $refreshing,
                 path: $navigationStore.path
@@ -75,7 +89,7 @@ struct SplitView: View {
         .tint(userTint)
         .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
         .onOpenURL { url in
-            if case .page(let page) = detailPanel {
+            if case .page(let page) = detailPanelBinding.wrappedValue {
                 newFeedPageID = page.id?.uuidString
             }
             newFeedWebAddress = url.absoluteStringForNewFeed
@@ -90,9 +104,9 @@ struct SplitView: View {
             }
         }
         .onChange(of: currentProfileID) {
-            detailPanel = nil
+            detailPanelBinding.wrappedValue = nil
         }
-        .onChange(of: detailPanel) {
+        .onChange(of: rawDetailPanel) {
             navigationStore.path.removeLast(navigationStore.path.count)
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
@@ -121,7 +135,10 @@ struct SplitView: View {
         }
         .onChange(of: showingNewFeedSheet) {
             if showingNewFeedSheet {
-                guard newFeedPageID == nil, case .page(let page) = detailPanel else { return }
+                guard
+                    newFeedPageID == nil,
+                    case .page(let page) = detailPanelBinding.wrappedValue
+                else { return }
                 newFeedPageID = page.id?.uuidString
             } else {
                 newFeedPageID = nil
