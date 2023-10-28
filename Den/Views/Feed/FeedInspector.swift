@@ -155,7 +155,6 @@ struct FeedInspector: View {
         }
         .formStyle(.grouped)
         #if os(iOS)
-        .clipped()
         .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
         #endif
     }

@@ -75,6 +75,9 @@ struct PageView: View {
                 .inspector(isPresented: $showingInspector) {
                     PageInspector(page: page)
                 }
+                .toolbarBackground(
+                    pageLayout.wrappedValue == .deck || showingInspector ? .visible : .automatic
+                )
             }
         }
     }

@@ -68,7 +68,6 @@ struct PageInspector: View {
         }
         #if os(iOS)
         .environment(\.editMode, .constant(.active))
-        .clipped()
         .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
         #endif
     }

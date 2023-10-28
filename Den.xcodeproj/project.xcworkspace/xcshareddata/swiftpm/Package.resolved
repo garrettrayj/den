@@ -42,7 +42,7 @@
       "location" : "https://github.com/AdguardTeam/SafariConverterLib/",
       "state" : {
         "branch" : "master",
-        "revision" : "73f0622fe3b07bfb1b15a76eaea8d711c1ec69ef"
+        "revision" : "39bf98a4040113965ba4ab05c4cfda4a5482f809"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "1f06ef5007b6a580b3873ed2adee19e05d3b215a",
-        "version" : "5.18.3"
+        "revision" : "fd1950de05a5ad77cb252fd88576c1e1809ee50d",
+        "version" : "5.18.4"
       }
     },
     {
@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI",
       "state" : {
-        "revision" : "e837c37d45449fbd3b4745c10c5b5274e73edead",
-        "version" : "2.2.3"
+        "revision" : "5f025e54a03d3d33dff24d7a19331f446f00ed9d",
+        "version" : "2.2.4"
       }
     },
     {
@@ -77,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImageWebPCoder",
       "state" : {
-        "revision" : "b442fafefeee8d3f489e33e69e0bb9407deb4757",
-        "version" : "0.14.0"
+        "revision" : "7e70ec8165b455cc2b97ff5c5ac6a8064c737e6f",
+        "version" : "0.14.1"
       }
     },
     {
