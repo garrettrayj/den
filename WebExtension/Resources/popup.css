@@ -101,15 +101,11 @@ body {
 /** Status messages */
 
 .status {
-    box-sizing: border-box;
-    display: flex;
-    font: -apple-system-short-footnote;
-    justify-content: center;
-    margin: 12px 0 0;
-    max-width: 100%;
-    padding: 0 8px;
+    color:  -apple-system-secondary-label;
+    font: -apple-system-caption2;
+    margin: 8px 0 0;
     white-space: nowrap;
-    text-align: center;
+    text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;
 }
@@ -120,10 +116,10 @@ i {
     background: -apple-system-label;
     box-sizing: content-box;
     display: inline-block;
-    height: 20px;
+    height: 22px;
     margin: 0;
-    width: 20px;
-    -webkit-mask-size: 20px 20px;
+    width: 22px;
+    -webkit-mask-size: 22px 22px;
     -webkit-mask-origin: content-box;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
@@ -141,9 +137,9 @@ i {
 
 @supports (-webkit-touch-callout: none) { /* iOS */
     i {
-        height: 28px;
-        width: 28px;
-        -webkit-mask-size: 28px 28px;
+        height: 26px;
+        width: 26px;
+        -webkit-mask-size: 26px 26px;
     }
 }
 
