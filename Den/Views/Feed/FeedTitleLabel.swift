@@ -19,26 +19,6 @@ struct FeedTitleLabel: View {
     @Environment(\.faviconPixelSize) private var faviconPixelSize
 
     @ObservedObject var feed: Feed
-
-    private var grayscale: CGFloat {
-        #if os(macOS)
-        if controlActiveState == .inactive {
-            return 1
-        } else {
-            if isEnabled {
-                return 0
-            } else {
-                return 0.4
-            }
-        }
-        #else
-        if isEnabled {
-            return 0
-        } else {
-            return 0.4
-        }
-        #endif
-    }
     
     private var opacity: CGFloat {
         #if os(macOS)

@@ -11,6 +11,11 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedHero: View {
+    #if os(macOS)
+    @Environment(\.controlActiveState) private var controlActiveState
+    #endif
+    @Environment(\.isEnabled) private var isEnabled
+    
     let url: URL
 
     var body: some View {
@@ -26,6 +31,7 @@ struct FeedHero: View {
                     .shadow(color: .black.opacity(0.25), radius: 3, y: 1)
                     .padding(.vertical)
                     .padding(.horizontal, 8)
+                    .opacity(opacity)
                 Spacer()
             }
             .aspectRatio(16/9, contentMode: .fit)
@@ -38,7 +44,43 @@ struct FeedHero: View {
                     .overlay(.thinMaterial)
             }
             .clipped()
+            .grayscale(grayscale)
+            
             Divider()
         }
+    }
+    
+    private var grayscale: CGFloat {
+        #if os(macOS)
+        if controlActiveState == .inactive || !isEnabled {
+            return 0.8
+        } else {
+            return 0
+        }
+        #else
+        if isEnabled {
+            return 0
+        } else {
+            return 0.8
+        }
+        #endif
+    }
+    
+    private var opacity: CGFloat {
+        #if os(macOS)
+        if controlActiveState == .inactive {
+            return 0.2
+        } else if !isEnabled {
+            return 0.4
+        } else {
+            return 1
+        }
+        #else
+        if !isEnabled {
+            return 0.4
+        } else {
+            return 1
+        }
+        #endif
     }
 }
