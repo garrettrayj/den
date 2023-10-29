@@ -87,7 +87,8 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                         .ignoresSafeArea()
                         #else
                         .transition(.flipFromTop)
-                        #endif        
+                        .ignoresSafeArea(edges: .vertical)
+                        #endif
                 }
                 
                 if browserViewModel.isLoading {
@@ -96,17 +97,19 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                         .ignoresSafeArea(edges: .horizontal)
                 }
             }
-            .background {
-                // Buttons in background to fix keyboard shortcuts
-                ToggleReaderButton(browserViewModel: browserViewModel)
-                ZoomControlGroup(zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom)
-            }
             .onChange(of: browserZoom) {
                 browserViewModel.setBrowserZoom(browserZoom)
             }
             .onChange(of: readerZoom) {
                 browserViewModel.setReaderZoom(readerZoom)
             }
+            #if os(macOS)
+            .background(alignment: .bottom) {
+                // Buttons in background to fix keyboard shortcuts
+                ToggleReaderButton(browserViewModel: browserViewModel)
+                ZoomControlGroup(zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom)
+            }
+            #endif
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  PageStatus.swift
+//  CommonStatus.swift
 //  Den
 //
 //  Created by Garrett Johnson on 10/28/23.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PageStatus: View {
+struct CommonStatus: View {
     @ObservedObject var profile: Profile
     
     let items: [Item]

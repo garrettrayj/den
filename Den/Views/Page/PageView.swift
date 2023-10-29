@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct PageView: View {
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page
@@ -75,11 +78,22 @@ struct PageView: View {
                 .inspector(isPresented: $showingInspector) {
                     PageInspector(page: page)
                 }
-                .toolbarBackground(
-                    pageLayout.wrappedValue == .deck || showingInspector ? .visible : .automatic
-                )
+                .toolbarBackground(toolbarBackground)
             }
         }
+    }
+    
+    private var toolbarBackground: Visibility {
+        #if os(iOS)
+        if pageLayout.wrappedValue == .deck {
+            return .visible
+        }
+        if showingInspector && horizontalSizeClass != .compact {
+            return .visible
+        }
+        #endif
+                
+        return .automatic
     }
 
     init(

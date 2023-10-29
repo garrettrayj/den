@@ -18,9 +18,9 @@ body {
     accent-color: $TINT_COLOR;
     font: -apple-system-tall-body;
     font-size: 18px;
-    margin: 20px auto 64px;
+    margin: 24px auto 64px;
     padding: 0 16px;
-    max-width: 780px;
+    max-width: 748px;
 }
 
 /* Header */

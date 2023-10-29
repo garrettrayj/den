@@ -45,6 +45,12 @@ struct TrendToolbar: ToolbarContent {
                 Spacer()
             }
             ToolbarItem(placement: .bottomBar) {
+                CommonStatus(profile: profile, items: items)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     trend.objectWillChange.send()

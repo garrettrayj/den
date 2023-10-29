@@ -275,8 +275,8 @@
 		68ED798529C29B2700D85B4F /* DeckLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED798429C29B2700D85B4F /* DeckLayout.swift */; };
 		68EE91EB28D54C66000C00D2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 68EE91EA28D54C66000C00D2 /* SDWebImageSwiftUI */; };
 		68EF17642AE7A33600BCC08B /* SettingsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EF17632AE7A33600BCC08B /* SettingsUITests.swift */; };
-		68EF17A52AED4F4900BCC08B /* PageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EF17A42AED4F4900BCC08B /* PageStatus.swift */; };
-		68EF17A72AED604700BCC08B /* FeedStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EF17A62AED604700BCC08B /* FeedStatus.swift */; };
+		68EF17A72AED604700BCC08B /* CommonStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EF17A62AED604700BCC08B /* CommonStatus.swift */; };
+		68EF17AB2AED81AF00BCC08B /* PreviewImageStateModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EF17AA2AED81AF00BCC08B /* PreviewImageStateModifier.swift */; };
 		68F56B3D286F5C20006EC915 /* Trending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B3C286F5C20006EC915 /* Trending.swift */; };
 		68F56B452870C067006EC915 /* TrendBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B442870C067006EC915 /* TrendBlock.swift */; };
 		68F56B472870C123006EC915 /* TrendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B462870C123006EC915 /* TrendView.swift */; };
@@ -626,8 +626,8 @@
 		68ED798229C29A8B00D85B4F /* TimelineLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineLayout.swift; sourceTree = "<group>"; };
 		68ED798429C29B2700D85B4F /* DeckLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckLayout.swift; sourceTree = "<group>"; };
 		68EF17632AE7A33600BCC08B /* SettingsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsUITests.swift; sourceTree = "<group>"; };
-		68EF17A42AED4F4900BCC08B /* PageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStatus.swift; sourceTree = "<group>"; };
-		68EF17A62AED604700BCC08B /* FeedStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStatus.swift; sourceTree = "<group>"; };
+		68EF17A62AED604700BCC08B /* CommonStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonStatus.swift; sourceTree = "<group>"; };
+		68EF17AA2AED81AF00BCC08B /* PreviewImageStateModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImageStateModifier.swift; sourceTree = "<group>"; };
 		68F56B3C286F5C20006EC915 /* Trending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trending.swift; sourceTree = "<group>"; };
 		68F56B442870C067006EC915 /* TrendBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendBlock.swift; sourceTree = "<group>"; };
 		68F56B462870C123006EC915 /* TrendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendView.swift; sourceTree = "<group>"; };
@@ -708,7 +708,6 @@
 				68FF63F12921D88F0012A275 /* FeedToolbar.swift */,
 				68FC25542758B2250073979F /* FeedUnavailable.swift */,
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
-				68EF17A62AED604700BCC08B /* FeedStatus.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -932,6 +931,7 @@
 				6895C98B2A87085100BD4C21 /* HoverHighlightModifier.swift */,
 				68B8E79729CABD5100E9AF42 /* ImageBorderModifier.swift */,
 				68A2188E29DC2E86005F42C7 /* SafeAreaModifier.swift */,
+				68EF17AA2AED81AF00BCC08B /* PreviewImageStateModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -1219,6 +1219,7 @@
 				683041B127542E2000BE7631 /* BoardView.swift */,
 				6880EBEA27AEF12000B479F4 /* ButtonChevron.swift */,
 				68E6C5612A6C86D300CA46B2 /* CardNote.swift */,
+				68EF17A62AED604700BCC08B /* CommonStatus.swift */,
 				68FF63F52921DB900012A275 /* FilterReadButton.swift */,
 				68D486BD26C9896300AF5B59 /* IconSelector.swift */,
 				6856DB3B2AB7FB510094615E /* IconSelectorButton.swift */,
@@ -1316,7 +1317,6 @@
 				68ED797E29C29A6800D85B4F /* GroupedLayout.swift */,
 				688FD917247750350006A2DE /* PageInspector.swift */,
 				68F6FB9C29ADDF6D001F74B9 /* PageLayoutPicker.swift */,
-				68EF17A42AED4F4900BCC08B /* PageStatus.swift */,
 				68FF63EF2921C56E0012A275 /* PageToolbar.swift */,
 				68C413452472773100D1DC7B /* PageView.swift */,
 				68ED798229C29A8B00D85B4F /* TimelineLayout.swift */,
@@ -1620,6 +1620,7 @@
 				684152702ADB128600ABE5E2 /* BlocklistPreset.swift in Sources */,
 				680BBC912ADF761400F32046 /* BlocklistSettings.swift in Sources */,
 				6841526A2AD9E74100ABE5E2 /* BlocklistsSection.swift in Sources */,
+				68EF17AB2AED81AF00BCC08B /* PreviewImageStateModifier.swift in Sources */,
 				680BBC8D2ADEC74600F32046 /* BlocklistStatus+CoreDataClass.swift in Sources */,
 				683041B227542E2000BE7631 /* BoardView.swift in Sources */,
 				68599B582AB082790057FEA8 /* Bookmark+CoreDataClass.swift in Sources */,
@@ -1656,7 +1657,6 @@
 				6829A4FC28C2744900F75C5A /* DetailView.swift in Sources */,
 				68E9F6512AE1847500A27E19 /* DoneButton.swift in Sources */,
 				6856DB272AB636070094615E /* DraggableBookmarkModifier.swift in Sources */,
-				68EF17A52AED4F4900BCC08B /* PageStatus.swift in Sources */,
 				6856DAFE2AB589390094615E /* DraggableFeedModifier.swift in Sources */,
 				6856DB1E2AB593500094615E /* DraggableItemModifier.swift in Sources */,
 				6897242D299440B4003DAC4C /* DynamicTypeSize+Extensions.swift in Sources */,
@@ -1748,7 +1748,7 @@
 				6851F0E32AAD77E8000F7CBC /* OrganizerInspector.swift in Sources */,
 				6851F0EF2AAEC290000F7CBC /* OrganizerNavLink.swift in Sources */,
 				6851F0F32AAF7327000F7CBC /* OrganizerOptionsPanel.swift in Sources */,
-				68EF17A72AED604700BCC08B /* FeedStatus.swift in Sources */,
+				68EF17A72AED604700BCC08B /* CommonStatus.swift in Sources */,
 				6856DB2E2AB6E2730094615E /* OrganizerToolbar.swift in Sources */,
 				680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */,
 				68D17EE42A43F29100AF8A73 /* PageIconCategory.swift in Sources */,

@@ -9,22 +9,40 @@
 import SwiftUI
 
 struct PreviewButtonStyle: ButtonStyle {
+    #if os(macOS)
+    @Environment(\.controlActiveState) private var controlStateActive
+    #endif
     @Environment(\.isEnabled) private var isEnabled
 
     @Binding var read: Bool
 
     var roundedBottom: Bool = false
     var roundedTop: Bool = false
+    
+    var foregroundStyle: some ShapeStyle {
+        #if os(macOS)
+        if controlStateActive == .inactive || !isEnabled {
+            return .tertiary
+        } else if read {
+            return .secondary
+        } else {
+            return .primary
+        }
+        #else
+        if !isEnabled {
+            return .tertiary
+        } else if read {
+            return .secondary
+        } else {
+            return .primary
+        }
+        #endif
+    }
 
     func makeBody(configuration: Self.Configuration) -> some View {
         ZStack {
             configuration.label
-                .foregroundStyle(
-                    isEnabled ?
-                        read ? .secondary : .primary
-                        :
-                        .tertiary
-                )
+                .foregroundStyle(foregroundStyle)
                 .modifier(HoverHighlightModifier())
         }
         #if os(macOS)

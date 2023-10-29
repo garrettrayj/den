@@ -11,12 +11,51 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedTitleLabel: View {
+    #if os(macOS)
+    @Environment(\.controlActiveState) private var controlActiveState
+    #endif
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.faviconSize) private var faviconSize
     @Environment(\.faviconPixelSize) private var faviconPixelSize
 
     @ObservedObject var feed: Feed
 
+    private var grayscale: CGFloat {
+        #if os(macOS)
+        if controlActiveState == .inactive {
+            return 1
+        } else {
+            if isEnabled {
+                return 0
+            } else {
+                return 0.4
+            }
+        }
+        #else
+        if isEnabled {
+            return 0
+        } else {
+            return 0.4
+        }
+        #endif
+    }
+    
+    private var opacity: CGFloat {
+        #if os(macOS)
+        if controlActiveState == .inactive || !isEnabled {
+            return 0.4
+        } else {
+            return 1
+        }
+        #else
+        if !isEnabled {
+            return 0.4
+        } else {
+            return 1
+        }
+        #endif
+    }
+    
     var body: some View {
         Label {
             feed.titleText.lineLimit(1)
@@ -33,7 +72,7 @@ struct FeedTitleLabel: View {
             .scaledToFit()
             .frame(width: faviconSize.width, height: faviconSize.height)
             .clipShape(RoundedRectangle(cornerRadius: 2))
-            .grayscale(isEnabled ? 0 : 1)
+            .opacity(opacity)
         }
     }
 }

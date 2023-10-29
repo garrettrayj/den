@@ -10,6 +10,9 @@ import SwiftUI
 
 struct HoverHighlightModifier: ViewModifier {
     @Environment(\.colorScheme) private var colorScheme
+    #if os(macOS)
+    @Environment(\.controlActiveState) private var controlActiveState
+    #endif
     @Environment(\.isEnabled) private var isEnabled
 
     @State private var isHovered: Bool = false
@@ -18,9 +21,15 @@ struct HoverHighlightModifier: ViewModifier {
         content
             .onHover { isHovered = $0 }
             .background {
+                #if os(macOS)
+                if isEnabled && isHovered && controlActiveState != .inactive {
+                    Rectangle().fill(.fill.quaternary)
+                }
+                #else
                 if isEnabled && isHovered {
                     Rectangle().fill(.fill.quaternary)
                 }
+                #endif
             }
     }
 }

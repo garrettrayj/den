@@ -24,12 +24,16 @@ struct PageNavLink: View {
     var body: some View {
         Group {
             #if os(macOS)
-            Label {
-                WithItems(scopeObject: page, readFilter: false) { items in
-                    TextField(text: $page.wrappedName) { page.nameText }.badge(items.count)
+            Button {
+                detailPanel = .page(page)
+            } label: {
+                Label {
+                    WithItems(scopeObject: page, readFilter: false) { items in
+                        TextField(text: $page.wrappedName) { page.nameText }.badge(items.count)
+                    }
+                } icon: {
+                    Image(systemName: page.wrappedSymbol)
                 }
-            } icon: {
-                Image(systemName: page.wrappedSymbol)
             }
             #else
             if editMode?.wrappedValue.isEditing == true {

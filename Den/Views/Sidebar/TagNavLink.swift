@@ -21,10 +21,14 @@ struct TagNavLink: View {
     var body: some View {
         Group {
             #if os(macOS)
-            Label {
-                TextField(text: $tag.wrappedName) { tag.nameText }.badge(tag.bookmarksArray.count)
-            } icon: {
-                Image(systemName: "tag")
+            Button {
+                detailPanel = .tag(tag)
+            } label: {
+                Label {
+                    TextField(text: $tag.wrappedName) { tag.nameText }.badge(tag.bookmarksArray.count)
+                } icon: {
+                    Image(systemName: "tag")
+                }
             }
             #else
             if editMode?.wrappedValue.isEditing == true {

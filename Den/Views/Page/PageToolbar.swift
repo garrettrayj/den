@@ -57,7 +57,7 @@ struct PageToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .bottomBar) {
                 if let profile = page.profile {
-                    PageStatus(profile: profile, items: items)
+                    CommonStatus(profile: profile, items: items)
                 }
             }
             ToolbarItem(placement: .bottomBar) {

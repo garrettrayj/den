@@ -26,11 +26,10 @@ struct SmallThumbnail: View {
         )
         .resizable()
         .placeholder { ImageErrorPlaceholder() }
-        .grayscale(isEnabled ? 0 : 1)
+        .modifier(PreviewImageStateModifier(isRead: isRead))
         .scaledToFill()
         .frame(width: smallThumbnailSize.width, height: smallThumbnailSize.height)
         .background(.quaternary)
-        .overlay(.background.opacity(isRead ? 0.5 : 0))
         .modifier(ImageBorderModifier(cornerRadius: 6))
     }
 }

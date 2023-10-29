@@ -44,8 +44,7 @@ struct LargeThumbnail: View {
                         )
                         .resizable()
                         .placeholder { ImageErrorPlaceholder() }
-                        .grayscale(isEnabled ? 0 : 1)
-                        .overlay(.background.opacity(isRead ? 0.5 : 0))
+                        .modifier(PreviewImageStateModifier(isRead: isRead))
                         .modifier(ImageBorderModifier(cornerRadius: 4))
                         .scaledToFit()
                     }
@@ -60,8 +59,7 @@ struct LargeThumbnail: View {
                     )
                         .resizable()
                         .placeholder { ImageErrorPlaceholder() }
-                        .grayscale(isEnabled ? 0 : 1)
-                        .overlay(.background.opacity(isRead ? 0.5 : 0))
+                        .modifier(PreviewImageStateModifier(isRead: isRead))
                         .aspectRatio(aspectRatio, contentMode: .fit)
                         .frame(
                             maxHeight: largeThumbnailSize.height > 0 ? min(largeThumbnailSize.height, 400) : nil,
@@ -77,8 +75,7 @@ struct LargeThumbnail: View {
                     )
                         .resizable()
                         .placeholder { ImageErrorPlaceholder() }
-                        .grayscale(isEnabled ? 0 : 1)
-                        .overlay(.background.opacity(isRead ? 0.5 : 0))
+                        .modifier(PreviewImageStateModifier(isRead: isRead))
                         .aspectRatio(aspectRatio, contentMode: .fit)
                         .clipped()
                         .modifier(ImageBorderModifier(cornerRadius: 4))
@@ -91,8 +88,7 @@ struct LargeThumbnail: View {
                 )
                 .resizable()
                 .placeholder { ImageErrorPlaceholder() }
-                .grayscale(isEnabled ? 0 : 1)
-                .overlay(.background.opacity(isRead ? 0.5 : 0))
+                .modifier(PreviewImageStateModifier(isRead: isRead))
                 .aspectRatio(aspectRatio, contentMode: .fit)
                 .background(.quaternary)
                 .modifier(ImageBorderModifier(cornerRadius: 6))

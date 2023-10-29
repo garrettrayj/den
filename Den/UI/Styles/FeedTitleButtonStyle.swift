@@ -9,13 +9,32 @@
 import SwiftUI
 
 struct FeedTitleButtonStyle: ButtonStyle {
+    #if os(macOS)
+    @Environment(\.controlActiveState) private var controlActiveState
+    #endif
     @Environment(\.isEnabled) private var isEnabled
+    
+    var foregroundStyle: some ShapeStyle {
+        #if os(macOS)
+        if controlActiveState == .inactive || !isEnabled {
+            return .tertiary
+        } else {
+            return .primary
+        }
+        #else
+        if !isEnabled {
+            return .tertiary
+        } else {
+            return .primary
+        }
+        #endif
+    }
 
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         ZStack {
             configuration.label
                 .font(.title3)
-                .foregroundStyle(isEnabled ? .primary : .secondary)
+                .foregroundStyle(foregroundStyle)
                 .padding(.horizontal)
                 .padding(.vertical, 12)
                 .modifier(HoverHighlightModifier())
