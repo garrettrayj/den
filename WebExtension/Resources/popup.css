@@ -17,7 +17,7 @@ body {
     -webkit-user-select: none; /* Safari */
     cursor: default;
     margin: 0;
-    padding: 0.5rem;
+    padding: 12px;
 }
 
 @supports (-webkit-touch-callout: none) { /* iOS */
@@ -36,12 +36,12 @@ body {
 #no-results {
     align-items: center;
     background: -apple-system-secondary-grouped-background;
-    border-radius: 0.5rem;
+    border-radius: 8px;
     color: dimgray;
     display: flex;
     flex-flow: column;
-    font-size: 0.75rem;
-    padding: 0.5rem 0.75rem;
+    font-size: 16px;
+    padding: 12px;
     text-align: center;
 }
 
@@ -51,12 +51,12 @@ body {
 }
 
 #no-results div:first-child {
-    margin: 0 0 0.25rem;
+    margin: 0 0 4px;
 }
 
 #results-list {
     background: -apple-system-secondary-grouped-background;
-    border-radius: 0.5rem;
+    border-radius: 8px;
     border-width: 0;
     border-spacing: 0;
 }
@@ -64,7 +64,7 @@ body {
 .row {
     border-top: 1px solid -apple-system-separator;
     display: flex;
-    padding: 0 0.5rem;
+    padding: 0 8px;
 }
 
 .row:first-child {
@@ -74,7 +74,7 @@ body {
 .description {
     flex-grow: 1;
     overflow: hidden;
-    padding: 0.5rem 0.25rem 0.5rem 0.25rem;
+    padding: 8px 4px 8px 4px;
 }
 
 .title,
@@ -105,9 +105,9 @@ body {
     display: flex;
     font: -apple-system-short-footnote;
     justify-content: center;
-    margin: 0.5rem 0 0;
+    margin: 12px 0 0;
     max-width: 100%;
-    padding: 0 0.25rem;
+    padding: 0 8px;
     white-space: nowrap;
     text-align: center;
     text-overflow: ellipsis;
@@ -120,10 +120,10 @@ i {
     background: -apple-system-label;
     box-sizing: content-box;
     display: inline-block;
-    height: 1.25rem;
+    height: 20px;
     margin: 0;
-    width: 1.25rem;
-    -webkit-mask-size: 1.25rem 1.25rem;
+    width: 20px;
+    -webkit-mask-size: 20px 20px;
     -webkit-mask-origin: content-box;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
@@ -141,9 +141,9 @@ i {
 
 @supports (-webkit-touch-callout: none) { /* iOS */
     i {
-        height: 1.75rem;
-        width: 1.75rem;
-        -webkit-mask-size: 1.75rem 1.75rem;
+        height: 28px;
+        width: 28px;
+        -webkit-mask-size: 28px 28px;
     }
 }
 
@@ -152,9 +152,10 @@ i {
 button {
     appearance: none;
     background: none;
-    border-radius: 0.375rem;
+    border-radius: 6px;
     border: 0 none;
     margin: 0;
+    padding: 4px;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -172,7 +173,7 @@ button:active {
 
 @supports (-webkit-touch-callout: none) { /* iOS */
     button {
-        padding: 0.25rem 0.5rem;
+        padding: 4px 8px;
     }
     
     button i {
