@@ -35,8 +35,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
             configuration.label
                 .font(.title3)
                 .foregroundStyle(foregroundStyle)
-                .padding(.horizontal)
-                .padding(.vertical, 12)
+                .padding(12)
                 .modifier(HoverHighlightModifier())
         }
         #if os(macOS)

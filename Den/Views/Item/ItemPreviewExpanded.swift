@@ -40,6 +40,6 @@ struct ItemPreviewExpanded: View {
             .multilineTextAlignment(.leading)
             Spacer(minLength: 0)
         }
-        .padding()
+        .padding(12)
     }
 }

@@ -34,6 +34,6 @@ struct ItemPreviewCompressed: View {
                 Spacer(minLength: 0)
             }
         }
-        .padding()
+        .padding(12)
     }
 }

@@ -23,9 +23,15 @@ struct BookmarkView: View {
                 useBlocklists: bookmark.feed?.useBlocklists,
                 useReaderAutomatically: bookmark.feed?.readerMode,
                 extraToolbar: {
+                    #if os(macOS)
                     ToolbarItem {
                         DeleteBookmarkButton(bookmark: bookmark)
                     }
+                    #else
+                    ToolbarItem(placement: .bottomBar) {
+                        DeleteBookmarkButton(bookmark: bookmark)
+                    }
+                    #endif
                 }
             )
         } else {
