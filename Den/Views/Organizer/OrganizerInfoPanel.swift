@@ -10,6 +10,8 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct OrganizerInfoPanel: View {
+    @Environment(\.openURL) private var openURL
+    
     @ObservedObject var profile: Profile
     @ObservedObject var feed: Feed
 
@@ -100,7 +102,9 @@ struct OrganizerInfoPanel: View {
                         if let validatorURL = URL(
                             string: "https://validator.jsonfeed.org/?url=\(urlEncoded)"
                         ) {
-                            OpenInBrowserButton(url: validatorURL) {
+                            Button {
+                                openURL(validatorURL)
+                            } label: {
                                 Label {
                                     Text("JSON Feed Validator", comment: "Button label.")
                                 } icon: {
@@ -112,7 +116,9 @@ struct OrganizerInfoPanel: View {
                         if let validatorURL = URL(
                             string: "https://validator.w3.org/feed/check.cgi?url=\(urlEncoded)"
                         ) {
-                            OpenInBrowserButton(url: validatorURL) {
+                            Button {
+                                openURL(validatorURL)
+                            } label: {
                                 Label {
                                     Text("XML Feed Validator", comment: "Button label.")
                                 } icon: {

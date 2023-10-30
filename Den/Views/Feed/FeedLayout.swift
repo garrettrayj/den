@@ -74,42 +74,30 @@ struct FeedLayout: View {
                 let linkDisplayString = feed.feedData?.link?.absoluteString,
                 let url = feed.feedData?.link
             {
-                HStack {
-                    OpenInBrowserButton(url: url) {
-                        Text(linkDisplayString).lineLimit(1)
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityIdentifier("OpenWebpage")
+                Button {
+                    openURL(url)
+                } label: {
+                    Text(linkDisplayString).lineLimit(1)
                 }
             }
 
             if let url = feed.url {
                 HStack {
                     Button {
-                        openURL(url)
-                    } label: {
-                        Text(url.absoluteString).lineLimit(1)
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityIdentifier("OpenFeedAddress")
-
-                    Button {
                         PasteboardUtility.copyURL(url: url)
                         feedAddressCopied = true
                     } label: {
                         Label {
-                            Text("Copy", comment: "Button label.")
+                            Text(url.absoluteString).lineLimit(1)
                         } icon: {
                             Image(systemName: "doc.on.doc")
                         }
-                        .labelStyle(.iconOnly)
 
                         if feedAddressCopied {
                             Text("Copied", comment: "Copied to pasteboard message.")
                                 .foregroundStyle(.secondary)
                         }
                     }
-                    .buttonStyle(.plain)
                     .accessibilityIdentifier("CopyFeedAddress")
                 }
             }
@@ -118,6 +106,7 @@ struct FeedLayout: View {
                 Text(copyright)
             }
         }
+        .buttonStyle(.borderless)
         .textSelection(.enabled)
         .font(.footnote)
         .imageScale(.small)

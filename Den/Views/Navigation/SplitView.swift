@@ -69,9 +69,9 @@ struct SplitView: View {
                 refreshProgress: refreshProgress
             )
             #if os(macOS)
-            .navigationSplitViewColumnWidth(min: 212, ideal: 212)
+            .navigationSplitViewColumnWidth(220)
             #else
-            .navigationSplitViewColumnWidth(272 * dynamicTypeSize.layoutScalingFactor)
+            .navigationSplitViewColumnWidth(264)
             #endif
         } detail: {
             DetailView(

@@ -20,7 +20,9 @@ struct GoForwardButton: View {
             } icon: {
                 Image(systemName: "chevron.forward")
             }
+            #if os(macOS)
             .padding(.horizontal, 3)
+            #endif
         }
         .disabled(!browserViewModel.canGoForward)
     }

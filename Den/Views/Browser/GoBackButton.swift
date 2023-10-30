@@ -20,7 +20,9 @@ struct GoBackButton: View {
             } icon: {
                 Image(systemName: "chevron.backward")
             }
+            #if os(macOS)
             .padding(.horizontal, 3)
+            #endif
         }
         .disabled(!browserViewModel.canGoBack)
     }
