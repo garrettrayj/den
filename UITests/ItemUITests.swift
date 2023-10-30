@@ -13,7 +13,7 @@ final class ItemUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Science"].tap()
+        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         app.buttons["Science"].tap()
@@ -42,7 +42,7 @@ final class ItemUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Science"].tap()
+        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         app.buttons["Science"].tap()

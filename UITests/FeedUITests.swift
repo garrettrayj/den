@@ -13,7 +13,7 @@ final class FeedUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Science"].tap()
+        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -47,7 +47,7 @@ final class FeedUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Science"].tap()
+        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -96,7 +96,7 @@ final class FeedUITests: UITestCase {
         app.buttons["LoadDemo"].tap()
 
         #if os(macOS)
-        app.textFields["Science"].tap()
+        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {

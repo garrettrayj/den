@@ -37,7 +37,7 @@ final class AppLaunchUITests: UITestCase {
         }
 
         #if os(macOS)
-        app.textFields["Science"].tap()
+        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .pad {
             app.staticTexts["Science"].tap()

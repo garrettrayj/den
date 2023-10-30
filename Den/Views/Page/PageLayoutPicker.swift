@@ -19,7 +19,7 @@ struct PageLayoutPicker: View {
                 Image(systemName: "rectangle.grid.3x2")
             }
             .tag(PageLayout.grouped)
-            .accessibilityIdentifier("SpreadLayout")
+            .accessibilityIdentifier("GroupedLayout")
 
             Label {
                 Text("Deck", comment: "Page layout option label.")

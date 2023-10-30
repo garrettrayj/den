@@ -26,10 +26,10 @@ final class PageUITests: UITestCase {
         app.buttons["CreatePage"].tap()
         
         #if os(macOS)
-        if !app.outlineRows.textFields["Untitled"].waitForExistence(timeout: 2) {
+        if !app.buttons["PageNavLink"].waitForExistence(timeout: 2) {
             XCTFail("Page button did not appear in time")
         }
-        app.outlineRows.textFields["Untitled"].tap()
+        app.buttons["PageNavLink"].firstMatch.tap()
         #else
         if !app.collectionViews.buttons["Untitled"].waitForExistence(timeout: 2) {
             XCTFail("Page button did not appear in time")
@@ -64,7 +64,7 @@ final class PageUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Science"].tap()
+        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -84,6 +84,13 @@ final class PageUITests: UITestCase {
             }
         }
         #endif
+        
+        #if os(macOS)
+        app.radioButtons["GroupedLayout"].tap()
+        #else
+        app.buttons["PageLayoutPicker"].tap()
+        app.buttons["GroupedLayout"].tap()
+        #endif
 
         sleep(3)
 
@@ -94,7 +101,7 @@ final class PageUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Science"].tap()
+        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -131,7 +138,7 @@ final class PageUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Science"].tap()
+        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -168,7 +175,7 @@ final class PageUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields["Science"].tap()
+        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
