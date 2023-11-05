@@ -34,4 +34,10 @@ struct MercuryObject: Codable, Equatable {
 
         return HTMLContent(source: content).sanitizedHTML()
     }
+    
+    var textContent: String? {
+        guard let content = content else { return nil }
+        
+        return HTMLContent(source: content).plainText()
+    }
 }

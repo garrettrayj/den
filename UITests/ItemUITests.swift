@@ -35,7 +35,7 @@ final class ItemUITests: UITestCase {
 
         sleep(3)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "ItemView")
+        attachScreenshot(of: app.windows.firstMatch, named: "item-browser-view")
     }
     
     func testItemReader() throws {
@@ -70,6 +70,6 @@ final class ItemUITests: UITestCase {
         #endif
         sleep(2)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "ItemReader")
+        attachScreenshot(of: app.windows.firstMatch, named: "item-reader-view")
     }
 }

@@ -75,6 +75,7 @@ struct Organizer: View {
         .inspector(isPresented: $showingInspector) {
             OrganizerInspector(profile: profile, selection: $selection)
         }
+        .accessibilityIdentifier("OrganizerList")
         #if os(macOS)
         .listStyle(.inset(alternatesRowBackgrounds: true))
         #else

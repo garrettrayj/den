@@ -182,6 +182,13 @@ class BrowserViewModel: NSObject, ObservableObject {
             <h1 id="den-title">\(title)</h1>
         """
 
+        if
+            let excerpt = mercuryObject?.excerpt,
+            excerpt.prefix(20) != mercuryObject?.textContent?.prefix(20)
+        {
+            html += "<div id=\"den-excerpt\">\(excerpt)</div>"
+        }
+        
         if let byline = mercuryObject?.author {
             html += "<p id=\"den-author\">\(byline)</p>"
         }

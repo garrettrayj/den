@@ -34,7 +34,7 @@ final class InboxUITests: UITestCase {
             XCTFail("Inbox title did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "Inbox")
+        attachScreenshot(of: app.windows.firstMatch, named: "inbox")
     }
 
     func testInboxEmpty() throws {
@@ -86,6 +86,6 @@ final class InboxUITests: UITestCase {
             XCTFail("Inbox title did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "InboxEmpty")
+        attachScreenshot(of: app.windows.firstMatch, named: "inbox-empty")
     }
 }

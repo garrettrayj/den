@@ -34,6 +34,7 @@ struct ProfilesSection: View {
                         }
                     }
                 }
+                .accessibilityIdentifier("ProfileSettings")
             }
             NewProfileButton()
         } header: {

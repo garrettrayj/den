@@ -29,4 +29,20 @@ final class SettingsUITests: UITestCase {
 
         attachScreenshot(of: app.windows.firstMatch, named: "Settings")
     }
+    
+    func testNewBlocklist() throws {
+        XCTFail("Missing test")
+    }
+    
+    func testBlocklistSettings() throws {
+        XCTFail("Missing test")
+    }
+    
+    func testBlocklistRefresh() throws {
+        XCTFail("Missing test")
+    }
+    
+    func testDeleteBlocklist() throws {
+        XCTFail("Missing test")
+    }
 }

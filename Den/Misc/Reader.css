@@ -30,14 +30,30 @@ body > header {
 }
 
 #den-title {
+    color: -apple-system-header-text;
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
-#den-author,
+#den-excerpt {
+    color: -apple-system-secondary-label;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 300;
+    margin: 8px 0 12px;
+}
+
+#den-author {
+    font: -apple-system-subheadline;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 4px 0;
+}
+
 #den-dateline {
     font: -apple-system-subheadline;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 500;
     margin: 4px 0;
 }
 

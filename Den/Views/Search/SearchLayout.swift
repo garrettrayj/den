@@ -75,13 +75,6 @@ struct SearchLayout: View {
                     .navigationSubtitle(
                         Text("Results for “\(query)”", comment: "Navigation subtitle.")
                     )
-                    #else
-                    .toolbar {
-                        ToolbarItem(placement: .status) {
-                            Text("Results for “\(query)”", comment: "Bottom bar status.")
-                                .font(.caption)
-                        }
-                    }
                     #endif
                 }
             }

@@ -17,6 +17,7 @@ struct ReaderWebView {
     func makeWebView(context: Context) -> WKWebView {
         let wkWebView = WKWebView()
         wkWebView.isInspectable = true
+        wkWebView.uiDelegate = context.coordinator
         wkWebView.navigationDelegate = context.coordinator
         wkWebView.configuration.defaultWebpagePreferences.preferredContentMode = .mobile
         #if os(iOS)
@@ -28,7 +29,7 @@ struct ReaderWebView {
         return wkWebView
     }
 
-    class Coordinator: NSObject, WKNavigationDelegate {
+    class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
         let browserViewModel: BrowserViewModel
         let openURL: OpenURLAction
 
@@ -51,6 +52,7 @@ struct ReaderWebView {
                 return
             }
 
+            // Open links for same frame in browser view
             let browserActions: Set<WKNavigationType> = [.linkActivated]
             if
                 let url = navigationAction.request.url,
@@ -64,6 +66,19 @@ struct ReaderWebView {
             }
             
             decisionHandler(.allow)
+        }
+        
+        // To open links in YouTube embeds
+        func webView(
+            _ webView: WKWebView,
+            createWebViewWith configuration: WKWebViewConfiguration,
+            for navigationAction: WKNavigationAction,
+            windowFeatures: WKWindowFeatures
+        ) -> WKWebView? {
+            if !(navigationAction.targetFrame?.isMainFrame ?? false) {
+                webView.load(navigationAction.request)
+            }
+            return nil
         }
     }
 }

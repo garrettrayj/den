@@ -16,7 +16,7 @@ final class AppLaunchUITests: UITestCase {
             XCTFail("Create Profile button did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "AppLaunchNoProfiles")
+        attachScreenshot(of: app.windows.firstMatch, named: "app-launch-no-profiles")
     }
 
     func testAppLaunchOneProfile() throws {
@@ -26,7 +26,7 @@ final class AppLaunchUITests: UITestCase {
             XCTFail("Inbox button did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "AppLaunchOneProfile")
+        attachScreenshot(of: app.windows.firstMatch, named: "app-launch-one-profile")
     }
 
     func testPosterScreenshot() throws {
@@ -47,6 +47,6 @@ final class AppLaunchUITests: UITestCase {
         // Wait for images to load
         sleep(3)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "AppPoster")
+        attachScreenshot(of: app.windows.firstMatch, named: "app-poster")
     }
 }

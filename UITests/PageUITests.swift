@@ -9,6 +9,10 @@
 import XCTest
 
 final class PageUITests: UITestCase {
+    func testNewPage() throws {
+        XCTFail("Missing test")
+    }
+    
     func testPageEmpty() throws {
         let app = launchApp(inMemory: true)
 

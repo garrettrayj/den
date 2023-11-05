@@ -30,18 +30,16 @@ struct SearchToolbar: ToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem(placement: .primaryAction) {
-                Menu {
-                    MarkAllReadUnreadButton(unreadCount: items.unread().count) {
-                        await HistoryUtility.toggleReadUnread(items: Array(items))
-                    }
-                    FilterReadButton(hideRead: $hideRead)
-                } label: {
-                    Label {
-                        Text("Menu", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "ellipsis.circle")
-                    }
+            ToolbarItem(placement: .bottomBar) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .status) {
+                Text("Results for “\(query)”", comment: "Bottom bar status.")
+                    .font(.caption)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
                 }
             }
         } else {
@@ -52,6 +50,10 @@ struct SearchToolbar: ToolbarContent {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                 }
+            }
+            ToolbarItem(placement: .status) {
+                Text("Results for “\(query)”", comment: "Bottom bar status.")
+                    .font(.caption)
             }
         }
         #endif

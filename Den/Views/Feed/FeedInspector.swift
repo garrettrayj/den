@@ -186,6 +186,7 @@ struct FeedInspector: View {
                     CrashUtility.handleCriticalError(error as NSError)
                 }
             }
+            .accessibilityIdentifier("LargePreviews")
 
             if feed.largePreviews {
                 Toggle(isOn: $feed.showExcerpts) {

@@ -26,6 +26,7 @@ struct NewProfileSheet: View {
                         Text("Name", comment: "Text field label.")
                     }
                     .labelsHidden()
+                    .accessibilityIdentifier("ProfileName")
                 } header: {
                     Text("Name", comment: "New profile section header.")
                 }

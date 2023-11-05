@@ -1,5 +1,5 @@
 //
-//  AppSidebarUITests.swift
+//  SidebarUITests.swift
 //  UITests
 //
 //  Created by Garrett Johnson on 7/16/23.
@@ -8,8 +8,8 @@
 
 import XCTest
 
-final class AppSidebarUITests: UITestCase {
-    func testAppSidebarGetStarted() throws {
+final class SidebarUITests: UITestCase {
+    func testGetStarted() throws {
         let app = launchApp(inMemory: true)
 
         if !app.buttons["NewProfile"].waitForExistence(timeout: 20) {
@@ -19,10 +19,10 @@ final class AppSidebarUITests: UITestCase {
 
         app.buttons["CreateProfile"].firstMatch.tap()
 
-        attachScreenshot(of: app.windows.firstMatch, named: "GetStarted")
+        attachScreenshot(of: app.windows.firstMatch, named: "get-started")
     }
 
-    func testAppSidebarAppMenu() throws {
+    func testAppMenu() throws {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
@@ -31,6 +31,18 @@ final class AppSidebarUITests: UITestCase {
         app.buttons["SidebarMenu"].forceTap()
         #endif
 
-        attachScreenshot(of: app.windows.firstMatch, named: "AppMenu")
+        attachScreenshot(of: app.windows.firstMatch, named: "app-menu")
+    }
+    
+    func testProfileMenu() throws {
+        let app = launchApp(inMemory: false)
+
+        #if os(macOS)
+        app.popUpButtons["ProfileMenu"].tap()
+        #else
+        app.buttons["ProfileMenu"].forceTap()
+        #endif
+
+        attachScreenshot(of: app.windows.firstMatch, named: "profile-menu")
     }
 }

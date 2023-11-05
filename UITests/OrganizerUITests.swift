@@ -43,7 +43,7 @@ final class OrganizerUITests: UITestCase {
             XCTFail("Organizer header did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "Organizer")
+        attachScreenshot(of: app.windows.firstMatch, named: "organizer")
     }
 
     func testOrganizerEmpty() throws {
@@ -86,6 +86,81 @@ final class OrganizerUITests: UITestCase {
             XCTFail("Organizer header did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "OrganizerEmpty")
+        attachScreenshot(of: app.windows.firstMatch, named: "organizer-empty")
+    }
+    
+    func testOrganizerInfo() throws {
+        let app = launchApp(inMemory: false)
+
+        #if os(macOS)
+        app.popUpButtons["SidebarMenu"].tap()
+        app.menuItems["Organizer"].tap()
+        #else
+        if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
+            XCTFail("Sidebar menu button did not appear in time")
+        }
+        app.buttons["SidebarMenu"].forceTap()
+        app.buttons["Organizer"].tap()
+        #endif
+
+        #if os(macOS)
+        app.buttons["Hide Sidebar"].firstMatch.tap()
+        #else
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular {
+                app.tap()
+            }
+        } else {
+            if XCUIDevice.shared.orientation.isLandscape {
+                app.buttons["ToggleSidebar"].tap()
+            } else {
+                app.tap()
+            }
+        }
+        #endif
+        
+        app.collectionViews["OrganizerList"].staticTexts["TIME"].tap()
+        app.buttons["ToggleInspector"].tap()
+        sleep(2)
+
+        attachScreenshot(of: app.windows.firstMatch, named: "organizer-info")
+    }
+    
+    func testOrganizerConfig() throws {
+        let app = launchApp(inMemory: false)
+
+        #if os(macOS)
+        app.popUpButtons["SidebarMenu"].tap()
+        app.menuItems["Organizer"].tap()
+        #else
+        if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
+            XCTFail("Sidebar menu button did not appear in time")
+        }
+        app.buttons["SidebarMenu"].forceTap()
+        app.buttons["Organizer"].tap()
+        #endif
+
+        #if os(macOS)
+        app.buttons["Hide Sidebar"].firstMatch.tap()
+        #else
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular {
+                app.tap()
+            }
+        } else {
+            if XCUIDevice.shared.orientation.isLandscape {
+                app.buttons["ToggleSidebar"].tap()
+            } else {
+                app.tap()
+            }
+        }
+        #endif
+        
+        app.collectionViews["OrganizerList"].staticTexts["TIME"].tap()
+        app.buttons["ToggleInspector"].tap()
+        
+        sleep(2)
+
+        attachScreenshot(of: app.windows.firstMatch, named: "organizer-config")
     }
 }

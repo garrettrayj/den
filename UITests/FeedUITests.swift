@@ -40,7 +40,47 @@ final class FeedUITests: UITestCase {
             XCTFail("Feed title did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "FeedViewCompressed")
+        attachScreenshot(of: app.windows.firstMatch, named: "feed-view-compressed")
+    }
+    
+    func testFeedViewExpanded() throws {
+        let app = launchApp(inMemory: false)
+
+        #if os(macOS)
+        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
+        #else
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular &&
+                app.windows.firstMatch.verticalSizeClass == .compact {
+                app.staticTexts["Science"].tap()
+                app.tap()
+            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
+                app.staticTexts["Science"].tap()
+            }
+        } else {
+            app.staticTexts["Science"].tap()
+            if XCUIDevice.shared.orientation.isLandscape {
+                app.buttons["ToggleSidebar"].tap()
+            } else {
+                app.tap()
+            }
+        }
+        #endif
+
+        app.buttons["FeedNavLink"].firstMatch.tap()
+
+        if !app.staticTexts["Futurity"].waitForExistence(timeout: 2) {
+            XCTFail("Feed title did not appear in time")
+        }
+        
+        app.buttons["ToggleInspector"].tap()
+        app.switches["LargePreviews"].switches.firstMatch.tap()
+        app.buttons["ToggleInspector"].tap()
+        
+        sleep(2)
+
+        attachScreenshot(of: app.windows.firstMatch, named: "feed-view-expanded")
     }
 
     func testFeedInspector() throws {
@@ -78,7 +118,7 @@ final class FeedUITests: UITestCase {
 
         sleep(2)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "FeedInspector")
+        attachScreenshot(of: app.windows.firstMatch, named: "feed-inspector")
     }
 
     func testFeedViewNoData() throws {
@@ -120,6 +160,6 @@ final class FeedUITests: UITestCase {
 
         app.buttons["FeedNavLink"].firstMatch.tap()
 
-        attachScreenshot(of: app.windows.firstMatch, named: "FeedViewNoData")
+        attachScreenshot(of: app.windows.firstMatch, named: "feed-no-data")
     }
 }
