@@ -72,12 +72,4 @@ final class BlocklistUITests: UITestCase {
 
         attachScreenshot(of: app.windows.firstMatch, named: "blocklist-settings")
     }
-
-    func testBlocklistRefresh() throws {
-        XCTFail("Missing test")
-    }
-
-    func testDeleteBlocklist() throws {
-        XCTFail("Missing test")
-    }
 }

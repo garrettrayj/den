@@ -10,10 +10,10 @@ import XCTest
 
 final class ImportExportUITests: UITestCase {
     func testImport() throws {
-        XCTFail("Missing test")
+        throw XCTSkip("Missing test")
     }
     
     func testExport() throws {
-        XCTFail("Missing test")
+        throw XCTSkip("Missing test")
     }
 }
