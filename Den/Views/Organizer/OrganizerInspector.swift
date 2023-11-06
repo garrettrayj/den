@@ -22,12 +22,17 @@ struct OrganizerInspector: View {
                     Text("Info", comment: "Inspector panel label.")
                 } icon: {
                     Image(systemName: "info.circle")
-                }.tag("info")
+                }
+                .tag("info")
+                .accessibilityLabel("OrganizerInfo")
+
                 Label {
                     Text("Configuration", comment: "Inspector panel label.")
                 } icon: {
                     Image(systemName: "slider.horizontal.3")
-                }.tag("config")
+                }
+                .tag("config")
+                .accessibilityLabel("OrganizerConfig")
             } label: {
                 Text("View", comment: "Picker label.")
             }

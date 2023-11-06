@@ -37,6 +37,7 @@ struct BlocklistsSection: View {
                             Image(systemName: "square.slash")
                         }
                     }
+                    .accessibilityIdentifier("BlocklistNavLink")
                 }
                 .onDelete(perform: delete)
             }
@@ -45,11 +46,12 @@ struct BlocklistsSection: View {
                 showingNewBlocklist = true
             } label: {
                 Label {
-                    Text("New Blocklist")
+                    Text("New Blocklist", comment: "Button label.")
                 } icon: {
                     Image(systemName: "plus")
                 }
             }
+            .accessibilityLabel("NewBlocklist")
         } header: {
             Text("Blocklists", comment: "Section header.")
         }

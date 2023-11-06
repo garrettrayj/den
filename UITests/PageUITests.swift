@@ -10,7 +10,21 @@ import XCTest
 
 final class PageUITests: UITestCase {
     func testNewPage() throws {
-        XCTFail("Missing test")
+        let app = launchApp(inMemory: true)
+
+        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
+            XCTFail("Create Profile button did not appear in time")
+        }
+        app.buttons["NewProfile"].firstMatch.tap()
+        app.buttons["CreateProfile"].firstMatch.tap()
+
+        if !app.collectionViews.buttons["NewPage"].waitForExistence(timeout: 2) {
+            XCTFail("New Page button did not appear in time")
+        }
+
+        app.collectionViews.buttons["NewPage"].tap()
+        
+        attachScreenshot(of: app.windows.firstMatch, named: "new-page")
     }
     
     func testPageEmpty() throws {
@@ -22,11 +36,11 @@ final class PageUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
         app.buttons["CreateProfile"].firstMatch.tap()
 
-        if !app.outlineRows.buttons["NewPage"].waitForExistence(timeout: 2) {
+        if !app.collectionViews.buttons["NewPage"].waitForExistence(timeout: 2) {
             XCTFail("New Page button did not appear in time")
         }
 
-        app.outlineRows.buttons["NewPage"].tap()
+        app.collectionViews.buttons["NewPage"].tap()
         app.buttons["CreatePage"].tap()
         
         #if os(macOS)
@@ -61,7 +75,7 @@ final class PageUITests: UITestCase {
             XCTFail("Page title did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "PageEmpty")
+        attachScreenshot(of: app.windows.firstMatch, named: "page-empty")
     }
 
     func testPageGroupedLayout() throws {

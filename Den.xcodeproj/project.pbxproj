@@ -1255,23 +1255,23 @@
 			isa = PBXGroup;
 			children = (
 				68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */,
-				68D286282A64223A007AD876 /* SidebarUITests.swift */,
+				685EB3842AF2B2F7001683E3 /* BlocklistUITests.swift */,
+				685EB37E2AF2AF22001683E3 /* BookmarksUITests.swift */,
 				687925A32A60C1DB00188A83 /* FeedUITests.swift */,
+				685EB3802AF2B079001683E3 /* ImportExportUITests.swift */,
 				687925A02A60C1DB00188A83 /* InboxUITests.swift */,
 				6879259C2A60C1DB00188A83 /* ItemUITests.swift */,
 				6879259D2A60C1DB00188A83 /* OrganizerUITests.swift */,
 				6879259F2A60C1DB00188A83 /* PageUITests.swift */,
+				685EB3822AF2B2C5001683E3 /* ProfileUITests.swift */,
 				687925A22A60C1DB00188A83 /* SearchUITests.swift */,
 				68EF17632AE7A33600BCC08B /* SettingsUITests.swift */,
+				68D286282A64223A007AD876 /* SidebarUITests.swift */,
 				6879259E2A60C1DB00188A83 /* TrendingUITests.swift */,
 				68D2864B2A679AEE007AD876 /* UIDeviceOrientation+Extensions.swift */,
 				68D2864F2A68740F007AD876 /* UITestCase.swift */,
 				68D2864D2A679C1B007AD876 /* XCUIDevice+Extensions.swift */,
 				68D286372A6653B7007AD876 /* XCUIElement+Extensions.swift */,
-				685EB37E2AF2AF22001683E3 /* BookmarksUITests.swift */,
-				685EB3802AF2B079001683E3 /* ImportExportUITests.swift */,
-				685EB3822AF2B2C5001683E3 /* ProfileUITests.swift */,
-				685EB3842AF2B2F7001683E3 /* BlocklistUITests.swift */,
 			);
 			path = UITests;
 			sourceTree = "<group>";
@@ -1861,23 +1861,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				68E83BFE2A6004590014DC64 /* AppLaunchUITests.swift in Sources */,
-				68D286292A64223A007AD876 /* SidebarUITests.swift in Sources */,
-				685EB3812AF2B079001683E3 /* ImportExportUITests.swift in Sources */,
+				685EB3852AF2B2F7001683E3 /* BlocklistUITests.swift in Sources */,
+				685EB37F2AF2AF22001683E3 /* BookmarksUITests.swift in Sources */,
 				687925AB2A60C1DB00188A83 /* FeedUITests.swift in Sources */,
+				685EB3812AF2B079001683E3 /* ImportExportUITests.swift in Sources */,
 				687925A82A60C1DB00188A83 /* InboxUITests.swift in Sources */,
 				687925A42A60C1DB00188A83 /* ItemUITests.swift in Sources */,
 				687925A52A60C1DB00188A83 /* OrganizerUITests.swift in Sources */,
 				687925A72A60C1DB00188A83 /* PageUITests.swift in Sources */,
+				685EB3832AF2B2C5001683E3 /* ProfileUITests.swift in Sources */,
 				687925AA2A60C1DB00188A83 /* SearchUITests.swift in Sources */,
 				68EF17642AE7A33600BCC08B /* SettingsUITests.swift in Sources */,
-				685EB3832AF2B2C5001683E3 /* ProfileUITests.swift in Sources */,
+				68D286292A64223A007AD876 /* SidebarUITests.swift in Sources */,
 				687925A62A60C1DB00188A83 /* TrendingUITests.swift in Sources */,
 				68D2864C2A679AEE007AD876 /* UIDeviceOrientation+Extensions.swift in Sources */,
-				685EB37F2AF2AF22001683E3 /* BookmarksUITests.swift in Sources */,
 				68D286502A68740F007AD876 /* UITestCase.swift in Sources */,
 				68D2864E2A679C1B007AD876 /* XCUIDevice+Extensions.swift in Sources */,
 				68D286392A6653DD007AD876 /* XCUIElement+Extensions.swift in Sources */,
-				685EB3852AF2B2F7001683E3 /* BlocklistUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

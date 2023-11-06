@@ -31,6 +31,8 @@ struct NewBlocklist: View {
                 } label: {
                     Text("Presets", comment: "Menu label.")
                 }
+                .accessibilityIdentifier("BlocklistPresets")
+
                 Section {
                     TextField(
                         text: $name,
@@ -42,6 +44,7 @@ struct NewBlocklist: View {
                 } header: {
                     Text("Name", comment: "Section header.")
                 }
+
                 Section {
                     TextField(text: $urlString) {
                         Text("URL", comment: "Text field label.")
@@ -65,6 +68,7 @@ struct NewBlocklist: View {
                         Text("Add Blocklist", comment: "Button Label")
                     }
                     .disabled(isCreating)
+                    .accessibilityIdentifier("AddBlocklist")
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
@@ -73,6 +77,7 @@ struct NewBlocklist: View {
                         Text("Cancel", comment: "Button Label")
                     }
                     .disabled(isCreating)
+                    .accessibilityIdentifier("Cancel")
                 }
             }
             .frame(minWidth: 360, minHeight: 300)

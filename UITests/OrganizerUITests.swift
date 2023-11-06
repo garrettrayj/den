@@ -159,6 +159,8 @@ final class OrganizerUITests: UITestCase {
         app.collectionViews["OrganizerList"].staticTexts["TIME"].tap()
         app.buttons["ToggleInspector"].tap()
         
+        app.buttons["OrganizerConfig"].tap()
+        
         sleep(2)
 
         attachScreenshot(of: app.windows.firstMatch, named: "organizer-config")
