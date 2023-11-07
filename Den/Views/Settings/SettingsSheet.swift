@@ -27,6 +27,7 @@ struct SettingsSheet: View {
                 ProfilesSection(profiles: profiles, currentProfileID: $currentProfileID)
                 BlocklistsSection()
                 ResetSection()
+                AboutSection()
             }
             .buttonStyle(.borderless)
             .formStyle(.grouped)

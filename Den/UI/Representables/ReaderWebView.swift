@@ -28,65 +28,70 @@ struct ReaderWebView {
 
         return wkWebView
     }
+}
 
-    class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
-        let browserViewModel: BrowserViewModel
-        let openURL: OpenURLAction
+class ReaderWebViewCoordinator: NSObject {
+    let browserViewModel: BrowserViewModel
+    let openURL: OpenURLAction
 
-        init(browserViewModel: BrowserViewModel, openURL: OpenURLAction) {
-            self.browserViewModel = browserViewModel
-            self.openURL = openURL
+    init(browserViewModel: BrowserViewModel, openURL: OpenURLAction) {
+        self.browserViewModel = browserViewModel
+        self.openURL = openURL
+    }
+}
+
+extension ReaderWebViewCoordinator: WKNavigationDelegate {
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+    ) {
+        // Open external links in system browser
+        if navigationAction.targetFrame == nil {
+            if let url = navigationAction.request.url {
+                openURL(url)
+            }
+            decisionHandler(.cancel)
+            return
         }
 
-        func webView(
-            _ webView: WKWebView,
-            decidePolicyFor navigationAction: WKNavigationAction,
-            decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
-        ) {
-            // Open external links in system browser
-            if navigationAction.targetFrame == nil {
-                if let url = navigationAction.request.url {
-                    openURL(url)
-                }
-                decisionHandler(.cancel)
-                return
+        // Open links for same frame in browser view
+        let browserActions: Set<WKNavigationType> = [.linkActivated]
+        if
+            let url = navigationAction.request.url,
+            browserActions.contains(navigationAction.navigationType)
+        {
+            Task {
+                await browserViewModel.loadURL(url: url)
             }
-
-            // Open links for same frame in browser view
-            let browserActions: Set<WKNavigationType> = [.linkActivated]
-            if
-                let url = navigationAction.request.url,
-                browserActions.contains(navigationAction.navigationType)
-            {
-                Task {
-                    await browserViewModel.loadURL(url: url)
-                }
-                decisionHandler(.cancel)
-                return
-            }
-            
-            decisionHandler(.allow)
+            decisionHandler(.cancel)
+            return
         }
         
-        // To open links in YouTube embeds
-        func webView(
-            _ webView: WKWebView,
-            createWebViewWith configuration: WKWebViewConfiguration,
-            for navigationAction: WKNavigationAction,
-            windowFeatures: WKWindowFeatures
-        ) -> WKWebView? {
-            if !(navigationAction.targetFrame?.isMainFrame ?? false) {
-                webView.load(navigationAction.request)
-            }
-            return nil
+        decisionHandler(.allow)
+    }
+}
+
+extension ReaderWebViewCoordinator: WKUIDelegate {
+    // Open links in iFrames, e.g. YouTube embeds, in external app/browser
+    func webView(
+        _ webView: WKWebView,
+        createWebViewWith configuration: WKWebViewConfiguration,
+        for navigationAction: WKNavigationAction,
+        windowFeatures: WKWindowFeatures
+    ) -> WKWebView? {
+        if !(navigationAction.targetFrame?.isMainFrame ?? false), let url = navigationAction.request.url {
+            openURL(url)
         }
+
+        return nil
     }
 }
 
 #if os(macOS)
 extension ReaderWebView: NSViewRepresentable {
-    func makeCoordinator() -> Coordinator {
-        Coordinator(browserViewModel: browserViewModel, openURL: openURL)
+    func makeCoordinator() -> ReaderWebViewCoordinator {
+        ReaderWebViewCoordinator(browserViewModel: browserViewModel, openURL: openURL)
     }
 
     func makeNSView(context: Context) -> WKWebView {
@@ -99,7 +104,7 @@ extension ReaderWebView: NSViewRepresentable {
 #else
 extension ReaderWebView: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
-        Coordinator(browserViewModel: browserViewModel, openURL: openURL)
+        ReaderWebViewCoordinator(browserViewModel: browserViewModel, openURL: openURL)
     }
 
     func makeUIView(context: Context) -> WKWebView {
