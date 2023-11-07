@@ -38,7 +38,7 @@ struct FeedUnavailable: View {
         if feedData == nil {
             return Text("No Data", comment: "Feed unavailable message.")
         } else if feedData?.wrappedError != nil {
-            return Text("Refresh Failed", comment: "Feed unavailable message.")
+            return Text("Refresh Error", comment: "Feed unavailable message.")
         } else {
             return Text("Feed Unavailable", comment: "Feed unavailable message.")
         }

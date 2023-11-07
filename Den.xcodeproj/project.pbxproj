@@ -125,6 +125,7 @@
 		685EB3832AF2B2C5001683E3 /* ProfileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3822AF2B2C5001683E3 /* ProfileUITests.swift */; };
 		685EB3852AF2B2F7001683E3 /* BlocklistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3842AF2B2F7001683E3 /* BlocklistUITests.swift */; };
 		685EB3872AF95CB1001683E3 /* AboutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3862AF95CB1001683E3 /* AboutSection.swift */; };
+		685EB3892AFAA102001683E3 /* OrganizerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3882AFAA102001683E3 /* OrganizerRow.swift */; };
 		685ECB1126EE611000A3B184 /* PageNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685ECB1026EE611000A3B184 /* PageNavLink.swift */; };
 		686067D9280CAF29000068DE /* SmallThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686067D8280CAF29000068DE /* SmallThumbnail.swift */; };
 		6860692B2831501B000068DE /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686068E32831501B000068DE /* SafariWebExtensionHandler.swift */; };
@@ -465,6 +466,7 @@
 		685EB3822AF2B2C5001683E3 /* ProfileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUITests.swift; sourceTree = "<group>"; };
 		685EB3842AF2B2F7001683E3 /* BlocklistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistUITests.swift; sourceTree = "<group>"; };
 		685EB3862AF95CB1001683E3 /* AboutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSection.swift; sourceTree = "<group>"; };
+		685EB3882AFAA102001683E3 /* OrganizerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerRow.swift; sourceTree = "<group>"; };
 		685ECB1026EE611000A3B184 /* PageNavLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageNavLink.swift; sourceTree = "<group>"; };
 		686067D8280CAF29000068DE /* SmallThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallThumbnail.swift; sourceTree = "<group>"; };
 		686068E32831501B000068DE /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
@@ -819,6 +821,7 @@
 				6851F0F02AAF7314000F7CBC /* OrganizerInfoPanel.swift */,
 				6851F0E22AAD77E8000F7CBC /* OrganizerInspector.swift */,
 				6851F0F22AAF7327000F7CBC /* OrganizerOptionsPanel.swift */,
+				685EB3882AFAA102001683E3 /* OrganizerRow.swift */,
 				6856DB2D2AB6E2730094615E /* OrganizerToolbar.swift */,
 			);
 			path = Organizer;
@@ -1682,6 +1685,7 @@
 				6870EBDC29C9556500E15154 /* FeedLayout.swift in Sources */,
 				687FEF162A416F2C0042977E /* FeedNavLink.swift in Sources */,
 				68701DF3273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift in Sources */,
+				685EB3892AFAA102001683E3 /* OrganizerRow.swift in Sources */,
 				6885C42226D37259002C41B0 /* FeedTitleLabel.swift in Sources */,
 				68FF63F22921D88F0012A275 /* FeedToolbar.swift in Sources */,
 				68FC25552758B2250073979F /* FeedUnavailable.swift in Sources */,

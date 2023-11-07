@@ -81,6 +81,7 @@ struct SplitView: View {
                 refreshing: $refreshing,
                 path: $navigationStore.path
             )
+            .navigationSplitViewColumnWidth(min: 320, ideal: 320)
             #if os(iOS)
             .toolbarTitleDisplayMode(.inline)
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)

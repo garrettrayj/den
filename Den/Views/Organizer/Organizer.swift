@@ -23,65 +23,46 @@ struct Organizer: View {
     #endif
 
     var body: some View {
-        List(selection: $selection) {
-            ForEach(profile.pagesArray) { page in
-                Section {
-                    ForEach(page.feedsArray) { feed in
-                        HStack {
-                            FeedTitleLabel(feed: feed)
-                            Spacer()
-                            Group {
-                                if feed.feedData == nil {
-                                    Image(systemName: "questionmark.folder").foregroundStyle(.yellow)
-                                    Text("No Data", comment: "Organizer row status.")
-                                } else if let error = feed.feedData?.wrappedError {
-                                    Image(systemName: "bolt.horizontal").foregroundStyle(.red)
-                                    switch error {
-                                    case .parsing:
-                                        Text("Parsing Error", comment: "Organizer row status.")
-                                    case .request:
-                                        Text("Network Error", comment: "Organizer row status.")
-                                    }
-                                } else if let responseTime = feed.feedData?.responseTime {
-                                    if responseTime > 5 {
-                                        Image(systemName: "tortoise").foregroundStyle(.brown)
-                                    } else if !feed.isSecure {
-                                        Image(systemName: "lock.slash").foregroundStyle(.orange)
-                                    }
-                                    Text(
-                                        "\(Int(responseTime * 1000)) ms",
-                                        comment: "Request response time (milliseconds)."
-                                    )
-                                }
-                            }
-                            .font(.callout)
-                            .imageScale(.medium)
-                            .foregroundStyle(.secondary)
-                        }
-                        .tag(feed)
-                    }
-                    .onMove { indices, newOffset in
-                        moveFeeds(page: page, indices: indices, newOffset: newOffset)
-                    }
-                } header: {
+        Group {
+            if profile.feedsArray.isEmpty {
+                ContentUnavailableView {
                     Label {
-                        page.nameText
+                        Text("No Feeds", comment: "Content unavailable title.")
                     } icon: {
-                        Image(systemName: page.wrappedSymbol)
+                        Image(systemName: "folder.badge.gearshape")
                     }
                 }
+            } else {
+                List(selection: $selection) {
+                    ForEach(profile.pagesArray) { page in
+                        Section {
+                            ForEach(page.feedsArray) { feed in
+                                OrganizerRow(feed: feed)
+                            }
+                            .onMove { indices, newOffset in
+                                moveFeeds(page: page, indices: indices, newOffset: newOffset)
+                            }
+                        } header: {
+                            Label {
+                                page.nameText
+                            } icon: {
+                                Image(systemName: page.wrappedSymbol)
+                            }
+                        }
+                    }
+                }
+                .accessibilityIdentifier("OrganizerList")
+                #if os(macOS)
+                .listStyle(.inset(alternatesRowBackgrounds: true))
+                #else
+                .environment(\.editMode, .constant(.active))
+                #endif
             }
         }
+        .navigationTitle(Text("Organizer", comment: "Navigation title."))
         .inspector(isPresented: $showingInspector) {
             OrganizerInspector(profile: profile, selection: $selection)
         }
-        .accessibilityIdentifier("OrganizerList")
-        #if os(macOS)
-        .listStyle(.inset(alternatesRowBackgrounds: true))
-        #else
-        .environment(\.editMode, .constant(.active))
-        #endif
-        .navigationTitle(Text("Organizer", comment: "Navigation title."))
         .toolbar {
             OrganizerToolbar(
                 profile: profile,
