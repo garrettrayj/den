@@ -171,7 +171,7 @@ struct HTMLContent {
             .addAttributes("script", "src", "type", "charset", "async")
 
             // Everything
-            .addAttributes(":all", "dir")
+            .addAttributes(":all", "class", "dir")
 
         return whitelist
     }

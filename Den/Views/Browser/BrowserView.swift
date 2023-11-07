@@ -43,73 +43,87 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     }
 
     var body: some View {
-        BrowserWebView(browserViewModel: browserViewModel)
-            .task {
-                browserViewModel.blocklists = Array(blocklists)
-                browserViewModel.useBlocklists = useBlocklists ?? true
-                browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
-                browserViewModel.allowJavaScript = allowJavaScript ?? true
-                browserViewModel.userTintHex = userTint?.hexString(environment: environment)
-                browserViewModel.setBrowserZoom(browserZoom)
-                await browserViewModel.loadURL(url: url)
-            }
-            .onDisappear {
-                // Fix for videos continuing to play after view is dismissed
-                browserViewModel.loadBlank()
-            }
-            #if os(macOS)
-            .padding(.top, 1)
-            .ignoresSafeArea()
-            #endif
-            .navigationBarBackButtonHidden()
-            .navigationTitle(browserViewModel.url?.host() ?? "")
-            .toolbar {
-                BrowserToolbar(
-                    browserViewModel: browserViewModel,
-                    browserZoom: $browserZoom,
-                    readerZoom: $readerZoom
-                )
-                extraToolbar
-            }
-            .toolbarBackground(.visible)
-            .overlay(alignment: .top) {
-                if browserViewModel.showingReader == true {
-                    ReaderWebView(browserViewModel: browserViewModel)
-                        .onAppear {
-                            browserViewModel.setReaderZoom(readerZoom)
-                            browserViewModel.loadReader(initialZoom: readerZoom)
-                        }
-                        .onChange(of: browserViewModel.mercuryObject) {
-                            browserViewModel.loadReader(initialZoom: readerZoom)
-                        }
-                        #if os(macOS)
-                        .transition(.flipFromBottom)
-                        .ignoresSafeArea()
-                        #else
-                        .transition(.flipFromTop)
-                        .ignoresSafeArea(edges: .vertical)
-                        #endif
+        ZStack {
+            BrowserWebView(browserViewModel: browserViewModel)
+                .task {
+                    browserViewModel.blocklists = Array(blocklists)
+                    browserViewModel.useBlocklists = useBlocklists ?? true
+                    browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
+                    browserViewModel.allowJavaScript = allowJavaScript ?? true
+                    browserViewModel.userTintHex = userTint?.hexString(environment: environment)
+                    browserViewModel.setBrowserZoom(browserZoom)
+                    await browserViewModel.loadURL(url: url)
                 }
-                
-                if browserViewModel.isLoading {
-                    ProgressView(value: browserViewModel.estimatedProgress, total: 1)
-                        .progressViewStyle(ThinLinearProgressViewStyle())
-                        .ignoresSafeArea(edges: .horizontal)
+                .onDisappear {
+                    // Fix for videos continuing to play after view is dismissed
+                    browserViewModel.loadBlank()
+                }
+                #if os(macOS)
+                .padding(.top, 1)
+                .ignoresSafeArea()
+                #endif
+                .navigationBarBackButtonHidden()
+                .navigationTitle(browserViewModel.url?.host() ?? "")
+                .toolbar {
+                    BrowserToolbar(
+                        browserViewModel: browserViewModel,
+                        browserZoom: $browserZoom,
+                        readerZoom: $readerZoom
+                    )
+                    extraToolbar
+                }
+                .toolbarBackground(.visible)
+                .overlay(alignment: .top) {
+                    if browserViewModel.showingReader == true {
+                        ReaderWebView(browserViewModel: browserViewModel)
+                            .onAppear {
+                                browserViewModel.setReaderZoom(readerZoom)
+                                browserViewModel.loadReader(initialZoom: readerZoom)
+                            }
+                            .onChange(of: browserViewModel.mercuryObject) {
+                                browserViewModel.loadReader(initialZoom: readerZoom)
+                            }
+                            #if os(macOS)
+                            .transition(.flipFromBottom)
+                            .ignoresSafeArea()
+                            #else
+                            .transition(.flipFromTop)
+                            .ignoresSafeArea(edges: .vertical)
+                            #endif
+                    }
+                    
+                    if browserViewModel.isLoading {
+                        ProgressView(value: browserViewModel.estimatedProgress, total: 1)
+                            .progressViewStyle(ThinLinearProgressViewStyle())
+                            .ignoresSafeArea(edges: .horizontal)
+                    }
+                }
+                .onChange(of: browserZoom) {
+                    browserViewModel.setBrowserZoom(browserZoom)
+                }
+                .onChange(of: readerZoom) {
+                    browserViewModel.setReaderZoom(readerZoom)
+                }
+                #if os(macOS)
+                .background(alignment: .bottom) {
+                    // Buttons in background to fix keyboard shortcuts
+                    ToggleReaderButton(browserViewModel: browserViewModel)
+                    ZoomControlGroup(zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom)
+                }
+                #endif
+            
+            if let error = browserViewModel.browserError {
+                ContentUnavailableView {
+                    Label {
+                        Text("Error")
+                    } icon: {
+                        Image(systemName: "exclamationmark.octagon")
+                    }
+                } description: {
+                    Text(error.localizedDescription)
                 }
             }
-            .onChange(of: browserZoom) {
-                browserViewModel.setBrowserZoom(browserZoom)
-            }
-            .onChange(of: readerZoom) {
-                browserViewModel.setReaderZoom(readerZoom)
-            }
-            #if os(macOS)
-            .background(alignment: .bottom) {
-                // Buttons in background to fix keyboard shortcuts
-                ToggleReaderButton(browserViewModel: browserViewModel)
-                ZoomControlGroup(zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom)
-            }
-            #endif
+        }
     }
 }
 
