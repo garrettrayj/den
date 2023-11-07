@@ -41,14 +41,8 @@ struct TrendingToolbar: ToolbarContent {
             ToolbarItem(placement: .bottomBar) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
-            }
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItem(placement: .status) {
                 CommonStatus(profile: profile, items: itemsFromTrends)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(unreadCount: unreadCount) {

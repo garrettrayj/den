@@ -80,7 +80,7 @@ struct TrendBlock: View {
                 .foregroundStyle(trend.items.unread().isEmpty ? .secondary : .primary)
                 Spacer(minLength: 0)
             }
-            .padding()
+            .padding(12)
         }
         .buttonStyle(BasicHoverButtonStyle())
     }

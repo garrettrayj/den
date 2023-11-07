@@ -192,7 +192,7 @@ extension BrowserWebView: UIViewRepresentable {
      func updateUIView(_ uiView: WKWebView, context: Context) {
      }
 
-    func makeCoordinator() -> Coordinator {
+    func makeCoordinator() -> BrowserWebViewCoordinator {
         BrowserWebViewCoordinator(browserViewModel: browserViewModel, openURL: openURL)
     }
 }

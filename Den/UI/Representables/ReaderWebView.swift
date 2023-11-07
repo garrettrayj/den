@@ -103,7 +103,7 @@ extension ReaderWebView: NSViewRepresentable {
 }
 #else
 extension ReaderWebView: UIViewRepresentable {
-    func makeCoordinator() -> Coordinator {
+    func makeCoordinator() -> ReaderWebViewCoordinator {
         ReaderWebViewCoordinator(browserViewModel: browserViewModel, openURL: openURL)
     }
 

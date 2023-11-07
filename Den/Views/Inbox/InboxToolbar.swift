@@ -38,14 +38,8 @@ struct InboxToolbar: ToolbarContent {
             ToolbarItem(placement: .bottomBar) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
-            }
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItem(placement: .status) {
                 CommonStatus(profile: profile, items: items)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {

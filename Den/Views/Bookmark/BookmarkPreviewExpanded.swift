@@ -41,7 +41,7 @@ struct BookmarkPreviewExpanded: View {
                     .multilineTextAlignment(.leading)
                     Spacer(minLength: 0)
                 }
-                .padding()
+                .padding(12)
             }
         }
     }
