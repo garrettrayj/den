@@ -21,11 +21,12 @@ struct PageToolbar: ToolbarContent {
     @Binding var showingInspector: Bool
 
     let items: [Item]
+    let pageWidth: CGFloat
 
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            PageLayoutPicker(pageLayout: $pageLayout)
+            PageLayoutPicker(pageLayout: $pageLayout, pageWidth: pageWidth)
                 .pickerStyle(.inline)
         }
         ToolbarItem {
@@ -44,7 +45,7 @@ struct PageToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem {
-                PageLayoutPicker(pageLayout: $pageLayout)
+                PageLayoutPicker(pageLayout: $pageLayout, pageWidth: pageWidth)
             }
             ToolbarItem {
                 InspectorToggleButton(showingInspector: $showingInspector)
@@ -66,7 +67,7 @@ struct PageToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem(placement: .primaryAction) {
-                PageLayoutPicker(pageLayout: $pageLayout)
+                PageLayoutPicker(pageLayout: $pageLayout, pageWidth: pageWidth)
             }
             ToolbarItem(placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)

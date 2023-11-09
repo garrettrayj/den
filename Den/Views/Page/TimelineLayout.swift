@@ -15,6 +15,7 @@ struct TimelineLayout: View {
     @Binding var hideRead: Bool
 
     let items: [Item]
+    let geometry: GeometryProxy
 
     var body: some View {
         if items.isEmpty {
@@ -28,18 +29,16 @@ struct TimelineLayout: View {
         } else if items.unread().isEmpty && hideRead {
             AllRead(largeDisplay: true)
         } else {
-            GeometryReader { geometry in
-                ScrollView(.vertical) {
-                    BoardView(
-                        width: geometry.size.width,
-                        list: items.visibilityFiltered(hideRead ? false : nil)
-                    ) { item in
-                        if let feed = item.feedData?.feed {
-                            if feed.wrappedPreviewStyle == .expanded {
-                                FeedItemExpanded(item: item, feed: feed, profile: profile)
-                            } else {
-                                FeedItemCompressed(item: item, feed: feed, profile: profile)
-                            }
+            ScrollView(.vertical) {
+                BoardView(
+                    width: geometry.size.width,
+                    list: items.visibilityFiltered(hideRead ? false : nil)
+                ) { item in
+                    if let feed = item.feedData?.feed {
+                        if feed.wrappedPreviewStyle == .expanded {
+                            FeedItemExpanded(item: item, feed: feed, profile: profile)
+                        } else {
+                            FeedItemCompressed(item: item, feed: feed, profile: profile)
                         }
                     }
                 }

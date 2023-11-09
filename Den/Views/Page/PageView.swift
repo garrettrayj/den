@@ -35,51 +35,57 @@ struct PageView: View {
             .navigationTitle("")
         } else {
             WithItems(scopeObject: page) { items in
-                Group {
-                    if page.feedsArray.isEmpty {
-                        NoFeeds()
-                    } else {
-                        switch pageLayout.wrappedValue {
-                        case .grouped:
-                            GroupedLayout(
-                                page: page,
-                                profile: profile,
-                                hideRead: $hideRead,
-                                items: items
-                            )
-                        case .deck:
-                            DeckLayout(
-                                page: page,
-                                profile: profile,
-                                hideRead: $hideRead,
-                                items: items
-                            )
-                        case .timeline:
-                            TimelineLayout(
-                                page: page,
-                                profile: profile,
-                                hideRead: $hideRead,
-                                items: items
-                            )
+                GeometryReader { geometry in
+                    Group {
+                        if page.feedsArray.isEmpty {
+                            NoFeeds()
+                        } else {
+                            switch pageLayout.wrappedValue {
+                            case .grouped:
+                                GroupedLayout(
+                                    page: page,
+                                    profile: profile,
+                                    hideRead: $hideRead,
+                                    items: items,
+                                    geometry: geometry
+                                )
+                            case .deck:
+                                DeckLayout(
+                                    page: page,
+                                    profile: profile,
+                                    hideRead: $hideRead,
+                                    items: items,
+                                    geometry: geometry
+                                )
+                            case .timeline:
+                                TimelineLayout(
+                                    page: page,
+                                    profile: profile,
+                                    hideRead: $hideRead,
+                                    items: items,
+                                    geometry: geometry
+                                )
+                            }
                         }
                     }
+                    .toolbar {
+                        PageToolbar(
+                            page: page,
+                            hideRead: $hideRead,
+                            pageLayout: pageLayout.projectedValue,
+                            showingInspector: $showingInspector,
+                            items: items,
+                            pageWidth: geometry.size.width
+                        )
+                    }
                 }
-                .id("PageLayout_\(page.id?.uuidString ?? "NoID")")
-                .toolbar {
-                    PageToolbar(
-                        page: page,
-                        hideRead: $hideRead,
-                        pageLayout: pageLayout.projectedValue,
-                        showingInspector: $showingInspector,
-                        items: items
-                    )
-                }
-                .navigationTitle(page.nameText)
-                .inspector(isPresented: $showingInspector) {
-                    PageInspector(page: page)
-                }
-                .toolbarBackground(toolbarBackground)
             }
+            .id("PageLayout_\(page.id?.uuidString ?? "NoID")_\(pageLayout.wrappedValue.rawValue)")
+            .navigationTitle(page.nameText)
+            .inspector(isPresented: $showingInspector) {
+                PageInspector(page: page)
+            }
+            .toolbarBackground(toolbarBackground)
         }
     }
     
