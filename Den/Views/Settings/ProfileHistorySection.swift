@@ -59,8 +59,6 @@ struct ProfileHistorySection: View {
             }
             .disabled(historyCount == 0)
             .accessibilityIdentifier("ClearHistory")
-
-            ResetFeedsButton(profile: profile)
         } header: {
             Text("History", comment: "Section header.")
         }

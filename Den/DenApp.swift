@@ -56,6 +56,13 @@ struct DenApp: App {
         #if os(macOS)
         .defaultSize(width: 1280, height: 800)
         #endif
+        
+        #if os(macOS)
+        Settings {
+            MacSettings()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        }
+        #endif
     }
 
     init() {

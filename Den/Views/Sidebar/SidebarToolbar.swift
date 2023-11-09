@@ -46,7 +46,6 @@ struct SidebarToolbar: ToolbarContent {
                 ImportButton(showingImporter: $showingImporter)
                 ExportButton(showingExporter: $showingExporter)
                 OrganizerNavLink(detailPanel: $detailPanel)
-                SettingsButton(showingSettings: $showingSettings)
             } label: {
                 Label {
                     Text("Menu", comment: "Button label.")

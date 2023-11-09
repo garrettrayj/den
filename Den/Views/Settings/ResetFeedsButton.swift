@@ -9,19 +9,16 @@
 import SwiftUI
 
 struct ResetFeedsButton: View {
-    @ObservedObject var profile: Profile
-
     var body: some View {
         Button {
             Task {
                 await clearData()
-                profile.objectWillChange.send()
             }
         } label: {
             Label {
-                Text("Reset Feeds", comment: "Button label.")
+                Text("Clear Feed Cache", comment: "Button label.")
             } icon: {
-                Image(systemName: "arrow.counterclockwise")
+                Image(systemName: "clear")
             }
         }
         .accessibilityIdentifier("ClearData")
@@ -29,17 +26,20 @@ struct ResetFeedsButton: View {
 
     private func clearData() async {
         let container = PersistenceController.shared.container
+        
         await container.performBackgroundTask { context in
-            guard let profile = context.object(with: profile.objectID) as? Profile else {
+            guard let profiles = try? context.fetch(Profile.fetchRequest()) as? [Profile] else {
                 return
             }
-
-            for feedData in profile.feedsArray.compactMap({ $0.feedData }) {
-                context.delete(feedData)
-            }
-
-            for trend in profile.trends {
-                context.delete(trend)
+            
+            for profile in profiles {
+                for feedData in profile.feedsArray.compactMap({ $0.feedData }) {
+                    context.delete(feedData)
+                }
+                
+                for trend in profile.trends {
+                    context.delete(trend)
+                }
             }
 
             do {

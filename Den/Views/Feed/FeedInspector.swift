@@ -150,7 +150,7 @@ struct FeedInspector: View {
             Section {
                 DeleteFeedButton(feed: feed, profile: profile)
             } header: {
-                Text("Danger Zone", comment: "Inspector section header.")
+                Text("Management", comment: "Section header.")
             }
         }
         .formStyle(.grouped)

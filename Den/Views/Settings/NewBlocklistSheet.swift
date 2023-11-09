@@ -1,5 +1,5 @@
 //
-//  NewBlocklist.swift
+//  NewBlocklistSheet.swift
 //  Den
 //
 //  Created by Garrett Johnson on 10/13/23.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct NewBlocklist: View {
+struct NewBlocklistSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 

@@ -33,7 +33,7 @@ struct ClearImageCacheButton: View {
                 Label {
                     Text("Clear Image Cache", comment: "Button label.")
                 } icon: {
-                    Image(systemName: "clear")
+                    Image(systemName: "square.3.layers.3d.down.right.slash")
                 }
                 Spacer()
                 Text(verbatim: cacheSizeFormatter.string(fromByteCount: cacheSize))

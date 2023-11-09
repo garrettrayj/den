@@ -22,7 +22,7 @@ struct ProfilesSection: View {
         Section {
             ForEach(profiles) { profile in
                 NavigationLink {
-                    ProfileSettings(profile: profile)
+                    ProfileSettings(profile: profile).navigationTitle(profile.nameText)
                 } label: {
                     Label {
                         profile.nameText

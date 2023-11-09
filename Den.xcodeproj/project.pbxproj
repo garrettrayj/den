@@ -61,7 +61,7 @@
 		684152482AD7B6AE00ABE5E2 /* CaseIterable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152472AD7B6AE00ABE5E2 /* CaseIterable+Extensions.swift */; };
 		684152512AD932B000ABE5E2 /* HideReaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152502AD932B000ABE5E2 /* HideReaderButton.swift */; };
 		6841525A2AD9D6C000ABE5E2 /* ContentBlockerConverter in Frameworks */ = {isa = PBXBuildFile; productRef = 684152592AD9D6C000ABE5E2 /* ContentBlockerConverter */; };
-		684152602AD9E15B00ABE5E2 /* NewBlocklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6841525F2AD9E15B00ABE5E2 /* NewBlocklist.swift */; };
+		684152602AD9E15B00ABE5E2 /* NewBlocklistSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6841525F2AD9E15B00ABE5E2 /* NewBlocklistSheet.swift */; };
 		684152642AD9E18D00ABE5E2 /* Blocklist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152632AD9E18D00ABE5E2 /* Blocklist+CoreDataClass.swift */; };
 		6841526A2AD9E74100ABE5E2 /* BlocklistsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152692AD9E74100ABE5E2 /* BlocklistsSection.swift */; };
 		684152702ADB128600ABE5E2 /* BlocklistPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6841526F2ADB128600ABE5E2 /* BlocklistPreset.swift */; };
@@ -126,6 +126,12 @@
 		685EB3852AF2B2F7001683E3 /* BlocklistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3842AF2B2F7001683E3 /* BlocklistUITests.swift */; };
 		685EB3872AF95CB1001683E3 /* AboutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3862AF95CB1001683E3 /* AboutSection.swift */; };
 		685EB3892AFAA102001683E3 /* OrganizerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3882AFAA102001683E3 /* OrganizerRow.swift */; };
+		685EB38C2AFB4621001683E3 /* MacSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB38B2AFB4621001683E3 /* MacSettings.swift */; };
+		685EB3902AFB46A8001683E3 /* BlocklistsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB38F2AFB46A8001683E3 /* BlocklistsTab.swift */; };
+		685EB3922AFB46D5001683E3 /* ProfilesTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3912AFB46D5001683E3 /* ProfilesTab.swift */; };
+		685EB3942AFB5015001683E3 /* DeleteProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3932AFB5015001683E3 /* DeleteProfileButton.swift */; };
+		685EB3982AFB58BB001683E3 /* NewBlocklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */; };
+		685EB39A2AFB5997001683E3 /* DeleteBlocklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3992AFB5997001683E3 /* DeleteBlocklistButton.swift */; };
 		685ECB1126EE611000A3B184 /* PageNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685ECB1026EE611000A3B184 /* PageNavLink.swift */; };
 		686067D9280CAF29000068DE /* SmallThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686067D8280CAF29000068DE /* SmallThumbnail.swift */; };
 		6860692B2831501B000068DE /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686068E32831501B000068DE /* SafariWebExtensionHandler.swift */; };
@@ -401,7 +407,7 @@
 		684152442AD7B4ED00ABE5E2 /* PageZoomLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageZoomLevel.swift; sourceTree = "<group>"; };
 		684152472AD7B6AE00ABE5E2 /* CaseIterable+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+Extensions.swift"; sourceTree = "<group>"; };
 		684152502AD932B000ABE5E2 /* HideReaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideReaderButton.swift; sourceTree = "<group>"; };
-		6841525F2AD9E15B00ABE5E2 /* NewBlocklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBlocklist.swift; sourceTree = "<group>"; };
+		6841525F2AD9E15B00ABE5E2 /* NewBlocklistSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBlocklistSheet.swift; sourceTree = "<group>"; };
 		684152632AD9E18D00ABE5E2 /* Blocklist+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Blocklist+CoreDataClass.swift"; sourceTree = "<group>"; };
 		684152692AD9E74100ABE5E2 /* BlocklistsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistsSection.swift; sourceTree = "<group>"; };
 		6841526F2ADB128600ABE5E2 /* BlocklistPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistPreset.swift; sourceTree = "<group>"; };
@@ -467,6 +473,12 @@
 		685EB3842AF2B2F7001683E3 /* BlocklistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistUITests.swift; sourceTree = "<group>"; };
 		685EB3862AF95CB1001683E3 /* AboutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSection.swift; sourceTree = "<group>"; };
 		685EB3882AFAA102001683E3 /* OrganizerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerRow.swift; sourceTree = "<group>"; };
+		685EB38B2AFB4621001683E3 /* MacSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacSettings.swift; sourceTree = "<group>"; };
+		685EB38F2AFB46A8001683E3 /* BlocklistsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistsTab.swift; sourceTree = "<group>"; };
+		685EB3912AFB46D5001683E3 /* ProfilesTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesTab.swift; sourceTree = "<group>"; };
+		685EB3932AFB5015001683E3 /* DeleteProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileButton.swift; sourceTree = "<group>"; };
+		685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBlocklistButton.swift; sourceTree = "<group>"; };
+		685EB3992AFB5997001683E3 /* DeleteBlocklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBlocklistButton.swift; sourceTree = "<group>"; };
 		685ECB1026EE611000A3B184 /* PageNavLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageNavLink.swift; sourceTree = "<group>"; };
 		686067D8280CAF29000068DE /* SmallThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallThumbnail.swift; sourceTree = "<group>"; };
 		686068E32831501B000068DE /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
@@ -716,6 +728,8 @@
 				68FF63F12921D88F0012A275 /* FeedToolbar.swift */,
 				68FC25542758B2250073979F /* FeedUnavailable.swift */,
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
+				683E3F44293BC02A00B16814 /* NewFeedButton.swift */,
+				68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -756,12 +770,19 @@
 		683B285327D54141009C0302 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				685EB38A2AFB4610001683E3 /* MacSettings */,
+				685EB3862AF95CB1001683E3 /* AboutSection.swift */,
 				68352D1529B16C5F0073CEFD /* AccentColorSelector.swift */,
 				680BBC902ADF761400F32046 /* BlocklistSettings.swift */,
 				684152692AD9E74100ABE5E2 /* BlocklistsSection.swift */,
 				687FEEF22A3DDCE10042977E /* ClearImageCacheButton.swift */,
+				685EB3992AFB5997001683E3 /* DeleteBlocklistButton.swift */,
+				685EB3932AFB5015001683E3 /* DeleteProfileButton.swift */,
 				687FEED12A3A57220042977E /* LookAndFeelSection.swift */,
-				6841525F2AD9E15B00ABE5E2 /* NewBlocklist.swift */,
+				685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */,
+				6841525F2AD9E15B00ABE5E2 /* NewBlocklistSheet.swift */,
+				687FEEFE2A3F97260042977E /* NewProfileButton.swift */,
+				6856DB352AB787420094615E /* NewProfileSheet.swift */,
 				681F0C252933F4C10037C609 /* ProfileHistorySection.swift */,
 				68C4FA252474927800D2C0D6 /* ProfileSettings.swift */,
 				684152722ADB238D00ABE5E2 /* ProfilesSection.swift */,
@@ -770,7 +791,6 @@
 				684152782ADC7C8700ABE5E2 /* ResetSection.swift */,
 				684152752ADC6ABD00ABE5E2 /* SettingsSheet.swift */,
 				687FEEDA2A3B830D0042977E /* UserColorSchemePicker.swift */,
-				685EB3862AF95CB1001683E3 /* AboutSection.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -827,21 +847,6 @@
 			path = Organizer;
 			sourceTree = "<group>";
 		};
-		6856DAF42AB4BBD60094615E /* New */ = {
-			isa = PBXGroup;
-			children = (
-				683E3F44293BC02A00B16814 /* NewFeedButton.swift */,
-				68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */,
-				687FEF112A40A87B0042977E /* NewPageButton.swift */,
-				6856DAF82AB4BC4F0094615E /* NewPageSheet.swift */,
-				687FEEFE2A3F97260042977E /* NewProfileButton.swift */,
-				6856DB352AB787420094615E /* NewProfileSheet.swift */,
-				68599B692AB0FC3D0057FEA8 /* NewTagButton.swift */,
-				6856DAF62AB4BC3A0094615E /* NewTagSheet.swift */,
-			);
-			path = New;
-			sourceTree = "<group>";
-		};
 		6856DAFA2AB587240094615E /* Transferable */ = {
 			isa = PBXGroup;
 			children = (
@@ -877,6 +882,8 @@
 			isa = PBXGroup;
 			children = (
 				6856DB472AB922AB0094615E /* DeleteTagButton.swift */,
+				68599B692AB0FC3D0057FEA8 /* NewTagButton.swift */,
+				6856DAF62AB4BC3A0094615E /* NewTagSheet.swift */,
 				68599B652AB0E25C0057FEA8 /* TagView.swift */,
 			);
 			path = Tag;
@@ -893,6 +900,16 @@
 				686067D8280CAF29000068DE /* SmallThumbnail.swift */,
 			);
 			path = Preview;
+			sourceTree = "<group>";
+		};
+		685EB38A2AFB4610001683E3 /* MacSettings */ = {
+			isa = PBXGroup;
+			children = (
+				685EB38F2AFB46A8001683E3 /* BlocklistsTab.swift */,
+				685EB38B2AFB4621001683E3 /* MacSettings.swift */,
+				685EB3912AFB46D5001683E3 /* ProfilesTab.swift */,
+			);
+			path = MacSettings;
 			sourceTree = "<group>";
 		};
 		686068E42831501B000068DE /* Resources */ = {
@@ -1138,7 +1155,6 @@
 				68FF63FB2921DD060012A275 /* Inbox */,
 				68CE2C3B28CEEBBE00ED1CF9 /* Item */,
 				68E6C55E2A6C76F000CA46B2 /* Navigation */,
-				6856DAF42AB4BBD60094615E /* New */,
 				6851F0D92AAB9CE7000F7CBC /* Organizer */,
 				68FC2567275E0D820073979F /* Page */,
 				68599B772AB277700057FEA8 /* Preview */,
@@ -1327,6 +1343,8 @@
 				6856DB3E2AB8DC3D0094615E /* DeletePageButton.swift */,
 				6863A3FC2AC5A63400A7DC61 /* FeedItemGroup.swift */,
 				68ED797E29C29A6800D85B4F /* GroupedLayout.swift */,
+				687FEF112A40A87B0042977E /* NewPageButton.swift */,
+				6856DAF82AB4BC4F0094615E /* NewPageSheet.swift */,
 				688FD917247750350006A2DE /* PageInspector.swift */,
 				68F6FB9C29ADDF6D001F74B9 /* PageLayoutPicker.swift */,
 				68FF63EF2921C56E0012A275 /* PageToolbar.swift */,
@@ -1614,6 +1632,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				685EB3872AF95CB1001683E3 /* AboutSection.swift in Sources */,
 				68352D1829B187180073CEFD /* AccentColor.swift in Sources */,
 				68352D1629B16C5F0073CEFD /* AccentColorSelector.swift in Sources */,
 				6829A50C28C6479900F75C5A /* AllRead.swift in Sources */,
@@ -1632,6 +1651,7 @@
 				684152702ADB128600ABE5E2 /* BlocklistPreset.swift in Sources */,
 				680BBC912ADF761400F32046 /* BlocklistSettings.swift in Sources */,
 				6841526A2AD9E74100ABE5E2 /* BlocklistsSection.swift in Sources */,
+				685EB3902AFB46A8001683E3 /* BlocklistsTab.swift in Sources */,
 				680BBC8D2ADEC74600F32046 /* BlocklistStatus+CoreDataClass.swift in Sources */,
 				683041B227542E2000BE7631 /* BoardView.swift in Sources */,
 				68599B582AB082790057FEA8 /* Bookmark+CoreDataClass.swift in Sources */,
@@ -1661,6 +1681,7 @@
 				6856DB332AB77CDE0094615E /* DeleteBookmarkButton.swift in Sources */,
 				6856DB452AB8EE7F0094615E /* DeleteFeedButton.swift in Sources */,
 				6856DB3F2AB8DC3D0094615E /* DeletePageButton.swift in Sources */,
+				685EB3942AFB5015001683E3 /* DeleteProfileButton.swift in Sources */,
 				6856DB482AB922AB0094615E /* DeleteTagButton.swift in Sources */,
 				68F56B75288BFCCC006EC915 /* Den.xcdatamodel in Sources */,
 				689460852596A7BB00ED4064 /* DenApp.swift in Sources */,
@@ -1685,7 +1706,6 @@
 				6870EBDC29C9556500E15154 /* FeedLayout.swift in Sources */,
 				687FEF162A416F2C0042977E /* FeedNavLink.swift in Sources */,
 				68701DF3273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift in Sources */,
-				685EB3892AFAA102001683E3 /* OrganizerRow.swift in Sources */,
 				6885C42226D37259002C41B0 /* FeedTitleLabel.swift in Sources */,
 				68FF63F22921D88F0012A275 /* FeedToolbar.swift in Sources */,
 				68FC25552758B2250073979F /* FeedUnavailable.swift in Sources */,
@@ -1733,12 +1753,14 @@
 				6880EBE327A8F63E00B479F4 /* LinkableItem.swift in Sources */,
 				68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */,
 				687FEED22A3A57220042977E /* LookAndFeelSection.swift in Sources */,
+				685EB38C2AFB4621001683E3 /* MacSettings.swift in Sources */,
 				68FF63F42921D9C50012A275 /* MarkAllReadUnreadButton.swift in Sources */,
 				68B6CBDE290F2E7C00B5E3AB /* MediaTypeUtility.swift in Sources */,
 				684152382AD559C300ABE5E2 /* MercuryObject.swift in Sources */,
 				68906F8F2A78F58900803350 /* NavigationStore.swift in Sources */,
 				68ED797B29BD97DE00D85B4F /* NetworkMonitor.swift in Sources */,
-				684152602AD9E15B00ABE5E2 /* NewBlocklist.swift in Sources */,
+				685EB3982AFB58BB001683E3 /* NewBlocklistButton.swift in Sources */,
+				684152602AD9E15B00ABE5E2 /* NewBlocklistSheet.swift in Sources */,
 				683E3F45293BC02A00B16814 /* NewFeedButton.swift in Sources */,
 				68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */,
 				687FEF122A40A87B0042977E /* NewPageButton.swift in Sources */,
@@ -1759,12 +1781,12 @@
 				6851F0E32AAD77E8000F7CBC /* OrganizerInspector.swift in Sources */,
 				6851F0EF2AAEC290000F7CBC /* OrganizerNavLink.swift in Sources */,
 				6851F0F32AAF7327000F7CBC /* OrganizerOptionsPanel.swift in Sources */,
+				685EB3892AFAA102001683E3 /* OrganizerRow.swift in Sources */,
 				6856DB2E2AB6E2730094615E /* OrganizerToolbar.swift in Sources */,
 				680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */,
 				68D17EE42A43F29100AF8A73 /* PageIconCategory.swift in Sources */,
 				688FD918247750350006A2DE /* PageInspector.swift in Sources */,
 				68F6FB9F29ADE0E2001F74B9 /* PageLayout.swift in Sources */,
-				685EB3872AF95CB1001683E3 /* AboutSection.swift in Sources */,
 				68F6FB9D29ADDF6D001F74B9 /* PageLayoutPicker.swift in Sources */,
 				683C353F2A9E4A1600568E9A /* PageNavDropDelegate.swift in Sources */,
 				685ECB1126EE611000A3B184 /* PageNavLink.swift in Sources */,
@@ -1787,8 +1809,10 @@
 				68D2862B2A6469E8007AD876 /* ProfileLabel.swift in Sources */,
 				687F22252A5A5CF900B76919 /* ProfilePicker.swift in Sources */,
 				68A4AACE2AE4F50600BBFB4E /* ProfilePickerMenu.swift in Sources */,
+				685EB39A2AFB5997001683E3 /* DeleteBlocklistButton.swift in Sources */,
 				68C4FA262474927800D2C0D6 /* ProfileSettings.swift in Sources */,
 				684152732ADB238D00ABE5E2 /* ProfilesSection.swift in Sources */,
+				685EB3922AFB46D5001683E3 /* ProfilesTab.swift in Sources */,
 				6880EBE127A8E61C00B479F4 /* RankedImage.swift in Sources */,
 				688466F42AE264340071B86A /* ReaderFormatMenu.swift in Sources */,
 				684152222AD2763400ABE5E2 /* ReaderWebView.swift in Sources */,

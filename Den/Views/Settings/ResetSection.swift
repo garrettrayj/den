@@ -11,6 +11,7 @@ import SwiftUI
 struct ResetSection: View {
     var body: some View {
         Section {
+            ResetFeedsButton()
             ClearImageCacheButton()
             ResetEverythingButton()
         } header: {

@@ -7,8 +7,11 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct AboutSection: View {
+    @Environment(\.requestReview) private var requestReview
+    
     var body: some View {
         Section {
             LabeledContent {
@@ -20,25 +23,35 @@ struct AboutSection: View {
                 Label {
                     Text("Version", comment: "Row label.")
                 } icon: {
-                    Image(systemName: "info.circle")
+                    Image(systemName: "info.square")
                 }
             }
             
-            LabeledContent {
-                Link(destination: URL(string: "https://den.io")!) {
-                    Text("https://den.io")
+            Link(destination: URL(string: "https://den.io/help/")!) {
+                Label {
+                    Text("Help", comment: "Row label.")
+                } icon: {
+                    Image(systemName: "questionmark.circle")
                 }
+            }
+            
+            Button {
+                requestReview()
             } label: {
                 Label {
-                    Text("Website", comment: "Row label.")
+                    Text("Leave a Review", comment: "Button label.")
                 } icon: {
-                    Image(systemName: "globe")
+                    Image(systemName: "square.and.pencil")
                 }
             }
         } header: {
             Text("About", comment: "Section header.")
         } footer: {
-            Text(Bundle.main.copyright).font(.footnote).foregroundStyle(.secondary)
+            Text(Bundle.main.copyright)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .padding(.bottom)
+                .padding(.top, 4)
         }
     }
 }

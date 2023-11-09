@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct BlocklistSettings: View {
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var blocklist: Blocklist
@@ -17,116 +16,101 @@ struct BlocklistSettings: View {
     @State private var isRefreshing = false
 
     var body: some View {
-        Form {
-            Section {
-                TextField(
-                    text: $blocklist.wrappedName,
-                    prompt: Text("Untitled", comment: "Default content filter name.")
-                ) {
-                    Text("Name", comment: "Text field label.")
-                }
-                .labelsHidden()
-            } header: {
-                Text("Name", comment: "Section header.")
-            }
-
-            Section {
-                TextField(text: $blocklist.urlString) {
-                    Text("URL", comment: "Text field label.")
-                }
-                .labelsHidden()
-            } header: {
-                Text("URL", comment: "Section header.")
-            }
-
-            Section {
-                if let blocklistStatus = blocklist.blocklistStatus {
-                    LabeledContent {
-                        if let refreshed = blocklistStatus.refreshed {
-                            Text(verbatim: "\(refreshed.formatted())")
-                        } else {
-                            Text("Unknown", comment: "Blocklist refreshed date status.")
-                        }
-                    } label: {
-                        Text("Refreshed", comment: "Blocklist status label.")
-                    }
-                    LabeledContent {
-                        Text("\(blocklistStatus.totalConvertedCount)")
-                    } label: {
-                        Text("Converted Rules", comment: "Blocklist status label.")
-                    }
-                    LabeledContent {
-                        Text("\(blocklistStatus.errorsCount)")
-                    } label: {
-                        Text("Errors", comment: "Blocklist status label.")
-                    }
-                    LabeledContent {
-                        if blocklistStatus.overLimit {
-                            Text("Yes", comment: "Boolean label.")
-                        } else {
-                            Text("No", comment: "Boolean label.")
-                        }
-                    } label: {
-                        Text("Over Limit", comment: "Blocklist status label.")
-                    }
-                } else {
+        if blocklist.isDeleted || blocklist.managedObjectContext == nil {
+            VStack {
+                Spacer()
+                ContentUnavailableView {
                     Label {
-                        Text("Not Available", comment: "Blocklist status.")
+                        Text("Blocklist Deleted")
                     } icon: {
-                        Image(systemName: "questionmark")
+                        Image(systemName: "trash")
                     }
                 }
-            } header: {
-                Text("Status", comment: "Section header.")
+                Spacer()
             }
-
-            Section {
-                Button {
-                    isRefreshing = true
-                    Task {
-                        await BlocklistManager.refreshContentRulesList(
-                            blocklist: blocklist,
-                            context: viewContext
-                        )
-                        blocklist.objectWillChange.send()
-                        isRefreshing = false
+        } else {
+            Form {
+                Section {
+                    TextField(
+                        text: $blocklist.wrappedName,
+                        prompt: Text("Untitled", comment: "Default content filter name.")
+                    ) {
+                        Text("Name", comment: "Text field label.")
                     }
-                } label: {
-                    Label {
-                        Text("Refresh", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "arrow.clockwise")
-                    }
+                    .labelsHidden()
+                } header: {
+                    Text("Name", comment: "Section header.")
                 }
-                .disabled(isRefreshing)
-                
-                Button(role: .destructive) {
-                    Task {
-                        await BlocklistManager.removeContentRulesList(
-                            identifier: blocklist.id?.uuidString
-                        )
-                        viewContext.delete(blocklist)
-                        
-                        do {
-                            try viewContext.save()
-                            dismiss()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
+
+                Section {
+                    TextField(text: $blocklist.urlString) {
+                        Text("URL", comment: "Text field label.")
+                    }
+                    .labelsHidden()
+                } header: {
+                    Text("URL", comment: "Section header.")
+                }
+
+                Section {
+                    if let blocklistStatus = blocklist.blocklistStatus {
+                        LabeledContent {
+                            if let refreshed = blocklistStatus.refreshed {
+                                Text(verbatim: "\(refreshed.formatted())")
+                            } else {
+                                Text("Unknown", comment: "Blocklist refreshed date status.")
+                            }
+                        } label: {
+                            Text("Refreshed", comment: "Blocklist status label.")
+                        }
+                        LabeledContent {
+                            Text("\(blocklistStatus.totalConvertedCount)")
+                        } label: {
+                            Text("Converted Rules", comment: "Blocklist status label.")
+                        }
+                        LabeledContent {
+                            Text("\(blocklistStatus.errorsCount)")
+                        } label: {
+                            Text("Errors", comment: "Blocklist status label.")
+                        }
+                    } else {
+                        Label {
+                            Text("Not Available", comment: "Blocklist status.")
+                        } icon: {
+                            Image(systemName: "questionmark")
                         }
                     }
-                } label: {
-                    Label {
-                        Text("Delete", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "trash").symbolRenderingMode(.multicolor)
-                    }
+                } header: {
+                    Text("Status", comment: "Section header.")
                 }
-            } header: {
-                Text("Management")
+
+                Section {
+                    Button {
+                        isRefreshing = true
+                        Task {
+                            await BlocklistManager.refreshContentRulesList(
+                                blocklist: blocklist,
+                                context: viewContext
+                            )
+                            blocklist.objectWillChange.send()
+                            isRefreshing = false
+                        }
+                    } label: {
+                        Label {
+                            Text("Refresh", comment: "Button label.")
+                        } icon: {
+                            Image(systemName: "arrow.clockwise")
+                        }
+                    }
+                    .disabled(isRefreshing)
+                    
+                    #if os(iOS)
+                    DeleteBlocklistButton(selection: .constant(blocklist))
+                        .symbolRenderingMode(.multicolor)
+                    #endif
+                }
             }
+            .buttonStyle(.borderless)
+            .formStyle(.grouped)
         }
-        .buttonStyle(.borderless)
-        .formStyle(.grouped)
-        .navigationTitle(blocklist.nameText)
     }
 }

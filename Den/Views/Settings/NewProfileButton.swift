@@ -10,7 +10,7 @@ import SwiftUI
 
 struct NewProfileButton: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @State private var showingSheet = false
 
     var body: some View {
@@ -20,7 +20,7 @@ struct NewProfileButton: View {
             Label {
                 Text("New Profile", comment: "Button label.").lineLimit(1)
             } icon: {
-                Image(systemName: "person.badge.plus")
+                Image(systemName: "plus")
             }
         }
         .accessibilityIdentifier("NewProfile")

@@ -63,7 +63,7 @@ struct PageInspector: View {
             Section {
                 DeletePageButton(page: page)
             } header: {
-                Text("Danger Zone")
+                Text("Management", comment: "Section header.")
             }
         }
         #if os(iOS)

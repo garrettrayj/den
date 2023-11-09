@@ -90,7 +90,7 @@ struct OrganizerOptionsPanel: View {
                         }
                     } label: {
                         Label {
-                            Text("Delete", comment: "Button label.")
+                            Text("Delete Feeds", comment: "Button label.")
                         } icon: {
                             Image(systemName: "trash")
                         }
@@ -98,7 +98,7 @@ struct OrganizerOptionsPanel: View {
                     }
                     .buttonStyle(.borderless)
                 } header: {
-                    Text("Danger Zone", comment: "Inspector header.")
+                    Text("Management", comment: "Section header.")
                 }
             }
         }
