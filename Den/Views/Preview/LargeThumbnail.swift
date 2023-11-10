@@ -42,6 +42,7 @@ struct LargeThumbnail: View {
                             options: [.delayPlaceholder, .lowPriority],
                             context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
                         )
+                        .purgeable(true)
                         .resizable()
                         .placeholder { ImageErrorPlaceholder() }
                         .modifier(PreviewImageStateModifier(isRead: isRead))
@@ -50,21 +51,22 @@ struct LargeThumbnail: View {
                     }
                 }
                 .aspectRatio(16/9, contentMode: .fill)
-            } else if aspectRatio! < 0.5 {
+            } else if aspectRatio! < 0.75 {
                 ImageDepression(padding: 8) {
                     WebImage(
                         url: url,
                         options: [.delayPlaceholder, .lowPriority],
                         context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
                     )
-                        .resizable()
-                        .placeholder { ImageErrorPlaceholder() }
-                        .modifier(PreviewImageStateModifier(isRead: isRead))
-                        .aspectRatio(aspectRatio, contentMode: .fit)
-                        .frame(
-                            maxHeight: largeThumbnailSize.height > 0 ? min(largeThumbnailSize.height, 400) : nil,
-                            alignment: .top
-                        )
+                    .purgeable(true)
+                    .resizable()
+                    .placeholder { ImageErrorPlaceholder() }
+                    .modifier(PreviewImageStateModifier(isRead: isRead))
+                    .aspectRatio(aspectRatio, contentMode: .fit)
+                    .frame(
+                        maxHeight: largeThumbnailSize.height > 0 ? min(largeThumbnailSize.height, 400) : nil,
+                        alignment: .top
+                    )
                 }
             } else if let width = width, width < largeThumbnailSize.width {
                 ImageDepression(padding: 8) {
@@ -73,12 +75,13 @@ struct LargeThumbnail: View {
                         options: [.delayPlaceholder, .lowPriority],
                         context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
                     )
-                        .resizable()
-                        .placeholder { ImageErrorPlaceholder() }
-                        .modifier(PreviewImageStateModifier(isRead: isRead))
-                        .aspectRatio(aspectRatio, contentMode: .fit)
-                        .clipped()
-                        .modifier(ImageBorderModifier(cornerRadius: 4))
+                    .purgeable(true)
+                    .resizable()
+                    .placeholder { ImageErrorPlaceholder() }
+                    .modifier(PreviewImageStateModifier(isRead: isRead))
+                    .aspectRatio(aspectRatio, contentMode: .fit)
+                    .clipped()
+                    .modifier(ImageBorderModifier(cornerRadius: 4))
                 }
             } else {
                 WebImage(
@@ -86,6 +89,7 @@ struct LargeThumbnail: View {
                     options: [.delayPlaceholder, .lowPriority],
                     context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
                 )
+                .purgeable(true)
                 .resizable()
                 .placeholder { ImageErrorPlaceholder() }
                 .modifier(PreviewImageStateModifier(isRead: isRead))

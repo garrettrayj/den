@@ -24,6 +24,7 @@ struct SmallThumbnail: View {
             options: [.decodeFirstFrameOnly, .delayPlaceholder, .lowPriority],
             context: [.imageThumbnailPixelSize: smallThumbnailPixelSize]
         )
+        .purgeable(true)
         .resizable()
         .placeholder { ImageErrorPlaceholder() }
         .modifier(PreviewImageStateModifier(isRead: isRead))
