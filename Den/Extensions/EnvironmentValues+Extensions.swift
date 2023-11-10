@@ -33,6 +33,10 @@ extension EnvironmentValues {
     var largeThumbnailPixelSize: CGSize {
         largeThumbnailSize.scaled(by: displayScale)
     }
+    
+    /// Used for NavigationSplitView detail column `.navigationSplitViewColumnWidth()`
+    /// and `.frame(minWidth:)` on views with an inspector (to prevent gross minimization of content)
+    var minDetailColumnWidth: CGFloat { 320 }
 
     var smallThumbnailSize: CGSize {
         ImageSize.smallThumbnail.scaled(by: dynamicTypeSize.layoutScalingFactor)

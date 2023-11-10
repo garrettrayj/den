@@ -11,6 +11,7 @@ import SwiftUI
 
 struct FeedView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
 
     @ObservedObject var feed: Feed
 
@@ -40,6 +41,7 @@ struct FeedView: View {
                         hideRead: $hideRead,
                         items: items
                     )
+                    .frame(minWidth: minDetailColumnWidth)
                     .toolbar {
                         FeedToolbar(
                             feed: feed,

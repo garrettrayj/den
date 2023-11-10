@@ -40,7 +40,11 @@ struct Landing: View {
             #endif
             .toolbar {
                 ToolbarItem {
-                    NewProfileButton().labelStyle(.titleAndIcon)
+                    NewProfileButton()
+                        .labelStyle(.titleAndIcon)
+                        #if os(iOS)
+                        .buttonStyle(.borderless)
+                        #endif
                 }
             }
         }

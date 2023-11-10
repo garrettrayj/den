@@ -26,8 +26,7 @@ struct PageToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            PageLayoutPicker(pageLayout: $pageLayout, pageWidth: pageWidth)
-                .pickerStyle(.inline)
+            PageLayoutPicker(pageLayout: $pageLayout, pageWidth: pageWidth).labelStyle(.iconOnly)
         }
         ToolbarItem {
             FilterReadButton(hideRead: $hideRead)

@@ -13,6 +13,7 @@ struct PageView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
 
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
@@ -68,6 +69,7 @@ struct PageView: View {
                             }
                         }
                     }
+                    .frame(minWidth: minDetailColumnWidth)
                     .toolbar {
                         PageToolbar(
                             page: page,

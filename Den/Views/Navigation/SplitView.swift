@@ -15,6 +15,7 @@ struct SplitView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
     @Environment(\.userTint) private var userTint
 
     @ObservedObject var profile: Profile
@@ -81,7 +82,7 @@ struct SplitView: View {
                 refreshing: $refreshing,
                 path: $navigationStore.path
             )
-            .navigationSplitViewColumnWidth(min: 320, ideal: 320)
+            .navigationSplitViewColumnWidth(min: minDetailColumnWidth, ideal: 600)
             #if os(iOS)
             .toolbarTitleDisplayMode(.inline)
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
