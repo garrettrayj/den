@@ -19,23 +19,30 @@ final class ProfileUITests: UITestCase {
         
         attachScreenshot(of: app.windows.firstMatch, named: "new-profile")
     }
-    
+
+    #if os(macOS)
     func testProfileSettings() throws {
         let app = launchApp(inMemory: false)
 
-        #if os(macOS)
-        app.popUpButtons["SidebarMenu"].tap()
-        app.menuItems["Settings"].tap()
-        #else
+        app.menuBarItems["Den"].menuItems["Settings…"].tap()
+        app.buttons["Profiles"].tap()
+        app.outlines.staticTexts["Den"].tap()
+
+        attachScreenshot(of: app.windows.firstMatch, named: "profile-settings")
+    }
+    #else
+    func testProfileSettings() throws {
+        let app = launchApp(inMemory: false)
+
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
         }
         app.buttons["SidebarMenu"].forceTap()
         app.buttons["Settings"].tap()
-        #endif
 
         app.buttons["ProfileSettings"].firstMatch.tap()
         
         attachScreenshot(of: app.windows.firstMatch, named: "profile-settings")
     }
+    #endif
 }

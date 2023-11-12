@@ -48,36 +48,26 @@ final class FeedUITests: UITestCase {
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
-        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular &&
-                app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-                app.tap()
-            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-            }
-        } else {
-            app.staticTexts["Science"].tap()
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
+        app.staticTexts["Science"].tap()
         #endif
+        
+        hideSidebar(app)
 
         app.buttons["FeedNavLink"].firstMatch.tap()
 
         if !app.staticTexts["Futurity"].waitForExistence(timeout: 2) {
             XCTFail("Feed title did not appear in time")
         }
-        
+
+        #if os(macOS)
+        app.buttons["ToggleInspector"].firstMatch.tap()
+        app.switches["LargePreviews"].tap()
+        #else
         app.buttons["ToggleInspector"].tap()
         app.switches["LargePreviews"].switches.firstMatch.tap()
-        app.buttons["ToggleInspector"].tap()
-        
+        #endif
+
         sleep(2)
 
         attachScreenshot(of: app.windows.firstMatch, named: "feed-view-expanded")

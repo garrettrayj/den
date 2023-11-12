@@ -9,6 +9,18 @@
 import XCTest
 
 final class TrendingUITests: UITestCase {
+    func testTrending() throws {
+        let app = launchApp(inMemory: false)
+
+        app.buttons["TrendingNavLink"].tap()
+
+        hideSidebar(app)
+        
+        sleep(2)
+
+        attachScreenshot(of: app.windows.firstMatch, named: "trending")
+    }
+    
     func testTrendingEmpty() throws {
         let app = launchApp(inMemory: true)
 
@@ -18,10 +30,18 @@ final class TrendingUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
         app.buttons["CreateProfile"].firstMatch.tap()
 
+        #if os(macOS)
+        if !app.outlines.buttons["NewPage"].waitForExistence(timeout: 2) {
+            XCTFail("New Page button did not appear in time")
+        }
+        app.outlines.buttons["NewPage"].tap()
+        #else
         if !app.collectionViews.buttons["NewPage"].waitForExistence(timeout: 2) {
             XCTFail("New Page button did not appear in time")
         }
         app.collectionViews.buttons["NewPage"].tap()
+        #endif
+
         app.buttons["CreatePage"].tap()
 
         #if os(iOS)
@@ -36,6 +56,6 @@ final class TrendingUITests: UITestCase {
 
         hideSidebar(app)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "TrendingEmpty")
+        attachScreenshot(of: app.windows.firstMatch, named: "trending-empty")
     }
 }

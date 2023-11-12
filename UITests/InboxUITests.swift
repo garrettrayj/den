@@ -32,11 +32,16 @@ final class InboxUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
         app.buttons["CreateProfile"].firstMatch.tap()
 
-        if !app.collectionViews.buttons["NewPage"].waitForExistence(timeout: 2) {
+        if !app.buttons["NewPage"].waitForExistence(timeout: 2) {
             XCTFail("New Page button did not appear in time")
         }
 
+        #if os(macOS)
+        app.outlines.buttons["NewPage"].tap()
+        #else
         app.collectionViews.buttons["NewPage"].tap()
+        #endif
+        
         app.buttons["CreatePage"].tap()
 
         #if os(iOS)

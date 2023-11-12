@@ -104,9 +104,14 @@ final class OrganizerUITests: UITestCase {
         #endif
 
         hideSidebar(app)
-        
+
+        #if os(macOS)
+        app.tables["OrganizerList"].staticTexts["TIME"].tap()
+        #else
         app.collectionViews["OrganizerList"].staticTexts["TIME"].tap()
         app.buttons["ToggleInspector"].tap()
+        #endif
+
         sleep(2)
 
         attachScreenshot(of: app.windows.firstMatch, named: "organizer-info")
@@ -128,10 +133,13 @@ final class OrganizerUITests: UITestCase {
 
         hideSidebar(app)
         
+        #if os(macOS)
+        app.tables["OrganizerList"].staticTexts["TIME"].tap()
+        app.radioButtons["OrganizerConfig"].tap()
+        #else
         app.collectionViews["OrganizerList"].staticTexts["TIME"].tap()
-        app.buttons["ToggleInspector"].tap()
-        
         app.buttons["OrganizerConfig"].tap()
+        #endif
         
         sleep(2)
 

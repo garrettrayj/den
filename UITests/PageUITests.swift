@@ -18,11 +18,17 @@ final class PageUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
         app.buttons["CreateProfile"].firstMatch.tap()
 
+        #if os(macOS)
+        if !app.outlines.buttons["NewPage"].waitForExistence(timeout: 2) {
+            XCTFail("New Page button did not appear in time")
+        }
+        app.outlines.buttons["NewPage"].tap()
+        #else
         if !app.collectionViews.buttons["NewPage"].waitForExistence(timeout: 2) {
             XCTFail("New Page button did not appear in time")
         }
-
         app.collectionViews.buttons["NewPage"].tap()
+        #endif
         
         attachScreenshot(of: app.windows.firstMatch, named: "new-page")
     }
@@ -36,11 +42,18 @@ final class PageUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
         app.buttons["CreateProfile"].firstMatch.tap()
 
+        #if os(macOS)
+        if !app.outlines.buttons["NewPage"].waitForExistence(timeout: 2) {
+            XCTFail("New Page button did not appear in time")
+        }
+        app.outlines.buttons["NewPage"].tap()
+        #else
         if !app.collectionViews.buttons["NewPage"].waitForExistence(timeout: 2) {
             XCTFail("New Page button did not appear in time")
         }
-
         app.collectionViews.buttons["NewPage"].tap()
+        #endif
+        
         app.buttons["CreatePage"].tap()
         
         #if os(macOS)
@@ -76,7 +89,8 @@ final class PageUITests: UITestCase {
         hideSidebar(app)
         
         #if os(macOS)
-        app.radioButtons["GroupedLayout"].tap()
+        app.toolbars.popUpButtons.element(boundBy: 1).tap()
+        app.menuItems["GroupedLayout"].tap()
         #else
         app.buttons["PageLayoutPicker"].tap()
         app.buttons["GroupedLayout"].tap()
@@ -99,7 +113,8 @@ final class PageUITests: UITestCase {
         hideSidebar(app)
 
         #if os(macOS)
-        app.radioButtons["TimelineLayout"].tap()
+        app.toolbars.popUpButtons.element(boundBy: 1).tap()
+        app.menuItems["TimelineLayout"].tap()
         #else
         app.buttons["PageLayoutPicker"].tap()
         app.buttons["TimelineLayout"].tap()
@@ -122,7 +137,8 @@ final class PageUITests: UITestCase {
         hideSidebar(app)
 
         #if os(macOS)
-        app.radioButtons["DeckLayout"].tap()
+        app.toolbars.popUpButtons.element(boundBy: 1).tap()
+        app.menuItems["DeckLayout"].tap()
         #else
         app.buttons["PageLayoutPicker"].tap()
         app.buttons["DeckLayout"].tap()

@@ -9,19 +9,24 @@
 import XCTest
 
 final class SettingsUITests: UITestCase {
+    #if os(macOS)
+    func testAppSettings() throws {
+        let app = launchApp(inMemory: false)
+
+        app.menuBarItems["Den"].menuItems["Settings…"].tap()
+        app.buttons["General"].tap()
+
+        attachScreenshot(of: app.windows.firstMatch, named: "AppSettingsGeneralTab")
+    }
+    #else
     func testSettings() throws {
         let app = launchApp(inMemory: false)
 
-        #if os(macOS)
-        app.popUpButtons["SidebarMenu"].tap()
-        app.menuItems["Settings"].tap()
-        #else
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
         }
         app.buttons["SidebarMenu"].forceTap()
         app.buttons["Settings"].tap()
-        #endif
 
         if !app.staticTexts["Settings"].waitForExistence(timeout: 2) {
             XCTFail("Settings header did not appear in time")
@@ -29,4 +34,5 @@ final class SettingsUITests: UITestCase {
 
         attachScreenshot(of: app.windows.firstMatch, named: "settings")
     }
+    #endif
 }
