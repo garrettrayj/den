@@ -67,4 +67,25 @@ class UITestCase: XCTestCase {
         attachment.lifetime = .keepAlways
         add(attachment)
     }
+    
+    func hideSidebar(_ app: XCUIApplication) {
+        #if os(macOS)
+        app.buttons["Hide Sidebar"].firstMatch.tap()
+        #else
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular &&
+                app.windows.firstMatch.verticalSizeClass == .compact {
+                app.tap()
+            }
+        } else {
+            if XCUIDevice.shared.orientation.isLandscape {
+                if app.buttons["ToggleSidebar"].exists {
+                    app.buttons["ToggleSidebar"].tap()
+                }
+            } else {
+                app.tap()
+            }
+        }
+        #endif
+    }
 }

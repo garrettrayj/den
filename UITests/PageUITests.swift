@@ -55,21 +55,7 @@ final class PageUITests: UITestCase {
         app.collectionViews.buttons["Untitled"].tap()
         #endif
 
-        #if os(macOS)
-        app.buttons["Hide Sidebar"].firstMatch.tap()
-        #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular {
-                app.tap()
-            }
-        } else {
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
-        #endif
+        hideSidebar(app)
 
         if !app.staticTexts["No Feeds"].waitForExistence(timeout: 2) {
             XCTFail("Page title did not appear in time")
@@ -83,25 +69,11 @@ final class PageUITests: UITestCase {
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
-        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular &&
-                app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-                app.tap()
-            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-            }
-        } else {
-            app.staticTexts["Science"].tap()
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
+        app.staticTexts["Science"].tap()
         #endif
+        
+        hideSidebar(app)
         
         #if os(macOS)
         app.radioButtons["GroupedLayout"].tap()
@@ -120,25 +92,11 @@ final class PageUITests: UITestCase {
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
-        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular &&
-                app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-                app.tap()
-            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-            }
-        } else {
-            app.staticTexts["Science"].tap()
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
+        app.staticTexts["Science"].tap()
         #endif
+        
+        hideSidebar(app)
 
         #if os(macOS)
         app.radioButtons["TimelineLayout"].tap()
@@ -157,25 +115,11 @@ final class PageUITests: UITestCase {
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
-        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular &&
-                app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-                app.tap()
-            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-            }
-        } else {
-            app.staticTexts["Science"].tap()
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
+        app.staticTexts["Science"].tap()
         #endif
+        
+        hideSidebar(app)
 
         #if os(macOS)
         app.radioButtons["DeckLayout"].tap()
@@ -194,25 +138,11 @@ final class PageUITests: UITestCase {
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
-        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular &&
-                app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-                app.tap()
-            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-            }
-        } else {
-            app.staticTexts["Science"].tap()
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
+        app.staticTexts["Science"].tap()
         #endif
+        
+        hideSidebar(app)
 
         if !app.buttons["ToggleInspector"].waitForExistence(timeout: 2) {
             XCTFail("Page inspector button did not appear in time")

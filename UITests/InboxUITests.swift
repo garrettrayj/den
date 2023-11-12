@@ -14,21 +14,7 @@ final class InboxUITests: UITestCase {
 
         app.buttons["InboxNavLink"].tap()
 
-        #if os(macOS)
-        app.buttons["Hide Sidebar"].firstMatch.tap()
-        #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular {
-                app.tap()
-            }
-        } else {
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
-        #endif
+        hideSidebar(app)
 
         if !app.staticTexts["Inbox"].waitForExistence(timeout: 2) {
             XCTFail("Inbox title did not appear in time")
@@ -66,21 +52,7 @@ final class InboxUITests: UITestCase {
         }
         app.buttons["InboxNavLink"].tap()
 
-        #if os(macOS)
-        app.buttons["Hide Sidebar"].firstMatch.tap()
-        #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular {
-                app.tap()
-            }
-        } else {
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
-        #endif
+        hideSidebar(app)
 
         if !app.staticTexts["Inbox"].waitForExistence(timeout: 2) {
             XCTFail("Inbox title did not appear in time")

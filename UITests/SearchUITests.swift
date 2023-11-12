@@ -21,19 +21,7 @@ final class SearchUITests: UITestCase {
         searchField.typeText("NASA")
         searchField.typeText("\n")
 
-        #if os(macOS)
-        app.buttons["Hide Sidebar"].firstMatch.tap()
-        #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular {
-                app.tap()
-            }
-        } else {
-            if XCUIDevice.shared.orientation.isPortrait {
-                app.tap()
-            }
-        }
-        #endif
+        hideSidebar(app)
 
         if !app.staticTexts["Search"].waitForExistence(timeout: 2) {
             XCTFail("Search title did not appear in time")
@@ -70,19 +58,7 @@ final class SearchUITests: UITestCase {
         searchField.typeText("Example")
         searchField.typeText("\n")
 
-        #if os(macOS)
-        app.buttons["Hide Sidebar"].firstMatch.tap()
-        #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular {
-                app.tap()
-            }
-        } else {
-            if XCUIDevice.shared.orientation.isPortrait {
-                app.tap()
-            }
-        }
-        #endif
+        hideSidebar(app)
 
         if !app.staticTexts["No Results for “Example”"].waitForExistence(timeout: 2) {
             XCTFail("Search status did not appear in time")

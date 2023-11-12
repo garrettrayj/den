@@ -88,25 +88,11 @@ final class FeedUITests: UITestCase {
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
-        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular &&
-                app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-                app.tap()
-            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-            }
-        } else {
-            app.staticTexts["Science"].tap()
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
+        app.staticTexts["Science"].tap()
         #endif
+        
+        hideSidebar(app)
 
         app.buttons["FeedNavLink"].firstMatch.tap()
 
@@ -137,26 +123,11 @@ final class FeedUITests: UITestCase {
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
-        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular &&
-                app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-                app.tap()
-            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-            }
-        } else {
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.staticTexts["Science"].tap()
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.staticTexts["Science"].tap()
-                app.tap()
-            }
-        }
+        app.staticTexts["Science"].tap()
         #endif
+        
+        hideSidebar(app)
 
         app.buttons["FeedNavLink"].firstMatch.tap()
 

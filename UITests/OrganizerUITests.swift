@@ -103,21 +103,7 @@ final class OrganizerUITests: UITestCase {
         app.buttons["Organizer"].tap()
         #endif
 
-        #if os(macOS)
-        app.buttons["Hide Sidebar"].firstMatch.tap()
-        #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular {
-                app.tap()
-            }
-        } else {
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
-        #endif
+        hideSidebar(app)
         
         app.collectionViews["OrganizerList"].staticTexts["TIME"].tap()
         app.buttons["ToggleInspector"].tap()
@@ -140,21 +126,7 @@ final class OrganizerUITests: UITestCase {
         app.buttons["Organizer"].tap()
         #endif
 
-        #if os(macOS)
-        app.buttons["Hide Sidebar"].firstMatch.tap()
-        #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular {
-                app.tap()
-            }
-        } else {
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
-        #endif
+        hideSidebar(app)
         
         app.collectionViews["OrganizerList"].staticTexts["TIME"].tap()
         app.buttons["ToggleInspector"].tap()

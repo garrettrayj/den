@@ -34,21 +34,7 @@ final class TrendingUITests: UITestCase {
 
         app.buttons["TrendingNavLink"].tap()
 
-        #if os(macOS)
-        app.buttons["Hide Sidebar"].firstMatch.tap()
-        #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular {
-                app.tap()
-            }
-        } else {
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
-        #endif
+        hideSidebar(app)
 
         attachScreenshot(of: app.windows.firstMatch, named: "TrendingEmpty")
     }

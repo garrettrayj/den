@@ -14,22 +14,11 @@ final class ItemUITests: UITestCase {
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
-        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         app.buttons["Science"].tap()
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular &&
-                app.windows.firstMatch.verticalSizeClass == .compact {
-                app.tap()
-            }
-        } else {
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
         #endif
+        
+        hideSidebar(app)
 
         app.buttons["ItemAction"].firstMatch.tap()
 
@@ -43,22 +32,11 @@ final class ItemUITests: UITestCase {
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
-        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         app.buttons["Science"].tap()
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular &&
-                app.windows.firstMatch.verticalSizeClass == .compact {
-                app.tap()
-            }
-        } else {
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
         #endif
+        
+        hideSidebar(app)
 
         app.buttons["ItemAction"].firstMatch.tap()
         sleep(4)
