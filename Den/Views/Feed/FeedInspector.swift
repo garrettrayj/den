@@ -143,11 +143,6 @@ struct FeedInspector: View {
                         }
                     }
                 }
-            } header: {
-                Text("Move", comment: "Inspector section header.")
-            }
-
-            Section {
                 DeleteFeedButton(feed: feed, profile: profile)
             } header: {
                 Text("Management", comment: "Section header.")

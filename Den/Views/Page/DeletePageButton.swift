@@ -27,7 +27,7 @@ struct DeletePageButton: View {
             }
         } label: {
             Label {
-                Text("Delete Page", comment: "Button label.")
+                Text("Delete", comment: "Button label.")
             } icon: {
                 Image(systemName: "folder.badge.minus")
             }

@@ -28,7 +28,7 @@ struct DeleteFeedButton: View {
             }
         } label: {
             Label {
-                Text("Delete Feed", comment: "Button label.")
+                Text("Delete", comment: "Button label.")
             } icon: {
                 Image(systemName: "trash")
             }
