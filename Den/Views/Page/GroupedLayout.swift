@@ -17,34 +17,35 @@ struct GroupedLayout: View {
     @Binding var hideRead: Bool
 
     let items: [Item]
-    let geometry: GeometryProxy
 
     var body: some View {
-        ScrollView(.vertical) {
-            HStack(alignment: .top, spacing: 8) {
-                ForEach(
-                    Columnizer.columnize(
-                        columnCount: Columnizer.calculateColumnCount(
-                            width: geometry.size.width,
-                            layoutScalingFactor: dynamicTypeSize.layoutScalingFactor
+        GeometryReader { geometry in
+            ScrollView(.vertical) {
+                HStack(alignment: .top, spacing: 8) {
+                    ForEach(
+                        Columnizer.columnize(
+                            columnCount: Columnizer.calculateColumnCount(
+                                width: geometry.size.width,
+                                layoutScalingFactor: dynamicTypeSize.layoutScalingFactor
+                            ),
+                            list: page.feedsArray
                         ),
-                        list: page.feedsArray
-                    ),
-                    id: \.0
-                ) { _, feeds in
-                    LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
-                        ForEach(feeds) { feed in
-                            FeedItemGroup(
-                                feed: feed,
-                                profile: profile,
-                                hideRead: hideRead,
-                                items: items.forFeed(feed: feed)
-                            )
+                        id: \.0
+                    ) { _, feeds in
+                        LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
+                            ForEach(feeds) { feed in
+                                FeedItemGroup(
+                                    feed: feed,
+                                    profile: profile,
+                                    hideRead: hideRead,
+                                    items: items.forFeed(feed: feed)
+                                )
+                            }
                         }
                     }
                 }
+                .padding()
             }
-            .padding()
         }
     }
 }

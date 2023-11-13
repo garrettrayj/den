@@ -9,16 +9,26 @@
 import SwiftUI
 
 struct PageLayoutPicker: View {
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
+
     @Binding var pageLayout: PageLayout
-    
-    let pageWidth: CGFloat
 
     var body: some View {
         Picker(selection: $pageLayout) {
             Label {
                 Text("Grouped", comment: "Page layout option label.")
             } icon: {
-                Image(systemName: groupedIcon)
+                #if os(macOS)
+                Image(systemName: "rectangle.grid.3x2")
+                #else
+                if horizontalSizeClass == .compact {
+                    Image(systemName: "rectangle.grid.1x2")
+                } else {
+                    Image(systemName: "rectangle.grid.3x2")
+                }
+                #endif
             }
             .tag(PageLayout.grouped)
             .accessibilityIdentifier("GroupedLayout")
@@ -26,7 +36,7 @@ struct PageLayoutPicker: View {
             Label {
                 Text("Deck", comment: "Page layout option label.")
             } icon: {
-                Image(systemName: deckIcon)
+                Image(systemName: "rectangle.split.3x1")
             }
             .tag(PageLayout.deck)
             .accessibilityIdentifier("DeckLayout")
@@ -34,7 +44,7 @@ struct PageLayoutPicker: View {
             Label {
                 Text("Timeline", comment: "Page layout option label.")
             } icon: {
-                Image(systemName: timelineIcon)
+                Image(systemName: "calendar.day.timeline.leading")
             }
             .tag(PageLayout.timeline)
             .accessibilityIdentifier("TimelineLayout")
@@ -43,29 +53,5 @@ struct PageLayoutPicker: View {
         }
         .fontWeight(.medium)
         .accessibilityIdentifier("PageLayoutPicker")
-    }
-    
-    private var groupedIcon: String {
-        if pageWidth < 570 {
-            return "rectangle.grid.1x2"
-        } else if pageWidth < 920 {
-            return "rectangle.grid.2x2"
-        } else {
-            return "rectangle.grid.3x2"
-        }
-    }
-    
-    private var deckIcon: String {
-        if pageWidth < 570 {
-            return "rectangle.portrait.arrowtriangle.2.outward"
-        } else if pageWidth < 920 {
-            return "rectangle.split.2x1"
-        } else {
-            return "rectangle.split.3x1"
-        }
-    }
-    
-    private var timelineIcon: String {
-        return "calendar.day.timeline.leading"
     }
 }

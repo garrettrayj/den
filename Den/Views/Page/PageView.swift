@@ -36,50 +36,44 @@ struct PageView: View {
             .navigationTitle("")
         } else {
             WithItems(scopeObject: page) { items in
-                GeometryReader { geometry in
-                    Group {
-                        if page.feedsArray.isEmpty {
-                            NoFeeds()
-                        } else {
-                            switch pageLayout.wrappedValue {
-                            case .grouped:
-                                GroupedLayout(
-                                    page: page,
-                                    profile: profile,
-                                    hideRead: $hideRead,
-                                    items: items,
-                                    geometry: geometry
-                                )
-                            case .deck:
-                                DeckLayout(
-                                    page: page,
-                                    profile: profile,
-                                    hideRead: $hideRead,
-                                    items: items,
-                                    geometry: geometry
-                                )
-                            case .timeline:
-                                TimelineLayout(
-                                    page: page,
-                                    profile: profile,
-                                    hideRead: $hideRead,
-                                    items: items,
-                                    geometry: geometry
-                                )
-                            }
+                Group {
+                    if page.feedsArray.isEmpty {
+                        NoFeeds()
+                    } else {
+                        switch pageLayout.wrappedValue {
+                        case .grouped:
+                            GroupedLayout(
+                                page: page,
+                                profile: profile,
+                                hideRead: $hideRead,
+                                items: items
+                            )
+                        case .deck:
+                            DeckLayout(
+                                page: page,
+                                profile: profile,
+                                hideRead: $hideRead,
+                                items: items
+                            )
+                        case .timeline:
+                            TimelineLayout(
+                                page: page,
+                                profile: profile,
+                                hideRead: $hideRead,
+                                items: items
+                            )
                         }
                     }
-                    .frame(minWidth: minDetailColumnWidth)
-                    .toolbar {
-                        PageToolbar(
-                            page: page,
-                            hideRead: $hideRead,
-                            pageLayout: pageLayout.projectedValue,
-                            showingInspector: $showingInspector,
-                            items: items,
-                            pageWidth: geometry.size.width
-                        )
-                    }
+                }
+                .frame(minWidth: minDetailColumnWidth)
+                .toolbar {
+                    PageToolbar(
+                        page: page,
+                        hideRead: $hideRead,
+                        pageLayout: pageLayout.projectedValue,
+                        showingInspector: $showingInspector,
+                        items: items
+                    )
                 }
             }
             .id("PageLayout_\(page.id?.uuidString ?? "NoID")_\(pageLayout.wrappedValue.rawValue)")
