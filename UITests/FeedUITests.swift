@@ -63,14 +63,23 @@ final class FeedUITests: UITestCase {
         #if os(macOS)
         app.buttons["ToggleInspector"].firstMatch.tap()
         app.switches["LargePreviews"].tap()
+        app.buttons["ToggleInspector"].tap()
         #else
         app.buttons["ToggleInspector"].tap()
         app.switches["LargePreviews"].switches.firstMatch.tap()
+        app.buttons["ToggleInspector"].forceTap()
         #endif
 
         sleep(2)
-
         attachScreenshot(of: app.windows.firstMatch, named: "feed-view-expanded")
+        
+        #if os(macOS)
+        app.buttons["ToggleInspector"].firstMatch.tap()
+        app.switches["LargePreviews"].tap()
+        #else
+        app.buttons["ToggleInspector"].forceTap()
+        app.switches["LargePreviews"].switches.firstMatch.tap()
+        #endif
     }
 
     func testFeedInspector() throws {

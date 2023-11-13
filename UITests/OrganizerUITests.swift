@@ -138,6 +138,7 @@ final class OrganizerUITests: UITestCase {
         app.radioButtons["OrganizerConfig"].tap()
         #else
         app.collectionViews["OrganizerList"].staticTexts["TIME"].tap()
+        app.buttons["ToggleInspector"].tap()
         app.buttons["OrganizerConfig"].tap()
         #endif
         

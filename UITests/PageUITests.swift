@@ -98,7 +98,7 @@ final class PageUITests: UITestCase {
 
         sleep(3)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "PageGroupedLayout")
+        attachScreenshot(of: app.windows.firstMatch, named: "page-grouped-layout")
     }
 
     func testPageTimelineLayout() throws {
@@ -122,7 +122,7 @@ final class PageUITests: UITestCase {
 
         sleep(3)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "PageTimelineLayout")
+        attachScreenshot(of: app.windows.firstMatch, named: "page-timeline-layout")
     }
 
     func testPageDeckLayout() throws {
@@ -146,7 +146,7 @@ final class PageUITests: UITestCase {
 
         sleep(3)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "PageDeckLayout")
+        attachScreenshot(of: app.windows.firstMatch, named: "page-deck-layout")
     }
 
     func testPageInspector() throws {
@@ -168,6 +168,6 @@ final class PageUITests: UITestCase {
 
         sleep(2)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "PageInspector")
+        attachScreenshot(of: app.windows.firstMatch, named: "page-inspector")
     }
 }
