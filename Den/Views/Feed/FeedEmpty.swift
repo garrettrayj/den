@@ -21,12 +21,13 @@ struct FeedEmpty: View {
                 }
             }
         } else {
-            CardNote(
-                Text("Feed Empty", comment: "No items message."),
-                icon: {
+            CompactContentUnavailable {
+                Label {
+                    Text("Feed Empty", comment: "No items message.")
+                } icon: {
                     Image(systemName: "questionmark.folder")
                 }
-            )
+            }
         }
     }
 }

@@ -30,11 +30,17 @@ struct FeedUnavailable: View {
             }
             .padding()
         } else {
-            CardNote(
-                title,
-                caption: { caption },
-                icon: { icon }
-            )
+            CompactContentUnavailable {
+                Label {
+                    title
+                } icon: {
+                    icon
+                }
+            } description: {
+                caption
+            } actions: {
+                actions
+            }
         }
     }
 

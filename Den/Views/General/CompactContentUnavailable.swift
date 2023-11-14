@@ -1,14 +1,14 @@
 //
-//  ContentUnavailable.swift
+//  CompactContentUnavailable.swift
 //  Den
 //
-//  Created by Garrett Johnson on 11/14/23.
+//  Created by Garrett Johnson on 7/22/23.
 //  Copyright © 2023 Garrett Johnson
 //
 
 import SwiftUI
 
-struct ContentUnavailable<LabelContent: View, DescriptionContent: View, ActionsContent: View>: View {
+struct CompactContentUnavailable<LabelContent: View, DescriptionContent: View, ActionsContent: View>: View {
     #if os(macOS)
     @Environment(\.controlActiveState) private var controlStateActive
     #endif
@@ -43,21 +43,36 @@ struct ContentUnavailable<LabelContent: View, DescriptionContent: View, ActionsC
     var body: some View {
         HStack {
             Spacer(minLength: 0)
-            VStack(spacing: 12) {
-                label().labelStyle(ContentUnavailableLabelStyle())
-                VStack(spacing: 16) {
-                    description?().foregroundStyle(descriptionForegroundStyle)
-                    actions?()
+            VStack {
+                label().labelStyle(CompactContentUnavailableLabelStyle())
+                VStack(spacing: 8) {
+                    description?().font(.caption).foregroundStyle(descriptionForegroundStyle)
+                    actions?().font(.caption)
                 }
-                .multilineTextAlignment(.center)
             }
+            .multilineTextAlignment(.center)
             .padding()
             Spacer(minLength: 0)
         }
+        #if os(macOS)
+        .background(.background)
+        #else
+        .background(Color(.secondarySystemGroupedBackground))
+        #endif
+        .clipShape(
+            UnevenRoundedRectangle(
+                cornerRadii: .init(
+                    topLeading: 0,
+                    bottomLeading: 8,
+                    bottomTrailing: 8,
+                    topTrailing: 0
+                )
+            )
+        )
     }
 }
 
-extension ContentUnavailable {
+extension CompactContentUnavailable {
     init(
         @ViewBuilder label: @escaping () -> LabelContent,
         @ViewBuilder description: @escaping () -> DescriptionContent,

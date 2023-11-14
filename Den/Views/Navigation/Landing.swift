@@ -69,7 +69,6 @@ struct Landing: View {
                         """,
                         comment: "Landing guidance message."
                     )
-                    .padding(.top)
                 }
             } else {
                 VStack(spacing: 0) {
@@ -108,7 +107,7 @@ struct Landing: View {
             }
             Spacer()
         }
-        .padding(32)
+        .padding()
     }
 
     private func createProfile() -> Profile {

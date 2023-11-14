@@ -1,5 +1,5 @@
 //
-//  ContentUnavailableLabelStyle.swift
+//  CompactContentUnavailableLabelStyle.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/14/23.
@@ -8,19 +8,19 @@
 
 import SwiftUI
 
-struct ContentUnavailableLabelStyle: LabelStyle {
+struct CompactContentUnavailableLabelStyle: LabelStyle {
     #if os(macOS)
     @Environment(\.controlActiveState) private var controlStateActive
     #endif
     @Environment(\.isEnabled) private var isEnabled
 
     func makeBody(configuration: Configuration) -> some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 8) {
             configuration.icon
-                .font(.system(size: 44))
+                .font(.title2)
                 .foregroundStyle(iconForegroundStyle)
             configuration.title
-                .font(.largeTitle.weight(.bold))
+                .font(.body.weight(.medium))
                 .foregroundStyle(titleForegroundStyle)
         }
     }

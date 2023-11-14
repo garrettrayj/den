@@ -29,10 +29,13 @@ struct AllRead: View {
             }
             .padding()
         } else {
-            CardNote(
-                Text("All Read", comment: "Card note title."),
-                icon: { Image(systemName: "checkmark") }
-            )
+            CompactContentUnavailable {
+                Label {
+                    Text("All Read", comment: "Card note title.")
+                } icon: {
+                    Image(systemName: "checkmark")
+                }
+            }
         }
     }
 }
