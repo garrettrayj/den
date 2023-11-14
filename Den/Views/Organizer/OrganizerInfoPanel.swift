@@ -96,35 +96,15 @@ struct OrganizerInfoPanel: View {
                 }
             }
 
-            Section {
-                if let urlEncoded = feed.urlString.urlEncoded {
-                    if feed.feedData?.format == "JSON" {
-                        if let validatorURL = URL(
-                            string: "https://validator.jsonfeed.org/?url=\(urlEncoded)"
-                        ) {
-                            Button {
-                                openURL(validatorURL)
-                            } label: {
-                                Label {
-                                    Text("JSON Feed Validator", comment: "Button label.")
-                                } icon: {
-                                    Image(systemName: "stethoscope")
-                                }
-                            }
-                        }
-                    } else {
-                        if let validatorURL = URL(
-                            string: "https://validator.w3.org/feed/check.cgi?url=\(urlEncoded)"
-                        ) {
-                            Button {
-                                openURL(validatorURL)
-                            } label: {
-                                Label {
-                                    Text("XML Feed Validator", comment: "Button label.")
-                                } icon: {
-                                    Image(systemName: "stethoscope")
-                                }
-                            }
+            if let validatorURL = feed.validatorURL {
+                Section {
+                    Button {
+                        openURL(validatorURL)
+                    } label: {
+                        Label {
+                            Text("Open Validator", comment: "Button label.")
+                        } icon: {
+                            Image(systemName: "stethoscope")
                         }
                     }
                 }

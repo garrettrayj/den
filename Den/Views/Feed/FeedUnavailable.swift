@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct FeedUnavailable: View {
+    @Environment(\.openURL) private var openURL
+    
     let feedData: FeedData?
 
     var largeDisplay: Bool = false
@@ -52,7 +54,22 @@ struct FeedUnavailable: View {
                 if feedData?.wrappedError == .request {
                     Text("Could not fetch data.", comment: "Feed unavailable message.")
                 } else {
-                    Text("Unable to parse content.", comment: "Feed unavailable message.")
+                    Text(
+                        "Unable to parse content.",
+                        comment: "Feed unavailable message."
+                    )
+                    
+                    if let validatorURL = feedData?.feed?.validatorURL {
+                        Button {
+                            openURL(validatorURL)
+                        } label: {
+                            Label {
+                                Text("Open Validator", comment: "Button label.")
+                            } icon: {
+                                Image(systemName: "stethoscope")
+                            }
+                        }
+                    }
                 }
             }
         }

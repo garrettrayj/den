@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct CardNote<CaptionContent: View, IconContent: View>: View {
+    #if os(macOS)
+    @Environment(\.controlActiveState) private var controlStateActive
+    #endif
     @Environment(\.isEnabled) private var isEnabled
 
     let title: Text
@@ -24,16 +27,54 @@ struct CardNote<CaptionContent: View, IconContent: View>: View {
         self.caption = caption()
         self.icon = icon()
     }
+    
+    var iconForegroundStyle: HierarchicalShapeStyle {
+        #if os(macOS)
+        if controlStateActive == .inactive || !isEnabled {
+            return .quaternary
+        } else {
+            return .tertiary
+        }
+        #else
+        return .secondary
+        #endif
+    }
+    
+    var titleForegroundStyle: HierarchicalShapeStyle {
+        #if os(macOS)
+        if controlStateActive == .inactive || !isEnabled {
+            return .tertiary
+        } else {
+            return .secondary
+        }
+        #else
+        return .primary
+        #endif
+    }
+    
+    var captionForegroundStyle: HierarchicalShapeStyle {
+        #if os(macOS)
+        if controlStateActive == .inactive || !isEnabled {
+            return .tertiary
+        } else {
+            return .secondary
+        }
+        #else
+        return .secondary
+        #endif
+    }
 
     var body: some View {
         HStack {
             Spacer(minLength: 0)
             VStack(spacing: 8) {
-                icon.foregroundStyle(.tertiary).fontWeight(.bold).imageScale(.large)
+                icon.foregroundStyle(iconForegroundStyle).font(.title2.weight(.bold))
                 VStack {
-                    title.fontWeight(.medium)
-                    caption.font(.caption)
-                }.foregroundStyle(.secondary)
+                    title.fontWeight(.medium).foregroundStyle(titleForegroundStyle)
+                    VStack(spacing: 8) {
+                        caption.font(.caption).foregroundStyle(captionForegroundStyle)
+                    }
+                }
             }
             .padding()
             Spacer(minLength: 0)

@@ -82,6 +82,16 @@ public class Feed: NSManagedObject {
     public var urlSchemeSymbol: String {
         isSecure ? "lock" : "lock.slash"
     }
+    
+    public var validatorURL: URL? {
+        guard let urlEncoded = urlString.urlEncoded else { return nil }
+            
+        if feedData?.format == "JSON" {
+            return URL(string: "https://validator.jsonfeed.org/?url=\(urlEncoded)")
+        } else {
+            return URL(string: "https://validator.w3.org/feed/check.cgi?url=\(urlEncoded)")
+        }
+    }
 
     public var wrappedPreviewStyle: PreviewStyle {
         get { PreviewStyle(rawValue: Int(previewStyle)) ?? .compressed }
