@@ -12,7 +12,7 @@ struct Welcome: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        ContentUnavailableView {
+        ContentUnavailable {
             Label {
                 profile.nameText
             } icon: {

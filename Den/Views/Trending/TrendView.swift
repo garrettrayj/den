@@ -16,7 +16,7 @@ struct TrendView: View {
     var body: some View {
         Group {
             if trend.managedObjectContext == nil || trend.isDeleted {
-                ContentUnavailableView {
+                ContentUnavailable {
                     Label {
                         Text("Trend Deleted", comment: "Object removed message.")
                     } icon: {
@@ -27,7 +27,7 @@ struct TrendView: View {
                 WithItems(scopeObject: trend) { items in
                     Group {
                         if trend.items.isEmpty {
-                            ContentUnavailableView {
+                            ContentUnavailable {
                                 Label {
                                     Text("No Items", comment: "Content unavailable title.")
                                 } icon: {

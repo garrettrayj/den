@@ -22,7 +22,7 @@ struct FeedView: View {
     var body: some View {
         Group {
             if feed.managedObjectContext == nil || feed.isDeleted {
-                ContentUnavailableView {
+                ContentUnavailable {
                     Label {
                         Text("Feed Deleted", comment: "Object removed message.")
                     } icon: {

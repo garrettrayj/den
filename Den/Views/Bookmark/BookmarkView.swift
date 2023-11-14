@@ -35,7 +35,7 @@ struct BookmarkView: View {
                 }
             )
         } else {
-            ContentUnavailableView {
+            ContentUnavailable {
                 Label {
                     Text("Bookmark Deleted", comment: "Object removed message.")
                 } icon: {

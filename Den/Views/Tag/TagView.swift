@@ -14,7 +14,7 @@ struct TagView: View {
 
     var body: some View {
         if tag.managedObjectContext == nil || tag.isDeleted {
-            ContentUnavailableView {
+            ContentUnavailable {
                 Label {
                     Text("Tag Deleted", comment: "Object removed message.")
                 } icon: {
@@ -25,7 +25,7 @@ struct TagView: View {
         } else {
             Group {
                 if tag.bookmarksArray.isEmpty {
-                    ContentUnavailableView {
+                    ContentUnavailable {
                         Label {
                             Text("No Bookmarks", comment: "Content unavailable title.")
                         } icon: {

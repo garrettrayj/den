@@ -13,7 +13,7 @@ struct AllRead: View {
 
     var body: some View {
         if largeDisplay {
-            ContentUnavailableView {
+            ContentUnavailable {
                 Label {
                     Text("All Read", comment: "Content unavailable title.")
                 } icon: {

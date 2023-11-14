@@ -16,7 +16,7 @@ struct BlocklistsTab: View {
     
     var body: some View {
         if blocklists.isEmpty {
-            ContentUnavailableView {
+            ContentUnavailable {
                 Label {
                     Text("No Blocklists", comment: "Content unavailable title.")
                 } icon: {

@@ -19,7 +19,7 @@ struct Inbox: View {
                 if profile.feedsArray.isEmpty {
                     NoFeeds(symbol: "tray")
                 } else if items.isEmpty {
-                    ContentUnavailableView {
+                    ContentUnavailable {
                         Label {
                             Text("Inbox Empty", comment: "Content unavailable title.")
                         } icon: {

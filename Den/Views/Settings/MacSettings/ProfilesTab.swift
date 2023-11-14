@@ -19,7 +19,7 @@ struct ProfilesTab: View {
 
     var body: some View {
         if profiles.isEmpty {
-            ContentUnavailableView {
+            ContentUnavailable {
                 Label {
                     Text("No Profiles", comment: "Content unavailable title.")
                 } icon: {

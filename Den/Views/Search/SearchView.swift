@@ -21,7 +21,7 @@ struct SearchView: View {
     var body: some View {
         Group {
             if query == "" {
-                ContentUnavailableView {
+                ContentUnavailable {
                     Label {
                         Text("No Query", comment: "Search query empty title.")
                     } icon: {

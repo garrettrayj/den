@@ -262,6 +262,8 @@
 		68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D58E6824955321007ED1AC /* OPMLReader.swift */; };
 		68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 68D58E6A2498481A007ED1AC /* OPMLIcon.png */; };
 		68DA45162A39B2EF000A288B /* BrowserToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA45152A39B2EF000A288B /* BrowserToolbar.swift */; };
+		68DA792A2B03CB4F0088DA33 /* ContentUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA79292B03CB4F0088DA33 /* ContentUnavailable.swift */; };
+		68DA792C2B03DD3C0088DA33 /* ContentUnavailableLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA792B2B03DD3C0088DA33 /* ContentUnavailableLabelStyle.swift */; };
 		68E558342ACBE9220010E424 /* ThinLinearProgressViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E558332ACBE9220010E424 /* ThinLinearProgressViewStyle.swift */; };
 		68E558362ACC02EC0010E424 /* BrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E558352ACC02EC0010E424 /* BrowserView.swift */; };
 		68E6C5412A68E61C00CA46B2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5402A68E4D800CA46B2 /* Settings.bundle */; platformFilter = ios; };
@@ -622,6 +624,8 @@
 		68D58E6824955321007ED1AC /* OPMLReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLReader.swift; sourceTree = "<group>"; };
 		68D58E6A2498481A007ED1AC /* OPMLIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OPMLIcon.png; sourceTree = "<group>"; };
 		68DA45152A39B2EF000A288B /* BrowserToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserToolbar.swift; sourceTree = "<group>"; };
+		68DA79292B03CB4F0088DA33 /* ContentUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentUnavailable.swift; sourceTree = "<group>"; };
+		68DA792B2B03DD3C0088DA33 /* ContentUnavailableLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentUnavailableLabelStyle.swift; sourceTree = "<group>"; };
 		68E558332ACBE9220010E424 /* ThinLinearProgressViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinLinearProgressViewStyle.swift; sourceTree = "<group>"; };
 		68E558352ACC02EC0010E424 /* BrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserView.swift; sourceTree = "<group>"; };
 		68E6C5402A68E4D800CA46B2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -1025,6 +1029,7 @@
 			isa = PBXGroup;
 			children = (
 				6895C98D2A880D6600BD4C21 /* BasicHoverButtonStyle.swift */,
+				68DA792B2B03DD3C0088DA33 /* ContentUnavailableLabelStyle.swift */,
 				68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */,
 				688A2A722A96FF0E00847D8B /* NoticeLabelStyle.swift */,
 				6885FD0D24819446007A3D5B /* PreviewButtonStyle.swift */,
@@ -1245,6 +1250,7 @@
 				6880EBEA27AEF12000B479F4 /* ButtonChevron.swift */,
 				68E6C5612A6C86D300CA46B2 /* CardNote.swift */,
 				68EF17A62AED604700BCC08B /* CommonStatus.swift */,
+				68DA79292B03CB4F0088DA33 /* ContentUnavailable.swift */,
 				68FF63F52921DB900012A275 /* FilterReadButton.swift */,
 				68D486BD26C9896300AF5B59 /* IconSelector.swift */,
 				6856DB3B2AB7FB510094615E /* IconSelectorButton.swift */,
@@ -1678,6 +1684,7 @@
 				68701DF7273E51AC00C6BB69 /* CrashUtility.swift in Sources */,
 				68C4134B24727F2B00D1DC7B /* DeckColumn.swift in Sources */,
 				68ED798529C29B2700D85B4F /* DeckLayout.swift in Sources */,
+				68DA792A2B03CB4F0088DA33 /* ContentUnavailable.swift in Sources */,
 				685EB39A2AFB5997001683E3 /* DeleteBlocklistButton.swift in Sources */,
 				6856DB332AB77CDE0094615E /* DeleteBookmarkButton.swift in Sources */,
 				6856DB452AB8EE7F0094615E /* DeleteFeedButton.swift in Sources */,
@@ -1735,6 +1742,7 @@
 				687F22232A5A460300B76919 /* ImportExportUtility.swift in Sources */,
 				68F56B5A28739041006EC915 /* Inbox.swift in Sources */,
 				6868A3142895CA860051D43E /* InboxNavLink.swift in Sources */,
+				68DA792C2B03DD3C0088DA33 /* ContentUnavailableLabelStyle.swift in Sources */,
 				68FF63FD2921DD2B0012A275 /* InboxToolbar.swift in Sources */,
 				6856DB422AB8EA090094615E /* InspectorToggleButton.swift in Sources */,
 				680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */,

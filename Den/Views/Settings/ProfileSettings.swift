@@ -17,7 +17,7 @@ struct ProfileSettings: View {
         if profile.isDeleted || profile.managedObjectContext == nil {
             VStack {
                 Spacer()
-                ContentUnavailableView {
+                ContentUnavailable {
                     Label {
                         Text("Profile Deleted", comment: "Content unavailable title.")
                     } icon: {

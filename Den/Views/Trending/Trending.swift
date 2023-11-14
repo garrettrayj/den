@@ -23,7 +23,7 @@ struct Trending: View {
     var body: some View {
         Group {
             if profile.trends.isEmpty {
-                ContentUnavailableView {
+                ContentUnavailable {
                     Label {
                         Text("Nothing Trending", comment: "Content unavailable title.")
                     } icon: {

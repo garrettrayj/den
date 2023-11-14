@@ -13,7 +13,7 @@ struct FeedEmpty: View {
 
     var body: some View {
         if largeDisplay {
-            ContentUnavailableView {
+            ContentUnavailable {
                 Label {
                     Text("Feed Empty", comment: "Content unavailable title.")
                 } icon: {

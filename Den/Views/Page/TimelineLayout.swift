@@ -18,7 +18,7 @@ struct TimelineLayout: View {
 
     var body: some View {
         if items.isEmpty {
-            ContentUnavailableView {
+            ContentUnavailable {
                 Label {
                     Text("No Items", comment: "Content unavailable title.")
                 } icon: {

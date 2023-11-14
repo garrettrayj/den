@@ -49,7 +49,7 @@ struct ItemView: View {
                 HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
             }
         } else {
-            ContentUnavailableView {
+            ContentUnavailable {
                 Label {
                     Text("Item Deleted", comment: "Object removed message.")
                 } icon: {

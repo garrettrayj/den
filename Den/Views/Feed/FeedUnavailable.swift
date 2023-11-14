@@ -17,7 +17,7 @@ struct FeedUnavailable: View {
 
     var body: some View {
         if largeDisplay {
-            ContentUnavailableView {
+            ContentUnavailable {
                 Label {
                     title
                 } icon: {
@@ -25,6 +25,8 @@ struct FeedUnavailable: View {
                 }
             } description: {
                 caption
+            } actions: {
+                actions
             }
             .padding()
         } else {
@@ -54,20 +56,24 @@ struct FeedUnavailable: View {
                 if feedData?.wrappedError == .request {
                     Text("Could not fetch data.", comment: "Feed unavailable message.")
                 } else {
-                    Text(
-                        "Unable to parse content.",
-                        comment: "Feed unavailable message."
-                    )
-                    
-                    if let validatorURL = feedData?.feed?.validatorURL {
-                        Button {
-                            openURL(validatorURL)
-                        } label: {
-                            Label {
-                                Text("Open Validator", comment: "Button label.")
-                            } icon: {
-                                Image(systemName: "stethoscope")
-                            }
+                    Text("Unable to parse content.", comment: "Feed unavailable message.")
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    var actions: some View {
+        if feedData?.wrappedError != nil {
+            if feedData?.wrappedError == .parsing {
+                if let validatorURL = feedData?.feed?.validatorURL {
+                    Button {
+                        openURL(validatorURL)
+                    } label: {
+                        Label {
+                            Text("Open Validator", comment: "Button label.")
+                        } icon: {
+                            Image(systemName: "stethoscope")
                         }
                     }
                 }

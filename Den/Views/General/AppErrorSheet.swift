@@ -12,7 +12,7 @@ struct AppErrorSheet: View {
     @Binding var message: String?
 
     var body: some View {
-        ContentUnavailableView {
+        ContentUnavailable {
             Label {
                 Text("Application Error", comment: "Crash view title.")
             } icon: {

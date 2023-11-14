@@ -113,7 +113,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                 #endif
             
             if let error = browserViewModel.browserError {
-                ContentUnavailableView {
+                ContentUnavailable {
                     Label {
                         Text("Error")
                     } icon: {

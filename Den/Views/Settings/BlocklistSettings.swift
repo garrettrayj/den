@@ -19,7 +19,7 @@ struct BlocklistSettings: View {
         if blocklist.isDeleted || blocklist.managedObjectContext == nil {
             VStack {
                 Spacer()
-                ContentUnavailableView {
+                ContentUnavailable {
                     Label {
                         Text("Blocklist Deleted")
                     } icon: {

@@ -26,7 +26,7 @@ struct PageView: View {
 
     var body: some View {
         if page.managedObjectContext == nil || page.isDeleted {
-            ContentUnavailableView {
+            ContentUnavailable {
                 Label {
                     Text("Page Deleted", comment: "Object removed message.")
                 } icon: {

@@ -24,7 +24,7 @@ struct SearchLayout: View {
     var body: some View {
         Group {
             if items.isEmpty {
-                ContentUnavailableView {
+                ContentUnavailable {
                     Label {
                         Text(
                             "No Results for “\(query)”",
@@ -40,7 +40,7 @@ struct SearchLayout: View {
                     )
                 }
             } else if hideRead && visibilityFilteredItems.isEmpty {
-                ContentUnavailableView {
+                ContentUnavailable {
                     Label {
                         Text(
                             "No Unread Results for “\(query)”",

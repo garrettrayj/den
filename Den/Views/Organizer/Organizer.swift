@@ -25,7 +25,7 @@ struct Organizer: View {
     var body: some View {
         Group {
             if profile.feedsArray.isEmpty {
-                ContentUnavailableView {
+                ContentUnavailable {
                     Label {
                         Text("No Feeds", comment: "Content unavailable title.")
                     } icon: {

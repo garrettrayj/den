@@ -54,7 +54,7 @@ struct Landing: View {
         VStack(spacing: 24) {
             Spacer()
             if profiles.isEmpty {
-                ContentUnavailableView {
+                ContentUnavailable {
                     Label {
                         Text("No Profiles", comment: "Landing title.")
                     } icon: {
