@@ -17,8 +17,9 @@ schemeName="Den"
 # All the simulators we want to screenshot
 # Copy/Paste new names from Xcode's "Devices and Simulators" window or from `xcrun simctl list`.
 simulators=(
-    "iPhone 12 Pro Max"
-    "iPhone 14 Pro Max"
+    "iPhone 15"
+    "iPhone 15 Pro Max"
+    "iPad (10th Generation)"
     "iPad Pro (12.9-inch) (5th generation)"
     "iPad Pro (12.9-inch) (2nd generation)"
 )
@@ -119,7 +120,7 @@ function capture_ios {
 
 start_time=$SECONDS
 
-if [ $1 = "mac" ]; then
+if [ "$1" = "mac" ]; then
     capture_mac
 else
     capture_ios

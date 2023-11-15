@@ -44,12 +44,14 @@ struct ContentUnavailable<LabelContent: View, DescriptionContent: View, ActionsC
         HStack {
             Spacer(minLength: 0)
             VStack(spacing: 12) {
+                Spacer(minLength: 0)
                 label().labelStyle(ContentUnavailableLabelStyle())
                 VStack(spacing: 16) {
                     description?().foregroundStyle(descriptionForegroundStyle)
                     actions?()
                 }
                 .multilineTextAlignment(.center)
+                Spacer(minLength: 0)
             }
             .padding()
             Spacer(minLength: 0)

@@ -16,7 +16,7 @@ struct Welcome: View {
             Label {
                 profile.nameText
             } icon: {
-                Image(systemName: "rhombus.fill").foregroundStyle(.tint)
+                Image(systemName: "rhombus.fill")
             }
         } description: {
             if profile.feedCount == 1 {

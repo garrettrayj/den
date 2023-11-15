@@ -36,7 +36,7 @@ final class FeedUITests: UITestCase {
 
         app.buttons["FeedNavLink"].firstMatch.tap()
 
-        if !app.staticTexts["Futurity"].waitForExistence(timeout: 2) {
+        if !app.staticTexts["Universe Today"].waitForExistence(timeout: 2) {
             XCTFail("Feed title did not appear in time")
         }
 
@@ -56,7 +56,7 @@ final class FeedUITests: UITestCase {
 
         app.buttons["FeedNavLink"].firstMatch.tap()
 
-        if !app.staticTexts["Futurity"].waitForExistence(timeout: 2) {
+        if !app.staticTexts["Universe Today"].waitForExistence(timeout: 2) {
             XCTFail("Feed title did not appear in time")
         }
 
@@ -67,7 +67,7 @@ final class FeedUITests: UITestCase {
         #else
         app.buttons["ToggleInspector"].tap()
         app.switches["LargePreviews"].switches.firstMatch.tap()
-        app.buttons["ToggleInspector"].forceTap()
+        app.buttons["ToggleInspector"].tap()
         #endif
 
         sleep(2)
@@ -77,7 +77,7 @@ final class FeedUITests: UITestCase {
         app.buttons["ToggleInspector"].firstMatch.tap()
         app.switches["LargePreviews"].tap()
         #else
-        app.buttons["ToggleInspector"].forceTap()
+        app.buttons["ToggleInspector"].tap()
         app.switches["LargePreviews"].switches.firstMatch.tap()
         #endif
     }

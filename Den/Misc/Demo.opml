@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <opml version="1.0" xmlns:den="https://den.io/xml/opml">
 	<head>
-		<title>Demo Nov 10, 2023 at 12:57 AM</title>
+		<title>Den Nov 15, 2023 at 3:42 PM</title>
 	</head>
 	<body>
 		<outline den:icon="globe" text="World News" title="World News">
@@ -78,9 +78,9 @@
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="HousingWire" title="HousingWire" type="rss" xmlUrl="https://www.housingwire.com/feed/" />
 		</outline>
 		<outline den:icon="atom" text="Science" title="Science">
+			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Universe Today" title="Universe Today" type="rss" xmlUrl="https://www.universetoday.com/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Futurity" title="Futurity" type="rss" xmlUrl="https://www.futurity.org/category/science-technology/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Scientific American" title="Scientific American" type="rss" xmlUrl="http://rss.sciam.com/ScientificAmerican-Global" />
-			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Universe Today" title="Universe Today" type="rss" xmlUrl="https://www.universetoday.com/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Astronomy Now" title="Astronomy Now" type="rss" xmlUrl="https://astronomynow.com/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="EarthSky" title="EarthSky" type="rss" xmlUrl="https://earthsky.org/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="NASA Earth Observatory" title="NASA Earth Observatory" type="rss" xmlUrl="https://earthobservatory.nasa.gov/feeds/earth-observatory.rss" />

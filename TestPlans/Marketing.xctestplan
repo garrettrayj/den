@@ -25,18 +25,17 @@
         "AppSidebarUITests",
         "DiagnosticsUITests",
         "FeedUITests\/testFeedViewNoData()",
-        "InboxUITests",
+        "OrganizerUITests\/testOrganizerEmpty()",
         "PageUITests\/testPageEmpty()",
-        "PageUITests\/testPageGroupedLayout()",
         "PageUITests\/testPageShowcaseLayout()",
         "SearchUITests\/testSearchNoResults()",
-        "TrendingUITests",
+        "TrendingUITests\/testTrendingEmpty()",
         "UITestCase"
       ],
       "target" : {
         "containerPath" : "container:Den.xcodeproj",
         "identifier" : "68E83BF82A6004590014DC64",
-        "name" : "UITests"
+        "name" : "UI Tests"
       }
     }
   ],

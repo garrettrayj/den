@@ -102,7 +102,9 @@ final class BlocklistManager {
         blocklistStatus.overLimit = result.overLimit
         blocklistStatus.refreshed = .now
 
-        blocklist.objectWillChange.send()
+        DispatchQueue.main.async {
+            blocklist.objectWillChange.send()
+        }
     }
     
     static func refreshAllContentRulesLists(

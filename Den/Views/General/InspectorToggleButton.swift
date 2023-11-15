@@ -20,12 +20,7 @@ struct InspectorToggleButton: View {
             showingInspector.toggle()
         } label: {
             Label {
-                if showingInspector {
-                    Text("Hide Inspector", comment: "Button label.")
-                } else {
-                    Text("Show Inspector", comment: "Button label.")
-                }
-
+                Text("Toggle Inspector", comment: "Button label.")
             } icon: {
                 #if os(macOS)
                 Image(systemName: "sidebar.trailing")

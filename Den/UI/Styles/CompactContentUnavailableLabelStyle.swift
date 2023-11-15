@@ -45,7 +45,7 @@ struct CompactContentUnavailableLabelStyle: LabelStyle {
             return .secondary
         }
         #else
-        return .primary
+        return .secondary
         #endif
     }
 }

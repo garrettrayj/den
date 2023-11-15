@@ -20,6 +20,8 @@ final class BlocklistUITests: UITestCase {
         
         app.buttons["Blocklists"].tap()
         app.buttons["NewBlocklist"].tap()
+        
+        app.buttons["BlocklistPresets"].staticTexts.firstMatch.tap()
 
         attachScreenshot(of: app.windows.firstMatch, named: "blocklist-new")
     }
@@ -42,6 +44,8 @@ final class BlocklistUITests: UITestCase {
         app.buttons["BlocklistPresets"].staticTexts.firstMatch.tap()
         
         app.buttons["EasyPrivacy"].tap()
+        
+        app.buttons["BlocklistPresets"].staticTexts.firstMatch.tap()
 
         attachScreenshot(of: app.windows.firstMatch, named: "blocklist-new")
     }

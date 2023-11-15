@@ -45,7 +45,7 @@ struct ContentUnavailableLabelStyle: LabelStyle {
             return .secondary
         }
         #else
-        return .primary
+        return .secondary
         #endif
     }
 }
