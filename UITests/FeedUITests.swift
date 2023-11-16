@@ -36,7 +36,7 @@ final class FeedUITests: UITestCase {
 
         app.buttons["FeedNavLink"].firstMatch.tap()
 
-        if !app.staticTexts["Universe Today"].waitForExistence(timeout: 2) {
+        if !app.staticTexts["Futurity"].waitForExistence(timeout: 2) {
             XCTFail("Feed title did not appear in time")
         }
 
@@ -56,7 +56,7 @@ final class FeedUITests: UITestCase {
 
         app.buttons["FeedNavLink"].firstMatch.tap()
 
-        if !app.staticTexts["Universe Today"].waitForExistence(timeout: 2) {
+        if !app.staticTexts["Futurity"].waitForExistence(timeout: 2) {
             XCTFail("Feed title did not appear in time")
         }
 
