@@ -14,16 +14,32 @@ final class BlocklistUITests: UITestCase {
         let app = launchApp(inMemory: true)
 
         app.menuBarItems["Den"].menuItems["Settings…"].tap()
-        if !app.staticTexts["General"].waitForExistence(timeout: 2) {
-            XCTFail("General settings tab did not appear in time")
-        }
-        
         app.buttons["Blocklists"].tap()
         app.buttons["NewBlocklist"].tap()
-        
-        app.buttons["BlocklistPresets"].staticTexts.firstMatch.tap()
+        app.popUpButtons["BlocklistPresets"].tap()
+        app.menuItems["EasyList"].tap()
+        app.popUpButtons["BlocklistPresets"].tap()
 
         attachScreenshot(of: app.windows.firstMatch, named: "blocklist-new")
+    }
+    
+    func testBlockSettings() throws {
+        let app = launchApp(inMemory: false)
+
+        app.menuBarItems["Den"].menuItems["Settings…"].tap()
+        app.buttons["Blocklists"].tap()
+        
+        app.buttons["NewBlocklist"].tap()
+        
+        app.popUpButtons["BlocklistPresets"].tap()
+        app.menuItems["EasyList"].tap()
+        app.buttons["AddBlocklist"].tap()
+        
+        sleep(15)
+        
+        app.outlines.staticTexts["EasyList"].tap()
+
+        attachScreenshot(of: app.windows.firstMatch, named: "blocklist-settings")
     }
     #else
     func testNewBlocklist() throws {
@@ -33,6 +49,9 @@ final class BlocklistUITests: UITestCase {
             XCTFail("Sidebar menu button did not appear in time")
         }
         app.buttons["SidebarMenu"].forceTap()
+        if !app.buttons["Settings"].waitForExistence(timeout: 2) {
+            XCTFail("Settings button did not appear in time")
+        }
         app.buttons["Settings"].tap()
 
         if !app.staticTexts["Settings"].waitForExistence(timeout: 2) {
@@ -57,6 +76,9 @@ final class BlocklistUITests: UITestCase {
             XCTFail("Sidebar menu button did not appear in time")
         }
         app.buttons["SidebarMenu"].forceTap()
+        if !app.buttons["Settings"].waitForExistence(timeout: 2) {
+            XCTFail("Settings button did not appear in time")
+        }
         app.buttons["Settings"].tap()
 
         if !app.staticTexts["Settings"].waitForExistence(timeout: 2) {
@@ -67,11 +89,11 @@ final class BlocklistUITests: UITestCase {
         
         app.buttons["BlocklistPresets"].staticTexts.firstMatch.tap()
         
-        app.buttons["EasyPrivacy"].tap()
+        app.buttons["EasyList"].tap()
         
         app.buttons["AddBlocklist"].tap()
         
-        sleep(10)
+        sleep(15)
         
         if !app.buttons["BlocklistNavLink"].waitForExistence(timeout: 10) {
             XCTFail("Nav link did not appear in time")

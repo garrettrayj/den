@@ -19,8 +19,8 @@ struct Start: View {
 
     var body: some View {
         Section {
-            NewPageButton(showingNewPageSheet: $showingNewPageSheet).buttonStyle(.borderless)
-            ImportButton(showingImporter: $showingImporter).buttonStyle(.borderless)
+            NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+            ImportButton(showingImporter: $showingImporter)
             Button {
                 loadDemo()
             } label: {
@@ -31,7 +31,6 @@ struct Start: View {
                     Image(systemName: "wand.and.stars")
                 }
             }
-            .buttonStyle(.borderless)
             .accessibilityIdentifier("LoadDemo")
         } header: {
             Text("Get Started", comment: "Sidebar section header.")

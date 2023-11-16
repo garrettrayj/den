@@ -16,7 +16,7 @@ final class SettingsUITests: UITestCase {
         app.menuBarItems["Den"].menuItems["Settings…"].tap()
         app.buttons["General"].tap()
 
-        attachScreenshot(of: app.windows.firstMatch, named: "AppSettingsGeneralTab")
+        attachScreenshot(of: app.windows.firstMatch, named: "settings")
     }
     #else
     func testSettings() throws {
@@ -26,6 +26,9 @@ final class SettingsUITests: UITestCase {
             XCTFail("Sidebar menu button did not appear in time")
         }
         app.buttons["SidebarMenu"].forceTap()
+        if !app.buttons["Settings"].waitForExistence(timeout: 2) {
+            XCTFail("Settings button did not appear in time")
+        }
         app.buttons["Settings"].tap()
 
         if !app.staticTexts["Settings"].waitForExistence(timeout: 2) {

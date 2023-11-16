@@ -74,9 +74,7 @@ struct FeedLayout: View {
                 let linkDisplayString = feed.feedData?.link?.absoluteString,
                 let url = feed.feedData?.link
             {
-                Button {
-                    openURL(url)
-                } label: {
+                Link(destination: url) {
                     Text(linkDisplayString).lineLimit(1)
                 }
             }
@@ -99,6 +97,7 @@ struct FeedLayout: View {
                         }
                     }
                     .accessibilityIdentifier("CopyFeedAddress")
+                    .buttonStyle(.borderless)
                 }
             }
 
@@ -106,7 +105,6 @@ struct FeedLayout: View {
                 Text(copyright)
             }
         }
-        .buttonStyle(.borderless)
         .textSelection(.enabled)
         .font(.footnote)
         .imageScale(.small)

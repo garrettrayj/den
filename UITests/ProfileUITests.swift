@@ -38,6 +38,9 @@ final class ProfileUITests: UITestCase {
             XCTFail("Sidebar menu button did not appear in time")
         }
         app.buttons["SidebarMenu"].forceTap()
+        if !app.buttons["Settings"].waitForExistence(timeout: 2) {
+            XCTFail("Settings button did not appear in time")
+        }
         app.buttons["Settings"].tap()
 
         app.buttons["ProfileSettings"].firstMatch.tap()

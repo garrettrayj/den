@@ -17,9 +17,9 @@ schemeName="Den"
 # All the simulators we want to screenshot
 # Copy/Paste new names from Xcode's "Devices and Simulators" window or from `xcrun simctl list`.
 simulators=(
-    "iPhone 15"
-    "iPhone 15 Pro Max"
-    "iPad (10th Generation)"
+    #"iPhone 15"
+    #"iPhone 15 Pro Max"
+    "iPad (10th generation)"
     "iPad Pro (12.9-inch) (5th generation)"
     "iPad Pro (12.9-inch) (2nd generation)"
 )
@@ -54,6 +54,13 @@ function capture_mac {
     for file ($destination/*.png(ND.)) {
         new_name=${file/_1_*\.png/\.png}
         mv -f "$file" "$new_name"
+    }
+    
+    # Expand filenames to directory paths
+    for file ($destination/*.png(ND.)) {
+        new_name="${file//+//}"
+        mkdir -p "$(dirname "$new_name")"
+        mv "${file}" "${new_name}"
     }
     
     echo "✅  Mac Screenshots Done"

@@ -56,7 +56,7 @@ class UITestCase: XCTestCase {
         let locale = Locale.current.identifier
 
         #if os(macOS)
-        let name = "\(locale)-\(appearance)-\(name)"
+        let name = "\(locale)+\(appearance)+\(name)"
         #else
         let orientation = XCUIDevice.shared.orientation.name
         let name = "\(locale)+\(appearance)+\(orientation)+\(name)"

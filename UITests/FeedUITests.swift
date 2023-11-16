@@ -63,10 +63,16 @@ final class FeedUITests: UITestCase {
         #if os(macOS)
         app.buttons["ToggleInspector"].firstMatch.tap()
         app.switches["LargePreviews"].tap()
-        app.buttons["ToggleInspector"].tap()
+        app.buttons["ToggleInspector"].firstMatch.tap()
         #else
         app.buttons["ToggleInspector"].tap()
         app.switches["LargePreviews"].switches.firstMatch.tap()
+        expectation(
+            for: hittablePredicate,
+            evaluatedWith: app.buttons["ToggleInspector"],
+            handler: nil
+        )
+        waitForExpectations(timeout: 15, handler: nil)
         app.buttons["ToggleInspector"].tap()
         #endif
 

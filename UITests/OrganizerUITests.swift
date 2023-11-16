@@ -128,6 +128,9 @@ final class OrganizerUITests: UITestCase {
             XCTFail("Sidebar menu button did not appear in time")
         }
         app.buttons["SidebarMenu"].forceTap()
+        if !app.buttons["Organizer"].waitForExistence(timeout: 2) {
+            XCTFail("Organizer button did not appear in time")
+        }
         app.buttons["Organizer"].tap()
         #endif
 
