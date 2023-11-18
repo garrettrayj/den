@@ -17,10 +17,10 @@ schemeName="Den"
 # All the simulators we want to screenshot
 # Copy/Paste new names from Xcode's "Devices and Simulators" window or from `xcrun simctl list`.
 simulators=(
-    #"iPhone 15"
-    #"iPhone 15 Pro Max"
-    "iPad (10th generation)"
-    "iPad Pro (12.9-inch) (5th generation)"
+    "iPhone 15"
+    "iPhone 15 Plus"
+    "iPad Pro (11-inch) (4th generation)"
+    "iPad Pro (12.9-inch) (6th generation)"
     "iPad Pro (12.9-inch) (2nd generation)"
 )
 

@@ -19,7 +19,7 @@ final class OrganizerUITests: UITestCase {
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
         }
-        app.buttons["SidebarMenu"].forceTap()
+        app.buttons["SidebarMenu"].tap()
         app.buttons["Organizer"].tap()
         #endif
 
@@ -62,7 +62,7 @@ final class OrganizerUITests: UITestCase {
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
         }
-        app.buttons["SidebarMenu"].forceTap()
+        app.buttons["SidebarMenu"].tap()
         app.buttons["Organizer"].tap()
         #endif
 
@@ -99,7 +99,7 @@ final class OrganizerUITests: UITestCase {
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
         }
-        app.buttons["SidebarMenu"].forceTap()
+        app.buttons["SidebarMenu"].tap()
         app.buttons["Organizer"].tap()
         #endif
 
@@ -127,7 +127,7 @@ final class OrganizerUITests: UITestCase {
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
         }
-        app.buttons["SidebarMenu"].forceTap()
+        app.buttons["SidebarMenu"].tap()
         if !app.buttons["Organizer"].waitForExistence(timeout: 2) {
             XCTFail("Organizer button did not appear in time")
         }

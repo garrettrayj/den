@@ -48,7 +48,7 @@ final class BlocklistUITests: UITestCase {
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
         }
-        app.buttons["SidebarMenu"].forceTap()
+        app.buttons["SidebarMenu"].tap()
         if !app.buttons["Settings"].waitForExistence(timeout: 2) {
             XCTFail("Settings button did not appear in time")
         }
@@ -75,7 +75,7 @@ final class BlocklistUITests: UITestCase {
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
         }
-        app.buttons["SidebarMenu"].forceTap()
+        app.buttons["SidebarMenu"].tap()
         if !app.buttons["Settings"].waitForExistence(timeout: 2) {
             XCTFail("Settings button did not appear in time")
         }

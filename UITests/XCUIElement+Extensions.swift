@@ -23,4 +23,15 @@ extension XCUIElement {
         }
         #endif
     }
+    
+    func waitUntilAvailable(_ test: UITestCase) -> XCUIElement {
+        test.expectation(
+            for: NSPredicate(format: "exists == 1 AND hittable == 1"),
+            evaluatedWith: self,
+            handler: nil
+        )
+        test.waitForExpectations(timeout: 10, handler: nil)
+        
+        return self
+    }
 }

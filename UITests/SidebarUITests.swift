@@ -28,7 +28,7 @@ final class SidebarUITests: UITestCase {
         #if os(macOS)
         app.popUpButtons["SidebarMenu"].tap()
         #else
-        app.buttons["SidebarMenu"].forceTap()
+        app.buttons["SidebarMenu"].tap()
         #endif
 
         attachScreenshot(of: app.windows.firstMatch, named: "app-menu")
@@ -40,7 +40,7 @@ final class SidebarUITests: UITestCase {
         #if os(macOS)
         app.popUpButtons["ProfileMenu"].tap()
         #else
-        app.buttons["ProfileMenu"].forceTap()
+        app.buttons["ProfileMenu"].tap()
         #endif
 
         attachScreenshot(of: app.windows.firstMatch, named: "profile-menu")
