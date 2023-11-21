@@ -9,9 +9,8 @@
 import SwiftUI
 
 struct IconSelectorButton: View {
+    @Binding var showingIconSelector: Bool
     @Binding var symbol: String
-
-    @State private var showingIconSelector = false
 
     var body: some View {
         Button {
@@ -24,8 +23,5 @@ struct IconSelectorButton: View {
             }
         }
         .buttonStyle(.borderless)
-        .sheet(isPresented: $showingIconSelector) {
-            IconSelector(symbol: $symbol)
-        }
     }
 }

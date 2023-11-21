@@ -42,10 +42,9 @@ struct FeedTitleLabel: View {
         } icon: {
             WebImage(
                 url: feed.feedData?.favicon,
-                options: [.decodeFirstFrameOnly, .delayPlaceholder, .lowPriority],
+                options: [.decodeFirstFrameOnly, .delayPlaceholder],
                 context: [.imageThumbnailPixelSize: faviconPixelSize]
             )
-            .purgeable(true)
             .resizable()
             .placeholder {
                 Image(systemName: "dot.radiowaves.up.forward").foregroundStyle(.primary)

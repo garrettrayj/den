@@ -13,7 +13,7 @@ struct PageInspector: View {
 
     @ObservedObject var page: Page
 
-    @State private var showingIconPicker: Bool = false
+    @State private var showingIconSelector: Bool = false
 
     var body: some View {
         Form {
@@ -47,13 +47,25 @@ struct PageInspector: View {
             }
 
             Section {
-                IconSelectorButton(symbol: $page.wrappedSymbol).onChange(of: page.symbol) {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
+                IconSelectorButton(
+                    showingIconSelector: $showingIconSelector,
+                    symbol: $page.wrappedSymbol
+                )
+                .sheet(
+                    isPresented: $showingIconSelector,
+                    onDismiss: {
+                        if viewContext.hasChanges {
+                            do {
+                                try viewContext.save()
+                            } catch {
+                                CrashUtility.handleCriticalError(error as NSError)
+                            }
+                        }
+                    },
+                    content: {
+                        IconSelector(symbol: $page.wrappedSymbol)
                     }
-                }
+                )
             } header: {
                 Text("Icon", comment: "Inspector section header.")
             }

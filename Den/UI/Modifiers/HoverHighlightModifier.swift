@@ -9,27 +9,28 @@
 import SwiftUI
 
 struct HoverHighlightModifier: ViewModifier {
-    @Environment(\.colorScheme) private var colorScheme
     #if os(macOS)
     @Environment(\.controlActiveState) private var controlActiveState
     #endif
     @Environment(\.isEnabled) private var isEnabled
 
     @State private var isHovered: Bool = false
+    
+    var showingHighlight: Bool {
+        #if os(macOS)
+        isEnabled && isHovered && controlActiveState != .inactive
+        #else
+        isEnabled && isHovered
+        #endif
+    }
 
     func body(content: Content) -> some View {
         content
-            .onHover { isHovered = $0 }
-            .background {
-                #if os(macOS)
-                if isEnabled && isHovered && controlActiveState != .inactive {
-                    Rectangle().fill(.fill.quaternary)
+            .onHover { hovering in
+                withAnimation(.linear(duration: 0.05)) {
+                    isHovered = hovering
                 }
-                #else
-                if isEnabled && isHovered {
-                    Rectangle().fill(.fill.quaternary)
-                }
-                #endif
             }
+            .background(.selection.quinary.opacity(showingHighlight ? 1 : 0))
     }
 }

@@ -16,7 +16,7 @@ struct NewPageSheet: View {
 
     @State private var name: String = ""
     @State private var symbol: String = "folder"
-    @State private var showingIconPicker: Bool = false
+    @State private var showingIconSelector: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -34,7 +34,10 @@ struct NewPageSheet: View {
                 }
 
                 Section {
-                    IconSelectorButton(symbol: $symbol)
+                    IconSelectorButton(showingIconSelector: $showingIconSelector, symbol: $symbol)
+                        .sheet(isPresented: $showingIconSelector) {
+                            IconSelector(symbol: $symbol)
+                        }
                 } header: {
                     Text("Icon", comment: "New page section header.")
                 }
