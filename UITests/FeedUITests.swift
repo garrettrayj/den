@@ -11,6 +11,7 @@ import XCTest
 final class FeedUITests: UITestCase {
     func testFeedViewCompressed() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
@@ -45,6 +46,7 @@ final class FeedUITests: UITestCase {
     
     func testFeedViewExpanded() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
@@ -84,6 +86,7 @@ final class FeedUITests: UITestCase {
 
     func testFeedInspector() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()

@@ -24,6 +24,7 @@ final class SidebarUITests: UITestCase {
 
     func testAppMenu() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.popUpButtons["SidebarMenu"].tap()
@@ -36,6 +37,7 @@ final class SidebarUITests: UITestCase {
     
     func testProfileMenu() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.popUpButtons["ProfileMenu"].tap()

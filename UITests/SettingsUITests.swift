@@ -12,15 +12,17 @@ final class SettingsUITests: UITestCase {
     #if os(macOS)
     func testAppSettings() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         app.menuBarItems["Den"].menuItems["Settings…"].tap()
         app.buttons["General"].tap()
 
-        attachScreenshot(of: app.windows.firstMatch, named: "settings")
+        attachScreenshot(of: app.windows.element(boundBy: 1), named: "settings")
     }
     #else
     func testSettings() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")

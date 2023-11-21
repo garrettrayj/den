@@ -79,6 +79,7 @@ final class PageUITests: UITestCase {
 
     func testPageGroupedLayout() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
@@ -103,6 +104,7 @@ final class PageUITests: UITestCase {
 
     func testPageTimelineLayout() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
@@ -127,6 +129,7 @@ final class PageUITests: UITestCase {
 
     func testPageDeckLayout() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
@@ -151,6 +154,7 @@ final class PageUITests: UITestCase {
 
     func testPageInspector() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()

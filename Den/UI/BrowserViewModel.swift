@@ -171,15 +171,15 @@ class BrowserViewModel: NSObject, ObservableObject {
         }
 
         var html = """
-            <html>
-            <head>
-            <title>Den Reader</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no" />
-            <style>\(readerStyles)</style>
-            </head>
-            <body style="-webkit-text-size-adjust: \(initialZoom.rawValue)%;">
-            <header>
-            <h1 id="den-title">\(title)</h1>
+        <html>
+        <head>
+        <title>Den Reader</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no" />
+        <style>\(readerStyles)</style>
+        </head>
+        <body style="-webkit-text-size-adjust: \(initialZoom.rawValue)%;">
+        <header>
+        <h1 id="den-title">\(title)</h1>
         """
 
         if
@@ -212,11 +212,27 @@ class BrowserViewModel: NSObject, ObservableObject {
         }
 
         html += """
-            </header>
-            <main>
-            \(content)
-            </body>
-            </html>
+        </header>
+        <main>
+        \(content)
+        </main>
+        """
+        
+        if content.contains("twitter-tweet") {
+            html += """
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            """
+        }
+        
+        if content.contains("instagram-media") {
+            html += """
+            <script async src="//www.instagram.com/embed.js"></script>
+            """
+        }
+        
+        html += """
+        </body>
+        </html>
         """
         
         return html

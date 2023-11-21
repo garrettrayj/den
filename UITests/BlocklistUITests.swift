@@ -20,10 +20,10 @@ final class BlocklistUITests: UITestCase {
         app.menuItems["EasyList"].tap()
         app.popUpButtons["BlocklistPresets"].tap()
 
-        attachScreenshot(of: app.windows.firstMatch, named: "blocklist-new")
+        attachScreenshot(of: app.windows.element(boundBy: 1), named: "blocklist-new")
     }
     
-    func testBlockSettings() throws {
+    func testBlocklistSettings() throws {
         let app = launchApp(inMemory: false)
 
         app.menuBarItems["Den"].menuItems["Settings…"].tap()
@@ -39,11 +39,12 @@ final class BlocklistUITests: UITestCase {
         
         app.outlines.staticTexts["EasyList"].tap()
 
-        attachScreenshot(of: app.windows.firstMatch, named: "blocklist-settings")
+        attachScreenshot(of: app.windows.element(boundBy: 1), named: "blocklist-settings")
     }
     #else
     func testNewBlocklist() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
@@ -71,12 +72,14 @@ final class BlocklistUITests: UITestCase {
 
     func testBlocklistSettings() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
         }
         app.buttons["SidebarMenu"].tap()
-        if !app.buttons["Settings"].waitForExistence(timeout: 2) {
+        
+        if !app.buttons["Settings"].waitForExistence(timeout: 4) {
             XCTFail("Settings button did not appear in time")
         }
         app.buttons["Settings"].tap()

@@ -11,6 +11,7 @@ import XCTest
 final class TrendingUITests: UITestCase {
     func testTrending() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         app.buttons["TrendingNavLink"].tap()
 

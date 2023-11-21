@@ -13,24 +13,25 @@ final class AppLaunchUITests: UITestCase {
         let app = launchApp(inMemory: true)
 
         if !app.buttons["NewProfile"].waitForExistence(timeout: 20) {
-            XCTFail("Create Profile button did not appear in time")
+            XCTFail("New profile button did not appear in time")
         }
 
         attachScreenshot(of: app.windows.firstMatch, named: "app-launch-no-profiles")
     }
 
-    func testAppLaunchOneProfile() throws {
+    func testAppLaunchMultipleProfiles() throws {
         let app = launchApp(inMemory: false)
 
-        if !app.buttons["InboxNavLink"].waitForExistence(timeout: 10) {
-            XCTFail("Inbox button did not appear in time")
+        if !app.buttons["SelectProfile"].waitForExistence(timeout: 10) {
+            XCTFail("Select profile button did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "app-launch-one-profile")
+        attachScreenshot(of: app.windows.firstMatch, named: "app-launch-multiple-profiles")
     }
 
     func testPosterScreenshot() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         if !app.buttons["InboxNavLink"].waitForExistence(timeout: 10) {
             XCTFail("Inbox button did not appear in time")

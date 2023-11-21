@@ -34,35 +34,9 @@ struct HTMLContent {
 
     func sanitizedHTML() -> String? {
         guard
-            let dirty: Document = try? SwiftSoup.parseBodyFragment(source),
-            let doc: Document = try? Cleaner(
-                headWhitelist: .relaxed(),
-                bodyWhitelist: customWhitelist()
-            ).clean(dirty)
+            let doc: Document = try? SwiftSoup.parseBodyFragment(source)
         else {
             return nil
-        }
-
-        // Remove blank text nodes
-        if let blankTextElements = try? doc.getElementsMatchingOwnText(#"^\s+$"#) {
-            for element in blankTextElements {
-                try? element.textNodes().forEach { try $0.remove() }
-            }
-        }
-
-        // Apply <iframe> scaling fix
-        if let inlineFrames = try? doc.getElementsByTag("iframe") {
-            for element in inlineFrames {
-                guard
-                    let rawWidth: String = try? element.attr("width"),
-                    let rawHeight: String = try? element.attr("height"),
-                    let width = Int(rawWidth),
-                    let height = Int(rawHeight)
-                else {
-                   continue
-                }
-                _ = try? element.attr("style", "aspect-ratio: \(width) / \(height);")
-            }
         }
         
         // Add class to small images

@@ -28,11 +28,12 @@ final class ProfileUITests: UITestCase {
         app.buttons["Profiles"].tap()
         app.outlines.staticTexts["Den"].tap()
 
-        attachScreenshot(of: app.windows.firstMatch, named: "profile-settings")
+        attachScreenshot(of: app.windows.element(boundBy: 1), named: "profile-settings")
     }
     #else
     func testProfileSettings() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")

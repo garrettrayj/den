@@ -11,6 +11,7 @@ import XCTest
 final class OrganizerUITests: UITestCase {
     func testOrganizer() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.popUpButtons["SidebarMenu"].tap()
@@ -91,6 +92,7 @@ final class OrganizerUITests: UITestCase {
     
     func testOrganizerInfo() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.popUpButtons["SidebarMenu"].tap()
@@ -119,6 +121,7 @@ final class OrganizerUITests: UITestCase {
     
     func testOrganizerConfig() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.popUpButtons["SidebarMenu"].tap()

@@ -61,6 +61,12 @@ body > header {
     white-space: nowrap;
 }
 
+/* Layout */
+
+div {
+    margin: 0 auto;
+}
+
 /* Embeds */
 
 img {
@@ -81,12 +87,22 @@ img[src^=data] {
     display: none;
 }
 
+a:has(> img) {
+    display: block;
+    margin: 0 auto;
+}
+
 iframe {
     border: 0;
     border-radius: 8px;
     display: block;
-    height: auto;
     margin: 20px auto;
+}
+
+iframe[src^="https://www.youtube.com"] {
+    aspect-ratio: 16/9;
+    height: auto;
+    width: 100%;
 }
 
 object,
@@ -122,6 +138,30 @@ img:not([src]) {
 
 canvas, svg {
     display: none;
+}
+
+.instagram-media {
+    background:#FFF;
+    border:0;
+    border-radius:3px;
+    box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15);
+    margin: 1px; 
+    max-width:658px;
+    min-width:326px; 
+    padding:0;
+    width:99.375%; 
+    width:-webkit-calc(100% - 2px);
+    width:calc(100% - 2px);
+}
+
+.instagram-media-rendered {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.twitter-tweet-rendered {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Typography */
@@ -281,7 +321,7 @@ figure:empty {
 table {
     border-collapse: collapse;
     font: -apple-system-body;
-    font-size: 16px;
+    font-size: 14px;
     margin: 20px auto;
 }
 
@@ -290,7 +330,7 @@ table, th, td {
 }
 
 td, th {
-    padding: 4px 6px;
+    padding: 4px;
 }
 
 th {

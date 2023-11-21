@@ -11,6 +11,7 @@ import XCTest
 final class InboxUITests: UITestCase {
     func testInbox() throws {
         let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         app.buttons["InboxNavLink"].tap()
 
