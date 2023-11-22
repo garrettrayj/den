@@ -31,7 +31,7 @@ struct DetailView: View {
                         hideRead: $hideRead
                     )
                 case .search(let query):
-                    SearchView(profile: profile, hideRead: $hideRead, query: query)
+                    SearchView(profile: profile, query: query)
                 case .tag(let tag):
                     TagView(profile: profile, tag: tag)
                 case .trending:

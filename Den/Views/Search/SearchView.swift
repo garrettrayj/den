@@ -14,7 +14,7 @@ struct SearchView: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var hideRead: Bool
+    @AppStorage("SearchHideRead") private var hideRead = false
 
     let query: String
 

@@ -20,8 +20,8 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
 
     @StateObject var browserViewModel = BrowserViewModel()
 
-    @AppStorage("BrowserZoom") var browserZoom: PageZoomLevel = .oneHundredPercent
-    @AppStorage("ReaderZoom") var readerZoom: PageZoomLevel = .oneHundredPercent
+    @AppStorage("BrowserZoom") private var browserZoom: PageZoomLevel = .oneHundredPercent
+    @AppStorage("ReaderZoom") private var readerZoom: PageZoomLevel = .oneHundredPercent
     
     @FetchRequest(sortDescriptors: [])
     private var blocklists: FetchedResults<Blocklist>
