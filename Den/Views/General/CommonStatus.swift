@@ -18,12 +18,13 @@ struct CommonStatus: View {
     let items: [Item]
     
     var body: some View {
+        #if os(macOS)
+        EmptyView()
+        #else
         if verticalSizeClass == .compact {
             HStack(spacing: 4) {
                 unreadStatus
-
                 Text(verbatim: "-").foregroundStyle(.tertiary)
-
                 if let refreshedDate = RefreshedDateStorage.getRefreshed(profile) {
                     RelativeRefreshedDate(date: refreshedDate)
                         .lineLimit(1)
@@ -34,7 +35,6 @@ struct CommonStatus: View {
         } else {
             VStack {
                 unreadStatus
-
                 if let refreshedDate = RefreshedDateStorage.getRefreshed(profile) {
                     RelativeRefreshedDate(date: refreshedDate)
                         .lineLimit(1)
@@ -43,6 +43,7 @@ struct CommonStatus: View {
                 }
             }
         }
+        #endif
     }
     
     private var unreadStatus: some View {
