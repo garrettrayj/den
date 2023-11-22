@@ -16,7 +16,7 @@ struct HoverHighlightModifier: ViewModifier {
 
     @State private var isHovered: Bool = false
     
-    var showingHighlight: Bool {
+    private var showingHighlight: Bool {
         #if os(macOS)
         isEnabled && isHovered && controlActiveState != .inactive
         #else
@@ -31,6 +31,10 @@ struct HoverHighlightModifier: ViewModifier {
                     isHovered = hovering
                 }
             }
-            .background(.selection.quinary.opacity(showingHighlight ? 1 : 0))
+            .background {
+                if showingHighlight {
+                    Rectangle().fill(.selection.quinary)
+                }
+            }
     }
 }
