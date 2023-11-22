@@ -206,7 +206,7 @@ class BrowserViewModel: NSObject, ObservableObject {
 
         if
             let leadImageURL = mercuryObject?.lead_image_url,
-            !content.contains("<img")
+            !content.prefix(content.count / 4).contains("<img") && !content.contains(leadImageURL)
         {
             html += "<img src=\"\(leadImageURL)\" />"
         }
