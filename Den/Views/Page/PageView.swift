@@ -66,6 +66,10 @@ struct PageView: View {
                     }
                 }
                 .frame(minWidth: minDetailColumnWidth)
+                .navigationTitle(page.nameText)
+                .inspector(isPresented: $showingInspector) {
+                    PageInspector(page: page)
+                }
                 .toolbar {
                     PageToolbar(
                         page: page,
@@ -75,13 +79,8 @@ struct PageView: View {
                         items: items
                     )
                 }
+                .toolbarBackground(toolbarBackground)
             }
-            .id("PageLayout_\(page.id?.uuidString ?? "NoID")_\(pageLayout.wrappedValue.rawValue)")
-            .navigationTitle(page.nameText)
-            .inspector(isPresented: $showingInspector) {
-                PageInspector(page: page)
-            }
-            .toolbarBackground(toolbarBackground)
         }
     }
     

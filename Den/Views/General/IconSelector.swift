@@ -37,7 +37,11 @@ struct IconSelector: View {
         .frame(minWidth: 360, minHeight: 480)
     }
 
+    #if os(macOS)
+    let gridItem = GridItem(.adaptive(minimum: 36), spacing: 4, alignment: .center)
+    #else
     let gridItem = GridItem(.adaptive(minimum: 40), spacing: 4, alignment: .center)
+    #endif
 
     private func categorySection(category: PageIconCategory) -> some View {
         Section {

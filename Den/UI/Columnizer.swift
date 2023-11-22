@@ -12,7 +12,7 @@ struct Columnizer {
     static func calculateColumnCount(width: CGFloat, layoutScalingFactor: Double) -> Int {
         let adjustedWidth = width / layoutScalingFactor
 
-        return max(1, Int((adjustedWidth / log2(adjustedWidth)) / 30))
+        return max(1, Int((adjustedWidth / log2(adjustedWidth)) / 32))
     }
 
     static func columnize<T: Identifiable>(columnCount: Int, list: [T]) -> [(Int, [T])] {

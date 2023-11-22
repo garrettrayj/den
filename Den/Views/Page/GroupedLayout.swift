@@ -46,6 +46,7 @@ struct GroupedLayout: View {
                 }
                 .padding()
             }
+            .id("GroupedLayout_\(page.id?.uuidString ?? "NoID")")
         }
     }
 }
