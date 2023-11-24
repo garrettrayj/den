@@ -18,9 +18,7 @@ struct CommonStatus: View {
     let items: [Item]
     
     var body: some View {
-        #if os(macOS)
-        EmptyView()
-        #else
+        #if os(iOS)
         if verticalSizeClass == .compact {
             HStack(spacing: 4) {
                 unreadStatus
