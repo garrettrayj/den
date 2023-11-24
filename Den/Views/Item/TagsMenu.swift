@@ -60,7 +60,7 @@ struct TagsMenu: View {
             }
         } label: {
             Label {
-                Text("Bookmark", comment: "Menu label.")
+                Text("Tags", comment: "Menu label.")
             } icon: {
                 if item.bookmarks.count > 0 {
                     Image(systemName: "tag.fill")
