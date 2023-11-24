@@ -27,9 +27,9 @@ struct TagView: View {
                 if tag.bookmarksArray.isEmpty {
                     ContentUnavailable {
                         Label {
-                            Text("No Bookmarks", comment: "Content unavailable title.")
+                            Text("No Items", comment: "Content unavailable title.")
                         } icon: {
-                            Image(systemName: "bookmark")
+                            Image(systemName: "tag")
                         }
                     }
                 } else {

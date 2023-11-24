@@ -29,7 +29,7 @@ struct DeleteBookmarkButton: View {
             Label {
                 Text("Delete Bookmark", comment: "Button label.")
             } icon: {
-                Image(systemName: "bookmark.slash")
+                Image(systemName: "tag.slash")
             }
         }
     }
