@@ -13,14 +13,18 @@
     max-width: 100%;
 }
 
+html {
+    overscroll-behavior-x: none;
+}
+
 body {
-    background: -apple-system-background;
     accent-color: $TINT_COLOR;
+    background: -apple-system-background;
     font: -apple-system-tall-body;
     font-size: 18px;
     margin: 24px auto 64px;
-    padding: 0 16px;
     max-width: 748px;
+    padding: 0 16px;
 }
 
 /* Header */
