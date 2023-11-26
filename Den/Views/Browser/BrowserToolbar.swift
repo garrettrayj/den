@@ -50,9 +50,6 @@ struct BrowserToolbar: ToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem(placement: .navigation) {
-                DoneButton()
-            }
             ToolbarItem {
                 formatMenu
             }

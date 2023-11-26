@@ -10,6 +10,7 @@ import SwiftUI
 
 struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     @Environment(\.self) private var environment
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.userTint) private var userTint
 
     var url: URL
@@ -61,8 +62,10 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                 #if os(macOS)
                 .padding(.top, 1)
                 .ignoresSafeArea()
-                #endif
                 .navigationBarBackButtonHidden()
+                #else
+                .navigationBarBackButtonHidden(horizontalSizeClass != .compact)
+                #endif
                 .navigationTitle(browserViewModel.url?.host() ?? "")
                 .toolbar {
                     BrowserToolbar(

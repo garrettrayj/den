@@ -25,11 +25,11 @@ struct BookmarkView: View {
                 extraToolbar: {
                     #if os(macOS)
                     ToolbarItem {
-                        DeleteBookmarkButton(bookmark: bookmark)
+                        UntagButton(bookmark: bookmark)
                     }
                     #else
                     ToolbarItem(placement: .bottomBar) {
-                        DeleteBookmarkButton(bookmark: bookmark)
+                        UntagButton(bookmark: bookmark)
                     }
                     #endif
                 }

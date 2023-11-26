@@ -51,7 +51,7 @@ struct BookmarkActionView<Content: View>: View {
                     }
                 }
                 ShareButton(url: url)
-                DeleteBookmarkButton(bookmark: bookmark)
+                UntagButton(bookmark: bookmark)
             }
         }
     }

@@ -1,5 +1,5 @@
 //
-//  DeleteBookmarkButton.swift
+//  UntagButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/17/23.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct DeleteBookmarkButton: View {
+struct UntagButton: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -27,7 +27,7 @@ struct DeleteBookmarkButton: View {
             }
         } label: {
             Label {
-                Text("Delete Bookmark", comment: "Button label.")
+                Text("Untag", comment: "Button label.")
             } icon: {
                 Image(systemName: "tag.slash")
             }
