@@ -178,7 +178,7 @@ class BrowserViewModel: NSObject, ObservableObject {
         <style>\(readerStyles)</style>
         </head>
         <body style="-webkit-text-size-adjust: \(initialZoom.rawValue)%;">
-        <header>
+        <header id="den-header">
         <h1 id="den-title">\(title)</h1>
         """
 
@@ -213,9 +213,7 @@ class BrowserViewModel: NSObject, ObservableObject {
 
         html += """
         </header>
-        <main>
         \(content)
-        </main>
         """
         
         if content.contains("twitter-tweet") {

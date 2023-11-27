@@ -29,7 +29,7 @@ body {
 
 /* Header */
 
-body > header {
+#den-header {
     margin-bottom: 20px;
 }
 
@@ -103,10 +103,21 @@ iframe {
     margin: 20px auto;
 }
 
-iframe[src^="https://www.youtube.com"] {
+iframe[src^="https://www.youtube.com"],
+iframe[src^="https://www.youtube-nocookie.com"] {
     aspect-ratio: 16/9;
     height: auto;
     width: 100%;
+}
+
+iframe[src^="https://embed.podcasts.apple.com"] {
+    width: 100%;
+    max-width: 660px;
+    overflow: hidden;
+    border-radius: 10px;
+    transform: translateZ(0px);
+    animation: 2s ease 0s 6 normal none running loading-indicator;
+    background-color: rgb(228, 228, 228);
 }
 
 object,
