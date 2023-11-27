@@ -22,9 +22,9 @@ body {
     background: -apple-system-background;
     font: -apple-system-tall-body;
     font-size: 18px;
-    margin: 24px auto 64px;
+    margin: 24px auto 52px;
     max-width: 748px;
-    padding: 0 16px;
+    padding: 0 20px;
 }
 
 /* Header */
@@ -36,7 +36,7 @@ body > header {
 #den-title {
     color: -apple-system-header-text;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 #den-excerpt {
@@ -44,7 +44,7 @@ body > header {
     font-size: 24px;
     font-style: italic;
     font-weight: 300;
-    margin: 8px 0 12px;
+    margin: 12px 0;
 }
 
 #den-author {
@@ -279,6 +279,10 @@ a:visited {
 }
 
 /* Lists */
+
+ul {
+    padding-left: 32px;
+}
 
 li {
     margin: 12px 0;
