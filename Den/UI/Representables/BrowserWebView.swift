@@ -119,14 +119,19 @@ extension BrowserWebViewCoordinator: WKScriptMessageHandler {
         let jsonData = Data(jsonString.utf8)
         let decoder = JSONDecoder()
 
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        let standardFormatter = ISO8601DateFormatter()
+        standardFormatter.formatOptions = [.withInternetDateTime]
+        
+        let fractionalSecondsFormatter = ISO8601DateFormatter()
+        standardFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
 
         decoder.dateDecodingStrategy = .custom({ decoder in
             let container = try decoder.singleValueContainer()
             let dateString = try container.decode(String.self)
 
-            if let date = formatter.date(from: dateString) {
+            if let date = standardFormatter.date(from: dateString) {
+                return date
+            } else if let date = fractionalSecondsFormatter.date(from: dateString) {
                 return date
             }
 
