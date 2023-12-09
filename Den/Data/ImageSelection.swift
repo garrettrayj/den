@@ -16,7 +16,7 @@ class ImageSelection {
     var imagePool: [RankedImage] = []
 
     func selectImage() {
-        if let best = imagePool.topRanked {
+        if let best = imagePool.first {
             image = best.url
             if let width = best.width, let height = best.height {
                 imageWidth = Int32(width)

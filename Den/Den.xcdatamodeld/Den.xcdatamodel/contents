@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23B92" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Blocklist" representedClassName="Blocklist" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -151,7 +151,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="symbol" optional="YES" attributeType="String"/>
         <attribute name="userOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="feeds" optional="YES" toMany="YES" maxCount="100" deletionRule="Cascade" destinationEntity="Feed" inverseName="page" inverseEntity="Feed"/>
+        <relationship name="feeds" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Feed" inverseName="page" inverseEntity="Feed"/>
         <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="pages" inverseEntity="Profile"/>
         <userInfo/>
     </entity>

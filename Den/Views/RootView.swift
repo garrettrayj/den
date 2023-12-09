@@ -76,13 +76,12 @@ struct RootView: View {
             ) + 7 * 24 * 60 * 60
             
             if nextMaintenanceDate > .now {
-                Logger.main.debug("""
+                Logger.main.info("""
                 Next maintenance operation will be performed after \
                 \(nextMaintenanceDate.formatted(), privacy: .public)
                 """)
+                return
             }
-
-            return
         }
 
         for profile in profiles {
