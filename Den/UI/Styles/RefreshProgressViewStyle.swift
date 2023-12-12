@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RefreshProgressViewStyle: ProgressViewStyle {
-    @ObservedObject var profile: Profile
+    let feedCount: Int
 
     func makeBody(configuration: Configuration) -> some View {
         if let fractionCompleted = configuration.fractionCompleted {
@@ -17,8 +17,8 @@ struct RefreshProgressViewStyle: ProgressViewStyle {
                 if fractionCompleted < 1.0 {
                     Text(
                         """
-                        \(Int(fractionCompleted * Double(profile.feedCount))) \
-                        of \(profile.feedCount) Updated
+                        \(Int(fractionCompleted * Double(feedCount))) \
+                        of \(feedCount) Updated
                         """,
                         comment: "Status message."
                     )

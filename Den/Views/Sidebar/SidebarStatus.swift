@@ -26,7 +26,8 @@ struct SidebarStatus: View {
             if !networkMonitor.isConnected {
                 Text("Network Offline", comment: "Status message.").foregroundStyle(.secondary)
             } else if refreshing {
-                ProgressView(progress).progressViewStyle(RefreshProgressViewStyle(profile: profile))
+                ProgressView(progress)
+                    .progressViewStyle(RefreshProgressViewStyle(feedCount: profile.feedCount))
             } else if let refreshedDate = RefreshedDateStorage.getRefreshed(profile) {
                 RelativeRefreshedDate(date: refreshedDate)
             } else if profile.pagesArray.isEmpty {
