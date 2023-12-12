@@ -5,9 +5,5 @@ function parseForReader() {
 }
 
 window.addEventListener("pageshow", function(event) {
-    if (event.persisted) {
-        parseForReader()
-    }
+    parseForReader()
 });
-
-parseForReader()

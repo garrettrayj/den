@@ -63,15 +63,24 @@ struct ResetEverythingButton: View {
 
         let container = PersistenceController.shared.container
         await container.performBackgroundTask { context in
-            guard let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile] else {
+            guard 
+                let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile],
+                let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+            else {
                 return
             }
 
             for profile in profiles {
-                for feedData in profile.feedsArray.compactMap({ $0.feedData }) {
-                    context.delete(feedData)
-                }
+                profile.feedsArray.compactMap({ $0.feedData }).forEach { context.delete($0) }
+                profile.trends.forEach { context.delete($0) }
                 context.delete(profile)
+            }
+            
+            for blocklist in blocklists {
+                if let status = blocklist.blocklistStatus {
+                    context.delete(status)
+                }
+                context.delete(blocklist)
             }
 
             do {
@@ -80,6 +89,8 @@ struct ResetEverythingButton: View {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         }
+        
+        await BlocklistManager.cleanupContentRulesLists(blocklists: [])
 
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
