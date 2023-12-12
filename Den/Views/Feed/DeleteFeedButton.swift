@@ -12,7 +12,6 @@ struct DeleteFeedButton: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
 
     var body: some View {
         Button(role: .destructive) {
@@ -22,7 +21,6 @@ struct DeleteFeedButton: View {
             viewContext.delete(feed)
             do {
                 try viewContext.save()
-                profile.objectWillChange.send()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
