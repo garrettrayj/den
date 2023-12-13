@@ -47,8 +47,8 @@ struct ItemActionView<Content: View>: View {
             .contextMenu {
                 #if os(iOS)
                 ControlGroup {
-                    ReadUnreadButton(item: item, profile: profile)
-                    TagsMenu(item: item, profile: profile)
+                    ReadUnreadButton(item: item)
+                    TagsMenu(item: item)
                 }
                 #else
                 ReadUnreadButton(item: item)
