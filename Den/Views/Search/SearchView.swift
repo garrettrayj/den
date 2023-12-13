@@ -41,7 +41,6 @@ struct SearchView: View {
                     searchQuery: query
                 ) { items in
                     SearchLayout(
-                        profile: profile,
                         hideRead: $hideRead,
                         query: query,
                         items: items

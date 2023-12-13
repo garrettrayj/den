@@ -9,7 +9,7 @@
 import CoreData
 import SwiftUI
 
-struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
+struct WithItems<Content: View>: View {
     @ViewBuilder let content: ([Item]) -> Content
 
     @FetchRequest(sortDescriptors: [])
@@ -20,7 +20,7 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
     }
 
     init(
-        scopeObject: ScopeObject,
+        scopeObject: NSManagedObject,
         sortDescriptors: [NSSortDescriptor] = [
             NSSortDescriptor(keyPath: \Item.published, ascending: false)
         ],
@@ -48,12 +48,11 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
                 }
             ))
         } else if let profile = scopeObject as? Profile {
-            predicates.append(NSPredicate(
-                format: "feedData IN %@",
-                profile.feedsArray.compactMap { feed in
-                    feed.feedData
-                }
-            ))
+            if let profileId = profile.id {
+                predicates.append(NSPredicate(format: "profileId = %@", profileId as CVarArg))
+            } else {
+                predicates.append(NSPredicate(format: "1 = 2"))
+            }
         } else if let trend = scopeObject as? Trend {
             predicates.append(NSPredicate(
                 format: "id IN %@",

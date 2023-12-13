@@ -25,15 +25,11 @@ struct DetailView: View {
                 case .organizer:
                     Organizer(profile: profile)
                 case .page(let page):
-                    PageView(
-                        page: page,
-                        profile: profile,
-                        hideRead: $hideRead
-                    )
+                    PageView(page: page, hideRead: $hideRead)
                 case .search(let query):
                     SearchView(profile: profile, query: query)
                 case .tag(let tag):
-                    TagView(profile: profile, tag: tag)
+                    TagView(tag: tag)
                 case .trending:
                     Trending(profile: profile, hideRead: $hideRead)
                 case .welcome:
@@ -49,7 +45,7 @@ struct DetailView: View {
                     case .feed(let feed):
                         FeedView(feed: feed, hideRead: $hideRead)
                     case .item(let item):
-                        ItemView(item: item, profile: profile)
+                        ItemView(item: item)
                     case .trend(let trend):
                         TrendView(trend: trend, hideRead: $hideRead)
                     }

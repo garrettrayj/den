@@ -16,7 +16,6 @@ struct PageView: View {
     @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
 
     @ObservedObject var page: Page
-    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
     
@@ -44,21 +43,18 @@ struct PageView: View {
                         case .grouped:
                             GroupedLayout(
                                 page: page,
-                                profile: profile,
                                 hideRead: $hideRead,
                                 items: items
                             )
                         case .deck:
                             DeckLayout(
                                 page: page,
-                                profile: profile,
                                 hideRead: $hideRead,
                                 items: items
                             )
                         case .timeline:
                             TimelineLayout(
                                 page: page,
-                                profile: profile,
                                 hideRead: $hideRead,
                                 items: items
                             )
@@ -99,11 +95,9 @@ struct PageView: View {
 
     init(
         page: Page,
-        profile: Profile,
         hideRead: Binding<Bool>
     ) {
         self.page = page
-        self.profile = profile
 
         _hideRead = hideRead
 

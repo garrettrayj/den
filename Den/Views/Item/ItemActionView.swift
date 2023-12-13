@@ -14,7 +14,6 @@ struct ItemActionView<Content: View>: View {
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     @ObservedObject var item: Item
-    @ObservedObject var profile: Profile
 
     var roundedBottom: Bool = false
     var roundedTop: Bool = false
@@ -27,7 +26,7 @@ struct ItemActionView<Content: View>: View {
                 if useSystemBrowser {
                     Button {
                         openURL(url)
-                        HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
+                        HistoryUtility.markItemRead(context: viewContext, item: item)
                     } label: {
                         content.modifier(DraggableItemModifier(item: item))
                     }
@@ -52,8 +51,8 @@ struct ItemActionView<Content: View>: View {
                     TagsMenu(item: item, profile: profile)
                 }
                 #else
-                ReadUnreadButton(item: item, profile: profile)
-                TagsMenu(item: item, profile: profile)
+                ReadUnreadButton(item: item)
+                TagsMenu(item: item)
                 #endif
                 Button {
                     PasteboardUtility.copyURL(url: url)

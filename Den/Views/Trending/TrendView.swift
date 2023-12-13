@@ -39,7 +39,6 @@ struct TrendView: View {
                         } else {
                             TrendLayout(
                                 trend: trend,
-                                profile: profile,
                                 hideRead: $hideRead,
                                 items: items.visibilityFiltered(hideRead ? false : nil)
                             )

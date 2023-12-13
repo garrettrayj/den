@@ -10,7 +10,6 @@ import SwiftUI
 
 struct TrendLayout: View {
     @ObservedObject var trend: Trend
-    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
 
@@ -25,9 +24,9 @@ struct TrendLayout: View {
                     BoardView(width: geometry.size.width, list: items) { item in
                         if let feed = item.feedData?.feed {
                             if feed.wrappedPreviewStyle == .expanded {
-                                FeedItemExpanded(item: item, feed: feed, profile: profile)
+                                FeedItemExpanded(item: item, feed: feed)
                             } else {
-                                FeedItemCompressed(item: item, feed: feed, profile: profile)
+                                FeedItemCompressed(item: item, feed: feed)
                             }
                         }
                     }

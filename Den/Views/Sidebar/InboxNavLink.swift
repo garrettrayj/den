@@ -22,9 +22,7 @@ struct InboxNavLink: View {
         } label: {
             WithItems(scopeObject: profile, readFilter: false) { items in
                 Label {
-                    Text("Inbox", comment: "Button label.")
-                        .lineLimit(1)
-                        .badge(items.count)
+                    Text("Inbox", comment: "Button label.").lineLimit(1).badge(items.count)
                 } icon: {
                     if items.count > 0 {
                         Image(systemName: "tray.full")

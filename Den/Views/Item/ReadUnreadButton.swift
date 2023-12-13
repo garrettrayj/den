@@ -12,12 +12,11 @@ struct ReadUnreadButton: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var item: Item
-    @ObservedObject var profile: Profile
 
     var body: some View {
         if item.read {
             Button {
-                HistoryUtility.markItemUnread(context: viewContext, item: item, profile: profile)
+                HistoryUtility.markItemUnread(context: viewContext, item: item)
             } label: {
                 Label {
                     Text("Mark Unread", comment: "Button label.")
@@ -27,7 +26,7 @@ struct ReadUnreadButton: View {
             }
         } else {
             Button {
-                HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
+                HistoryUtility.markItemRead(context: viewContext, item: item)
             } label: {
                 Label {
                     Text("Mark Read", comment: "Button label.")

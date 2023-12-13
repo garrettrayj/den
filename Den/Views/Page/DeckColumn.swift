@@ -10,15 +10,13 @@ import SwiftUI
 
 struct DeckColumn: View {
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
 
     let hideRead: Bool
     let items: [Item]
     let filteredItems: [Item]
 
-    init(feed: Feed, profile: Profile, hideRead: Bool, items: [Item]) {
+    init(feed: Feed, hideRead: Bool, items: [Item]) {
         self.feed = feed
-        self.profile = profile
         self.hideRead = hideRead
         self.items = items
         self.filteredItems = items.visibilityFiltered(hideRead ? false : nil)
@@ -35,11 +33,7 @@ struct DeckColumn: View {
                     AllRead()
                 } else {
                     ForEach(filteredItems) { item in
-                        ItemActionView(
-                            item: item,
-                            profile: profile,
-                            roundedBottom: filteredItems.last == item
-                        ) {
+                        ItemActionView(item: item, roundedBottom: filteredItems.last == item) {
                             if feed.wrappedPreviewStyle.rawValue == 1 {
                                 ItemPreviewExpanded(item: item, feed: feed)
                             } else {

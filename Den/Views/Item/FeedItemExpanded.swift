@@ -11,12 +11,11 @@ import SwiftUI
 struct FeedItemExpanded: View {
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
 
     var body: some View {
         VStack(spacing: 0) {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
-            ItemActionView(item: item, profile: profile, roundedBottom: true) {
+            ItemActionView(item: item, roundedBottom: true) {
                 ItemPreviewExpanded(item: item, feed: feed)
             }
         }

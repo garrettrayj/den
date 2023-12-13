@@ -12,7 +12,6 @@ struct DeckLayout: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var page: Page
-    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
 
@@ -26,7 +25,6 @@ struct DeckLayout: View {
                         ScrollView(.vertical, showsIndicators: false) {
                             DeckColumn(
                                 feed: feed,
-                                profile: profile,
                                 hideRead: hideRead,
                                 items: items.forFeed(feed: feed)
                             )

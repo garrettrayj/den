@@ -10,7 +10,6 @@ import SwiftUI
 
 struct TimelineLayout: View {
     @ObservedObject var page: Page
-    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
 
@@ -36,9 +35,9 @@ struct TimelineLayout: View {
                     ) { item in
                         if let feed = item.feedData?.feed {
                             if feed.wrappedPreviewStyle == .expanded {
-                                FeedItemExpanded(item: item, feed: feed, profile: profile)
+                                FeedItemExpanded(item: item, feed: feed)
                             } else {
-                                FeedItemCompressed(item: item, feed: feed, profile: profile)
+                                FeedItemCompressed(item: item, feed: feed)
                             }
                         }
                     }

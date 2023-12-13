@@ -12,7 +12,6 @@ struct GroupedLayout: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var page: Page
-    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
 
@@ -36,7 +35,6 @@ struct GroupedLayout: View {
                             ForEach(feeds) { feed in
                                 FeedItemGroup(
                                     feed: feed,
-                                    profile: profile,
                                     hideRead: hideRead,
                                     items: items.forFeed(feed: feed)
                                 )

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23B92" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C64" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Blocklist" representedClassName="Blocklist" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -130,6 +130,9 @@
         </fetchedProperty>
         <fetchedProperty name="history" optional="YES">
             <fetchRequest name="fetchedPropertyFetchRequest" entity="History" predicateString="link = $FETCH_SOURCE.link AND profile.id = $FETCH_SOURCE.profileId"/>
+        </fetchedProperty>
+        <fetchedProperty name="profile" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Profile" predicateString="id = $FETCH_SOURCE.profileId"/>
         </fetchedProperty>
         <fetchIndex name="byReadIndex">
             <fetchIndexElement property="read" type="Binary" order="ascending"/>

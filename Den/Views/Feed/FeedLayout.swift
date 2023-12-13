@@ -40,12 +40,7 @@ struct FeedLayout: View {
                                 width: geometry.size.width,
                                 list: items.visibilityFiltered(hideRead ? false : nil)
                             ) { item in
-                                ItemActionView(
-                                    item: item,
-                                    profile: profile,
-                                    roundedBottom: true,
-                                    roundedTop: true
-                                ) {
+                                ItemActionView(item: item, roundedBottom: true, roundedTop: true) {
                                     if feed.wrappedPreviewStyle == .expanded {
                                         ItemPreviewExpanded(item: item, feed: feed)
                                     } else {

@@ -12,51 +12,51 @@ struct TagsMenu: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var item: Item
-    @ObservedObject var profile: Profile
 
     var body: some View {
         Menu {
-            if profile.tagsArray.isEmpty {
-                Text("No Tags", comment: "Menu options unavailable message.")
-            }
-            ForEach(profile.tagsArray) { tag in
-                if item.bookmarkTags.contains(tag) {
-                    Button {
-                        for bookmark in item.bookmarks where bookmark.tag == tag {
-                            viewContext.delete(bookmark)
+            if let profile = item.profile, !profile.tagsArray.isEmpty {
+                ForEach(profile.tagsArray) { tag in
+                    if item.bookmarkTags.contains(tag) {
+                        Button {
+                            for bookmark in item.bookmarks where bookmark.tag == tag {
+                                viewContext.delete(bookmark)
+                            }
+                            do {
+                                try viewContext.save()
+                                item.objectWillChange.send()
+                                profile.objectWillChange.send()
+                            } catch {
+                                CrashUtility.handleCriticalError(error as NSError)
+                            }
+                        } label: {
+                            Label { tag.nameText } icon: {
+                                Image(systemName: "tag.fill")
+                            }
                         }
-                        do {
-                            try viewContext.save()
-                            item.objectWillChange.send()
-                            profile.objectWillChange.send()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
+                        .labelStyle(.titleAndIcon)
+                        .accessibilityIdentifier("RemoveBookmark")
+                    } else {
+                        Button {
+                            _ = Bookmark.create(in: viewContext, item: item, tag: tag)
+                            do {
+                                try viewContext.save()
+                                item.objectWillChange.send()
+                                profile.objectWillChange.send()
+                            } catch {
+                                CrashUtility.handleCriticalError(error as NSError)
+                            }
+                        } label: {
+                            Label { tag.nameText } icon: {
+                                Image(systemName: "tag")
+                            }
                         }
-                    } label: {
-                        Label { tag.nameText } icon: {
-                            Image(systemName: "tag.fill")
-                        }
+                        .labelStyle(.titleAndIcon)
+                        .accessibilityIdentifier("AddBookmark")
                     }
-                    .labelStyle(.titleAndIcon)
-                    .accessibilityIdentifier("RemoveBookmark")
-                } else {
-                    Button {
-                        _ = Bookmark.create(in: viewContext, item: item, tag: tag)
-                        do {
-                            try viewContext.save()
-                            item.objectWillChange.send()
-                            profile.objectWillChange.send()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
-                    } label: {
-                        Label { tag.nameText } icon: {
-                            Image(systemName: "tag")
-                        }
-                    }
-                    .labelStyle(.titleAndIcon)
-                    .accessibilityIdentifier("AddBookmark")
                 }
+            } else {
+                Text("No Tags", comment: "Menu options unavailable message.")
             }
         } label: {
             Label {

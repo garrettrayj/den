@@ -13,10 +13,12 @@ import SwiftUI
 struct HistoryUtility {
     static func markItemRead(
         context: NSManagedObjectContext,
-        item: Item,
-        profile: Profile
+        item: Item
     ) {
-        guard item.read == false else { return }
+        guard 
+            item.read == false,
+            let profile = item.profile
+        else { return }
 
         let history = History.create(in: context, profile: profile)
         history.link = item.link
@@ -33,8 +35,7 @@ struct HistoryUtility {
 
     static func markItemUnread(
         context: NSManagedObjectContext,
-        item: Item,
-        profile: Profile
+        item: Item
     ) {
         guard item.read == true else { return }
 
@@ -60,7 +61,7 @@ struct HistoryUtility {
     }
 
     static func logHistory(items: [Item]) async {
-        guard let profileObjectID = items.first?.feedData?.feed?.page?.profile?.objectID else { return }
+        guard let profileObjectID = items.first?.profile?.objectID else { return }
         let itemObjectIDs = items.map { $0.objectID }
 
         await PersistenceController.shared.container.performBackgroundTask { context in

@@ -19,6 +19,10 @@ public class Item: NSManagedObject {
 
         return Text("Untitled", comment: "Default item title.")
     }
+    
+    public var profile: Profile? {
+        (value(forKey: "profile") as? [Profile])?.first
+    }
 
     public var history: [History] {
         value(forKey: "history") as? [History] ?? []

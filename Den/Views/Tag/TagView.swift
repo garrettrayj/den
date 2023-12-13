@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct TagView: View {
-    @ObservedObject var profile: Profile
     @ObservedObject var tag: Tag
 
     var body: some View {

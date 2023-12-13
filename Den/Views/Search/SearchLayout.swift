@@ -10,8 +10,6 @@ import CoreData
 import SwiftUI
 
 struct SearchLayout: View {
-    @ObservedObject var profile: Profile
-
     @Binding var hideRead: Bool
 
     let query: String
@@ -63,9 +61,9 @@ struct SearchLayout: View {
                         BoardView(width: geometry.size.width, list: visibilityFilteredItems) { item in
                             if let feed = item.feedData?.feed {
                                 if feed.wrappedPreviewStyle == .expanded {
-                                    FeedItemExpanded(item: item, feed: feed, profile: profile)
+                                    FeedItemExpanded(item: item, feed: feed)
                                 } else {
-                                    FeedItemCompressed(item: item, feed: feed, profile: profile)
+                                    FeedItemCompressed(item: item, feed: feed)
                                 }
                             }
                         }

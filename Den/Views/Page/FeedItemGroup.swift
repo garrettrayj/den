@@ -10,15 +10,13 @@ import SwiftUI
 
 struct FeedItemGroup: View {
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
 
     let hideRead: Bool
     let items: [Item]
     let filteredItems: [Item]
 
-    init(feed: Feed, profile: Profile, hideRead: Bool, items: [Item]) {
+    init(feed: Feed, hideRead: Bool, items: [Item]) {
         self.feed = feed
-        self.profile = profile
         self.hideRead = hideRead
         self.items = items
         self.filteredItems = items.visibilityFiltered(hideRead ? false : nil)
@@ -34,11 +32,7 @@ struct FeedItemGroup: View {
                 AllRead()
             } else {
                 ForEach(filteredItems) { item in
-                    ItemActionView(
-                        item: item,
-                        profile: profile,
-                        roundedBottom: item == filteredItems.last
-                    ) {
+                    ItemActionView(item: item, roundedBottom: item == filteredItems.last) {
                         if feed.wrappedPreviewStyle == .expanded {
                             ItemPreviewExpanded(item: item, feed: feed)
                         } else {

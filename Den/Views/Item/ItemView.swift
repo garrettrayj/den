@@ -16,7 +16,6 @@ struct ItemView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var item: Item
-    @ObservedObject var profile: Profile
 
     var body: some View {
         if let url = item.link, item.managedObjectContext != nil && item.feedData?.feed != nil {
@@ -30,23 +29,23 @@ struct ItemView: View {
                 extraToolbar: {
                     #if os(macOS)
                     ToolbarItem {
-                        TagsMenu(item: item, profile: profile)
+                        TagsMenu(item: item)
                     }
                     #else
                     if horizontalSizeClass == .compact {
                         ToolbarItem(placement: .bottomBar) {
-                            TagsMenu(item: item, profile: profile)
+                            TagsMenu(item: item)
                         }
                     } else {
                         ToolbarItem {
-                            TagsMenu(item: item, profile: profile)
+                            TagsMenu(item: item)
                         }
                     }
                     #endif
                 }
             )
             .onAppear {
-                HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
+                HistoryUtility.markItemRead(context: viewContext, item: item)
             }
         } else {
             ContentUnavailable {
