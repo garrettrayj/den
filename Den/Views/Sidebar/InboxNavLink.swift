@@ -13,13 +13,9 @@ struct InboxNavLink: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var profile: Profile
-    
-    @Binding var detailPanel: DetailPanel?
 
     var body: some View {
-        Button {
-            detailPanel = .inbox
-        } label: {
+        NavigationLink(value: DetailPanel.inbox) {
             WithItems(scopeObject: profile, readFilter: false) { items in
                 Label {
                     Text("Inbox", comment: "Button label.").lineLimit(1).badge(items.count)
@@ -32,7 +28,6 @@ struct InboxNavLink: View {
                 }
             }
         }
-        .tag(DetailPanel.inbox)
         .accessibilityIdentifier("InboxNavLink")
     }
 }

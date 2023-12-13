@@ -23,7 +23,6 @@ struct PagesSection: View {
             ForEach(profile.pagesArray) { page in
                 PageNavLink(
                     page: page,
-                    detailPanel: $detailPanel,
                     newFeedPageID: $newFeedPageID,
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet

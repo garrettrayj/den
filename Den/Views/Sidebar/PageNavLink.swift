@@ -16,45 +16,35 @@ struct PageNavLink: View {
 
     @ObservedObject var page: Page
 
-    @Binding var detailPanel: DetailPanel?
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
     @Binding var showingNewFeedSheet: Bool
 
     var body: some View {
-        Group {
+        NavigationLink(value: DetailPanel.page(page)) {
             #if os(macOS)
-            Button {
-                detailPanel = .page(page)
-            } label: {
-                Label {
-                    WithItems(scopeObject: page, readFilter: false) { items in
-                        TextField(text: $page.wrappedName) { page.nameText }.badge(items.count)
-                    }
-                } icon: {
-                    Image(systemName: page.wrappedSymbol)
+            Label {
+                WithItems(scopeObject: page, readFilter: false) { items in
+                    TextField(text: $page.wrappedName) { page.nameText }.badge(items.count)
                 }
+            } icon: {
+                Image(systemName: page.wrappedSymbol)
             }
             #else
             if editMode?.wrappedValue.isEditing == true {
                 TextField(text: $page.wrappedName) { page.nameText }
             } else {
-                Button {
-                    detailPanel = .page(page)
-                } label: {
-                    Label {
-                        WithItems(scopeObject: page, readFilter: false) { items in
-                            page.nameText.badge(items.count)
-                        }
-                    } icon: {
-                        Image(systemName: page.wrappedSymbol)
+                Label {
+                    WithItems(scopeObject: page, readFilter: false) { items in
+                        page.nameText.badge(items.count)
                     }
+                } icon: {
+                    Image(systemName: page.wrappedSymbol)
                 }
             }
             #endif
         }
         .lineLimit(1)
-        .tag(DetailPanel.page(page))
         .contentShape(Rectangle())
         .onDrop(
             of: [.denFeed, .url, .text],

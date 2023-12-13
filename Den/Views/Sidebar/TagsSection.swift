@@ -18,7 +18,7 @@ struct TagsSection: View {
     var body: some View {
         Section {
             ForEach(profile.tagsArray) { tag in
-                TagNavLink(tag: tag, detailPanel: $detailPanel)
+                TagNavLink(tag: tag)
             }
             .onMove(perform: moveTags)
             .onDelete(perform: deleteTags)

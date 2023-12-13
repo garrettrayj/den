@@ -15,39 +15,27 @@ struct TagNavLink: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var tag: Tag
-    
-    @Binding var detailPanel: DetailPanel?
 
     var body: some View {
-        Group {
+        NavigationLink(value: DetailPanel.tag(tag)) {
             #if os(macOS)
-            Button {
-                detailPanel = .tag(tag)
-            } label: {
-                Label {
-                    TextField(text: $tag.wrappedName) { tag.nameText }.badge(tag.bookmarksArray.count)
-                } icon: {
-                    Image(systemName: "tag")
-                }
+            Label {
+                TextField(text: $tag.wrappedName) { tag.nameText }.badge(tag.bookmarksArray.count)
+            } icon: {
+                Image(systemName: "tag")
             }
             #else
             if editMode?.wrappedValue.isEditing == true {
                 TextField(text: $tag.wrappedName) { tag.nameText }
             } else {
-                Button {
-                    detailPanel = .tag(tag)
-                } label: {
-                    Label {
-                        tag.nameText.badge(tag.bookmarksArray.count)
-                    } icon: {
-                        Image(systemName: "tag")
-                    }
+                Label {
+                    tag.nameText.badge(tag.bookmarksArray.count)
+                } icon: {
+                    Image(systemName: "tag")
                 }
             }
             #endif
         }
-        .lineLimit(1)
-        .tag(DetailPanel.tag(tag))
         .contentShape(Rectangle())
         .onDrop(
             of: [.denBookmark, .denItem],
