@@ -33,8 +33,6 @@ struct PageToolbar: ToolbarContent {
         ToolbarItem {
             MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
-                page.objectWillChange.send()
-                page.feedsArray.forEach { $0.objectWillChange.send() }
             }
         }
         ToolbarItem {
@@ -59,8 +57,6 @@ struct PageToolbar: ToolbarContent {
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
-                    page.objectWillChange.send()
-                    page.feedsArray.forEach { $0.objectWillChange.send() }
                 }
             }
         } else {
@@ -73,8 +69,6 @@ struct PageToolbar: ToolbarContent {
             ToolbarItem(placement: .primaryAction) {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
-                    page.objectWillChange.send()
-                    page.feedsArray.forEach { $0.objectWillChange.send() }
                 }
             }
             ToolbarItem(placement: .primaryAction) {

@@ -33,7 +33,6 @@ struct TrendingToolbar: ToolbarContent {
         ToolbarItem {
             MarkAllReadUnreadButton(unreadCount: unreadCount) {
                 await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
-                profile.objectWillChange.send()
             }
         }
         #else
@@ -47,7 +46,6 @@ struct TrendingToolbar: ToolbarContent {
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(unreadCount: unreadCount) {
                     await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
-                    profile.objectWillChange.send()
                 }
             }
         } else {
@@ -57,7 +55,6 @@ struct TrendingToolbar: ToolbarContent {
             ToolbarItem(placement: .primaryAction) {
                 MarkAllReadUnreadButton(unreadCount: unreadCount) {
                     await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
-                    profile.objectWillChange.send()
                 }
             }
         }

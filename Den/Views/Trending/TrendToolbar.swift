@@ -29,8 +29,6 @@ struct TrendToolbar: ToolbarContent {
         ToolbarItem {
             MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
-                trend.objectWillChange.send()
-                profile.objectWillChange.send()
                 if hideRead {
                     dismiss()
                 }
@@ -47,8 +45,6 @@ struct TrendToolbar: ToolbarContent {
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
-                    trend.objectWillChange.send()
-                    profile.objectWillChange.send()
                     if hideRead {
                         dismiss()
                     }
@@ -61,8 +57,6 @@ struct TrendToolbar: ToolbarContent {
             ToolbarItem(placement: .primaryAction) {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
-                    trend.objectWillChange.send()
-                    profile.objectWillChange.send()
                     if hideRead {
                         dismiss()
                     }

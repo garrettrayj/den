@@ -27,10 +27,6 @@ struct InboxToolbar: ToolbarContent {
         ToolbarItem {
             MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
-                profile.objectWillChange.send()
-                for page in profile.pagesArray {
-                    page.objectWillChange.send()
-                }
             }
         }
         #else
@@ -44,10 +40,6 @@ struct InboxToolbar: ToolbarContent {
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
-                    profile.objectWillChange.send()
-                    for page in profile.pagesArray {
-                        page.objectWillChange.send()
-                    }
                 }
             }
         } else {
@@ -57,10 +49,6 @@ struct InboxToolbar: ToolbarContent {
             ToolbarItem(placement: .primaryAction) {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
-                    profile.objectWillChange.send()
-                    for page in profile.pagesArray {
-                        page.objectWillChange.send()
-                    }
                 }
             }
         }
