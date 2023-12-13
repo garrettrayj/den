@@ -14,7 +14,7 @@ enum BlocklistPreset: CaseIterable {
     case easyListCookieList
     case fanboysSocialBlockingList
     case fanboysAnnoyanceList
-    case antiPaywall
+    case adblockWarningRemoval
 
     var url: URL {
         switch self {
@@ -28,8 +28,8 @@ enum BlocklistPreset: CaseIterable {
             return URL(string: "https://easylist.to/easylist/fanboy-social.txt")!
         case .fanboysAnnoyanceList:
             return URL(string: "https://secure.fanboy.co.nz/fanboy-annoyance.txt")!
-        case .antiPaywall:
-            return URL(string: "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt")!
+        case .adblockWarningRemoval:
+            return URL(string: "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt")!
         }
     }
 
@@ -45,8 +45,8 @@ enum BlocklistPreset: CaseIterable {
             return "Fanboy's Social Blocking List"
         case .fanboysAnnoyanceList:
             return "Fanboy's Annoyance List"
-        case .antiPaywall:
-            return "Anti Paywall"
+        case .adblockWarningRemoval:
+            return "Adblock Warning Removal List"
         }
     }
 }

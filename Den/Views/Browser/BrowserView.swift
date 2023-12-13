@@ -66,54 +66,36 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                 #else
                 .navigationBarBackButtonHidden(horizontalSizeClass != .compact)
                 #endif
-                .navigationTitle(browserViewModel.url?.host() ?? "")
-                .toolbar {
-                    BrowserToolbar(
-                        browserViewModel: browserViewModel,
-                        browserZoom: $browserZoom,
-                        readerZoom: $readerZoom
-                    )
-                    extraToolbar
-                }
-                .toolbarBackground(.visible)
-                .overlay(alignment: .top) {
-                    if browserViewModel.showingReader == true {
-                        ReaderWebView(browserViewModel: browserViewModel)
-                            .onAppear {
-                                browserViewModel.setReaderZoom(readerZoom)
-                                browserViewModel.loadReader(initialZoom: readerZoom)
-                            }
-                            .onChange(of: browserViewModel.mercuryObject) {
-                                browserViewModel.loadReader(initialZoom: readerZoom)
-                            }
-                            #if os(macOS)
-                            .transition(.flipFromBottom)
-                            .ignoresSafeArea()
-                            #else
-                            .transition(.flipFromTop)
-                            .ignoresSafeArea(edges: .vertical)
-                            #endif
+            
+            if browserViewModel.showingReader == true {
+                ReaderWebView(browserViewModel: browserViewModel)
+                    .task {
+                        browserViewModel.setReaderZoom(readerZoom)
+                        await browserViewModel.loadReader(initialZoom: readerZoom)
                     }
-                    
-                    if browserViewModel.isLoading {
-                        ProgressView(value: browserViewModel.estimatedProgress, total: 1)
-                            .progressViewStyle(ThinLinearProgressViewStyle())
-                            .ignoresSafeArea(edges: .horizontal)
+                    .onChange(of: browserViewModel.mercuryObject) {
+                        Task {
+                            await browserViewModel.loadReader(initialZoom: readerZoom)
+                        }
                     }
-                }
-                .onChange(of: browserZoom) {
-                    browserViewModel.setBrowserZoom(browserZoom)
-                }
-                .onChange(of: readerZoom) {
-                    browserViewModel.setReaderZoom(readerZoom)
-                }
-                #if os(macOS)
-                .background(alignment: .bottom) {
-                    // Buttons in background to fix keyboard shortcuts
-                    ToggleReaderButton(browserViewModel: browserViewModel)
-                    ZoomControlGroup(zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom)
-                }
-                #endif
+                    .onDisappear {
+                        // Fix for videos continuing to play after view is dismissed
+                        browserViewModel.clearReader()
+                    }
+                    #if os(macOS)
+                    .transition(.flipFromBottom)
+                    .ignoresSafeArea()
+                    #else
+                    .transition(.flipFromTop)
+                    .ignoresSafeArea(edges: .vertical)
+                    #endif
+            }
+            
+            if browserViewModel.isLoading {
+                ProgressView(value: browserViewModel.estimatedProgress, total: 1)
+                    .progressViewStyle(ThinLinearProgressViewStyle())
+                    .ignoresSafeArea(edges: .horizontal)
+            }
             
             if let error = browserViewModel.browserError {
                 ContentUnavailable {
@@ -127,6 +109,29 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                 }
             }
         }
+        .navigationTitle(browserViewModel.url?.host() ?? "")
+        .toolbar {
+            BrowserToolbar(
+                browserViewModel: browserViewModel,
+                browserZoom: $browserZoom,
+                readerZoom: $readerZoom
+            )
+            extraToolbar
+        }
+        .toolbarBackground(.visible)
+        .onChange(of: browserZoom) {
+            browserViewModel.setBrowserZoom(browserZoom)
+        }
+        .onChange(of: readerZoom) {
+            browserViewModel.setReaderZoom(readerZoom)
+        }
+        #if os(macOS)
+        .background(alignment: .bottom) {
+            // Buttons in background to fix keyboard shortcuts
+            ToggleReaderButton(browserViewModel: browserViewModel)
+            ZoomControlGroup(zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom)
+        }
+        #endif
     }
 }
 

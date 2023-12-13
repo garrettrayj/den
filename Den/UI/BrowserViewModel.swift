@@ -36,7 +36,8 @@ class BrowserViewModel: NSObject, ObservableObject {
     @Published var showingReader = false
     @Published var mercuryObject: MercuryObject?
     @Published var useBlocklists = true
-    @Published var contentRulesListsLoaded = false
+    @Published var browserRulesListsLoaded = false
+    @Published var readerRulesListsLoaded = false
     @Published var useReaderAutomatically = false
     @Published var userTintHex: String?
     @Published var blocklists: [Blocklist] = []
@@ -46,16 +47,14 @@ class BrowserViewModel: NSObject, ObservableObject {
     func loadURL(url: URL?) async {
         guard let url = url else { return }
         
-        if useBlocklists && !contentRulesListsLoaded {
-            for ruleList in await BlocklistManager.getContentRuleLists(
-                blocklists: blocklists
-            ) {
+        if useBlocklists && !browserRulesListsLoaded {
+            for ruleList in await BlocklistManager.getContentRuleLists(blocklists: blocklists) {
                 browserWebView?.configuration.userContentController.add(ruleList)
             }
-            contentRulesListsLoaded = true
-        } else if !useBlocklists && contentRulesListsLoaded {
+            browserRulesListsLoaded = true
+        } else if !useBlocklists && browserRulesListsLoaded {
             browserWebView?.configuration.userContentController.removeAllContentRuleLists()
-            contentRulesListsLoaded = false
+            browserRulesListsLoaded = false
         }
         
         browserWebView?
@@ -135,7 +134,8 @@ class BrowserViewModel: NSObject, ObservableObject {
         #endif
     }
 
-    func loadReader(initialZoom: PageZoomLevel) {
+    @MainActor
+    func loadReader(initialZoom: PageZoomLevel) async {
         var baseURL: URL?
 
         if
@@ -145,11 +145,25 @@ class BrowserViewModel: NSObject, ObservableObject {
             pageURLComponents.path = ""
             baseURL = pageURLComponents.url
         }
+        
+        if useBlocklists && !readerRulesListsLoaded {
+            for ruleList in await BlocklistManager.getContentRuleLists(blocklists: blocklists) {
+                readerWebView?.configuration.userContentController.add(ruleList)
+            }
+            readerRulesListsLoaded = true
+        } else if !useBlocklists && readerRulesListsLoaded {
+            readerWebView?.configuration.userContentController.removeAllContentRuleLists()
+            readerRulesListsLoaded = false
+        }
 
         readerWebView?.loadHTMLString(
             generateReaderHTML(initialZoom: initialZoom),
             baseURL: baseURL
         )
+    }
+    
+    func clearReader() {
+        readerWebView?.loadHTMLString("<html/>", baseURL: nil)
     }
 
     // swiftlint:disable function_body_length
@@ -225,6 +239,18 @@ class BrowserViewModel: NSObject, ObservableObject {
         if content.contains("instagram-media") {
             html += """
             <script async src="//www.instagram.com/embed.js"></script>
+            """
+        }
+        
+        if content.contains("tiktok-embed") {
+            html += """
+            <script async src="https://www.tiktok.com/embed.js"></script>
+            """
+        }
+        
+        if content.contains("reddit-embed") {
+            html += """
+            <script async src="https://embed.reddit.com/widgets.js"></script>
             """
         }
         

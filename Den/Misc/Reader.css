@@ -179,6 +179,11 @@ canvas, svg {
     margin-right: auto;
 }
 
+.tiktok-embed {
+    max-width: 605px;
+    min-width: 325px;
+}
+
 /* Typography */
 
 h1 {
