@@ -30,7 +30,6 @@ struct Sidebar: View {
     @State private var exporterIsPresented: Bool = false
     @State private var isEditing = false
     @State private var opmlFile: OPMLFile?
-    @State private var searchInput = ""
     @State private var showingExporter: Bool = false
     @State private var showingImporter: Bool = false
     @State private var showingSettings = false
@@ -79,22 +78,6 @@ struct Sidebar: View {
         .badgeProminence(.decreased)
         .refreshable {
             await RefreshManager.refresh(profile: profile)
-        }
-        .id(profile.id) // Needed for refreshable action to update when switching profiles
-        .searchable(
-            text: $searchInput,
-            placement: .sidebar,
-            prompt: Text("Search", comment: "Search field prompt.")
-        )
-        .searchSuggestions {
-            ForEach(profile.searchesArray.prefix(20)) { search in
-                if search.wrappedQuery != "" {
-                    Text(verbatim: search.wrappedQuery).searchCompletion(search.wrappedQuery)
-                }
-            }
-        }
-        .onSubmit(of: .search) {
-            detailPanel = .search(searchInput)
         }
         #if os(iOS)
         .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct MarkAllReadUnreadButton: View {
-    let unreadCount: Int
+    let allRead: Bool
     let toggleAll: () async -> Void
 
     @State private var toggling = false
@@ -22,7 +22,7 @@ struct MarkAllReadUnreadButton: View {
                 toggling = false
             }
         } label: {
-            if unreadCount == 0 {
+            if allRead {
                 Label {
                     Text("Mark All Unread", comment: "Button label.")
                 } icon: {

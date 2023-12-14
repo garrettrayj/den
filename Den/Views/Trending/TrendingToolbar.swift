@@ -31,7 +31,7 @@ struct TrendingToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
-            MarkAllReadUnreadButton(unreadCount: unreadCount) {
+            MarkAllReadUnreadButton(allRead: unreadCount == 0) {
                 await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
             }
         }
