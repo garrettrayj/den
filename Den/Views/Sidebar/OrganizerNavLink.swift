@@ -9,12 +9,8 @@
 import SwiftUI
 
 struct OrganizerNavLink: View {
-    @Binding var detailPanel: DetailPanel?
-
     var body: some View {
-        Button {
-            detailPanel = .organizer
-        } label: {
+        NavigationLink(value: DetailPanel.organizer) {
             Label {
                 Text("Organizer", comment: "Button label.")
             } icon: {

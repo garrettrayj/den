@@ -14,7 +14,6 @@ struct SidebarToolbar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
-    @Binding var detailPanel: DetailPanel?
     @Binding var isEditing: Bool
     @Binding var refreshing: Bool
     @Binding var showingExporter: Bool
@@ -45,7 +44,6 @@ struct SidebarToolbar: ToolbarContent {
                 Divider()
                 ImportButton(showingImporter: $showingImporter)
                 ExportButton(showingExporter: $showingExporter)
-                OrganizerNavLink(detailPanel: $detailPanel)
             } label: {
                 Label {
                     Text("Menu", comment: "Button label.")
@@ -89,7 +87,6 @@ struct SidebarToolbar: ToolbarContent {
                     .accessibilityIdentifier("EditPages")
                     ImportButton(showingImporter: $showingImporter)
                     ExportButton(showingExporter: $showingExporter)
-                    OrganizerNavLink(detailPanel: $detailPanel)
                     SettingsButton(showingSettings: $showingSettings)
                 } label: {
                     Label {
