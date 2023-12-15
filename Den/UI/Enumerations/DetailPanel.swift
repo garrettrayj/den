@@ -12,7 +12,6 @@ enum DetailPanel: Hashable {
     case inbox
     case organizer
     case page(Page)
-    case search(String)
     case tag(Tag)
     case trending
     case welcome
@@ -25,8 +24,6 @@ enum DetailPanel: Hashable {
             return "organizer"
         case .page:
             return "page"
-        case .search:
-            return "search"
         case .tag:
             return "tag"
         case .trending:
@@ -39,14 +36,6 @@ enum DetailPanel: Hashable {
     var pageID: String? {
         if case .page(let page) = self {
             return page.id?.uuidString
-        }
-
-        return nil
-    }
-
-    var searchQuery: String? {
-        if case .search(let searchQuery) = self {
-            return searchQuery
         }
 
         return nil
@@ -88,9 +77,6 @@ extension DetailPanel: Decodable {
             if let page = try? context.fetch(request).first {
                 detailPanel = .page(page)
             }
-        } else if panelID == "search" && values.contains(.searchQuery) {
-            let decodedSearchQuery = try values.decode(String.self, forKey: .searchQuery)
-            detailPanel = .search(decodedSearchQuery)
         } else if panelID == "tag" {
             let decodedTagID = try values.decode(String.self, forKey: .tagID)
 
@@ -114,7 +100,6 @@ extension DetailPanel: Encodable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(panelID, forKey: .panelID)
         try container.encode(pageID, forKey: .pageID)
-        try container.encode(searchQuery, forKey: .searchQuery)
         try container.encode(tagID, forKey: .tagID)
     }
 }
