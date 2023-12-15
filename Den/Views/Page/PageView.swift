@@ -18,6 +18,7 @@ struct PageView: View {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
+    @Binding var searchQuery: String
     
     @SceneStorage("ShowingPageInspector") private var showingInspector = false
 
@@ -34,22 +35,32 @@ struct PageView: View {
             }
             .navigationTitle("")
         } else {
-            WithItems(scopeObject: page) { items in
+            WithItems(
+                scopeObject: page,
+                includeExtras: !searchQuery.isEmpty,
+                searchQuery: searchQuery
+            ) { items in
                 Group {
                     if page.feedsArray.isEmpty {
                         NoFeeds()
+                    } else if !searchQuery.isEmpty && items.isEmpty {
+                        NoSearchResults(searchQuery: $searchQuery)
+                    } else if !searchQuery.isEmpty && items.unread().isEmpty && hideRead {
+                        NoUnreadSearchResults(searchQuery: $searchQuery)
                     } else {
                         switch pageLayout.wrappedValue {
                         case .grouped:
                             GroupedLayout(
                                 page: page,
                                 hideRead: $hideRead,
+                                searchQuery: $searchQuery,
                                 items: items
                             )
                         case .deck:
                             DeckLayout(
                                 page: page,
                                 hideRead: $hideRead,
+                                searchQuery: $searchQuery,
                                 items: items
                             )
                         case .timeline:
@@ -63,6 +74,10 @@ struct PageView: View {
                 }
                 .frame(minWidth: minDetailColumnWidth)
                 .navigationTitle(page.nameText)
+                .searchable(
+                    text: $searchQuery,
+                    prompt: Text("Search", comment: "Search field prompt.")
+                )
                 .inspector(isPresented: $showingInspector) {
                     PageInspector(page: page)
                 }
@@ -95,11 +110,13 @@ struct PageView: View {
 
     init(
         page: Page,
-        hideRead: Binding<Bool>
+        hideRead: Binding<Bool>,
+        searchQuery: Binding<String>
     ) {
         self.page = page
 
         _hideRead = hideRead
+        _searchQuery = searchQuery
 
         pageLayout = .init(
             wrappedValue: PageLayout.grouped,
