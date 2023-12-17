@@ -35,31 +35,17 @@ struct TrendToolbar: ToolbarContent {
             }
         }
         #else
-        if horizontalSizeClass == .compact {
-            ToolbarItem(placement: .bottomBar) {
-                FilterReadButton(hideRead: $hideRead)
-            }
-            ToolbarItem(placement: .status) {
-                CommonStatus(profile: profile, items: items)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
-                    if hideRead {
-                        dismiss()
-                    }
-                }
-            }
-        } else {
-            ToolbarItem(placement: .primaryAction) {
-                FilterReadButton(hideRead: $hideRead)
-            }
-            ToolbarItem(placement: .primaryAction) {
-                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
-                    if hideRead {
-                        dismiss()
-                    }
+        ToolbarItem(placement: .bottomBar) {
+            FilterReadButton(hideRead: $hideRead)
+        }
+        ToolbarItem(placement: .status) {
+            CommonStatus(profile: profile, items: items)
+        }
+        ToolbarItem(placement: .bottomBar) {
+            MarkAllReadUnreadButton(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
+                if hideRead {
+                    dismiss()
                 }
             }
         }

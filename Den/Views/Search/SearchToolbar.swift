@@ -29,31 +29,16 @@ struct SearchToolbar: ToolbarContent {
             }
         }
         #else
-        if horizontalSizeClass == .compact {
-            ToolbarItem(placement: .bottomBar) {
-                FilterReadButton(hideRead: $hideRead)
-            }
-            ToolbarItem(placement: .status) {
-                Text("Results for “\(query)”", comment: "Bottom bar status.")
-                    .font(.caption)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
-                }
-            }
-        } else {
-            ToolbarItem(placement: .primaryAction) {
-                FilterReadButton(hideRead: $hideRead)
-            }
-            ToolbarItem(placement: .primaryAction) {
-                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
-                }
-            }
-            ToolbarItem(placement: .status) {
-                Text("Results for “\(query)”", comment: "Bottom bar status.")
-                    .font(.caption)
+        ToolbarItem(placement: .bottomBar) {
+            FilterReadButton(hideRead: $hideRead)
+        }
+        ToolbarItem(placement: .status) {
+            Text("Results for “\(query)”", comment: "Bottom bar status.")
+                .font(.caption)
+        }
+        ToolbarItem(placement: .bottomBar) {
+            MarkAllReadUnreadButton(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
         #endif

@@ -25,7 +25,7 @@ struct Trending: View {
             if profile.trends.isEmpty {
                 ContentUnavailable {
                     Label {
-                        Text("Nothing Trending", comment: "Content unavailable title.")
+                        Text("No Trends", comment: "Content unavailable title.")
                     } icon: {
                         Image(systemName: "chart.line.downtrend.xyaxis")
                     }
@@ -35,20 +35,24 @@ struct Trending: View {
                         comment: "Trending empty message."
                     )
                 }
-            } else if visibleTrends.isEmpty {
-                AllRead(largeDisplay: true)
             } else {
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        BoardView(width: geometry.size.width, list: visibleTrends) { trend in
-                            TrendBlock(trend: trend)
+                Group {
+                    if visibleTrends.isEmpty {
+                        AllRead(largeDisplay: true)
+                    } else {
+                        GeometryReader { geometry in
+                            ScrollView(.vertical) {
+                                BoardView(width: geometry.size.width, list: visibleTrends) { trend in
+                                    TrendBlock(trend: trend)
+                                }
+                            }
                         }
                     }
                 }
+                .toolbar {
+                    TrendingToolbar(profile: profile, hideRead: $hideRead)
+                }
             }
-        }
-        .toolbar {
-            TrendingToolbar(profile: profile, hideRead: $hideRead)
         }
         .navigationTitle(Text("Trending", comment: "Navigation title."))
     }
