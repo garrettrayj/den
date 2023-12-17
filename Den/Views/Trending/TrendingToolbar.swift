@@ -36,26 +36,15 @@ struct TrendingToolbar: ToolbarContent {
             }
         }
         #else
-        if horizontalSizeClass == .compact {
-            ToolbarItem(placement: .bottomBar) {
-                FilterReadButton(hideRead: $hideRead)
-            }
-            ToolbarItem(placement: .status) {
-                CommonStatus(profile: profile, items: itemsFromTrends)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                MarkAllReadUnreadButton(allRead: unreadCount == 0) {
-                    await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
-                }
-            }
-        } else {
-            ToolbarItem(placement: .primaryAction) {
-                FilterReadButton(hideRead: $hideRead)
-            }
-            ToolbarItem(placement: .primaryAction) {
-                MarkAllReadUnreadButton(allRead: unreadCount == 0) {
-                    await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
-                }
+        ToolbarItem(placement: .bottomBar) {
+            FilterReadButton(hideRead: $hideRead)
+        }
+        ToolbarItem(placement: .status) {
+            CommonStatus(profile: profile, items: itemsFromTrends)
+        }
+        ToolbarItem(placement: .bottomBar) {
+            MarkAllReadUnreadButton(allRead: unreadCount == 0) {
+                await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
             }
         }
         #endif
