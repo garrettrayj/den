@@ -13,7 +13,6 @@ struct PagesSection: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var detailPanel: DetailPanel?
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
     @Binding var showingNewFeedSheet: Bool

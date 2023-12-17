@@ -63,13 +63,12 @@ struct Sidebar: View {
                 #endif
                 PagesSection(
                     profile: profile,
-                    detailPanel: $detailPanel,
                     newFeedPageID: $newFeedPageID,
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet
                 )
                 if !profile.tagsArray.isEmpty {
-                    TagsSection(profile: profile, detailPanel: $detailPanel)
+                    TagsSection(profile: profile)
                 }
             }
         }

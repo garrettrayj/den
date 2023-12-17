@@ -12,8 +12,6 @@ struct TagsSection: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
-    
-    @Binding var detailPanel: DetailPanel?
 
     var body: some View {
         Section {
