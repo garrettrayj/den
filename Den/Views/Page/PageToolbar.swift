@@ -31,7 +31,7 @@ struct PageToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
-            MarkAllReadUnreadButton(unreadCount: items.unread().count) {
+            MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
@@ -39,23 +39,40 @@ struct PageToolbar: ToolbarContent {
             InspectorToggleButton(showingInspector: $showingInspector)
         }
         #else
-        ToolbarItem {
-            PageLayoutPicker(pageLayout: $pageLayout)
-        }
-        ToolbarItem {
-            InspectorToggleButton(showingInspector: $showingInspector)
-        }
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .status) {
-            if let profile = page.profile {
-                CommonStatus(profile: profile, items: items)
+        if horizontalSizeClass == .compact {
+            ToolbarItem {
+                PageLayoutPicker(pageLayout: $pageLayout)
             }
-        }
-        ToolbarItem(placement: .bottomBar) {
-            MarkAllReadUnreadButton(unreadCount: items.unread().count) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
+            ToolbarItem {
+                InspectorToggleButton(showingInspector: $showingInspector)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .status) {
+                if let profile = page.profile {
+                    CommonStatus(profile: profile, items: items)
+                }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                }
+            }
+        } else {
+            ToolbarItem(placement: .primaryAction) {
+                PageLayoutPicker(pageLayout: $pageLayout)
+            }
+            ToolbarItem(placement: .primaryAction) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .primaryAction) {
+                MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                }
+            }
+            ToolbarItem(placement: .primaryAction) {
+                InspectorToggleButton(showingInspector: $showingInspector)
             }
         }
         #endif

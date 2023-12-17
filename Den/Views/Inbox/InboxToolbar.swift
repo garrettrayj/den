@@ -25,20 +25,31 @@ struct InboxToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
-            MarkAllReadUnreadButton(unreadCount: items.unread().count) {
+            MarkAllReadUnreadButton(allRead: items.unread().count == 0 && items.count > 0) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
         #else
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .status) {
-            CommonStatus(profile: profile, items: items)
-        }
-        ToolbarItem(placement: .bottomBar) {
-            MarkAllReadUnreadButton(unreadCount: items.unread().count) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
+        if horizontalSizeClass == .compact {
+            ToolbarItem(placement: .bottomBar) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .status) {
+                CommonStatus(profile: profile, items: items)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                }
+            }
+        } else {
+            ToolbarItem(placement: .primaryAction) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .primaryAction) {
+                MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                }
             }
         }
         #endif

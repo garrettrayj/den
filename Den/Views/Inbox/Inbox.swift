@@ -12,12 +12,21 @@ struct Inbox: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
+    @Binding var searchQuery: String
 
     var body: some View {
-        WithItems(scopeObject: profile) { items in
+        WithItems(
+            scopeObject: profile,
+            includeExtras: !searchQuery.isEmpty,
+            searchQuery: searchQuery
+        ) { items in
             Group {
                 if profile.feedsArray.isEmpty {
                     NoFeeds(symbol: "tray")
+                } else if !searchQuery.isEmpty && items.isEmpty {
+                    NoSearchResults(searchQuery: $searchQuery)
+                } else if !searchQuery.isEmpty && items.unread().isEmpty && hideRead {
+                    NoUnreadSearchResults(searchQuery: $searchQuery)
                 } else if items.isEmpty {
                     ContentUnavailable {
                         Label {
@@ -56,6 +65,10 @@ struct Inbox: View {
                 InboxToolbar(profile: profile, hideRead: $hideRead, items: items)
             }
             .navigationTitle(Text("Inbox", comment: "Navigation title"))
+            .searchable(
+                text: $searchQuery,
+                prompt: Text("Search", comment: "Search field prompt.")
+            )
         }
     }
 }
