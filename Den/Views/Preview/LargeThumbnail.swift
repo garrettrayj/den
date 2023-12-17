@@ -21,7 +21,44 @@ struct LargeThumbnail: View {
     let width: CGFloat?
     let height: CGFloat?
 
-    var aspectRatio: CGFloat? {
+    var body: some View {
+        Group {
+            if aspectRatio == nil {
+                ImageDepression(padding: 8) {
+                    VStack {
+                        webImage
+                            .modifier(ImageBorderModifier(cornerRadius: 4))
+                            .scaledToFit()
+                    }
+                }
+                .aspectRatio(16/9, contentMode: .fill)
+            } else if aspectRatio! < 0.75 {
+                ImageDepression(padding: 8) {
+                    webImage
+                        .aspectRatio(aspectRatio, contentMode: .fit)
+                        .frame(
+                            maxHeight: largeThumbnailSize.height > 0 ? min(largeThumbnailSize.height, 400) : nil,
+                            alignment: .top
+                        )
+                }
+            } else if let width = width, width < largeThumbnailSize.width {
+                ImageDepression(padding: 8) {
+                    webImage
+                        .aspectRatio(aspectRatio, contentMode: .fit)
+                        .clipped()
+                        .modifier(ImageBorderModifier(cornerRadius: 4))
+                }
+            } else {
+                webImage
+                    .aspectRatio(aspectRatio, contentMode: .fit)
+                    .background(.quaternary)
+                    .modifier(ImageBorderModifier(cornerRadius: 6))
+            }
+        }
+        .accessibility(label: Text("Preview Image", comment: "Accessibility label."))
+    }
+    
+    private var aspectRatio: CGFloat? {
         guard
             let width = width,
             let height = height,
@@ -31,73 +68,16 @@ struct LargeThumbnail: View {
 
         return width / height
     }
-
-    var body: some View {
-        Group {
-            if aspectRatio == nil {
-                ImageDepression(padding: 8) {
-                    VStack {
-                        WebImage(
-                            url: url,
-                            options: [.delayPlaceholder, .lowPriority],
-                            context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
-                        )
-                        .purgeable(true)
-                        .resizable()
-                        .placeholder { ImageErrorPlaceholder() }
-                        .modifier(PreviewImageStateModifier(isRead: isRead))
-                        .modifier(ImageBorderModifier(cornerRadius: 4))
-                        .scaledToFit()
-                    }
-                }
-                .aspectRatio(16/9, contentMode: .fill)
-            } else if aspectRatio! < 0.75 {
-                ImageDepression(padding: 8) {
-                    WebImage(
-                        url: url,
-                        options: [.delayPlaceholder, .lowPriority],
-                        context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
-                    )
-                    .purgeable(true)
-                    .resizable()
-                    .placeholder { ImageErrorPlaceholder() }
-                    .modifier(PreviewImageStateModifier(isRead: isRead))
-                    .aspectRatio(aspectRatio, contentMode: .fit)
-                    .frame(
-                        maxHeight: largeThumbnailSize.height > 0 ? min(largeThumbnailSize.height, 400) : nil,
-                        alignment: .top
-                    )
-                }
-            } else if let width = width, width < largeThumbnailSize.width {
-                ImageDepression(padding: 8) {
-                    WebImage(
-                        url: url,
-                        options: [.delayPlaceholder, .lowPriority],
-                        context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
-                    )
-                    .purgeable(true)
-                    .resizable()
-                    .placeholder { ImageErrorPlaceholder() }
-                    .modifier(PreviewImageStateModifier(isRead: isRead))
-                    .aspectRatio(aspectRatio, contentMode: .fit)
-                    .clipped()
-                    .modifier(ImageBorderModifier(cornerRadius: 4))
-                }
-            } else {
-                WebImage(
-                    url: url,
-                    options: [.delayPlaceholder, .lowPriority],
-                    context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
-                )
-                .purgeable(true)
-                .resizable()
-                .placeholder { ImageErrorPlaceholder() }
-                .modifier(PreviewImageStateModifier(isRead: isRead))
-                .aspectRatio(aspectRatio, contentMode: .fit)
-                .background(.quaternary)
-                .modifier(ImageBorderModifier(cornerRadius: 6))
-            }
-        }
-        .accessibility(label: Text("Preview Image", comment: "Accessibility label."))
+    
+    private var webImage: some View {
+        WebImage(
+            url: url,
+            options: [.delayPlaceholder, .lowPriority],
+            context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
+        )
+        .purgeable(true)
+        .resizable()
+        .placeholder { ImageErrorPlaceholder() }
+        .modifier(PreviewImageStateModifier(isRead: isRead))
     }
 }

@@ -25,15 +25,15 @@ struct PageToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            PageLayoutPicker(pageLayout: $pageLayout).labelStyle(.iconOnly)
-        }
-        ToolbarItem {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }
+        }
+        ToolbarItem {
+            PageLayoutPicker(pageLayout: $pageLayout).labelStyle(.iconOnly)
         }
         ToolbarItem {
             InspectorToggleButton(showingInspector: $showingInspector)
