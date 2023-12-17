@@ -30,7 +30,6 @@ struct Sidebar: View {
     @State private var exporterIsPresented: Bool = false
     @State private var isEditing = false
     @State private var opmlFile: OPMLFile?
-    @State private var searchInput = ""
     @State private var showingExporter: Bool = false
     @State private var showingImporter: Bool = false
     @State private var showingSettings = false
@@ -49,24 +48,22 @@ struct Sidebar: View {
                     showingNewPageSheet: $showingNewPageSheet
                 )
             } else {
+                #if os(macOS)
                 Section {
                     InboxNavLink(profile: profile)
                     TrendingNavLink(profile: profile)
-                    NavigationLink(value: DetailPanel.search) {
-                        Label {
-                            Text("Search")
-                        } icon: {
-                            Image(systemName: "magnifyingglass")
-                        }
-                    }
+                    SearchNavLink()
                     OrganizerNavLink()
                 } header: {
-                    #if os(macOS)
                     Text("All Feeds", comment: "Sidebar section header.")
-                    #else
-                    profile.nameText
-                    #endif
                 }
+                #else
+                InboxNavLink(profile: profile)
+                TrendingNavLink(profile: profile)
+                SearchNavLink()
+                OrganizerNavLink()
+                #endif
+                
                 PagesSection(
                     profile: profile,
                     detailPanel: $detailPanel,
@@ -82,7 +79,6 @@ struct Sidebar: View {
         .buttonStyle(.plain)
         .listStyle(.sidebar)
         .badgeProminence(.decreased)
-        .headerProminence(.increased)
         .refreshable {
             await RefreshManager.refresh(profile: profile)
         }
@@ -90,6 +86,7 @@ struct Sidebar: View {
         .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
         #endif
         .disabled(refreshing)
+        .navigationTitle(profile.nameText)
         .toolbar {
             SidebarToolbar(
                 profile: profile,

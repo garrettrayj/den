@@ -2,7 +2,7 @@
 //  OrganizerNavLink.swift
 //  Den
 //
-//  Created by Garrett Johnson on 9/10/23.
+//  Created by Garrett Johnson on 12/17/23.
 //  Copyright © 2023 Garrett Johnson
 //
 
@@ -17,6 +17,6 @@ struct OrganizerNavLink: View {
                 Image(systemName: "folder.badge.gearshape")
             }
         }
-        .accessibilityIdentifier("ShowOrganizer")
+        .accessibilityIdentifier("OrganizerNavLink")
     }
 }
