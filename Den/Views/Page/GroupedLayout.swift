@@ -14,7 +14,6 @@ struct GroupedLayout: View {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
-    @Binding var searchQuery: String
 
     let items: [Item]
 
@@ -28,7 +27,7 @@ struct GroupedLayout: View {
                                 width: geometry.size.width,
                                 layoutScalingFactor: dynamicTypeSize.layoutScalingFactor
                             ),
-                            list: visibleFeeds
+                            list: page.feedsArray
                         ),
                         id: \.0
                     ) { _, feeds in
@@ -46,20 +45,6 @@ struct GroupedLayout: View {
                 .padding()
             }
             .id("GroupedLayout_\(page.id?.uuidString ?? "NoID")")
-        }
-    }
-    
-    private var visibleFeeds: [Feed] {
-        if !searchQuery.isEmpty && hideRead {
-            return page.feedsArray.filter { feed in
-                items.unread().forFeed(feed: feed).count > 0
-            }
-        } else if !searchQuery.isEmpty {
-            return page.feedsArray.filter { feed in
-                items.forFeed(feed: feed).count > 0
-            }
-        } else {
-            return page.feedsArray
         }
     }
 }

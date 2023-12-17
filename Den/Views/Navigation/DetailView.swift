@@ -15,19 +15,19 @@ struct DetailView: View {
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
     @Binding var path: NavigationPath
-    
-    @SceneStorage("SearchQuery") private var searchQuery = ""
 
     var body: some View {
         NavigationStack(path: $path) {
             Group {
                 switch detailPanel ?? .welcome {
                 case .inbox:
-                    Inbox(profile: profile, hideRead: $hideRead, searchQuery: $searchQuery)
+                    Inbox(profile: profile, hideRead: $hideRead)
                 case .organizer:
                     Organizer(profile: profile)
                 case .page(let page):
-                    PageView(page: page, hideRead: $hideRead, searchQuery: $searchQuery)
+                    PageView(page: page, hideRead: $hideRead)
+                case .search(let query):
+                    SearchView(profile: profile, query: query)
                 case .tag(let tag):
                     TagView(tag: tag)
                 case .trending:

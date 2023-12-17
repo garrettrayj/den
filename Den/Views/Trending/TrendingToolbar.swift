@@ -31,7 +31,7 @@ struct TrendingToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
-            MarkAllReadUnreadButton(allRead: unreadCount == 0) {
+            MarkAllReadUnreadButton(unreadCount: unreadCount) {
                 await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
             }
         }
@@ -44,7 +44,7 @@ struct TrendingToolbar: ToolbarContent {
                 CommonStatus(profile: profile, items: itemsFromTrends)
             }
             ToolbarItem(placement: .bottomBar) {
-                MarkAllReadUnreadButton(allRead: unreadCount == 0) {
+                MarkAllReadUnreadButton(unreadCount: unreadCount) {
                     await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
                 }
             }
@@ -53,7 +53,7 @@ struct TrendingToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .primaryAction) {
-                MarkAllReadUnreadButton(allRead: unreadCount == 0) {
+                MarkAllReadUnreadButton(unreadCount: unreadCount) {
                     await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
                 }
             }

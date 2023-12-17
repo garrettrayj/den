@@ -1,22 +1,21 @@
 //
-//  InboxToolbar.swift
+//  SearchToolbar.swift
 //  Den
 //
-//  Created by Garrett Johnson on 11/13/22.
-//  Copyright © 2022 Garrett Johnson
+//  Created by Garrett Johnson on 4/12/23.
+//  Copyright © 2023 Garrett Johnson
 //
 
 import SwiftUI
 
-struct InboxToolbar: ToolbarContent {
+struct SearchToolbar: ToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
 
-    @ObservedObject var profile: Profile
-
     @Binding var hideRead: Bool
 
+    let query: String
     let items: [Item]
 
     var body: some ToolbarContent {
@@ -35,7 +34,8 @@ struct InboxToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
-                CommonStatus(profile: profile, items: items)
+                Text("Results for “\(query)”", comment: "Bottom bar status.")
+                    .font(.caption)
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {
@@ -50,6 +50,10 @@ struct InboxToolbar: ToolbarContent {
                 MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                 }
+            }
+            ToolbarItem(placement: .status) {
+                Text("Results for “\(query)”", comment: "Bottom bar status.")
+                    .font(.caption)
             }
         }
         #endif

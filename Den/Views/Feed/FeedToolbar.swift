@@ -26,7 +26,7 @@ struct FeedToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
-            MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
+            MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
@@ -47,7 +47,7 @@ struct FeedToolbar: ToolbarContent {
                 }
             }
             ToolbarItem(placement: .bottomBar) {
-                MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
+                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                 }
             }
@@ -56,7 +56,7 @@ struct FeedToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .primaryAction) {
-                MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
+                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                 }
             }
