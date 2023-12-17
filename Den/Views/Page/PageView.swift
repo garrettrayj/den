@@ -75,22 +75,8 @@ struct PageView: View {
                         items: items
                     )
                 }
-                .toolbarBackground(toolbarBackground)
             }
         }
-    }
-    
-    private var toolbarBackground: Visibility {
-        #if os(iOS)
-        if pageLayout.wrappedValue == .deck {
-            return .visible
-        }
-        if showingInspector && horizontalSizeClass != .compact {
-            return .visible
-        }
-        #endif
-                
-        return .automatic
     }
 
     init(

@@ -49,19 +49,24 @@ struct Sidebar: View {
                     showingNewPageSheet: $showingNewPageSheet
                 )
             } else {
-                #if os(macOS)
                 Section {
                     InboxNavLink(profile: profile)
                     TrendingNavLink(profile: profile)
+                    NavigationLink(value: DetailPanel.search) {
+                        Label {
+                            Text("Search")
+                        } icon: {
+                            Image(systemName: "magnifyingglass")
+                        }
+                    }
                     OrganizerNavLink()
                 } header: {
+                    #if os(macOS)
                     Text("All Feeds", comment: "Sidebar section header.")
+                    #else
+                    profile.nameText
+                    #endif
                 }
-                #else
-                InboxNavLink(profile: profile)
-                TrendingNavLink(profile: profile)
-                OrganizerNavLink()
-                #endif
                 PagesSection(
                     profile: profile,
                     detailPanel: $detailPanel,
@@ -77,30 +82,14 @@ struct Sidebar: View {
         .buttonStyle(.plain)
         .listStyle(.sidebar)
         .badgeProminence(.decreased)
+        .headerProminence(.increased)
         .refreshable {
             await RefreshManager.refresh(profile: profile)
-        }
-        .id(profile.id) // Needed for refreshable action to update when switching profiles
-        .searchable(
-            text: $searchInput,
-            placement: .sidebar,
-            prompt: Text("Search", comment: "Search field prompt.")
-        )
-        .searchSuggestions {
-            ForEach(profile.searchesArray.prefix(20)) { search in
-                if search.wrappedQuery != "" {
-                    Text(verbatim: search.wrappedQuery).searchCompletion(search.wrappedQuery)
-                }
-            }
-        }
-        .onSubmit(of: .search) {
-            detailPanel = .search(searchInput)
         }
         #if os(iOS)
         .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
         #endif
         .disabled(refreshing)
-        .navigationTitle(profile.nameText)
         .toolbar {
             SidebarToolbar(
                 profile: profile,

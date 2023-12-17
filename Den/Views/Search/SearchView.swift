@@ -14,13 +14,14 @@ struct SearchView: View {
 
     @ObservedObject var profile: Profile
 
+    @SceneStorage("SearchQuery") private var searchQuery = ""
+    @SceneStorage("SearchInput") private var searchInput = ""
+
     @AppStorage("SearchHideRead") private var hideRead = false
 
-    let query: String
-
     var body: some View {
-        Group {
-            if query == "" {
+        ZStack {
+            if searchQuery == "" {
                 ContentUnavailable {
                     Label {
                         Text("No Query", comment: "Search query empty title.")
@@ -38,36 +39,57 @@ struct SearchView: View {
                 WithItems(
                     scopeObject: profile,
                     includeExtras: true,
-                    searchQuery: query
+                    searchQuery: searchQuery
                 ) { items in
                     SearchLayout(
                         hideRead: $hideRead,
-                        query: query,
+                        query: searchQuery,
                         items: items
                     )
                     .navigationTitle(
                         Text("Search")
                     )
                     .toolbar {
-                        SearchToolbar(hideRead: $hideRead, query: query, items: items)
+                        SearchToolbar(hideRead: $hideRead, query: searchQuery, items: items)
                     }
                 }
             }
         }
         .onAppear { saveSearch() }
-        .onChange(of: query) { saveSearch() }
+        .onChange(of: searchQuery) { saveSearch() }
+        #if os(macOS)
+        .searchable(
+            text: $searchInput,
+            prompt: Text("Search", comment: "Search field prompt.")
+        )
+        #else
+        .searchable(
+            text: $searchInput,
+            prompt: Text("Search", comment: "Search field prompt.")
+        )
+        #endif
+        .searchSuggestions {
+            ForEach(profile.searchesArray.prefix(20)) { search in
+                if search.wrappedQuery != "" {
+                    Text(verbatim: search.wrappedQuery).searchCompletion(search.wrappedQuery)
+                }
+            }
+        }
+        .onSubmit(of: .search) {
+            searchQuery = searchInput
+        }
     }
 
     private func saveSearch() {
-        guard query != "" else { return }
+        guard searchQuery != "" else { return }
 
         if let search = profile.searchesArray.first(where: {
-            $0.query?.lowercased() == query.lowercased()
+            $0.query?.lowercased() == searchQuery.lowercased()
         }) {
-            search.query = query
+            search.query = searchQuery
             search.submitted = Date()
         } else {
-            _ = Search.create(in: viewContext, profile: profile, query: query)
+            _ = Search.create(in: viewContext, profile: profile, query: searchQuery)
         }
 
         do {

@@ -26,8 +26,8 @@ struct DetailView: View {
                     Organizer(profile: profile)
                 case .page(let page):
                     PageView(page: page, hideRead: $hideRead)
-                case .search(let query):
-                    SearchView(profile: profile, query: query)
+                case .search:
+                    SearchView(profile: profile)
                 case .tag(let tag):
                     TagView(tag: tag)
                 case .trending:
