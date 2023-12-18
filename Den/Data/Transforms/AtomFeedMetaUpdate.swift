@@ -60,4 +60,5 @@ struct AtomFeedMetaUpdate {
             feedData.copyright = copyright
         }
     }
+    // swiftlint:enable cyclomatic_complexity
 }

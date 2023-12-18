@@ -261,6 +261,7 @@ class BrowserViewModel: NSObject, ObservableObject {
         
         return html
     }
+    // swiftlint:enable function_body_length
 
     private var readerStyles: String {
         guard

@@ -104,4 +104,5 @@ final class OPMLReader {
             outlineFolders.append(folder)
         }
     }
+    // swiftlint:enable cyclomatic_complexity
 }

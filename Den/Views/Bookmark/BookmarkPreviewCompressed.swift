@@ -27,7 +27,7 @@ struct BookmarkPreviewCompressed: View {
                         }
                     }
                     if !feed.hideImages, let url = bookmark.image {
-                        Spacer()
+                        Spacer(minLength: 12)
                         SmallThumbnail(url: url, isRead: false)
                     } else {
                         Spacer(minLength: 0)

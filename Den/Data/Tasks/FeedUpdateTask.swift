@@ -143,6 +143,7 @@ class FeedUpdateTask {
             )
         }
     }
+    // swiftlint:enable cyclomatic_complexity function_body_length
 
     private func updateFeed(
         feed: Feed,

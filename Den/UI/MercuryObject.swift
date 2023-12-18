@@ -41,3 +41,4 @@ struct MercuryObject: Codable, Equatable {
         return HTMLContent(source: content).plainText()
     }
 }
+// swiftlint:enable identifier_name
