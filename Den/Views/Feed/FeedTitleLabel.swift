@@ -45,6 +45,7 @@ struct FeedTitleLabel: View {
                 options: [.decodeFirstFrameOnly, .delayPlaceholder],
                 context: [.imageThumbnailPixelSize: faviconPixelSize]
             )
+            .purgeable(true)
             .resizable()
             .placeholder {
                 Image(systemName: "dot.radiowaves.up.forward").foregroundStyle(.primary)
