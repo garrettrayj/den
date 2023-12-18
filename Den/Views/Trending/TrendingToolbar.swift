@@ -9,19 +9,15 @@
 import SwiftUI
 
 struct TrendingToolbar: ToolbarContent {
-    #if !os(macOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
-
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
 
-    var unreadCount: Int {
+    private var unreadCount: Int {
         profile.trends.containingUnread().count
     }
 
-    var itemsFromTrends: [Item] {
+    private var itemsFromTrends: [Item] {
         return profile.trends.flatMap { $0.items }
     }
 

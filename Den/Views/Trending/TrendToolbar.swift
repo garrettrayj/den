@@ -10,9 +10,6 @@ import SwiftUI
 
 struct TrendToolbar: ToolbarContent {
     @Environment(\.dismiss) private var dismiss
-    #if !os(macOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
 
     @ObservedObject var trend: Trend
     @ObservedObject var profile: Profile

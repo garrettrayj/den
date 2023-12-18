@@ -9,10 +9,6 @@
 import SwiftUI
 
 struct PageView: View {
-    #if os(iOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
-    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
 
     @ObservedObject var page: Page

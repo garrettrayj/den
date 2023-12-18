@@ -9,9 +9,10 @@
 import SwiftUI
 
 struct BrowserView<ExtraToolbar: ToolbarContent>: View {
-    @Environment(\.self) private var environment
+    #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @Environment(\.userTint) private var userTint
+    #endif
+    @Environment(\.userTintHex) private var userTintHex
 
     var url: URL
     var useBlocklists: Bool?
@@ -19,7 +20,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     var allowJavaScript: Bool?
     var extraToolbar: ExtraToolbar?
 
-    @StateObject var browserViewModel = BrowserViewModel()
+    @StateObject private var browserViewModel = BrowserViewModel()
 
     @AppStorage("BrowserZoom") private var browserZoom: PageZoomLevel = .oneHundredPercent
     @AppStorage("ReaderZoom") private var readerZoom: PageZoomLevel = .oneHundredPercent
@@ -51,7 +52,7 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                     browserViewModel.useBlocklists = useBlocklists ?? true
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
                     browserViewModel.allowJavaScript = allowJavaScript ?? true
-                    browserViewModel.userTintHex = userTint?.hexString(environment: environment)
+                    browserViewModel.userTintHex = userTintHex
                     browserViewModel.setBrowserZoom(browserZoom)
                     await browserViewModel.loadURL(url: url)
                 }

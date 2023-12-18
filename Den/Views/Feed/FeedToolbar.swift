@@ -9,10 +9,6 @@
 import SwiftUI
 
 struct FeedToolbar: ToolbarContent {
-    #if !os(macOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
-
     @ObservedObject var feed: Feed
 
     @Binding var hideRead: Bool

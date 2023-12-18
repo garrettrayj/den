@@ -13,7 +13,7 @@ struct Trending: View {
 
     @Binding var hideRead: Bool
 
-    var visibleTrends: [Trend] {
+    private var visibleTrends: [Trend] {
         if hideRead {
             return profile.trends.containingUnread()
         }

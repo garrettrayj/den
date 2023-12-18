@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct BookmarkView: View {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-
     @ObservedObject var bookmark: Bookmark
 
     var body: some View {

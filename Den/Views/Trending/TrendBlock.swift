@@ -18,7 +18,7 @@ struct TrendBlock: View {
 
     @ObservedObject var trend: Trend
 
-    var symbol: String? {
+    private var symbol: String? {
         if trend.tag == NLTag.personalName.rawValue {
             return "person"
         } else if trend.tag == NLTag.organizationName.rawValue {
@@ -29,7 +29,7 @@ struct TrendBlock: View {
         return nil
     }
 
-    var uniqueFaviconURLs: [URL] {
+    private var uniqueFaviconURLs: [URL] {
         trend.feeds.compactMap { feed in
             feed.feedData?.favicon
         }.uniqueElements()

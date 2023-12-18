@@ -44,7 +44,7 @@ struct FeedUnavailable: View {
         }
     }
 
-    var title: Text {
+    private var title: Text {
         if feedData == nil {
             return Text("No Data", comment: "Feed unavailable message.")
         } else if feedData?.wrappedError != nil {
@@ -54,7 +54,7 @@ struct FeedUnavailable: View {
         }
     }
 
-    var caption: some View {
+    private var caption: some View {
         Group {
             if feedData == nil {
                 Text("Refresh to fetch items.", comment: "Feed unavailable message.")
@@ -69,7 +69,7 @@ struct FeedUnavailable: View {
     }
     
     @ViewBuilder
-    var actions: some View {
+    private var actions: some View {
         if feedData?.wrappedError != nil {
             if feedData?.wrappedError == .parsing {
                 if let validatorURL = feedData?.feed?.validatorURL {
@@ -88,7 +88,7 @@ struct FeedUnavailable: View {
     }
 
     @ViewBuilder
-    var icon: some View {
+    private var icon: some View {
         if feedData == nil {
             Image(systemName: "questionmark.folder")
         } else if feedData?.wrappedError != nil {

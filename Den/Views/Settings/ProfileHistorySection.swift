@@ -14,7 +14,7 @@ struct ProfileHistorySection: View {
 
     @State var historyRentionDays: Int
 
-    var historyCount: Int {
+    private var historyCount: Int {
         profile.history?.count ?? 0
     }
 

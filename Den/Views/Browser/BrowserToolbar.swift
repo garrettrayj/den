@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct BrowserToolbar: ToolbarContent {
-    #if !os(macOS)
+    #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
 

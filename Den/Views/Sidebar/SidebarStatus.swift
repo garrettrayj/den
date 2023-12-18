@@ -17,10 +17,6 @@ struct SidebarStatus: View {
 
     @Binding var refreshing: Bool
 
-    var refreshedCount: Int {
-        Int(progress.fractionCompleted * Double(profile.feedsArray.count))
-    }
-
     var body: some View {
         Group {
             if !networkMonitor.isConnected {

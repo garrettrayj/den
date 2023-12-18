@@ -50,6 +50,10 @@ extension EnvironmentValues {
         get { self[UserTintKey.self] }
         set { self[UserTintKey.self] = newValue }
     }
+    
+    var userTintHex: String? {
+        userTint?.hexString(environment: self)
+    }
 
     var useSystemBrowser: Bool {
         get { self[UseSystemBrowserKey.self] }

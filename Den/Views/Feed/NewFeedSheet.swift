@@ -104,7 +104,6 @@ struct NewFeedSheet: View {
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
-
         } label: {
             Text("Add Feed", comment: "Button label.")
         }

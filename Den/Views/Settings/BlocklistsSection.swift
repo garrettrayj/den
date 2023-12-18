@@ -9,9 +9,6 @@
 import SwiftUI
 
 struct BlocklistsSection: View {
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.managedObjectContext) private var viewContext
-
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var blocklists: FetchedResults<Blocklist>
 

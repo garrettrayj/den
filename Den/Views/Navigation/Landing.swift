@@ -10,15 +10,9 @@ import OSLog
 import SwiftUI
 
 struct Landing: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
     @Binding var currentProfileID: String?
 
-    @State private var showingNewProfileSheet = false
-
     let profiles: [Profile]
-
-    @State private var profileLoadAttempts = 0
 
     var body: some View {
         NavigationStack {
@@ -108,17 +102,5 @@ struct Landing: View {
             Spacer()
         }
         .padding()
-    }
-
-    private func createProfile() -> Profile {
-        let profile = Profile.create(in: viewContext)
-
-        do {
-            try viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
-
-        return profile
     }
 }

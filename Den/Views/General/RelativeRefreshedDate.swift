@@ -11,7 +11,10 @@ import SwiftUI
 struct RelativeRefreshedDate: View {
     let date: Date
 
-    let relativeDateStyle: Date.RelativeFormatStyle = .relative(presentation: .numeric, unitsStyle: .wide)
+    let relativeDateStyle: Date.RelativeFormatStyle = .relative(
+        presentation: .numeric, 
+        unitsStyle: .wide
+    )
 
     var body: some View {
         TimelineView(.everyMinute) { _ in

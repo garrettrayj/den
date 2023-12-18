@@ -15,7 +15,7 @@ struct ItemTags: View {
         bookmarksList.font(.caption2).imageScale(.small)
     }
 
-    var bookmarksList: Text {
+    private var bookmarksList: Text {
         var tagNames = item.bookmarks.compactMap { $0.tag?.nameText }
         let prefix = Text(Image(systemName: "tag")) + Text(verbatim: "\u{00A0}")
         let firstTag = prefix + tagNames.removeFirst()

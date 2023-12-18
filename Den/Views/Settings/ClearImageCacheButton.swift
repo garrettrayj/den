@@ -12,7 +12,7 @@ import SDWebImage
 struct ClearImageCacheButton: View {
     @State private var cacheSize: Int64 = 0
 
-    let cacheSizeFormatter: ByteCountFormatter = {
+    static let cacheSizeFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()
         formatter.allowedUnits = .useAll
         formatter.countStyle = .file
@@ -36,9 +36,13 @@ struct ClearImageCacheButton: View {
                     Image(systemName: "square.3.layers.3d.down.right.slash")
                 }
                 Spacer()
-                Text(verbatim: cacheSizeFormatter.string(fromByteCount: cacheSize))
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
+                Text(
+                    verbatim: ClearImageCacheButton.cacheSizeFormatter.string(
+                        fromByteCount: cacheSize
+                    )
+                )
+                .font(.callout)
+                .foregroundStyle(.secondary)
             }
         }
         .task {

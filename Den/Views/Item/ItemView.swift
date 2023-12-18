@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct ItemView: View {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif

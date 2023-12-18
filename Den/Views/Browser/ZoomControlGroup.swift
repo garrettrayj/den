@@ -56,6 +56,5 @@ struct ZoomControlGroup: View {
         .labelsHidden()
         .controlGroupStyle(.compactMenu)
         #endif
-        
     }
 }

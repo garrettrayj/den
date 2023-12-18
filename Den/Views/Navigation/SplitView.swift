@@ -12,9 +12,6 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct SplitView: View {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
     @Environment(\.userTint) private var userTint
 

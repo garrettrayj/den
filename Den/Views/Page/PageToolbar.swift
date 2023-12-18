@@ -10,10 +10,6 @@ import CoreData
 import SwiftUI
 
 struct PageToolbar: ToolbarContent {
-    #if !os(macOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
-
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
