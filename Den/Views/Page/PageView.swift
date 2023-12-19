@@ -82,6 +82,7 @@ struct PageView: View {
                         page: page,
                         hideRead: $hideRead,
                         pageLayout: pageLayout.projectedValue,
+                        searchQuery: $searchQuery,
                         showingInspector: $showingInspector,
                         items: items
                     )

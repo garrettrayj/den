@@ -9,6 +9,10 @@
 import SwiftUI
 
 struct FeedToolbar: ToolbarContent {
+    #if !os(macOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
+
     @ObservedObject var feed: Feed
 
     @Binding var hideRead: Bool
@@ -30,20 +34,34 @@ struct FeedToolbar: ToolbarContent {
             InspectorToggleButton(showingInspector: $showingInspector)
         }
         #else
-        ToolbarItem {
-            InspectorToggleButton(showingInspector: $showingInspector)
-        }
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .status) {
-            if let profile = feed.page?.profile {
-                CommonStatus(profile: profile, items: items)
+        if horizontalSizeClass == .compact {
+            ToolbarItem {
+                InspectorToggleButton(showingInspector: $showingInspector)
             }
-        }
-        ToolbarItem(placement: .bottomBar) {
-            MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
+            ToolbarItem(placement: .bottomBar) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .status) {
+                if let profile = feed.page?.profile {
+                    CommonStatus(profile: profile, items: items)
+                }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                }
+            }
+        } else {
+            ToolbarItem {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem {
+                MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                }
+            }
+            ToolbarItem {
+                InspectorToggleButton(showingInspector: $showingInspector)
             }
         }
         #endif

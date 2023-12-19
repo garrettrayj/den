@@ -9,6 +9,10 @@
 import SwiftUI
 
 struct TrendingToolbar: ToolbarContent {
+    #if !os(macOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
+    
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
@@ -32,15 +36,26 @@ struct TrendingToolbar: ToolbarContent {
             }
         }
         #else
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .status) {
-            CommonStatus(profile: profile, items: itemsFromTrends)
-        }
-        ToolbarItem(placement: .bottomBar) {
-            MarkAllReadUnreadButton(allRead: unreadCount == 0) {
-                await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
+        if horizontalSizeClass == .compact {
+            ToolbarItem(placement: .bottomBar) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .status) {
+                CommonStatus(profile: profile, items: itemsFromTrends)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: unreadCount == 0) {
+                    await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
+                }
+            }
+        } else {
+            ToolbarItem {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem {
+                MarkAllReadUnreadButton(allRead: unreadCount == 0) {
+                    await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
+                }
             }
         }
         #endif

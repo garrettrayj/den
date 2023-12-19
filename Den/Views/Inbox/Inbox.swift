@@ -62,7 +62,12 @@ struct Inbox: View {
                 }
             }
             .toolbar {
-                InboxToolbar(profile: profile, hideRead: $hideRead, items: items)
+                InboxToolbar(
+                    profile: profile,
+                    hideRead: $hideRead,
+                    searchQuery: $searchQuery,
+                    items: items
+                )
             }
             .navigationTitle(Text("Inbox", comment: "Navigation title"))
             .searchable(
