@@ -61,10 +61,18 @@ struct RSSItemLoad {
     }
 
     private func populateText() {
-        if let summary = item.summary {
-            item.teaser = HTMLContent(source: summary).plainText()?.truncated(limit: 1000)
-        } else if let content = source.content?.contentEncoded {
-            item.teaser = HTMLContent(source: content).plainText()?.truncated(limit: 1000)
+        if let description = source.description?.htmlUnescape() {
+            item.summary = HTMLContent(source: description).sanitizedHTML()
+        } else if let contentEncoded = source.content?.contentEncoded {
+            item.summary = HTMLContent(source: contentEncoded).sanitizedHTML()
+        }
+
+        if let teaser = item.summary {
+            item.teaser = HTMLContent(source: teaser).plainText()?.truncated(limit: 1000)
+        }
+
+        if let source = source.content?.contentEncoded {
+            item.body = HTMLContent(source: source).sanitizedHTML()
         }
     }
 

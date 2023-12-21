@@ -52,9 +52,17 @@ struct AtomItemLoad {
 
     private func populateText() {
         if let summary = source.summary?.value?.htmlUnescape() {
-            item.teaser = HTMLContent(source: summary).plainText()?.truncated(limit: 1000)
-        } else if let content = source.content?.value?.htmlUnescape() {
-            item.teaser = HTMLContent(source: content).plainText()?.truncated(limit: 1000)
+            item.summary = HTMLContent(source: summary).sanitizedHTML()
+        } else if let summary = source.content?.value?.htmlUnescape() {
+            item.summary = HTMLContent(source: summary).sanitizedHTML()
+        }
+
+        if let teaser = item.summary {
+            item.teaser = HTMLContent(source: teaser).plainText()?.truncated(limit: 1000)
+        }
+
+        if let body = source.content?.value {
+            item.body = HTMLContent(source: body).sanitizedHTML()
         }
     }
 

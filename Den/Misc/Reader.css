@@ -226,8 +226,8 @@ blockquote {
     background: rgba(160, 160, 160, 0.15);
     border-radius: 8px;
     font-size: 20px;
-    font-weight: 300;
-    line-height: 140%;
+    font-style: italic;
+    line-height: 132%;
     margin: 20px auto;
     overflow: hidden;
     padding: 0 16px;

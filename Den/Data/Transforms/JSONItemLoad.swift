@@ -52,10 +52,18 @@ struct JSONItemLoad {
     }
 
     private func populateText() {
-        if let summary = item.summary {
-            item.teaser = HTMLContent(source: summary).plainText()?.truncated(limit: 1000)
-        } else if let contentHtml = source.contentHtml {
-            item.teaser = HTMLContent(source: contentHtml).plainText()?.truncated(limit: 1000)
+        if let summary = source.summary {
+            item.summary = HTMLContent(source: summary).sanitizedHTML()
+        }
+
+        if let teaser = item.summary {
+            item.teaser = HTMLContent(source: teaser).plainText()?.truncated(limit: 1000)
+        }
+
+        if let contentHtml = source.contentHtml {
+            item.body = contentHtml
+        } else if let contentText = source.contentText {
+            item.body = contentText
         }
     }
 
