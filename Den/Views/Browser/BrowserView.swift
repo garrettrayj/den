@@ -33,8 +33,6 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
         useBlocklists: Bool? = nil,
         useReaderAutomatically: Bool? = nil,
         allowJavaScript: Bool? = nil,
-        readerPublishedDate: Date? = nil,
-        readerByline: String? = nil,
         @ToolbarContentBuilder extraToolbar: @escaping () -> ExtraToolbar?
     ) {
         self.url = url
