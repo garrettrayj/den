@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct BrowserView<ExtraToolbar: ToolbarContent>: View {
+struct BrowserView: View {
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -18,9 +18,8 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
     var useBlocklists: Bool?
     var useReaderAutomatically: Bool?
     var allowJavaScript: Bool?
-    var extraToolbar: ExtraToolbar?
 
-    @StateObject private var browserViewModel = BrowserViewModel()
+    @ObservedObject var browserViewModel: BrowserViewModel
 
     @AppStorage("BrowserZoom") private var browserZoom: PageZoomLevel = .oneHundredPercent
     @AppStorage("ReaderZoom") private var readerZoom: PageZoomLevel = .oneHundredPercent
@@ -33,13 +32,13 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
         useBlocklists: Bool? = nil,
         useReaderAutomatically: Bool? = nil,
         allowJavaScript: Bool? = nil,
-        @ToolbarContentBuilder extraToolbar: @escaping () -> ExtraToolbar?
+        browserViewModel: BrowserViewModel
     ) {
         self.url = url
         self.useBlocklists = useBlocklists
         self.useReaderAutomatically = useReaderAutomatically
         self.allowJavaScript = allowJavaScript
-        self.extraToolbar = extraToolbar()
+        self.browserViewModel = browserViewModel
     }
 
     var body: some View {
@@ -51,15 +50,16 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
                     browserViewModel.allowJavaScript = allowJavaScript ?? true
                     browserViewModel.userTintHex = userTintHex
-                    browserViewModel.setBrowserZoom(browserZoom)
+                    browserViewModel.browserZoom = browserZoom
+                    browserViewModel.readerZoom = readerZoom
                     await browserViewModel.loadURL(url: url)
                 }
                 .onDisappear {
                     // Fix for videos continuing to play after view is dismissed
                     browserViewModel.loadBlank()
                 }
-                .ignoresSafeArea()
                 #if os(macOS)
+                .ignoresSafeArea()
                 .padding(.top, 1)
                 .navigationBarBackButtonHidden()
                 #endif
@@ -67,7 +67,6 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
             if browserViewModel.showingReader == true {
                 ReaderWebView(browserViewModel: browserViewModel)
                     .task {
-                        browserViewModel.setReaderZoom(readerZoom)
                         await browserViewModel.loadReader(initialZoom: readerZoom)
                     }
                     .onChange(of: browserViewModel.mercuryObject) {
@@ -107,20 +106,12 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
             }
         }
         .navigationTitle(browserViewModel.url?.host() ?? "")
-        .toolbar {
-            BrowserToolbar(
-                browserViewModel: browserViewModel,
-                browserZoom: $browserZoom,
-                readerZoom: $readerZoom
-            )
-            extraToolbar
-        }
         .toolbarBackground(.visible)
-        .onChange(of: browserZoom) {
-            browserViewModel.setBrowserZoom(browserZoom)
+        .onChange(of: browserViewModel.browserZoom) {
+            browserZoom = browserViewModel.browserZoom
         }
-        .onChange(of: readerZoom) {
-            browserViewModel.setReaderZoom(readerZoom)
+        .onChange(of: browserViewModel.readerZoom) {
+            readerZoom = browserViewModel.readerZoom
         }
         #if os(macOS)
         .background(alignment: .bottom) {
@@ -129,19 +120,5 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
             ZoomControlGroup(zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom)
         }
         #endif
-    }
-}
-
-extension BrowserView where ExtraToolbar == Never {
-    init(
-        url: URL,
-        useBlocklists: Bool? = nil,
-        useReaderAutomatically: Bool? = nil,
-        allowJavaScript: Bool? = nil
-    ) {
-        self.url = url
-        self.useBlocklists = useBlocklists
-        self.useReaderAutomatically = useReaderAutomatically
-        self.allowJavaScript = allowJavaScript
     }
 }

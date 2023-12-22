@@ -1,22 +1,20 @@
 //
-//  BrowserToolbar.swift
+//  ItemToolbar.swift
 //  Den
 //
-//  Created by Garrett Johnson on 6/14/23.
+//  Created by Garrett Johnson on 12/22/23.
 //  Copyright © 2023 Garrett Johnson
 //
 
 import SwiftUI
 
-struct BrowserToolbar: ToolbarContent {
+struct ItemToolbar: ToolbarContent {
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
 
+    @ObservedObject var item: Item
     @ObservedObject var browserViewModel: BrowserViewModel
-
-    @Binding var browserZoom: PageZoomLevel
-    @Binding var readerZoom: PageZoomLevel
 
     var body: some ToolbarContent {
         #if os(macOS)
@@ -36,16 +34,11 @@ struct BrowserToolbar: ToolbarContent {
             StopReloadButton(browserViewModel: browserViewModel)
         }
         ToolbarItem {
-            if let url = browserViewModel.url {
-                ShareButton(url: url)
-            }
+            TagsMenu(item: item)
         }
         ToolbarItem {
             if let url = browserViewModel.url {
-                Link(destination: url) {
-                    OpenInBrowserLabel()
-                }
-                .buttonStyle(.bordered)
+                ShareButton(url: url)
             }
         }
         #else
@@ -53,9 +46,7 @@ struct BrowserToolbar: ToolbarContent {
             ToolbarItem {
                 formatMenu
             }
-            ToolbarItem {
-                StopReloadButton(browserViewModel: browserViewModel)
-            }
+            
             Group {
                 ToolbarItem(placement: .bottomBar) {
                     GoBackButton(browserViewModel: browserViewModel)
@@ -77,8 +68,23 @@ struct BrowserToolbar: ToolbarContent {
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
+                ToolbarItem(placement: .bottomBar) {
+                    TagsMenu(item: item)
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    StopReloadButton(browserViewModel: browserViewModel)
+                }
             }
         } else {
+            ToolbarItem(placement: .topBarLeading) {
+                Spacer()
+            }
+            ToolbarItem(placement: .topBarLeading) {
+                TagsMenu(item: item)
+            }
             ToolbarItem(placement: .topBarLeading) {
                 formatMenu
             }
@@ -109,3 +115,4 @@ struct BrowserToolbar: ToolbarContent {
         }
     }
 }
+

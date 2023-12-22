@@ -10,6 +10,8 @@ import SwiftUI
 
 struct BookmarkView: View {
     @ObservedObject var bookmark: Bookmark
+    
+    @StateObject private var browserViewModel = BrowserViewModel()
 
     var body: some View {
         if
@@ -20,18 +22,11 @@ struct BookmarkView: View {
                 url: url,
                 useBlocklists: bookmark.feed?.useBlocklists,
                 useReaderAutomatically: bookmark.feed?.readerMode,
-                extraToolbar: {
-                    #if os(macOS)
-                    ToolbarItem {
-                        UntagButton(bookmark: bookmark)
-                    }
-                    #else
-                    ToolbarItem(placement: .bottomBar) {
-                        UntagButton(bookmark: bookmark)
-                    }
-                    #endif
-                }
+                browserViewModel: browserViewModel
             )
+            .toolbar {
+                BookmarkToolbar(bookmark: bookmark, browserViewModel: browserViewModel)
+            }
         } else {
             ContentUnavailable {
                 Label {

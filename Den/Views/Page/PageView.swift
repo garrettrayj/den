@@ -70,6 +70,7 @@ struct PageView: View {
                 }
                 .frame(minWidth: minDetailColumnWidth)
                 .navigationTitle(page.nameText)
+                .modifier(SearchableModifier(searchQuery: $searchQuery))
                 .toolbar {
                     PageToolbar(
                         page: page,

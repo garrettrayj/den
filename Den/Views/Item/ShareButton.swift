@@ -12,13 +12,7 @@ struct ShareButton: View {
     let url: URL
 
     var body: some View {
-        ShareLink(item: url) {
-            Label {
-                Text("Share…", comment: "Button label.")
-            } icon: {
-                Image(systemName: "square.and.arrow.up")
-            }
-        }
+        ShareLink(item: url)
         .accessibilityIdentifier("Share")
     }
 }

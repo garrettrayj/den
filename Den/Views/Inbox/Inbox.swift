@@ -61,6 +61,7 @@ struct Inbox: View {
                     }
                 }
             }
+            .modifier(SearchableModifier(searchQuery: $searchQuery))
             .toolbar {
                 InboxToolbar(
                     profile: profile,

@@ -24,12 +24,10 @@ struct DetailView: View {
                 switch detailPanel ?? .welcome {
                 case .inbox:
                     Inbox(profile: profile, hideRead: $hideRead, searchQuery: $searchQuery)
-                        .modifier(SearchableModifier(searchQuery: $searchQuery))
                 case .organizer:
                     Organizer(profile: profile)
                 case .page(let page):
                     PageView(page: page, hideRead: $hideRead, searchQuery: $searchQuery)
-                        .modifier(SearchableModifier(searchQuery: $searchQuery))
                 case .tag(let tag):
                     TagView(tag: tag)
                 case .trending:

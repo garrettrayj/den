@@ -11,8 +11,6 @@ import SwiftUI
 struct BrowserFormatMenu: View {
     @ObservedObject var browserViewModel: BrowserViewModel
     
-    @Binding var browserZoom: PageZoomLevel
-    
     var body: some View {
         Group {
             if browserViewModel.isReaderable {
@@ -21,7 +19,7 @@ struct BrowserFormatMenu: View {
                     ToggleBlocklistsButton(browserViewModel: browserViewModel)
                     ToggleJavaScriptButton(browserViewModel: browserViewModel)
                     #if os(macOS)
-                    ZoomControlGroup(zoomLevel: $browserZoom)
+                    ZoomControlGroup(zoomLevel: $browserViewModel.browserZoom)
                     #endif
                 } label: {
                     Label {
@@ -37,7 +35,7 @@ struct BrowserFormatMenu: View {
                     ToggleBlocklistsButton(browserViewModel: browserViewModel)
                     ToggleJavaScriptButton(browserViewModel: browserViewModel)
                     #if os(macOS)
-                    ZoomControlGroup(zoomLevel: $browserZoom)
+                    ZoomControlGroup(zoomLevel: $browserViewModel.browserZoom)
                     #endif
                 } label: {
                     Label {

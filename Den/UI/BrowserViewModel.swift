@@ -42,6 +42,8 @@ class BrowserViewModel: NSObject, ObservableObject {
     @Published var userTintHex: String?
     @Published var blocklists: [Blocklist] = []
     @Published var allowJavaScript = true
+    @Published var browserZoom: PageZoomLevel = .oneHundredPercent
+    @Published var readerZoom: PageZoomLevel = .oneHundredPercent
 
     @MainActor
     func loadURL(url: URL?) async {

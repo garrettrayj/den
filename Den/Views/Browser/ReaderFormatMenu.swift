@@ -11,12 +11,10 @@ import SwiftUI
 struct ReaderFormatMenu: View {
     @ObservedObject var browserViewModel: BrowserViewModel
     
-    @Binding var readerZoom: PageZoomLevel
-
     var body: some View {
         Menu {
             HideReaderButton(browserViewModel: browserViewModel)
-            ZoomControlGroup(zoomLevel: $readerZoom)
+            ZoomControlGroup(zoomLevel: $browserViewModel.readerZoom)
         } label: {
             Label {
                 Text("Formatting", comment: "Button label.")

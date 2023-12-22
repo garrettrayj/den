@@ -36,7 +36,7 @@ struct PageToolbar: ToolbarContent {
             InspectorToggleButton(showingInspector: $showingInspector)
         }
         #else
-        ToolbarItem {
+        ToolbarItem(placement: .topBarTrailing) {
             InspectorToggleButton(showingInspector: $showingInspector)
         }
         ToolbarItem(placement: .bottomBar) {

@@ -15,6 +15,8 @@ struct ItemView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var item: Item
+    
+    @StateObject private var browserViewModel = BrowserViewModel()
 
     var body: some View {
         if let url = item.link, item.managedObjectContext != nil && item.feedData?.feed != nil {
@@ -23,24 +25,11 @@ struct ItemView: View {
                 useBlocklists: item.feedData?.feed?.useBlocklists,
                 useReaderAutomatically: item.feedData?.feed?.readerMode,
                 allowJavaScript: item.feedData?.feed?.allowJavaScript,
-                extraToolbar: {
-                    #if os(macOS)
-                    ToolbarItem {
-                        TagsMenu(item: item)
-                    }
-                    #else
-                    if horizontalSizeClass == .compact {
-                        ToolbarItem(placement: .bottomBar) {
-                            TagsMenu(item: item)
-                        }
-                    } else {
-                        ToolbarItem {
-                            TagsMenu(item: item)
-                        }
-                    }
-                    #endif
-                }
+                browserViewModel: browserViewModel
             )
+            .toolbar {
+                ItemToolbar(item: item, browserViewModel: browserViewModel)
+            }
             .onAppear {
                 HistoryUtility.markItemRead(context: viewContext, item: item)
             }
