@@ -17,7 +17,6 @@ struct PageToolbar: ToolbarContent {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
-    @Binding var pageLayout: PageLayout
     @Binding var searchQuery: String
     @Binding var showingInspector: Bool
 
@@ -34,48 +33,25 @@ struct PageToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            PageLayoutPicker(pageLayout: $pageLayout).labelStyle(.iconOnly)
-        }
-        ToolbarItem {
             InspectorToggleButton(showingInspector: $showingInspector)
         }
         #else
-        if horizontalSizeClass == .compact {
-            ToolbarItem {
-                PageLayoutPicker(pageLayout: $pageLayout)
+        ToolbarItem {
+            InspectorToggleButton(showingInspector: $showingInspector)
+        }
+        ToolbarItem(placement: .bottomBar) {
+            FilterReadButton(hideRead: $hideRead)
+        }
+        ToolbarItem(placement: .status) {
+            if !searchQuery.isEmpty {
+                SearchStatus(searchQuery: $searchQuery)
+            } else if let profile = page.profile {
+                CommonStatus(profile: profile, items: items)
             }
-            ToolbarItem {
-                InspectorToggleButton(showingInspector: $showingInspector)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                FilterReadButton(hideRead: $hideRead)
-            }
-            ToolbarItem(placement: .status) {
-                if !searchQuery.isEmpty {
-                    SearchStatus(searchQuery: $searchQuery)
-                } else if let profile = page.profile {
-                    CommonStatus(profile: profile, items: items)
-                }
-            }
-            ToolbarItem(placement: .bottomBar) {
-                MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
-                }
-            }
-        } else {
-            ToolbarItem {
-                PageLayoutPicker(pageLayout: $pageLayout)
-            }
-            ToolbarItem {
-                FilterReadButton(hideRead: $hideRead)
-            }
-            ToolbarItem {
-                MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
-                }
-            }
-            ToolbarItem {
-                InspectorToggleButton(showingInspector: $showingInspector)
+        }
+        ToolbarItem(placement: .bottomBar) {
+            MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
         #endif

@@ -51,7 +51,8 @@ struct PageLayoutPicker: View {
         } label: {
             Text("Layout", comment: "Picker label.")
         }
-        .fontWeight(.medium)
+        .pickerStyle(.inline)
+        .labelsHidden()
         .accessibilityIdentifier("PageLayoutPicker")
     }
 }

@@ -12,6 +12,8 @@ struct PageInspector: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page
+    
+    @Binding var pageLayout: PageLayout
 
     @State private var showingIconSelector: Bool = false
 
@@ -68,6 +70,12 @@ struct PageInspector: View {
                 )
             } header: {
                 Text("Icon", comment: "Inspector section header.")
+            }
+            
+            Section {
+                PageLayoutPicker(pageLayout: $pageLayout)
+            } header: {
+                Text("Layout")
             }
 
             feedsSection

@@ -254,6 +254,12 @@ class BrowserViewModel: NSObject, ObservableObject {
             """
         }
         
+        if content.contains("lazyload") {
+            html += """
+            <script async src="http://afarkas.github.io/lazysizes/lazysizes.min.js"></script>
+            """
+        }
+        
         html += """
         </body>
         </html>

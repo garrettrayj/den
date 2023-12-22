@@ -70,22 +70,17 @@ struct PageView: View {
                 }
                 .frame(minWidth: minDetailColumnWidth)
                 .navigationTitle(page.nameText)
-                .searchable(
-                    text: $searchQuery,
-                    prompt: Text("Search", comment: "Search field prompt.")
-                )
-                .inspector(isPresented: $showingInspector) {
-                    PageInspector(page: page)
-                }
                 .toolbar {
                     PageToolbar(
                         page: page,
                         hideRead: $hideRead,
-                        pageLayout: pageLayout.projectedValue,
                         searchQuery: $searchQuery,
                         showingInspector: $showingInspector,
                         items: items
                     )
+                }
+                .inspector(isPresented: $showingInspector) {
+                    PageInspector(page: page, pageLayout: pageLayout.projectedValue)
                 }
             }
         }

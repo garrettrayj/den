@@ -89,20 +89,17 @@ struct BrowserToolbar: ToolbarContent {
                 }
             }
         } else {
-            ToolbarItem(placement: .navigation) {
-                DoneButton()
-            }
-            ToolbarItem(placement: .navigation) {
-                GoBackButton(browserViewModel: browserViewModel)
-            }
-            ToolbarItem(placement: .navigation) {
-                GoForwardButton(browserViewModel: browserViewModel)
-            }
-            ToolbarItem(placement: .navigation) {
+            ToolbarItem(placement: .topBarLeading) {
                 formatMenu
             }
-            ToolbarItem {
+            ToolbarItem(placement: .topBarLeading) {
                 StopReloadButton(browserViewModel: browserViewModel)
+            }
+            ToolbarItem {
+                GoBackButton(browserViewModel: browserViewModel)
+            }
+            ToolbarItem {
+                GoForwardButton(browserViewModel: browserViewModel)
             }
             ToolbarItem {
                 if let url = browserViewModel.url {

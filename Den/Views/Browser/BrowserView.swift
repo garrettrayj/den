@@ -58,12 +58,10 @@ struct BrowserView<ExtraToolbar: ToolbarContent>: View {
                     // Fix for videos continuing to play after view is dismissed
                     browserViewModel.loadBlank()
                 }
+                .ignoresSafeArea()
                 #if os(macOS)
                 .padding(.top, 1)
-                .ignoresSafeArea()
                 .navigationBarBackButtonHidden()
-                #else
-                .navigationBarBackButtonHidden(horizontalSizeClass != .compact)
                 #endif
             
             if browserViewModel.showingReader == true {

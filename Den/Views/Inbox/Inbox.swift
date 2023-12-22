@@ -70,10 +70,6 @@ struct Inbox: View {
                 )
             }
             .navigationTitle(Text("Inbox", comment: "Navigation title"))
-            .searchable(
-                text: $searchQuery,
-                prompt: Text("Search", comment: "Search field prompt.")
-            )
         }
     }
 }
