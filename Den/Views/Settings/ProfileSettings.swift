@@ -63,10 +63,7 @@ struct ProfileSettings: View {
                     Text("Customization", comment: "Section header.")
                 }
 
-                ProfileHistorySection(
-                    profile: profile,
-                    historyRentionDays: profile.wrappedHistoryRetention
-                )
+                ProfileHistorySection(profile: profile)
                 
                 #if os(iOS)
                 Section {

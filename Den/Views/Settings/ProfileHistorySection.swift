@@ -12,29 +12,12 @@ import SwiftUI
 struct ProfileHistorySection: View {
     @ObservedObject var profile: Profile
 
-    @State var historyRentionDays: Int
-
     private var historyCount: Int {
         profile.history?.count ?? 0
     }
 
     var body: some View {
         Section {
-            Picker(selection: $historyRentionDays) {
-                Text("Forever", comment: "History retention duration option.").tag(0 as Int)
-                Text("One Year", comment: "History retention duration option.").tag(365 as Int)
-                Text("Six Months", comment: "History retention duration option.").tag(182 as Int)
-                Text("Three Months", comment: "History retention duration option.").tag(90 as Int)
-                Text("One Month", comment: "History retention duration option.").tag(30 as Int)
-                Text("Two Weeks", comment: "History retention duration option.").tag(14 as Int)
-                Text("One Week", comment: "History retention duration option.").tag(7 as Int)
-            } label: {
-                Label {
-                    Text("Keep History", comment: "Picker label.")
-                } icon: {
-                    Image(systemName: "clock")
-                }
-            }
 
             Button {
                 Task {
@@ -43,7 +26,7 @@ struct ProfileHistorySection: View {
             } label: {
                 Label {
                     HStack {
-                        Text("Clear History", comment: "Button label.")
+                        Text("Clear Read History", comment: "Button label.")
                         Spacer()
                         Group {
                             if historyCount == 1 {
@@ -61,9 +44,6 @@ struct ProfileHistorySection: View {
             .accessibilityIdentifier("ClearHistory")
         } header: {
             Text("History", comment: "Section header.")
-        }
-        .onChange(of: historyRentionDays) {
-            profile.wrappedHistoryRetention = historyRentionDays
         }
     }
 

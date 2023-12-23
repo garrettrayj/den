@@ -31,25 +31,9 @@ struct CleanupUtility {
     }
 
     static func removeExpiredHistory(context: NSManagedObjectContext, profile: Profile) throws {
-        if profile.historyRetention == 0 {
-            Logger.main.info("""
-            History cleanup skipped for profile with unlimited retention: \
-            \(profile.id?.uuidString ?? "Unknown", privacy: .public)
-            """)
-
-            return
-        }
-
-        let historyRetentionStart = Date() - Double(profile.historyRetention) * 24 * 60 * 60
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
-        fetchRequest.predicate = NSCompoundPredicate(type: .and, subpredicates: [
-            NSPredicate(
-                format: "%K < %@",
-                #keyPath(History.visited),
-                historyRetentionStart as NSDate
-            ),
-            NSPredicate(format: "%K = %@", #keyPath(History.profile), profile)
-        ])
+        fetchRequest.fetchOffset = 100000
+        fetchRequest.predicate = NSPredicate(format: "%K = %@", #keyPath(History.profile), profile)
 
         // Create a batch delete request for the fetch request
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
@@ -72,7 +56,7 @@ struct CleanupUtility {
         )
 
         Logger.main.info("""
-        Expired History records removed for profile: \
+        Expired history removed for profile: \
         \(profile.id?.uuidString ?? "NA", privacy: .public)
         """)
     }
@@ -85,7 +69,7 @@ struct CleanupUtility {
             removedSearches += 1
         }
         Logger.main.info("""
-        Trimmed \(removedSearches) Searches for profile: \
+        Trimmed \(removedSearches) searches for profile: \
         \(profile.id?.uuidString ?? "NA", privacy: .public)
         """)
     }
