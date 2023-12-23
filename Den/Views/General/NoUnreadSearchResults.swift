@@ -9,13 +9,11 @@
 import SwiftUI
 
 struct NoUnreadSearchResults: View {
-    @Binding var searchQuery: String
-    
     var body: some View {
         ContentUnavailable {
             Label {
                 Text(
-                    "No Unread Results for “\(searchQuery)”",
+                    "No Unread Results",
                     comment: "No unread search results title."
                 )
             } icon: {

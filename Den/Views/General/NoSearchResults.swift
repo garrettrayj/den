@@ -9,13 +9,11 @@
 import SwiftUI
 
 struct NoSearchResults: View {
-    @Binding var searchQuery: String
-    
     var body: some View {
         ContentUnavailable {
             Label {
                 Text(
-                    "No Results for “\(searchQuery)”",
+                    "No Results",
                     comment: "No search results message title."
                 )
             } icon: {

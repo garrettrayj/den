@@ -12,6 +12,6 @@ struct SearchStatus: View {
     @Binding var searchQuery: String
 
     var body: some View {
-        Text("Results for “\(searchQuery)”", comment: "Bottom bar status.").font(.caption)
+        Text("Searching for “\(searchQuery)”", comment: "Bottom bar status.").font(.caption)
     }
 }

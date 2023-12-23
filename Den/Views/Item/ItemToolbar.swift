@@ -115,4 +115,3 @@ struct ItemToolbar: ToolbarContent {
         }
     }
 }
-

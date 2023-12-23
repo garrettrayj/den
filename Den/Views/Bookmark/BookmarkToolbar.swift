@@ -115,4 +115,3 @@ struct BookmarkToolbar: ToolbarContent {
         }
     }
 }
-

@@ -26,15 +26,6 @@ struct NewProfileButton: View {
         .accessibilityIdentifier("NewProfile")
         .sheet(
             isPresented: $showingSheet,
-            onDismiss: {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            },
             content: {
                 NewProfileSheet()
             }

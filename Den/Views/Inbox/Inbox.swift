@@ -24,9 +24,9 @@ struct Inbox: View {
                 if profile.feedsArray.isEmpty {
                     NoFeeds(symbol: "tray")
                 } else if !searchQuery.isEmpty && items.isEmpty {
-                    NoSearchResults(searchQuery: $searchQuery)
+                    NoSearchResults()
                 } else if !searchQuery.isEmpty && items.unread().isEmpty && hideRead {
-                    NoUnreadSearchResults(searchQuery: $searchQuery)
+                    NoUnreadSearchResults()
                 } else if items.isEmpty {
                     ContentUnavailable {
                         Label {

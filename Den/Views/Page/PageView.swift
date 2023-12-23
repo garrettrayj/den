@@ -40,9 +40,9 @@ struct PageView: View {
                     if page.feedsArray.isEmpty {
                         NoFeeds()
                     } else if !searchQuery.isEmpty && items.isEmpty {
-                        NoSearchResults(searchQuery: $searchQuery)
+                        NoSearchResults()
                     } else if !searchQuery.isEmpty && items.unread().isEmpty && hideRead {
-                        NoUnreadSearchResults(searchQuery: $searchQuery)
+                        NoUnreadSearchResults()
                     } else {
                         switch pageLayout.wrappedValue {
                         case .grouped:

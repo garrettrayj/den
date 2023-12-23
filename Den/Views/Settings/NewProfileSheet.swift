@@ -46,7 +46,13 @@ struct NewProfileSheet: View {
                         profile.wrappedName = name
                         profile.tintOption = color
                         profile.objectWillChange.send()
-                        dismiss()
+                        
+                        do {
+                            try viewContext.save()
+                            dismiss()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
                     } label: {
                         Text("Create Profile", comment: "Button label.")
                     }
