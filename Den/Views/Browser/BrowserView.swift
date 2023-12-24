@@ -50,8 +50,8 @@ struct BrowserView: View {
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
                     browserViewModel.allowJavaScript = allowJavaScript ?? true
                     browserViewModel.userTintHex = userTintHex
-                    browserViewModel.browserZoom = browserZoom
-                    browserViewModel.readerZoom = readerZoom
+                    browserViewModel.setBrowserZoom(browserZoom)
+                    
                     await browserViewModel.loadURL(url: url)
                 }
                 .onDisappear {
@@ -67,6 +67,7 @@ struct BrowserView: View {
             if browserViewModel.showingReader == true {
                 ReaderWebView(browserViewModel: browserViewModel)
                     .task {
+                        browserViewModel.setReaderZoom(readerZoom)
                         await browserViewModel.loadReader(initialZoom: readerZoom)
                     }
                     .onChange(of: browserViewModel.mercuryObject) {
@@ -109,15 +110,20 @@ struct BrowserView: View {
         .toolbarBackground(.visible)
         .onChange(of: browserViewModel.browserZoom) {
             browserZoom = browserViewModel.browserZoom
+            browserViewModel.setBrowserZoom(browserViewModel.browserZoom)
         }
         .onChange(of: browserViewModel.readerZoom) {
             readerZoom = browserViewModel.readerZoom
+            browserViewModel.setReaderZoom(browserViewModel.readerZoom)
         }
         #if os(macOS)
         .background(alignment: .bottom) {
             // Buttons in background to fix keyboard shortcuts
             ToggleReaderButton(browserViewModel: browserViewModel)
-            ZoomControlGroup(zoomLevel: browserViewModel.showingReader ? $readerZoom : $browserZoom)
+            ZoomControlGroup(
+                zoomLevel: browserViewModel.showingReader ?
+                $browserViewModel.readerZoom : $browserViewModel.browserZoom
+            )
         }
         #endif
     }

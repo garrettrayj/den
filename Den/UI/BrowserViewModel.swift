@@ -120,12 +120,14 @@ class BrowserViewModel: NSObject, ObservableObject {
             showReader()
         }
     }
-
+    
     func setBrowserZoom(_ level: PageZoomLevel) {
+        browserZoom = level
         browserWebView?.pageZoom = CGFloat(level.rawValue) / 100
     }
 
     func setReaderZoom(_ level: PageZoomLevel) {
+        readerZoom = level
         #if os(macOS)
         readerWebView?.pageZoom = CGFloat(level.rawValue) / 100
         #else

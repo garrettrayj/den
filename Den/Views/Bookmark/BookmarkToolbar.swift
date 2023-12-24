@@ -9,10 +9,6 @@
 import SwiftUI
 
 struct BookmarkToolbar: ToolbarContent {
-    #if os(iOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
-
     @ObservedObject var bookmark: Bookmark
     @ObservedObject var browserViewModel: BrowserViewModel
 
