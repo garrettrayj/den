@@ -39,9 +39,8 @@ struct FeedItemGroup: View {
                             ItemPreviewCompressed(item: item, feed: feed)
                         }
                     }
-                    if item != filteredItems.last {
-                        BackedDivider()
-                    }
+                    .padding(.bottom, 1)
+                    .overlay(Divider(), alignment: .bottom)
                 }
             }
         } header: {

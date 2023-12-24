@@ -38,13 +38,7 @@ struct Trending: View {
             } else if visibleTrends.isEmpty {
                 AllRead(largeDisplay: true)
             } else {
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        BoardView(width: geometry.size.width, list: visibleTrends) { trend in
-                            TrendBlock(trend: trend)
-                        }
-                    }
-                }
+                TrendingLayout(trends: visibleTrends)
             }
         }
         .toolbar {

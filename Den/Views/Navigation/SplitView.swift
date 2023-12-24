@@ -81,7 +81,7 @@ struct SplitView: View {
                 navigationData = navigationStore.encoded()
             }
         }
-        .onChange(of: profile) {
+        .onChange(of: currentProfileID) {
             detailPanel = nil
         }
         .onChange(of: detailPanel) {

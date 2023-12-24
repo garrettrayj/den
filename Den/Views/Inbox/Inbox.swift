@@ -44,22 +44,7 @@ struct Inbox: View {
                 } else if items.unread().isEmpty && hideRead {
                     AllRead(largeDisplay: true)
                 } else {
-                    GeometryReader { geometry in
-                        ScrollView(.vertical) {
-                            BoardView(
-                                width: geometry.size.width,
-                                list: items.visibilityFiltered(hideRead ? false : nil)
-                            ) { item in
-                                if let feed = item.feedData?.feed {
-                                    if feed.wrappedPreviewStyle == .expanded {
-                                        FeedItemExpanded(item: item, feed: feed)
-                                    } else {
-                                        FeedItemCompressed(item: item, feed: feed)
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    InboxLayout(items: items.visibilityFiltered(hideRead ? false : nil))
                 }
             }
             .modifier(SearchableModifier(searchQuery: $searchQuery))
