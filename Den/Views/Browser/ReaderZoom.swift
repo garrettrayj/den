@@ -1,20 +1,21 @@
 //
-//  ZoomControlGroup.swift
+//  ReaderZoom.swift
 //  Den
 //
-//  Created by Garrett Johnson on 10/12/23.
+//  Created by Garrett Johnson on 12/24/23.
 //  Copyright © 2023 Garrett Johnson
 //
 
 import SwiftUI
 
-struct ZoomControlGroup: View {
-    @Binding var zoomLevel: PageZoomLevel
+struct ReaderZoom: View {
+    @ObservedObject var browserViewModel: BrowserViewModel
 
     var body: some View {
         ControlGroup {
             Button {
-                zoomLevel = zoomLevel.previous() ?? zoomLevel
+                guard let decreased = browserViewModel.readerZoom.previous() else { return }
+                browserViewModel.setReaderZoom(decreased)
             } label: {
                 Label {
                     Text("Zoom Out")
@@ -25,18 +26,19 @@ struct ZoomControlGroup: View {
             .keyboardShortcut("-", modifiers: .command, localization: .withoutMirroring)
 
             Button {
-                zoomLevel = .oneHundredPercent
+                browserViewModel.setReaderZoom(.oneHundredPercent)
             } label: {
                 #if os(macOS)
                 Text("Actual Size", comment: "Button label.")
                 #else
-                Text("\(zoomLevel.rawValue)%", comment: "Zoom level label.")
+                Text("\(browserViewModel.readerZoom.rawValue)%", comment: "Zoom level label.")
                 #endif
             }
             .keyboardShortcut("0", modifiers: .command, localization: .withoutMirroring)
 
             Button {
-                zoomLevel = zoomLevel.next() ?? zoomLevel
+                guard let increased = browserViewModel.readerZoom.next() else { return }
+                browserViewModel.setReaderZoom(increased)
             } label: {
                 Label {
                     Text("Zoom In")

@@ -19,7 +19,7 @@ struct BrowserFormatMenu: View {
                     ToggleBlocklistsButton(browserViewModel: browserViewModel)
                     ToggleJavaScriptButton(browserViewModel: browserViewModel)
                     #if os(macOS)
-                    ZoomControlGroup(zoomLevel: $browserViewModel.browserZoom)
+                    BrowserZoom(browserViewModel: browserViewModel)
                     #endif
                 } label: {
                     Label {
@@ -35,7 +35,7 @@ struct BrowserFormatMenu: View {
                     ToggleBlocklistsButton(browserViewModel: browserViewModel)
                     ToggleJavaScriptButton(browserViewModel: browserViewModel)
                     #if os(macOS)
-                    ZoomControlGroup(zoomLevel: $browserViewModel.browserZoom)
+                    BrowserZoom(browserViewModel: browserViewModel)
                     #endif
                 } label: {
                     Label {

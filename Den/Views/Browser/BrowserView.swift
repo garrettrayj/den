@@ -120,10 +120,12 @@ struct BrowserView: View {
         .background(alignment: .bottom) {
             // Buttons in background to fix keyboard shortcuts
             ToggleReaderButton(browserViewModel: browserViewModel)
-            ZoomControlGroup(
-                zoomLevel: browserViewModel.showingReader ?
-                $browserViewModel.readerZoom : $browserViewModel.browserZoom
-            )
+            
+            if browserViewModel.showingReader {
+                ReaderZoom(browserViewModel: browserViewModel)
+            } else {
+                BrowserZoom(browserViewModel: browserViewModel)
+            }
         }
         #endif
     }

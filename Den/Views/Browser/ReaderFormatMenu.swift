@@ -14,7 +14,7 @@ struct ReaderFormatMenu: View {
     var body: some View {
         Menu {
             HideReaderButton(browserViewModel: browserViewModel)
-            ZoomControlGroup(zoomLevel: $browserViewModel.readerZoom)
+            ReaderZoom(browserViewModel: browserViewModel)
         } label: {
             Label {
                 Text("Formatting", comment: "Button label.")
