@@ -22,8 +22,6 @@ struct Sidebar: View {
     @Binding var detailPanel: DetailPanel?
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
-    @Binding var refreshing: Bool
-    @Binding var refreshProgress: Progress
     @Binding var userColorScheme: UserColorScheme
     @Binding var useSystemBrowser: Bool
     @Binding var showingNewFeedSheet: Bool
@@ -31,6 +29,8 @@ struct Sidebar: View {
     @State private var exporterIsPresented: Bool = false
     @State private var isEditing = false
     @State private var opmlFile: OPMLFile?
+    @State private var refreshing: Bool = false
+    @State private var refreshProgress = Progress()
     @State private var showingExporter: Bool = false
     @State private var showingImporter: Bool = false
     @State private var showingSettings = false
@@ -80,7 +80,6 @@ struct Sidebar: View {
         #if os(iOS)
         .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
         #endif
-        .disabled(refreshing)
         .navigationTitle(profile.nameText)
         .toolbar {
             SidebarToolbar(
@@ -119,6 +118,30 @@ struct Sidebar: View {
             .padding(.bottom, 12)
         }
         #endif
+        .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+            refreshProgress.totalUnitCount = Int64(profile.feedsArray.count)
+            refreshing = true
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .refreshProgressed, object: profile.objectID)
+        ) { _ in
+            refreshProgress.completedUnitCount += 1
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)
+        ) { _ in
+            refreshing = false
+            refreshProgress.completedUnitCount = 0
+            profile.objectWillChange.send()
+            profile.pagesArray.forEach { $0.objectWillChange.send() }
+        }
+        .sensoryFeedback(trigger: refreshing) { _, newValue in
+            if newValue == true {
+                return .start
+            } else {
+                return .success
+            }
+        }
         .sheet(
             isPresented: $showingSettings,
             onDismiss: {

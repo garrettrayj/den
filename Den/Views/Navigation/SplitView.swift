@@ -23,9 +23,7 @@ struct SplitView: View {
 
     let profiles: [Profile]
     
-    @State private var refreshProgress = Progress()
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    @State private var refreshing: Bool = false
 
     @StateObject private var navigationStore = NavigationStore()
 
@@ -45,8 +43,6 @@ struct SplitView: View {
                 detailPanel: $detailPanel,
                 newFeedPageID: $newFeedPageID,
                 newFeedWebAddress: $newFeedWebAddress,
-                refreshing: $refreshing,
-                refreshProgress: $refreshProgress,
                 userColorScheme: $userColorScheme,
                 useSystemBrowser: $useSystemBrowser,
                 showingNewFeedSheet: $showingNewFeedSheet,
@@ -62,7 +58,6 @@ struct SplitView: View {
                 profile: profile,
                 detailPanel: $detailPanel,
                 hideRead: $hideRead,
-                refreshing: $refreshing,
                 path: $navigationStore.path
             )
             .navigationSplitViewColumnWidth(min: minDetailColumnWidth, ideal: 600)
@@ -94,30 +89,6 @@ struct SplitView: View {
         }
         .onChange(of: detailPanel) {
             navigationStore.path.removeLast(navigationStore.path.count)
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-            refreshProgress.totalUnitCount = Int64(profile.feedsArray.count)
-            refreshing = true
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .refreshProgressed, object: profile.objectID)
-        ) { _ in
-            refreshProgress.completedUnitCount += 1
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)
-        ) { _ in
-            refreshing = false
-            refreshProgress.completedUnitCount = 0
-            profile.objectWillChange.send()
-            profile.pagesArray.forEach { $0.objectWillChange.send() }
-        }
-        .sensoryFeedback(trigger: refreshing) { _, newValue in
-            if newValue == true {
-                return .start
-            } else {
-                return .success
-            }
         }
         .onChange(of: showingNewFeedSheet) {
             if showingNewFeedSheet {

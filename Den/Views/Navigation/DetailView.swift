@@ -13,14 +13,13 @@ struct DetailView: View {
 
     @Binding var detailPanel: DetailPanel?
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
     @Binding var path: NavigationPath
     
     @SceneStorage("SearchQuery") private var searchQuery = ""
 
     var body: some View {
         NavigationStack(path: $path) {
-            ZStack {
+            Group {
                 switch detailPanel ?? .welcome {
                 case .inbox:
                     Inbox(profile: profile, hideRead: $hideRead, searchQuery: $searchQuery)
@@ -36,21 +35,17 @@ struct DetailView: View {
                     Welcome(profile: profile)
                 }
             }
-            .disabled(refreshing)
             .navigationDestination(for: SubDetailPanel.self) { panel in
-                Group {
-                    switch panel {
-                    case .bookmark(let bookmark):
-                        BookmarkView(bookmark: bookmark)
-                    case .feed(let feed):
-                        FeedView(feed: feed, hideRead: $hideRead)
-                    case .item(let item):
-                        ItemView(item: item)
-                    case .trend(let trend):
-                        TrendView(trend: trend, hideRead: $hideRead)
-                    }
+                switch panel {
+                case .bookmark(let bookmark):
+                    BookmarkView(bookmark: bookmark)
+                case .feed(let feed):
+                    FeedView(feed: feed, hideRead: $hideRead)
+                case .item(let item):
+                    ItemView(item: item)
+                case .trend(let trend):
+                    TrendView(trend: trend, hideRead: $hideRead)
                 }
-                .disabled(refreshing)
             }
         }
     }
