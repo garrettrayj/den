@@ -14,8 +14,7 @@ struct RefreshButton: View {
     @ObservedObject var profile: Profile
 
     @Binding var refreshing: Bool
-
-    let refreshProgress: Progress
+    @Binding var refreshProgress: Progress
 
     var body: some View {
         Button {

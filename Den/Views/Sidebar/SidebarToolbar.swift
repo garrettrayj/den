@@ -14,8 +14,10 @@ struct SidebarToolbar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
+    @Binding var detailPanel: DetailPanel?
     @Binding var isEditing: Bool
     @Binding var refreshing: Bool
+    @Binding var refreshProgress: Progress
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
     @Binding var showingNewFeedSheet: Bool
@@ -24,7 +26,6 @@ struct SidebarToolbar: ToolbarContent {
     @Binding var showingSettings: Bool
 
     let profiles: [Profile]
-    let refreshProgress: Progress
 
     var body: some ToolbarContent {
         #if os(macOS)
@@ -32,7 +33,7 @@ struct SidebarToolbar: ToolbarContent {
             RefreshButton(
                 profile: profile,
                 refreshing: $refreshing,
-                refreshProgress: refreshProgress
+                refreshProgress: $refreshProgress
             )
             .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
@@ -87,6 +88,7 @@ struct SidebarToolbar: ToolbarContent {
                     .accessibilityIdentifier("EditPages")
                     ImportButton(showingImporter: $showingImporter)
                     ExportButton(showingExporter: $showingExporter)
+                    OrganizerButton(detailPanel: $detailPanel)
                     SettingsButton(showingSettings: $showingSettings)
                 } label: {
                     Label {
@@ -108,13 +110,13 @@ struct SidebarToolbar: ToolbarContent {
             .disabled(refreshing)
         }
         ToolbarItem(placement: .status) {
-            SidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
+            SidebarStatus(profile: profile, refreshing: $refreshing, refreshProgress: $refreshProgress)
         }
         ToolbarItem(placement: .bottomBar) {
             RefreshButton(
                 profile: profile,
                 refreshing: $refreshing,
-                refreshProgress: refreshProgress
+                refreshProgress: $refreshProgress
             ).disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
         #endif

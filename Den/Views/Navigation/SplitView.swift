@@ -22,8 +22,8 @@ struct SplitView: View {
     @Binding var useSystemBrowser: Bool
 
     let profiles: [Profile]
-    let refreshProgress: Progress = Progress()
-
+    
+    @State private var refreshProgress = Progress()
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     @State private var refreshing: Bool = false
 
@@ -46,11 +46,11 @@ struct SplitView: View {
                 newFeedPageID: $newFeedPageID,
                 newFeedWebAddress: $newFeedWebAddress,
                 refreshing: $refreshing,
+                refreshProgress: $refreshProgress,
                 userColorScheme: $userColorScheme,
                 useSystemBrowser: $useSystemBrowser,
                 showingNewFeedSheet: $showingNewFeedSheet,
-                profiles: profiles,
-                refreshProgress: refreshProgress
+                profiles: profiles
             )
             #if os(macOS)
             .navigationSplitViewColumnWidth(220)
@@ -89,7 +89,7 @@ struct SplitView: View {
                 navigationData = navigationStore.encoded()
             }
         }
-        .onChange(of: currentProfileID) {
+        .onChange(of: profile) {
             detailPanel = nil
         }
         .onChange(of: detailPanel) {

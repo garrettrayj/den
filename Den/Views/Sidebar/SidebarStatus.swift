@@ -13,16 +13,15 @@ struct SidebarStatus: View {
 
     @ObservedObject var profile: Profile
 
-    let progress: Progress
-
     @Binding var refreshing: Bool
+    @Binding var refreshProgress: Progress
 
     var body: some View {
         Group {
             if !networkMonitor.isConnected {
                 Text("Network Offline", comment: "Status message.").foregroundStyle(.secondary)
             } else if refreshing {
-                ProgressView(progress)
+                ProgressView(refreshProgress)
                     .progressViewStyle(RefreshProgressViewStyle(feedCount: profile.feedCount))
             } else if let refreshedDate = RefreshedDateStorage.getRefreshed(profile) {
                 RelativeRefreshedDate(date: refreshedDate)

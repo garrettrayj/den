@@ -23,6 +23,7 @@ struct Sidebar: View {
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
     @Binding var refreshing: Bool
+    @Binding var refreshProgress: Progress
     @Binding var userColorScheme: UserColorScheme
     @Binding var useSystemBrowser: Bool
     @Binding var showingNewFeedSheet: Bool
@@ -37,7 +38,6 @@ struct Sidebar: View {
     @State private var showingNewTagSheet = false
 
     let profiles: [Profile]
-    let refreshProgress: Progress
 
     var body: some View {
         List(selection: $detailPanel) {
@@ -59,7 +59,6 @@ struct Sidebar: View {
                 #else
                 InboxNavLink(profile: profile)
                 TrendingNavLink(profile: profile)
-                OrganizerNavLink()
                 #endif
                 PagesSection(
                     profile: profile,
@@ -87,16 +86,17 @@ struct Sidebar: View {
             SidebarToolbar(
                 profile: profile,
                 currentProfileID: $currentProfileID,
+                detailPanel: $detailPanel,
                 isEditing: $isEditing,
                 refreshing: $refreshing,
+                refreshProgress: $refreshProgress,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
                 showingNewPageSheet: $showingNewPageSheet,
                 showingNewTagSheet: $showingNewTagSheet,
                 showingSettings: $showingSettings,
-                profiles: profiles,
-                refreshProgress: refreshProgress
+                profiles: profiles
             )
         }
         #if os(macOS)
@@ -109,7 +109,11 @@ struct Sidebar: View {
                 )
                 .disabled(refreshing)
 
-                SidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
+                SidebarStatus(
+                    profile: profile,
+                    refreshing: $refreshing,
+                    refreshProgress: $refreshProgress
+                )
             }
             .padding(.horizontal, 8)
             .padding(.bottom, 12)
