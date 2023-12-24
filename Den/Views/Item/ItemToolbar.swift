@@ -22,19 +22,19 @@ struct ItemToolbar: ToolbarContent {
             DoneButton()
         }
         ToolbarItem(placement: .navigation) {
-            GoBackButton(browserViewModel: browserViewModel)
-        }
-        ToolbarItem(placement: .navigation) {
-            GoForwardButton(browserViewModel: browserViewModel)
+            TagsMenu(item: item)
         }
         ToolbarItem(placement: .navigation) {
             formatMenu
         }
         ToolbarItem {
-            StopReloadButton(browserViewModel: browserViewModel)
+            GoBackButton(browserViewModel: browserViewModel)
         }
         ToolbarItem {
-            TagsMenu(item: item)
+            GoForwardButton(browserViewModel: browserViewModel)
+        }
+        ToolbarItem {
+            StopReloadButton(browserViewModel: browserViewModel)
         }
         ToolbarItem {
             if let url = browserViewModel.url {

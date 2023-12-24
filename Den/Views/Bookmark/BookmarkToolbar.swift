@@ -22,19 +22,19 @@ struct BookmarkToolbar: ToolbarContent {
             DoneButton()
         }
         ToolbarItem(placement: .navigation) {
-            GoBackButton(browserViewModel: browserViewModel)
-        }
-        ToolbarItem(placement: .navigation) {
-            GoForwardButton(browserViewModel: browserViewModel)
+            UntagButton(bookmark: bookmark)
         }
         ToolbarItem(placement: .navigation) {
             formatMenu
         }
         ToolbarItem {
-            StopReloadButton(browserViewModel: browserViewModel)
+            GoBackButton(browserViewModel: browserViewModel)
         }
         ToolbarItem {
-            UntagButton(bookmark: bookmark)
+            GoForwardButton(browserViewModel: browserViewModel)
+        }
+        ToolbarItem {
+            StopReloadButton(browserViewModel: browserViewModel)
         }
         ToolbarItem {
             if let url = browserViewModel.url {
