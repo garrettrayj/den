@@ -13,10 +13,10 @@ struct FeedView: View {
     @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
 
     @ObservedObject var feed: Feed
-
-    @Binding var hideRead: Bool
     
     @SceneStorage("ShowingFeedInspector") private var showingInspector = false
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         Group {

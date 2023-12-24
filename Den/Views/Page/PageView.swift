@@ -12,11 +12,11 @@ struct PageView: View {
     @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
 
     @ObservedObject var page: Page
-
-    @Binding var hideRead: Bool
-    @Binding var searchQuery: String
     
+    @SceneStorage("SearchQuery") private var searchQuery: String = ""
     @SceneStorage("ShowingPageInspector") private var showingInspector = false
+
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     private var pageLayout: AppStorage<PageLayout>
 
@@ -87,15 +87,8 @@ struct PageView: View {
         }
     }
 
-    init(
-        page: Page,
-        hideRead: Binding<Bool>,
-        searchQuery: Binding<String>
-    ) {
+    init(page: Page) {
         self.page = page
-
-        _hideRead = hideRead
-        _searchQuery = searchQuery
 
         pageLayout = .init(
             wrappedValue: PageLayout.grouped,

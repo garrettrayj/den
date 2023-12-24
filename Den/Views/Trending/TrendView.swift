@@ -11,7 +11,7 @@ import SwiftUI
 struct TrendView: View {
     @ObservedObject var trend: Trend
 
-    @Binding var hideRead: Bool
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         Group {

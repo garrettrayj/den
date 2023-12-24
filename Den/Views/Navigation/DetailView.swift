@@ -12,25 +12,22 @@ struct DetailView: View {
     @ObservedObject var profile: Profile
 
     @Binding var detailPanel: DetailPanel?
-    @Binding var hideRead: Bool
     @Binding var path: NavigationPath
-    
-    @SceneStorage("SearchQuery") private var searchQuery = ""
 
     var body: some View {
         NavigationStack(path: $path) {
             Group {
                 switch detailPanel ?? .welcome {
                 case .inbox:
-                    Inbox(profile: profile, hideRead: $hideRead, searchQuery: $searchQuery)
+                    Inbox(profile: profile)
                 case .organizer:
                     Organizer(profile: profile)
                 case .page(let page):
-                    PageView(page: page, hideRead: $hideRead, searchQuery: $searchQuery)
+                    PageView(page: page)
                 case .tag(let tag):
                     TagView(tag: tag)
                 case .trending:
-                    Trending(profile: profile, hideRead: $hideRead)
+                    Trending(profile: profile)
                 case .welcome:
                     Welcome(profile: profile)
                 }
@@ -40,11 +37,11 @@ struct DetailView: View {
                 case .bookmark(let bookmark):
                     BookmarkView(bookmark: bookmark)
                 case .feed(let feed):
-                    FeedView(feed: feed, hideRead: $hideRead)
+                    FeedView(feed: feed)
                 case .item(let item):
                     ItemView(item: item)
                 case .trend(let trend):
-                    TrendView(trend: trend, hideRead: $hideRead)
+                    TrendView(trend: trend)
                 }
             }
         }

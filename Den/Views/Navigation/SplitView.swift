@@ -33,8 +33,6 @@ struct SplitView: View {
     @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
     @SceneStorage("Navigation") private var navigationData: Data?
 
-    @AppStorage("HideRead") private var hideRead: Bool = false
-
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Sidebar(
@@ -57,7 +55,6 @@ struct SplitView: View {
             DetailView(
                 profile: profile,
                 detailPanel: $detailPanel,
-                hideRead: $hideRead,
                 path: $navigationStore.path
             )
             .navigationSplitViewColumnWidth(min: minDetailColumnWidth, ideal: 600)
