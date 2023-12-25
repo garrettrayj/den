@@ -31,7 +31,7 @@ struct BookmarkActionView<Content: View>: View {
                     }
                 }
             }
-            .buttonStyle(PreviewButtonStyle(read: .constant(false)))
+            .buttonStyle(PreviewButtonStyle(read: .constant(false), roundedBottom: true))
             .accessibilityIdentifier("BookmarkAction")
             .contextMenu {
                 NavigationLink(value: SubDetailPanel.bookmark(bookmark)) {
@@ -39,15 +39,6 @@ struct BookmarkActionView<Content: View>: View {
                         Text("Go to Item", comment: "Context Button label.")
                     } icon: {
                         Image(systemName: "chevron.forward")
-                    }
-                }
-                Button {
-                    PasteboardUtility.copyURL(url: url)
-                } label: {
-                    Label {
-                        Text("Copy Link", comment: "Context Button label.")
-                    } icon: {
-                        Image(systemName: "doc.on.doc")
                     }
                 }
                 ShareButton(url: url)

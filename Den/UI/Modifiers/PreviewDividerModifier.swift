@@ -17,7 +17,7 @@ struct PreviewDividerModifier: ViewModifier {
         } else {
             content
                 .padding(.bottom, 1)
-                .overlay(Divider(), alignment: .bottom)
+                .overlay(Divider().opacity(0.75), alignment: .bottom)
         }
     }
 }
