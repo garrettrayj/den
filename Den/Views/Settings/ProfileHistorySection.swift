@@ -12,6 +12,10 @@ import SwiftUI
 struct ProfileHistorySection: View {
     @ObservedObject var profile: Profile
 
+    private var historyCount: Int {
+        profile.history?.count ?? 0
+    }
+
     var body: some View {
         Section {
             Button {
@@ -20,15 +24,25 @@ struct ProfileHistorySection: View {
                 }
             } label: {
                 Label {
-                    Text("Clear History", comment: "Button label.")
+                    HStack {
+                        Text("Clear", comment: "Button label.")
+                        Spacer()
+                        Group {
+                            if historyCount == 1 {
+                                Text("1 Record", comment: "History count (singular).")
+                            } else {
+                                Text("\(historyCount) Records", comment: "History count (plural).")
+                            }
+                        }
+                    }
                 } icon: {
                     Image(systemName: "clear")
                 }
             }
-            .disabled(profile.history?.count ?? 0 == 0)
+            .disabled(historyCount == 0)
             .accessibilityIdentifier("ClearHistory")
         } header: {
-            Text("History", comment: "Section header.")
+            Text("Read History", comment: "Section header.")
         }
     }
 

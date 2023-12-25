@@ -36,7 +36,7 @@ struct ItemView: View {
         } else {
             ContentUnavailable {
                 Label {
-                    Text("Item Deleted", comment: "Object removed message.")
+                    Text("Item Removed", comment: "Object removed message.")
                 } icon: {
                     Image(systemName: "trash")
                 }

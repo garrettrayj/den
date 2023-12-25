@@ -18,7 +18,7 @@ struct TrendView: View {
             if trend.managedObjectContext == nil || trend.isDeleted {
                 ContentUnavailable {
                     Label {
-                        Text("Trend Deleted", comment: "Object removed message.")
+                        Text("Trend Removed", comment: "Object removed message.")
                     } icon: {
                         Image(systemName: "trash")
                     }

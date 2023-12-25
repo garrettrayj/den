@@ -21,7 +21,7 @@ struct GroupedLayout: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
-                HStack(alignment: .top, spacing: 8) {
+                HStack(alignment: .top) {
                     ForEach(
                         Columnizer.columnize(
                             columnCount: Columnizer.calculateColumnCount(
