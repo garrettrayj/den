@@ -55,6 +55,15 @@ struct ItemActionView<Content: View>: View {
                 ReadUnreadButton(item: item)
                 TagsMenu(item: item)
                 #endif
+                Button {
+                    PasteboardUtility.copyURL(url: url)
+                } label: {
+                    Label {
+                        Text("Copy Link", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "link.circle")
+                    }
+                }
                 ShareButton(url: url)
             }
         }
