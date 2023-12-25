@@ -33,15 +33,13 @@ struct DeckColumn: View {
                     AllRead()
                 } else {
                     ForEach(filteredItems) { item in
-                        ItemActionView(item: item, roundedBottom: filteredItems.last == item) {
+                        ItemActionView(item: item, isLastInList: filteredItems.last == item) {
                             if feed.wrappedPreviewStyle.rawValue == 1 {
                                 ItemPreviewExpanded(item: item, feed: feed)
                             } else {
                                 ItemPreviewCompressed(item: item, feed: feed)
                             }
                         }
-                        .padding(.bottom, 1)
-                        .overlay(Divider(), alignment: .bottom)
                     }
                 }
             } header: {

@@ -15,8 +15,8 @@ struct ItemActionView<Content: View>: View {
 
     @ObservedObject var item: Item
 
-    var roundedBottom: Bool = false
-    var roundedTop: Bool = false
+    var isLastInList: Bool = false
+    var isStandalone: Bool = false
 
     @ViewBuilder var content: Content
 
@@ -39,10 +39,11 @@ struct ItemActionView<Content: View>: View {
             .buttonStyle(
                 PreviewButtonStyle(
                     read: $item.read,
-                    roundedBottom: roundedBottom,
-                    roundedTop: roundedTop
+                    roundedBottom: isLastInList || isStandalone,
+                    roundedTop: isStandalone
                 )
             )
+            .modifier(PreviewDividerModifier(showDivider: isLastInList || isStandalone))
             .accessibilityIdentifier("ItemAction")
             .contextMenu {
                 #if os(iOS)

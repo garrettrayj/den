@@ -17,7 +17,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     @ViewBuilder let content: (T) -> Content
 
     var body: some View {
-        HStack(alignment: .top, spacing: 8) {
+        HStack(alignment: .top) {
             ForEach(
                 Columnizer.columnize(
                     columnCount: Columnizer.calculateColumnCount(
@@ -28,7 +28,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
                 ),
                 id: \.0
             ) { _, columnObjects in
-                LazyVStack(spacing: 8) {
+                LazyVStack {
                     ForEach(columnObjects) { object in
                         content(object)
                     }

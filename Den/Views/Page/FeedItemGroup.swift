@@ -32,21 +32,18 @@ struct FeedItemGroup: View {
                 AllRead()
             } else {
                 ForEach(filteredItems) { item in
-                    ItemActionView(item: item, roundedBottom: item == filteredItems.last) {
+                    ItemActionView(item: item, isLastInList: item == filteredItems.last) {
                         if feed.wrappedPreviewStyle == .expanded {
                             ItemPreviewExpanded(item: item, feed: feed)
                         } else {
                             ItemPreviewCompressed(item: item, feed: feed)
                         }
                     }
-                    .padding(.bottom, 1)
-                    .overlay(Divider(), alignment: .bottom)
+                    .padding(.bottom, item == filteredItems.last ? 8 : 0)
                 }
             }
         } header: {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
-        } footer: {
-            Spacer(minLength: 8)
         }
     }
 }

@@ -15,7 +15,7 @@ struct FeedItemCompressed: View {
     var body: some View {
         VStack(spacing: 0) {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
-            ItemActionView(item: item, roundedBottom: true) {
+            ItemActionView(item: item, isLastInList: true) {
                 ItemPreviewCompressed(item: item, feed: feed)
             }
         }
