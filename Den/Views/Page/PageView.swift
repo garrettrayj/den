@@ -36,36 +36,31 @@ struct PageView: View {
                 includeExtras: !searchQuery.isEmpty,
                 searchQuery: searchQuery
             ) { items in
-                Group {
+                ZStack {
                     if page.feedsArray.isEmpty {
                         NoFeeds()
                     } else if !searchQuery.isEmpty && items.isEmpty {
                         NoSearchResults()
                     } else if !searchQuery.isEmpty && items.unread().isEmpty && hideRead {
                         NoUnreadSearchResults()
-                    } else {
-                        switch pageLayout.wrappedValue {
-                        case .grouped:
-                            GroupedLayout(
-                                page: page,
-                                hideRead: $hideRead,
-                                searchQuery: $searchQuery,
-                                items: items
-                            )
-                        case .deck:
-                            DeckLayout(
-                                page: page,
-                                hideRead: $hideRead,
-                                searchQuery: $searchQuery,
-                                items: items
-                            )
-                        case .timeline:
-                            TimelineLayout(
-                                page: page,
-                                hideRead: $hideRead,
-                                items: items
-                            )
-                        }
+                    } else if pageLayout.wrappedValue == .grouped {
+                        GroupedLayout(
+                            page: page,
+                            hideRead: $hideRead,
+                            items: items
+                        )
+                    } else if pageLayout.wrappedValue == .deck {
+                        DeckLayout(
+                            page: page,
+                            hideRead: $hideRead,
+                            items: items
+                        )
+                    } else if pageLayout.wrappedValue == .timeline {
+                        TimelineLayout(
+                            page: page,
+                            hideRead: $hideRead,
+                            items: items
+                        )
                     }
                 }
                 .frame(minWidth: minDetailColumnWidth)

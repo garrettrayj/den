@@ -39,11 +39,12 @@ struct FeedItemGroup: View {
                             ItemPreviewCompressed(item: item, feed: feed)
                         }
                     }
-                    .padding(.bottom, item == filteredItems.last ? 8 : 0)
                 }
             }
         } header: {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
+        } footer: {
+            ZStack {}.frame(height: 8)
         }
     }
 }

@@ -34,12 +34,14 @@ struct FeedView: View {
                     scopeObject: feed,
                     includeExtras: true
                 ) { items in
-                    FeedLayout(
-                        feed: feed,
-                        profile: profile,
-                        hideRead: $hideRead,
-                        items: items
-                    )
+                    ZStack {
+                        FeedLayout(
+                            feed: feed,
+                            profile: profile,
+                            hideRead: $hideRead,
+                            items: items
+                        )
+                    }
                     .frame(minWidth: minDetailColumnWidth)
                     .toolbar {
                         FeedToolbar(

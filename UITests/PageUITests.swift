@@ -96,7 +96,7 @@ final class PageUITests: UITestCase {
         #else
         app.buttons["ToggleInspector"].tap()
         app.buttons["Grouped"].tap()
-        app.buttons["ToggleInspector"].tap()
+        app.buttons["ToggleInspector"].forceTap()
         #endif
 
         sleep(3)
@@ -123,7 +123,7 @@ final class PageUITests: UITestCase {
         #else
         app.buttons["ToggleInspector"].tap()
         app.buttons["Timeline"].tap()
-        app.buttons["ToggleInspector"].tap()
+        app.buttons["ToggleInspector"].forceTap()
         #endif
 
         sleep(3)
@@ -150,7 +150,7 @@ final class PageUITests: UITestCase {
         #else
         app.buttons["ToggleInspector"].tap()
         app.buttons["Deck"].tap()
-        app.buttons["ToggleInspector"].tap()
+        app.buttons["ToggleInspector"].forceTap()
         #endif
 
         sleep(3)
