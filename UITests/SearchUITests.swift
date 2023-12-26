@@ -13,6 +13,10 @@ final class SearchUITests: UITestCase {
         let app = launchApp(inMemory: false)
         app.buttons["SelectProfile"].firstMatch.tap()
 
+        app.buttons["InboxNavLink"].tap()
+
+        hideSidebar(app)
+        
         #if os(iOS)
         app.swipeDown()
         #endif
@@ -22,57 +26,34 @@ final class SearchUITests: UITestCase {
         searchField.typeText("NASA")
         searchField.typeText("\n")
 
-        hideSidebar(app)
-
-        if !app.staticTexts["Search"].waitForExistence(timeout: 2) {
+        if !app.staticTexts["Searching for “NASA”"].waitForExistence(timeout: 2) {
             XCTFail("Search title did not appear in time")
         }
 
-        // For unknown reasons, app.windows.firstMatch does not work on iPhone in the specific
-        // situation of taking a screenshot of search results.
-        #if os(iOS)
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            attachScreenshot(of: app, named: "search")
-        } else {
-            attachScreenshot(of: app.windows.firstMatch, named: "search")
-        }
-        #else
         attachScreenshot(of: app.windows.firstMatch, named: "search")
-        #endif
     }
 
     func testSearchNoResults() throws {
-        let app = launchApp(inMemory: true)
+        let app = launchApp(inMemory: false)
+        app.buttons["SelectProfile"].firstMatch.tap()
 
-        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
-            XCTFail("New Profile button did not appear in time")
-        }
-        app.buttons["NewProfile"].firstMatch.tap()
-        app.buttons["CreateProfile"].firstMatch.tap()
+        app.buttons["InboxNavLink"].tap()
 
+        hideSidebar(app)
+        
         #if os(iOS)
         app.swipeDown()
         #endif
 
         let searchField = app.searchFields["Search"].firstMatch
         searchField.tap()
-        searchField.typeText("Example")
+        searchField.typeText("Example 123")
         searchField.typeText("\n")
 
-        hideSidebar(app)
-
-        if !app.staticTexts["No Results for “Example”"].waitForExistence(timeout: 2) {
+        if !app.staticTexts["No Results"].waitForExistence(timeout: 2) {
             XCTFail("Search status did not appear in time")
         }
 
-        #if os(iOS)
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            attachScreenshot(of: app, named: "SearchNoResults")
-        } else {
-            attachScreenshot(of: app.windows.firstMatch, named: "search-no-results")
-        }
-        #else
-        attachScreenshot(of: app.windows.firstMatch, named: "search-no-results")
-        #endif
+        attachScreenshot(of: app.windows.firstMatch, named: "search")
     }
 }

@@ -90,11 +90,13 @@ final class PageUITests: UITestCase {
         hideSidebar(app)
         
         #if os(macOS)
-        app.toolbars.popUpButtons.element(boundBy: 1).tap()
+        app.buttons["ToggleInspector"].firstMatch.tap()
         app.menuItems["GroupedLayout"].tap()
+        app.buttons["ToggleInspector"].firstMatch.tap()
         #else
-        app.buttons["PageLayoutPicker"].tap()
-        app.buttons["GroupedLayout"].tap()
+        app.buttons["ToggleInspector"].tap()
+        app.buttons["Grouped"].tap()
+        app.buttons["ToggleInspector"].tap()
         #endif
 
         sleep(3)
@@ -113,13 +115,15 @@ final class PageUITests: UITestCase {
         #endif
         
         hideSidebar(app)
-
+        
         #if os(macOS)
-        app.toolbars.popUpButtons.element(boundBy: 1).tap()
+        app.buttons["ToggleInspector"].firstMatch.tap()
         app.menuItems["TimelineLayout"].tap()
+        app.buttons["ToggleInspector"].firstMatch.tap()
         #else
-        app.buttons["PageLayoutPicker"].tap()
-        app.buttons["TimelineLayout"].tap()
+        app.buttons["ToggleInspector"].tap()
+        app.buttons["Timeline"].tap()
+        app.buttons["ToggleInspector"].tap()
         #endif
 
         sleep(3)
@@ -140,11 +144,13 @@ final class PageUITests: UITestCase {
         hideSidebar(app)
 
         #if os(macOS)
-        app.toolbars.popUpButtons.element(boundBy: 1).tap()
+        app.buttons["ToggleInspector"].firstMatch.tap()
         app.menuItems["DeckLayout"].tap()
+        app.buttons["ToggleInspector"].firstMatch.tap()
         #else
-        app.buttons["PageLayoutPicker"].tap()
-        app.buttons["DeckLayout"].tap()
+        app.buttons["ToggleInspector"].tap()
+        app.buttons["Deck"].tap()
+        app.buttons["ToggleInspector"].tap()
         #endif
 
         sleep(3)

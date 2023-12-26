@@ -117,7 +117,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-disable-cloud"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-in-memory"
