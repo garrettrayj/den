@@ -25,11 +25,11 @@ struct FeedItemGroup: View {
     var body: some View {
         Section {
             if feed.feedData == nil || feed.feedData?.error != nil {
-                FeedUnavailable(feedData: feed.feedData).padding(.bottom, 8)
+                FeedUnavailable(feedData: feed.feedData)
             } else if items.isEmpty {
-                FeedEmpty().padding(.bottom, 8)
+                FeedEmpty()
             } else if items.unread().isEmpty && hideRead {
-                AllRead().padding(.bottom, 8)
+                AllRead()
             } else {
                 ForEach(filteredItems) { item in
                     ItemActionView(item: item, isLastInList: item == filteredItems.last) {
