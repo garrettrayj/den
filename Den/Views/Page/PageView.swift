@@ -47,12 +47,14 @@ struct PageView: View {
                         GroupedLayout(
                             page: page,
                             hideRead: $hideRead,
+                            searchQuery: $searchQuery,
                             items: items
                         )
                     } else if pageLayout.wrappedValue == .deck {
                         DeckLayout(
                             page: page,
                             hideRead: $hideRead,
+                            searchQuery: $searchQuery,
                             items: items
                         )
                     } else if pageLayout.wrappedValue == .timeline {

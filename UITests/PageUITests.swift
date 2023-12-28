@@ -91,7 +91,7 @@ final class PageUITests: UITestCase {
         
         #if os(macOS)
         app.buttons["ToggleInspector"].firstMatch.tap()
-        app.menuItems["GroupedLayout"].tap()
+        app.radioButtons["Layout, Grouped"].tap()
         app.buttons["ToggleInspector"].firstMatch.tap()
         #else
         app.buttons["ToggleInspector"].tap()
@@ -118,7 +118,7 @@ final class PageUITests: UITestCase {
         
         #if os(macOS)
         app.buttons["ToggleInspector"].firstMatch.tap()
-        app.menuItems["TimelineLayout"].tap()
+        app.radioButtons["Layout, Timeline"].tap()
         app.buttons["ToggleInspector"].firstMatch.tap()
         #else
         app.buttons["ToggleInspector"].tap()
@@ -145,7 +145,7 @@ final class PageUITests: UITestCase {
 
         #if os(macOS)
         app.buttons["ToggleInspector"].firstMatch.tap()
-        app.menuItems["DeckLayout"].tap()
+        app.radioButtons["Layout, Deck"].tap()
         app.buttons["ToggleInspector"].firstMatch.tap()
         #else
         app.buttons["ToggleInspector"].tap()

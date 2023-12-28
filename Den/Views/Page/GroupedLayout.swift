@@ -10,11 +10,11 @@ import SwiftUI
 
 struct GroupedLayout: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.isSearching) private var isSearching
 
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
+    @Binding var searchQuery: String
 
     let items: [Item]
 
@@ -51,11 +51,11 @@ struct GroupedLayout: View {
     }
     
     private var visibleFeeds: [Feed] {
-        if isSearching && hideRead {
+        if !searchQuery.isEmpty && hideRead {
             return page.feedsArray.filter { feed in
                 items.unread().forFeed(feed: feed).count > 0
             }
-        } else if isSearching {
+        } else if !searchQuery.isEmpty {
             return page.feedsArray.filter { feed in
                 items.forFeed(feed: feed).count > 0
             }

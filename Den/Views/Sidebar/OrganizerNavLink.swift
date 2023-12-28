@@ -17,6 +17,6 @@ struct OrganizerNavLink: View {
                 Image(systemName: "folder.badge.gearshape")
             }
         }
-        .accessibilityIdentifier("ShowOrganizer")
+        .accessibilityIdentifier("OrganizerNavLink")
     }
 }

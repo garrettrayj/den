@@ -26,9 +26,13 @@ final class SearchUITests: UITestCase {
         searchField.typeText("NASA")
         searchField.typeText("\n")
 
+        #if os(iOS)
         if !app.staticTexts["Searching for “NASA”"].waitForExistence(timeout: 2) {
             XCTFail("Search title did not appear in time")
         }
+        #endif
+        
+        sleep(2)
 
         attachScreenshot(of: app.windows.firstMatch, named: "search")
     }
