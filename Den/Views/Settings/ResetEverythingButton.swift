@@ -90,7 +90,7 @@ struct ResetEverythingButton: View {
             }
         }
         
-        await BlocklistManager.cleanupContentRulesLists(blocklists: [])
+        await BlocklistManager.cleanupContentRulesLists()
 
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)

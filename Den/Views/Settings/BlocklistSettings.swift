@@ -51,38 +51,16 @@ struct BlocklistSettings: View {
                     Text("URL", comment: "Section header.")
                 }
 
-                Section {
-                    if let blocklistStatus = blocklist.blocklistStatus {
-                        LabeledContent {
-                            if let refreshed = blocklistStatus.refreshed {
-                                Text(verbatim: "\(refreshed.formatted())")
-                            } else {
-                                Text("Unknown", comment: "Blocklist refreshed date status.")
-                            }
-                        } label: {
-                            Text("Refreshed", comment: "Blocklist status label.")
-                        }
-                        LabeledContent {
-                            Text("\(blocklistStatus.totalConvertedCount)")
-                        } label: {
-                            Text("Converted Rules", comment: "Blocklist status label.")
-                        }
-                        LabeledContent {
-                            Text("\(blocklistStatus.errorsCount)")
-                        } label: {
-                            Text("Errors", comment: "Blocklist status label.")
-                        }
-                    } else {
-                        Label {
-                            Text("Not Available", comment: "Blocklist status.")
-                        } icon: {
-                            Image(systemName: "questionmark")
-                        }
+                if let blocklistStatus = blocklist.blocklistStatus {
+                    BlocklistStatusView(blocklistStatus: blocklistStatus)
+                } else {
+                    Label {
+                        Text("Status Not Available", comment: "Blocklist status.")
+                    } icon: {
+                        Image(systemName: "questionmark")
                     }
-                } header: {
-                    Text("Status", comment: "Section header.")
                 }
-
+                
                 Section {
                     Button {
                         isRefreshing = true

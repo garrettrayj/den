@@ -91,10 +91,7 @@ struct NewBlocklistSheet: View {
         blocklist.name = name
         blocklist.url = url
         
-        await BlocklistManager.refreshContentRulesList(
-            blocklist: blocklist,
-            context: viewContext
-        )
+        await BlocklistManager.refreshContentRulesList(blocklist: blocklist, context: viewContext)
 
         do {
             try viewContext.save()

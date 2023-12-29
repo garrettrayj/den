@@ -34,7 +34,7 @@ final class BlocklistManager {
         try? await WKContentRuleListStore.default().removeContentRuleList(
             forIdentifier: identifier
         )
-        Logger.main.info("Removed content rules list '\(identifier)'")
+        Logger.main.info("Content rules list removed: \(identifier, privacy: .public)")
     }
     
     @MainActor
@@ -42,26 +42,38 @@ final class BlocklistManager {
         return await WKContentRuleListStore.default().availableIdentifiers() ?? []
     }
     
-    static func cleanupContentRulesLists(blocklists: [Blocklist]) async {
-        let ruleLists = await getCompiledRulesListIdentifiers()
+    static func cleanupContentRulesLists() async {
+        let context = PersistenceController.shared.container.newBackgroundContext()
+        
+        guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+        else { return }
+        
         let blocklistIdentifiers = blocklists.compactMap { $0.id?.uuidString }
+        let ruleLists = await getCompiledRulesListIdentifiers()
         for ruleList in ruleLists where !blocklistIdentifiers.contains(ruleList) {
             await removeContentRulesList(identifier: ruleList)
         }
     }
     
-    static func initializeMissingContentRulesLists(
-        blocklists: [Blocklist],
-        context: NSManagedObjectContext
-    ) async {
-        let ruleLists = await getCompiledRulesListIdentifiers()
+    static func initializeMissingContentRulesLists() async {
+        let context = PersistenceController.shared.container.newBackgroundContext()
+        
+        guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+        else { return }
+        
         for blocklist in blocklists {
             guard let identifier = blocklist.id?.uuidString else { continue }
+            let ruleLists = await getCompiledRulesListIdentifiers()
             if !ruleLists.contains(identifier) {
+                Logger.main.info("""
+                Blocklist “\(blocklist.wrappedName, privacy: .public)” is missing content rules, \
+                refreshing now…
+                """)
                 await refreshContentRulesList(blocklist: blocklist, context: context)
-                Logger.main.info("Initialized blocklist missing rules '\(blocklist.wrappedName)'")
             }
         }
+        
+        try? context.save()
     }
 
     @MainActor
@@ -105,14 +117,20 @@ final class BlocklistManager {
         DispatchQueue.main.async {
             blocklist.objectWillChange.send()
         }
+        
+        Logger.main.info("Blocklist refreshed: \(blocklist.wrappedName, privacy: .public)")
     }
     
-    static func refreshAllContentRulesLists(
-        blocklists: [Blocklist],
-        context: NSManagedObjectContext
-    ) async {
+    static func refreshAllContentRulesLists() async {
+        let context = PersistenceController.shared.container.newBackgroundContext()
+        
+        guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+        else { return }
+        
         for blocklist in blocklists {
             await refreshContentRulesList(blocklist: blocklist, context: context)
         }
+        
+        try? context.save()
     }
 }

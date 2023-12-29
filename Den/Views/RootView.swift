@@ -27,9 +27,6 @@ struct RootView: View {
         SortDescriptor(\.created, order: .forward)
     ])
     private var profiles: FetchedResults<Profile>
-    
-    @FetchRequest(sortDescriptors: [])
-    private var blocklists: FetchedResults<Blocklist>
 
     var body: some View {
         Group {
@@ -61,10 +58,7 @@ struct RootView: View {
             AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
         }
         .task {
-            await BlocklistManager.initializeMissingContentRulesLists(
-                blocklists: Array(blocklists),
-                context: viewContext
-            )
+            await BlocklistManager.initializeMissingContentRulesLists()
             await performMaintenance()
         }
     }
@@ -91,12 +85,8 @@ struct RootView: View {
 
         try? CleanupUtility.purgeOrphans(context: viewContext)
         
-        let blocklists = Array(blocklists)
-        await BlocklistManager.cleanupContentRulesLists(blocklists: blocklists)
-        await BlocklistManager.refreshAllContentRulesLists(
-            blocklists: blocklists,
-            context: viewContext
-        )
+        await BlocklistManager.cleanupContentRulesLists()
+        await BlocklistManager.refreshAllContentRulesLists()
 
         try? viewContext.save()
 
