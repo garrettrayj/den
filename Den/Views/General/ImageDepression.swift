@@ -15,14 +15,11 @@ struct ImageDepression<Content: View>: View {
     let content: () -> Content
 
     var body: some View {
-        HStack(spacing: 0) {
-            Spacer(minLength: 0)
-            content()
-            Spacer(minLength: 0)
-        }
-        .padding(.vertical, padding)
-        .padding(.horizontal, padding)
-        .background(.fill.tertiary)
-        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+        content()
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, padding)
+            .padding(.horizontal, padding)
+            .background(.fill.tertiary)
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
     }
 }

@@ -49,7 +49,7 @@ struct OrganizerInspector: View {
                         .foregroundStyle(.tertiary)
                     Spacer()
                 } else if let feed = selection.first {
-                    OrganizerInfoPanel(profile: profile, feed: feed)
+                    OrganizerInfoPanel(profile: profile, feed: feed).textSelection(.enabled)
                 } else {
                     Spacer()
                     Text("No Selection", comment: "Inspector selection message.")

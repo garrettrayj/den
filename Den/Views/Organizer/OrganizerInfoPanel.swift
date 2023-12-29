@@ -18,9 +18,7 @@ struct OrganizerInfoPanel: View {
     var body: some View {
         List {
             LabeledContent {
-                Text(verbatim: "\(feed.urlString)").onDrag {
-                    NSItemProvider(object: feed.url?.absoluteString as? NSString ?? "Invalid URL")
-                }
+                Text(verbatim: "\(feed.urlString)")
             } label: {
                 Text("URL", comment: "Info inspector label.")
             }

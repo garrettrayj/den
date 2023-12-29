@@ -26,12 +26,11 @@ struct ItemPreviewCompressed: View {
                     ItemTags(item: item)
                 }
             }
+            
+            Spacer(minLength: 0)
 
             if !feed.hideImages, let url = item.image {
-                Spacer(minLength: 12)
-                SmallThumbnail(url: url, isRead: item.read)
-            } else {
-                Spacer(minLength: 0)
+                SmallThumbnail(url: url, isRead: item.read).padding(.leading, 12)
             }
         }
         .padding(12)

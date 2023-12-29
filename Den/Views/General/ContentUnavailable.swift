@@ -41,21 +41,16 @@ struct ContentUnavailable<LabelContent: View, DescriptionContent: View, ActionsC
     }
 
     var body: some View {
-        HStack {
+        VStack(spacing: 12) {
             Spacer(minLength: 0)
-            VStack(spacing: 12) {
-                Spacer(minLength: 0)
-                label().labelStyle(ContentUnavailableLabelStyle())
-                VStack(spacing: 16) {
-                    description?().foregroundStyle(descriptionForegroundStyle)
-                    actions?()
-                }
-                .multilineTextAlignment(.center)
-                Spacer(minLength: 0)
-            }
-            .padding()
+            label().labelStyle(ContentUnavailableLabelStyle())
+            description?().foregroundStyle(descriptionForegroundStyle)
+            actions?()
             Spacer(minLength: 0)
         }
+        .multilineTextAlignment(.center)
+        .frame(maxWidth: .infinity)
+        .padding()
     }
 }
 

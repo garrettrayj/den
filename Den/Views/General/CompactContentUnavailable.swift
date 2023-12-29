@@ -41,19 +41,14 @@ struct CompactContentUnavailable<LabelContent: View, DescriptionContent: View, A
     }
 
     var body: some View {
-        HStack {
-            Spacer(minLength: 0)
-            VStack {
-                label().labelStyle(CompactContentUnavailableLabelStyle())
-                VStack(spacing: 8) {
-                    description?().font(.caption).foregroundStyle(descriptionForegroundStyle)
-                    actions?().font(.caption)
-                }
-            }
-            .multilineTextAlignment(.center)
-            .padding()
-            Spacer(minLength: 0)
+        VStack(spacing: 8) {
+            label().labelStyle(CompactContentUnavailableLabelStyle())
+            description?().font(.caption).foregroundStyle(descriptionForegroundStyle)
+            actions?().font(.caption)
         }
+        .multilineTextAlignment(.center)
+        .frame(maxWidth: .infinity)
+        .padding()
         #if os(macOS)
         .background(.background)
         #else
