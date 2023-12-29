@@ -27,11 +27,12 @@ struct SplitView: View {
 
     @StateObject private var navigationStore = NavigationStore()
 
-    @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
-    @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
-    @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
     @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
     @SceneStorage("Navigation") private var navigationData: Data?
+    @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
+    @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
+    @SceneStorage("SearchQuery") private var searchQuery: String = ""
+    @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     
     @AppStorage("HideRead") private var hideRead: Bool = false
 
@@ -58,7 +59,8 @@ struct SplitView: View {
                 profile: profile,
                 detailPanel: $detailPanel, 
                 hideRead: $hideRead,
-                path: $navigationStore.path
+                path: $navigationStore.path,
+                searchQuery: $searchQuery
             )
             .navigationSplitViewColumnWidth(min: minDetailColumnWidth, ideal: 600)
             #if os(iOS)

@@ -12,8 +12,7 @@ struct Inbox: View {
     @ObservedObject var profile: Profile
     
     @Binding var hideRead: Bool
-
-    @SceneStorage("SearchQuery") private var searchQuery: String = ""
+    @Binding var searchQuery: String
 
     var body: some View {
         WithItems(

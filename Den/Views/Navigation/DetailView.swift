@@ -14,17 +14,18 @@ struct DetailView: View {
     @Binding var detailPanel: DetailPanel?
     @Binding var hideRead: Bool
     @Binding var path: NavigationPath
+    @Binding var searchQuery: String
 
     var body: some View {
         NavigationStack(path: $path) {
             Group {
                 switch detailPanel ?? .welcome {
                 case .inbox:
-                    Inbox(profile: profile, hideRead: $hideRead)
+                    Inbox(profile: profile, hideRead: $hideRead, searchQuery: $searchQuery)
                 case .organizer:
                     Organizer(profile: profile)
                 case .page(let page):
-                    PageView(page: page, hideRead: $hideRead)
+                    PageView(page: page, hideRead: $hideRead, searchQuery: $searchQuery)
                 case .tag(let tag):
                     TagView(tag: tag)
                 case .trending:
