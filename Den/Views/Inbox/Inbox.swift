@@ -10,10 +10,10 @@ import SwiftUI
 
 struct Inbox: View {
     @ObservedObject var profile: Profile
+    
+    @Binding var hideRead: Bool
 
     @SceneStorage("SearchQuery") private var searchQuery: String = ""
-
-    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         WithItems(

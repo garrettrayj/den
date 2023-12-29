@@ -14,9 +14,9 @@ struct FeedView: View {
 
     @ObservedObject var feed: Feed
     
-    @SceneStorage("ShowingFeedInspector") private var showingInspector = false
+    @Binding var hideRead: Bool
     
-    @AppStorage("HideRead") private var hideRead: Bool = false
+    @SceneStorage("ShowingFeedInspector") private var showingInspector = false
 
     var body: some View {
         Group {

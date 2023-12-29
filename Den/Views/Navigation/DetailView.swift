@@ -12,6 +12,7 @@ struct DetailView: View {
     @ObservedObject var profile: Profile
 
     @Binding var detailPanel: DetailPanel?
+    @Binding var hideRead: Bool
     @Binding var path: NavigationPath
 
     var body: some View {
@@ -19,15 +20,15 @@ struct DetailView: View {
             Group {
                 switch detailPanel ?? .welcome {
                 case .inbox:
-                    Inbox(profile: profile)
+                    Inbox(profile: profile, hideRead: $hideRead)
                 case .organizer:
                     Organizer(profile: profile)
                 case .page(let page):
-                    PageView(page: page)
+                    PageView(page: page, hideRead: $hideRead)
                 case .tag(let tag):
                     TagView(tag: tag)
                 case .trending:
-                    Trending(profile: profile)
+                    Trending(profile: profile, hideRead: $hideRead)
                 case .welcome:
                     Welcome(profile: profile)
                 }
@@ -37,11 +38,11 @@ struct DetailView: View {
                 case .bookmark(let bookmark):
                     BookmarkView(bookmark: bookmark)
                 case .feed(let feed):
-                    FeedView(feed: feed)
+                    FeedView(feed: feed, hideRead: $hideRead)
                 case .item(let item):
                     ItemView(item: item)
                 case .trend(let trend):
-                    TrendView(trend: trend)
+                    TrendView(trend: trend, hideRead: $hideRead)
                 }
             }
         }
