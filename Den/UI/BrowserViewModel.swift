@@ -40,17 +40,18 @@ class BrowserViewModel: NSObject, ObservableObject {
     @Published var readerRulesListsLoaded = false
     @Published var useReaderAutomatically = false
     @Published var userTintHex: String?
-    @Published var blocklists: [Blocklist] = []
     @Published var allowJavaScript = true
     @Published var browserZoom: PageZoomLevel = .oneHundredPercent
     @Published var readerZoom: PageZoomLevel = .oneHundredPercent
+    
+    var contentRuleLists: [WKContentRuleList]?
 
     @MainActor
     func loadURL(url: URL?) async {
         guard let url = url else { return }
         
-        if useBlocklists && !browserRulesListsLoaded {
-            for ruleList in await BlocklistManager.getContentRuleLists(blocklists: blocklists) {
+        if useBlocklists && !browserRulesListsLoaded, let contentRuleLists = contentRuleLists {
+            for ruleList in contentRuleLists {
                 browserWebView?.configuration.userContentController.add(ruleList)
             }
             browserRulesListsLoaded = true
@@ -150,8 +151,8 @@ class BrowserViewModel: NSObject, ObservableObject {
             baseURL = pageURLComponents.url
         }
         
-        if useBlocklists && !readerRulesListsLoaded {
-            for ruleList in await BlocklistManager.getContentRuleLists(blocklists: blocklists) {
+        if useBlocklists && !readerRulesListsLoaded, let contentRuleLists = contentRuleLists {
+            for ruleList in contentRuleLists {
                 readerWebView?.configuration.userContentController.add(ruleList)
             }
             readerRulesListsLoaded = true

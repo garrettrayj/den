@@ -23,9 +23,6 @@ struct BrowserView: View {
 
     @AppStorage("BrowserZoom") private var browserZoom: PageZoomLevel = .oneHundredPercent
     @AppStorage("ReaderZoom") private var readerZoom: PageZoomLevel = .oneHundredPercent
-    
-    @FetchRequest(sortDescriptors: [])
-    private var blocklists: FetchedResults<Blocklist>
 
     init(
         url: URL,
@@ -45,7 +42,7 @@ struct BrowserView: View {
         ZStack {
             BrowserWebView(browserViewModel: browserViewModel)
                 .task {
-                    browserViewModel.blocklists = Array(blocklists)
+                    browserViewModel.contentRuleLists = await BlocklistManager.getContentRuleLists()
                     browserViewModel.useBlocklists = useBlocklists ?? true
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
                     browserViewModel.allowJavaScript = allowJavaScript ?? true

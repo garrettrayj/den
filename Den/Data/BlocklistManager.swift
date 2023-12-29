@@ -13,7 +13,12 @@ import WebKit
 import ContentBlockerConverter
 
 final class BlocklistManager {
-    static func getContentRuleLists(blocklists: [Blocklist]) async -> [WKContentRuleList] {
+    static func getContentRuleLists() async -> [WKContentRuleList] {
+        let context = PersistenceController.shared.container.newBackgroundContext()
+        
+        guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+        else { return [] }
+        
         var ruleLists: [WKContentRuleList] = []
         for blocklist in blocklists {
             guard let id = blocklist.id?.uuidString else { continue }

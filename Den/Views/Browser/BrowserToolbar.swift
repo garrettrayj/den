@@ -15,9 +15,6 @@ struct BrowserToolbar: ToolbarContent {
 
     @ObservedObject var browserViewModel: BrowserViewModel
 
-    @Binding var browserZoom: PageZoomLevel
-    @Binding var readerZoom: PageZoomLevel
-
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem(placement: .navigation) {
