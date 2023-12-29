@@ -44,7 +44,7 @@ struct FeedItemGroup: View {
         } header: {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
         } footer: {
-            ZStack {}.frame(height: 8)
+            Spacer().frame(height: 8)
         }
     }
 }

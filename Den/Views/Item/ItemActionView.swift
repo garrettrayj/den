@@ -43,7 +43,7 @@ struct ItemActionView<Content: View>: View {
                     roundedTop: isStandalone
                 )
             )
-            .modifier(PreviewDividerModifier(showDivider: isLastInList || isStandalone))
+            .modifier(PreviewDividerModifier(showDivider: !isLastInList && !isStandalone))
             .accessibilityIdentifier("ItemAction")
             .contextMenu {
                 #if os(iOS)

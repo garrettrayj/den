@@ -14,10 +14,10 @@ struct PreviewDividerModifier: ViewModifier {
     func body(content: Content) -> some View {
         if showDivider {
             content
+                .padding(.bottom, 1)
+                .overlay(Divider(), alignment: .bottom)
         } else {
             content
-                .padding(.bottom, 1)
-                .overlay(Divider().opacity(0.75), alignment: .bottom)
         }
     }
 }

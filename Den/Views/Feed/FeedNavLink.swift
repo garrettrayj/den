@@ -20,7 +20,6 @@ struct FeedNavLink: View {
             }
         }
         .accessibilityIdentifier("FeedNavLink")
-        .padding(.bottom, 1)
-        .overlay(Divider().opacity(0.75), alignment: .bottom)
+        .modifier(PreviewDividerModifier(showDivider: true))
     }
 }
