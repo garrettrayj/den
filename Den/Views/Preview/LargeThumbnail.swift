@@ -25,11 +25,9 @@ struct LargeThumbnail: View {
         Group {
             if aspectRatio == nil {
                 ImageDepression(padding: 8) {
-                    VStack {
-                        webImage
-                            .modifier(ImageBorderModifier(cornerRadius: 4))
-                            .scaledToFit()
-                    }
+                    webImage
+                        .modifier(ImageBorderModifier(cornerRadius: 4))
+                        .scaledToFit()
                 }
                 .aspectRatio(16/9, contentMode: .fill)
             } else if aspectRatio! < 0.75 {
@@ -74,10 +72,12 @@ struct LargeThumbnail: View {
             url: url,
             options: [.delayPlaceholder, .lowPriority],
             context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
-        )
+        ) { image in
+            image.resizable()
+        } placeholder: {
+            ImageErrorPlaceholder()
+        }
         .purgeable(true)
-        .resizable()
-        .placeholder { ImageErrorPlaceholder() }
         .modifier(PreviewImageStateModifier(isRead: isRead))
     }
 }

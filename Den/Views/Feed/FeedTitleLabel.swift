@@ -44,13 +44,11 @@ struct FeedTitleLabel: View {
                 url: feed.feedData?.favicon,
                 options: [.decodeFirstFrameOnly, .delayPlaceholder],
                 context: [.imageThumbnailPixelSize: faviconPixelSize]
-            )
-            .purgeable(true)
-            .resizable()
-            .placeholder {
+            ) { image in
+                image.resizable().scaledToFit()
+            } placeholder: {
                 Image(systemName: "dot.radiowaves.up.forward").foregroundStyle(.primary)
             }
-            .scaledToFit()
             .frame(width: faviconSize.width, height: faviconSize.height)
             .clipShape(RoundedRectangle(cornerRadius: 2))
             .opacity(opacity)

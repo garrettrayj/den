@@ -23,12 +23,12 @@ struct SmallThumbnail: View {
             url: url,
             options: [.decodeFirstFrameOnly, .delayPlaceholder, .lowPriority],
             context: [.imageThumbnailPixelSize: smallThumbnailPixelSize]
-        )
-        .purgeable(true)
-        .resizable()
-        .placeholder { ImageErrorPlaceholder() }
+        ) { image in
+            image.resizable().scaledToFill()
+        } placeholder: {
+            ImageErrorPlaceholder()
+        }
         .modifier(PreviewImageStateModifier(isRead: isRead))
-        .scaledToFill()
         .frame(width: smallThumbnailSize.width, height: smallThumbnailSize.height)
         .background(.quaternary)
         .modifier(ImageBorderModifier(cornerRadius: 6))

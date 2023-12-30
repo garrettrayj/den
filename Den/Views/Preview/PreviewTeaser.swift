@@ -14,8 +14,8 @@ struct PreviewTeaser: View {
     var body: some View {
         Text(teaser)
             .font(.subheadline)
+            .lineSpacing(2)
             .lineLimit(6)
             .padding(.top, 4)
-            .lineSpacing(2)
     }
 }

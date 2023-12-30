@@ -22,16 +22,20 @@ struct FeedHero: View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
                 Spacer()
-                WebImage(url: url, options: [.decodeFirstFrameOnly, .delayPlaceholder])
-                    .resizable()
-                    .placeholder { ImageErrorPlaceholder() }
-                    .indicator(.activity)
-                    .scaledToFit()
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .shadow(color: .black.opacity(0.25), radius: 3, y: 1)
-                    .padding(.vertical)
-                    .padding(.horizontal, 8)
-                    .opacity(opacity)
+                WebImage(
+                    url: url,
+                    options: [.decodeFirstFrameOnly, .delayPlaceholder]
+                ) { image in
+                    image.resizable().scaledToFit()
+                } placeholder: {
+                    ImageErrorPlaceholder()
+                }
+                .indicator(.activity)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .shadow(color: .black.opacity(0.25), radius: 3, y: 1)
+                .padding(.vertical)
+                .padding(.horizontal, 8)
+                .opacity(opacity)
                 Spacer()
             }
             .aspectRatio(16/9, contentMode: .fit)

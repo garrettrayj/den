@@ -48,13 +48,12 @@ struct TrendBlock: View {
                                     url: favicon,
                                     options: [.decodeFirstFrameOnly, .delayPlaceholder, .lowPriority],
                                     context: [.imageThumbnailPixelSize: faviconPixelSize]
-                                )
-                                .resizable()
-                                .placeholder {
+                                ) { image in
+                                    image.resizable().scaledToFit()
+                                } placeholder: {
                                     Image(systemName: "dot.radiowaves.up.forward")
                                         .foregroundStyle(.primary)
                                 }
-                                .scaledToFit()
                                 .frame(width: faviconSize.width, height: faviconSize.height)
                                 .clipShape(RoundedRectangle(cornerRadius: 2))
                                 .grayscale(isEnabled ? 0 : 1)
