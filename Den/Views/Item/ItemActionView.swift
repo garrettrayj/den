@@ -56,6 +56,11 @@ struct ItemActionView<Content: View>: View {
                 TagsMenu(item: item)
                 #endif
                 Button {
+                    openURL(url)
+                } label: {
+                    OpenInBrowserLabel()
+                }
+                Button {
                     PasteboardUtility.copyURL(url: url)
                 } label: {
                     Label {

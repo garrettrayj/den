@@ -36,6 +36,11 @@ struct BookmarkActionView<Content: View>: View {
             .contextMenu {
                 UntagButton(bookmark: bookmark)
                 Button {
+                    openURL(url)
+                } label: {
+                    OpenInBrowserLabel()
+                }
+                Button {
                     PasteboardUtility.copyURL(url: url)
                 } label: {
                     Label {
