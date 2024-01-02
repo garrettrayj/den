@@ -12,9 +12,9 @@ struct DeleteProfileButton: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @Binding var selection: Profile?
-    
+
     @State private var showingAlert = false
-    
+
     var body: some View {
         Button(role: .destructive) {
             showingAlert = true

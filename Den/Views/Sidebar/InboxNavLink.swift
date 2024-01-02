@@ -10,8 +10,6 @@ import CoreData
 import SwiftUI
 
 struct InboxNavLink: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     @ObservedObject var profile: Profile
 
     var body: some View {
@@ -20,11 +18,7 @@ struct InboxNavLink: View {
                 Label {
                     Text("Inbox", comment: "Button label.").lineLimit(1).badge(items.count)
                 } icon: {
-                    if items.count > 0 {
-                        Image(systemName: "tray.full")
-                    } else {
-                        Image(systemName: "tray")
-                    }
+                    Image(systemName: items.count > 0 ? "tray.full" : "tray")
                 }
             }
         }

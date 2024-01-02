@@ -14,10 +14,7 @@ struct InboxLayout: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
-                BoardView(
-                    width: geometry.size.width,
-                    list: items
-                ) { item in
+                BoardView(width: geometry.size.width, list: items) { item in
                     if let feed = item.feedData?.feed {
                         if feed.wrappedPreviewStyle == .expanded {
                             FeedItemExpanded(item: item, feed: feed)

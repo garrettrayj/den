@@ -11,8 +11,8 @@ import SwiftUI
 struct RelativeRefreshedDate: View {
     let date: Date
 
-    let relativeDateStyle: Date.RelativeFormatStyle = .relative(
-        presentation: .numeric, 
+    static let relativeDateStyle: Date.RelativeFormatStyle = .relative(
+        presentation: .numeric,
         unitsStyle: .wide
     )
 
@@ -22,7 +22,7 @@ struct RelativeRefreshedDate: View {
                 Text("Updated Just Now", comment: "Date display for times less than one minute ago.")
             } else {
                 Text(
-                    "Updated \(date.formatted(relativeDateStyle))",
+                    "Updated \(date.formatted(RelativeRefreshedDate.relativeDateStyle))",
                     comment: "Date display for times greater than one minute ago."
                 )
             }

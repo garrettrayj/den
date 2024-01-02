@@ -9,11 +9,9 @@
 import SwiftUI
 
 struct ImageErrorPlaceholder: View {
-    var imageScale: Image.Scale = .large
-
     var body: some View {
         Image(systemName: "photo")
-            .imageScale(imageScale)
+            .imageScale(.large)
             .foregroundStyle(.tertiary)
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)

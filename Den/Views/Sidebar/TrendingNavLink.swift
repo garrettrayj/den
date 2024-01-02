@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct TrendingNavLink: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     @ObservedObject var profile: Profile
 
     var body: some View {

@@ -25,4 +25,3 @@ struct CopyLinkButton: View {
         }
     }
 }
-

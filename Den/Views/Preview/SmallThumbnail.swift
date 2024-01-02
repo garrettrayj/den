@@ -11,7 +11,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct SmallThumbnail: View {
-    @Environment(\.isEnabled) private var isEnabled
     @Environment(\.smallThumbnailSize) private var smallThumbnailSize
     @Environment(\.smallThumbnailPixelSize) private var smallThumbnailPixelSize
 

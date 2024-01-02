@@ -9,9 +9,6 @@
 import SwiftUI
 
 struct BrowserView: View {
-    #if os(iOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
     @Environment(\.userTintHex) private var userTintHex
 
     var url: URL
@@ -58,7 +55,6 @@ struct BrowserView: View {
                 #if os(macOS)
                 .ignoresSafeArea()
                 .padding(.top, 1)
-                .navigationBarBackButtonHidden()
                 #endif
             
             if browserViewModel.showingReader == true {

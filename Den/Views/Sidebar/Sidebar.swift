@@ -6,15 +6,11 @@
 //  Copyright © 2021 Garrett Johnson
 //
 
-import CoreData
 import SwiftUI
 import UniformTypeIdentifiers
 
 struct Sidebar: View {
     @Environment(\.managedObjectContext) private var viewContext
-    #if os(iOS)
-    @Environment(\.editMode) private var editMode
-    #endif
 
     @ObservedObject var profile: Profile
 

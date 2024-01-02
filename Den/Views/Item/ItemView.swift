@@ -9,9 +9,6 @@
 import SwiftUI
 
 struct ItemView: View {
-    #if os(iOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var item: Item

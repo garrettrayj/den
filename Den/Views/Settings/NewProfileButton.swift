@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct NewProfileButton: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    
     @State private var showingSheet = false
 
     var body: some View {

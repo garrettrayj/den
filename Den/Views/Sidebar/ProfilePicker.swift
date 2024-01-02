@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct ProfilePicker: View {
-    @Environment(\.userTint) private var userTint
-
     @Binding var currentProfileID: String?
 
     let profiles: [Profile]

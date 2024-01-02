@@ -11,7 +11,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct LargeThumbnail: View {
-    @Environment(\.isEnabled) private var isEnabled
     @Environment(\.largeThumbnailSize) private var largeThumbnailSize
     @Environment(\.largeThumbnailPixelSize) private var largeThumbnailPixelSize
 
