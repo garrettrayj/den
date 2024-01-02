@@ -25,11 +25,10 @@ struct InspectorToggleButton: View {
                 #if os(macOS)
                 Image(systemName: "sidebar.trailing")
                 #else
-                if horizontalSizeClass == .compact {
-                    Image(systemName: "rectangle.portrait.bottomhalf.inset.filled")
-                } else {
-                    Image(systemName: "sidebar.trailing")
-                }
+                Image(
+                    systemName: horizontalSizeClass == .compact ?
+                        "rectangle.portrait.bottomhalf.inset.filled" : "sidebar.trailing"
+                )
                 #endif
             }
         }

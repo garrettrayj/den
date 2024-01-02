@@ -18,11 +18,8 @@ struct FilterReadButton: View {
             Label {
                 Text("Filter Read", comment: "Button label.")
             } icon: {
-                Image(
-                    systemName: hideRead ?
-                      "line.3.horizontal.decrease.circle.fill"
-                      : "line.3.horizontal.decrease.circle"
-                )
+                Image(systemName: "line.3.horizontal.decrease")
+                    .symbolVariant(hideRead ? .circle.fill : .circle)
             }
         }
         .accessibilityIdentifier("FilterRead")

@@ -30,7 +30,6 @@ struct FeedHero: View {
                 } placeholder: {
                     ImageErrorPlaceholder()
                 }
-                .indicator(.activity)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .shadow(color: .black.opacity(0.25), radius: 3, y: 1)
                 .padding(.vertical)

@@ -22,20 +22,11 @@ struct MarkAllReadUnreadButton: View {
                 toggling = false
             }
         } label: {
-            if allRead {
-                Label {
-                    Text("Mark All Unread", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "checkmark.circle.fill")
-                }
-            } else {
-                Label {
-                    Text("Mark All Read", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "checkmark.circle")
-                }
+            Label {
+                Text("Mark/Unmark All", comment: "Button label.")
+            } icon: {
+                Image(systemName: "checkmark.circle").symbolVariant(allRead ? .fill : .none)
             }
-
         }
         .disabled(toggling)
         .accessibilityIdentifier("ToggleRead")

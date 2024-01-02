@@ -22,11 +22,8 @@ struct ProfilesSection: View {
                     Label {
                         profile.nameText
                     } icon: {
-                        if profile.id?.uuidString == currentProfileID {
-                            Image(systemName: "rhombus.fill")
-                        } else {
-                            Image(systemName: "rhombus")
-                        }
+                        Image(systemName: "rhombus")
+                            .symbolVariant(profile.id?.uuidString == currentProfileID ? .fill : .none)
                     }
                 }
                 .accessibilityIdentifier("ProfileSettings")
