@@ -35,20 +35,8 @@ struct BookmarkActionView<Content: View>: View {
             .accessibilityIdentifier("BookmarkAction")
             .contextMenu {
                 UntagButton(bookmark: bookmark)
-                Button {
-                    openURL(url)
-                } label: {
-                    OpenInBrowserLabel()
-                }
-                Button {
-                    PasteboardUtility.copyURL(url: url)
-                } label: {
-                    Label {
-                        Text("Copy Link", comment: "Context Button label.")
-                    } icon: {
-                        Image(systemName: "link.circle")
-                    }
-                }
+                SystemBrowserButton(url: url)
+                CopyLinkButton(url: url)
                 ShareButton(url: url)
             }
         }

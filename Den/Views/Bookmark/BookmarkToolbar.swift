@@ -41,9 +41,11 @@ struct BookmarkToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem {
+                UntagButton(bookmark: bookmark)
+            }
+            ToolbarItem {
                 formatMenu
             }
-            
             Group {
                 ToolbarItem(placement: .bottomBar) {
                     GoBackButton(browserViewModel: browserViewModel)
@@ -54,19 +56,19 @@ struct BookmarkToolbar: ToolbarContent {
                 ToolbarItem(placement: .bottomBar) {
                     GoForwardButton(browserViewModel: browserViewModel)
                 }
-                ToolbarItem(placement: .bottomBar) {
-                    Spacer()
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    if let url = browserViewModel.url {
+                if let url = browserViewModel.url {
+                    ToolbarItem(placement: .bottomBar) {
+                        Spacer()
+                    }
+                    ToolbarItem(placement: .bottomBar) {
                         ShareButton(url: url)
                     }
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Spacer()
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    UntagButton(bookmark: bookmark)
+                    ToolbarItem(placement: .bottomBar) {
+                        Spacer()
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        SystemBrowserButton(url: url)
+                    }
                 }
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
@@ -94,8 +96,11 @@ struct BookmarkToolbar: ToolbarContent {
             ToolbarItem {
                 StopReloadButton(browserViewModel: browserViewModel)
             }
-            ToolbarItem {
-                if let url = browserViewModel.url {
+            if let url = browserViewModel.url {
+                ToolbarItem {
+                    SystemBrowserButton(url: url)
+                }
+                ToolbarItem {
                     ShareButton(url: url)
                 }
             }

@@ -12,7 +12,6 @@ struct ShareButton: View {
     let url: URL
 
     var body: some View {
-        ShareLink(item: url)
-        .accessibilityIdentifier("Share")
+        ShareLink(item: url).accessibilityIdentifier("Share")
     }
 }
