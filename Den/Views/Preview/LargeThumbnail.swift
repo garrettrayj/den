@@ -48,7 +48,7 @@ struct LargeThumbnail: View {
             } else {
                 webImage
                     .aspectRatio(aspectRatio, contentMode: .fit)
-                    .background(.quaternary)
+                    .background(.fill.tertiary)
                     .modifier(ImageBorderModifier(cornerRadius: 6))
             }
         }

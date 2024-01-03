@@ -81,6 +81,6 @@ struct DenApp: App {
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
         
         // Limit memory cache size
-        // SDImageCache.shared.config.maxMemoryCost = 200 * 1024 * 1024 // 200MB memory
+        SDImageCache.shared.config.maxMemoryCost = 200 * 1024 * 1024 // 200MB memory
     }
 }
