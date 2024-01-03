@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <opml version="1.0" xmlns:den="https://den.io/xml/opml">
 	<head>
-		<title>Demo</title>
+		<title>Demo Jan 3, 2024 at 9:59 AM</title>
 	</head>
 	<body>
 		<outline den:icon="globe" text="World News" title="World News">
@@ -68,6 +68,7 @@
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Quartz" title="Quartz" type="rss" xmlUrl="https://cms.qz.com/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="MetalMiner" title="MetalMiner" type="rss" xmlUrl="https://feeds.feedburner.com/agmetalminer" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="CNBC" title="CNBC" type="rss" xmlUrl="https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&amp;id=10001147" />
+			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Defense One" title="Defense One" type="rss" xmlUrl="https://www.defenseone.com/rss/all/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="VentureBeat" title="VentureBeat" type="rss" xmlUrl="https://feeds.feedburner.com/venturebeat/SZYF" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Entrepreneur" title="Entrepreneur" type="rss" xmlUrl="https://www.entrepreneur.com/latest.rss" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Springwise" title="Springwise" type="rss" xmlUrl="https://springwise.com/feed/" />
@@ -90,7 +91,6 @@
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="The Scientist" title="The Scientist" type="rss" xmlUrl="https://www.the-scientist.com/?rss.feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Improbable Research" title="Improbable Research" type="rss" xmlUrl="https://www.improbable.com/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Singularity Hub" title="Singularity Hub" type="rss" xmlUrl="https://singularityhub.com/feed/" />
-			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Retraction Watch" title="Retraction Watch" type="rss" xmlUrl="https://retractionwatch.com/feed/" />
 		</outline>
 		<outline den:icon="person.and.arrow.left.and.arrow.right" text="Interesting" title="Interesting">
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Hackaday" title="Hackaday" type="rss" xmlUrl="https://hackaday.com/blog/feed/" />
