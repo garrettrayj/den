@@ -69,6 +69,7 @@ final class FeedUITests: UITestCase {
         #else
         app.buttons["ToggleInspector"].tap()
         app.switches["LargePreviews"].switches.firstMatch.tap()
+        sleep(2)
         app.buttons["ToggleInspector"].tap()
         #endif
 

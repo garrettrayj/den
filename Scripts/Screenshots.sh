@@ -27,7 +27,7 @@ simulators=(
 # Save final screenshots into this folder (it will be created)
 targetFolder="$HOME/Desktop/DenScreenshots"
 
-sdk="iphoneos17.0"
+sdk="iphonesimulator17.2"
 
 function capture_mac {
     # Capture macOS screenshots
