@@ -48,7 +48,6 @@ struct Sidebar: View {
                 Section {
                     InboxNavLink(profile: profile)
                     TrendingNavLink(profile: profile)
-                    OrganizerNavLink()
                 } header: {
                     Text("All Feeds", comment: "Sidebar section header.")
                 }

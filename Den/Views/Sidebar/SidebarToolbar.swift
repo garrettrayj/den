@@ -45,6 +45,7 @@ struct SidebarToolbar: ToolbarContent {
                 Divider()
                 ImportButton(showingImporter: $showingImporter)
                 ExportButton(showingExporter: $showingExporter)
+                OrganizerButton(detailPanel: $detailPanel)
             } label: {
                 Label {
                     Text("Menu", comment: "Button label.")

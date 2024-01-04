@@ -14,7 +14,8 @@ final class OrganizerUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons["OrganizerNavLink"].tap()
+        app.popUpButtons["SidebarMenu"].tap()
+        app.menuItems["Organizer"].tap()
         #else
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
@@ -61,7 +62,8 @@ final class OrganizerUITests: UITestCase {
         }
         app.outlines.buttons["NewPage"].tap()
         app.buttons["CreatePage"].tap()
-        app.buttons["OrganizerNavLink"].tap()
+        app.popUpButtons["SidebarMenu"].tap()
+        app.menuItems["Organizer"].tap()
         #else
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
@@ -98,7 +100,8 @@ final class OrganizerUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons["OrganizerNavLink"].tap()
+        app.popUpButtons["SidebarMenu"].tap()
+        app.menuItems["Organizer"].tap()
         #else
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
@@ -126,7 +129,8 @@ final class OrganizerUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons["OrganizerNavLink"].tap()
+        app.popUpButtons["SidebarMenu"].tap()
+        app.menuItems["Organizer"].tap()
         #else
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")

@@ -21,7 +21,7 @@ struct PageNavLink: View {
     @Binding var showingNewFeedSheet: Bool
 
     var body: some View {
-        NavigationLink(value: DetailPanel.page(page)) {
+        Group {
             #if os(macOS)
             Label {
                 WithItems(scopeObject: page, readFilter: false) { items in
@@ -44,6 +44,7 @@ struct PageNavLink: View {
             }
             #endif
         }
+        .tag(DetailPanel.page(page))
         .lineLimit(1)
         .contentShape(Rectangle())
         .onDrop(

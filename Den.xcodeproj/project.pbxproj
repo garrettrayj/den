@@ -84,7 +84,6 @@
 		6851F0E72AAE96F1000F7CBC /* ItemLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0E62AAE96F1000F7CBC /* ItemLimit.swift */; };
 		6851F0EB2AAEC1B5000F7CBC /* ExportButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0EA2AAEC1B5000F7CBC /* ExportButton.swift */; };
 		6851F0ED2AAEC1C6000F7CBC /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0EC2AAEC1C6000F7CBC /* SettingsButton.swift */; };
-		6851F0EF2AAEC290000F7CBC /* OrganizerNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0EE2AAEC290000F7CBC /* OrganizerNavLink.swift */; };
 		6851F0F12AAF7314000F7CBC /* OrganizerInfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0F02AAF7314000F7CBC /* OrganizerInfoPanel.swift */; };
 		6851F0F32AAF7327000F7CBC /* OrganizerOptionsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0F22AAF7327000F7CBC /* OrganizerOptionsPanel.swift */; };
 		6856DAF72AB4BC3A0094615E /* NewTagSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DAF62AB4BC3A0094615E /* NewTagSheet.swift */; };
@@ -443,7 +442,6 @@
 		6851F0E62AAE96F1000F7CBC /* ItemLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLimit.swift; sourceTree = "<group>"; };
 		6851F0EA2AAEC1B5000F7CBC /* ExportButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportButton.swift; sourceTree = "<group>"; };
 		6851F0EC2AAEC1C6000F7CBC /* SettingsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
-		6851F0EE2AAEC290000F7CBC /* OrganizerNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerNavLink.swift; sourceTree = "<group>"; };
 		6851F0F02AAF7314000F7CBC /* OrganizerInfoPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerInfoPanel.swift; sourceTree = "<group>"; };
 		6851F0F22AAF7327000F7CBC /* OrganizerOptionsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerOptionsPanel.swift; sourceTree = "<group>"; };
 		6856DAF62AB4BC3A0094615E /* NewTagSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTagSheet.swift; sourceTree = "<group>"; };
@@ -1344,7 +1342,6 @@
 				687FEEF62A3E431E0042977E /* ImportButton.swift */,
 				6868A3132895CA860051D43E /* InboxNavLink.swift */,
 				686F6B012B37E6830099EB49 /* OrganizerButton.swift */,
-				6851F0EE2AAEC290000F7CBC /* OrganizerNavLink.swift */,
 				685ECB1026EE611000A3B184 /* PageNavLink.swift */,
 				68A2188C29D9D4AE005F42C7 /* PagesSection.swift */,
 				687F22242A5A5CF900B76919 /* ProfilePicker.swift */,
@@ -1817,7 +1814,6 @@
 				686F6B022B37E6830099EB49 /* OrganizerButton.swift in Sources */,
 				6851F0F12AAF7314000F7CBC /* OrganizerInfoPanel.swift in Sources */,
 				6851F0E32AAD77E8000F7CBC /* OrganizerInspector.swift in Sources */,
-				6851F0EF2AAEC290000F7CBC /* OrganizerNavLink.swift in Sources */,
 				6851F0F32AAF7327000F7CBC /* OrganizerOptionsPanel.swift in Sources */,
 				685EB3892AFAA102001683E3 /* OrganizerRow.swift in Sources */,
 				686F6B042B37EB8A0099EB49 /* OrganizerRowStatus.swift in Sources */,

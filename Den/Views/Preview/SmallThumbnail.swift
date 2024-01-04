@@ -29,7 +29,7 @@ struct SmallThumbnail: View {
         }
         .modifier(PreviewImageStateModifier(isRead: isRead))
         .frame(width: smallThumbnailSize.width, height: smallThumbnailSize.height)
-        .background(.quaternary)
+        .background(.fill.tertiary)
         .modifier(ImageBorderModifier(cornerRadius: 6))
     }
 }
