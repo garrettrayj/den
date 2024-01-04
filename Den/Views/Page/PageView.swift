@@ -14,7 +14,6 @@ struct PageView: View {
     @ObservedObject var page: Page
     
     @Binding var hideRead: Bool
-    @Binding var searchQuery: String
     
     @SceneStorage("ShowingPageInspector") private var showingInspector = false
 
@@ -31,30 +30,20 @@ struct PageView: View {
             }
             .navigationTitle("")
         } else {
-            WithItems(
-                scopeObject: page,
-                includeExtras: !searchQuery.isEmpty,
-                searchQuery: searchQuery
-            ) { items in
+            WithItems(scopeObject: page) { items in
                 ZStack {
                     if page.feedsArray.isEmpty {
                         NoFeeds()
-                    } else if !searchQuery.isEmpty && items.isEmpty {
-                        NoSearchResults()
-                    } else if !searchQuery.isEmpty && items.unread().isEmpty && hideRead {
-                        NoUnreadSearchResults()
                     } else if pageLayout.wrappedValue == .grouped {
                         GroupedLayout(
                             page: page,
                             hideRead: $hideRead,
-                            searchQuery: $searchQuery,
                             items: items
                         )
                     } else if pageLayout.wrappedValue == .deck {
                         DeckLayout(
                             page: page,
                             hideRead: $hideRead,
-                            searchQuery: $searchQuery,
                             items: items
                         )
                     } else if pageLayout.wrappedValue == .timeline {
@@ -67,12 +56,10 @@ struct PageView: View {
                 }
                 .frame(minWidth: minDetailColumnWidth)
                 .navigationTitle(page.nameText)
-                .modifier(SearchableModifier(searchQuery: $searchQuery))
                 .toolbar {
                     PageToolbar(
                         page: page,
                         hideRead: $hideRead,
-                        searchQuery: $searchQuery,
                         showingInspector: $showingInspector,
                         items: items
                     )
@@ -84,11 +71,10 @@ struct PageView: View {
         }
     }
 
-    init(page: Page, hideRead: Binding<Bool>, searchQuery: Binding<String>) {
+    init(page: Page, hideRead: Binding<Bool>) {
         self.page = page
         
         _hideRead = hideRead
-        _searchQuery = searchQuery
 
         pageLayout = .init(
             wrappedValue: PageLayout.grouped,

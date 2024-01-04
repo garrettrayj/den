@@ -10,10 +10,13 @@ import CoreData
 import SwiftUI
 
 struct PageToolbar: ToolbarContent {
+    #if !os(macOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
+
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
-    @Binding var searchQuery: String
     @Binding var showingInspector: Bool
 
     let items: [Item]
@@ -24,7 +27,7 @@ struct PageToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
-            MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
+            MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
@@ -32,22 +35,34 @@ struct PageToolbar: ToolbarContent {
             InspectorToggleButton(showingInspector: $showingInspector)
         }
         #else
-        ToolbarItem(placement: .topBarTrailing) {
-            InspectorToggleButton(showingInspector: $showingInspector)
-        }
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .status) {
-            if !searchQuery.isEmpty {
-                SearchStatus(searchQuery: $searchQuery)
-            } else if let profile = page.profile {
-                CommonStatus(profile: profile, items: items)
+        if horizontalSizeClass == .compact {
+            ToolbarItem(placement: .topBarTrailing) {
+                InspectorToggleButton(showingInspector: $showingInspector)
             }
-        }
-        ToolbarItem(placement: .bottomBar) {
-            MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
+            ToolbarItem(placement: .bottomBar) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .status) {
+                if let profile = page.profile {
+                    CommonStatus(profile: profile, items: items)
+                }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                }
+            }
+        } else {
+            ToolbarItem {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem {
+                MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                }
+            }
+            ToolbarItem {
+                InspectorToggleButton(showingInspector: $showingInspector)
             }
         }
         #endif

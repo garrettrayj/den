@@ -21,11 +21,13 @@ struct DetailView: View {
             Group {
                 switch detailPanel ?? .welcome {
                 case .inbox:
-                    Inbox(profile: profile, hideRead: $hideRead, searchQuery: $searchQuery)
+                    Inbox(profile: profile, hideRead: $hideRead)
                 case .organizer:
                     Organizer(profile: profile)
                 case .page(let page):
-                    PageView(page: page, hideRead: $hideRead, searchQuery: $searchQuery)
+                    PageView(page: page, hideRead: $hideRead)
+                case .search:
+                    SearchView(profile: profile, hideRead: $hideRead, searchQuery: $searchQuery)
                 case .tag(let tag):
                     TagView(tag: tag)
                 case .trending:

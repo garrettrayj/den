@@ -46,6 +46,7 @@ struct SplitView: View {
                 newFeedWebAddress: $newFeedWebAddress,
                 userColorScheme: $userColorScheme,
                 useSystemBrowser: $useSystemBrowser,
+                searchQuery: $searchQuery,
                 showingNewFeedSheet: $showingNewFeedSheet,
                 profiles: profiles
             )

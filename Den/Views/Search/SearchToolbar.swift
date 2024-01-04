@@ -1,23 +1,21 @@
 //
-//  FeedToolbar.swift
+//  SearchToolbar.swift
 //  Den
 //
-//  Created by Garrett Johnson on 11/13/22.
-//  Copyright © 2022 Garrett Johnson
+//  Created by Garrett Johnson on 1/3/24.
+//  Copyright © 2024 Garrett Johnson
 //
 
 import SwiftUI
 
-struct FeedToolbar: ToolbarContent {
+struct SearchToolbar: ToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
 
-    @ObservedObject var feed: Feed
-
     @Binding var hideRead: Bool
-    @Binding var showingInspector: Bool
 
+    let query: String
     let items: [Item]
 
     var body: some ToolbarContent {
@@ -30,21 +28,14 @@ struct FeedToolbar: ToolbarContent {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
-        ToolbarItem {
-            InspectorToggleButton(showingInspector: $showingInspector)
-        }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem {
-                InspectorToggleButton(showingInspector: $showingInspector)
-            }
             ToolbarItem(placement: .bottomBar) {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
-                if let profile = feed.page?.profile {
-                    CommonStatus(profile: profile, items: items)
-                }
+                Text("Showing results for “\(query)”", comment: "Bottom bar status.")
+                    .font(.caption)
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
@@ -52,16 +43,17 @@ struct FeedToolbar: ToolbarContent {
                 }
             }
         } else {
-            ToolbarItem {
+            ToolbarItem(placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem {
+            ToolbarItem(placement: .primaryAction) {
                 MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                 }
             }
-            ToolbarItem {
-                InspectorToggleButton(showingInspector: $showingInspector)
+            ToolbarItem(placement: .status) {
+                Text("Showing results for “\(query)”", comment: "Bottom bar status.")
+                    .font(.caption)
             }
         }
         #endif

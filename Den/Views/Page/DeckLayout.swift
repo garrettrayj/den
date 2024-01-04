@@ -14,7 +14,6 @@ struct DeckLayout: View {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
-    @Binding var searchQuery: String
 
     let items: [Item]
 
@@ -22,7 +21,7 @@ struct DeckLayout: View {
         GeometryReader { geometry in
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 8) {
-                    ForEach(visibleFeeds) { feed in
+                    ForEach(page.feedsArray) { feed in
                         ScrollView(.vertical, showsIndicators: false) {
                             DeckColumn(
                                 feed: feed,
@@ -50,20 +49,6 @@ struct DeckLayout: View {
             .contentMargins(.horizontal, 16)
             .ignoresSafeArea(edges: .bottom)
             .id("DeckLayout_\(page.id?.uuidString ?? "NoID")")
-        }
-    }
-    
-    private var visibleFeeds: [Feed] {
-        if !searchQuery.isEmpty && hideRead {
-            return page.feedsArray.filter { feed in
-                items.unread().forFeed(feed: feed).count > 0
-            }
-        } else if !searchQuery.isEmpty {
-            return page.feedsArray.filter { feed in
-                items.forFeed(feed: feed).count > 0
-            }
-        } else {
-            return page.feedsArray
         }
     }
 }

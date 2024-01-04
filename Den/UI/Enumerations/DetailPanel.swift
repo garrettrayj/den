@@ -12,6 +12,7 @@ enum DetailPanel: Hashable {
     case inbox
     case organizer
     case page(Page)
+    case search
     case tag(Tag)
     case trending
     case welcome
@@ -24,6 +25,8 @@ enum DetailPanel: Hashable {
             return "organizer"
         case .page:
             return "page"
+        case .search:
+            return "search"
         case .tag:
             return "tag"
         case .trending:

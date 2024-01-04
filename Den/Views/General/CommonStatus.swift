@@ -46,9 +46,9 @@ struct CommonStatus: View {
     
     private var unreadStatus: some View {
         Group {
-            if items.count == 0 {
+            if items.isEmpty {
                 Text("No Items", comment: "Status message.")
-            } else if items.unread().count == 0 {
+            } else if items.unread().isEmpty {
                 Text("All Read", comment: "Status message.")
             } else {
                 Text("\(items.unread().count) Unread", comment: "Status message.")

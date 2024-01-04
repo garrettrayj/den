@@ -9,6 +9,10 @@
 import SwiftUI
 
 struct TrendToolbar: ToolbarContent {
+    #if !os(macOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
+    
     @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var trend: Trend
@@ -24,7 +28,7 @@ struct TrendToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
-            MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
+            MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 if hideRead {
                     dismiss()
@@ -32,16 +36,30 @@ struct TrendToolbar: ToolbarContent {
             }
         }
         #else
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .status) {
-            CommonStatus(profile: profile, items: items)
-        }
-        ToolbarItem(placement: .bottomBar) {
-            MarkAllReadUnreadButton(allRead: items.unread().count == 0) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
-                if hideRead { dismiss() }
+        if horizontalSizeClass == .compact {
+            ToolbarItem(placement: .bottomBar) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .status) {
+                CommonStatus(profile: profile, items: items)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                    if hideRead { dismiss() }
+                }
+            }
+        } else {
+            ToolbarItem {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem {
+                MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                    if hideRead {
+                        dismiss()
+                    }
+                }
             }
         }
         #endif
