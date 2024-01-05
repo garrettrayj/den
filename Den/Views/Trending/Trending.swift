@@ -38,7 +38,7 @@ struct Trending: View {
             } else if visibleTrends.isEmpty {
                 AllRead(largeDisplay: true)
             } else {
-                TrendingLayout(trends: visibleTrends)
+                TrendingLayout(profile: profile, trends: visibleTrends)
             }
         }
         .toolbar {

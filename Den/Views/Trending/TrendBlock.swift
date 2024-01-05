@@ -16,6 +16,7 @@ struct TrendBlock: View {
     @Environment(\.faviconSize) private var faviconSize
     @Environment(\.faviconPixelSize) private var faviconPixelSize
 
+    @ObservedObject var profile: Profile // Profile observed for updates
     @ObservedObject var trend: Trend
 
     private var symbol: String? {

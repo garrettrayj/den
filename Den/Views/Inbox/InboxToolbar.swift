@@ -30,26 +30,15 @@ struct InboxToolbar: ToolbarContent {
             }
         }
         #else
-        if horizontalSizeClass == .compact {
-            ToolbarItem(placement: .bottomBar) {
-                FilterReadButton(hideRead: $hideRead)
-            }
-            ToolbarItem(placement: .status) {
-                CommonStatus(profile: profile, items: items)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
-                }
-            }
-        } else {
-            ToolbarItem {
-                FilterReadButton(hideRead: $hideRead)
-            }
-            ToolbarItem {
-                MarkAllReadUnreadButton(allRead: items.unread().isEmpty && !items.isEmpty) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
-                }
+        ToolbarItem(placement: .bottomBar) {
+            FilterReadButton(hideRead: $hideRead)
+        }
+        ToolbarItem(placement: .status) {
+            CommonStatus(profile: profile, items: items)
+        }
+        ToolbarItem(placement: .bottomBar) {
+            MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
         #endif

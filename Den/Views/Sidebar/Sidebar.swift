@@ -87,7 +87,7 @@ struct Sidebar: View {
             }
         }
         .onSubmit(of: .search) {
-            searchQuery = searchInput
+            searchQuery = searchInput.trimmingCharacters(in: .whitespacesAndNewlines)
             detailPanel = .search
         }
         #if os(iOS)

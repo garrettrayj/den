@@ -9,13 +9,15 @@
 import SwiftUI
 
 struct TrendingLayout: View {
+    @ObservedObject var profile: Profile
+    
     let trends: [Trend]
     
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
                 BoardView(width: geometry.size.width, list: trends) { trend in
-                    TrendBlock(trend: trend)
+                    TrendBlock(profile: profile, trend: trend)
                 }
             }
         }

@@ -1,27 +1,28 @@
 //
-//  CommonStatus.swift
+//  TrendingStatus.swift
 //  Den
 //
-//  Created by Garrett Johnson on 10/28/23.
-//  Copyright © 2023 Garrett Johnson
+//  Created by Garrett Johnson on 1/5/24.
+//  Copyright © 2024 Garrett Johnson
 //
 
 import SwiftUI
 
-struct CommonStatus: View {
+struct TrendingStatus: View {
     @ObservedObject var profile: Profile
-    
-    let items: [Item]
     
     var body: some View {
         VStack {
             Group {
-                if items.isEmpty {
-                    Text("No Items", comment: "Status message.")
-                } else if items.unread().isEmpty {
+                if profile.trends.isEmpty {
+                    Text("No Trends", comment: "Status message.")
+                } else if profile.trends.containingUnread().isEmpty {
                     Text("All Read", comment: "Status message.")
                 } else {
-                    Text("\(items.unread().count) Unread", comment: "Status message.")
+                    Text(
+                        "\(profile.trends.containingUnread().count) with Unread",
+                        comment: "Status message."
+                    )
                 }
             }
             .lineLimit(1)
