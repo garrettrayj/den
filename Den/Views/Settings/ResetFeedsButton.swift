@@ -13,9 +13,7 @@ struct ResetFeedsButton: View {
     
     var body: some View {
         Button {
-            Task {
-                await clearData()
-            }
+            clearData()
         } label: {
             Label {
                 Text("Clear Feed Cache", comment: "Button label.")
@@ -26,7 +24,7 @@ struct ResetFeedsButton: View {
         .accessibilityIdentifier("ClearData")
     }
 
-    private func clearData() async {
+    private func clearData() {
         guard let profiles = try? viewContext.fetch(Profile.fetchRequest()) as? [Profile] else {
             return
         }
