@@ -20,7 +20,7 @@ struct SmallThumbnail: View {
     var body: some View {
         WebImage(
             url: url,
-            options: [.decodeFirstFrameOnly, .delayPlaceholder, .lowPriority],
+            options: [.decodeFirstFrameOnly],
             context: [.imageThumbnailPixelSize: smallThumbnailPixelSize]
         ) { image in
             image.resizable().scaledToFill()

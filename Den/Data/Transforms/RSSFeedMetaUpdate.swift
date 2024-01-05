@@ -12,10 +12,8 @@ import OSLog
 import FeedKit
 
 struct RSSFeedMetaUpdate {
-    let feed: Feed
     let feedData: FeedData
     let source: RSSFeed
-    let context: NSManagedObjectContext
     let webpageMetadata: WebpageMetadata.Results?
 
     func execute() {
@@ -44,15 +42,15 @@ struct RSSFeedMetaUpdate {
         }
 
         if let description = source.description, description != "" {
-            feedData.metaDescription = description
+            feedData.metaDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
         } else if let description = webpageMetadata?.description {
-            feedData.metaDescription = description
+            feedData.metaDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
         }
 
         if let copyright = source.copyright, copyright != "" {
-            feedData.copyright = copyright
+            feedData.copyright = copyright.trimmingCharacters(in: .whitespacesAndNewlines)
         } else if let copyright = webpageMetadata?.copyright {
-            feedData.copyright = copyright
+            feedData.copyright = copyright.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
 }

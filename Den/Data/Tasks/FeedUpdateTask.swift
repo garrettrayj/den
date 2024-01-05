@@ -121,10 +121,8 @@ class FeedUpdateTask {
                 else { return }
 
                 self.updateFeedMeta(
-                    feed: feed,
                     feedData: feedData,
                     parserResult: self.parserResult!,
-                    context: context,
                     metadata: webpageMetadata
                 )
 
@@ -193,10 +191,8 @@ class FeedUpdateTask {
     }
 
     private func updateFeedMeta(
-        feed: Feed,
         feedData: FeedData,
         parserResult: Result<FeedKit.Feed, FeedKit.ParserError>,
-        context: NSManagedObjectContext,
         metadata: WebpageMetadata.Results? = nil
     ) {
         switch parserResult {
@@ -204,28 +200,22 @@ class FeedUpdateTask {
             switch parsedFeed {
             case let .atom(parsedFeed):
                 let updater = AtomFeedMetaUpdate(
-                    feed: feed,
                     feedData: feedData,
                     source: parsedFeed,
-                    context: context,
                     webpageMetadata: metadata
                 )
                 updater.execute()
             case let .rss(parsedFeed):
                 let updater = RSSFeedMetaUpdate(
-                    feed: feed,
                     feedData: feedData,
                     source: parsedFeed,
-                    context: context,
                     webpageMetadata: metadata
                 )
                 updater.execute()
             case let .json(parsedFeed):
                 let updater = JSONFeedMetaUpdate(
-                    feed: feed,
                     feedData: feedData,
                     source: parsedFeed,
-                    context: context,
                     webpageMetadata: metadata
                 )
                 updater.execute()

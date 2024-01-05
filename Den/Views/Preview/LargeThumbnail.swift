@@ -21,38 +21,29 @@ struct LargeThumbnail: View {
     let height: CGFloat?
 
     var body: some View {
-        Group {
-            if aspectRatio == nil {
+        if let aspectRatio = aspectRatio {
+            if aspectRatio < 1/2 || width! < largeThumbnailSize.width {
                 ImageDepression(padding: 8) {
                     webImage
-                        .modifier(ImageBorderModifier(cornerRadius: 4))
                         .scaledToFit()
-                }
-                .aspectRatio(16/9, contentMode: .fill)
-            } else if aspectRatio! < 0.75 {
-                ImageDepression(padding: 8) {
-                    webImage
-                        .aspectRatio(aspectRatio, contentMode: .fit)
-                        .frame(
-                            maxHeight: largeThumbnailSize.height > 0 ? min(largeThumbnailSize.height, 400) : nil,
-                            alignment: .top
-                        )
-                }
-            } else if let width = width, width < largeThumbnailSize.width {
-                ImageDepression(padding: 8) {
-                    webImage
-                        .aspectRatio(aspectRatio, contentMode: .fit)
-                        .clipped()
                         .modifier(ImageBorderModifier(cornerRadius: 4))
+                        .frame(maxWidth: width!, maxHeight: height!)
                 }
+                .aspectRatio(16/9, contentMode: .fit)
             } else {
                 webImage
                     .aspectRatio(aspectRatio, contentMode: .fit)
                     .background(.fill.tertiary)
                     .modifier(ImageBorderModifier(cornerRadius: 6))
             }
+        } else {
+            ImageDepression(padding: 8) {
+                webImage
+                    .scaledToFit()
+                    .modifier(ImageBorderModifier(cornerRadius: 4))
+            }
+            .aspectRatio(16/9, contentMode: .fit)
         }
-        .accessibility(label: Text("Preview Image", comment: "Accessibility label."))
     }
     
     private var aspectRatio: CGFloat? {
@@ -69,14 +60,14 @@ struct LargeThumbnail: View {
     private var webImage: some View {
         WebImage(
             url: url,
-            options: [.delayPlaceholder, .lowPriority],
             context: [.imageThumbnailPixelSize: largeThumbnailPixelSize]
         ) { image in
-            image.resizable()
+            image
         } placeholder: {
             ImageErrorPlaceholder()
         }
         .purgeable(true)
+        .resizable()
         .modifier(PreviewImageStateModifier(isRead: isRead))
     }
 }

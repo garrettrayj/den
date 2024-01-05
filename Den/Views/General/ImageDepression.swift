@@ -16,9 +16,8 @@ struct ImageDepression<Content: View>: View {
 
     var body: some View {
         content()
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, padding)
-            .padding(.horizontal, padding)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(padding)
             .background(.fill.tertiary)
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
     }

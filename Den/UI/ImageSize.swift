@@ -10,6 +10,6 @@ import Foundation
 
 struct ImageSize {
     static let favicon = CGSize(width: 16, height: 16)
-    static let largeThumbnail = CGSize(width: 384, height: 216)
+    static let largeThumbnail = CGSize(width: 384, height: 768)
     static let smallThumbnail = CGSize(width: 80, height: 80)
 }

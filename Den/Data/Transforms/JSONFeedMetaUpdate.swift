@@ -12,10 +12,8 @@ import OSLog
 import FeedKit
 
 struct JSONFeedMetaUpdate {
-    let feed: Feed
     let feedData: FeedData
     let source: JSONFeed
-    let context: NSManagedObjectContext
     let webpageMetadata: WebpageMetadata.Results?
 
     func execute() {
@@ -48,13 +46,13 @@ struct JSONFeedMetaUpdate {
         }
 
         if let description = source.description, description != "" {
-            feedData.metaDescription = description
+            feedData.metaDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
         } else if let description = webpageMetadata?.description {
-            feedData.metaDescription = description
+            feedData.metaDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
         }
 
         if let copyright = webpageMetadata?.copyright {
-            feedData.copyright = copyright
+            feedData.copyright = copyright.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
 }

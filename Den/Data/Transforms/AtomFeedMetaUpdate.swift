@@ -12,10 +12,8 @@ import OSLog
 import FeedKit
 
 struct AtomFeedMetaUpdate {
-    let feed: Feed
     let feedData: FeedData
     let source: AtomFeed
-    let context: NSManagedObjectContext
     let webpageMetadata: WebpageMetadata.Results?
 
     // swiftlint:disable cyclomatic_complexity
@@ -48,16 +46,16 @@ struct AtomFeedMetaUpdate {
             feedData.image = feedData.banner
         }
 
-        if let subtitle = source.subtitle, subtitle.value != "" {
-            feedData.metaDescription = subtitle.value
+        if let subtitle = source.subtitle?.value, subtitle != "" {
+            feedData.metaDescription = subtitle.trimmingCharacters(in: .whitespacesAndNewlines)
         } else if let description = webpageMetadata?.description {
-            feedData.metaDescription = description
+            feedData.metaDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
         }
 
         if let copyright = source.rights, copyright != "" {
-            feedData.copyright = copyright
+            feedData.copyright = copyright.trimmingCharacters(in: .whitespacesAndNewlines)
         } else if let copyright = webpageMetadata?.copyright {
-            feedData.copyright = copyright
+            feedData.copyright = copyright.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
     // swiftlint:enable cyclomatic_complexity
