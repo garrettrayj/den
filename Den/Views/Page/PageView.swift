@@ -9,11 +9,14 @@
 import SwiftUI
 
 struct PageView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
 
     @ObservedObject var page: Page
     
     @Binding var hideRead: Bool
+    
+    @State private var showingIconSelector: Bool = false
     
     @SceneStorage("ShowingPageInspector") private var showingInspector = false
 
@@ -55,11 +58,13 @@ struct PageView: View {
                     }
                 }
                 .frame(minWidth: minDetailColumnWidth)
-                .navigationTitle(page.nameText)
+                .navigationTitle($page.wrappedName)
                 .toolbar {
                     PageToolbar(
                         page: page,
                         hideRead: $hideRead,
+                        pageLayout: pageLayout.projectedValue,
+                        showingIconSelector: $showingIconSelector,
                         showingInspector: $showingInspector,
                         items: items
                     )
@@ -67,6 +72,21 @@ struct PageView: View {
                 .inspector(isPresented: $showingInspector) {
                     PageInspector(page: page, pageLayout: pageLayout.projectedValue)
                 }
+                .sheet(
+                    isPresented: $showingIconSelector,
+                    onDismiss: {
+                        if viewContext.hasChanges {
+                            do {
+                                try viewContext.save()
+                            } catch {
+                                CrashUtility.handleCriticalError(error as NSError)
+                            }
+                        }
+                    },
+                    content: {
+                        IconSelector(symbol: $page.wrappedSymbol)
+                    }
+                )
             }
         }
     }

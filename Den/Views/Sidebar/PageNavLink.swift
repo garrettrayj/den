@@ -19,6 +19,8 @@ struct PageNavLink: View {
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
     @Binding var showingNewFeedSheet: Bool
+    
+    @State private var showingIconSelector = false
 
     var body: some View {
         Group {
@@ -59,7 +61,27 @@ struct PageNavLink: View {
         )
         .accessibilityIdentifier("PageNavLink")
         .contextMenu {
+            IconSelectorButton(
+                showingIconSelector: $showingIconSelector,
+                symbol: $page.wrappedSymbol
+            )
+            
             DeletePageButton(page: page)
         }
+        .sheet(
+            isPresented: $showingIconSelector,
+            onDismiss: {
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            },
+            content: {
+                IconSelector(symbol: $page.wrappedSymbol)
+            }
+        )
     }
 }

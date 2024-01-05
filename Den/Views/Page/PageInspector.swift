@@ -19,72 +19,7 @@ struct PageInspector: View {
 
     var body: some View {
         Form {
-            Section {
-                TextField(
-                    text: $page.wrappedName,
-                    prompt: Text("Untitled", comment: "Text field prompt.")
-                ) {
-                    Label {
-                        Text("Name", comment: "Text field label.")
-                    } icon: {
-                        Image(systemName: "character.cursor.ibeam")
-                    }
-                }
-                .labelsHidden()
-                .onReceive(
-                    page.publisher(for: \.name)
-                        .debounce(for: 1, scheduler: DispatchQueue.main)
-                        .removeDuplicates()
-                ) { _ in
-                    if viewContext.hasChanges {
-                        do {
-                            try viewContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
-                    }
-                }
-            } header: {
-                Text("Name", comment: "Inspector section header.")
-            }
-
-            Section {
-                IconSelectorButton(
-                    showingIconSelector: $showingIconSelector,
-                    symbol: $page.wrappedSymbol
-                )
-                .sheet(
-                    isPresented: $showingIconSelector,
-                    onDismiss: {
-                        if viewContext.hasChanges {
-                            do {
-                                try viewContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
-                        }
-                    },
-                    content: {
-                        IconSelector(symbol: $page.wrappedSymbol)
-                    }
-                )
-            } header: {
-                Text("Icon", comment: "Inspector section header.")
-            }
-            
-            Section {
-                PageLayoutPicker(pageLayout: $pageLayout)
-            } header: {
-                Text("Layout")
-            }
-
             feedsSection
-
-            Section {
-                DeletePageButton(page: page)
-            } header: {
-                Text("Management", comment: "Section header.")
-            }
         }
         #if os(iOS)
         .environment(\.editMode, .constant(.active))

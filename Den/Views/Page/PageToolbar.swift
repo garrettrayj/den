@@ -17,12 +17,17 @@ struct PageToolbar: ToolbarContent {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
+    @Binding var pageLayout: PageLayout
+    @Binding var showingIconSelector: Bool
     @Binding var showingInspector: Bool
 
     let items: [Item]
 
     var body: some ToolbarContent {
         #if os(macOS)
+        ToolbarItem {
+            PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.menu).labelStyle(.iconOnly)
+        }
         ToolbarItem {
             FilterReadButton(hideRead: $hideRead)
         }
@@ -35,6 +40,13 @@ struct PageToolbar: ToolbarContent {
             InspectorToggleButton(showingInspector: $showingInspector)
         }
         #else
+        ToolbarTitleMenu {
+            PageLayoutPicker(pageLayout: $pageLayout)
+            RenameButton()
+            IconSelectorButton(showingIconSelector: $showingIconSelector, symbol: $page.wrappedSymbol)
+            DeletePageButton(page: page)
+        }
+        
         ToolbarItem(placement: .topBarTrailing) {
             InspectorToggleButton(showingInspector: $showingInspector)
         }
