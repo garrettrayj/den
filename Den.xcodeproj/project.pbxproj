@@ -218,7 +218,6 @@
 		6887D41C25B6D016004A170D /* Feed+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6887D41B25B6D016004A170D /* Feed+CoreDataClass.swift */; };
 		688A2A732A96FF0E00847D8B /* NoticeLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A2A722A96FF0E00847D8B /* NoticeLabelStyle.swift */; };
 		688A2A752A9728BF00847D8B /* Search+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A2A742A9728BF00847D8B /* Search+CoreDataClass.swift */; };
-		688FD918247750350006A2DE /* PageInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD917247750350006A2DE /* PageInspector.swift */; };
 		688FD931247A34830006A2DE /* FeedInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD930247A34830006A2DE /* FeedInspector.swift */; };
 		68906F832A78B85900803350 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68906F852A78B85900803350 /* LaunchScreen.storyboard */; platformFilter = ios; };
 		68906F8F2A78F58900803350 /* NavigationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68906F8E2A78F58900803350 /* NavigationStore.swift */; };
@@ -265,6 +264,9 @@
 		68C4DE932B362ADB0023E362 /* BookmarkToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4DE922B362ADB0023E362 /* BookmarkToolbar.swift */; };
 		68C4FA262474927800D2C0D6 /* ProfileSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4FA252474927800D2C0D6 /* ProfileSettings.swift */; };
 		68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */ = {isa = PBXBuildFile; fileRef = 68CAC50B292954C7002D9EB9 /* Demo.opml */; };
+		68CC30012B4924C200A038AA /* SmallFavicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC30002B4924C200A038AA /* SmallFavicon.swift */; };
+		68CC30032B4924CD00A038AA /* MediumFavicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC30022B4924CD00A038AA /* MediumFavicon.swift */; };
+		68CC30052B4924DA00A038AA /* LargeFavicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC30042B4924DA00A038AA /* LargeFavicon.swift */; };
 		68D17EE42A43F29100AF8A73 /* PageIconCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE32A43F29100AF8A73 /* PageIconCategory.swift */; };
 		68D17EE82A459E7000AF8A73 /* PasteboardUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */; };
 		68D286292A64223A007AD876 /* SidebarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D286282A64223A007AD876 /* SidebarUITests.swift */; };
@@ -584,7 +586,6 @@
 		68895CFA2A62A0B700E25385 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
 		688A2A722A96FF0E00847D8B /* NoticeLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeLabelStyle.swift; sourceTree = "<group>"; };
 		688A2A742A9728BF00847D8B /* Search+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+CoreDataClass.swift"; sourceTree = "<group>"; };
-		688FD917247750350006A2DE /* PageInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageInspector.swift; sourceTree = "<group>"; };
 		688FD930247A34830006A2DE /* FeedInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedInspector.swift; sourceTree = "<group>"; };
 		68906F842A78B85900803350 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68906F882A78B88800803350 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -636,6 +637,9 @@
 		68C4DE922B362ADB0023E362 /* BookmarkToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkToolbar.swift; sourceTree = "<group>"; };
 		68C4FA252474927800D2C0D6 /* ProfileSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettings.swift; sourceTree = "<group>"; };
 		68CAC50B292954C7002D9EB9 /* Demo.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Demo.opml; sourceTree = "<group>"; };
+		68CC30002B4924C200A038AA /* SmallFavicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallFavicon.swift; sourceTree = "<group>"; };
+		68CC30022B4924CD00A038AA /* MediumFavicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumFavicon.swift; sourceTree = "<group>"; };
+		68CC30042B4924DA00A038AA /* LargeFavicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeFavicon.swift; sourceTree = "<group>"; };
 		68D17EE32A43F29100AF8A73 /* PageIconCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIconCategory.swift; sourceTree = "<group>"; };
 		68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardUtility.swift; sourceTree = "<group>"; };
 		68D286272A634183007AD876 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -760,6 +764,9 @@
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
 				683E3F44293BC02A00B16814 /* NewFeedButton.swift */,
 				68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */,
+				68CC30002B4924C200A038AA /* SmallFavicon.swift */,
+				68CC30022B4924CD00A038AA /* MediumFavicon.swift */,
+				68CC30042B4924DA00A038AA /* LargeFavicon.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1389,7 +1396,6 @@
 				68ED797E29C29A6800D85B4F /* GroupedLayout.swift */,
 				687FEF112A40A87B0042977E /* NewPageButton.swift */,
 				6856DAF82AB4BC4F0094615E /* NewPageSheet.swift */,
-				688FD917247750350006A2DE /* PageInspector.swift */,
 				68F6FB9C29ADDF6D001F74B9 /* PageLayoutPicker.swift */,
 				68FF63EF2921C56E0012A275 /* PageToolbar.swift */,
 				68C413452472773100D1DC7B /* PageView.swift */,
@@ -1810,6 +1816,7 @@
 				68FF63F42921D9C50012A275 /* MarkAllReadUnreadButton.swift in Sources */,
 				68B6CBDE290F2E7C00B5E3AB /* MediaTypeUtility.swift in Sources */,
 				684152382AD559C300ABE5E2 /* MercuryObject.swift in Sources */,
+				68CC30032B4924CD00A038AA /* MediumFavicon.swift in Sources */,
 				68906F8F2A78F58900803350 /* NavigationStore.swift in Sources */,
 				68ED797B29BD97DE00D85B4F /* NetworkMonitor.swift in Sources */,
 				685EB3982AFB58BB001683E3 /* NewBlocklistButton.swift in Sources */,
@@ -1841,7 +1848,6 @@
 				6856DB2E2AB6E2730094615E /* OrganizerToolbar.swift in Sources */,
 				680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */,
 				68D17EE42A43F29100AF8A73 /* PageIconCategory.swift in Sources */,
-				688FD918247750350006A2DE /* PageInspector.swift in Sources */,
 				68F6FB9F29ADE0E2001F74B9 /* PageLayout.swift in Sources */,
 				68F6FB9D29ADDF6D001F74B9 /* PageLayoutPicker.swift in Sources */,
 				683C353F2A9E4A1600568E9A /* PageNavDropDelegate.swift in Sources */,
@@ -1872,6 +1878,7 @@
 				688466F42AE264340071B86A /* ReaderFormatMenu.swift in Sources */,
 				684152222AD2763400ABE5E2 /* ReaderWebView.swift in Sources */,
 				686F6B0C2B38D3CC0099EB49 /* ReaderZoom.swift in Sources */,
+				68CC30052B4924DA00A038AA /* LargeFavicon.swift in Sources */,
 				6856DB4E2ABA29B80094615E /* ReadUnreadButton.swift in Sources */,
 				683E3F49293BC19800B16814 /* RefreshButton.swift in Sources */,
 				680F495229AB2A240083B664 /* RefreshedDateStorage.swift in Sources */,
@@ -1884,6 +1891,7 @@
 				68C41316247263C700D1DC7B /* RootView.swift in Sources */,
 				6845BCF824EBE4AD0008B296 /* RSSFeed+Extensions.swift in Sources */,
 				684DF9FF24B64AC20023D6DB /* RSSFeedItem+Extensions.swift in Sources */,
+				68CC30012B4924C200A038AA /* SmallFavicon.swift in Sources */,
 				682591F829D807F100E5EF3B /* RSSFeedMetaUpdate.swift in Sources */,
 				685ABADA290F0BDC0080110A /* RSSFeedUpdate.swift in Sources */,
 				68B6CBDC290F2CFB00B5E3AB /* RSSItemLoad.swift in Sources */,

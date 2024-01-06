@@ -28,7 +28,6 @@ struct PagesSection: View {
                 )
             }
             .onMove(perform: movePages)
-            .onDelete(perform: deletePages)
         } header: {
             Text("Pages", comment: "Sidebar section header.")
         }

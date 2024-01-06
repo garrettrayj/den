@@ -17,8 +17,6 @@ struct PageView: View {
     @Binding var hideRead: Bool
     
     @State private var showingIconSelector: Bool = false
-    
-    @SceneStorage("ShowingPageInspector") private var showingInspector = false
 
     private var pageLayout: AppStorage<PageLayout>
 
@@ -65,12 +63,8 @@ struct PageView: View {
                         hideRead: $hideRead,
                         pageLayout: pageLayout.projectedValue,
                         showingIconSelector: $showingIconSelector,
-                        showingInspector: $showingInspector,
                         items: items
                     )
-                }
-                .inspector(isPresented: $showingInspector) {
-                    PageInspector(page: page, pageLayout: pageLayout.projectedValue)
                 }
                 .sheet(
                     isPresented: $showingIconSelector,

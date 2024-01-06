@@ -9,9 +9,6 @@
 import SwiftUI
 
 struct PageNavLink: View {
-    #if os(iOS)
-    @Environment(\.editMode) private var editMode
-    #endif
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page
@@ -23,65 +20,90 @@ struct PageNavLink: View {
     @State private var showingIconSelector = false
 
     var body: some View {
-        Group {
-            #if os(macOS)
+        DisclosureGroup {
+            ForEach(page.feedsArray, id: \.self) { feed in
+                Label {
+                    feed.titleText
+                } icon: {
+                    #if os(macOS)
+                    FaviconImage(url: feed.feedData?.favicon, size: .small)
+                    #else
+                    FaviconImage(url: feed.feedData?.favicon, size: .large)
+                    #endif
+                }
+                .tag(DetailPanel.feed(feed))
+            }
+            .onMove(perform: moveFeed)
+        } label: {
             Label {
                 WithItems(scopeObject: page, readFilter: false) { items in
+                    #if os(macOS)
                     TextField(text: $page.wrappedName) { page.nameText }.badge(items.count)
+                    #else
+                    page.nameText.badge(items.count)
+                    #endif
                 }
             } icon: {
                 Image(systemName: page.wrappedSymbol)
             }
-            #else
-            if editMode?.wrappedValue.isEditing == true {
-                TextField(text: $page.wrappedName) { page.nameText }
-            } else {
-                Label {
-                    WithItems(scopeObject: page, readFilter: false) { items in
-                        page.nameText.badge(items.count)
-                    }
-                } icon: {
-                    Image(systemName: page.wrappedSymbol)
-                }
+            .accessibilityIdentifier("PageNavLink")
+            .contentShape(Rectangle())
+            .onDrop(
+                of: [.denFeed, .url, .text],
+                delegate: PageNavDropDelegate(
+                    context: viewContext,
+                    page: page,
+                    newFeedPageID: $newFeedPageID,
+                    newFeedWebAddress: $newFeedWebAddress,
+                    showingNewFeedSheet: $showingNewFeedSheet
+                )
+            )
+            .contextMenu {
+                IconSelectorButton(
+                    showingIconSelector: $showingIconSelector,
+                    symbol: $page.wrappedSymbol
+                )
+                
+                DeletePageButton(page: page)
             }
-            #endif
+            .sheet(
+                isPresented: $showingIconSelector,
+                onDismiss: {
+                    if viewContext.hasChanges {
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
+                    }
+                },
+                content: {
+                    IconSelector(symbol: $page.wrappedSymbol)
+                }
+            )
         }
         .tag(DetailPanel.page(page))
         .lineLimit(1)
-        .contentShape(Rectangle())
-        .onDrop(
-            of: [.denFeed, .url, .text],
-            delegate: PageNavDropDelegate(
-                context: viewContext,
-                page: page,
-                newFeedPageID: $newFeedPageID,
-                newFeedWebAddress: $newFeedWebAddress,
-                showingNewFeedSheet: $showingNewFeedSheet
-            )
-        )
-        .accessibilityIdentifier("PageNavLink")
-        .contextMenu {
-            IconSelectorButton(
-                showingIconSelector: $showingIconSelector,
-                symbol: $page.wrappedSymbol
-            )
-            
-            DeletePageButton(page: page)
+    }
+    
+    private func moveFeed( from source: IndexSet, to destination: Int) {
+        // Make an array of items from fetched results
+        var revisedItems: [Feed] = page.feedsArray.map { $0 }
+
+        // Change the order of the items in the array
+        revisedItems.move(fromOffsets: source, toOffset: destination)
+
+        // Update the userOrder attribute in revisedItems to persist the new order.
+        // This is done in reverse to minimize changes to the indices.
+        for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
+            revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
-        .sheet(
-            isPresented: $showingIconSelector,
-            onDismiss: {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            },
-            content: {
-                IconSelector(symbol: $page.wrappedSymbol)
-            }
-        )
+
+        do {
+            try viewContext.save()
+            page.objectWillChange.send()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
     }
 }

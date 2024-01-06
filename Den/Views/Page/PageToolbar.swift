@@ -19,7 +19,6 @@ struct PageToolbar: ToolbarContent {
     @Binding var hideRead: Bool
     @Binding var pageLayout: PageLayout
     @Binding var showingIconSelector: Bool
-    @Binding var showingInspector: Bool
 
     let items: [Item]
 
@@ -36,19 +35,17 @@ struct PageToolbar: ToolbarContent {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
-        ToolbarItem {
-            InspectorToggleButton(showingInspector: $showingInspector)
-        }
         #else
         ToolbarTitleMenu {
-            PageLayoutPicker(pageLayout: $pageLayout)
             RenameButton()
             IconSelectorButton(showingIconSelector: $showingIconSelector, symbol: $page.wrappedSymbol)
             DeletePageButton(page: page)
         }
-        
-        ToolbarItem(placement: .topBarTrailing) {
-            InspectorToggleButton(showingInspector: $showingInspector)
+        ToolbarItem {
+            PageLayoutPicker(pageLayout: $pageLayout)
+                .pickerStyle(.menu)
+                .labelStyle(.iconOnly)
+                .padding(.trailing, -12)
         }
         ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead)

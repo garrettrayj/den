@@ -135,7 +135,7 @@ struct FeedInspector: View {
                         selection: $feed.page
                     )
                     .onChange(of: feed.page) {
-                        self.feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
+                        // self.feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
                         do {
                             try viewContext.save()
                         } catch {

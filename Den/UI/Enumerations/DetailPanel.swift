@@ -25,6 +25,10 @@ enum DetailPanel: Hashable, Identifiable {
             return panelID
         }
     }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 
     var panelID: String {
         switch self {

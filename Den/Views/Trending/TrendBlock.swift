@@ -13,8 +13,6 @@ import SDWebImageSwiftUI
 
 struct TrendBlock: View {
     @Environment(\.isEnabled) private var isEnabled
-    @Environment(\.faviconSize) private var faviconSize
-    @Environment(\.faviconPixelSize) private var faviconPixelSize
 
     @ObservedObject var profile: Profile // Profile observed for updates
     @ObservedObject var trend: Trend
@@ -45,19 +43,7 @@ struct TrendBlock: View {
                     ForEach(uniqueFaviconURLs.chunked(by: 9), id: \.self) { favicons in
                         GridRow {
                             ForEach(favicons, id: \.self) { favicon in
-                                WebImage(
-                                    url: favicon,
-                                    options: [.decodeFirstFrameOnly, .delayPlaceholder, .lowPriority],
-                                    context: [.imageThumbnailPixelSize: faviconPixelSize]
-                                ) { image in
-                                    image.resizable().scaledToFit()
-                                } placeholder: {
-                                    Image(systemName: "dot.radiowaves.up.forward")
-                                        .foregroundStyle(.primary)
-                                }
-                                .frame(width: faviconSize.width, height: faviconSize.height)
-                                .clipShape(RoundedRectangle(cornerRadius: 2))
-                                .grayscale(isEnabled ? 0 : 1)
+                                FaviconImage(url: favicon, size: .medium)
                             }
                         }
                     }

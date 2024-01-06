@@ -15,7 +15,6 @@ struct SidebarToolbar: ToolbarContent {
 
     @Binding var currentProfileID: String?
     @Binding var detailPanel: DetailPanel?
-    @Binding var isEditing: Bool
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
     @Binding var showingExporter: Bool
@@ -58,49 +57,25 @@ struct SidebarToolbar: ToolbarContent {
             .accessibilityIdentifier("SidebarMenu")
         }
         #else
-        if isEditing {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    withAnimation {
-                        isEditing = false
-                    }
-                } label: {
-                    Text("Done", comment: "Button label.")
+        ToolbarItem(placement: .primaryAction) {
+            Menu {
+                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
+                NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+                NewTagButton(showingNewTagSheet: $showingNewTagSheet)
+                Divider()
+                ImportButton(showingImporter: $showingImporter)
+                ExportButton(showingExporter: $showingExporter)
+                OrganizerButton(detailPanel: $detailPanel)
+                SettingsButton(showingSettings: $showingSettings)
+            } label: {
+                Label {
+                    Text("Preferences", comment: "Menu label.")
+                } icon: {
+                    Image(systemName: "ellipsis.circle")
                 }
             }
-        } else {
-            ToolbarItem(placement: .primaryAction) {
-                Menu {
-                    NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                    NewPageButton(showingNewPageSheet: $showingNewPageSheet)
-                    NewTagButton(showingNewTagSheet: $showingNewTagSheet)
-                    Divider()
-                    Button {
-                        withAnimation {
-                            isEditing = true
-                        }
-                    } label: {
-                        Label {
-                            Text("Edit Pages & Tags", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "pencil")
-                        }
-                    }
-                    .accessibilityIdentifier("EditPages")
-                    ImportButton(showingImporter: $showingImporter)
-                    ExportButton(showingExporter: $showingExporter)
-                    OrganizerButton(detailPanel: $detailPanel)
-                    SettingsButton(showingSettings: $showingSettings)
-                } label: {
-                    Label {
-                        Text("Preferences", comment: "Menu label.")
-                    } icon: {
-                        Image(systemName: "ellipsis.circle")
-                    }
-                }
-                .disabled(refreshing)
-                .accessibilityIdentifier("SidebarMenu")
-            }
+            .disabled(refreshing)
+            .accessibilityIdentifier("SidebarMenu")
         }
         ToolbarItem(placement: .bottomBar) {
             ProfilePickerMenu(

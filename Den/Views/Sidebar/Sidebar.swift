@@ -24,7 +24,6 @@ struct Sidebar: View {
     @Binding var showingNewFeedSheet: Bool
 
     @State private var exporterIsPresented: Bool = false
-    @State private var isEditing = false
     @State private var opmlFile: OPMLFile?
     @State private var refreshing = false
     @State private var refreshProgress = Progress()
@@ -90,16 +89,12 @@ struct Sidebar: View {
             searchQuery = searchInput.trimmingCharacters(in: .whitespacesAndNewlines)
             detailPanel = .search
         }
-        #if os(iOS)
-        .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
-        #endif
         .navigationTitle(profile.nameText)
         .toolbar {
             SidebarToolbar(
                 profile: profile,
                 currentProfileID: $currentProfileID,
                 detailPanel: $detailPanel,
-                isEditing: $isEditing,
                 refreshing: $refreshing,
                 refreshProgress: $refreshProgress,
                 showingExporter: $showingExporter,

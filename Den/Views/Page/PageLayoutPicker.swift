@@ -9,10 +9,6 @@
 import SwiftUI
 
 struct PageLayoutPicker: View {
-    #if os(iOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
-
     @Binding var pageLayout: PageLayout
 
     var body: some View {
@@ -20,15 +16,7 @@ struct PageLayoutPicker: View {
             Label {
                 Text("Grouped", comment: "Page layout option label.")
             } icon: {
-                #if os(macOS)
                 Image(systemName: "rectangle.grid.3x2")
-                #else
-                if horizontalSizeClass == .compact {
-                    Image(systemName: "rectangle.grid.1x2")
-                } else {
-                    Image(systemName: "rectangle.grid.3x2")
-                }
-                #endif
             }
             .tag(PageLayout.grouped)
             .accessibilityIdentifier("GroupedLayout")
