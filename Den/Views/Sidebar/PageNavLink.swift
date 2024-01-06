@@ -22,16 +22,7 @@ struct PageNavLink: View {
     var body: some View {
         DisclosureGroup {
             ForEach(page.feedsArray, id: \.self) { feed in
-                Label {
-                    feed.titleText
-                } icon: {
-                    #if os(macOS)
-                    FaviconImage(url: feed.feedData?.favicon, size: .small)
-                    #else
-                    FaviconImage(url: feed.feedData?.favicon, size: .large)
-                    #endif
-                }
-                .tag(DetailPanel.feed(feed))
+                SidebarFeed(feed: feed)
             }
             .onMove(perform: moveFeed)
         } label: {

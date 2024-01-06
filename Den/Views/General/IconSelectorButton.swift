@@ -17,7 +17,7 @@ struct IconSelectorButton: View {
             showingIconSelector = true
         } label: {
             Label {
-                Text("Select Icon", comment: "Button label.")
+                Text("Change Icon", comment: "Button label.")
             } icon: {
                 Image(systemName: symbol)
             }

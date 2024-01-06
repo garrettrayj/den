@@ -23,15 +23,15 @@ struct FeedToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
+            InspectorToggleButton(showingInspector: $showingInspector)
+        }
+        ToolbarItem {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }
-        }
-        ToolbarItem {
-            InspectorToggleButton(showingInspector: $showingInspector)
         }
         #else
         ToolbarItem {
