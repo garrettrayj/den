@@ -41,23 +41,38 @@ struct PageToolbar: ToolbarContent {
             IconSelectorButton(showingIconSelector: $showingIconSelector, symbol: $page.wrappedSymbol)
             DeletePageButton(page: page)
         }
-        ToolbarItem {
-            PageLayoutPicker(pageLayout: $pageLayout)
-                .pickerStyle(.menu)
-                .labelStyle(.iconOnly)
-                .padding(.trailing, -12)
-        }
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .status) {
-            if let profile = page.profile {
-                CommonStatus(profile: profile, items: items)
+        
+        if horizontalSizeClass == .compact {
+            ToolbarItem {
+                PageLayoutPicker(pageLayout: $pageLayout)
+                    .pickerStyle(.menu)
+                    .labelStyle(.iconOnly)
+                    .padding(.trailing, -12)
             }
-        }
-        ToolbarItem(placement: .bottomBar) {
-            MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
+            ToolbarItem(placement: .bottomBar) {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem(placement: .status) {
+                if let profile = page.profile {
+                    CommonStatus(profile: profile, items: items)
+                }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                }
+            }
+        } else {
+            ToolbarItem {
+                PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.menu).labelStyle(.iconOnly)
+            }
+            ToolbarItem {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem {
+                MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                }
             }
         }
         #endif

@@ -11,12 +11,9 @@ import UniformTypeIdentifiers
 
 struct TransferableFeed: Codable, Transferable {
     var objectURI: URL
-    var feedURL: URL
 
     static var transferRepresentation: some TransferRepresentation {
         CodableRepresentation(contentType: .denFeed)
-        ProxyRepresentation(exporting: \.feedURL)
-        ProxyRepresentation(exporting: \.feedURL.absoluteString)
     }
 }
 

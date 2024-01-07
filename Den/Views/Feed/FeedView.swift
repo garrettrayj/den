@@ -10,9 +10,11 @@ import CoreData
 import SwiftUI
 
 struct FeedView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
 
     @ObservedObject var feed: Feed
+    @ObservedObject var profile: Profile
     
     @Binding var hideRead: Bool
     
@@ -29,29 +31,44 @@ struct FeedView: View {
                     }
                 }
                 .navigationTitle("")
-            } else if let profile = feed.page?.profile {
+            } else {
                 WithItems(
                     scopeObject: feed,
                     includeExtras: true
                 ) { items in
-                    ZStack {
-                        FeedLayout(
-                            feed: feed,
-                            profile: profile,
-                            hideRead: $hideRead,
-                            items: items
-                        )
+                    FeedLayout(
+                        feed: feed,
+                        profile: profile,
+                        hideRead: $hideRead,
+                        items: items
+                    )
+                    .onChange(of: feed.page) {
+                        feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
+                        do {
+                            try viewContext.save()
+                            feed.page?.objectWillChange.send()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
+                    }
+                    .onChange(of: feed.title) {
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
                     }
                     .frame(minWidth: minDetailColumnWidth)
                     .toolbar {
                         FeedToolbar(
                             feed: feed,
+                            profile: profile,
                             hideRead: $hideRead,
                             showingInspector: $showingInspector,
                             items: items
                         )
                     }
-                    .navigationTitle(feed.titleText)
+                    .navigationTitle($feed.wrappedTitle)
                     .inspector(isPresented: $showingInspector) {
                         FeedInspector(feed: feed, profile: profile)
                     }

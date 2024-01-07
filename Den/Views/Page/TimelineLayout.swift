@@ -42,7 +42,6 @@ struct TimelineLayout: View {
                         }
                     }
                 }
-                .id("TimelineLayout_\(page.id?.uuidString ?? "NoID")")
             }
         }
     }

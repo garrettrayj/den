@@ -29,9 +29,21 @@ struct PageNavLink: View {
             Label {
                 WithItems(scopeObject: page, readFilter: false) { items in
                     #if os(macOS)
-                    TextField(text: $page.wrappedName) { page.nameText }.badge(items.count)
+                    TextField(text: $page.wrappedName) {
+                        Text(page.wrappedName)
+                    }
+                    .onSubmit {
+                        if viewContext.hasChanges {
+                            do {
+                                try viewContext.save()
+                            } catch {
+                                CrashUtility.handleCriticalError(error as NSError)
+                            }
+                        }
+                    }
+                    .badge(items.count)
                     #else
-                    page.nameText.badge(items.count)
+                    Text(page.wrappedName).badge(items.count)
                     #endif
                 }
             } icon: {

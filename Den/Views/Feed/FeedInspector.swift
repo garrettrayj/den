@@ -17,78 +17,9 @@ struct FeedInspector: View {
 
     @State private var itemLimitHasChanged: Bool = false
     @State private var showingHideTeaserOption: Bool = false
-    @State private var webAddressHasChanged: Bool = false
-    @State private var webAddressIsValid: Bool?
-    @State private var webAddressValidationMessage: WebAddressValidationMessage?
 
     var body: some View {
         Form {
-            Section {
-                TextField(
-                    text: $feed.wrappedTitle,
-                    prompt: Text("Untitled", comment: "Text field prompt.")
-                ) {
-                    Text("Title", comment: "Text field label.")
-                }
-                .labelsHidden()
-                .onReceive(
-                    feed.publisher(for: \.title)
-                        .debounce(for: 1, scheduler: DispatchQueue.main)
-                        .removeDuplicates()
-                ) { _ in
-                    if viewContext.hasChanges {
-                        do {
-                            try viewContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
-                    }
-                }
-            } header: {
-                Text("Title", comment: "Inspector section header.")
-            }
-
-            Section {
-                WebAddressTextField(
-                    urlString: $feed.urlString,
-                    isValid: $webAddressIsValid,
-                    validationMessage: $webAddressValidationMessage
-                )
-                .labelsHidden()
-                .onChange(of: feed.url) {
-                    webAddressHasChanged = true
-                }
-                .onReceive(
-                    feed.publisher(for: \.url)
-                        .debounce(for: 1, scheduler: DispatchQueue.main)
-                        .removeDuplicates()
-                ) { _ in
-                    if viewContext.hasChanges {
-                        do {
-                            try viewContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
-                    }
-                }
-            } header: {
-                Text("Address", comment: "Inspector section header.")
-            } footer: {
-                Group {
-                    if let validationMessage = webAddressValidationMessage {
-                        validationMessage.text
-                    } else if webAddressHasChanged {
-                        Text(
-                            "URL change will be applied on next refresh.",
-                            comment: "Feed inspector guidance."
-                        )
-                    }
-                }
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                Spacer(minLength: 0)
-            }
-
             previewsSection
 
             Section {
@@ -126,26 +57,6 @@ struct FeedInspector: View {
                 }
             } header: {
                 Text("Viewing", comment: "Inspector section header.")
-            }
-
-            Section {
-                if let profile = feed.page?.profile {
-                    PagePicker(
-                        profile: profile,
-                        selection: $feed.page
-                    )
-                    .onChange(of: feed.page) {
-                        // self.feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
-                        do {
-                            try viewContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
-                    }
-                }
-                DeleteFeedButton(feed: feed)
-            } header: {
-                Text("Management", comment: "Section header.")
             }
         }
         .formStyle(.grouped)

@@ -15,7 +15,7 @@ struct FeedTitleLabel: View {
     
     var body: some View {
         Label {
-            feed.titleText.lineLimit(1)
+            Text(feed.wrappedTitle).lineLimit(1)
         } icon: {
             FaviconImage(url: feed.feedData?.favicon, size: .medium)
         }

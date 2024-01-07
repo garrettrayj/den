@@ -7,22 +7,19 @@
 //
 
 import CoreData
-import SwiftUI
 
 @objc(Feed)
 public class Feed: NSManagedObject {
     static let totalItemLimit = 20
 
-    public var titleText: Text {
-        if wrappedTitle == "" {
-            return Text("Untitled", comment: "Default feed title.")
-        } else {
-            return Text(wrappedTitle)
-        }
-    }
-
     public var wrappedTitle: String {
-        get { title ?? "" }
+        get {
+            if let title = title, title.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                return title
+            } else {
+                return String.localizedStringWithFormat("Untitled")
+            }
+        }
         set { title = newValue }
     }
 

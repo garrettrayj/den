@@ -16,10 +16,7 @@ struct DraggableFeedModifier: ViewModifier {
             content
                 .contentShape(Rectangle())
                 .draggable(
-                    TransferableFeed(
-                        objectURI: feed.objectID.uriRepresentation(),
-                        feedURL: feedURL
-                    )
+                    TransferableFeed(objectURI: feed.objectID.uriRepresentation())
                 )
         } else {
             content

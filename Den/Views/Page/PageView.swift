@@ -55,6 +55,20 @@ struct PageView: View {
                         )
                     }
                 }
+                .onChange(of: page.name) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+                .onChange(of: page.symbol) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
                 .frame(minWidth: minDetailColumnWidth)
                 .navigationTitle($page.wrappedName)
                 .toolbar {

@@ -16,18 +16,20 @@ struct SidebarFeed: View {
     var body: some View {
         Label {
             #if os(macOS)
-            TextField(text: $feed.wrappedTitle) { feed.titleText }
-                .onSubmit {
-                    if viewContext.hasChanges {
-                        do {
-                            try viewContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
+            TextField(text: $feed.wrappedTitle) { 
+                Text(feed.wrappedTitle)
+            }
+            .onSubmit {
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
+            }
             #else
-            feed.titleText
+            Text(feed.wrappedTitle)
             #endif
         } icon: {
             #if os(macOS)
@@ -37,9 +39,14 @@ struct SidebarFeed: View {
             #endif
         }
         .tag(DetailPanel.feed(feed))
+        #if os(macOS)
         .contextMenu {
             DeleteFeedButton(feed: feed)
         }
-        .modifier(DraggableFeedModifier(feed: feed))
+        .contentShape(Rectangle())
+        .draggable(
+            TransferableFeed(objectURI: feed.objectID.uriRepresentation())
+        )
+        #endif
     }
 }

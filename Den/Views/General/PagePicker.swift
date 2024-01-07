@@ -16,7 +16,7 @@ struct PagePicker: View {
     var body: some View {
         Picker(selection: $selection) {
             ForEach(profile.pagesArray) { page in
-                page.nameText.tag(page as Page?)
+                Text(page.wrappedName).tag(page as Page?)
             }
         } label: {
             Label {

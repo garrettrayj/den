@@ -21,33 +21,34 @@ struct DetailView: View {
             Group {
                 switch detailPanel ?? .welcome {
                 case .feed(let feed):
-                    FeedView(feed: feed, hideRead: $hideRead)
+                    FeedView(feed: feed, profile: profile, hideRead: $hideRead).id(feed)
                 case .inbox:
-                    Inbox(profile: profile, hideRead: $hideRead)
+                    Inbox(profile: profile, hideRead: $hideRead).id(profile)
                 case .organizer:
-                    Organizer(profile: profile)
+                    Organizer(profile: profile).id(profile)
                 case .page(let page):
-                    PageView(page: page, hideRead: $hideRead)
+                    PageView(page: page, hideRead: $hideRead).id(page)
                 case .search:
                     SearchView(profile: profile, hideRead: $hideRead, searchQuery: $searchQuery)
+                        .id(profile)
                 case .tag(let tag):
-                    TagView(tag: tag)
+                    TagView(tag: tag).id(tag)
                 case .trending:
-                    Trending(profile: profile, hideRead: $hideRead)
+                    Trending(profile: profile, hideRead: $hideRead).id(profile)
                 case .welcome:
-                    Welcome(profile: profile)
+                    Welcome(profile: profile).id(profile)
                 }
             }
             .navigationDestination(for: SubDetailPanel.self) { panel in
                 switch panel {
                 case .bookmark(let bookmark):
-                    BookmarkView(bookmark: bookmark)
+                    BookmarkView(bookmark: bookmark).id(bookmark)
                 case .feed(let feed):
-                    FeedView(feed: feed, hideRead: $hideRead)
+                    FeedView(feed: feed, profile: profile, hideRead: $hideRead).id(feed)
                 case .item(let item):
-                    ItemView(item: item)
+                    ItemView(item: item).id(item)
                 case .trend(let trend):
-                    TrendView(trend: trend, hideRead: $hideRead)
+                    TrendView(trend: trend, hideRead: $hideRead).id(trend)
                 }
             }
         }
