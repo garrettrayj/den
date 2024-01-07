@@ -37,5 +37,9 @@ struct SidebarFeed: View {
             #endif
         }
         .tag(DetailPanel.feed(feed))
+        .contextMenu {
+            DeleteFeedButton(feed: feed)
+        }
+        .modifier(DraggableFeedModifier(feed: feed))
     }
 }
