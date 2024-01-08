@@ -73,5 +73,9 @@ final class RefreshManager {
             )
             _ = await feedUpdateTask.execute()
         }
+        
+        DispatchQueue.main.async {
+            feed.objectWillChange.send()
+        }
     }
 }
