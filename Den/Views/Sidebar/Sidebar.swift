@@ -141,7 +141,10 @@ struct Sidebar: View {
             refreshing = false
             refreshProgress.completedUnitCount = 0
             profile.objectWillChange.send()
-            profile.pagesArray.forEach { $0.objectWillChange.send() }
+            profile.pagesArray.forEach { page in
+                page.objectWillChange.send()
+                page.feedsArray.forEach { $0.objectWillChange.send() }
+            }
         }
         .sensoryFeedback(trigger: refreshing) { _, newValue in
             if newValue == true {

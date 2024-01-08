@@ -18,28 +18,21 @@ private struct UseSystemBrowserKey: EnvironmentKey {
 }
 
 extension EnvironmentValues {
-    var smallFaviconSize: CGSize {
-        ImageSize.smallFavicon.scaled(by: dynamicTypeSize.layoutScalingFactor)
-    }
-
-    var smallFaviconPixelSize: CGSize {
-        smallFaviconSize.scaled(by: displayScale)
-    }
-    
-    var mediumFaviconSize: CGSize {
-        ImageSize.mediumFavicon.scaled(by: dynamicTypeSize.layoutScalingFactor)
-    }
-
-    var mediumFaviconPixelSize: CGSize {
-        mediumFaviconSize.scaled(by: displayScale)
+    var faviconSize: CGSize {
+        switch self.imageScale {
+        case .small:
+            return ImageSize.smallFavicon
+        case .medium:
+            return ImageSize.mediumFavicon
+        case .large:
+            return ImageSize.largeFavicon
+        @unknown default:
+            return ImageSize.mediumFavicon
+        }
     }
     
-    var largeFaviconSize: CGSize {
-        ImageSize.largeFavicon.scaled(by: dynamicTypeSize.layoutScalingFactor)
-    }
-
-    var largeFaviconPixelSize: CGSize {
-        largeFaviconSize.scaled(by: displayScale)
+    var faviconPixelSize: CGSize {
+        faviconSize.scaled(by: displayScale)
     }
 
     var largeThumbnailSize: CGSize {

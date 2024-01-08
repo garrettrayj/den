@@ -32,21 +32,17 @@ struct SidebarFeed: View {
             Text(feed.wrappedTitle)
             #endif
         } icon: {
-            #if os(macOS)
-            FaviconImage(url: feed.feedData?.favicon, size: .small)
-            #else
-            FaviconImage(url: feed.feedData?.favicon, size: .large)
-            #endif
+            FeedFavicon(feed: feed)
         }
         .tag(DetailPanel.feed(feed))
         #if os(macOS)
-        .contextMenu {
-            DeleteFeedButton(feed: feed)
-        }
         .contentShape(Rectangle())
         .draggable(
             TransferableFeed(objectURI: feed.objectID.uriRepresentation())
         )
+        .contextMenu {
+            DeleteFeedButton(feed: feed)
+        }
         #endif
     }
 }

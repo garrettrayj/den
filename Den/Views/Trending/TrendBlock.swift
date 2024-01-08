@@ -28,9 +28,10 @@ struct TrendBlock: View {
         return nil
     }
 
-    private var uniqueFaviconURLs: [URL] {
+    private var uniqueFaviconSources: [Feed] {
         trend.feeds.compactMap { feed in
-            feed.feedData?.favicon
+            guard let feedData = feed.feedData, feedData.favicon != nil else { return nil }
+            return feed
         }.uniqueElements()
     }
 
@@ -40,10 +41,10 @@ struct TrendBlock: View {
                 trend.titleText.font(.title2.weight(.medium))
 
                 Grid {
-                    ForEach(uniqueFaviconURLs.chunked(by: 9), id: \.self) { favicons in
+                    ForEach(uniqueFaviconSources.chunked(by: 9), id: \.self) { feeds in
                         GridRow {
-                            ForEach(favicons, id: \.self) { favicon in
-                                FaviconImage(url: favicon, size: .medium)
+                            ForEach(feeds, id: \.self) { feed in
+                                FeedFavicon(feed: feed)
                             }
                         }
                     }
