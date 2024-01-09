@@ -43,16 +43,13 @@ struct WithItems<Content: View>: View {
         } else if let page = scopeObject as? Page {
             predicates.append(NSPredicate(
                 format: "feedData IN %@",
-                page.feedsArray.compactMap { feed in
-                    feed.feedData
-                }
+                page.feedsArray.compactMap { $0.feedData }
             ))
         } else if let profile = scopeObject as? Profile {
-            if let profileId = profile.id {
-                predicates.append(NSPredicate(format: "profileId = %@", profileId as CVarArg))
-            } else {
-                predicates.append(NSPredicate(format: "1 = 2"))
-            }
+            predicates.append(NSPredicate(
+                format: "feedData IN %@",
+                profile.feedsArray.compactMap { $0.feedData }
+            ))
         } else if let trend = scopeObject as? Trend {
             predicates.append(NSPredicate(
                 format: "id IN %@",
