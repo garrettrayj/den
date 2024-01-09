@@ -56,11 +56,8 @@ struct PagesSection: View {
     private func deletePages(indices: IndexSet) {
         indices.forEach {
             let page = profile.pagesArray[$0]
-            page.feedsArray.forEach { feed in
-                guard let feedData = feed.feedData else { return }
-                viewContext.delete(feedData)
-            }
             viewContext.delete(page)
+            page.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
         }
 
         do {

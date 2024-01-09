@@ -24,37 +24,34 @@ struct TrendView: View {
                     }
                 }
             } else if let profile = trend.profile {
-                WithItems(scopeObject: trend) { items in
-                    Group {
-                        if trend.items.isEmpty {
-                            ContentUnavailable {
-                                Label {
-                                    Text("No Items", comment: "Content unavailable title.")
-                                } icon: {
-                                    Image(systemName: "questionmark.folder")
-                                }
+                Group {
+                    if trend.items.isEmpty {
+                        ContentUnavailable {
+                            Label {
+                                Text("No Items", comment: "Content unavailable title.")
+                            } icon: {
+                                Image(systemName: "questionmark.folder")
                             }
-                        } else if trend.items.unread().isEmpty && hideRead {
-                            AllRead(largeDisplay: true)
-                        } else {
-                            TrendLayout(
-                                trend: trend,
-                                hideRead: $hideRead,
-                                items: items.visibilityFiltered(hideRead ? false : nil)
-                            )
-                            
                         }
-                    }
-                    .toolbar {
-                        TrendToolbar(
+                    } else if trend.items.unread().isEmpty && hideRead {
+                        AllRead(largeDisplay: true)
+                    } else {
+                        TrendLayout(
                             trend: trend,
-                            profile: profile,
                             hideRead: $hideRead,
-                            items: items
+                            items: trend.items.visibilityFiltered(hideRead ? false : nil)
                         )
                     }
-                    .navigationTitle(trend.titleText)
                 }
+                .toolbar {
+                    TrendToolbar(
+                        trend: trend,
+                        profile: profile,
+                        hideRead: $hideRead,
+                        items: trend.items
+                    )
+                }
+                .navigationTitle(trend.titleText)
             }
         }
         #if os(iOS)

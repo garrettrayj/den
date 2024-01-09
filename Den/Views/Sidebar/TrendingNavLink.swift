@@ -13,9 +13,11 @@ struct TrendingNavLink: View {
 
     var body: some View {
         Label {
-            Text("Trending", comment: "Button label.")
-                .lineLimit(1)
-                .badge(profile.trends.containingUnread().count)
+            WithTrends(profile: profile) { trends in
+                Text("Trending", comment: "Button label.")
+                    .lineLimit(1)
+                    .badge(trends.containingUnread().count)
+            }
         } icon: {
             Image(systemName: "chart.line.uptrend.xyaxis")
         }

@@ -26,16 +26,7 @@ public class Trend: NSManagedObject {
     public var items: [Item] {
         trendItemsArray
             .compactMap { $0.item }
-            .sorted { lhs, rhs in
-                guard
-                    let lhsPublished = lhs.published,
-                    let rhsPublished = rhs.published
-                else {
-                    return false
-                }
-
-                return lhsPublished > rhsPublished
-            }
+            .sorted(using: SortDescriptor(\.published, order: .reverse))
     }
 
     public var hasUnread: Bool {
@@ -47,8 +38,7 @@ public class Trend: NSManagedObject {
     }
 
     public var feeds: [Feed] {
-        Array(Set(items.compactMap { $0.feedData?.feed }))
-            .sorted { $0.wrappedTitle < $1.wrappedTitle }
+        Set(items.compactMap { $0.feedData?.feed }).sorted { $0.wrappedTitle < $1.wrappedTitle }
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext, profile: Profile) -> Trend {

@@ -13,11 +13,19 @@ struct TrendAnalysis {
         guard let profile = context.object(with: profileObjectID) as? Profile else { return }
 
         let workingTrends = self.analyzeTrends(profile: profile, context: context)
-
+        
+        let request: NSFetchRequest<Trend> = Trend.fetchRequest()
+        if let profileID = profile.id {
+            request.predicate = NSPredicate(format: "profileId = %@", profileID as CVarArg)
+        } else {
+            request.predicate = NSPredicate(format: "1 = 2")
+        }
+        guard let existingTrends = try? context.fetch(request) as [Trend] else { return }
+        
         for workingTrend in workingTrends {
             var trend: Trend
 
-            if let existingTrend = profile.trends.first(where: {$0.slug == workingTrend.slug}) {
+            if let existingTrend = existingTrends.first(where: {$0.slug == workingTrend.slug}) {
                 trend = existingTrend
             } else {
                 trend = Trend.create(in: context, profile: profile)
@@ -39,7 +47,7 @@ struct TrendAnalysis {
         }
 
         // Delete trends not present in current analysis
-        for trend in profile.trends where !workingTrends.contains(where: { $0.slug == trend.slug }) {
+        for trend in existingTrends where !workingTrends.contains(where: { $0.slug == trend.slug }) {
             context.delete(trend)
         }
 

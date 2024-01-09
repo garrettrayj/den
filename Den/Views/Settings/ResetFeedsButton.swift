@@ -16,7 +16,7 @@ struct ResetFeedsButton: View {
             clearData()
         } label: {
             Label {
-                Text("Clear Feed Cache", comment: "Button label.")
+                Text("Clear Feed Data", comment: "Button label.")
             } icon: {
                 Image(systemName: "clear")
             }
@@ -30,14 +30,7 @@ struct ResetFeedsButton: View {
         }
         
         for profile in profiles {
-            for feedData in profile.feedsArray.compactMap({ $0.feedData }) {
-                viewContext.delete(feedData)
-            }
-            
-            for trend in profile.trends {
-                viewContext.delete(trend)
-            }
-            
+            profile.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
             RefreshedDateStorage.setRefreshed(profile, date: nil)
         }
 

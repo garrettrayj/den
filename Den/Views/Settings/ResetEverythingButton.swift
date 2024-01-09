@@ -72,7 +72,6 @@ struct ResetEverythingButton: View {
 
             for profile in profiles {
                 profile.feedsArray.compactMap({ $0.feedData }).forEach { context.delete($0) }
-                profile.trends.forEach { context.delete($0) }
                 context.delete(profile)
             }
             

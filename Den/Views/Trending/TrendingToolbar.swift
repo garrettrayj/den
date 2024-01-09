@@ -16,13 +16,15 @@ struct TrendingToolbar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
+    
+    let trends: [Trend]
 
     private var unreadCount: Int {
-        profile.trends.containingUnread().count
+        trends.containingUnread().count
     }
 
     private var itemsFromTrends: [Item] {
-        return profile.trends.flatMap { $0.items }
+        return trends.flatMap { $0.items }.uniqueElements()
     }
 
     var body: some ToolbarContent {
@@ -42,7 +44,7 @@ struct TrendingToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
-                TrendingStatus(profile: profile)
+                TrendingStatus(profile: profile, trends: trends)
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: unreadCount == 0) {

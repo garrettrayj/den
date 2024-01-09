@@ -12,17 +12,10 @@ struct Trending: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-    
-    private var visibleTrends: [Trend] {
-        if hideRead {
-            return profile.trends.containingUnread()
-        }
-        return profile.trends
-    }
 
     var body: some View {
-        Group {
-            if profile.trends.isEmpty {
+        WithTrends(profile: profile) { trends in
+            if trends.isEmpty {
                 ContentUnavailable {
                     Label {
                         Text("No Trends", comment: "Content unavailable title.")
@@ -35,14 +28,12 @@ struct Trending: View {
                         comment: "Trending empty message."
                     )
                 }
-            } else if visibleTrends.isEmpty {
-                AllRead(largeDisplay: true)
             } else {
-                TrendingLayout(profile: profile, trends: visibleTrends)
+                TrendingLayout(profile: profile, hideRead: $hideRead, trends: trends)
+                    .toolbar {
+                        TrendingToolbar(profile: profile, hideRead: $hideRead, trends: trends)
+                    }
             }
-        }
-        .toolbar {
-            TrendingToolbar(profile: profile, hideRead: $hideRead)
         }
         .navigationTitle(Text("Trending", comment: "Navigation title."))
     }

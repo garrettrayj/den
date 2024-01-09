@@ -11,15 +11,32 @@ import SwiftUI
 struct TrendingLayout: View {
     @ObservedObject var profile: Profile
     
+    @Binding var hideRead: Bool
+    
     let trends: [Trend]
     
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView(.vertical) {
-                BoardView(width: geometry.size.width, list: trends) { trend in
-                    TrendBlock(profile: profile, trend: trend)
+        if trends.containingUnread().isEmpty && hideRead {
+            AllRead(largeDisplay: true)
+        } else {
+            GeometryReader { geometry in
+                ScrollView(.vertical) {
+                    BoardView(width: geometry.size.width, list: visibleTrends) { trend in
+                        TrendBlock(
+                            profile: profile,
+                            trend: trend,
+                            items: trend.items,
+                            feeds: trend.feeds
+                        )
+                    }
                 }
             }
         }
+    }
+    
+    private var visibleTrends: [Trend] {
+        let visibleTrends = hideRead ? trends.containingUnread() : trends
+
+        return visibleTrends.sorted { $0.items.count > $1.items.count }
     }
 }

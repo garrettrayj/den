@@ -17,6 +17,7 @@ struct CleanupUtility {
             orphanedFeedDatas += 1
             context.delete(feedData)
         }
+        Logger.main.info("Purged \(orphanedFeedDatas) orphaned feed data records.")
 
         var orphanedTrends = 0
         let trends = try context.fetch(Trend.fetchRequest()) as [Trend]
@@ -24,10 +25,7 @@ struct CleanupUtility {
             orphanedTrends += 1
             context.delete(trend)
         }
-
-        Logger.main.info("""
-        Purged \(orphanedFeedDatas) FeedData and \(orphanedTrends) Trend orphans.
-        """)
+        Logger.main.info("Purged \(orphanedTrends) orphaned trends.")
     }
 
     static func removeExpiredHistory(context: NSManagedObjectContext, profile: Profile) throws {

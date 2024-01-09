@@ -74,7 +74,7 @@ struct RootView: View {
                 Next maintenance operation will be performed after \
                 \(nextMaintenanceDate.formatted(), privacy: .public)
                 """)
-                return
+                // return
             }
         }
 

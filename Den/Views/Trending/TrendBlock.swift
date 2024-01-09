@@ -16,6 +16,9 @@ struct TrendBlock: View {
 
     @ObservedObject var profile: Profile // Profile observed for updates
     @ObservedObject var trend: Trend
+    
+    let items: [Item]
+    let feeds: [Feed]
 
     private var symbol: String? {
         if trend.tag == NLTag.personalName.rawValue {
@@ -28,20 +31,13 @@ struct TrendBlock: View {
         return nil
     }
 
-    private var uniqueFaviconSources: [Feed] {
-        trend.feeds.compactMap { feed in
-            guard let feedData = feed.feedData, feedData.favicon != nil else { return nil }
-            return feed
-        }.uniqueElements()
-    }
-
     var body: some View {
         NavigationLink(value: SubDetailPanel.trend(trend)) {
             VStack(alignment: .leading, spacing: 8) {
                 trend.titleText.font(.title2.weight(.medium))
 
                 Grid {
-                    ForEach(uniqueFaviconSources.chunked(by: 9), id: \.self) { feeds in
+                    ForEach(feeds.chunked(by: 9), id: \.self) { feeds in
                         GridRow {
                             ForEach(feeds, id: \.self) { feed in
                                 FeedFavicon(feed: feed)
@@ -49,21 +45,21 @@ struct TrendBlock: View {
                         }
                     }
                 }
-                .opacity(trend.hasUnread ? 1.0 : 0.5)
+                .opacity(!items.unread().isEmpty ? 1.0 : 0.5)
 
                 HStack {
                     if let symbol = symbol {
                         Image(systemName: symbol).imageScale(.small)
                     }
                     Text("""
-                    \(trend.items.count) items in \(trend.feeds.count) feeds. \
-                    \(trend.items.unread().count) unread
+                    \(items.count) items in \(trend.feeds.count) feeds. \
+                    \(items.unread().count) unread
                     """, comment: "Trend status line.")
                 }
                 .font(.footnote)
                 .foregroundStyle(.secondary)
             }
-            .foregroundStyle(trend.items.unread().isEmpty ? .secondary : .primary)
+            .foregroundStyle(items.unread().isEmpty ? .secondary : .primary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
         }

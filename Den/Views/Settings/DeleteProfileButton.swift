@@ -60,12 +60,8 @@ struct DeleteProfileButton: View {
     private func delete() {
         guard let profile = selection else { return }
         
-        for feedData in profile.feedsArray.compactMap({$0.feedData}) {
-            viewContext.delete(feedData)
-        }
-        for trend in profile.trends {
-            viewContext.delete(trend)
-        }
+        profile.feedsArray.compactMap { $0.feedData}.forEach { viewContext.delete($0) }
+        
         viewContext.delete(profile)
 
         do {

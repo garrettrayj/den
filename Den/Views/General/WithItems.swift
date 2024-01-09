@@ -50,11 +50,6 @@ struct WithItems<Content: View>: View {
                 format: "feedData IN %@",
                 profile.feedsArray.compactMap { $0.feedData }
             ))
-        } else if let trend = scopeObject as? Trend {
-            predicates.append(NSPredicate(
-                format: "id IN %@",
-                trend.items.map { $0.id }
-            ))
         }
 
         if readFilter != nil {

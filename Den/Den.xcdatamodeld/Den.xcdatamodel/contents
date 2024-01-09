@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C64" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Blocklist" representedClassName="Blocklist" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -195,6 +195,12 @@
         <fetchedProperty name="profile" optional="YES">
             <fetchRequest name="fetchedPropertyFetchRequest" entity="Profile" predicateString="id = $FETCH_SOURCE.profileId"/>
         </fetchedProperty>
+        <fetchIndex name="byProfileIdIndex">
+            <fetchIndexElement property="profileId" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byTitleIndex">
+            <fetchIndexElement property="title" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="TrendItem" representedClassName="TrendItem" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>

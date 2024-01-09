@@ -65,29 +65,6 @@ public class Profile: NSManagedObject {
         }
     }
 
-    public var trends: [Trend] {
-        guard
-            let values = value(forKey: "trends") as? [Trend]
-        else { return [] }
-
-        typealias AreInIncreasingOrder = (Trend, Trend) -> Bool
-
-        var predicates: [AreInIncreasingOrder] = []
-        predicates.append({ $0.items.count > $1.items.count })
-        predicates.append({ $0.title ?? "" < $1.title ?? "" })
-
-        return values.sorted { lhs, rhs in
-            for predicate in predicates {
-                if !predicate(lhs, rhs) && !predicate(rhs, lhs) {
-                    continue
-                }
-                return predicate(lhs, rhs)
-            }
-
-            return false
-        }
-    }
-
     public var pagesArray: [Page] {
         pages?.sortedArray(
             using: [NSSortDescriptor(key: "userOrder", ascending: true)]

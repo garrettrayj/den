@@ -11,16 +11,18 @@ import SwiftUI
 struct TrendingStatus: View {
     @ObservedObject var profile: Profile
     
+    let trends: [Trend]
+    
     var body: some View {
         VStack {
             Group {
-                if profile.trends.isEmpty {
+                if trends.isEmpty {
                     Text("No Trends", comment: "Status message.")
-                } else if profile.trends.containingUnread().isEmpty {
+                } else if trends.containingUnread().isEmpty {
                     Text("All Read", comment: "Status message.")
                 } else {
                     Text(
-                        "\(profile.trends.containingUnread().count) with Unread",
+                        "\(trends.containingUnread().count) with Unread",
                         comment: "Status message."
                     )
                 }
