@@ -48,7 +48,7 @@ struct DetailView: View {
                 case .item(let item):
                     ItemView(item: item).id(item)
                 case .trend(let trend):
-                    TrendView(trend: trend, hideRead: $hideRead).id(trend)
+                    TrendView(profile: profile, trend: trend, hideRead: $hideRead).id(trend)
                 }
             }
         }

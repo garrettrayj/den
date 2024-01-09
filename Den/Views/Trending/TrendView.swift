@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct TrendView: View {
+    @ObservedObject var profile: Profile
     @ObservedObject var trend: Trend
 
     @Binding var hideRead: Bool
@@ -23,7 +24,7 @@ struct TrendView: View {
                         Image(systemName: "trash")
                     }
                 }
-            } else if let profile = trend.profile {
+            } else {
                 Group {
                     if trend.items.isEmpty {
                         ContentUnavailable {
