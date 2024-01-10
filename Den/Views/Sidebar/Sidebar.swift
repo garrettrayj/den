@@ -107,7 +107,7 @@ struct Sidebar: View {
             )
         }
         #if os(macOS)
-        .safeAreaInset(edge: .bottom) {
+        .safeAreaInset(edge: .bottom, spacing: 0) {
             VStack(alignment: .leading) {
                 ProfilePickerMenu(
                     profile: profile,
@@ -122,8 +122,11 @@ struct Sidebar: View {
                     refreshProgress: $refreshProgress
                 )
             }
-            .padding(.horizontal, 8)
-            .padding(.bottom, 12)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+            .background(alignment: .top) {
+                Divider().opacity(0.75).padding(.top, -1)
+            }
         }
         #endif
         .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
