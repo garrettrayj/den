@@ -63,7 +63,7 @@ struct OrganizerOptionsPanel: View {
                 Section {
                     Picker(sources: sources, selection: \.page) {
                         ForEach(profile.pagesArray) { page in
-                            Text(page.wrappedName).tag(page as Page?)
+                            page.displayName.tag(page as Page?)
                         }
                     } label: {
                         Text("Page", comment: "Picker label.")

@@ -30,7 +30,7 @@ struct PageNavLink: View {
                 WithItems(scopeObject: page, readFilter: false) { items in
                     #if os(macOS)
                     TextField(text: $page.wrappedName) {
-                        Text(page.wrappedName)
+                        page.displayName
                     }
                     .onSubmit {
                         if viewContext.hasChanges {
@@ -43,7 +43,7 @@ struct PageNavLink: View {
                     }
                     .badge(items.count)
                     #else
-                    Text(page.wrappedName).badge(items.count)
+                    page.displayName.badge(items.count)
                     #endif
                 }
             } icon: {

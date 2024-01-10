@@ -17,7 +17,7 @@ struct SidebarFeed: View {
         Label {
             #if os(macOS)
             TextField(text: $feed.wrappedTitle) { 
-                Text(feed.wrappedTitle)
+                feed.displayTitle
             }
             .onSubmit {
                 if viewContext.hasChanges {
@@ -29,7 +29,7 @@ struct SidebarFeed: View {
                 }
             }
             #else
-            Text(feed.wrappedTitle)
+            feed.displayTitle
             #endif
         } icon: {
             FeedFavicon(feed: feed)

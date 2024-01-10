@@ -44,7 +44,7 @@ struct Organizer: View {
                             }
                         } header: {
                             Label {
-                                Text(page.wrappedName)
+                                page.displayName
                             } icon: {
                                 Image(systemName: page.wrappedSymbol)
                             }

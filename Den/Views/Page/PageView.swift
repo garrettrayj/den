@@ -70,6 +70,7 @@ struct PageView: View {
                     }
                 }
                 .frame(minWidth: minDetailColumnWidth)
+                .navigationTitle(page.displayName)
                 .navigationTitle($page.wrappedName)
                 .toolbar {
                     PageToolbar(

@@ -68,6 +68,7 @@ struct FeedView: View {
                             items: items
                         )
                     }
+                    .navigationTitle(feed.displayTitle)
                     .navigationTitle($feed.wrappedTitle)
                     .inspector(isPresented: $showingInspector) {
                         FeedInspector(feed: feed, profile: profile)
