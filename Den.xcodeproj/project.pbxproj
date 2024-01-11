@@ -2074,7 +2074,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WebExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Den Web Extension";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "${COPYRIGHT}";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2020-2024 Garrett Johnson";
 				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2112,7 +2112,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WebExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Den Web Extension";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "${COPYRIGHT}";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2020-2024 Garrett Johnson";
 				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

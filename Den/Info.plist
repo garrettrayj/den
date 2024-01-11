@@ -57,7 +57,7 @@
 		<true/>
 	</dict>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2023 Garrett Johnson</string>
+	<string>Copyright © 2020-2024 Garrett Johnson</string>
 	<key>SUEnableInstallerLauncherService</key>
 	<true/>
 	<key>SUFeedURL</key>
