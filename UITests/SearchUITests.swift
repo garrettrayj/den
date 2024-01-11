@@ -13,12 +13,11 @@ final class SearchUITests: UITestCase {
         let app = launchApp(inMemory: false)
         app.buttons["SelectProfile"].firstMatch.tap()
 
-        app.buttons["InboxNavLink"].tap()
-
-        hideSidebar(app)
-        
         #if os(iOS)
-        app.swipeDown()
+        let firstCell = app.cells.element(boundBy: 0)
+        let start = firstCell.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
+        let finish = firstCell.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 3))
+        start.press(forDuration: 0, thenDragTo: finish)
         #endif
 
         let searchField = app.searchFields["Search"].firstMatch
@@ -26,38 +25,60 @@ final class SearchUITests: UITestCase {
         searchField.typeText("NASA")
         searchField.typeText("\n")
 
-        #if os(iOS)
-        if !app.staticTexts["Searching for “NASA”"].waitForExistence(timeout: 2) {
+        hideSidebar(app)
+
+        if !app.staticTexts["Search"].waitForExistence(timeout: 2) {
             XCTFail("Search title did not appear in time")
         }
-        #endif
-        
-        sleep(2)
 
+        // For unknown reasons, app.windows.firstMatch does not work on iPhone in the specific
+        // situation of taking a screenshot of search results.
+        #if os(iOS)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            attachScreenshot(of: app, named: "search")
+        } else {
+            attachScreenshot(of: app.windows.firstMatch, named: "search")
+        }
+        #else
         attachScreenshot(of: app.windows.firstMatch, named: "search")
+        #endif
     }
 
     func testSearchNoResults() throws {
-        let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
+        let app = launchApp(inMemory: true)
 
-        app.buttons["InboxNavLink"].tap()
+        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
+            XCTFail("New Profile button did not appear in time")
+        }
+        app.buttons["NewProfile"].firstMatch.tap()
+        app.buttons["CreateProfile"].firstMatch.tap()
 
-        hideSidebar(app)
-        
         #if os(iOS)
-        app.swipeDown()
+        let firstCell = app.cells.element(boundBy: 0)
+        let start = firstCell.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
+        let finish = firstCell.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 3))
+        start.press(forDuration: 0, thenDragTo: finish)
         #endif
 
         let searchField = app.searchFields["Search"].firstMatch
         searchField.tap()
-        searchField.typeText("Example 123")
+        searchField.typeText("Example")
         searchField.typeText("\n")
+
+        hideSidebar(app)
 
         if !app.staticTexts["No Results"].waitForExistence(timeout: 2) {
             XCTFail("Search status did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "search")
+        #if os(iOS)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            attachScreenshot(of: app, named: "SearchNoResults")
+        } else {
+            attachScreenshot(of: app.windows.firstMatch, named: "search-no-results")
+        }
+        #else
+        attachScreenshot(of: app.windows.firstMatch, named: "search-no-results")
+        #endif
     }
 }

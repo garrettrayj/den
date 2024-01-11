@@ -16,7 +16,7 @@ final class ItemUITests: UITestCase {
         #if os(macOS)
         app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
-        app.buttons["Science"].tap()
+        app.staticTexts["Science"].tap()
         #endif
         
         hideSidebar(app)
@@ -35,7 +35,7 @@ final class ItemUITests: UITestCase {
         #if os(macOS)
         app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
-        app.buttons["Science"].tap()
+        app.staticTexts["Science"].tap()
         #endif
         
         hideSidebar(app)

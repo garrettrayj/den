@@ -13,7 +13,7 @@ final class TrendingUITests: UITestCase {
         let app = launchApp(inMemory: false)
         app.buttons["SelectProfile"].firstMatch.tap()
 
-        app.buttons["TrendingNavLink"].tap()
+        app.staticTexts["TrendingNavLink"].tap()
 
         hideSidebar(app)
         
@@ -53,7 +53,7 @@ final class TrendingUITests: UITestCase {
         }
         #endif
 
-        app.buttons["TrendingNavLink"].tap()
+        app.staticTexts["TrendingNavLink"].tap()
 
         hideSidebar(app)
 

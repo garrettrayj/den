@@ -62,10 +62,10 @@ final class PageUITests: UITestCase {
         }
         app.buttons["SidebarPage"].firstMatch.tap()
         #else
-        if !app.collectionViews.buttons["Untitled"].waitForExistence(timeout: 2) {
+        if !app.collectionViews.staticTexts["Untitled"].waitForExistence(timeout: 2) {
             XCTFail("Page button did not appear in time")
         }
-        app.collectionViews.buttons["Untitled"].tap()
+        app.collectionViews.staticTexts["Untitled"].tap()
         #endif
 
         hideSidebar(app)
@@ -90,13 +90,11 @@ final class PageUITests: UITestCase {
         hideSidebar(app)
         
         #if os(macOS)
-        app.buttons["ToggleInspector"].firstMatch.tap()
-        app.radioButtons["Layout, Grouped"].tap()
-        app.buttons["ToggleInspector"].firstMatch.tap()
+        app.toolbars.popUpButtons.element(boundBy: 1).tap()
+        app.menuItems["GroupedLayout"].tap()
         #else
-        app.buttons["ToggleInspector"].tap()
-        app.buttons["Grouped"].tap()
-        app.buttons["ToggleInspector"].forceTap()
+        app.buttons["PageLayoutPicker"].tap()
+        app.buttons["GroupedLayout"].tap()
         #endif
 
         sleep(3)
@@ -117,13 +115,11 @@ final class PageUITests: UITestCase {
         hideSidebar(app)
         
         #if os(macOS)
-        app.buttons["ToggleInspector"].firstMatch.tap()
-        app.radioButtons["Layout, Timeline"].tap()
-        app.buttons["ToggleInspector"].firstMatch.tap()
+        app.toolbars.popUpButtons.element(boundBy: 1).tap()
+        app.menuItems["TimelineLayout"].tap()
         #else
-        app.buttons["ToggleInspector"].tap()
-        app.buttons["Timeline"].tap()
-        app.buttons["ToggleInspector"].forceTap()
+        app.buttons["PageLayoutPicker"].tap()
+        app.buttons["TimelineLayout"].tap()
         #endif
 
         sleep(3)
@@ -144,40 +140,15 @@ final class PageUITests: UITestCase {
         hideSidebar(app)
 
         #if os(macOS)
-        app.buttons["ToggleInspector"].firstMatch.tap()
-        app.radioButtons["Layout, Deck"].tap()
-        app.buttons["ToggleInspector"].firstMatch.tap()
+        app.toolbars.popUpButtons.element(boundBy: 1).tap()
+        app.menuItems["DeckLayout"].tap()
         #else
-        app.buttons["ToggleInspector"].tap()
-        app.buttons["Deck"].tap()
-        app.buttons["ToggleInspector"].forceTap()
+        app.buttons["PageLayoutPicker"].tap()
+        app.buttons["DeckLayout"].tap()
         #endif
 
         sleep(3)
 
         attachScreenshot(of: app.windows.firstMatch, named: "page-deck-layout")
-    }
-
-    func testPageInspector() throws {
-        let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
-
-        #if os(macOS)
-        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
-        #else
-        app.staticTexts["Science"].tap()
-        #endif
-        
-        hideSidebar(app)
-
-        if !app.buttons["ToggleInspector"].waitForExistence(timeout: 2) {
-            XCTFail("Page inspector button did not appear in time")
-        }
-
-        app.buttons["ToggleInspector"].firstMatch.tap()
-
-        sleep(2)
-
-        attachScreenshot(of: app.windows.firstMatch, named: "page-inspector")
     }
 }
