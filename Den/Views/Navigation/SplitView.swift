@@ -50,11 +50,7 @@ struct SplitView: View {
                 showingNewFeedSheet: $showingNewFeedSheet,
                 profiles: profiles
             )
-            #if os(macOS)
-            .navigationSplitViewColumnWidth(220)
-            #else
-            .navigationSplitViewColumnWidth(280)
-            #endif
+            .navigationSplitViewColumnWidth(min: 220, ideal: 300, max: 300)
         } detail: {
             DetailView(
                 profile: profile,

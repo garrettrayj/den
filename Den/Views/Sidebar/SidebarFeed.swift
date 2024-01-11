@@ -35,7 +35,6 @@ struct SidebarFeed: View {
             FeedFavicon(feed: feed)
         }
         .tag(DetailPanel.feed(feed))
-        #if os(macOS)
         .contentShape(Rectangle())
         .draggable(
             TransferableFeed(objectURI: feed.objectID.uriRepresentation())
@@ -43,6 +42,5 @@ struct SidebarFeed: View {
         .contextMenu {
             DeleteFeedButton(feed: feed)
         }
-        #endif
     }
 }

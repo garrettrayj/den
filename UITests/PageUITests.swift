@@ -57,10 +57,10 @@ final class PageUITests: UITestCase {
         app.buttons["CreatePage"].tap()
         
         #if os(macOS)
-        if !app.buttons["PageNavLink"].waitForExistence(timeout: 2) {
+        if !app.buttons["SidebarPage"].waitForExistence(timeout: 2) {
             XCTFail("Page button did not appear in time")
         }
-        app.buttons["PageNavLink"].firstMatch.tap()
+        app.buttons["SidebarPage"].firstMatch.tap()
         #else
         if !app.collectionViews.buttons["Untitled"].waitForExistence(timeout: 2) {
             XCTFail("Page button did not appear in time")
@@ -82,7 +82,7 @@ final class PageUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
+        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif
@@ -109,7 +109,7 @@ final class PageUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
+        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif
@@ -136,7 +136,7 @@ final class PageUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
+        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif
@@ -163,7 +163,7 @@ final class PageUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "PageNavLink").element(boundBy: 4).tap()
+        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif

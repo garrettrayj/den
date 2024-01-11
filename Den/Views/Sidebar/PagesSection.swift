@@ -20,7 +20,7 @@ struct PagesSection: View {
     var body: some View {
         Section {
             ForEach(profile.pagesArray) { page in
-                PageNavLink(
+                SidebarPage(
                     page: page,
                     newFeedPageID: $newFeedPageID,
                     newFeedWebAddress: $newFeedWebAddress,

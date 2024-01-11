@@ -1,5 +1,5 @@
 //
-//  PageNavLink.swift
+//  SidebarPage.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/29/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PageNavLink: View {
+struct SidebarPage: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page
@@ -49,7 +49,7 @@ struct PageNavLink: View {
             } icon: {
                 Image(systemName: page.wrappedSymbol)
             }
-            .accessibilityIdentifier("PageNavLink")
+            .accessibilityIdentifier("SidebarPage")
             .contentShape(Rectangle())
             .onDrop(
                 of: [.denFeed, .url, .text],
