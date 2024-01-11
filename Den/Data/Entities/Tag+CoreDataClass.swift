@@ -11,16 +11,16 @@ import SwiftUI
 
 @objc(Tag)
 public class Tag: NSManagedObject {
-    public var nameText: Text {
+    public var displayName: Text {
         if wrappedName == "" {
             return Text("Untitled", comment: "Default tag name.")
         }
 
-        return Text(wrappedName.replacingOccurrences(of: " ", with: "\u{00A0}"))
+        return Text(wrappedName)
     }
 
     public var wrappedName: String {
-        get { name ?? "" }
+        get { name?.trimmingCharacters(in: .whitespaces) ?? "" }
         set { name = newValue }
     }
 

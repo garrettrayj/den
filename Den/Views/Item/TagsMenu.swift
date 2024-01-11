@@ -30,7 +30,7 @@ struct TagsMenu: View {
                                 CrashUtility.handleCriticalError(error as NSError)
                             }
                         } label: {
-                            Label { tag.nameText } icon: {
+                            Label { tag.displayName } icon: {
                                 Image(systemName: "tag.fill")
                             }
                         }
@@ -47,7 +47,7 @@ struct TagsMenu: View {
                                 CrashUtility.handleCriticalError(error as NSError)
                             }
                         } label: {
-                            Label { tag.nameText } icon: {
+                            Label { tag.displayName } icon: {
                                 Image(systemName: "tag")
                             }
                         }

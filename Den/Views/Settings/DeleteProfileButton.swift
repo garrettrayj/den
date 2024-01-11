@@ -19,15 +19,11 @@ struct DeleteProfileButton: View {
         Button(role: .destructive) {
             showingAlert = true
         } label: {
-            Label {
-                Text("Delete Profile", comment: "Button label.")
-            } icon: {
-                #if os(macOS)
-                Image(systemName: "minus")
-                #else
-                Image(systemName: "person.badge.minus")
-                #endif
-            }
+            #if os(macOS)
+            DeleteLabel(symbol: "minus")
+            #else
+            DeleteLabel(symbol: "person.badge.minus")
+            #endif
         }
         .alert(
             Text("Delete Profile?", comment: "Alert title."),
@@ -43,7 +39,7 @@ struct DeleteProfileButton: View {
                 Button(role: .destructive) {
                     delete()
                 } label: {
-                    Text("Delete", comment: "Button label.")
+                    DeleteLabel()
                 }
                 .accessibilityIdentifier("ConfirmDeleteProfile")
             },

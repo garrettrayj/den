@@ -31,15 +31,11 @@ struct DeleteBlocklistButton: View {
                 }
             }
         } label: {
-            Label {
-                Text("Delete Blocklist", comment: "Button label.")
-            } icon: {
-                #if os(macOS)
-                Image(systemName: "minus")
-                #else
-                Image(systemName: "trash")
-                #endif
-            }
+            #if os(macOS)
+            DeleteLabel(symbol: "minus")
+            #else
+            DeleteLabel()
+            #endif
         }
     }
 }

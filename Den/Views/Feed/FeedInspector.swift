@@ -20,7 +20,96 @@ struct FeedInspector: View {
 
     var body: some View {
         Form {
-            previewsSection
+            Section {
+                Picker(selection: $feed.itemLimitChoice) {
+                    ForEach(ItemLimit.allCases, id: \.self) { choice in
+                        Text(verbatim: "\(choice.rawValue)").tag(choice)
+                    }
+                } label: {
+                    Text("Featured Items", comment: "Picker label.")
+                }
+                .onChange(of: feed.itemLimit) {
+                    itemLimitHasChanged = true
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            } header: {
+                Text("Limits", comment: "Section header.")
+            }
+            
+            Section {
+                Toggle(isOn: $feed.largePreviews) {
+                    Text("Large Previews", comment: "Toggle label.")
+                }
+                .onChange(of: feed.previewStyle) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+                .accessibilityIdentifier("LargePreviews")
+
+                if feed.largePreviews {
+                    Toggle(isOn: $feed.showExcerpts) {
+                        Text("Show Excerpts", comment: "Toggle label.")
+                    }
+                    .onChange(of: feed.hideTeasers) {
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
+                    }
+                }
+
+                Toggle(isOn: $feed.showBylines) {
+                    Text("Show Bylines", comment: "Toggle label.")
+                }
+                .onChange(of: feed.hideBylines) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+
+                Toggle(isOn: $feed.showImages) {
+                    Text("Show Images", comment: "Toggle label.")
+                }
+                .onChange(of: feed.hideImages) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            } header: {
+                Text("Previews", comment: "Inspector section header.")
+            } footer: {
+                VStack(alignment: .leading, spacing: 8) {
+                    #if os(iOS)
+                    if useSystemBrowser == true {
+                        Text(
+                            "System web browser in use. \"Reader Mode\" is ignored.",
+                            comment: "Feed inspector guidance."
+                        ).font(.footnote)
+                    }
+                    #endif
+                    if itemLimitHasChanged {
+                        Text(
+                            "Item limit change will be applied on next refresh.",
+                            comment: "Feed inspector guidance."
+                        )
+                    }
+                }
+                .font(.footnote)
+                .foregroundColor(.secondary)
+                Spacer(minLength: 0)
+            }
 
             Section {
                 Toggle(isOn: $feed.readerMode) {
@@ -63,93 +152,5 @@ struct FeedInspector: View {
         #if os(iOS)
         .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
         #endif
-    }
-
-    private var previewsSection: some View {
-        Section {
-            Picker(selection: $feed.itemLimitChoice) {
-                ForEach(ItemLimit.allCases, id: \.self) { choice in
-                    Text(verbatim: "\(choice.rawValue)").tag(choice)
-                }
-            } label: {
-                Text("Item Limit", comment: "Picker label.")
-            }
-            .onChange(of: feed.itemLimit) {
-                itemLimitHasChanged = true
-                do {
-                    try viewContext.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            }
-            Toggle(isOn: $feed.largePreviews) {
-                Text("Large Previews", comment: "Toggle label.")
-            }
-            .onChange(of: feed.previewStyle) {
-                do {
-                    try viewContext.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            }
-            .accessibilityIdentifier("LargePreviews")
-
-            if feed.largePreviews {
-                Toggle(isOn: $feed.showExcerpts) {
-                    Text("Show Excerpts", comment: "Toggle label.")
-                }
-                .onChange(of: feed.hideTeasers) {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            }
-
-            Toggle(isOn: $feed.showBylines) {
-                Text("Show Bylines", comment: "Toggle label.")
-            }
-            .onChange(of: feed.hideBylines) {
-                do {
-                    try viewContext.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            }
-
-            Toggle(isOn: $feed.showImages) {
-                Text("Show Images", comment: "Toggle label.")
-            }
-            .onChange(of: feed.hideImages) {
-                do {
-                    try viewContext.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            }
-        } header: {
-            Text("Previews", comment: "Inspector section header.")
-        } footer: {
-            VStack(alignment: .leading, spacing: 8) {
-                #if os(iOS)
-                if useSystemBrowser == true {
-                    Text(
-                        "System web browser in use. \"Reader Mode\" is ignored.",
-                        comment: "Feed inspector guidance."
-                    ).font(.footnote)
-                }
-                #endif
-                if itemLimitHasChanged {
-                    Text(
-                        "Item limit change will be applied on next refresh.",
-                        comment: "Feed inspector guidance."
-                    )
-                }
-            }
-            .font(.footnote)
-            .foregroundColor(.secondary)
-            Spacer(minLength: 0)
-        }
     }
 }

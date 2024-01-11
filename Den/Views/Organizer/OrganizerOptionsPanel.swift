@@ -26,8 +26,13 @@ struct OrganizerOptionsPanel: View {
                             Text(verbatim: "\(choice.rawValue)").tag(choice)
                         }
                     } label: {
-                        Text("Item Limit", comment: "Picker label.")
+                        Text("Featured Items", comment: "Picker label.")
                     }
+                } header: {
+                    Text("Limits", comment: "Section header.")
+                }
+                
+                Section {
                     Toggle(sources: sources, isOn: \.largePreviews) {
                         Text("Large Previews", comment: "Toggle label.")
                     }
@@ -87,12 +92,7 @@ struct OrganizerOptionsPanel: View {
                             CrashUtility.handleCriticalError(error as NSError)
                         }
                     } label: {
-                        Label {
-                            Text("Delete Feeds", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "trash")
-                        }
-                        .symbolRenderingMode(.multicolor)
+                        DeleteLabel()
                     }
                     .buttonStyle(.borderless)
                 } header: {

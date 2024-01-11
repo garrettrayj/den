@@ -24,12 +24,7 @@ struct DeletePageButton: View {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         } label: {
-            Label {
-                Text("Delete", comment: "Button label.")
-            } icon: {
-                Image(systemName: "trash")
-            }
-            .symbolRenderingMode(.multicolor)
+            DeleteLabel()
         }
         .buttonStyle(.borderless)
         .accessibilityIdentifier("DeletePage")

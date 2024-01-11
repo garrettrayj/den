@@ -53,7 +53,14 @@ struct TagView: View {
                     }
                 }
             }
-            .navigationTitle(tag.nameText)
+            .navigationTitle(tag.displayName)
+            .navigationTitle($tag.wrappedName)
+            .toolbar {
+                ToolbarTitleMenu {
+                    RenameButton()
+                    DeleteTagButton(tag: tag)
+                }
+            }
         }
     }
 }

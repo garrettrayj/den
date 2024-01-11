@@ -22,14 +22,9 @@ struct DeleteTagButton: View {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         } label: {
-            Label {
-                Text("Delete Tag", comment: "Button label.")
-            } icon: {
-                Image(systemName: "tag.slash")
-            }
-            .symbolRenderingMode(.multicolor)
+            DeleteLabel()
         }
         .buttonStyle(.borderless)
-        .accessibilityIdentifier("DeletePage")
+        .accessibilityIdentifier("DeleteTag")
     }
 }
