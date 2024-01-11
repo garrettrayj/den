@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <opml version="1.0" xmlns:den="https://den.io/xml/opml">
 	<head>
-		<title>Demo Jan 9, 2024 at 11:26 PM</title>
+		<title>Demo Jan 10, 2024 at 10:18 PM</title>
 	</head>
 	<body>
-		<outline den:icon="globe" text="World News" title="World News">
+		<outline den:icon="globe" text="World" title="World">
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="TIME" title="TIME" type="rss" xmlUrl="https://api.time.com/world/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="DER SPIEGEL" title="DER SPIEGEL" type="rss" xmlUrl="https://www.spiegel.de/international/index.rss" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Semafor" title="Semafor" type="rss" xmlUrl="http://semafor.com/rss.xml" />
@@ -21,12 +21,10 @@
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="BBC News" title="BBC News" type="rss" xmlUrl="https://feeds.bbci.co.uk/news/world/rss.xml" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="The Guardian" title="The Guardian" type="rss" xmlUrl="https://www.theguardian.com/world/rss" />
 		</outline>
-		<outline den:icon="newspaper" text="US News" title="US News">
-			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="PBS NewsHour " title="PBS NewsHour " type="rss" xmlUrl="https://www.pbs.org/newshour/feeds/rss/headlines" />
+		<outline den:icon="newspaper" text="USA" title="USA">
+			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="PBS NewsHour" title="PBS NewsHour" type="rss" xmlUrl="https://www.pbs.org/newshour/feeds/rss/headlines" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="NPR" title="NPR" type="rss" xmlUrl="https://feeds.npr.org/1003/rss.xml" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Axios" title="Axios" type="rss" xmlUrl="https://api.axios.com/feed/" />
-			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Mother Jones" title="Mother Jones" type="rss" xmlUrl="https://www.motherjones.com/feed/" />
-			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Voice of America" title="Voice of America" type="rss" xmlUrl="https://www.voanews.com/api/zqbomekvi_" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Washington Examiner" title="Washington Examiner" type="rss" xmlUrl="https://www.washingtonexaminer.com/news.rss" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="The Washington Times" title="The Washington Times" type="atom" xmlUrl="https://www.washingtontimes.com/atom/headlines/news/national/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="The Hill" title="The Hill" type="rss" xmlUrl="https://thehill.com/news/feed/" />
@@ -41,6 +39,7 @@
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="New York Post" title="New York Post" type="rss" xmlUrl="https://nypost.com/news/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Reason.com" title="Reason.com" type="rss" xmlUrl="https://reason.com/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="SCOTUSblog" title="SCOTUSblog" type="rss" xmlUrl="https://www.scotusblog.com/feed/" />
+			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Mother Jones" title="Mother Jones" type="rss" xmlUrl="https://www.motherjones.com/feed/" />
 		</outline>
 		<outline den:icon="cpu" text="Technology" title="Technology">
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="GeekWire" title="GeekWire" type="rss" xmlUrl="https://www.geekwire.com/feed/" />
