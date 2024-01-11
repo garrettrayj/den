@@ -14,7 +14,7 @@ final class ItemUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif
@@ -33,7 +33,7 @@ final class ItemUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif

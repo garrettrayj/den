@@ -14,7 +14,7 @@ final class FeedUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -37,9 +37,15 @@ final class FeedUITests: UITestCase {
 
         app.buttons["FeedNavLink"].firstMatch.tap()
 
+        #if os(macOS)
+        if !app.staticTexts["Futurity"].waitForExistence(timeout: 2) {
+            XCTFail("Feed title did not appear in time")
+        }
+        #else
         if !app.buttons["Futurity"].waitForExistence(timeout: 2) {
             XCTFail("Feed title did not appear in time")
         }
+        #endif
 
         attachScreenshot(of: app.windows.firstMatch, named: "feed-view-compressed")
     }
@@ -49,7 +55,7 @@ final class FeedUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif
@@ -58,9 +64,15 @@ final class FeedUITests: UITestCase {
 
         app.buttons["FeedNavLink"].firstMatch.tap()
 
+        #if os(macOS)
+        if !app.staticTexts["Futurity"].waitForExistence(timeout: 2) {
+            XCTFail("Feed title did not appear in time")
+        }
+        #else
         if !app.buttons["Futurity"].waitForExistence(timeout: 2) {
             XCTFail("Feed title did not appear in time")
         }
+        #endif
 
         #if os(macOS)
         app.buttons["ToggleInspector"].firstMatch.tap()
@@ -89,7 +101,7 @@ final class FeedUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif
@@ -124,7 +136,7 @@ final class FeedUITests: UITestCase {
         app.buttons["LoadDemo"].tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif

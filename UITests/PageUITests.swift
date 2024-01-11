@@ -57,10 +57,10 @@ final class PageUITests: UITestCase {
         app.buttons["CreatePage"].tap()
         
         #if os(macOS)
-        if !app.buttons["SidebarPage"].waitForExistence(timeout: 2) {
+        if !app.textFields["SidebarPage"].waitForExistence(timeout: 2) {
             XCTFail("Page button did not appear in time")
         }
-        app.buttons["SidebarPage"].firstMatch.tap()
+        app.textFields["SidebarPage"].firstMatch.tap()
         #else
         if !app.collectionViews.staticTexts["Untitled"].waitForExistence(timeout: 2) {
             XCTFail("Page button did not appear in time")
@@ -82,7 +82,7 @@ final class PageUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif
@@ -107,7 +107,7 @@ final class PageUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif
@@ -132,7 +132,7 @@ final class PageUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.buttons.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif
