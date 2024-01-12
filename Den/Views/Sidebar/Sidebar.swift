@@ -124,7 +124,7 @@ struct Sidebar: View {
             }
             .padding(12)
             .background(alignment: .top) {
-                Divider().opacity(0.75)
+                Rectangle().fill(BackgroundSeparatorShapeStyle()).frame(height: 1)
             }
         }
         #endif

@@ -269,6 +269,7 @@
 		68CC300F2B4CC65000A038AA /* WithTrends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC300E2B4CC65000A038AA /* WithTrends.swift */; };
 		68CE433C2B4FCA8A00C69B7B /* DeleteLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE433B2B4FCA8A00C69B7B /* DeleteLabel.swift */; };
 		68CE433E2B50EC6E00C69B7B /* FeedLayoutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE433D2B50EC6E00C69B7B /* FeedLayoutSection.swift */; };
+		68CE43402B51BA9400C69B7B /* BackgroundSeparatorShapeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE433F2B51BA9400C69B7B /* BackgroundSeparatorShapeStyle.swift */; };
 		68D17EE42A43F29100AF8A73 /* PageIconCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE32A43F29100AF8A73 /* PageIconCategory.swift */; };
 		68D17EE82A459E7000AF8A73 /* PasteboardUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */; };
 		68D286292A64223A007AD876 /* SidebarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D286282A64223A007AD876 /* SidebarUITests.swift */; };
@@ -644,6 +645,7 @@
 		68CC300E2B4CC65000A038AA /* WithTrends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithTrends.swift; sourceTree = "<group>"; };
 		68CE433B2B4FCA8A00C69B7B /* DeleteLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLabel.swift; sourceTree = "<group>"; };
 		68CE433D2B50EC6E00C69B7B /* FeedLayoutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLayoutSection.swift; sourceTree = "<group>"; };
+		68CE433F2B51BA9400C69B7B /* BackgroundSeparatorShapeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundSeparatorShapeStyle.swift; sourceTree = "<group>"; };
 		68D17EE32A43F29100AF8A73 /* PageIconCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIconCategory.swift; sourceTree = "<group>"; };
 		68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardUtility.swift; sourceTree = "<group>"; };
 		68D286272A634183007AD876 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -762,6 +764,7 @@
 				681AEAF829954AC70054B084 /* FeedHero.swift */,
 				688FD930247A34830006A2DE /* FeedInspector.swift */,
 				6870EBDA29C9556400E15154 /* FeedLayout.swift */,
+				68CE433D2B50EC6E00C69B7B /* FeedLayoutSection.swift */,
 				687FEF152A416F2C0042977E /* FeedNavLink.swift */,
 				6885C42126D37259002C41B0 /* FeedTitleLabel.swift */,
 				68FF63F12921D88F0012A275 /* FeedToolbar.swift */,
@@ -769,7 +772,6 @@
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
 				683E3F44293BC02A00B16814 /* NewFeedButton.swift */,
 				68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */,
-				68CE433D2B50EC6E00C69B7B /* FeedLayoutSection.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1034,6 +1036,7 @@
 				687C27962634A84600099FCA /* Modifiers */,
 				68B34A5C2486D2710066B215 /* Representables */,
 				688FD91B24780C800006A2DE /* Styles */,
+				68CE433F2B51BA9400C69B7B /* BackgroundSeparatorShapeStyle.swift */,
 				6820507D2ACB530600C937BE /* BrowserViewModel.swift */,
 				6863A4002AC6E37400A7DC61 /* Columnizer.swift */,
 				682050742AC773E200C937BE /* ImageSize.swift */,
@@ -1295,6 +1298,7 @@
 				68E6C5612A6C86D300CA46B2 /* CompactContentUnavailable.swift */,
 				68DA79292B03CB4F0088DA33 /* ContentUnavailable.swift */,
 				686115022B44268400BC2235 /* CopyLinkButton.swift */,
+				68CE433B2B4FCA8A00C69B7B /* DeleteLabel.swift */,
 				68FF63F52921DB900012A275 /* FilterReadButton.swift */,
 				68D486BD26C9896300AF5B59 /* IconSelector.swift */,
 				6856DB3B2AB7FB510094615E /* IconSelectorButton.swift */,
@@ -1311,7 +1315,6 @@
 				687FEF172A421B190042977E /* WebAddressTextField.swift */,
 				680F494F29AA56BE0083B664 /* WithItems.swift */,
 				68CC300E2B4CC65000A038AA /* WithTrends.swift */,
-				68CE433B2B4FCA8A00C69B7B /* DeleteLabel.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -1701,6 +1704,7 @@
 				682591F629D805FB00E5EF3B /* AtomFeedMetaUpdate.swift in Sources */,
 				68B6CBE62910BD0E00B5E3AB /* AtomFeedUpdate.swift in Sources */,
 				68B6CBE82910C54500B5E3AB /* AtomItemLoad.swift in Sources */,
+				68CE43402B51BA9400C69B7B /* BackgroundSeparatorShapeStyle.swift in Sources */,
 				6895C98E2A880D6600BD4C21 /* BasicHoverButtonStyle.swift in Sources */,
 				684152642AD9E18D00ABE5E2 /* Blocklist+CoreDataClass.swift in Sources */,
 				684152122AD0036600ABE5E2 /* BlocklistManager.swift in Sources */,
@@ -1743,6 +1747,7 @@
 				68ED798529C29B2700D85B4F /* DeckLayout.swift in Sources */,
 				685EB39A2AFB5997001683E3 /* DeleteBlocklistButton.swift in Sources */,
 				6856DB452AB8EE7F0094615E /* DeleteFeedButton.swift in Sources */,
+				68CE433C2B4FCA8A00C69B7B /* DeleteLabel.swift in Sources */,
 				6856DB3F2AB8DC3D0094615E /* DeletePageButton.swift in Sources */,
 				685EB3942AFB5015001683E3 /* DeleteProfileButton.swift in Sources */,
 				6856DB482AB922AB0094615E /* DeleteTagButton.swift in Sources */,
@@ -1764,11 +1769,11 @@
 				681AEAF929954AC70054B084 /* FeedHero.swift in Sources */,
 				688FD931247A34830006A2DE /* FeedInspector.swift in Sources */,
 				68F6FB9729ADDA41001F74B9 /* FeedItemCompressed.swift in Sources */,
-				68CE433C2B4FCA8A00C69B7B /* DeleteLabel.swift in Sources */,
 				6880EBC327A46C2200B479F4 /* FeedItemExpanded.swift in Sources */,
 				6863A3FD2AC5A63400A7DC61 /* FeedItemGroup.swift in Sources */,
 				6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */,
 				6870EBDC29C9556500E15154 /* FeedLayout.swift in Sources */,
+				68CE433E2B50EC6E00C69B7B /* FeedLayoutSection.swift in Sources */,
 				687FEF162A416F2C0042977E /* FeedNavLink.swift in Sources */,
 				68701DF3273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift in Sources */,
 				6885C42226D37259002C41B0 /* FeedTitleLabel.swift in Sources */,
@@ -1938,7 +1943,6 @@
 				6856DAFC2AB587410094615E /* TransferableItem.swift in Sources */,
 				68F56B77288C0D1A006EC915 /* Trend+CoreDataClass.swift in Sources */,
 				6825920329D82BD500E5EF3B /* TrendAnalysis.swift in Sources */,
-				68CE433E2B50EC6E00C69B7B /* FeedLayoutSection.swift in Sources */,
 				68F56B452870C067006EC915 /* TrendBlock.swift in Sources */,
 				68F56B3D286F5C20006EC915 /* Trending.swift in Sources */,
 				686F6B082B38B5210099EB49 /* TrendingLayout.swift in Sources */,
