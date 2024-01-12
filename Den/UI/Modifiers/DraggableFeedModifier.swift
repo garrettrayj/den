@@ -12,14 +12,8 @@ struct DraggableFeedModifier: ViewModifier {
     @ObservedObject var feed: Feed
 
     func body(content: Content) -> some View {
-        if let feedURL = feed.url {
-            content
-                .contentShape(Rectangle())
-                .draggable(
-                    TransferableFeed(objectURI: feed.objectID.uriRepresentation())
-                )
-        } else {
-            content
-        }
+        content
+            .contentShape(Rectangle())
+            .draggable(TransferableFeed(objectURI: feed.objectID.uriRepresentation()))
     }
 }

@@ -19,38 +19,41 @@ struct FeedHero: View {
     let url: URL
 
     var body: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 0) {
-                Spacer()
-                WebImage(
-                    url: url,
-                    options: [.decodeFirstFrameOnly, .delayPlaceholder]
-                ) { image in
-                    image.resizable().scaledToFit()
-                } placeholder: {
-                    ImageErrorPlaceholder()
+        WebImage(
+            url: url,
+            options: [.decodeFirstFrameOnly, .delayPlaceholder]
+        ) { image in
+            VStack(spacing: 0) {
+                ZStack {
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .shadow(color: .black.opacity(0.25), radius: 3, y: 1)
+                        .padding()
+                        .opacity(opacity)
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .shadow(color: .black.opacity(0.25), radius: 3, y: 1)
-                .padding(.vertical)
-                .padding(.horizontal, 8)
-                .opacity(opacity)
-                Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background {
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .background(.background)
+                        .overlay(.thinMaterial)
+                }
+                .clipped()
+                .grayscale(grayscale)
+                
+                Divider()
             }
-            .aspectRatio(16/9, contentMode: .fit)
-            .frame(maxHeight: 200)
-            .background {
-                WebImage(url: url, options: [.decodeFirstFrameOnly])
-                    .resizable()
-                    .scaledToFill()
-                    .background(.background)
-                    .overlay(.thinMaterial)
-            }
-            .clipped()
-            .grayscale(grayscale)
             
-            Divider()
+        } placeholder: {
+            VStack {
+                ImageErrorPlaceholder()
+                Divider()
+            }
         }
+        .frame(height: 200)
     }
     
     private var grayscale: CGFloat {

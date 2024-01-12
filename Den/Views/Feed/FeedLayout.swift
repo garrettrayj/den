@@ -38,9 +38,14 @@ struct FeedLayout: View {
                                 feed: feed,
                                 hideRead: $hideRead,
                                 geometry: geometry,
-                                header: Text("Featured"),
                                 items: items.featured()
-                            )
+                            ) {
+                                Label {
+                                    Text("Featured")
+                                } icon: {
+                                    Image(systemName: "lamp.desk")
+                                }
+                            }
                         }
                         
                         if !items.extra().isEmpty {
@@ -48,9 +53,14 @@ struct FeedLayout: View {
                                 feed: feed,
                                 hideRead: $hideRead,
                                 geometry: geometry,
-                                header: Text("Extra"),
                                 items: items.extra()
-                            )
+                            ) {
+                                Label {
+                                    Text("Extra")
+                                } icon: {
+                                    Image(systemName: "archivebox")
+                                }
+                            }
                         }
                     }
                     

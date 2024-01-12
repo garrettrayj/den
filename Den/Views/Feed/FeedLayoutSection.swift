@@ -8,14 +8,20 @@
 
 import SwiftUI
 
-struct FeedLayoutSection: View {
+struct FeedLayoutSection<Header: View>: View {
+    #if os(macOS)
+    @Environment(\.controlActiveState) private var controlActiveState
+    #endif
+    @Environment(\.isEnabled) private var isEnabled
+    
     @ObservedObject var feed: Feed
     
     @Binding var hideRead: Bool
     
     let geometry: GeometryProxy
-    let header: Text
     let items: [Item]
+    
+    @ViewBuilder var header: Header
     
     var body: some View {
         Section {
@@ -38,12 +44,28 @@ struct FeedLayoutSection: View {
             }
         } header: {
             HStack {
-                header.font(.title2.weight(.medium))
+                header.font(.title3).foregroundStyle(headerForeground)
                 Spacer()
             }
             .padding(.horizontal)
             .padding(.vertical, 12)
-            .background(.fill.tertiary)
+            .background(.fill.quaternary)
         }
+    }
+    
+    private var headerForeground: HierarchicalShapeStyle {
+        #if os(macOS)
+        if controlActiveState == .inactive || !isEnabled {
+            return .tertiary
+        } else {
+            return .primary
+        }
+        #else
+        if !isEnabled {
+            return .tertiary
+        } else {
+            return .primary
+        }
+        #endif
     }
 }
