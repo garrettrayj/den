@@ -15,7 +15,6 @@ struct FeedInspector: View {
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
-    @State private var itemLimitHasChanged: Bool = false
     @State private var showingHideTeaserOption: Bool = false
 
     var body: some View {
@@ -29,9 +28,19 @@ struct FeedInspector: View {
                     Text("Featured Items", comment: "Picker label.")
                 }
                 .onChange(of: feed.itemLimit) {
-                    itemLimitHasChanged = true
+                    if let feedData = feed.feedData {
+                        for (idx, item) in feedData.itemsArray.enumerated() {
+                            if idx + 1 > feed.wrappedItemLimit {
+                                item.extra = true
+                            } else {
+                                item.extra = false
+                            }
+                        }
+                    }
+
                     do {
                         try viewContext.save()
+                        feed.objectWillChange.send()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
@@ -89,26 +98,6 @@ struct FeedInspector: View {
                 }
             } header: {
                 Text("Previews", comment: "Inspector section header.")
-            } footer: {
-                VStack(alignment: .leading, spacing: 8) {
-                    #if os(iOS)
-                    if useSystemBrowser == true {
-                        Text(
-                            "System web browser in use. \"Reader Mode\" is ignored.",
-                            comment: "Feed inspector guidance."
-                        ).font(.footnote)
-                    }
-                    #endif
-                    if itemLimitHasChanged {
-                        Text(
-                            "Item limit change will be applied on next refresh.",
-                            comment: "Feed inspector guidance."
-                        )
-                    }
-                }
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                Spacer(minLength: 0)
             }
 
             Section {

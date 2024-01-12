@@ -268,6 +268,7 @@
 		68CC30072B4A19DA00A038AA /* SidebarFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC30062B4A19DA00A038AA /* SidebarFeed.swift */; };
 		68CC300F2B4CC65000A038AA /* WithTrends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC300E2B4CC65000A038AA /* WithTrends.swift */; };
 		68CE433C2B4FCA8A00C69B7B /* DeleteLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE433B2B4FCA8A00C69B7B /* DeleteLabel.swift */; };
+		68CE433E2B50EC6E00C69B7B /* FeedLayoutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE433D2B50EC6E00C69B7B /* FeedLayoutSection.swift */; };
 		68D17EE42A43F29100AF8A73 /* PageIconCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE32A43F29100AF8A73 /* PageIconCategory.swift */; };
 		68D17EE82A459E7000AF8A73 /* PasteboardUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */; };
 		68D286292A64223A007AD876 /* SidebarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D286282A64223A007AD876 /* SidebarUITests.swift */; };
@@ -642,6 +643,7 @@
 		68CC30062B4A19DA00A038AA /* SidebarFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarFeed.swift; sourceTree = "<group>"; };
 		68CC300E2B4CC65000A038AA /* WithTrends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithTrends.swift; sourceTree = "<group>"; };
 		68CE433B2B4FCA8A00C69B7B /* DeleteLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteLabel.swift; sourceTree = "<group>"; };
+		68CE433D2B50EC6E00C69B7B /* FeedLayoutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLayoutSection.swift; sourceTree = "<group>"; };
 		68D17EE32A43F29100AF8A73 /* PageIconCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIconCategory.swift; sourceTree = "<group>"; };
 		68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardUtility.swift; sourceTree = "<group>"; };
 		68D286272A634183007AD876 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -767,6 +769,7 @@
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
 				683E3F44293BC02A00B16814 /* NewFeedButton.swift */,
 				68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */,
+				68CE433D2B50EC6E00C69B7B /* FeedLayoutSection.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1935,6 +1938,7 @@
 				6856DAFC2AB587410094615E /* TransferableItem.swift in Sources */,
 				68F56B77288C0D1A006EC915 /* Trend+CoreDataClass.swift in Sources */,
 				6825920329D82BD500E5EF3B /* TrendAnalysis.swift in Sources */,
+				68CE433E2B50EC6E00C69B7B /* FeedLayoutSection.swift in Sources */,
 				68F56B452870C067006EC915 /* TrendBlock.swift in Sources */,
 				68F56B3D286F5C20006EC915 /* Trending.swift in Sources */,
 				686F6B082B38B5210099EB49 /* TrendingLayout.swift in Sources */,

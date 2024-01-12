@@ -16,12 +16,12 @@ struct ResetFeedsButton: View {
             clearData()
         } label: {
             Label {
-                Text("Clear Feed Data", comment: "Button label.")
+                Text("Erase Feed Data", comment: "Button label.")
             } icon: {
                 Image(systemName: "clear")
             }
         }
-        .accessibilityIdentifier("ClearData")
+        .accessibilityIdentifier("EraseData")
     }
 
     private func clearData() {

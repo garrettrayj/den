@@ -22,12 +22,11 @@ struct AllRead: View {
             } description: {
                 Text(
                     """
-                    Turn off filter to show hidden items.
+                    Turn off filter \(Image(systemName: "line.3.horizontal.decrease")) to show hidden items.
                     """,
                     comment: "All read guidance."
                 )
             }
-            .padding()
         } else {
             CompactContentUnavailable {
                 Label {

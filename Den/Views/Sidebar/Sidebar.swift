@@ -122,10 +122,9 @@ struct Sidebar: View {
                     refreshProgress: $refreshProgress
                 )
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
+            .padding(12)
             .background(alignment: .top) {
-                Divider().opacity(0.75).padding(.top, -1)
+                Divider().opacity(0.75)
             }
         }
         #endif

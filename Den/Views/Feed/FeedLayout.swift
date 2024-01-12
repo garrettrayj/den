@@ -24,33 +24,36 @@ struct FeedLayout: View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
                 VStack(spacing: 0) {
-                    if feed.feedData == nil || feed.feedData?.error != nil {
-                        FeedUnavailable(feedData: feed.feedData, largeDisplay: true)
+                    if let heroImage = feed.feedData?.banner {
+                        FeedHero(url: heroImage)
+                    }
+                    
+                    if items.isEmpty {
+                        FeedEmpty(largeDisplay: true).padding()
+                    } else if items.unread().isEmpty && hideRead {
+                        AllRead(largeDisplay: true).padding()
                     } else {
-                        if let heroImage = feed.feedData?.banner {
-                            FeedHero(url: heroImage)
+                        if !items.featured().isEmpty {
+                            FeedLayoutSection(
+                                feed: feed,
+                                hideRead: $hideRead,
+                                geometry: geometry,
+                                header: Text("Featured"),
+                                items: items.featured()
+                            )
                         }
-
-                        if items.isEmpty {
-                            FeedEmpty(largeDisplay: true)
-                        } else if items.unread().isEmpty && hideRead {
-                            AllRead(largeDisplay: true)
-                        } else {
-                            BoardView(
-                                width: geometry.size.width,
-                                list: items.visibilityFiltered(hideRead ? false : nil)
-                            ) { item in
-                                ItemActionView(item: item, isStandalone: true) {
-                                    if feed.wrappedPreviewStyle == .expanded {
-                                        ItemPreviewExpanded(item: item, feed: feed)
-                                    } else {
-                                        ItemPreviewCompressed(item: item, feed: feed)
-                                    }
-                                }
-                            }
-                            .modifier(SafeAreaModifier(geometry: geometry))
+                        
+                        if !items.extra().isEmpty {
+                            FeedLayoutSection(
+                                feed: feed,
+                                hideRead: $hideRead,
+                                geometry: geometry,
+                                header: Text("Extra"),
+                                items: items.extra()
+                            )
                         }
                     }
+                    
                     Divider()
                     metaSection.modifier(SafeAreaModifier(geometry: geometry))
                 }

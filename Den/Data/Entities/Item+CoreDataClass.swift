@@ -131,11 +131,11 @@ extension Collection where Element == Item {
         self.filter { $0.read == false }
     }
 
-    func previews() -> [Item] {
+    func featured() -> [Item] {
         self.filter { $0.extra == false }
     }
 
-    func extras() -> [Item] {
+    func extra() -> [Item] {
         self.filter { $0.extra == true }
     }
 }
