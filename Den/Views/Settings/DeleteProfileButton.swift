@@ -39,7 +39,7 @@ struct DeleteProfileButton: View {
                 Button(role: .destructive) {
                     delete()
                 } label: {
-                    DeleteLabel()
+                    Text("Delete", comment: "Button label.")
                 }
                 .accessibilityIdentifier("ConfirmDeleteProfile")
             },
