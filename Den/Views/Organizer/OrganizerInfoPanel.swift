@@ -34,15 +34,7 @@ struct OrganizerInfoPanel: View {
                 } label: {
                     Text("Secure", comment: "Organizer info panel row label.")
                 }
-                LabeledContent {
-                    if let format = feedData.format {
-                        Text(verbatim: "\(format)")
-                    } else {
-                        Text("Unknown", comment: "Organizer info panel missing data placeholder.")
-                    }
-                } label: {
-                    Text("Format", comment: "Organizer info panel row label.")
-                }
+                
                 LabeledContent {
                     if feedData.responseTime > 5 {
                         Image(systemName: "tortoise")
@@ -51,46 +43,51 @@ struct OrganizerInfoPanel: View {
                 } label: {
                     Text("Response Time", comment: "Organizer info panel row label.")
                 }
+                
                 LabeledContent {
                     Text(verbatim: "\(feedData.httpStatus)")
                 } label: {
                     Text("Status", comment: "Organizer info panel row label.")
                 }
-                LabeledContent {
-                    if let ageString = feedData.age, let age = Int(ageString) {
+                
+                if let format = feedData.format {
+                    LabeledContent {
+                        Text(verbatim: "\(format)")
+                    } label: {
+                        Text("Format", comment: "Organizer info panel row label.")
+                    }
+                }
+                
+                if let ageString = feedData.age, let age = Int(ageString) {
+                    LabeledContent {
                         Text("\(age) s", comment: "Seconds time display.")
-                    } else {
-                        Text("Unknown", comment: "Organizer info panel missing data placeholder.")
+                    } label: {
+                        Text("Age", comment: "Organizer info panel row label.")
                     }
-                } label: {
-                    Text("Age", comment: "Organizer info panel row label.")
                 }
-                LabeledContent {
-                    if let cacheControl = feedData.cacheControl {
+                
+                if let cacheControl = feedData.cacheControl {
+                    LabeledContent {
                         Text(verbatim: "\(cacheControl)")
-                    } else {
-                        Text("Unknown", comment: "Organizer info panel missing data placeholder.")
+                    } label: {
+                        Text("Cache Control", comment: "Organizer info panel row label.")
                     }
-                } label: {
-                    Text("Cache Control", comment: "Organizer info panel row label.")
                 }
-                LabeledContent {
-                    if let eTag = feedData.eTag {
+                
+                if let eTag = feedData.eTag {
+                    LabeledContent {
                         Text(verbatim: "\(eTag)")
-                    } else {
-                        Text("Unknown", comment: "Organizer info panel missing data placeholder.")
+                    } label: {
+                        Text("ETag", comment: "Organizer info panel row label.")
                     }
-                } label: {
-                    Text("ETag", comment: "Organizer info panel row label.")
                 }
-                LabeledContent {
-                    if let server = feedData.server {
+                
+                if let server = feedData.server {
+                    LabeledContent {
                         Text(verbatim: "\(server)")
-                    } else {
-                        Text("Unknown", comment: "Organizer info panel missing data placeholder.")
+                    } label: {
+                        Text("Server", comment: "Organizer info panel row label.")
                     }
-                } label: {
-                    Text("Server", comment: "Organizer info panel row label.")
                 }
             }
 
