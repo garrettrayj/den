@@ -51,21 +51,9 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.2" build-num="15C500b"/>
     </header>
     <body>
-      <trans-unit id="%@" xml:space="preserve">
-        <source>%@</source>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="%@ (%@)" xml:space="preserve">
-        <source>%1$@ (%2$@)</source>
-        <note>App marketing version and build number.</note>
-      </trans-unit>
       <trans-unit id="%@ Feeds" xml:space="preserve">
         <source>%@ Feeds</source>
         <note>Feed count (zero/plural).</note>
-      </trans-unit>
-      <trans-unit id="%@ Help" xml:space="preserve">
-        <source>%@ Help</source>
-        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="%@ Records" xml:space="preserve">
         <source>%@ Records</source>
@@ -81,16 +69,15 @@
       </trans-unit>
       <trans-unit id="%@ ms" xml:space="preserve">
         <source>%@ ms</source>
-        <note>Request response time (milliseconds).
-   Time (milliseconds).</note>
+        <note>Milliseconds time display.</note>
       </trans-unit>
       <trans-unit id="%@ of %@ Updated" xml:space="preserve">
         <source>%1$@ of %2$@ Updated</source>
-        <note>Status message.</note>
+        <note>Status message (refresh in progress).</note>
       </trans-unit>
       <trans-unit id="%@ s" xml:space="preserve">
         <source>%@ s</source>
-        <note>Time (seconds).</note>
+        <note>Seconds time display.</note>
       </trans-unit>
       <trans-unit id="%@ with Unread" xml:space="preserve">
         <source>%@ with Unread</source>
@@ -114,7 +101,7 @@
       </trans-unit>
       <trans-unit id="About" xml:space="preserve">
         <source>About</source>
-        <note>Section header.</note>
+        <note>Settings section header.</note>
       </trans-unit>
       <trans-unit id="Accent Color" xml:space="preserve">
         <source>Accent Color</source>
@@ -155,7 +142,7 @@
       </trans-unit>
       <trans-unit id="Age" xml:space="preserve">
         <source>Age</source>
-        <note>Info inspector label.</note>
+        <note>Organizer info panel row label.</note>
       </trans-unit>
       <trans-unit id="All Feeds" xml:space="preserve">
         <source>All Feeds</source>
@@ -182,7 +169,7 @@
       <trans-unit id="Analyzing…" xml:space="preserve">
         <source>Analyzing…</source>
         <target>Analysing…</target>
-        <note>Status message.</note>
+        <note>Status message (analysis in progress).</note>
       </trans-unit>
       <trans-unit id="Appearance" xml:space="preserve">
         <source>Appearance</source>
@@ -202,8 +189,8 @@
       </trans-unit>
       <trans-unit id="Blocklists" xml:space="preserve">
         <source>Blocklists</source>
-        <note>Section header.
-   Tab label.</note>
+        <note>Settings section header.
+   Settings tab label.</note>
       </trans-unit>
       <trans-unit id="Blue" xml:space="preserve">
         <source>Blue</source>
@@ -219,7 +206,7 @@
       </trans-unit>
       <trans-unit id="Cache Control" xml:space="preserve">
         <source>Cache Control</source>
-        <note>Info inspector label.</note>
+        <note>Organizer info panel row label.</note>
       </trans-unit>
       <trans-unit id="Cancel" xml:space="preserve">
         <source>Cancel</source>
@@ -264,7 +251,7 @@
       </trans-unit>
       <trans-unit id="Converted Rules" xml:space="preserve">
         <source>Converted Rules</source>
-        <note>Blocklist status label.</note>
+        <note>Blocklist status row label.</note>
       </trans-unit>
       <trans-unit id="Copied" xml:space="preserve">
         <source>Copied</source>
@@ -292,7 +279,8 @@
       </trans-unit>
       <trans-unit id="Customization" xml:space="preserve">
         <source>Customization</source>
-        <note>Section header.</note>
+        <note>New profile sheet section header.
+   Profile settings section header.</note>
       </trans-unit>
       <trans-unit id="Cyan" xml:space="preserve">
         <source>Cyan</source>
@@ -314,6 +302,10 @@
         <source>Delete Profile?</source>
         <note>Alert title.</note>
       </trans-unit>
+      <trans-unit id="Den Help" xml:space="preserve">
+        <source>Den Help</source>
+        <note>Button label.</note>
+      </trans-unit>
       <trans-unit id="Deselect All" xml:space="preserve">
         <source>Deselect All</source>
         <note>Button label.</note>
@@ -332,7 +324,7 @@
       </trans-unit>
       <trans-unit id="ETag" xml:space="preserve">
         <source>ETag</source>
-        <note>Info inspector label.</note>
+        <note>Organizer info panel row label.</note>
       </trans-unit>
       <trans-unit id="Editing" xml:space="preserve">
         <source>Editing</source>
@@ -360,7 +352,7 @@
       </trans-unit>
       <trans-unit id="Errors" xml:space="preserve">
         <source>Errors</source>
-        <note>Blocklist status label.</note>
+        <note>Blocklist status row label.</note>
       </trans-unit>
       <trans-unit id="Export OPML" xml:space="preserve">
         <source>Export OPML</source>
@@ -368,11 +360,11 @@
       </trans-unit>
       <trans-unit id="Extra" xml:space="preserve">
         <source>Extra</source>
-        <note>Section header.</note>
+        <note>Feed view section header.</note>
       </trans-unit>
       <trans-unit id="Featured" xml:space="preserve">
         <source>Featured</source>
-        <note>Section header.</note>
+        <note>Feed view section header.</note>
       </trans-unit>
       <trans-unit id="Featured Items" xml:space="preserve">
         <source>Featured Items</source>
@@ -397,7 +389,7 @@
       </trans-unit>
       <trans-unit id="Format" xml:space="preserve">
         <source>Format</source>
-        <note>Info inspector label.</note>
+        <note>Organizer info panel row label.</note>
       </trans-unit>
       <trans-unit id="Formatting" xml:space="preserve">
         <source>Formatting</source>
@@ -409,7 +401,7 @@
       </trans-unit>
       <trans-unit id="General" xml:space="preserve">
         <source>General</source>
-        <note>Tab label.</note>
+        <note>Settings tab label.</note>
       </trans-unit>
       <trans-unit id="Get Started" xml:space="preserve">
         <source>Get Started</source>
@@ -449,7 +441,7 @@
       </trans-unit>
       <trans-unit id="Icon" xml:space="preserve">
         <source>Icon</source>
-        <note>New page section header.</note>
+        <note>New page sheet section header.</note>
       </trans-unit>
       <trans-unit id="If you have used the app on another device then synchronization may be in progress. Please wait a minute. &#10;&#10;If you are new or cloud sync is disabled then create a profile to begin." xml:space="preserve">
         <source>If you have used the app on another device then synchronization may be in progress. Please wait a minute. 
@@ -504,7 +496,8 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Limits" xml:space="preserve">
         <source>Limits</source>
-        <note>Section header.</note>
+        <note>Feed inspector section header.
+   Organizer configuration panel section header.</note>
       </trans-unit>
       <trans-unit id="Load Demo" xml:space="preserve">
         <source>Load Demo</source>
@@ -512,7 +505,7 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Look &amp; Feel" xml:space="preserve">
         <source>Look &amp; Feel</source>
-        <note>Section header.</note>
+        <note>Settings section header.</note>
       </trans-unit>
       <trans-unit id="Manage separate collections of feeds, pages and tags." xml:space="preserve">
         <source>Manage separate collections of feeds, pages and tags.</source>
@@ -520,7 +513,8 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Management" xml:space="preserve">
         <source>Management</source>
-        <note>Section header.</note>
+        <note>Organizer configuration panel section header.
+   Profile settings section header.</note>
       </trans-unit>
       <trans-unit id="Mark Read" xml:space="preserve">
         <source>Mark Read</source>
@@ -552,7 +546,7 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Move" xml:space="preserve">
         <source>Move</source>
-        <note>Inspector section header.</note>
+        <note>Organizer configuration panel section header.</note>
       </trans-unit>
       <trans-unit id="Multiple Selected" xml:space="preserve">
         <source>Multiple Selected</source>
@@ -560,10 +554,12 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
         <source>Name</source>
-        <note>New page section header.
-   New profile section header.
-   New tag section header.
-   Section header.
+        <note>Blocklist settings section header.
+   New blocklist sheet section header.
+   New page sheet section header.
+   New profile sheet section header.
+   New tag sheet section header.
+   Profile settings section header.
    Text field label.</note>
       </trans-unit>
       <trans-unit id="Nature" xml:space="preserve">
@@ -665,10 +661,6 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
         <source>No common subjects were found in titles.</source>
         <note>Trending empty message.</note>
       </trans-unit>
-      <trans-unit id="Not Available" xml:space="preserve">
-        <source>Not Available</source>
-        <note>Info missing message.</note>
-      </trans-unit>
       <trans-unit id="Objects and Tools" xml:space="preserve">
         <source>Objects and Tools</source>
         <note>Page icon category label.</note>
@@ -736,7 +728,8 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Previews" xml:space="preserve">
         <source>Previews</source>
-        <note>Inspector section header.</note>
+        <note>Feed inspector section header.
+   Organizer configuration panel section header.</note>
       </trans-unit>
       <trans-unit id="Profile" xml:space="preserve">
         <source>Profile</source>
@@ -752,8 +745,8 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Profiles" xml:space="preserve">
         <source>Profiles</source>
-        <note>Section header.
-   Tab label.</note>
+        <note>Settings section header.
+   Settings tab label.</note>
       </trans-unit>
       <trans-unit id="Pull to Refresh" xml:space="preserve">
         <source>Pull to Refresh</source>
@@ -765,7 +758,7 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Read History" xml:space="preserve">
         <source>Read History</source>
-        <note>Section header.</note>
+        <note>Profile settings section header.</note>
       </trans-unit>
       <trans-unit id="Red" xml:space="preserve">
         <source>Red</source>
@@ -789,7 +782,7 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Refreshed" xml:space="preserve">
         <source>Refreshed</source>
-        <note>Blocklist status label.</note>
+        <note>Blocklist status row label.</note>
       </trans-unit>
       <trans-unit id="Reload" xml:space="preserve">
         <source>Reload</source>
@@ -798,7 +791,7 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       <trans-unit id="Reset" xml:space="preserve">
         <source>Reset</source>
         <note>Button label.
-   Section header.</note>
+   Settings section header.</note>
       </trans-unit>
       <trans-unit id="Reset Everything" xml:space="preserve">
         <source>Reset Everything</source>
@@ -810,7 +803,7 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Response Time" xml:space="preserve">
         <source>Response Time</source>
-        <note>Info inspector label.</note>
+        <note>Organizer info panel row label.</note>
       </trans-unit>
       <trans-unit id="Search" xml:space="preserve">
         <source>Search</source>
@@ -823,7 +816,7 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Secure" xml:space="preserve">
         <source>Secure</source>
-        <note>Info inspector label.</note>
+        <note>Organizer info panel row label.</note>
       </trans-unit>
       <trans-unit id="Select All" xml:space="preserve">
         <source>Select All</source>
@@ -835,7 +828,7 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Server" xml:space="preserve">
         <source>Server</source>
-        <note>Info inspector label.</note>
+        <note>Organizer info panel row label.</note>
       </trans-unit>
       <trans-unit id="Settings" xml:space="preserve">
         <source>Settings</source>
@@ -873,12 +866,12 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Status" xml:space="preserve">
         <source>Status</source>
-        <note>Info inspector label.
-   Section header.</note>
+        <note>Blocklist settings section header.
+   Organizer info panel row label.</note>
       </trans-unit>
       <trans-unit id="Status Not Available" xml:space="preserve">
         <source>Status Not Available</source>
-        <note>Blocklist status.</note>
+        <note>Blocklist status message.</note>
       </trans-unit>
       <trans-unit id="Stop Loading" xml:space="preserve">
         <source>Stop Loading</source>
@@ -949,8 +942,9 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="URL" xml:space="preserve">
         <source>URL</source>
-        <note>Info inspector label.
-   Section header.
+        <note>Blocklist settings section header.
+   New blocklist sheet section header.
+   Organizer info panel row label.
    Text field label.</note>
       </trans-unit>
       <trans-unit id="Unable to parse content." xml:space="preserve">
@@ -963,7 +957,8 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Unknown" xml:space="preserve">
         <source>Unknown</source>
-        <note>Blocklist refreshed date status.</note>
+        <note>Blocklist refresh date not available placeholder.
+   Organizer info panel missing data placeholder.</note>
       </trans-unit>
       <trans-unit id="Untag" xml:space="preserve">
         <source>Untag</source>
@@ -984,11 +979,11 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Updated %@" xml:space="preserve">
         <source>Updated %@</source>
-        <note>Date display for times greater than one minute ago.</note>
+        <note>Status message (relative date display).</note>
       </trans-unit>
       <trans-unit id="Updated Just Now" xml:space="preserve">
         <source>Updated Just Now</source>
-        <note>Date display for times less than one minute ago.</note>
+        <note>Status message (refreshed less than one minute ago).</note>
       </trans-unit>
       <trans-unit id="Use Blocklists" xml:space="preserve">
         <source>Use Blocklists</source>
@@ -1012,7 +1007,8 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Viewing" xml:space="preserve">
         <source>Viewing</source>
-        <note>Inspector section header.</note>
+        <note>Feed inspector section header.
+   Organizer configuration panel section header.</note>
       </trans-unit>
       <trans-unit id="Weather" xml:space="preserve">
         <source>Weather</source>
@@ -1020,7 +1016,7 @@ If you are new or cloud sync is disabled then create a profile to begin.</source
       </trans-unit>
       <trans-unit id="Web Address" xml:space="preserve">
         <source>Web Address</source>
-        <note>Form field header.
+        <note>New feed sheet section header.
    Text field label.</note>
       </trans-unit>
       <trans-unit id="Yellow" xml:space="preserve">

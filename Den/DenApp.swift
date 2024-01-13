@@ -36,7 +36,7 @@ struct DenApp: App {
                 Button {
                     openURL(URL(string: "https://den.io/help/")!)
                 } label: {
-                    Text("\(Bundle.main.name) Help", comment: "Button label.")
+                    Text("Den Help", comment: "Button label.")
                 }
                 #if os(macOS)
                 Divider()

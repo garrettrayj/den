@@ -29,7 +29,7 @@ struct OrganizerRowStatus: View {
             }
             Text(
                 "\(Int(feedData.responseTime * 1000)) ms",
-                comment: "Request response time (milliseconds)."
+                comment: "Milliseconds time display."
             )
         }
     }

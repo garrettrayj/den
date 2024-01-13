@@ -521,7 +521,6 @@
 		686115072B4655B800BC2235 /* SearchLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLayout.swift; sourceTree = "<group>"; };
 		686115092B46573500BC2235 /* SearchToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchToolbar.swift; sourceTree = "<group>"; };
 		6862A5912A23EEE4000CAB19 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		6862A5972A2585B7000CAB19 /* Localizations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Localizations; sourceTree = "<group>"; };
 		6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeRefreshedDate.swift; sourceTree = "<group>"; };
 		6862A59D2A26D90F000CAB19 /* PagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagePicker.swift; sourceTree = "<group>"; };
 		68631BF12B31950100F4E53D /* SearchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStatus.swift; sourceTree = "<group>"; };
@@ -1139,9 +1138,8 @@
 		68C41300247263C700D1DC7B = {
 			isa = PBXGroup;
 			children = (
-				68CE43412B5289C400C69B7B /* Localizations */,
 				68C4130B247263C700D1DC7B /* Den */,
-				6862A5972A2585B7000CAB19 /* Localizations */,
+				68CE43412B5289C400C69B7B /* Localizations */,
 				68895CFA2A62A0B700E25385 /* Scripts */,
 				68E6C5402A68E4D800CA46B2 /* Settings.bundle */,
 				6813FD092748DE1100EC88A5 /* SymbolLibrary */,

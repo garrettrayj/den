@@ -20,11 +20,11 @@ struct RefreshProgressViewStyle: ProgressViewStyle {
                         \(Int(fractionCompleted * Double(feedCount))) \
                         of \(feedCount) Updated
                         """,
-                        comment: "Status message."
+                        comment: "Status message (refresh in progress)."
                     )
                     .monospacedDigit()
                 } else {
-                    Text("Analyzing…", comment: "Status message.")
+                    Text("Analyzing…", comment: "Status message (analysis in progress).")
                 }
 
                 #if os(iOS)

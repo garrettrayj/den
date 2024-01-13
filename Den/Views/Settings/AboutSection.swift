@@ -15,10 +15,7 @@ struct AboutSection: View {
     var body: some View {
         Section {
             LabeledContent {
-                Text(
-                    "\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))",
-                    comment: "App marketing version and build number."
-                )
+                Text(verbatim: "\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
             } label: {
                 Label {
                     Text("Version", comment: "Row label.")

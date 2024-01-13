@@ -20,7 +20,7 @@ struct OrganizerInfoPanel: View {
             LabeledContent {
                 Text(verbatim: "\(feed.urlString)")
             } label: {
-                Text("URL", comment: "Info inspector label.")
+                Text("URL", comment: "Organizer info panel row label.")
             }
             if let feedData = feed.feedData {
                 LabeledContent {
@@ -32,65 +32,65 @@ struct OrganizerInfoPanel: View {
                         Text("No", comment: "Boolean value.")
                     }
                 } label: {
-                    Text("Secure", comment: "Info inspector label.")
+                    Text("Secure", comment: "Organizer info panel row label.")
                 }
                 LabeledContent {
                     if let format = feedData.format {
                         Text(verbatim: "\(format)")
                     } else {
-                        Text("Not Available", comment: "Info missing message.")
+                        Text("Unknown", comment: "Organizer info panel missing data placeholder.")
                     }
                 } label: {
-                    Text("Format", comment: "Info inspector label.")
+                    Text("Format", comment: "Organizer info panel row label.")
                 }
                 LabeledContent {
                     if feedData.responseTime > 5 {
                         Image(systemName: "tortoise")
                     }
-                    Text("\(Int(feedData.responseTime * 1000)) ms", comment: "Time (milliseconds).")
+                    Text("\(Int(feedData.responseTime * 1000)) ms", comment: "Milliseconds time display.")
                 } label: {
-                    Text("Response Time", comment: "Info inspector label.")
+                    Text("Response Time", comment: "Organizer info panel row label.")
                 }
                 LabeledContent {
                     Text(verbatim: "\(feedData.httpStatus)")
                 } label: {
-                    Text("Status", comment: "Info inspector label.")
+                    Text("Status", comment: "Organizer info panel row label.")
                 }
                 LabeledContent {
                     if let ageString = feedData.age, let age = Int(ageString) {
-                        Text("\(age) s", comment: "Time (seconds).")
+                        Text("\(age) s", comment: "Seconds time display.")
                     } else {
-                        Text("Not Available", comment: "Info missing message.")
+                        Text("Unknown", comment: "Organizer info panel missing data placeholder.")
                     }
                 } label: {
-                    Text("Age", comment: "Info inspector label.")
+                    Text("Age", comment: "Organizer info panel row label.")
                 }
                 LabeledContent {
                     if let cacheControl = feedData.cacheControl {
                         Text(verbatim: "\(cacheControl)")
                     } else {
-                        Text("Not Available", comment: "Info missing message.")
+                        Text("Unknown", comment: "Organizer info panel missing data placeholder.")
                     }
                 } label: {
-                    Text("Cache Control", comment: "Info inspector label.")
+                    Text("Cache Control", comment: "Organizer info panel row label.")
                 }
                 LabeledContent {
                     if let eTag = feedData.eTag {
                         Text(verbatim: "\(eTag)")
                     } else {
-                        Text("Not Available", comment: "Info missing message.")
+                        Text("Unknown", comment: "Organizer info panel missing data placeholder.")
                     }
                 } label: {
-                    Text("ETag", comment: "Info inspector label.")
+                    Text("ETag", comment: "Organizer info panel row label.")
                 }
                 LabeledContent {
                     if let server = feedData.server {
                         Text(verbatim: "\(server)")
                     } else {
-                        Text("Not Available", comment: "Info missing message.")
+                        Text("Unknown", comment: "Organizer info panel missing data placeholder.")
                     }
                 } label: {
-                    Text("Server", comment: "Info inspector label.")
+                    Text("Server", comment: "Organizer info panel row label.")
                 }
             }
 

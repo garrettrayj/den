@@ -55,7 +55,7 @@ struct BlocklistSettings: View {
                     BlocklistStatusView(blocklistStatus: blocklistStatus)
                 } else {
                     Label {
-                        Text("Status Not Available", comment: "Blocklist status.")
+                        Text("Status Not Available", comment: "Blocklist status message.")
                     } icon: {
                         Image(systemName: "questionmark")
                     }
