@@ -15,13 +15,15 @@ struct DeletePageButton: View {
 
     var body: some View {
         Button(role: .destructive) {
-            viewContext.delete(page)
-            page.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
+            Task {
+                viewContext.delete(page)
+                page.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
 
-            do {
-                try viewContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
             }
         } label: {
             DeleteLabel()

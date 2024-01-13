@@ -15,12 +15,14 @@ struct DeleteFeedButton: View {
 
     var body: some View {
         Button(role: .destructive) {
-            viewContext.delete(feed)
-            if let feedData = feed.feedData { viewContext.delete(feedData) }
-            do {
-                try viewContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
+            Task {
+                viewContext.delete(feed)
+                if let feedData = feed.feedData { viewContext.delete(feedData) }
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
             }
         } label: {
             DeleteLabel()
