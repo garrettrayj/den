@@ -29,7 +29,7 @@ struct OrganizerOptionsPanel: View {
                         Text("Featured Items", comment: "Picker label.")
                     }
                 } header: {
-                    Text("Limits", comment: "Section header.")
+                    Text("Limits", comment: "Organizer configuration panel section header.")
                 }
                 
                 Section {
@@ -46,7 +46,7 @@ struct OrganizerOptionsPanel: View {
                         Text("Show Images", comment: "Toggle label.")
                     }
                 } header: {
-                    Text("Previews", comment: "Inspector section header.")
+                    Text("Previews", comment: "Organizer configuration panel section header.")
                 }
 
                 Section {
@@ -62,7 +62,7 @@ struct OrganizerOptionsPanel: View {
                         Text("Allow JavaScript", comment: "Toggle label.")
                     }
                 } header: {
-                    Text("Viewing", comment: "Inspector section header.")
+                    Text("Viewing", comment: "Organizer configuration panel section header.")
                 }
 
                 Section {
@@ -74,7 +74,7 @@ struct OrganizerOptionsPanel: View {
                         Text("Page", comment: "Picker label.")
                     }
                 } header: {
-                    Text("Move", comment: "Inspector section header.")
+                    Text("Move", comment: "Organizer configuration panel section header.")
                 }
 
                 Section {
@@ -96,7 +96,7 @@ struct OrganizerOptionsPanel: View {
                     }
                     .buttonStyle(.borderless)
                 } header: {
-                    Text("Management", comment: "Section header.")
+                    Text("Management", comment: "Organizer configuration panel section header.")
                 }
             }
         }

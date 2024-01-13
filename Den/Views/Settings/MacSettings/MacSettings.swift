@@ -27,7 +27,7 @@ struct MacSettings: View {
             }
             .tabItem {
                 Label {
-                    Text("General", comment: "Tab label.")
+                    Text("General", comment: "Settings tab label.")
                 } icon: {
                     Image(systemName: "gearshape")
                 }
@@ -37,7 +37,7 @@ struct MacSettings: View {
             ProfilesTab()
                 .tabItem {
                     Label {
-                        Text("Profiles", comment: "Tab label.")
+                        Text("Profiles", comment: "Settings tab label.")
                     } icon: {
                         Image(systemName: "person")
                     }
@@ -47,7 +47,7 @@ struct MacSettings: View {
             BlocklistsTab()
                 .tabItem {
                     Label {
-                        Text("Blocklists", comment: "Tab label.")
+                        Text("Blocklists", comment: "Settings tab label.")
                     } icon: {
                         Image(systemName: "square.slash")
                     }

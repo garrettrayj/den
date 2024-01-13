@@ -21,7 +21,7 @@ struct BlocklistSettings: View {
                 Spacer()
                 ContentUnavailable {
                     Label {
-                        Text("Blocklist Deleted")
+                        Text("Blocklist Deleted", comment: "Content unavailable title.")
                     } icon: {
                         Image(systemName: "trash")
                     }
@@ -39,7 +39,7 @@ struct BlocklistSettings: View {
                     }
                     .labelsHidden()
                 } header: {
-                    Text("Name", comment: "Section header.")
+                    Text("Name", comment: "Blocklist settings section header.")
                 }
 
                 Section {
@@ -48,7 +48,7 @@ struct BlocklistSettings: View {
                     }
                     .labelsHidden()
                 } header: {
-                    Text("URL", comment: "Section header.")
+                    Text("URL", comment: "Blocklist settings section header.")
                 }
 
                 if let blocklistStatus = blocklist.blocklistStatus {

@@ -47,7 +47,7 @@ struct ProfileSettings: View {
                         }
                     }
                 } header: {
-                    Text("Name", comment: "Section header.")
+                    Text("Name", comment: "Profile settings section header.")
                 }
 
                 Section {
@@ -60,7 +60,7 @@ struct ProfileSettings: View {
                             }
                         }
                 } header: {
-                    Text("Customization", comment: "Section header.")
+                    Text("Customization", comment: "Profile settings section header.")
                 }
 
                 ProfileHistorySection(profile: profile)
@@ -70,7 +70,7 @@ struct ProfileSettings: View {
                     DeleteProfileButton(selection: .constant(profile))
                         .symbolRenderingMode(.multicolor)
                 } header: {
-                    Text("Management", comment: "Section header.")
+                    Text("Management", comment: "Profile settings section header.")
                 }
                 #endif
             }

@@ -28,13 +28,13 @@ struct NewProfileSheet: View {
                     .labelsHidden()
                     .accessibilityIdentifier("ProfileName")
                 } header: {
-                    Text("Name", comment: "New profile section header.")
+                    Text("Name", comment: "New profile sheet section header.")
                 }
 
                 Section {
                     AccentColorSelector(selection: $color)
                 } header: {
-                    Text("Customization", comment: "Section header.")
+                    Text("Customization", comment: "New profile sheet section header.")
                 }
             }
             .formStyle(.grouped)

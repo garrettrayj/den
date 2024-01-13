@@ -30,7 +30,7 @@ struct NewPageSheet: View {
                     }
                     .labelsHidden()
                 } header: {
-                    Text("Name", comment: "New page section header.")
+                    Text("Name", comment: "New page sheet section header.")
                 }
 
                 Section {
@@ -39,7 +39,7 @@ struct NewPageSheet: View {
                             IconSelector(symbol: $symbol)
                         }
                 } header: {
-                    Text("Icon", comment: "New page section header.")
+                    Text("Icon", comment: "New page sheet section header.")
                 }
             }
             .formStyle(.grouped)

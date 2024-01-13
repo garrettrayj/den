@@ -46,7 +46,7 @@ struct FeedInspector: View {
                     }
                 }
             } header: {
-                Text("Limits", comment: "Section header.")
+                Text("Limits", comment: "Feed inspector section header.")
             }
             
             Section {
@@ -97,7 +97,7 @@ struct FeedInspector: View {
                     }
                 }
             } header: {
-                Text("Previews", comment: "Inspector section header.")
+                Text("Previews", comment: "Feed inspector section header.")
             }
 
             Section {
@@ -134,7 +134,7 @@ struct FeedInspector: View {
                     }
                 }
             } header: {
-                Text("Viewing", comment: "Inspector section header.")
+                Text("Viewing", comment: "Feed inspector section header.")
             }
         }
         .formStyle(.grouped)

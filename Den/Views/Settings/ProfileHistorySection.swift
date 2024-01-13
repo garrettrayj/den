@@ -42,7 +42,7 @@ struct ProfileHistorySection: View {
             .disabled(historyCount == 0)
             .accessibilityIdentifier("ClearHistory")
         } header: {
-            Text("Read History", comment: "Section header.")
+            Text("Read History", comment: "Profile settings section header.")
         }
     }
 

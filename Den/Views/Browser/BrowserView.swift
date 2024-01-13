@@ -91,7 +91,7 @@ struct BrowserView: View {
             if let error = browserViewModel.browserError {
                 ContentUnavailable {
                     Label {
-                        Text("Error")
+                        Text("Error", comment: "Content unavailable title.")
                     } icon: {
                         Image(systemName: "exclamationmark.octagon")
                     }

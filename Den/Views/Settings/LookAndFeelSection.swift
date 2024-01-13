@@ -24,7 +24,7 @@ struct LookAndFeelSection: View {
                 }
             }
         } header: {
-            Text("Look & Feel", comment: "Section header.")
+            Text("Look & Feel", comment: "Settings section header.")
         }
     }
 }

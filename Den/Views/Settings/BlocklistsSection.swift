@@ -38,7 +38,7 @@ struct BlocklistsSection: View {
             
             NewBlocklistButton()
         } header: {
-            Text("Blocklists", comment: "Section header.")
+            Text("Blocklists", comment: "Settings section header.")
         }
     }
 }

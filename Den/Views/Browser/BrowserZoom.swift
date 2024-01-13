@@ -18,7 +18,7 @@ struct BrowserZoom: View {
                 browserViewModel.setBrowserZoom(decreased)
             } label: {
                 Label {
-                    Text("Zoom Out")
+                    Text("Zoom Out", comment: "Button label.")
                 } icon: {
                     Image(systemName: "minus.magnifyingglass")
                 }
@@ -41,7 +41,7 @@ struct BrowserZoom: View {
                 browserViewModel.setBrowserZoom(increased)
             } label: {
                 Label {
-                    Text("Zoom In")
+                    Text("Zoom In", comment: "Button label.")
                 } icon: {
                     Image(systemName: "plus.magnifyingglass")
                 }

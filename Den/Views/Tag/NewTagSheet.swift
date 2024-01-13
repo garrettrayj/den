@@ -28,7 +28,7 @@ struct NewTagSheet: View {
                     }
                     .labelsHidden()
                 } header: {
-                    Text("Name", comment: "New tag section header.")
+                    Text("Name", comment: "New tag sheet section header.")
                 }
             }
             .formStyle(.grouped)

@@ -41,7 +41,7 @@ struct FeedLayout: View {
                                 items: items.featured()
                             ) {
                                 Label {
-                                    Text("Featured")
+                                    Text("Featured", comment: "Feed view section header.")
                                 } icon: {
                                     Image(systemName: "lamp.desk")
                                 }
@@ -56,7 +56,7 @@ struct FeedLayout: View {
                                 items: items.extra()
                             ) {
                                 Label {
-                                    Text("Extra")
+                                    Text("Extra", comment: "Feed view section header.")
                                 } icon: {
                                     Image(systemName: "archivebox")
                                 }

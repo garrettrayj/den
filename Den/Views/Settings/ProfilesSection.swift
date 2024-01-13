@@ -30,7 +30,7 @@ struct ProfilesSection: View {
             }
             NewProfileButton()
         } header: {
-            Text("Profiles", comment: "Section header.")
+            Text("Profiles", comment: "Settings section header.")
         }
     }
 }

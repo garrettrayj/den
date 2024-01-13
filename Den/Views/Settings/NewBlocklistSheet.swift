@@ -42,7 +42,7 @@ struct NewBlocklistSheet: View {
                     }
                     .labelsHidden()
                 } header: {
-                    Text("Name", comment: "Section header.")
+                    Text("Name", comment: "New blocklist sheet section header.")
                 }
 
                 Section {
@@ -51,7 +51,7 @@ struct NewBlocklistSheet: View {
                     }
                     .labelsHidden()
                 } header: {
-                    Text("URL", comment: "Section header.")
+                    Text("URL", comment: "New blocklist sheet section header.")
                 }
             }
             .disabled(isCreating)

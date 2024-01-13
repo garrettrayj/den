@@ -33,7 +33,7 @@ struct BlocklistStatusView: View {
                 Text("Errors", comment: "Blocklist status label.")
             }
         } header: {
-            Text("Status", comment: "Section header.")
+            Text("Status", comment: "Blocklist settings section header.")
         }
     }
 }

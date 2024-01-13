@@ -15,7 +15,7 @@ struct ResetSection: View {
             ClearImageCacheButton()
             ResetEverythingButton()
         } header: {
-            Text("Reset", comment: "Section header.")
+            Text("Reset", comment: "Settings section header.")
         }
     }
 }

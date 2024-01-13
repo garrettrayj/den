@@ -35,7 +35,7 @@ struct NewFeedSheet: View {
                         )
                         .labelsHidden()
                     } header: {
-                        Text("Web Address", comment: "Form field header.")
+                        Text("Web Address", comment: "New feed sheet section header.")
                     } footer: {
                         Group {
                             if let validationMessage = webAddressValidationMessage {
