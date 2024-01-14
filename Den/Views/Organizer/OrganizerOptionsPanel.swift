@@ -34,7 +34,7 @@ struct OrganizerOptionsPanel: View {
                 
                 Section {
                     Toggle(sources: sources, isOn: \.largePreviews) {
-                        Text("Large Previews", comment: "Toggle label.")
+                        Text("Expanded Previews", comment: "Toggle label.")
                     }
                     Toggle(sources: sources, isOn: \.showExcerpts) {
                         Text("Show Excerpts", comment: "Toggle label.")
@@ -71,13 +71,13 @@ struct OrganizerOptionsPanel: View {
                             page.displayName.tag(page as Page?)
                         }
                     } label: {
-                        Text("Page", comment: "Picker label.")
+                        Label {
+                            Text("Move", comment: "Picker label.")
+                        } icon: {
+                            Image(systemName: "folder")
+                        }
                     }
-                } header: {
-                    Text("Move", comment: "Organizer configuration panel section header.")
-                }
-
-                Section {
+                    
                     Button(role: .destructive) {
                         selection.forEach { feed in
                             viewContext.delete(feed)

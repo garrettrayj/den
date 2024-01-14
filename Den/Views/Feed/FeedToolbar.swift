@@ -37,7 +37,11 @@ struct FeedToolbar: ToolbarContent {
         #else
         ToolbarTitleMenu {
             RenameButton()
-            PagePicker(profile: profile, selection: $feed.page).pickerStyle(.menu)
+            PagePicker(
+                profile: profile,
+                selection: $feed.page,
+                labelText: Text("Move", comment: "Picker label.")
+            ).pickerStyle(.menu)
             DeleteFeedButton(feed: feed)
         }
         

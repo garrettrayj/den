@@ -51,7 +51,7 @@ struct FeedInspector: View {
             
             Section {
                 Toggle(isOn: $feed.largePreviews) {
-                    Text("Large Previews", comment: "Toggle label.")
+                    Text("Expanded Previews", comment: "Toggle label.")
                 }
                 .onChange(of: feed.previewStyle) {
                     do {
