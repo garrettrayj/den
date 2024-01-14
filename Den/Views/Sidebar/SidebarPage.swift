@@ -21,12 +21,10 @@ struct SidebarPage: View {
 
     var body: some View {
         DisclosureGroup {
-            Group {
-                ForEach(page.feedsArray, id: \.self) { feed in
-                    SidebarFeed(feed: feed)
-                }
-                .onMove(perform: moveFeed)
+            ForEach(page.feedsArray, id: \.self) { feed in
+                SidebarFeed(feed: feed)
             }
+            .onMove(perform: moveFeed)
         } label: {
             Label {
                 WithItems(scopeObject: page, readFilter: false) { items in
