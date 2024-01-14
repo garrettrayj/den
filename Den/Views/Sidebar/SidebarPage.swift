@@ -18,9 +18,28 @@ struct SidebarPage: View {
     @Binding var showingNewFeedSheet: Bool
     
     @State private var showingIconSelector = false
+    
+    @SceneStorage("ExpandedPages") var expandedPages: Set<UUID> = []
+    
+    var isExpandedBinding: Binding<Bool> {
+        Binding<Bool> {
+            guard let id = page.id else { return false}
+
+            return expandedPages.contains(id)
+        }
+        set: { isExpanded in
+            guard let id = page.id else { return }
+            
+            if isExpanded {
+                expandedPages.insert(id)
+            } else {
+                expandedPages.remove(id)
+            }
+        }
+    }
 
     var body: some View {
-        DisclosureGroup {
+        DisclosureGroup(isExpanded: isExpandedBinding) {
             ForEach(page.feedsArray, id: \.self) { feed in
                 SidebarFeed(feed: feed)
             }
