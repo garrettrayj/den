@@ -37,6 +37,8 @@ struct FeedTitleButtonStyle: ButtonStyle {
                 .foregroundStyle(foregroundStyle)
                 .padding(12)
                 .modifier(HoverHighlightModifier())
+                .padding(.bottom, 1)
+                .overlay(Divider(), alignment: .bottom)
         }
         #if os(macOS)
         .background(.background)

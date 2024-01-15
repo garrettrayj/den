@@ -40,10 +40,10 @@ struct ItemActionView<Content: View>: View {
                 PreviewButtonStyle(
                     read: $item.read,
                     roundedBottom: isLastInList || isStandalone,
-                    roundedTop: isStandalone
+                    roundedTop: isStandalone,
+                    showDivider: !isLastInList && !isStandalone
                 )
             )
-            .modifier(PreviewDividerModifier(showDivider: !isLastInList && !isStandalone))
             .accessibilityIdentifier("ItemAction")
             .contextMenu {
                 #if os(iOS)

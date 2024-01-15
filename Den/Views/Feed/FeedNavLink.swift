@@ -20,6 +20,5 @@ struct FeedNavLink: View {
             }
         }
         .accessibilityIdentifier("FeedNavLink")
-        .modifier(PreviewDividerModifier(showDivider: true))
     }
 }

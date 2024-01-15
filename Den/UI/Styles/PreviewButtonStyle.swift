@@ -18,6 +18,7 @@ struct PreviewButtonStyle: ButtonStyle {
 
     var roundedBottom: Bool = false
     var roundedTop: Bool = false
+    var showDivider: Bool = false
     
     var foregroundStyle: some ShapeStyle {
         #if os(macOS)
@@ -41,9 +42,17 @@ struct PreviewButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Self.Configuration) -> some View {
         ZStack {
-            configuration.label
-                .foregroundStyle(foregroundStyle)
-                .modifier(HoverHighlightModifier())
+            if showDivider {
+                configuration.label
+                    .foregroundStyle(foregroundStyle)
+                    .modifier(HoverHighlightModifier())
+                    .padding(.bottom, 1)
+                    .overlay(alignment: .bottom) { Divider() }
+            } else {
+                configuration.label
+                    .foregroundStyle(foregroundStyle)
+                    .modifier(HoverHighlightModifier())
+            }
         }
         #if os(macOS)
         .background(.background)
