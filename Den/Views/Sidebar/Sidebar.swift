@@ -123,6 +123,7 @@ struct Sidebar: View {
                 )
             }
             .padding(12)
+            .padding(.top, 1)
             .background(alignment: .top) {
                 Rectangle().fill(BackgroundSeparatorShapeStyle()).frame(height: 1)
             }
