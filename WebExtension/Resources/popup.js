@@ -1,4 +1,4 @@
-// Send a request to scan for feeds to the content script.
+// Send scan request to the content script.
 function scanActiveTab() {
     browser
         .tabs
@@ -6,12 +6,10 @@ function scanActiveTab() {
         .then(function(tabs) {
             browser
                 .tabs
-                .sendMessage(tabs[0].id, {"subject": "sense"})
+                .sendMessage(tabs[0].id, {"subject": "scan"})
                 .then(function(results) {
                     if (results.data.length > 0) {
                         createResultsList(results.data);
-                    } else {
-                        document.getElementById("no-results-message").innerHTML = browser.i18n.getMessage("no_results");
                     }
                 });
         });
@@ -20,7 +18,7 @@ function scanActiveTab() {
 // Display scan results.
 function createResultsList(results) {
     let list = document.createElement("div");
-    list.id = "results-list"
+    list.id = "results"
     
     results.forEach(result => {
         list.appendChild(createResultRow(result));
@@ -29,51 +27,48 @@ function createResultsList(results) {
     document.body.replaceChildren(list);
 }
 
-
 // Create a feed result row.
 function createResultRow(result) {
-    let row = document.createElement("div");
-    row.classList.add("row")
+    let resultRow = document.createElement("div");
+    resultRow.classList.add("result")
     
-    let descriptionCol = document.createElement("div");
-    descriptionCol.classList.add('description')
-    row.appendChild(descriptionCol);
+    let description = document.createElement("div");
+    description.classList.add('result-description')
+    resultRow.appendChild(description);
     
     let title = document.createElement("div");
-    title.classList.add('title')
+    title.classList.add('result-description-title')
     title.innerHTML = result.title;
-    descriptionCol.appendChild(title);
+    description.appendChild(title);
 
     let feedURL = document.createElement("div");
-    feedURL.classList.add('feed-url')
+    feedURL.classList.add('result-description-url')
     feedURL.innerHTML = result.url;
-    descriptionCol.appendChild(feedURL);
+    description.appendChild(feedURL);
     
-    let openCol = document.createElement("div");
-    openCol.classList.add('action')
-    row.appendChild(openCol);
+    let openAction = document.createElement("div");
+    openAction.classList.add('result-action')
+    resultRow.appendChild(openAction);
     
-    let openBtn = document.createElement("button");
-    openBtn.classList.add('open-btn')
-    openBtn.innerHTML = '<i id="open-icon"></i>'
-    openBtn.onclick = function() {
+    let openButton = document.createElement("button");
+    openButton.innerHTML = '<i id="open-icon"></i>'
+    openButton.onclick = function() {
         window.open("den:" + result.url);
     }
-    openCol.appendChild(openBtn)
+    openAction.appendChild(openButton)
     
-    let copyCol = document.createElement("div");
-    copyCol.classList.add('action')
-    row.appendChild(copyCol);
+    let copyAction = document.createElement("div");
+    copyAction.classList.add('result-action')
+    resultRow.appendChild(copyAction);
     
-    let copyBtn = document.createElement("button");
-    copyBtn.classList.add('copy-btn')
-    copyBtn.innerHTML = '<i id="copy-icon"></i>'
-    copyBtn.onclick = function(e) {
+    let copyButton = document.createElement("button");
+    copyButton.innerHTML = '<i id="copy-icon"></i>'
+    copyButton.onclick = function(e) {
         pasteboardCopy(result.url)
     }
-    copyCol.appendChild(copyBtn)
+    copyAction.appendChild(copyButton)
     
-    return row
+    return resultRow
 }
 
 // Copy text to clipboard
@@ -95,5 +90,8 @@ function pasteboardCopy(text) {
     document.body.appendChild(status);
 }
 
-// Show feeds for the active tab when popup is opened.
+// Load localized strings
+document.getElementById("no-feeds-message").innerHTML = browser.i18n.getMessage("no_results");
+
+// Detect feeds and display results
 scanActiveTab()

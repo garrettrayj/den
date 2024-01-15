@@ -8,8 +8,8 @@
         "description": "Description of what the extension does."
     },
     "no_results": {
-        "message": "No Feeds Found",
-        "description": "Shown when the extension is activated, but no feeds were detected."
+        "message": "No Feeds",
+        "description": "Shown when no feeds were found."
     },
     "copied": {
         "message": "Copied “$URL$”",

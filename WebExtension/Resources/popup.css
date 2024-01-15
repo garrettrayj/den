@@ -33,67 +33,81 @@ body {
     }
 }
 
-#no-results {
+/* No Feeds */
+
+#no-feeds {
     align-items: center;
     background: -apple-system-secondary-grouped-background;
     border-radius: 8px;
-    color: dimgray;
+    color: -apple-system-secondary-label;
     display: flex;
     flex-flow: column;
-    font-size: 16px;
-    padding: 12px;
+    font: -apple-system-title3;
+    padding: 8px;
     text-align: center;
 }
 
-#no-results div {
+#no-feeds div {
     display: flex;
     justify-content: center;
 }
 
-#no-results div:first-child {
-    margin: 0 0 4px;
+#no-feeds-icon {
+    background: -apple-system-secondary-label;
+    box-sizing: content-box;
+    display: inline-block;
+    height: 28px;
+    margin: 0;
+    width: 28px;
+    -webkit-mask-size: 28px 28px;
+    -webkit-mask-origin: content-box;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-image: url(images/symbol-no-results.svg);
 }
 
-#results-list {
+/* Results List */
+
+#results {
     background: -apple-system-secondary-grouped-background;
     border-radius: 8px;
     border-width: 0;
     border-spacing: 0;
 }
 
-.row {
+.result {
     border-top: 1px solid -apple-system-separator;
     display: flex;
     padding: 0 8px;
 }
 
-.row:first-child {
+.result:first-child {
     border-top: 0 none;
 }
 
-.description {
+.result-description {
     flex-grow: 1;
     overflow: hidden;
     padding: 8px 4px 8px 4px;
 }
 
-.title,
-.feed-url {
+.result-description-title,
+.result-description-url {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.title {
+.result-description-title {
     font: -apple-system-body;
 }
 
-.feed-url {
+.result-description-url {
     color:  -apple-system-secondary-label;
     font: -apple-system-caption1;
 }
 
-.action {
+.result-action {
     display: flex;
     align-items: center;
 }
@@ -112,34 +126,34 @@ body {
 
 /** Icons */
 
-i {
+#open-icon,
+#copy-icon {
     background: -apple-system-label;
     box-sizing: content-box;
     display: inline-block;
-    height: 22px;
+    height: 20px;
     margin: 0;
-    width: 22px;
-    -webkit-mask-size: 22px 22px;
+    width: 20px;
+    -webkit-mask-size: 20px 20px;
     -webkit-mask-origin: content-box;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
 }
 
-#no-results-icon {
-    -webkit-mask-image: url(images/symbol-no-results.svg);
-}
 #open-icon {
     -webkit-mask-image: url(images/symbol-open.svg);
 }
+
 #copy-icon {
     -webkit-mask-image: url(images/symbol-copy.svg);
 }
 
 @supports (-webkit-touch-callout: none) { /* iOS */
-    i {
-        height: 26px;
-        width: 26px;
-        -webkit-mask-size: 26px 26px;
+    #copy-icon,
+    #open-icon {
+        height: 28px;
+        width: 28px;
+        -webkit-mask-size: 28px 28px;
     }
 }
 
@@ -170,10 +184,6 @@ button:active {
 @supports (-webkit-touch-callout: none) { /* iOS */
     button {
         padding: 4px 8px;
-    }
-    
-    button i {
-        background: -apple-wireless-playback-target-active;
     }
 }
 
