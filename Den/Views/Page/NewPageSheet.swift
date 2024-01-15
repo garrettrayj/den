@@ -17,6 +17,8 @@ struct NewPageSheet: View {
     @State private var name: String = ""
     @State private var symbol: String = "folder"
     @State private var showingIconSelector: Bool = false
+    
+    @FocusState private var textFieldFocus: Bool
 
     var body: some View {
         NavigationStack {
@@ -29,6 +31,7 @@ struct NewPageSheet: View {
                         Text("Name")
                     }
                     .labelsHidden()
+                    .focused($textFieldFocus)
                 } header: {
                     Text("Name", comment: "New page sheet section header.")
                 }
@@ -43,6 +46,9 @@ struct NewPageSheet: View {
                 }
             }
             .formStyle(.grouped)
+            .onAppear {
+                textFieldFocus = true
+            }
             .navigationTitle(Text("New Page", comment: "Navigation title."))
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {

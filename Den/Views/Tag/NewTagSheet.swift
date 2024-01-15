@@ -15,6 +15,8 @@ struct NewTagSheet: View {
     @ObservedObject var profile: Profile
 
     @State private var name: String = ""
+    
+    @FocusState private var textFieldFocus: Bool
 
     var body: some View {
         NavigationStack {
@@ -27,11 +29,15 @@ struct NewTagSheet: View {
                         Text("Name", comment: "Text field label.")
                     }
                     .labelsHidden()
+                    .focused($textFieldFocus)
                 } header: {
                     Text("Name", comment: "New tag sheet section header.")
                 }
             }
             .formStyle(.grouped)
+            .onAppear {
+                textFieldFocus = true
+            }
             .navigationTitle(Text("New Tag", comment: "Navigation title."))
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {

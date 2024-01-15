@@ -22,6 +22,8 @@ struct NewFeedSheet: View {
     @State private var webAddressIsValid: Bool?
     @State private var webAddressValidationMessage: WebAddressValidationMessage?
     @State private var loading: Bool = false
+    
+    @FocusState private var textFieldFocus: Bool
 
     var body: some View {
         NavigationStack {
@@ -34,6 +36,7 @@ struct NewFeedSheet: View {
                             validationMessage: $webAddressValidationMessage
                         )
                         .labelsHidden()
+                        .focused($textFieldFocus)
                     } header: {
                         Text("Web Address", comment: "New feed sheet section header.")
                     } footer: {
@@ -62,6 +65,10 @@ struct NewFeedSheet: View {
             .onAppear {
                 webAddress = webAddress
                 checkTargetPage()
+                
+                if webAddress.isEmpty {
+                    textFieldFocus = true
+                }
             }
             .navigationTitle(Text("New Feed", comment: "Navigation title."))
             .toolbar {
