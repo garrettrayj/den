@@ -80,6 +80,7 @@ struct SidebarPage: View {
                     showingNewFeedSheet: $showingNewFeedSheet
                 )
             )
+            #if os(macOS)
             .contextMenu {
                 IconSelectorButton(
                     showingIconSelector: $showingIconSelector,
@@ -100,9 +101,10 @@ struct SidebarPage: View {
                     }
                 },
                 content: {
-                    IconSelector(symbol: $page.wrappedSymbol)
+                    IconSelector(selection: $page.wrappedSymbol)
                 }
             )
+            #endif
         }
         .tag(DetailPanel.page(page))
         .lineLimit(1)

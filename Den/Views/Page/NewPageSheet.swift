@@ -36,7 +36,7 @@ struct NewPageSheet: View {
                 Section {
                     IconSelectorButton(showingIconSelector: $showingIconSelector, symbol: $symbol)
                         .sheet(isPresented: $showingIconSelector) {
-                            IconSelector(symbol: $symbol)
+                            IconSelector(selection: $symbol)
                         }
                 } header: {
                     Text("Icon", comment: "New page sheet section header.")
@@ -52,7 +52,7 @@ struct NewPageSheet: View {
                         page.wrappedSymbol = symbol
                         dismiss()
                     } label: {
-                        Text("Create Page", comment: "Button label.")
+                        Text("Save", comment: "Button label.")
                     }
                     .accessibilityIdentifier("CreatePage")
                 }

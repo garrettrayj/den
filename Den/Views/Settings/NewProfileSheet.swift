@@ -54,7 +54,7 @@ struct NewProfileSheet: View {
                             CrashUtility.handleCriticalError(error as NSError)
                         }
                     } label: {
-                        Text("Create Profile", comment: "Button label.")
+                        Text("Save", comment: "Button label.")
                     }
                     .accessibilityIdentifier("CreateProfile")
                 }

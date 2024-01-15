@@ -40,7 +40,7 @@ struct NewTagSheet: View {
                         newTag.wrappedName = name
                         dismiss()
                     } label: {
-                        Text("Create Tag", comment: "Button label.")
+                        Text("Save", comment: "Button label.")
                     }
                 }
 

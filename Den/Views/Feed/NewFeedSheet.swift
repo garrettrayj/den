@@ -105,9 +105,8 @@ struct NewFeedSheet: View {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         } label: {
-            Text("Add Feed", comment: "Button label.")
+            Text("Save", comment: "Button label.")
         }
-        .buttonStyle(.borderedProminent)
         .disabled(loading || !(webAddressIsValid ?? false))
         .accessibilityIdentifier("SubmitNewFeed")
     }

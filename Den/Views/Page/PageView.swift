@@ -62,13 +62,6 @@ struct PageView: View {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
-                .onChange(of: page.symbol) {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
                 .frame(minWidth: minDetailColumnWidth)
                 .navigationTitle(page.displayName)
                 .navigationTitle($page.wrappedName)
@@ -81,6 +74,7 @@ struct PageView: View {
                         items: items
                     )
                 }
+                #if os(iOS)
                 .sheet(
                     isPresented: $showingIconSelector,
                     onDismiss: {
@@ -93,9 +87,10 @@ struct PageView: View {
                         }
                     },
                     content: {
-                        IconSelector(symbol: $page.wrappedSymbol)
+                        IconSelector(selection: $page.wrappedSymbol)
                     }
                 )
+                #endif
             }
         }
     }
