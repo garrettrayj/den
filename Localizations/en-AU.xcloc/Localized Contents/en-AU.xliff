@@ -239,6 +239,7 @@
       </trans-unit>
       <trans-unit id="Customization" xml:space="preserve">
         <source>Customization</source>
+        <target state="translated">Customisation</target>
         <note>New profile sheet section header.
    Profile settings section header.</note>
       </trans-unit>
@@ -383,6 +384,9 @@
         <source>If you have used the app on another device then synchronization may be in progress. Please wait a minute. 
 
 If you are new or cloud sync is disabled then create a profile to begin.</source>
+        <target state="translated">If you have used the app on another device then synchronisation may be in progress. Please wait a minute. 
+
+If you are new or cloud sync is disabled then create a profile to begin.</target>
         <note>Landing guidance message.</note>
       </trans-unit>
       <trans-unit id="Import OPML" xml:space="preserve">
