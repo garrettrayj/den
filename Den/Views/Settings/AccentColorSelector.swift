@@ -45,9 +45,7 @@ struct AccentColorSelector: View {
                             Button {
                                 selection = option
                             } label: {
-                                Label {
-                                    option.labelText
-                                } icon: {
+                                Group {
                                     if selection == option {
                                         Image(systemName: "checkmark.square.fill")
                                     } else {

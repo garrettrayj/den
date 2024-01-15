@@ -57,7 +57,7 @@ struct IconSelector: View {
 
                     if showingManualEntry {
                         TextField(text: $selection) {
-                            Text("Symbol")
+                            Text("Symbol", comment: "Text field label.")
                         }
                         #if os(iOS)
                         .textInputAutocapitalization(.never)

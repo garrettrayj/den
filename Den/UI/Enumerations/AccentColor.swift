@@ -22,35 +22,6 @@ public enum AccentColor: String, CaseIterable {
     case pink   = "Pink"
     case brown  = "Brown"
 
-    var labelText: Text {
-        switch self {
-        case .red:
-            return Text("Red", comment: "Profile color option.")
-        case .orange:
-            return Text("Orange", comment: "Profile color option.")
-        case .yellow:
-            return Text("Yellow", comment: "Profile color option.")
-        case .green:
-            return Text("Green", comment: "Profile color option.")
-        case .mint:
-            return Text("Mint", comment: "Profile color option.")
-        case .teal:
-            return Text("Teal", comment: "Profile color option.")
-        case .cyan:
-            return Text("Cyan", comment: "Profile color option.")
-        case .blue:
-            return Text("Blue", comment: "Profile color option.")
-        case .indigo:
-            return Text("Indigo", comment: "Profile color option.")
-        case .purple:
-            return Text("Purple", comment: "Profile color option.")
-        case .pink:
-            return Text("Pink", comment: "Profile color option.")
-        case .brown:
-            return Text("Brown", comment: "Profile color option.")
-        }
-    }
-
     var color: Color {
         switch self {
         case .red:
