@@ -18,21 +18,18 @@ final class RefreshManager {
             NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)
         }
 
-        var feedUpdateTasks: [FeedUpdateTask] = []
-        for feed in profile.feedsArray {
-            if let url = feed.url {
-                feedUpdateTasks.append(
-                    FeedUpdateTask(
-                        feedObjectID: feed.objectID,
-                        pageObjectID: feed.page?.objectID,
-                        profileObjectID: feed.page?.profile?.objectID,
-                        url: url,
-                        updateMeta: feed.needsMetaUpdate
-                    )
-                )
-            }
-        }
+        let feedUpdateTasks: [FeedUpdateTask] = profile.feedsArray.compactMap { feed in
+            guard let url = feed.url else { return nil }
 
+            return FeedUpdateTask(
+                feedObjectID: feed.objectID,
+                pageObjectID: feed.page?.objectID,
+                profileObjectID: feed.page?.profile?.objectID,
+                url: url,
+                updateMeta: feed.needsMetaUpdate
+            )
+        }
+        let analyzeTask = AnalyzeTask(profileObjectID: profile.objectID)
         let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
 
         _ = await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
@@ -45,15 +42,16 @@ final class RefreshManager {
                     taskGroup.addTask { _ = await task.execute() }
                     working += 1
                 }
+            
+                await MainActor.run {
+                    NotificationCenter.default.post(name: .refreshProgressed, object: profile.objectID)
+                }
+            
+                taskGroup.addTask { _ = await analyzeTask.execute() }
+            
                 await taskGroup.waitForAll()
             }
         )
-
-        await MainActor.run {
-            NotificationCenter.default.post(name: .refreshProgressed, object: profile.objectID)
-        }
-
-        await AnalyzeTask(profileObjectID: profile.objectID).execute()
 
         RefreshedDateStorage.setRefreshed(profile, date: .now)
 
