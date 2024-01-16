@@ -109,6 +109,15 @@ struct OrganizerOptionsPanel: View {
                 for feed in $0 where feed.changedValues().keys.contains("page") {
                     feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
                 }
+                
+                for feed in $0 where feed.changedValues().keys.contains("itemLimit") {
+                    if let feedData = feed.feedData {
+                        for (idx, item) in feedData.itemsArray.enumerated() {
+                            item.extra = idx + 1 > feed.wrappedItemLimit
+                        }
+                    }
+                }
+                
                 if viewContext.hasChanges {
                     do {
                         try viewContext.save()
