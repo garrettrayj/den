@@ -30,7 +30,6 @@ struct DeleteFeedButton: View {
         } label: {
             DeleteLabel()
         }
-        .buttonStyle(.borderless)
         .accessibilityIdentifier("DeleteFeed")
     }
 }

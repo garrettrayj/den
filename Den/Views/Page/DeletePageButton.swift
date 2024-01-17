@@ -30,7 +30,6 @@ struct DeletePageButton: View {
         } label: {
             DeleteLabel()
         }
-        .buttonStyle(.borderless)
         .accessibilityIdentifier("DeletePage")
     }
 }
