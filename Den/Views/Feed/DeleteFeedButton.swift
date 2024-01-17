@@ -15,9 +15,12 @@ struct DeleteFeedButton: View {
 
     var body: some View {
         Button(role: .destructive) {
+            // Deleting feed data before feed deletion task to workaround crash problem
+            if let feedData = feed.feedData { viewContext.delete(feedData) }
+            
             Task {
                 viewContext.delete(feed)
-                if let feedData = feed.feedData { viewContext.delete(feedData) }
+
                 do {
                     try viewContext.save()
                 } catch {
