@@ -26,7 +26,7 @@ struct DeckColumn: View {
         LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
             Section {
                 if feed.feedData == nil || feed.feedData?.error != nil {
-                    FeedUnavailable(feedData: feed.feedData)
+                    FeedUnavailable(feed: feed)
                 } else if items.isEmpty {
                     FeedEmpty()
                 } else if items.unread().isEmpty && hideRead {

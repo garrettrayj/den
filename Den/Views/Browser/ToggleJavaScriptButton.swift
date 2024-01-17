@@ -17,18 +17,14 @@ struct ToggleJavaScriptButton: View {
                 await browserViewModel.toggleJavaScript()
             }
         } label: {
-            if browserViewModel.allowJavaScript {
-                Label {
+            Label {
+                if browserViewModel.allowJavaScript {
                     Text("Disable JavaScript", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "curlybraces")
-                }
-            } else {
-                Label {
+                } else {
                     Text("Enable JavaScript", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "curlybraces")
                 }
+            } icon: {
+                Image(systemName: "curlybraces")
             }
         }
     }

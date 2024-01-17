@@ -25,7 +25,7 @@ struct FeedItemGroup: View {
     var body: some View {
         Section {
             if feed.feedData == nil || feed.feedData?.error != nil {
-                FeedUnavailable(feedData: feed.feedData)
+                FeedUnavailable(feed: feed)
             } else if items.isEmpty {
                 FeedEmpty()
             } else if items.unread().isEmpty && hideRead {

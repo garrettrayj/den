@@ -15,7 +15,7 @@ struct BrowserFormatMenu: View {
         Group {
             if browserViewModel.isReaderable {
                 Menu {
-                    ShowReaderButton(browserViewModel: browserViewModel)
+                    ToggleReaderButton(browserViewModel: browserViewModel)
                     ToggleBlocklistsButton(browserViewModel: browserViewModel)
                     ToggleJavaScriptButton(browserViewModel: browserViewModel)
                     #if os(macOS)

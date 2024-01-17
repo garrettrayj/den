@@ -52,19 +52,4 @@ struct PagesSection: View {
             CrashUtility.handleCriticalError(error as NSError)
         }
     }
-
-    private func deletePages(indices: IndexSet) {
-        indices.forEach {
-            let page = profile.pagesArray[$0]
-            viewContext.delete(page)
-            page.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
-        }
-
-        do {
-            try viewContext.save()
-            profile.objectWillChange.send()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
-    }
 }

@@ -16,7 +16,11 @@ struct ToggleReaderButton: View {
             browserViewModel.toggleReader()
         } label: {
             Label {
-                Text("Show/Hide Reader", comment: "Button label.")
+                if browserViewModel.showingReader {
+                    Text("Hide Reader", comment: "Button label.")
+                } else {
+                    Text("Show Reader", comment: "Button label.")
+                }
             } icon: {
                 Image(systemName: "doc.plaintext")
             }

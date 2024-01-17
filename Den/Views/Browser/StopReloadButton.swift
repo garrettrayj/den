@@ -17,7 +17,7 @@ struct StopReloadButton: View {
                 browserViewModel.stop()
             } label: {
                 Label {
-                    Text("Stop Loading", comment: "Button label.")
+                    Text("Stop", comment: "Button label.")
                 } icon: {
                     Image(systemName: "xmark")
                 }

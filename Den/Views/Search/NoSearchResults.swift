@@ -14,7 +14,7 @@ struct NoSearchResults: View {
             Label {
                 Text(
                     "No Results",
-                    comment: "No search results message title."
+                    comment: "No search results title."
                 )
             } icon: {
                 Image(systemName: "magnifyingglass")

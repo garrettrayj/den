@@ -9,9 +9,7 @@
 import SwiftUI
 
 struct FeedUnavailable: View {
-    @Environment(\.openURL) private var openURL
-    
-    let feedData: FeedData?
+    @ObservedObject var feed: Feed
 
     var largeDisplay: Bool = false
 
@@ -45,9 +43,9 @@ struct FeedUnavailable: View {
     }
 
     private var title: Text {
-        if feedData == nil {
+        if feed.feedData == nil {
             return Text("No Data", comment: "Feed unavailable message.")
-        } else if feedData?.wrappedError != nil {
+        } else if feed.feedData?.wrappedError != nil {
             return Text("Refresh Error", comment: "Feed unavailable message.")
         } else {
             return Text("Feed Unavailable", comment: "Feed unavailable message.")
@@ -56,10 +54,10 @@ struct FeedUnavailable: View {
 
     private var caption: some View {
         Group {
-            if feedData == nil {
+            if feed.feedData == nil {
                 Text("Refresh to fetch items.", comment: "Feed unavailable message.")
-            } else if feedData?.wrappedError != nil {
-                if feedData?.wrappedError == .request {
+            } else if feed.feedData?.wrappedError != nil {
+                if feed.feedData?.wrappedError == .request {
                     Text("Could not fetch data.", comment: "Feed unavailable message.")
                 } else {
                     Text("Unable to parse content.", comment: "Feed unavailable message.")
@@ -70,28 +68,18 @@ struct FeedUnavailable: View {
     
     @ViewBuilder
     private var actions: some View {
-        if feedData?.wrappedError != nil {
-            if feedData?.wrappedError == .parsing {
-                if let validatorURL = feedData?.feed?.validatorURL {
-                    Button {
-                        openURL(validatorURL)
-                    } label: {
-                        Label {
-                            Text("Open Validator", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "stethoscope")
-                        }
-                    }
-                }
+        if feed.feedData?.wrappedError != nil {
+            if feed.feedData?.wrappedError == .parsing {
+                OpenValidatorButton(feed: feed)
             }
         }
     }
 
     @ViewBuilder
     private var icon: some View {
-        if feedData == nil {
+        if feed.feedData == nil {
             Image(systemName: "questionmark.folder")
-        } else if feedData?.wrappedError != nil {
+        } else if feed.feedData?.wrappedError != nil {
             Image(systemName: "bolt.horizontal")
         } else {
             Image(systemName: "questionmark.diamond" )

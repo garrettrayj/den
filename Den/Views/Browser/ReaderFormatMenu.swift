@@ -13,7 +13,7 @@ struct ReaderFormatMenu: View {
     
     var body: some View {
         Menu {
-            HideReaderButton(browserViewModel: browserViewModel)
+            ToggleReaderButton(browserViewModel: browserViewModel)
             ReaderZoom(browserViewModel: browserViewModel)
         } label: {
             Label {

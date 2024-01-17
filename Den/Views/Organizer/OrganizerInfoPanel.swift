@@ -10,8 +10,6 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct OrganizerInfoPanel: View {
-    @Environment(\.openURL) private var openURL
-    
     @ObservedObject var profile: Profile
     @ObservedObject var feed: Feed
 
@@ -90,20 +88,8 @@ struct OrganizerInfoPanel: View {
                     }
                 }
             }
-
-            if let validatorURL = feed.validatorURL {
-                Section {
-                    Button {
-                        openURL(validatorURL)
-                    } label: {
-                        Label {
-                            Text("Open Validator", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "stethoscope")
-                        }
-                    }
-                }
-            }
+            
+            OpenValidatorButton(feed: feed)
         }
         .scrollContentBackground(.hidden)
         .listStyle(.inset)

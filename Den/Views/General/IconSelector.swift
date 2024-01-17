@@ -10,7 +10,6 @@ import SwiftUI
 
 struct IconSelector: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.managedObjectContext) private var viewContext
 
     @Binding var selection: String
     

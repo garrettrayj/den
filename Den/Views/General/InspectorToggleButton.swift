@@ -9,9 +9,7 @@
 import SwiftUI
 
 struct InspectorToggleButton: View {
-    #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
 
     @Binding var showingInspector: Bool
 
@@ -22,16 +20,17 @@ struct InspectorToggleButton: View {
             Label {
                 Text("Toggle Inspector", comment: "Button label.")
             } icon: {
-                #if os(macOS)
-                Image(systemName: "sidebar.trailing")
-                #else
-                Image(
-                    systemName: horizontalSizeClass == .compact ?
-                        "rectangle.portrait.bottomhalf.inset.filled" : "sidebar.trailing"
-                )
-                #endif
+                Image(systemName: symbol)
             }
         }
         .accessibilityIdentifier("ToggleInspector")
+    }
+    
+    private var symbol: String {
+        if horizontalSizeClass == .compact {
+            "rectangle.portrait.bottomhalf.inset.filled"
+        } else {
+            "sidebar.trailing"
+        }
     }
 }

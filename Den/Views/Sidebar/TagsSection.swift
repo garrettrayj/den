@@ -19,7 +19,6 @@ struct TagsSection: View {
                 SidebarTag(tag: tag)
             }
             .onMove(perform: moveTags)
-            .onDelete(perform: deleteTags)
         } header: {
             Text("Tags", comment: "Sidebar section header.")
         }
@@ -35,20 +34,6 @@ struct TagsSection: View {
         // This is done in reverse order to minimize changes to the indices.
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
-        }
-
-        do {
-            try viewContext.save()
-            profile.objectWillChange.send()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
-    }
-
-    private func deleteTags(indices: IndexSet) {
-        indices.forEach {
-            let tag = profile.tagsArray[$0]
-            viewContext.delete(tag)
         }
 
         do {

@@ -12,8 +12,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct TrendBlock: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     @ObservedObject var profile: Profile // Profile observed for updates
     @ObservedObject var trend: Trend
     

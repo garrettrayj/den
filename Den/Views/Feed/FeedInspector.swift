@@ -10,12 +10,9 @@ import SwiftUI
 
 struct FeedInspector: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
-
-    @State private var showingHideTeaserOption: Bool = false
 
     var body: some View {
         Form {
