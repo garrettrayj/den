@@ -45,29 +45,23 @@ struct Sidebar: View {
                     showingNewPageSheet: $showingNewPageSheet
                 )
             } else {
-                #if os(macOS)
                 Section {
                     InboxNavLink(profile: profile)
                     TrendingNavLink(profile: profile)
-                } header: {
-                    Text("All Feeds", comment: "Sidebar section header.")
                 }
-                #else
-                InboxNavLink(profile: profile)
-                TrendingNavLink(profile: profile)
-                #endif
+
                 PagesSection(
                     profile: profile,
                     newFeedPageID: $newFeedPageID,
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet
                 )
+
                 if !profile.tagsArray.isEmpty {
                     TagsSection(profile: profile)
                 }
             }
         }
-        .buttonStyle(.plain)
         .listStyle(.sidebar)
         .badgeProminence(.decreased)
         .refreshable {
