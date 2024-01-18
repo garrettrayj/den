@@ -15,17 +15,12 @@ struct DeletePageButton: View {
 
     var body: some View {
         Button(role: .destructive) {
-            // Deleting feed data before page deletion task to work around crash problem
-            page.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
-            
-            Task {
-                viewContext.delete(page)
+            viewContext.delete(page)
 
-                do {
-                    try viewContext.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
+            do {
+                try viewContext.save()
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
             }
         } label: {
             DeleteLabel()

@@ -81,7 +81,6 @@ struct OrganizerOptionsPanel: View {
                     Button(role: .destructive) {
                         selection.forEach { feed in
                             viewContext.delete(feed)
-                            if let feedData = feed.feedData { viewContext.delete(feedData) }
                             selection.remove(feed)
                         }
                         do {

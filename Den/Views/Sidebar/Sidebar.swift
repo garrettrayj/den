@@ -70,6 +70,7 @@ struct Sidebar: View {
             }
         }
         .listStyle(.sidebar)
+        .buttonStyle(.borderless)
         .badgeProminence(.decreased)
         .refreshable {
             await RefreshManager.refresh(profile: profile)
