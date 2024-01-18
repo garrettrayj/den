@@ -12,11 +12,22 @@ import SwiftUI
 @objc(Bookmark)
 public class Bookmark: NSManagedObject {
     public var titleText: Text {
-        if let displayTitle = title, displayTitle != "" {
-            return Text(displayTitle)
+        if wrappedTitle == "" {
+            return Text("Untitled", comment: "Default page name.")
         }
 
-        return Text("Untitled", comment: "Default bookmark title.")
+        return Text(wrappedTitle)
+    }
+
+    public var wrappedTitle: String {
+        get { title?.trimmingCharacters(in: .whitespaces) ?? "" }
+        set { title = newValue }
+    }
+    
+    public var tagsArray: [Tag] {
+        tags?.sortedArray(
+            using: [NSSortDescriptor(key: "userOrder", ascending: true)]
+        ) as? [Tag] ?? []
     }
 
     static func create(

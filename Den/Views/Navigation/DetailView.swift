@@ -20,6 +20,8 @@ struct DetailView: View {
         NavigationStack(path: $path) {
             Group {
                 switch detailPanel ?? .welcome {
+                case .bookmarks:
+                    BookmarksView()
                 case .feed(let feed):
                     FeedView(feed: feed, profile: profile, hideRead: $hideRead).id(feed)
                 case .inbox:

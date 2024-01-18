@@ -9,6 +9,7 @@
 import Foundation
 
 enum DetailPanel: Hashable, Identifiable {
+    case bookmarks
     case feed(Feed)
     case inbox
     case organizer
@@ -32,6 +33,8 @@ enum DetailPanel: Hashable, Identifiable {
 
     var panelID: String {
         switch self {
+        case .bookmarks:
+            return "bookmarks"
         case .feed:
             return "feed"
         case .inbox:

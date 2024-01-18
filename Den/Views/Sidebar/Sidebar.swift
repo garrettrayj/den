@@ -48,6 +48,13 @@ struct Sidebar: View {
                 Section {
                     InboxNavLink(profile: profile)
                     TrendingNavLink(profile: profile)
+                    
+                    Label {
+                        Text("Bookmarks")
+                    } icon: {
+                        Image(systemName: "bookmark")
+                    }
+                    .tag(DetailPanel.bookmarks)
                 }
 
                 PagesSection(
