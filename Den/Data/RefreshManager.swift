@@ -42,16 +42,16 @@ final class RefreshManager {
                     taskGroup.addTask { _ = await task.execute() }
                     working += 1
                 }
-            
-                await MainActor.run {
-                    NotificationCenter.default.post(name: .refreshProgressed, object: profile.objectID)
-                }
-            
-                taskGroup.addTask { _ = await analyzeTask.execute() }
-            
+
                 await taskGroup.waitForAll()
             }
         )
+        
+        await MainActor.run {
+            NotificationCenter.default.post(name: .refreshProgressed, object: profile.objectID)
+        }
+    
+        await analyzeTask.execute()
 
         RefreshedDateStorage.setRefreshed(profile, date: .now)
 
