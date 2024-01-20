@@ -15,15 +15,29 @@ struct ItemTags: View {
         bookmarksList.font(.caption2).imageScale(.small)
     }
 
+    // swiftlint:disable shorthand_operator
     private var bookmarksList: Text {
-        var tagNames = item.bookmarks.compactMap { $0.tag?.displayName }
         let prefix = Text(Image(systemName: "tag")) + Text(verbatim: "\u{00A0}")
-        let firstTag = prefix + tagNames.removeFirst()
-
-        return tagNames.reduce(firstTag) { partialResult, tagName in
-            partialResult +
-            Text(verbatim: "\(NSLocale.autoupdatingCurrent.groupingSeparator ?? ",") ") +
-            prefix + tagName
+        
+        var tagLabels = item.bookmarks.compactMap {
+            $0.tag?.displayName
+        }.map { displayName in
+            prefix + displayName
         }
+        
+        var output = Text("")
+        
+        for (idx, label) in tagLabels.enumerated() {
+            if idx > 0 {
+                output = output + Text(
+                    verbatim: "\(NSLocale.autoupdatingCurrent.groupingSeparator ?? ",") "
+                )
+            }
+            
+            output = output + label
+        }
+
+        return output
     }
+    // swiftlint:enable shorthand_operator
 }

@@ -34,7 +34,6 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="bookmarks" inverseEntity="Feed"/>
         <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="bookmarks" inverseEntity="Tag"/>
-        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bookmark" inverseName="tags" inverseEntity="Bookmark"/>
     </entity>
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
         <attribute name="browserView" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

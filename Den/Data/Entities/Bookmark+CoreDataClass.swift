@@ -23,12 +23,6 @@ public class Bookmark: NSManagedObject {
         get { title?.trimmingCharacters(in: .whitespaces) ?? "" }
         set { title = newValue }
     }
-    
-    public var tagsArray: [Tag] {
-        tags?.sortedArray(
-            using: [NSSortDescriptor(key: "userOrder", ascending: true)]
-        ) as? [Tag] ?? []
-    }
 
     static func create(
         in managedObjectContext: NSManagedObjectContext,

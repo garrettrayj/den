@@ -45,16 +45,10 @@ struct Sidebar: View {
                     showingNewPageSheet: $showingNewPageSheet
                 )
             } else {
-                Section {
-                    InboxNavLink(profile: profile)
-                    TrendingNavLink(profile: profile)
-                    
-                    Label {
-                        Text("Bookmarks")
-                    } icon: {
-                        Image(systemName: "bookmark")
-                    }
-                    .tag(DetailPanel.bookmarks)
+                ApexSection(profile: profile)
+                
+                if !profile.tagsArray.isEmpty {
+                    TagsSection(profile: profile)
                 }
 
                 PagesSection(
@@ -63,10 +57,6 @@ struct Sidebar: View {
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet
                 )
-
-                if !profile.tagsArray.isEmpty {
-                    TagsSection(profile: profile)
-                }
             }
         }
         .listStyle(.sidebar)
