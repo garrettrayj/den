@@ -22,7 +22,7 @@ struct BookmarkToolbar: ToolbarContent {
             DoneButton()
         }
         ToolbarItem(placement: .navigation) {
-            UntagButton(bookmark: bookmark)
+            UntagButton(bookmark: bookmark, dismissAfterAction: true)
         }
         ToolbarItem(placement: .navigation) {
             formatMenu

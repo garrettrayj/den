@@ -13,6 +13,8 @@ struct UntagButton: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var bookmark: Bookmark
+    
+    var dismissAfterAction: Bool = false
 
     var body: some View {
         Button(role: .destructive) {
@@ -21,7 +23,9 @@ struct UntagButton: View {
             do {
                 try viewContext.save()
                 tag.objectWillChange.send()
-                dismiss()
+                if dismissAfterAction {
+                    dismiss()
+                }
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }

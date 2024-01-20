@@ -46,10 +46,6 @@ struct Sidebar: View {
                 )
             } else {
                 ApexSection(profile: profile)
-                
-                if !profile.tagsArray.isEmpty {
-                    TagsSection(profile: profile)
-                }
 
                 PagesSection(
                     profile: profile,
@@ -57,6 +53,10 @@ struct Sidebar: View {
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet
                 )
+                
+                if !profile.tagsArray.isEmpty {
+                    TagsSection(profile: profile)
+                }
             }
         }
         .listStyle(.sidebar)
