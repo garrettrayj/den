@@ -21,44 +21,43 @@ struct ItemActionView<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
-        if let url = item.link {
-            Group {
-                if useSystemBrowser {
-                    Button {
-                        openURL(url)
-                        HistoryUtility.markItemRead(context: viewContext, item: item)
-                    } label: {
-                        content.modifier(DraggableItemModifier(item: item))
-                    }
-                } else {
-                    NavigationLink(value: SubDetailPanel.item(item)) {
-                        content.modifier(DraggableItemModifier(item: item))
-                    }
+        Group {
+            if useSystemBrowser {
+                Button {
+                    guard let url = item.link else { return }
+                    openURL(url)
+                    HistoryUtility.markItemRead(context: viewContext, item: item)
+                } label: {
+                    content.modifier(DraggableItemModifier(item: item))
+                }
+            } else {
+                NavigationLink(value: SubDetailPanel.item(item)) {
+                    content.modifier(DraggableItemModifier(item: item))
                 }
             }
-            .buttonStyle(
-                PreviewButtonStyle(
-                    read: $item.read,
-                    roundedBottom: isLastInList || isStandalone,
-                    roundedTop: isStandalone,
-                    showDivider: !isLastInList && !isStandalone
-                )
+        }
+        .buttonStyle(
+            PreviewButtonStyle(
+                read: $item.read,
+                roundedBottom: isLastInList || isStandalone,
+                roundedTop: isStandalone,
+                showDivider: !isLastInList && !isStandalone
             )
-            .accessibilityIdentifier("ItemAction")
-            .contextMenu {
-                #if os(iOS)
-                ControlGroup {
-                    ReadUnreadButton(item: item)
-                    TagsMenu(item: item)
-                }
-                #else
+        )
+        .accessibilityIdentifier("ItemAction")
+        .contextMenu {
+            #if os(iOS)
+            ControlGroup {
                 ReadUnreadButton(item: item)
                 TagsMenu(item: item)
-                #endif
-                SystemBrowserButton(url: url)
-                CopyLinkButton(url: url)
-                ShareButton(url: url)
             }
+            #else
+            ReadUnreadButton(item: item)
+            TagsMenu(item: item)
+            #endif
+            SystemBrowserButton(url: $item.link)
+            CopyLinkButton(url: $item.link)
+            ShareButton(url: $item.link)
         }
     }
 }

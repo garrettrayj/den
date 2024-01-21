@@ -11,10 +11,11 @@ import SwiftUI
 struct SystemBrowserButton: View {
     @Environment(\.openURL) private var openURL
     
-    let url: URL
+    @Binding var url: URL?
     
     var body: some View {
         Button {
+            guard let url = url else { return }
             openURL(url)
         } label: {
             Label {

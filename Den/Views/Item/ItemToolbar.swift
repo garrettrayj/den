@@ -18,14 +18,11 @@ struct ItemToolbar: ToolbarContent {
 
     var body: some ToolbarContent {
         #if os(macOS)
-        ToolbarItem(placement: .navigation) {
-            DoneButton()
-        }
-        ToolbarItem(placement: .navigation) {
-            TagsMenu(item: item)
-        }
-        ToolbarItem(placement: .navigation) {
+        ToolbarItem {
             formatMenu
+        }
+        ToolbarItem {
+            TagsMenu(item: item)
         }
         ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)
@@ -36,13 +33,11 @@ struct ItemToolbar: ToolbarContent {
         ToolbarItem {
             StopReloadButton(browserViewModel: browserViewModel)
         }
-        if let url = browserViewModel.url {
-            ToolbarItem {
-                SystemBrowserButton(url: url)
-            }
-            ToolbarItem {
-                ShareButton(url: url)
-            }
+        ToolbarItem {
+            SystemBrowserButton(url: $browserViewModel.url)
+        }
+        ToolbarItem {
+            ShareButton(url: $browserViewModel.url)
         }
         #else
         if horizontalSizeClass == .compact {

@@ -29,14 +29,6 @@ struct SidebarToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem(placement: .primaryAction) {
-            RefreshButton(
-                profile: profile,
-                refreshing: $refreshing,
-                refreshProgress: $refreshProgress
-            )
-            .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
-        }
-        ToolbarItem(placement: .primaryAction) {
             Menu {
                 NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
                 NewPageButton(showingNewPageSheet: $showingNewPageSheet)

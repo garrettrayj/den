@@ -18,14 +18,11 @@ struct BookmarkToolbar: ToolbarContent {
 
     var body: some ToolbarContent {
         #if os(macOS)
-        ToolbarItem(placement: .navigation) {
-            DoneButton()
-        }
-        ToolbarItem(placement: .navigation) {
-            UntagButton(bookmark: bookmark, dismissAfterAction: true)
-        }
-        ToolbarItem(placement: .navigation) {
+        ToolbarItem {
             formatMenu
+        }
+        ToolbarItem {
+            UntagButton(bookmark: bookmark, dismissAfterAction: true)
         }
         ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)
@@ -37,9 +34,10 @@ struct BookmarkToolbar: ToolbarContent {
             StopReloadButton(browserViewModel: browserViewModel)
         }
         ToolbarItem {
-            if let url = browserViewModel.url {
-                ShareButton(url: url)
-            }
+            SystemBrowserButton(url: $browserViewModel.url)
+        }
+        ToolbarItem {
+            ShareButton(url: $browserViewModel.url)
         }
         #else
         if horizontalSizeClass == .compact {

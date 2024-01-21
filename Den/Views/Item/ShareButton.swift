@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct ShareButton: View {
-    let url: URL
+    @Binding var url: URL?
 
     var body: some View {
-        ShareLink(item: url).accessibilityIdentifier("Share")
+        ShareLink(item: url ?? URL(string: "about:blank")!).accessibilityIdentifier("Share")
     }
 }

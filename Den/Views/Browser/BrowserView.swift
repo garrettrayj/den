@@ -55,7 +55,6 @@ struct BrowserView: View {
                 #if os(macOS)
                 .ignoresSafeArea()
                 .padding(.top, 1)
-                .navigationBarBackButtonHidden()
                 #endif
             
             if browserViewModel.showingReader == true {

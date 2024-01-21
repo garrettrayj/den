@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct CopyLinkButton: View {
-    let url: URL
+    @Binding var url: URL?
     
     var body: some View {
         Button {
+            guard let url = url else { return }
             PasteboardUtility.copyURL(url: url)
         } label: {
             Label {

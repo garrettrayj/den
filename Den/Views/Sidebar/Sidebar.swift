@@ -12,6 +12,8 @@ import UniformTypeIdentifiers
 struct Sidebar: View {
     @Environment(\.managedObjectContext) private var viewContext
 
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
+
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
@@ -100,20 +102,33 @@ struct Sidebar: View {
         }
         #if os(macOS)
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            VStack(alignment: .leading) {
-                ProfilePickerMenu(
-                    profile: profile,
-                    profiles: profiles,
-                    currentProfileID: $currentProfileID
-                )
-                .disabled(refreshing)
+            HStack {
+                VStack(alignment: .leading) {
+                    ProfilePickerMenu(
+                        profile: profile,
+                        profiles: profiles,
+                        currentProfileID: $currentProfileID
+                    )
+                    .disabled(refreshing)
 
-                SidebarStatus(
+                    SidebarStatus(
+                        profile: profile,
+                        refreshing: $refreshing,
+                        refreshProgress: $refreshProgress
+                    )
+                }
+                
+                RefreshButton(
                     profile: profile,
                     refreshing: $refreshing,
                     refreshProgress: $refreshProgress
                 )
+                .labelStyle(.iconOnly)
+                .imageScale(.large)
+                .buttonStyle(.borderless)
+                .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
             }
+            
             .padding(12)
             .padding(.top, 1)
             .background(alignment: .top) {

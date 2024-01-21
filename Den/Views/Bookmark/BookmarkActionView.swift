@@ -17,28 +17,31 @@ struct BookmarkActionView<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
-        if let url = bookmark.link {
-            Group {
-                if useSystemBrowser {
-                    Button {
-                        openURL(url)
-                    } label: {
-                        content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
-                    }
-                } else {
-                    NavigationLink(value: SubDetailPanel.bookmark(bookmark)) {
-                        content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
-                    }
+        Group {
+            if useSystemBrowser {
+                Button {
+                    guard let url = bookmark.link else { return }
+                    openURL(url)
+                } label: {
+                    content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
+                }
+            } else {
+                NavigationLink(value: SubDetailPanel.bookmark(bookmark)) {
+                    content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
                 }
             }
-            .buttonStyle(PreviewButtonStyle(read: .constant(false), roundedBottom: true))
-            .accessibilityIdentifier("BookmarkAction")
-            .contextMenu {
-                UntagButton(bookmark: bookmark)
-                SystemBrowserButton(url: url)
-                CopyLinkButton(url: url)
-                ShareButton(url: url)
-            }
+        }
+        .buttonStyle(PreviewButtonStyle(read: .constant(false), roundedBottom: true))
+        .accessibilityIdentifier("BookmarkAction")
+        .contextMenu {
+            UntagButton(bookmark: bookmark)
+            SystemBrowserButton(url: $bookmark.link)
+            CopyLinkButton(url: $bookmark.link)
+            ShareButton(url: $bookmark.link)
+        }
+        
+        if let url = bookmark.link {
+            
         }
     }
 }
