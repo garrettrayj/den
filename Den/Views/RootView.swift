@@ -13,10 +13,17 @@ import SwiftUI
 struct RootView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
+    @Binding var currentProfileID: String?
+    @Binding var refreshing: Bool
+    @Binding var showingExporter: Bool
+    @Binding var showingImporter: Bool
+    @Binding var showingNewFeedSheet: Bool
+    @Binding var showingNewPageSheet: Bool
+    @Binding var showingNewTagSheet: Bool
+    
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
 
-    @AppStorage("CurrentProfileID") private var currentProfileID: String?
     @AppStorage("MaintenanceTimestamp") private var maintenanceTimestamp: Double?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
@@ -33,6 +40,12 @@ struct RootView: View {
                 SplitView(
                     profile: profile,
                     currentProfileID: $currentProfileID,
+                    refreshing: $refreshing,
+                    showingExporter: $showingExporter,
+                    showingImporter: $showingImporter,
+                    showingNewFeedSheet: $showingNewFeedSheet,
+                    showingNewPageSheet: $showingNewPageSheet,
+                    showingNewTagSheet: $showingNewTagSheet,
                     userColorScheme: $userColorScheme,
                     useSystemBrowser: $useSystemBrowser,
                     profiles: Array(profiles)

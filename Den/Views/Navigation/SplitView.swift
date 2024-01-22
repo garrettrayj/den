@@ -18,12 +18,20 @@ struct SplitView: View {
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
+    @Binding var refreshing: Bool
+    @Binding var showingExporter: Bool
+    @Binding var showingImporter: Bool
+    @Binding var showingNewFeedSheet: Bool
+    @Binding var showingNewPageSheet: Bool
+    @Binding var showingNewTagSheet: Bool
     @Binding var userColorScheme: UserColorScheme
     @Binding var useSystemBrowser: Bool
 
     let profiles: [Profile]
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+    
+    @State private var refreshProgress = Progress()
 
     @StateObject private var navigationStore = NavigationStore()
 
@@ -32,7 +40,6 @@ struct SplitView: View {
     @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("SearchQuery") private var searchQuery: String = ""
-    @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     
     @AppStorage("HideRead") private var hideRead: Bool = false
 
@@ -47,7 +54,13 @@ struct SplitView: View {
                 userColorScheme: $userColorScheme,
                 useSystemBrowser: $useSystemBrowser,
                 searchQuery: $searchQuery,
+                showingExporter: $showingExporter,
+                showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
+                showingNewPageSheet: $showingNewPageSheet,
+                showingNewTagSheet: $showingNewTagSheet,
+                refreshing: $refreshing, 
+                refreshProgress: $refreshProgress,
                 profiles: profiles
             )
             .navigationSplitViewColumnWidth(min: 220, ideal: 300, max: 300)
@@ -109,5 +122,37 @@ struct SplitView: View {
             )
         }
         .navigationTitle(profile.nameText)
+        .onReceive(NotificationCenter.default.publisher(for: .refreshTriggered, object: nil)) { _ in
+            Task {
+                await RefreshManager.refresh(profile: profile)
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+            refreshProgress.totalUnitCount = Int64(profile.feedsArray.count)
+            refreshing = true
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .refreshProgressed, object: profile.objectID)
+        ) { _ in
+            refreshProgress.completedUnitCount += 1
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)
+        ) { _ in
+            refreshing = false
+            refreshProgress.completedUnitCount = 0
+            profile.objectWillChange.send()
+            profile.pagesArray.forEach { page in
+                page.objectWillChange.send()
+                page.feedsArray.forEach { $0.objectWillChange.send() }
+            }
+        }
+        .sensoryFeedback(trigger: refreshing) { _, newValue in
+            if newValue == true {
+                return .start
+            } else {
+                return .success
+            }
+        }
     }
 }

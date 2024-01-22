@@ -27,28 +27,6 @@ struct SidebarToolbar: ToolbarContent {
     let profiles: [Profile]
 
     var body: some ToolbarContent {
-        #if os(macOS)
-        ToolbarItem(placement: .primaryAction) {
-            Menu {
-                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                NewPageButton(showingNewPageSheet: $showingNewPageSheet)
-                NewTagButton(showingNewTagSheet: $showingNewTagSheet)
-                Divider()
-                ImportButton(showingImporter: $showingImporter)
-                ExportButton(showingExporter: $showingExporter)
-                OrganizerButton(detailPanel: $detailPanel)
-            } label: {
-                Label {
-                    Text("Menu", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "ellipsis.circle")
-                }
-            }
-            .menuIndicator(.hidden)
-            .disabled(refreshing)
-            .accessibilityIdentifier("SidebarMenu")
-        }
-        #else
         ToolbarItem(placement: .primaryAction) {
             Menu {
                 NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
@@ -69,6 +47,7 @@ struct SidebarToolbar: ToolbarContent {
             .disabled(refreshing)
             .accessibilityIdentifier("SidebarMenu")
         }
+        #if os(iOS)
         ToolbarItem(placement: .bottomBar) {
             ProfilePickerMenu(
                 profile: profile,
@@ -78,14 +57,15 @@ struct SidebarToolbar: ToolbarContent {
             .disabled(refreshing)
         }
         ToolbarItem(placement: .status) {
-            SidebarStatus(profile: profile, refreshing: $refreshing, refreshProgress: $refreshProgress)
-        }
-        ToolbarItem(placement: .bottomBar) {
-            RefreshButton(
+            SidebarStatus(
                 profile: profile,
                 refreshing: $refreshing,
                 refreshProgress: $refreshProgress
-            ).disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
+            )
+        }
+        ToolbarItem(placement: .bottomBar) {
+            RefreshButton()
+                .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
         #endif
     }

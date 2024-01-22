@@ -10,6 +10,7 @@ import Foundation
 
 extension Notification.Name {
     static let appErrored = Notification.Name("app-errored")
+    static let refreshTriggered = Notification.Name("refresh-triggered")
     static let refreshProgressed = Notification.Name("refresh-progressed")
     static let refreshFinished = Notification.Name("refresh-finished")
     static let refreshStarted = Notification.Name("refresh-started")

@@ -120,6 +120,8 @@
 		685ABADE290F187C0080110A /* FeedUpdateTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685ABADD290F187C0080110A /* FeedUpdateTask.swift */; };
 		685C58F52B581A6B009E005E /* OpenValidatorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685C58F42B581A6B009E005E /* OpenValidatorButton.swift */; };
 		685E611F2B598F73009CABFE /* ApexSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685E611E2B598F73009CABFE /* ApexSection.swift */; };
+		685E61212B5EE546009CABFE /* OrganizerNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685E61202B5EE546009CABFE /* OrganizerNavLink.swift */; };
+		685E61232B5EE701009CABFE /* MacSidebarBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685E61222B5EE701009CABFE /* MacSidebarBottomBar.swift */; };
 		685EB37F2AF2AF22001683E3 /* BookmarksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB37E2AF2AF22001683E3 /* BookmarksUITests.swift */; };
 		685EB3812AF2B079001683E3 /* ImportExportUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3802AF2B079001683E3 /* ImportExportUITests.swift */; };
 		685EB3832AF2B2C5001683E3 /* ProfileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3822AF2B2C5001683E3 /* ProfileUITests.swift */; };
@@ -470,6 +472,8 @@
 		685ABADD290F187C0080110A /* FeedUpdateTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUpdateTask.swift; sourceTree = "<group>"; };
 		685C58F42B581A6B009E005E /* OpenValidatorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenValidatorButton.swift; sourceTree = "<group>"; };
 		685E611E2B598F73009CABFE /* ApexSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApexSection.swift; sourceTree = "<group>"; };
+		685E61202B5EE546009CABFE /* OrganizerNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerNavLink.swift; sourceTree = "<group>"; };
+		685E61222B5EE701009CABFE /* MacSidebarBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacSidebarBottomBar.swift; sourceTree = "<group>"; };
 		685EB37E2AF2AF22001683E3 /* BookmarksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUITests.swift; sourceTree = "<group>"; };
 		685EB3802AF2B079001683E3 /* ImportExportUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportUITests.swift; sourceTree = "<group>"; };
 		685EB3822AF2B2C5001683E3 /* ProfileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUITests.swift; sourceTree = "<group>"; };
@@ -1344,6 +1348,8 @@
 				68599B672AB0EF6C0057FEA8 /* TagsSection.swift */,
 				6868A3152895D20D0051D43E /* TrendingNavLink.swift */,
 				685E611E2B598F73009CABFE /* ApexSection.swift */,
+				685E61202B5EE546009CABFE /* OrganizerNavLink.swift */,
+				685E61222B5EE701009CABFE /* MacSidebarBottomBar.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -1702,6 +1708,7 @@
 				685ABADE290F187C0080110A /* FeedUpdateTask.swift in Sources */,
 				687F222C2A5B615100B76919 /* FeedURLResponse.swift in Sources */,
 				68701DE3273BD42D00C6BB69 /* FeedView.swift in Sources */,
+				685E61232B5EE701009CABFE /* MacSidebarBottomBar.swift in Sources */,
 				687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */,
 				68FF63F62921DB900012A275 /* FilterReadButton.swift in Sources */,
 				68E9F6472AE1825D00A27E19 /* GoBackButton.swift in Sources */,
@@ -1724,6 +1731,7 @@
 				68F56B5A28739041006EC915 /* Inbox.swift in Sources */,
 				686F6B062B38B46B0099EB49 /* InboxLayout.swift in Sources */,
 				6868A3142895CA860051D43E /* InboxNavLink.swift in Sources */,
+				685E61212B5EE546009CABFE /* OrganizerNavLink.swift in Sources */,
 				68FF63FD2921DD2B0012A275 /* InboxToolbar.swift in Sources */,
 				6856DB422AB8EA090094615E /* InspectorToggleButton.swift in Sources */,
 				680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */,

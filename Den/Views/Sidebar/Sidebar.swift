@@ -12,8 +12,6 @@ import UniformTypeIdentifiers
 struct Sidebar: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @EnvironmentObject private var networkMonitor: NetworkMonitor
-
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
@@ -23,19 +21,19 @@ struct Sidebar: View {
     @Binding var userColorScheme: UserColorScheme
     @Binding var useSystemBrowser: Bool
     @Binding var searchQuery: String
+    @Binding var showingExporter: Bool
+    @Binding var showingImporter: Bool
     @Binding var showingNewFeedSheet: Bool
+    @Binding var showingNewPageSheet: Bool
+    @Binding var showingNewTagSheet: Bool
+    @Binding var refreshing: Bool
+    @Binding var refreshProgress: Progress
 
     @State private var exporterIsPresented: Bool = false
     @State private var opmlFile: OPMLFile?
-    @State private var refreshing = false
-    @State private var refreshProgress = Progress()
     @State private var searchInput = ""
-    @State private var showingExporter = false
-    @State private var showingImporter = false
     @State private var showingSettings = false
-    @State private var showingNewPageSheet = false
-    @State private var showingNewTagSheet = false
-
+    
     let profiles: [Profile]
 
     var body: some View {
@@ -84,6 +82,17 @@ struct Sidebar: View {
             detailPanel = .search
         }
         .navigationTitle(profile.nameText)
+        #if os(macOS)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            MacSidebarBottomBar(
+                profile: profile,
+                currentProfileID: $currentProfileID,
+                refreshing: $refreshing,
+                refreshProgress: $refreshProgress,
+                profiles: profiles
+            )
+        }
+        #else
         .toolbar {
             SidebarToolbar(
                 profile: profile,
@@ -100,69 +109,7 @@ struct Sidebar: View {
                 profiles: profiles
             )
         }
-        #if os(macOS)
-        .safeAreaInset(edge: .bottom, spacing: 0) {
-            HStack {
-                VStack(alignment: .leading) {
-                    ProfilePickerMenu(
-                        profile: profile,
-                        profiles: profiles,
-                        currentProfileID: $currentProfileID
-                    )
-                    .disabled(refreshing)
-
-                    SidebarStatus(
-                        profile: profile,
-                        refreshing: $refreshing,
-                        refreshProgress: $refreshProgress
-                    )
-                }
-                
-                RefreshButton(
-                    profile: profile,
-                    refreshing: $refreshing,
-                    refreshProgress: $refreshProgress
-                )
-                .labelStyle(.iconOnly)
-                .imageScale(.large)
-                .buttonStyle(.borderless)
-                .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
-            }
-            
-            .padding(12)
-            .padding(.top, 1)
-            .background(alignment: .top) {
-                Rectangle().fill(BackgroundSeparatorShapeStyle()).frame(height: 1)
-            }
-        }
         #endif
-        .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-            refreshProgress.totalUnitCount = Int64(profile.feedsArray.count)
-            refreshing = true
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .refreshProgressed, object: profile.objectID)
-        ) { _ in
-            refreshProgress.completedUnitCount += 1
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)
-        ) { _ in
-            refreshing = false
-            refreshProgress.completedUnitCount = 0
-            profile.objectWillChange.send()
-            profile.pagesArray.forEach { page in
-                page.objectWillChange.send()
-                page.feedsArray.forEach { $0.objectWillChange.send() }
-            }
-        }
-        .sensoryFeedback(trigger: refreshing) { _, newValue in
-            if newValue == true {
-                return .start
-            } else {
-                return .success
-            }
-        }
         .sheet(
             isPresented: $showingSettings,
             onDismiss: {
@@ -224,14 +171,6 @@ struct Sidebar: View {
             if !exporterIsPresented {
                 showingExporter = false
             }
-        }
-        .background {
-            // Buttons in background for keyboard shortcuts
-            ZStack {
-                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                NewPageButton(showingNewPageSheet: $showingNewPageSheet)
-                NewTagButton(showingNewTagSheet: $showingNewTagSheet)
-            }.opacity(0)
         }
     }
 
