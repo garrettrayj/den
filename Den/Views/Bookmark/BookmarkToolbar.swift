@@ -57,19 +57,17 @@ struct BookmarkToolbar: ToolbarContent {
                 ToolbarItem(placement: .bottomBar) {
                     GoForwardButton(browserViewModel: browserViewModel)
                 }
-                if let url = browserViewModel.url {
-                    ToolbarItem(placement: .bottomBar) {
-                        Spacer()
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        ShareButton(url: url)
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        Spacer()
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        SystemBrowserButton(url: url)
-                    }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    ShareButton(url: $browserViewModel.url)
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    SystemBrowserButton(url: $browserViewModel.url)
                 }
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
@@ -97,13 +95,11 @@ struct BookmarkToolbar: ToolbarContent {
             ToolbarItem {
                 StopReloadButton(browserViewModel: browserViewModel)
             }
-            if let url = browserViewModel.url {
-                ToolbarItem {
-                    SystemBrowserButton(url: url)
-                }
-                ToolbarItem {
-                    ShareButton(url: url)
-                }
+            ToolbarItem {
+                SystemBrowserButton(url: $browserViewModel.url)
+            }
+            ToolbarItem {
+                ShareButton(url: $browserViewModel.url)
             }
         }
         #endif

@@ -16,8 +16,7 @@ struct RootView: View {
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
 
-    @SceneStorage("CurrentProfileID") private var currentProfileID: String?
-
+    @AppStorage("CurrentProfileID") private var currentProfileID: String?
     @AppStorage("MaintenanceTimestamp") private var maintenanceTimestamp: Double?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false

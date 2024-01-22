@@ -22,6 +22,43 @@ struct DenApp: App {
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {
+        #if os(macOS)
+        Window(Text("Den", comment: "Window title."), id: "main") {
+            RootView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(networkMonitor)
+        }
+        .handlesExternalEvents(matching: ["*"])
+        .commands {
+            ToolbarCommands()
+            SidebarCommands()
+            InspectorCommands()
+            CommandGroup(replacing: .help) {
+                Button {
+                    openURL(URL(string: "https://den.io/help/")!)
+                } label: {
+                    Text("Den Help", comment: "Button label.")
+                }
+                Divider()
+                Button {
+                    if let url = Bundle.main.url(
+                        forResource: "Acknowledgements",
+                        withExtension: "html"
+                    ) {
+                        NSWorkspace.shared.open(url)
+                    }
+                } label: {
+                    Text("Acknowledgements", comment: "Button label.")
+                }
+            }
+        }
+        .defaultSize(width: 1280, height: 800)
+        
+        Settings {
+            MacSettings()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        }
+        #else
         WindowGroup {
             RootView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
@@ -38,30 +75,20 @@ struct DenApp: App {
                 } label: {
                     Text("Den Help", comment: "Button label.")
                 }
-                #if os(macOS)
                 Divider()
                 Button {
                     if let url = Bundle.main.url(
                         forResource: "Acknowledgements",
                         withExtension: "html"
                     ) {
-                        NSWorkspace.shared.open(url)
+                        UIApplication.shared.open(url)
                     }
                 } label: {
                     Text("Acknowledgements", comment: "Button label.")
                 }
-                #endif
             }
         }
-        #if os(macOS)
         .defaultSize(width: 1280, height: 800)
-        #endif
-        
-        #if os(macOS)
-        Settings {
-            MacSettings()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-        }
         #endif
     }
 
