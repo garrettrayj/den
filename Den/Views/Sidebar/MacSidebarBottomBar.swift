@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct MacSidebarBottomBar: View {
+    @Environment(\.displayScale) private var displayScale
+    
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     
     @ObservedObject var profile: Profile
@@ -35,12 +37,20 @@ struct MacSidebarBottomBar: View {
                     refreshProgress: $refreshProgress
                 )
             }
-            
-            RefreshButton()
-                .labelStyle(.iconOnly)
-                .imageScale(.large)
-                .buttonStyle(.borderless)
-                .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
+
+            if refreshing {
+                ProgressView(refreshProgress)
+                    .progressViewStyle(.circular)
+                    .labelsHidden()
+                    .scaleEffect(1 / displayScale)
+                    .frame(width: 18)
+            } else {
+                RefreshButton()
+                    .labelStyle(.iconOnly)
+                    .imageScale(.large)
+                    .buttonStyle(.borderless)
+                    .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
+            }
         }
         .padding(12)
         .padding(.top, 1)

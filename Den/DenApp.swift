@@ -70,7 +70,6 @@ struct DenApp: App {
             NewTagButton(showingNewTagSheet: $showingNewTagSheet)
                 .disabled(currentProfileID == nil)
         }
-        
         CommandGroup(replacing: .importExport) {
             ImportButton(showingImporter: $showingImporter)
                 .disabled(currentProfileID == nil)
@@ -81,7 +80,6 @@ struct DenApp: App {
             RefreshButton()
                 .disabled(currentProfileID == nil || refreshing || !networkMonitor.isConnected)
         }
-        
         CommandGroup(replacing: .help) {
             Button {
                 openURL(URL(string: "https://den.io/help/")!)
@@ -94,7 +92,11 @@ struct DenApp: App {
                     forResource: "Acknowledgements",
                     withExtension: "html"
                 ) {
+                    #if os(macOS)
                     NSWorkspace.shared.open(url)
+                    #else
+                    UIApplication.shared.open(url)
+                    #endif
                 }
             } label: {
                 Text("Acknowledgements", comment: "Button label.")
