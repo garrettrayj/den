@@ -5,6 +5,8 @@
 #
 #  Created by Garrett Johnson on 5/13/23.
 #  Copyright © 2022 Garrett Johnson
+#
+#  SPDX-License-Identifier: MIT
 
 tell application "System Events" to tell process "Safari"
     tell window 1

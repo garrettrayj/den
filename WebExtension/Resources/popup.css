@@ -1,9 +1,15 @@
 /**
- Den Safari Extension Styles
+popup.css
+WebExtension
+
+Created by Garrett Johnson on 7/19/23.
+Copyright © 2023 Garrett Johnson
+
+SPDX-License-Identifier: MIT
  
- See https://github.com/WebKit/webkit/blob/main/Source/WebCore/css/CSSValueKeywords.in
+See https://github.com/WebKit/webkit/blob/main/Source/WebCore/css/CSSValueKeywords.in
  for Apple specific CSS values
- */
+*/
 
 :root {
     color-scheme: light dark;

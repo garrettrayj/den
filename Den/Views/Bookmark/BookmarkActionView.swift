@@ -5,6 +5,8 @@
 //  Created by Garrett Johnson on 9/12/23.
 //  Copyright © 2023 Garrett Johnson
 //
+//  SPDX-License-Identifier: MIT
+//
 
 import SwiftUI
 
@@ -38,10 +40,6 @@ struct BookmarkActionView<Content: View>: View {
             SystemBrowserButton(url: $bookmark.link)
             CopyLinkButton(url: $bookmark.link)
             ShareButton(url: $bookmark.link)
-        }
-        
-        if let url = bookmark.link {
-            
         }
     }
 }

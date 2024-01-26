@@ -5,6 +5,8 @@
 #
 #  Created by Garrett Johnson on 7/18/21.
 #  Copyright © 2021 Garrett Johnson
+#
+#  SPDX-License-Identifier: MIT
 
 set -e
 

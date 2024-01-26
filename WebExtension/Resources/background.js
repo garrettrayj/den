@@ -1,3 +1,13 @@
+//
+//  background.js
+//  WebExtension
+//
+//  Created by Garrett Johnson on 10/24/23.
+//  Copyright © 2023 Garrett Johnson
+//
+//  SPDX-License-Identifier: MIT
+//
+
 function updateBadge(tabId, count) {
     if (count > 0) {
         browser.browserAction.setBadgeText({tabId: tabId, text: String(count)});

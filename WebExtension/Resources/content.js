@@ -1,3 +1,13 @@
+//
+//  content.js
+//  WebExtension
+//
+//  Created by Garrett Johnson on 7/19/23.
+//  Copyright © 2023 Garrett Johnson
+//
+//  SPDX-License-Identifier: MIT
+//
+
 const formats = {
     "application/rss+xml": "RSS",
     "application/atom+xml": "Atom",
