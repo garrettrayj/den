@@ -1,5 +1,5 @@
 <h1>
-<img src="Den/Assets.xcassets/AppIcon.appiconset/AppIcon-macOS-128pt@2x.png" alt="App Icon" width="128" height="128" align="left">
+<img src="Den/Assets.xcassets/AppIcon.appiconset/AppIcon-macOS-128pt@2x.png" alt="App Icon" width="128" height="128">
 Den for RSS
 </h1>
 
