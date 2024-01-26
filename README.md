@@ -1,9 +1,7 @@
+<h1>
 <img src="Den/Assets.xcassets/AppIcon.appiconset/AppIcon-macOS-128pt@2x.png" alt="App Icon" width="128" height="128" align="left">
-<h1>Den for RSS</h1>
-
-Comfy Feed Browsing
-
-## Intro
+Den for RSS
+</h1>
 
 Create custom landscape views of what's happening with a fast and modern news aggregator.
 
