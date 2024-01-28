@@ -51,7 +51,7 @@ struct FeedLayoutSection<Header: View>: View {
             }
             .padding(.horizontal)
             .padding(.vertical, 12)
-            .background(.fill.quaternary)
+            .background(.fill.quinary)
             .background(.thickMaterial)
         }
     }
