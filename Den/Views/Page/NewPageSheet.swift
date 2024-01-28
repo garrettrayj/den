@@ -52,6 +52,7 @@ struct NewPageSheet: View {
                 textFieldFocus = true
             }
             .navigationTitle(Text("New Page", comment: "Navigation title."))
+            .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {

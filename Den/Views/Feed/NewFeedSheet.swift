@@ -73,6 +73,7 @@ struct NewFeedSheet: View {
                 }
             }
             .navigationTitle(Text("New Feed", comment: "Navigation title."))
+            .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     submitButton

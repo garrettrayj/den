@@ -40,7 +40,7 @@ struct BlocklistsTab: View {
                         blocklist.nameText.tag(blocklist as Blocklist?)
                     }
                 }
-                .frame(width: 200)
+                .frame(width: 180)
                 .safeAreaInset(edge: .bottom, alignment: .leading) {
                     HStack {
                         NewBlocklistButton()

@@ -18,17 +18,7 @@ struct ProfilesSection: View {
     var body: some View {
         Section {
             ForEach(profiles) { profile in
-                NavigationLink {
-                    ProfileSettings(profile: profile).navigationTitle(profile.nameText)
-                } label: {
-                    Label {
-                        profile.nameText
-                    } icon: {
-                        Image(systemName: "rhombus")
-                            .symbolVariant(profile.id?.uuidString == currentProfileID ? .fill : .none)
-                    }
-                }
-                .accessibilityIdentifier("ProfileSettings")
+                ProfilesSectionNavLink(profile: profile, currentProfileID: $currentProfileID)
             }
             NewProfileButton()
         } header: {

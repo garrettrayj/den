@@ -42,10 +42,8 @@ struct NewBlocklistSheet: View {
                     .task {
                         blocklistSources = await BlocklistManifest.fetch()
                     }
-                } footer: {
-                    Text(.init("[EasyList](https://easylist.to) filters converted for compatibility.")).foregroundStyle(.secondary)
                 }
-
+                
                 Section {
                     TextField(
                         text: $name,
@@ -53,17 +51,26 @@ struct NewBlocklistSheet: View {
                     ) {
                         Text("Name", comment: "Text field label.")
                     }
-                    
+                    .labelsHidden()
+                } header: {
+                    Text("Name", comment: "New blocklist sheet section header.")
+                }
+                
+                Section {
                     TextField(text: $urlString) {
                         Text("URL", comment: "Text field label.")
                     }
+                    .labelsHidden()
+                } header: {
+                    Text("URL", comment: "New blocklist sheet section header.")
                 } footer: {
-                    Text("Rules must be in content blocker JSON format.").foregroundStyle(.secondary)
+                    Text("Filter rules must be in content blocker JSON format.").foregroundStyle(.secondary)
                 }
             }
             .disabled(isCreating)
             .formStyle(.grouped)
             .navigationTitle(Text("New Blocklist", comment: "Navigation title."))
+            .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
@@ -87,7 +94,7 @@ struct NewBlocklistSheet: View {
                     .accessibilityIdentifier("Cancel")
                 }
             }
-            .frame(minWidth: 360, idealWidth: 460, minHeight: 260)
+            .frame(minWidth: 360, idealWidth: 460, minHeight: 300)
         }
     }
 

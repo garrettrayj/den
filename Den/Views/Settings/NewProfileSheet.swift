@@ -41,6 +41,7 @@ struct NewProfileSheet: View {
             }
             .formStyle(.grouped)
             .navigationTitle(Text("New Profile", comment: "Navigation title."))
+            .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {

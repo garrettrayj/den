@@ -27,7 +27,7 @@ struct ProfileHistorySection: View {
             } label: {
                 Label {
                     HStack {
-                        Text("Clear", comment: "Button label.")
+                        Text("Clear History", comment: "Button label.")
                         Spacer()
                         Group {
                             if historyCount == 1 {

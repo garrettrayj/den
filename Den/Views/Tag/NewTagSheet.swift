@@ -41,6 +41,7 @@ struct NewTagSheet: View {
                 textFieldFocus = true
             }
             .navigationTitle(Text("New Tag", comment: "Navigation title."))
+            .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {

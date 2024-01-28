@@ -39,10 +39,18 @@ struct BlocklistSettings: View {
                     ) {
                         Text("Name", comment: "Text field label.")
                     }
-                    
+                    .labelsHidden()
+                } header: {
+                    Text("Name", comment: "Blocklist settings section header.")
+                }
+
+                Section {
                     TextField(text: $blocklist.urlString) {
                         Text("URL", comment: "Text field label.")
                     }
+                    .labelsHidden()
+                } header: {
+                    Text("URL", comment: "Blocklist settings section header.")
                 }
 
                 if let blocklistStatus = blocklist.blocklistStatus {
@@ -83,6 +91,15 @@ struct BlocklistSettings: View {
             }
             .buttonStyle(.borderless)
             .formStyle(.grouped)
+            .onDisappear {
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            }
         }
     }
 }

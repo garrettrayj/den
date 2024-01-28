@@ -41,10 +41,9 @@ struct ProfilesTab: View {
                 List(selection: $selection) {
                     ForEach(profiles, id: \.self) { profile in
                         profile.nameText.tag(profile as Profile?)
-                        
                     }
                 }
-                .frame(width: 200)
+                .frame(width: 180)
                 .safeAreaInset(edge: .bottom, alignment: .leading) {
                     HStack {
                         NewProfileButton()

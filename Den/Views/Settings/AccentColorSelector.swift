@@ -11,13 +11,17 @@
 import SwiftUI
 
 struct AccentColorSelector: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
     @Binding var selection: AccentColor?
-
-    #if os(macOS)
-    let columns = 6
-    #else
-    let columns = 4
-    #endif
+    
+    var columns: Int {
+        if horizontalSizeClass == .compact {
+            return 4
+        } else {
+            return 6
+        }
+    }
 
     var body: some View {
         LabeledContent {

@@ -24,6 +24,7 @@
 		681087D329FEEE1100F2630C /* PreviewHeadline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681087D229FEEE1100F2630C /* PreviewHeadline.swift */; };
 		6818F0792B64CC3500BE06FC /* BlocklistSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F0782B64CC3500BE06FC /* BlocklistSource.swift */; };
 		6818F07B2B64CC6900BE06FC /* BlocklistManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */; };
+		6818F07D2B660E2C00BE06FC /* ProfilesSectionNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F07C2B660E2C00BE06FC /* ProfilesSectionNavLink.swift */; };
 		681AEAF929954AC70054B084 /* FeedHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AEAF829954AC70054B084 /* FeedHero.swift */; };
 		681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */; };
 		681DE10A2922D02200D2F7B2 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1092922D02200D2F7B2 /* SDWebImageWebPCoder */; };
@@ -380,6 +381,7 @@
 		6818F0772B63363C00BE06FC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6818F0782B64CC3500BE06FC /* BlocklistSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistSource.swift; sourceTree = "<group>"; };
 		6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistManifest.swift; sourceTree = "<group>"; };
+		6818F07C2B660E2C00BE06FC /* ProfilesSectionNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesSectionNavLink.swift; sourceTree = "<group>"; };
 		681AEAF829954AC70054B084 /* FeedHero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHero.swift; sourceTree = "<group>"; };
 		681F0C252933F4C10037C609 /* ProfileHistorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHistorySection.swift; sourceTree = "<group>"; };
 		682050742AC773E200C937BE /* ImageSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSize.swift; sourceTree = "<group>"; };
@@ -802,6 +804,7 @@
 				684152782ADC7C8700ABE5E2 /* ResetSection.swift */,
 				684152752ADC6ABD00ABE5E2 /* SettingsSheet.swift */,
 				687FEEDA2A3B830D0042977E /* UserColorSchemePicker.swift */,
+				6818F07C2B660E2C00BE06FC /* ProfilesSectionNavLink.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1673,6 +1676,7 @@
 				68DA792E2B03E9990088DA33 /* CompactContentUnavailableLabelStyle.swift in Sources */,
 				68DA792A2B03CB4F0088DA33 /* ContentUnavailable.swift in Sources */,
 				68DA792C2B03DD3C0088DA33 /* ContentUnavailableLabelStyle.swift in Sources */,
+				6818F07D2B660E2C00BE06FC /* ProfilesSectionNavLink.swift in Sources */,
 				686115032B44268400BC2235 /* CopyLinkButton.swift in Sources */,
 				68701DF7273E51AC00C6BB69 /* CrashUtility.swift in Sources */,
 				68C4134B24727F2B00D1DC7B /* DeckColumn.swift in Sources */,

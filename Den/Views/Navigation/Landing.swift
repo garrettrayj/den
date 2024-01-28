@@ -32,8 +32,8 @@ struct Landing: View {
             }
             #if os(iOS)
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
-            .navigationBarTitleDisplayMode(.inline)
             #endif
+            .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
                     NewProfileButton()

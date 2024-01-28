@@ -20,18 +20,16 @@ struct BlocklistStatusView: View {
                     if let refreshed = blocklistStatus.refreshed {
                         Text(verbatim: "\(refreshed.formatted())")
                     }
-                    
-                    if blocklistStatus.compiledSuccessfully {
-                        Text("Rules Loaded Successfully", comment: "Blocklist status message")
-                            .foregroundStyle(.secondary)
-                    } else {
-                        Text("Unable to Load Rules", comment: "Blocklist status message")
+                    if !blocklistStatus.compiledSuccessfully {
+                        Text("Unable to Load Rules", comment: "Blocklist status message.")
                             .foregroundStyle(.red)
                     }
                 }
             } label: {
                 Text("Refreshed", comment: "Blocklist status label.")
             }
+        } header: {
+            Text("Status", comment: "Blocklist settings section header.")
         }
     }
 }

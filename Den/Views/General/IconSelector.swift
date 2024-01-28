@@ -95,9 +95,7 @@ struct IconSelector: View {
             }
             .navigationTitle(Text("Select Icon", comment: "Navigation title."))
             .toolbarBackground(.visible)
-            #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-            #endif
+            .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {

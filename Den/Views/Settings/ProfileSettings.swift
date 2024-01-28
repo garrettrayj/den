@@ -35,19 +35,6 @@ struct ProfileSettings: View {
                         Text("Name", comment: "Text field label.")
                     }
                     .labelsHidden()
-                    .onReceive(
-                        profile.publisher(for: \.name)
-                            .debounce(for: 1, scheduler: DispatchQueue.main)
-                            .removeDuplicates()
-                    ) { _ in
-                        if viewContext.hasChanges {
-                            do {
-                                try viewContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
-                        }
-                    }
                 } header: {
                     Text("Name", comment: "Profile settings section header.")
                 }
@@ -78,6 +65,15 @@ struct ProfileSettings: View {
             }
             .buttonStyle(.borderless)
             .formStyle(.grouped)
+            .onDisappear {
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            }
         }
     }
 }

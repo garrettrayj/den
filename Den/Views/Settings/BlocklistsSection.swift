@@ -21,7 +21,9 @@ struct BlocklistsSection: View {
             } else {
                 ForEach(blocklists) { blocklist in
                     NavigationLink {
-                        BlocklistSettings(blocklist: blocklist).navigationTitle(blocklist.nameText)
+                        BlocklistSettings(blocklist: blocklist)
+                            .navigationTitle(blocklist.nameText)
+                            .toolbarTitleDisplayMode(.inline)
                     } label: {
                         Label {
                             VStack(alignment: .leading) {

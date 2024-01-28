@@ -59,7 +59,7 @@ struct MacSettings: View {
         .listStyle(.sidebar)
         .formStyle(.grouped)
         .buttonStyle(.borderless)
-        .frame(width: 600, height: 420)
+        .frame(width: 600, height: 372)
         .preferredColorScheme(userColorScheme.colorScheme)
     }
 }
