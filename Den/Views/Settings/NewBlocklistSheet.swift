@@ -17,23 +17,34 @@ struct NewBlocklistSheet: View {
     @State private var name: String = ""
     @State private var urlString: String = ""
     @State private var isCreating = false
+    @State private var blocklistSources: [BlocklistManifest.Item] = []
 
     var body: some View {
         NavigationStack {
             Form {
-                Menu {
-                    ForEach(BlocklistPreset.allCases, id: \.self) { blocklistPreset in
-                        Button {
-                            name = blocklistPreset.name
-                            urlString = blocklistPreset.url.absoluteString
-                        } label: {
-                            Text(blocklistPreset.name)
+                Section {
+                    Menu {
+                        ForEach(blocklistSources) { blocklistSource in
+                            Button {
+                                name = blocklistSource.name
+                                urlString = blocklistSource.convertedURL.absoluteString
+                            } label: {
+                                VStack(alignment: .leading) {
+                                    Text(blocklistSource.name).fontWeight(.semibold)
+                                    Text(blocklistSource.description).font(.caption)
+                                }
+                            }
                         }
+                    } label: {
+                        Text("Presets", comment: "Menu label.")
                     }
-                } label: {
-                    Text("Presets", comment: "Menu label.")
+                    .accessibilityIdentifier("BlocklistPresets")
+                    .task {
+                        blocklistSources = await BlocklistManifest.fetch()
+                    }
+                } footer: {
+                    Text(.init("[EasyList](https://easylist.to) filters converted for compatibility.")).foregroundStyle(.secondary)
                 }
-                .accessibilityIdentifier("BlocklistPresets")
 
                 Section {
                     TextField(
@@ -42,18 +53,12 @@ struct NewBlocklistSheet: View {
                     ) {
                         Text("Name", comment: "Text field label.")
                     }
-                    .labelsHidden()
-                } header: {
-                    Text("Name", comment: "New blocklist sheet section header.")
-                }
-
-                Section {
+                    
                     TextField(text: $urlString) {
                         Text("URL", comment: "Text field label.")
                     }
-                    .labelsHidden()
-                } header: {
-                    Text("URL", comment: "New blocklist sheet section header.")
+                } footer: {
+                    Text("Rules must be in content blocker JSON format.").foregroundStyle(.secondary)
                 }
             }
             .disabled(isCreating)
@@ -82,7 +87,7 @@ struct NewBlocklistSheet: View {
                     .accessibilityIdentifier("Cancel")
                 }
             }
-            .frame(minWidth: 360, minHeight: 300)
+            .frame(minWidth: 360, idealWidth: 460, minHeight: 260)
         }
     }
 

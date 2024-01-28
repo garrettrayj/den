@@ -10,6 +10,7 @@
     </entity>
     <entity name="BlocklistStatus" representedClassName="BlocklistStatus" syncable="YES" codeGenerationType="category">
         <attribute name="blocklistId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="compiledSuccessfully" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="errorsCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="overLimit" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

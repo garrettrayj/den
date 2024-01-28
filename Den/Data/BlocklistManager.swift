@@ -12,8 +12,6 @@ import CoreData
 import OSLog
 import WebKit
 
-import ContentBlockerConverter
-
 final class BlocklistManager {
     static func getContentRuleLists() async -> [WKContentRuleList] {
         let context = PersistenceController.shared.container.newBackgroundContext()
@@ -84,11 +82,16 @@ final class BlocklistManager {
     }
 
     @MainActor
-    static func compileContentRulesList(identifier: String, json: String) async {
-        _ = try? await WKContentRuleListStore.default().compileContentRuleList(
-            forIdentifier: identifier,
-            encodedContentRuleList: json
-        )
+    static func compileContentRulesList(identifier: String, json: String) async -> Bool {
+        do {
+            _ = try await WKContentRuleListStore.default().compileContentRuleList(
+                forIdentifier: identifier,
+                encodedContentRuleList: json
+            )
+            return true
+        } catch {
+            return false
+        }
     }
 
     static func refreshContentRulesList(
@@ -103,22 +106,19 @@ final class BlocklistManager {
             return
         }
 
-        let blocklistString = String(decoding: data, as: UTF8.self)
-        let blocklistArray = blocklistString.split(whereSeparator: \.isNewline).map { String($0) }
-        let converter = ContentBlockerConverter()
+        let blocklistJSON = String(decoding: data, as: UTF8.self)
 
-        let result = converter.convertArray(rules: blocklistArray)
-
-        await compileContentRulesList(identifier: identifier, json: result.converted)
+        let compiledSuccessfully = await compileContentRulesList(
+            identifier: identifier, 
+            json: blocklistJSON
+        )
 
         let blocklistStatus = blocklist.blocklistStatus ?? BlocklistStatus.create(
             in: context,
             blocklist: blocklist
         )
 
-        blocklistStatus.errorsCount = Int64(result.errorsCount)
-        blocklistStatus.totalConvertedCount = Int64(result.totalConvertedCount)
-        blocklistStatus.overLimit = result.overLimit
+        blocklistStatus.compiledSuccessfully = compiledSuccessfully
         blocklistStatus.refreshed = .now
 
         DispatchQueue.main.async {

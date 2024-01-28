@@ -22,6 +22,8 @@
 		680F495029AA56BE0083B664 /* WithItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F494F29AA56BE0083B664 /* WithItems.swift */; };
 		680F495229AB2A240083B664 /* RefreshedDateStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F495129AB2A240083B664 /* RefreshedDateStorage.swift */; };
 		681087D329FEEE1100F2630C /* PreviewHeadline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681087D229FEEE1100F2630C /* PreviewHeadline.swift */; };
+		6818F0792B64CC3500BE06FC /* BlocklistSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F0782B64CC3500BE06FC /* BlocklistSource.swift */; };
+		6818F07B2B64CC6900BE06FC /* BlocklistManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */; };
 		681AEAF929954AC70054B084 /* FeedHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AEAF829954AC70054B084 /* FeedHero.swift */; };
 		681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */; };
 		681DE10A2922D02200D2F7B2 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1092922D02200D2F7B2 /* SDWebImageWebPCoder */; };
@@ -60,7 +62,6 @@
 		684152422AD7B4DB00ABE5E2 /* BrowserZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152412AD7B4DB00ABE5E2 /* BrowserZoom.swift */; };
 		684152452AD7B4ED00ABE5E2 /* PageZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152442AD7B4ED00ABE5E2 /* PageZoomLevel.swift */; };
 		684152482AD7B6AE00ABE5E2 /* CaseIterable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152472AD7B6AE00ABE5E2 /* CaseIterable+Extensions.swift */; };
-		6841525A2AD9D6C000ABE5E2 /* ContentBlockerConverter in Frameworks */ = {isa = PBXBuildFile; productRef = 684152592AD9D6C000ABE5E2 /* ContentBlockerConverter */; };
 		684152602AD9E15B00ABE5E2 /* NewBlocklistSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6841525F2AD9E15B00ABE5E2 /* NewBlocklistSheet.swift */; };
 		684152642AD9E18D00ABE5E2 /* Blocklist+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152632AD9E18D00ABE5E2 /* Blocklist+CoreDataClass.swift */; };
 		6841526A2AD9E74100ABE5E2 /* BlocklistsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684152692AD9E74100ABE5E2 /* BlocklistsSection.swift */; };
@@ -377,6 +378,8 @@
 		680F495129AB2A240083B664 /* RefreshedDateStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshedDateStorage.swift; sourceTree = "<group>"; };
 		681087D229FEEE1100F2630C /* PreviewHeadline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHeadline.swift; sourceTree = "<group>"; };
 		6818F0772B63363C00BE06FC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6818F0782B64CC3500BE06FC /* BlocklistSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistSource.swift; sourceTree = "<group>"; };
+		6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistManifest.swift; sourceTree = "<group>"; };
 		681AEAF829954AC70054B084 /* FeedHero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHero.swift; sourceTree = "<group>"; };
 		681F0C252933F4C10037C609 /* ProfileHistorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHistorySection.swift; sourceTree = "<group>"; };
 		682050742AC773E200C937BE /* ImageSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSize.swift; sourceTree = "<group>"; };
@@ -709,7 +712,6 @@
 			files = (
 				68B34A6C24880ADE0066B215 /* AEXML in Frameworks */,
 				6845BD4E24F6824C0008B296 /* CloudKit.framework in Frameworks */,
-				6841525A2AD9D6C000ABE5E2 /* ContentBlockerConverter in Frameworks */,
 				6897D52F26B91C5800833DDA /* FeedKit in Frameworks */,
 				6897D52626B91C0100833DDA /* HTMLEntities in Frameworks */,
 				681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */,
@@ -1028,6 +1030,8 @@
 				6825920229D82BD500E5EF3B /* TrendAnalysis.swift */,
 				68B526A3298F001800D4B927 /* WebpageMetadata.swift */,
 				68AC3A162910EEB500D60273 /* WorkingTrend.swift */,
+				6818F0782B64CC3500BE06FC /* BlocklistSource.swift */,
+				6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1430,7 +1434,6 @@
 				68EE91EA28D54C66000C00D2 /* SDWebImageSwiftUI */,
 				681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */,
 				681DE1092922D02200D2F7B2 /* SDWebImageWebPCoder */,
-				684152592AD9D6C000ABE5E2 /* ContentBlockerConverter */,
 			);
 			productName = Den;
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
@@ -1496,7 +1499,6 @@
 				68EE91E928D54C66000C00D2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				681DE1052922CFD400D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				681DE1082922D02200D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */,
-				684152582AD9D6C000ABE5E2 /* XCRemoteSwiftPackageReference "SafariConverterLib" */,
 			);
 			productRefGroup = 68C4130A247263C700D1DC7B /* Products */;
 			projectDirPath = "";
@@ -1667,6 +1669,7 @@
 				6863A4012AC6E37400A7DC61 /* Columnizer.swift in Sources */,
 				68EF17A72AED604700BCC08B /* CommonStatus.swift in Sources */,
 				68E6C5622A6C86D300CA46B2 /* CompactContentUnavailable.swift in Sources */,
+				6818F0792B64CC3500BE06FC /* BlocklistSource.swift in Sources */,
 				68DA792E2B03E9990088DA33 /* CompactContentUnavailableLabelStyle.swift in Sources */,
 				68DA792A2B03CB4F0088DA33 /* ContentUnavailable.swift in Sources */,
 				68DA792C2B03DD3C0088DA33 /* ContentUnavailableLabelStyle.swift in Sources */,
@@ -1760,6 +1763,7 @@
 				684152382AD559C300ABE5E2 /* MercuryObject.swift in Sources */,
 				68906F8F2A78F58900803350 /* NavigationStore.swift in Sources */,
 				68ED797B29BD97DE00D85B4F /* NetworkMonitor.swift in Sources */,
+				6818F07B2B64CC6900BE06FC /* BlocklistManifest.swift in Sources */,
 				685EB3982AFB58BB001683E3 /* NewBlocklistButton.swift in Sources */,
 				684152602AD9E15B00ABE5E2 /* NewBlocklistSheet.swift in Sources */,
 				683E3F45293BC02A00B16814 /* NewFeedButton.swift in Sources */,
@@ -2355,14 +2359,6 @@
 				minimumVersion = 0.9.1;
 			};
 		};
-		684152582AD9D6C000ABE5E2 /* XCRemoteSwiftPackageReference "SafariConverterLib" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AdguardTeam/SafariConverterLib/";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Kitura/swift-html-entities.git";
@@ -2415,11 +2411,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 681DE1082922D02200D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */;
 			productName = SDWebImageWebPCoder;
-		};
-		684152592AD9D6C000ABE5E2 /* ContentBlockerConverter */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 684152582AD9D6C000ABE5E2 /* XCRemoteSwiftPackageReference "SafariConverterLib" */;
-			productName = ContentBlockerConverter;
 		};
 		6897D52526B91C0100833DDA /* HTMLEntities */ = {
 			isa = XCSwiftPackageProductDependency;

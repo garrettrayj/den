@@ -39,18 +39,10 @@ struct BlocklistSettings: View {
                     ) {
                         Text("Name", comment: "Text field label.")
                     }
-                    .labelsHidden()
-                } header: {
-                    Text("Name", comment: "Blocklist settings section header.")
-                }
-
-                Section {
+                    
                     TextField(text: $blocklist.urlString) {
                         Text("URL", comment: "Text field label.")
                     }
-                    .labelsHidden()
-                } header: {
-                    Text("URL", comment: "Blocklist settings section header.")
                 }
 
                 if let blocklistStatus = blocklist.blocklistStatus {
