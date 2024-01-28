@@ -5,7 +5,7 @@
 //  Created by Anonymous S.I. on 04/03/23.
 //  Copyright © 2023 Garrett Johnson
 //
-//  SPDX-License-Identifier: MIT
+//  SPDX-License-Identifier: NONE
 //
 
 import SwiftUI

@@ -6,7 +6,7 @@
 #  Created by Garrett Johnson on 7/29/23.
 #  Copyright © 2023 Garrett Johnson
 #
-#  SPDX-License-Identifier: MIT
+#  SPDX-License-Identifier: NONE
 
 rm -rf /tmp/TestData/en.xcappdata/AppData
 mkdir -p /tmp/TestData/en.xcappdata/AppData

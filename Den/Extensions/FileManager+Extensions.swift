@@ -5,7 +5,7 @@
 //  Created by Garrett Johnson on 4/22/21.
 //  Copyright © 2021 Garrett Johnson
 //
-//  SPDX-License-Identifier: MIT
+//  SPDX-License-Identifier: NONE
 //
 
 import Foundation
