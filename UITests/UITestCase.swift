@@ -44,10 +44,12 @@ class UITestCase: XCTestCase {
         #endif
 
         let app = XCUIApplication()
+        app.launchArguments = ProcessInfo.processInfo.arguments
+        
         if inMemory {
             app.launchArguments.append("-in-memory")
         }
-        app.launchArguments.append("-disable-cloud")
+
         app.launch()
 
         return app

@@ -12,6 +12,12 @@
     "commandLineArgumentEntries" : [
       {
         "argument" : "-automatic-orientation"
+      },
+      {
+        "argument" : "-disable-cloud"
+      },
+      {
+        "argument" : "-CurrentProfileID nil"
       }
     ],
     "testTimeoutsEnabled" : true

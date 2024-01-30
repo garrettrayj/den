@@ -13,6 +13,12 @@
     "commandLineArgumentEntries" : [
       {
         "argument" : "-automatic-orientation"
+      },
+      {
+        "argument" : "-disable-cloud"
+      },
+      {
+        "argument" : "-CurrentProfileID nil"
       }
     ],
     "testTimeoutsEnabled" : true
@@ -25,7 +31,7 @@
       "target" : {
         "containerPath" : "container:Den.xcodeproj",
         "identifier" : "68E83BF82A6004590014DC64",
-        "name" : "UITests"
+        "name" : "UI Tests"
       }
     }
   ],
