@@ -58,6 +58,8 @@ struct PageView: View {
                     }
                 }
                 .onChange(of: page.name) {
+                    guard !page.isDeleted else { return }
+
                     do {
                         try viewContext.save()
                     } catch {

@@ -11,64 +11,42 @@
 import SwiftUI
 
 struct AccentColorSelector: View {
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
     @Binding var selection: AccentColor?
     
-    var columns: Int {
-        if horizontalSizeClass == .compact {
-            return 4
-        } else {
-            return 6
-        }
-    }
+    let gridItem = GridItem(.adaptive(minimum: 20), spacing: 4, alignment: .center)
 
     var body: some View {
         LabeledContent {
-            Grid(alignment: .topLeading) {
-                GridRow {
-                    Button {
-                        selection = nil
-                    } label: {
-                        HStack {
-                            if selection == nil {
-                                Image(systemName: "checkmark.square")
-                            } else {
-                                Image(systemName: "square")
-                            }
-                            Text("System", comment: "Profile color option.").font(.callout)
+            LazyVGrid(columns: [gridItem], alignment: .center, spacing: 4) {
+                Button {
+                    selection = nil
+                } label: {
+                    Group {
+                        if selection == nil {
+                            Image(systemName: "checkmark.square")
+                        } else {
+                            Image(systemName: "square")
                         }
                     }
-                    .foregroundStyle(.secondary)
-                    .gridCellColumns(columns)
+                    .padding(4)
                 }
-
-                Divider().gridCellUnsizedAxes(.horizontal)
-
-                ForEach(AccentColor.allCases.chunked(by: columns), id: \.self) { options in
-                    GridRow {
-                        ForEach(options, id: \.self) { option in
-                            Button {
-                                selection = option
-                            } label: {
-                                Group {
-                                    if selection == option {
-                                        Image(systemName: "checkmark.square.fill")
-                                    } else {
-                                        Image(systemName: "square.fill")
-                                    }
-                                }
-                                .foregroundStyle(option.color)
-                                .labelStyle(.iconOnly)
-                                .padding(.vertical, 2)
+                
+                ForEach(AccentColor.allCases, id: \.self) { option in
+                    Button {
+                        selection = option
+                    } label: {
+                        Group {
+                            if selection == option {
+                                Image(systemName: "checkmark.square.fill")
+                            } else {
+                                Image(systemName: "square.fill")
                             }
                         }
+                        .foregroundStyle(option.color)
                     }
                 }
             }
-            .gridColumnAlignment(.leading)
-            .buttonStyle(.plain)
-            .imageScale(.large)
+            .frame(alignment: .trailing)
         } label: {
             Label {
                 Text("Accent Color", comment: "Picker label.")
@@ -76,5 +54,7 @@ struct AccentColorSelector: View {
                 Image(systemName: "paintbrush")
             }
         }
+        .buttonStyle(.plain)
+        .imageScale(.large)
     }
 }

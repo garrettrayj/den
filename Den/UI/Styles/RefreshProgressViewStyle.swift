@@ -20,7 +20,7 @@ struct RefreshProgressViewStyle: ProgressViewStyle {
                     Text(
                         """
                         \(Int(fractionCompleted * Double(feedCount))) \
-                        of \(feedCount) Updated
+                        of \(feedCount) updated
                         """,
                         comment: "Status message (refresh in progress)."
                     )

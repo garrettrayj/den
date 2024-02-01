@@ -17,6 +17,7 @@ struct DeletePageButton: View {
 
     var body: some View {
         Button(role: .destructive) {
+            page.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
             viewContext.delete(page)
 
             do {

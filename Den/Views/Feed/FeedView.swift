@@ -45,6 +45,8 @@ struct FeedView: View {
                         items: items
                     )
                     .onChange(of: feed.page) {
+                        guard !feed.isDeleted else { return }
+
                         feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
                         do {
                             try viewContext.save()
@@ -54,6 +56,8 @@ struct FeedView: View {
                         }
                     }
                     .onChange(of: feed.title) {
+                        guard !feed.isDeleted else { return }
+
                         do {
                             try viewContext.save()
                         } catch {
