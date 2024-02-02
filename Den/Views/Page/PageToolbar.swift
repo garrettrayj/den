@@ -22,7 +22,7 @@ struct PageToolbar: ToolbarContent {
     @Binding var pageLayout: PageLayout
     @Binding var showingIconSelector: Bool
 
-    let items: [Item]
+    let items: FetchedResults<Item>
 
     var body: some ToolbarContent {
         #if os(macOS)
@@ -56,7 +56,7 @@ struct PageToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .status) {
                 if let profile = page.profile {
-                    CommonStatus(profile: profile, items: items)
+                    CommonStatus(profile: profile, items: Array(items))
                 }
             }
             ToolbarItem(placement: .bottomBar) {

@@ -12,13 +12,13 @@ import CoreData
 import SwiftUI
 
 struct WithItems<Content: View>: View {
-    @ViewBuilder let content: ([Item]) -> Content
+    @ViewBuilder let content: (FetchedResults<Item>) -> Content
 
     @FetchRequest(sortDescriptors: [])
     private var items: FetchedResults<Item>
 
     var body: some View {
-        content(Array(items))
+        content(items)
     }
 
     init(
@@ -29,7 +29,7 @@ struct WithItems<Content: View>: View {
         readFilter: Bool? = nil,
         includeExtras: Bool = false,
         searchQuery: String = "",
-        @ViewBuilder content: @escaping ([Item]) -> Content
+        @ViewBuilder content: @escaping (FetchedResults<Item>) -> Content
     ) {
         self.content = content
 

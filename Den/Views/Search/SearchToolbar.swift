@@ -18,7 +18,7 @@ struct SearchToolbar: ToolbarContent {
     @Binding var hideRead: Bool
 
     let query: String
-    let items: [Item]
+    let items: FetchedResults<Item>
 
     var body: some ToolbarContent {
         #if os(macOS)

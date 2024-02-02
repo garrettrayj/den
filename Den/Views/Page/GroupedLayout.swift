@@ -17,7 +17,7 @@ struct GroupedLayout: View {
 
     @Binding var hideRead: Bool
 
-    let items: [Item]
+    let items: FetchedResults<Item>
 
     var body: some View {
         GeometryReader { geometry in

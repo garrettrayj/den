@@ -26,7 +26,7 @@ struct BlocklistStatusView: View {
                     }
                 }
             } label: {
-                Text("Refreshed", comment: "Blocklist status label.")
+                Text("Updated", comment: "Blocklist status label.")
             }
         } header: {
             Text("Status", comment: "Blocklist settings section header.")

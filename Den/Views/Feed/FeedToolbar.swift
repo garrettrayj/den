@@ -21,7 +21,7 @@ struct FeedToolbar: ToolbarContent {
     @Binding var hideRead: Bool
     @Binding var showingInspector: Bool
 
-    let items: [Item]
+    let items: FetchedResults<Item>
 
     var body: some ToolbarContent {
         #if os(macOS)
@@ -56,7 +56,7 @@ struct FeedToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .status) {
                 if let profile = feed.page?.profile {
-                    CommonStatus(profile: profile, items: items)
+                    CommonStatus(profile: profile, items: Array(items))
                 }
             }
             ToolbarItem(placement: .bottomBar) {
