@@ -12,18 +12,18 @@ import CoreData
 import SwiftUI
 
 struct WithTrends<Content: View>: View {
-    @ViewBuilder let content: ([Trend]) -> Content
+    @ViewBuilder let content: (FetchedResults<Trend>) -> Content
 
     @FetchRequest(sortDescriptors: [])
     private var trends: FetchedResults<Trend>
 
     var body: some View {
-        content(filteredAndSortedTrends)
+        content(trends)
     }
 
     init(
         profile: Profile,
-        @ViewBuilder content: @escaping ([Trend]) -> Content
+        @ViewBuilder content: @escaping (FetchedResults<Trend>) -> Content
     ) {
         self.content = content
 
@@ -37,9 +37,5 @@ struct WithTrends<Content: View>: View {
         request.sortDescriptors = [NSSortDescriptor(keyPath: \Trend.title, ascending: true)]
         
         _trends = FetchRequest(fetchRequest: request)
-    }
-    
-    private var filteredAndSortedTrends: [Trend] {
-        trends.filter { $0.feeds.count > 1 }
     }
 }

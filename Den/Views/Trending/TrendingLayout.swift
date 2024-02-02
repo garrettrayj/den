@@ -15,7 +15,7 @@ struct TrendingLayout: View {
     
     @Binding var hideRead: Bool
     
-    let trends: [Trend]
+    let trends: FetchedResults<Trend>
     
     var body: some View {
         if trends.containingUnread().isEmpty && hideRead {
@@ -37,8 +37,10 @@ struct TrendingLayout: View {
     }
     
     private var visibleTrends: [Trend] {
-        let visibleTrends = hideRead ? trends.containingUnread() : trends
+        let visibleTrends = hideRead ? trends.containingUnread() : Array(trends)
 
-        return visibleTrends.sorted { $0.items.count > $1.items.count }
+        return visibleTrends.sorted {
+            ($0.feeds.count, $0.items.count) > ($1.feeds.count, $1.items.count)
+        }
     }
 }

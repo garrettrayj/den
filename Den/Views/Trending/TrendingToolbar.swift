@@ -19,7 +19,7 @@ struct TrendingToolbar: ToolbarContent {
 
     @Binding var hideRead: Bool
     
-    let trends: [Trend]
+    let trends: FetchedResults<Trend>
 
     private var unreadCount: Int {
         trends.containingUnread().count
