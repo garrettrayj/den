@@ -13,7 +13,7 @@ import SwiftUI
 struct TrendingStatus: View {
     @ObservedObject var profile: Profile
     
-    let trends: [Trend]
+    let trends: FetchedResults<Trend>
     
     var body: some View {
         VStack {
