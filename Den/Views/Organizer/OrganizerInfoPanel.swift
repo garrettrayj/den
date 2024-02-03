@@ -45,7 +45,14 @@ struct OrganizerInfoPanel: View {
                 }
                 
                 LabeledContent {
-                    Text(verbatim: "\(feedData.httpStatus)")
+                    Text(verbatim: """
+                    \(feedData.httpStatus) \
+                    \(
+                        HTTPURLResponse.localizedString(
+                            forStatusCode: Int(feedData.httpStatus)
+                        ).localizedCapitalized
+                    )
+                    """)
                 } label: {
                     Text("Status", comment: "Organizer info panel row label.")
                 }
@@ -91,7 +98,11 @@ struct OrganizerInfoPanel: View {
                 }
             }
             
-            OpenValidatorButton(feed: feed)
+            Section {
+                OpenValidatorButton(feed: feed)
+            }
+            
+            
         }
         .scrollContentBackground(.hidden)
         .listStyle(.inset)

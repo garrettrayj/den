@@ -43,10 +43,10 @@ struct CompactContentUnavailable<LabelContent: View, DescriptionContent: View, A
     }
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 4) {
             label().labelStyle(CompactContentUnavailableLabelStyle())
             description?().font(.caption).foregroundStyle(descriptionForegroundStyle)
-            actions?().font(.caption)
+            actions?().font(.caption).padding(.top, 4)
         }
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity)

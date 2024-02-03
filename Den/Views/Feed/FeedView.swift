@@ -33,6 +33,8 @@ struct FeedView: View {
                     }
                 }
                 .navigationTitle("")
+            } else if feed.feedData == nil || feed.feedData?.wrappedError != nil {
+                FeedUnavailable(feed: feed, largeDisplay: true).navigationTitle(feed.displayTitle)
             } else {
                 WithItems(
                     scopeObject: feed,

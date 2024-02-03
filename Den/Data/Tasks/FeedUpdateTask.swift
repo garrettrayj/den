@@ -61,7 +61,7 @@ class FeedUpdateTask {
             parserResult = FeedParser(data: data).parse()
         }
 
-        await context.perform {
+        await context.perform { [self] in
             guard
                 let feed = context.object(with: self.feedObjectID) as? Feed,
                 let feedId = feed.id
@@ -75,13 +75,22 @@ class FeedUpdateTask {
             feedData.cacheControl = feedResponse.cacheControl
             feedData.age = feedResponse.age
             feedData.eTag = feedResponse.eTag
-
-            self.updateFeed(
-                feed: feed,
-                feedData: feedData,
-                parserResult: self.parserResult,
-                context: context
-            )
+            
+            guard (200...299).contains(feedData.httpStatus) else {
+                feedData.error = RefreshError.request.rawValue
+                feedData.itemsArray.forEach { context.delete($0) }
+                self.save(context: context, feed: feed)
+                return
+            }
+            
+            if let parserResult = parserResult {
+                self.updateFeed(
+                    feed: feed,
+                    feedData: feedData,
+                    parserResult: parserResult,
+                    context: context
+                )
+            }
 
             // Cleanup old items
             if feedData.itemsArray.count > Feed.totalItemLimit {
@@ -148,16 +157,16 @@ class FeedUpdateTask {
     private func updateFeed(
         feed: Feed,
         feedData: FeedData,
-        parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?,
+        parserResult: Result<FeedKit.Feed, FeedKit.ParserError>,
         context: NSManagedObjectContext
     ) {
         switch parserResult {
         case .success(let parsedFeed):
             self.parsedSuccessfully = true
             self.webpage = parsedFeed.webpage
-
+            
             feedData.error = nil
-
+            
             switch parsedFeed {
             case let .atom(parsedFeed):
                 let updater = AtomFeedUpdate(
@@ -185,10 +194,8 @@ class FeedUpdateTask {
                 updater.execute()
             }
         case .failure:
+            feedData.itemsArray.forEach { context.delete($0) }
             feedData.error = RefreshError.parsing.rawValue
-            return
-        case .none:
-            feedData.error = RefreshError.request.rawValue
         }
     }
 
