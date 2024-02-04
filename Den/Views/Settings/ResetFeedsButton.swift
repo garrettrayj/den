@@ -33,7 +33,7 @@ struct ResetFeedsButton: View {
         
         for profile in profiles {
             profile.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
-            RefreshedDateStorage.setRefreshed(profile, date: nil)
+            RefreshedDateStorage.setRefreshed(profile.id?.uuidString, date: nil)
         }
 
         do {

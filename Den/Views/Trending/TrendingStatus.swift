@@ -29,15 +29,15 @@ struct TrendingStatus: View {
                     )
                 }
             }
-            .lineLimit(1)
+            
             .font(.caption)
 
-            if let refreshedDate = RefreshedDateStorage.getRefreshed(profile) {
+            if let refreshedDate = RefreshedDateStorage.getRefreshed(profile.id?.uuidString) {
                 RelativeRefreshedDate(date: refreshedDate)
-                    .lineLimit(1)
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             }
         }
+        .lineLimit(1)
     }
 }

@@ -11,13 +11,13 @@
 import Foundation
 
 struct RefreshedDateStorage {
-    static private func getProfileKey(_ profile: Profile) -> String? {
-        guard let profileID = profile.id?.uuidString else { return nil }
+    static private func getProfileKey(_ profileID: String?) -> String? {
+        guard let profileID = profileID else { return nil }
         return "ProfileRefreshed_\(profileID)"
     }
 
-    static func getRefreshed(_ profile: Profile) -> Date? {
-        guard let profileKey = getProfileKey(profile) else { return nil }
+    static func getRefreshed(_ profileID: String?) -> Date? {
+        guard let profileKey = getProfileKey(profileID) else { return nil }
         let timestamp = UserDefaults.standard.double(forKey: profileKey)
         if timestamp > 0 {
             return Date(timeIntervalSince1970: timestamp)
@@ -25,8 +25,8 @@ struct RefreshedDateStorage {
         return nil
     }
 
-    static func setRefreshed(_ profile: Profile, date: Date?) {
-        if let profileKey = getProfileKey(profile) {
+    static func setRefreshed(_ profileID: String?, date: Date?) {
+        if let profileKey = getProfileKey(profileID) {
             UserDefaults.standard.set(date?.timeIntervalSince1970 ?? nil, forKey: profileKey)
         }
     }

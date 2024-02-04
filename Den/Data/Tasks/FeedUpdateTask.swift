@@ -169,29 +169,29 @@ class FeedUpdateTask {
             
             switch parsedFeed {
             case let .atom(parsedFeed):
-                let updater = AtomFeedUpdate(
+                AtomFeedUpdate(
                     feed: feed,
                     feedData: feedData,
                     source: parsedFeed,
                     context: context
                 )
-                updater.execute()
+                .execute()
             case let .rss(parsedFeed):
-                let updater = RSSFeedUpdate(
+                RSSFeedUpdate(
                     feed: feed,
                     feedData: feedData,
                     source: parsedFeed,
                     context: context
                 )
-                updater.execute()
+                .execute()
             case let .json(parsedFeed):
-                let updater = JSONFeedUpdate(
+                JSONFeedUpdate(
                     feed: feed,
                     feedData: feedData,
                     source: parsedFeed,
                     context: context
                 )
-                updater.execute()
+                .execute()
             }
         case .failure:
             feedData.itemsArray.forEach { context.delete($0) }
@@ -208,26 +208,26 @@ class FeedUpdateTask {
         case .success(let parsedFeed):
             switch parsedFeed {
             case let .atom(parsedFeed):
-                let updater = AtomFeedMetaUpdate(
+                AtomFeedMetaUpdate(
                     feedData: feedData,
                     source: parsedFeed,
                     webpageMetadata: metadata
                 )
-                updater.execute()
+                .execute()
             case let .rss(parsedFeed):
-                let updater = RSSFeedMetaUpdate(
+                RSSFeedMetaUpdate(
                     feedData: feedData,
                     source: parsedFeed,
                     webpageMetadata: metadata
                 )
-                updater.execute()
+                .execute()
             case let .json(parsedFeed):
-                let updater = JSONFeedMetaUpdate(
+                JSONFeedMetaUpdate(
                     feedData: feedData,
                     source: parsedFeed,
                     webpageMetadata: metadata
                 )
-                updater.execute()
+                .execute()
             }
             feedData.metaFetched = .now
         case .failure:
@@ -245,10 +245,10 @@ class FeedUpdateTask {
         }
 
         if let start = start {
-            let duration = CFAbsoluteTimeGetCurrent() - start
-            Logger.main.info(
-                "Feed updated in \(duration) seconds: \(feed.wrappedTitle, privacy: .public)"
-            )
+            Logger.main.info("""
+            Feed updated in \(CFAbsoluteTimeGetCurrent() - start) seconds: \
+            \(feed.wrappedTitle, privacy: .public)
+            """)
         }
     }
 }

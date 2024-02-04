@@ -25,7 +25,7 @@ struct SidebarStatus: View {
             } else if refreshing {
                 ProgressView(refreshProgress)
                     .progressViewStyle(RefreshProgressViewStyle(feedCount: profile.feedCount))
-            } else if let refreshedDate = RefreshedDateStorage.getRefreshed(profile) {
+            } else if let refreshedDate = RefreshedDateStorage.getRefreshed(profile.id?.uuidString) {
                 RelativeRefreshedDate(date: refreshedDate)
             } else if profile.pagesArray.isEmpty {
                 Text("Profile empty", comment: "Status message.")
@@ -41,6 +41,7 @@ struct SidebarStatus: View {
                 #endif
             }
         }
+        .lineLimit(1)
         .font(.caption)
         #if os(macOS)
         .padding(.horizontal, 4)
