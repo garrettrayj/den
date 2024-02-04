@@ -58,12 +58,6 @@
 	</dict>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020-2024 Garrett Johnson</string>
-	<key>SUEnableInstallerLauncherService</key>
-	<true/>
-	<key>SUFeedURL</key>
-	<string>https://den.io/appcast.xml</string>
-	<key>SUPublicEDKey</key>
-	<string>auZb4LLMreOKV5ILcESR0cV2zeZZClHhcNjyjTIy0eA=</string>
 	<key>UIAppFonts</key>
 	<array/>
 	<key>UIBackgroundModes</key>
