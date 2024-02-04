@@ -12,6 +12,8 @@ import SwiftUI
 
 struct NewProfileButton: View {
     @State private var showingSheet = false
+    
+    var callback: ((Profile) -> Void)?
 
     var body: some View {
         Button {
@@ -27,7 +29,7 @@ struct NewProfileButton: View {
         .sheet(
             isPresented: $showingSheet,
             content: {
-                NewProfileSheet()
+                NewProfileSheet(callback: callback)
             }
         )
     }

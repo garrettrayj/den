@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct ProfilesSection: View {
-    let profiles: [Profile]
+    let profiles: FetchedResults<Profile>
 
     @Binding var currentProfileID: String?
 

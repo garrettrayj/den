@@ -39,13 +39,13 @@ struct RootView: View {
                     currentProfileID: $currentProfileID,
                     userColorScheme: $userColorScheme,
                     useSystemBrowser: $useSystemBrowser,
-                    profiles: Array(profiles)
+                    profiles: profiles
                 )
                 .environment(\.userTint, profile.tintColor)
             } else {
                 Landing(
                     currentProfileID: $currentProfileID,
-                    profiles: Array(profiles)
+                    profiles: profiles
                 )
             }
         }
@@ -61,7 +61,7 @@ struct RootView: View {
             AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
         }
         .task {
-            if let lastProfileID = lastProfileID {
+            if currentProfileID == nil, let lastProfileID = lastProfileID {
                 currentProfileID = lastProfileID
             }
             

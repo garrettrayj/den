@@ -36,7 +36,7 @@ struct Sidebar: View {
     @State private var searchInput = ""
     @State private var showingSettings = false
     
-    let profiles: [Profile]
+    let profiles: FetchedResults<Profile>
 
     var body: some View {
         List(selection: $detailPanel) {

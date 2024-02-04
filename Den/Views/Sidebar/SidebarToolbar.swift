@@ -26,7 +26,7 @@ struct SidebarToolbar: ToolbarContent {
     @Binding var showingNewTagSheet: Bool
     @Binding var showingSettings: Bool
 
-    let profiles: [Profile]
+    let profiles: FetchedResults<Profile>
 
     var body: some ToolbarContent {
         ToolbarItem(placement: .primaryAction) {
@@ -52,19 +52,6 @@ struct SidebarToolbar: ToolbarContent {
             .disabled(refreshing)
             .menuIndicator(.hidden)
             .accessibilityIdentifier("SidebarMenu")
-            .background {
-                // Buttons in background for keyboard shortcuts
-                Group {
-                    NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                    NewPageButton(showingNewPageSheet: $showingNewPageSheet)
-                    NewTagButton(showingNewTagSheet: $showingNewTagSheet)
-                    RefreshButton(profile: profile)
-                        .disabled(
-                            refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
-                        )
-                }
-                .opacity(0)
-            }
         }
         #if os(iOS)
         ToolbarItem(placement: .bottomBar) {

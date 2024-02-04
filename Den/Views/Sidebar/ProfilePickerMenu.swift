@@ -13,7 +13,7 @@ import SwiftUI
 struct ProfilePickerMenu: View {
     @ObservedObject var profile: Profile
     
-    var profiles: [Profile]
+    let profiles: FetchedResults<Profile>
     
     @Binding var currentProfileID: String?
     

@@ -13,7 +13,7 @@ import SwiftUI
 struct SettingsSheet: View {
     @Environment(\.dismiss) private var dismiss
 
-    let profiles: [Profile]
+    let profiles: FetchedResults<Profile>
 
     @Binding var currentProfileID: String?
     @Binding var userColorScheme: UserColorScheme

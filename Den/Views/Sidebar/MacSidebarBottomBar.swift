@@ -21,7 +21,7 @@ struct MacSidebarBottomBar: View {
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
     
-    let profiles: [Profile]
+    let profiles: FetchedResults<Profile>
     
     var body: some View {
         HStack {

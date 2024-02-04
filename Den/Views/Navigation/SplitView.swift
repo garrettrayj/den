@@ -23,7 +23,7 @@ struct SplitView: View {
     @Binding var userColorScheme: UserColorScheme
     @Binding var useSystemBrowser: Bool
 
-    let profiles: [Profile]
+    let profiles: FetchedResults<Profile>
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     
@@ -81,6 +81,18 @@ struct SplitView: View {
             .toolbarBackground(.visible)
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
             #endif
+        }
+        .background {
+            // Buttons in background for keyboard shortcuts
+            Group {
+                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
+                NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+                NewTagButton(showingNewTagSheet: $showingNewTagSheet)
+                RefreshButton(profile: profile).disabled(
+                    refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
+                )
+            }
+            .opacity(0)
         }
         .environmentObject(networkMonitor)
         .tint(userTint)

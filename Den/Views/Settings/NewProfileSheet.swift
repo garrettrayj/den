@@ -16,6 +16,8 @@ struct NewProfileSheet: View {
 
     @State private var name: String = ""
     @State private var color: AccentColor?
+    
+    var callback: ((Profile) -> Void)?
 
     var body: some View {
         NavigationStack {
@@ -52,6 +54,7 @@ struct NewProfileSheet: View {
                         
                         do {
                             try viewContext.save()
+                            callback?(profile)
                             dismiss()
                         } catch {
                             CrashUtility.handleCriticalError(error as NSError)

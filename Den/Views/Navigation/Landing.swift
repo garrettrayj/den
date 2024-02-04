@@ -14,7 +14,7 @@ import SwiftUI
 struct Landing: View {
     @Binding var currentProfileID: String?
 
-    let profiles: [Profile]
+    let profiles: FetchedResults<Profile>
 
     var body: some View {
         NavigationStack {
@@ -36,11 +36,13 @@ struct Landing: View {
             .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
-                    NewProfileButton()
-                        .labelStyle(.titleAndIcon)
-                        #if os(iOS)
-                        .buttonStyle(.borderless)
-                        #endif
+                    NewProfileButton(callback: { profile in
+                        currentProfileID = profile.id?.uuidString
+                    })
+                    .labelStyle(.titleAndIcon)
+                    #if os(iOS)
+                    .buttonStyle(.borderless)
+                    #endif
                 }
             }
         }
