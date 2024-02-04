@@ -14,7 +14,6 @@ struct FeedInspector: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
 
     var body: some View {
         Form {

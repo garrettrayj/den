@@ -13,17 +13,11 @@ import SwiftUI
 struct ProfilePickerMenu: View {
     @ObservedObject var profile: Profile
     
-    let profiles: FetchedResults<Profile>
-    
     @Binding var currentProfileID: String?
     
     var body: some View {
         Menu {
-            ProfilePicker(
-                currentProfileID: $currentProfileID,
-                profiles: profiles
-            )
-            .pickerStyle(.inline)
+            ProfilePicker(currentProfileID: $currentProfileID).pickerStyle(.inline)
         } label: {
             Label {
                 profile.nameText

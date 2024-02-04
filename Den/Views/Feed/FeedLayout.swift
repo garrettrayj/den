@@ -14,7 +14,6 @@ struct FeedLayout: View {
     @Environment(\.openURL) private var openURL
 
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
 

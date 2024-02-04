@@ -122,11 +122,9 @@ struct NewFeedSheet: View {
     }
 
     private func checkTargetPage() {
-        if
-            let pageID = initialPageID,
-            let destinationPage = profile.pagesArray.first(where: { page in
-                page.id?.uuidString == pageID
-            }) {
+        if let pageID = initialPageID, let destinationPage = profile.pagesArray.first(where: {
+            $0.id?.uuidString == pageID
+        }) {
             targetPage = destinationPage
         } else {
             targetPage = profile.pagesArray.first

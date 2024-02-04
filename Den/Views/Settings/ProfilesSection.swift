@@ -11,9 +11,13 @@
 import SwiftUI
 
 struct ProfilesSection: View {
-    let profiles: FetchedResults<Profile>
-
     @Binding var currentProfileID: String?
+    
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.name, order: .forward),
+        SortDescriptor(\.created, order: .forward)
+    ])
+    private var profiles: FetchedResults<Profile>
 
     var body: some View {
         Section {

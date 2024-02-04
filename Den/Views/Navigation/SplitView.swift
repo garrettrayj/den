@@ -20,11 +20,7 @@ struct SplitView: View {
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
-    @Binding var userColorScheme: UserColorScheme
-    @Binding var useSystemBrowser: Bool
 
-    let profiles: FetchedResults<Profile>
-    
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     
     @State private var refreshing = false
@@ -54,8 +50,6 @@ struct SplitView: View {
                 detailPanel: $detailPanel,
                 newFeedPageID: $newFeedPageID,
                 newFeedWebAddress: $newFeedWebAddress,
-                userColorScheme: $userColorScheme,
-                useSystemBrowser: $useSystemBrowser,
                 searchQuery: $searchQuery,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
@@ -63,8 +57,7 @@ struct SplitView: View {
                 showingNewPageSheet: $showingNewPageSheet,
                 showingNewTagSheet: $showingNewTagSheet,
                 refreshing: $refreshing, 
-                refreshProgress: $refreshProgress,
-                profiles: profiles
+                refreshProgress: $refreshProgress
             )
             .navigationSplitViewColumnWidth(min: 220, ideal: 300, max: 300)
         } detail: {

@@ -26,8 +26,6 @@ struct SidebarToolbar: ToolbarContent {
     @Binding var showingNewTagSheet: Bool
     @Binding var showingSettings: Bool
 
-    let profiles: FetchedResults<Profile>
-
     var body: some ToolbarContent {
         ToolbarItem(placement: .primaryAction) {
             Menu {
@@ -57,7 +55,6 @@ struct SidebarToolbar: ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
             ProfilePickerMenu(
                 profile: profile,
-                profiles: profiles,
                 currentProfileID: $currentProfileID
             )
             .disabled(refreshing)

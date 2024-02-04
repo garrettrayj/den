@@ -12,7 +12,6 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct OrganizerInfoPanel: View {
-    @ObservedObject var profile: Profile
     @ObservedObject var feed: Feed
 
     var body: some View {
@@ -101,8 +100,6 @@ struct OrganizerInfoPanel: View {
             Section {
                 OpenValidatorButton(feed: feed)
             }
-            
-            
         }
         .scrollContentBackground(.hidden)
         .listStyle(.inset)

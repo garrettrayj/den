@@ -13,11 +13,10 @@ import SwiftUI
 struct SettingsSheet: View {
     @Environment(\.dismiss) private var dismiss
 
-    let profiles: FetchedResults<Profile>
-
     @Binding var currentProfileID: String?
-    @Binding var userColorScheme: UserColorScheme
-    @Binding var useSystemBrowser: Bool
+    
+    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
+    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -26,7 +25,7 @@ struct SettingsSheet: View {
                     userColorScheme: $userColorScheme,
                     useSystemBrowser: $useSystemBrowser
                 )
-                ProfilesSection(profiles: profiles, currentProfileID: $currentProfileID)
+                ProfilesSection(currentProfileID: $currentProfileID)
                 BlocklistsSection()
                 ResetSection()
                 AboutSection()

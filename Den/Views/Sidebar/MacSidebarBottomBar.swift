@@ -21,14 +21,11 @@ struct MacSidebarBottomBar: View {
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
     
-    let profiles: FetchedResults<Profile>
-    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 ProfilePickerMenu(
                     profile: profile,
-                    profiles: profiles,
                     currentProfileID: $currentProfileID
                 )
                 .disabled(refreshing)

@@ -42,7 +42,6 @@ struct FeedView: View {
                 ) { items in
                     FeedLayout(
                         feed: feed,
-                        profile: profile,
                         hideRead: $hideRead,
                         items: items
                     )
@@ -79,7 +78,7 @@ struct FeedView: View {
                     .navigationTitle(feed.displayTitle)
                     .navigationTitle($feed.wrappedTitle)
                     .inspector(isPresented: $showingInspector) {
-                        FeedInspector(feed: feed, profile: profile)
+                        FeedInspector(feed: feed)
                     }
                     #if os(iOS)
                     .toolbarBackground(.visible)

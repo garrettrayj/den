@@ -13,7 +13,11 @@ import SwiftUI
 struct ProfilePicker: View {
     @Binding var currentProfileID: String?
 
-    let profiles: FetchedResults<Profile>
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.name, order: .forward),
+        SortDescriptor(\.created, order: .forward)
+    ])
+    private var profiles: FetchedResults<Profile>
 
     var body: some View {
         Picker(selection: $currentProfileID) {

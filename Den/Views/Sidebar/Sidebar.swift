@@ -20,8 +20,6 @@ struct Sidebar: View {
     @Binding var detailPanel: DetailPanel?
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
-    @Binding var userColorScheme: UserColorScheme
-    @Binding var useSystemBrowser: Bool
     @Binding var searchQuery: String
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
@@ -35,8 +33,6 @@ struct Sidebar: View {
     @State private var opmlFile: OPMLFile?
     @State private var searchInput = ""
     @State private var showingSettings = false
-    
-    let profiles: FetchedResults<Profile>
 
     var body: some View {
         List(selection: $detailPanel) {
@@ -96,8 +92,7 @@ struct Sidebar: View {
                 showingNewFeedSheet: $showingNewFeedSheet,
                 showingNewPageSheet: $showingNewPageSheet,
                 showingNewTagSheet: $showingNewTagSheet,
-                showingSettings: $showingSettings,
-                profiles: profiles
+                showingSettings: $showingSettings
             )
         }
         #if os(macOS)
@@ -106,8 +101,7 @@ struct Sidebar: View {
                 profile: profile,
                 currentProfileID: $currentProfileID,
                 refreshing: $refreshing,
-                refreshProgress: $refreshProgress,
-                profiles: profiles
+                refreshProgress: $refreshProgress
             )
         }
         #endif
@@ -119,12 +113,7 @@ struct Sidebar: View {
                 }
             },
             content: {
-                SettingsSheet(
-                    profiles: profiles,
-                    currentProfileID: $currentProfileID,
-                    userColorScheme: $userColorScheme,
-                    useSystemBrowser: $useSystemBrowser
-                )
+                SettingsSheet(currentProfileID: $currentProfileID)
             }
         )
         .sheet(
