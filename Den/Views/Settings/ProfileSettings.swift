@@ -31,7 +31,10 @@ struct ProfileSettings: View {
         } else {
             Form {
                 Section {
-                    TextField(text: $profile.wrappedName, prompt: profile.nameText) {
+                    TextField(
+                        text: $profile.wrappedName,
+                        prompt: Text("Untitled", comment: "Profile name text field prompt.")
+                    ) {
                         Label {
                             Text("Name", comment: "Text field label.")
                         } icon: {
@@ -46,14 +49,14 @@ struct ProfileSettings: View {
                 
                 Section {
                     ClearProfileHistoryButton(profile: profile)
-                    #if os(iOS)
-                    DeleteProfileButton(selection: .constant(profile)).symbolRenderingMode(.multicolor)
-                    #endif
+                    DeleteProfileButton(profile: profile)
                 }
             }
             .buttonStyle(.borderless)
             .formStyle(.grouped)
             .onDisappear {
+                guard !profile.isDeleted else { return }
+                
                 if viewContext.hasChanges {
                     do {
                         try viewContext.save()

@@ -45,14 +45,7 @@ struct ProfilesTab: View {
                 }
                 .frame(width: 180)
                 .safeAreaInset(edge: .bottom, alignment: .leading) {
-                    HStack {
-                        NewProfileButton()
-                        DeleteProfileButton(selection: $selection)
-                            .disabled(selection == nil)
-                    }
-                    .labelStyle(.iconOnly)
-                    .buttonStyle(.bordered)
-                    .padding(8)
+                    NewProfileButton().padding()
                 }
                 
                 if let profile = selection {

@@ -42,14 +42,7 @@ struct BlocklistsTab: View {
                 }
                 .frame(width: 180)
                 .safeAreaInset(edge: .bottom, alignment: .leading) {
-                    HStack {
-                        NewBlocklistButton()
-                        DeleteBlocklistButton(selection: $selection)
-                            .disabled(selection == nil)
-                    }
-                    .labelStyle(.iconOnly)
-                    .buttonStyle(.bordered)
-                    .padding(8)
+                    NewBlocklistButton().padding()
                 }
                 
                 if let blocklist = selection {

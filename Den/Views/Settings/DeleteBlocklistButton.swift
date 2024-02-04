@@ -13,12 +13,10 @@ import SwiftUI
 struct DeleteBlocklistButton: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @Binding var selection: Blocklist?
+    @ObservedObject var blocklist: Blocklist
     
     var body: some View {
         Button(role: .destructive) {
-            guard let blocklist = selection else { return }
-            
             Task {
                 await BlocklistManager.removeContentRulesList(
                     identifier: blocklist.id?.uuidString
@@ -27,17 +25,12 @@ struct DeleteBlocklistButton: View {
                 
                 do {
                     try viewContext.save()
-                    selection = nil
                 } catch {
                     CrashUtility.handleCriticalError(error as NSError)
                 }
             }
         } label: {
-            #if os(macOS)
-            DeleteLabel(symbol: "minus")
-            #else
             DeleteLabel()
-            #endif
         }
     }
 }

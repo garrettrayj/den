@@ -13,19 +13,18 @@ import SwiftUI
 struct DeleteProfileButton: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @Binding var selection: Profile?
+    @ObservedObject var profile: Profile
 
     @State private var showingAlert = false
+    @State private var viewID = UUID().uuidString
 
     var body: some View {
         Button(role: .destructive) {
             showingAlert = true
+            // Alert popup does not appear on macOS without forcing re-render. 🤷‍♂️
+            viewID = UUID().uuidString
         } label: {
-            #if os(macOS)
-            DeleteLabel(symbol: "minus")
-            #else
             DeleteLabel(symbol: "person.badge.minus")
-            #endif
         }
         .alert(
             Text("Delete Profile?", comment: "Alert title."),
@@ -53,18 +52,15 @@ struct DeleteProfileButton: View {
             }
         )
         .accessibilityIdentifier("DeleteProfile")
+        .id(viewID)
     }
     
     private func delete() {
-        guard let profile = selection else { return }
-        
         profile.feedsArray.compactMap { $0.feedData}.forEach { viewContext.delete($0) }
-        
         viewContext.delete(profile)
 
         do {
             try viewContext.save()
-            selection = nil
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

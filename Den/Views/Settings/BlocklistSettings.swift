@@ -90,15 +90,14 @@ struct BlocklistSettings: View {
                     }
                     .disabled(isRefreshing)
                     
-                    #if os(iOS)
-                    DeleteBlocklistButton(selection: .constant(blocklist))
-                        .symbolRenderingMode(.multicolor)
-                    #endif
+                    DeleteBlocklistButton(blocklist: blocklist)
                 }
             }
             .buttonStyle(.borderless)
             .formStyle(.grouped)
             .onDisappear {
+                guard !blocklist.isDeleted else { return }
+
                 if viewContext.hasChanges {
                     do {
                         try viewContext.save()

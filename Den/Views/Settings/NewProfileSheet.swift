@@ -27,7 +27,7 @@ struct NewProfileSheet: View {
                 Section {
                     TextField(
                         text: $name,
-                        prompt: Text("Untitled", comment: "Profile name placeholder.")
+                        prompt: Text("Untitled", comment: "Profile name text field prompt.")
                     ) {
                         Label {
                             Text("Name", comment: "Text field label.")
