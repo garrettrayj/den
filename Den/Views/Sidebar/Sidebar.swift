@@ -18,6 +18,7 @@ struct Sidebar: View {
 
     @Binding var currentProfileID: String?
     @Binding var detailPanel: DetailPanel?
+    @Binding var lastProfileID: String?
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
     @Binding var userColorScheme: UserColorScheme
@@ -84,17 +85,6 @@ struct Sidebar: View {
             detailPanel = .search
         }
         .navigationTitle(profile.nameText)
-        #if os(macOS)
-        .safeAreaInset(edge: .bottom, spacing: 0) {
-            MacSidebarBottomBar(
-                profile: profile,
-                currentProfileID: $currentProfileID,
-                refreshing: $refreshing,
-                refreshProgress: $refreshProgress,
-                profiles: profiles
-            )
-        }
-        #else
         .toolbar {
             SidebarToolbar(
                 profile: profile,
@@ -108,6 +98,17 @@ struct Sidebar: View {
                 showingNewPageSheet: $showingNewPageSheet,
                 showingNewTagSheet: $showingNewTagSheet,
                 showingSettings: $showingSettings,
+                profiles: profiles
+            )
+        }
+        #if os(macOS)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            MacSidebarBottomBar(
+                profile: profile,
+                currentProfileID: $currentProfileID,
+                lastProfileID: $lastProfileID,
+                refreshing: $refreshing,
+                refreshProgress: $refreshProgress,
                 profiles: profiles
             )
         }

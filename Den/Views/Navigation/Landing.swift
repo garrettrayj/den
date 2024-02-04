@@ -13,6 +13,7 @@ import SwiftUI
 
 struct Landing: View {
     @Binding var currentProfileID: String?
+    @Binding var lastProfileID: String?
 
     let profiles: [Profile]
 
@@ -74,6 +75,7 @@ struct Landing: View {
                         }
                         Button {
                             currentProfileID = profile.id?.uuidString
+                            lastProfileID = profile.id?.uuidString
                         } label: {
                             HStack {
                                 profile.nameText
@@ -89,8 +91,8 @@ struct Landing: View {
                     }
                 }
                 .task {
-                    if profiles.count == 1 {
-                        currentProfileID = profiles.first?.id?.uuidString
+                    if let lastProfileID = lastProfileID {
+                        currentProfileID = lastProfileID
                     }
                 }
                 .frame(maxWidth: 240)

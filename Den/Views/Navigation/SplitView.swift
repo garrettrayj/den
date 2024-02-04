@@ -20,12 +20,7 @@ struct SplitView: View {
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
-    @Binding var refreshing: Bool
-    @Binding var showingExporter: Bool
-    @Binding var showingImporter: Bool
-    @Binding var showingNewFeedSheet: Bool
-    @Binding var showingNewPageSheet: Bool
-    @Binding var showingNewTagSheet: Bool
+    @Binding var lastProfileID: String?
     @Binding var userColorScheme: UserColorScheme
     @Binding var useSystemBrowser: Bool
 
@@ -33,8 +28,15 @@ struct SplitView: View {
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     
+    @State private var refreshing = false
     @State private var refreshProgress = Progress()
-
+    @State private var showingExporter = false
+    @State private var showingImporter = false
+    @State private var showingNewFeedSheet = false
+    @State private var showingNewPageSheet = false
+    @State private var showingNewTagSheet = false
+    
+    @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var navigationStore = NavigationStore()
 
     @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
@@ -51,6 +53,7 @@ struct SplitView: View {
                 profile: profile,
                 currentProfileID: $currentProfileID,
                 detailPanel: $detailPanel,
+                lastProfileID: $lastProfileID,
                 newFeedPageID: $newFeedPageID,
                 newFeedWebAddress: $newFeedWebAddress,
                 userColorScheme: $userColorScheme,
@@ -81,6 +84,7 @@ struct SplitView: View {
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
             #endif
         }
+        .environmentObject(networkMonitor)
         .tint(userTint)
         .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
         .onOpenURL { url in
@@ -124,12 +128,9 @@ struct SplitView: View {
             )
         }
         .navigationTitle(profile.nameText)
-        .onReceive(NotificationCenter.default.publisher(for: .refreshTriggered, object: nil)) { _ in
-            Task {
-                await RefreshManager.refresh(profile: profile)
-            }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+        .onReceive(
+            NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)
+        ) { _ in
             refreshProgress.totalUnitCount = Int64(profile.feedsArray.count)
             refreshing = true
         }

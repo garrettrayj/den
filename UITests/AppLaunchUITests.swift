@@ -33,6 +33,10 @@ final class AppLaunchUITests: UITestCase {
 
     func testPosterScreenshot() throws {
         let app = launchApp(inMemory: false)
+        
+        if !app.buttons["SelectProfile"].firstMatch.waitForExistence(timeout: 10) {
+            XCTFail("Select profile button did not appear in time")
+        }
         app.buttons["SelectProfile"].firstMatch.tap()
 
         if !app.staticTexts["InboxNavLink"].waitForExistence(timeout: 10) {

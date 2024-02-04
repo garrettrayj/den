@@ -17,9 +17,6 @@ struct ApexSection: View {
         Section {
             InboxNavLink(profile: profile)
             TrendingNavLink(profile: profile)
-            #if os(macOS)
-            OrganizerNavLink()
-            #endif
         }
     }
 }

@@ -16,11 +16,13 @@ struct ProfilePickerMenu: View {
     var profiles: [Profile]
     
     @Binding var currentProfileID: String?
+    @Binding var lastProfileID: String?
     
     var body: some View {
         Menu {
             ProfilePicker(
                 currentProfileID: $currentProfileID,
+                lastProfileID: $lastProfileID,
                 profiles: profiles
             )
             .pickerStyle(.inline)

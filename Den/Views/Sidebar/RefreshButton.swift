@@ -11,9 +11,13 @@
 import SwiftUI
 
 struct RefreshButton: View {
+    @ObservedObject var profile: Profile
+    
     var body: some View {
         Button {
-            NotificationCenter.default.post(name: .refreshTriggered, object: nil)
+            Task {
+                await RefreshManager.refresh(profile: profile)
+            }
         } label: {
             Label {
                 Text("Refresh", comment: "Button label.")

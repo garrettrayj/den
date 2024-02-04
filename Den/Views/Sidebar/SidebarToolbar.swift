@@ -37,6 +37,7 @@ struct SidebarToolbar: ToolbarContent {
                 Divider()
                 ImportButton(showingImporter: $showingImporter)
                 ExportButton(showingExporter: $showingExporter)
+                Divider()
                 OrganizerButton(detailPanel: $detailPanel)
                 SettingsButton(showingSettings: $showingSettings)
             } label: {
@@ -47,7 +48,21 @@ struct SidebarToolbar: ToolbarContent {
                 }
             }
             .disabled(refreshing)
+            .menuIndicator(.hidden)
             .accessibilityIdentifier("SidebarMenu")
+            .background {
+                // Buttons in background for keyboard shortcuts
+                Group {
+                    NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
+                    NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+                    NewTagButton(showingNewTagSheet: $showingNewTagSheet)
+                    RefreshButton(profile: profile)
+                        .disabled(
+                            refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
+                        )
+                }
+                .opacity(0)
+            }
         }
         #if os(iOS)
         ToolbarItem(placement: .bottomBar) {
@@ -66,7 +81,7 @@ struct SidebarToolbar: ToolbarContent {
             )
         }
         ToolbarItem(placement: .bottomBar) {
-            RefreshButton()
+            RefreshButton(profile: profile)
                 .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
         #endif

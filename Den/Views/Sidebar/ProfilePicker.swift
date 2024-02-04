@@ -12,6 +12,7 @@ import SwiftUI
 
 struct ProfilePicker: View {
     @Binding var currentProfileID: String?
+    @Binding var lastProfileID: String?
 
     let profiles: [Profile]
 
@@ -24,6 +25,9 @@ struct ProfilePicker: View {
             }
         } label: {
             Text("Profile", comment: "Picker label.")
+        }
+        .onChange(of: currentProfileID) {
+            lastProfileID = currentProfileID
         }
     }
 }
