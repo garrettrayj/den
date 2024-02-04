@@ -32,12 +32,11 @@ struct RootView: View {
     private var profiles: FetchedResults<Profile>
 
     var body: some View {
-        Group {
+        ZStack {
             if let profile = profiles.firstMatchingID(currentProfileID) {
                 SplitView(
                     profile: profile,
                     currentProfileID: $currentProfileID,
-                    lastProfileID: $lastProfileID,
                     userColorScheme: $userColorScheme,
                     useSystemBrowser: $useSystemBrowser,
                     profiles: Array(profiles)
@@ -46,7 +45,6 @@ struct RootView: View {
             } else {
                 Landing(
                     currentProfileID: $currentProfileID,
-                    lastProfileID: $lastProfileID,
                     profiles: Array(profiles)
                 )
             }
@@ -63,8 +61,15 @@ struct RootView: View {
             AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
         }
         .task {
+            if let lastProfileID = lastProfileID {
+                currentProfileID = lastProfileID
+            }
+            
             await BlocklistManager.initializeMissingContentRulesLists()
             await performMaintenance()
+        }
+        .onChange(of: currentProfileID) {
+            lastProfileID = currentProfileID
         }
     }
     

@@ -20,7 +20,6 @@ struct SplitView: View {
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
-    @Binding var lastProfileID: String?
     @Binding var userColorScheme: UserColorScheme
     @Binding var useSystemBrowser: Bool
 
@@ -53,7 +52,6 @@ struct SplitView: View {
                 profile: profile,
                 currentProfileID: $currentProfileID,
                 detailPanel: $detailPanel,
-                lastProfileID: $lastProfileID,
                 newFeedPageID: $newFeedPageID,
                 newFeedWebAddress: $newFeedWebAddress,
                 userColorScheme: $userColorScheme,

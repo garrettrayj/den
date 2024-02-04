@@ -39,7 +39,9 @@ struct SidebarToolbar: ToolbarContent {
                 ExportButton(showingExporter: $showingExporter)
                 Divider()
                 OrganizerButton(detailPanel: $detailPanel)
+                #if !os(macOS)
                 SettingsButton(showingSettings: $showingSettings)
+                #endif
             } label: {
                 Label {
                     Text("Preferences", comment: "Menu label.")

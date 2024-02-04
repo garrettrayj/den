@@ -18,7 +18,6 @@ struct MacSidebarBottomBar: View {
     @ObservedObject var profile: Profile
     
     @Binding var currentProfileID: String?
-    @Binding var lastProfileID: String?
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
     
@@ -30,8 +29,7 @@ struct MacSidebarBottomBar: View {
                 ProfilePickerMenu(
                     profile: profile,
                     profiles: profiles,
-                    currentProfileID: $currentProfileID,
-                    lastProfileID: $lastProfileID
+                    currentProfileID: $currentProfileID
                 )
                 .disabled(refreshing)
 
