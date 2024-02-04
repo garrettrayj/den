@@ -28,7 +28,6 @@ struct AccentColorSelector: View {
                             Image(systemName: "square")
                         }
                     }
-                    .padding(4)
                 }
                 
                 ForEach(AccentColor.allCases, id: \.self) { option in
@@ -47,6 +46,7 @@ struct AccentColorSelector: View {
                 }
             }
             .frame(alignment: .trailing)
+            .imageScale(.large)
         } label: {
             Label {
                 Text("Accent Color", comment: "Picker label.")
@@ -55,6 +55,5 @@ struct AccentColorSelector: View {
             }
         }
         .buttonStyle(.plain)
-        .imageScale(.large)
     }
 }

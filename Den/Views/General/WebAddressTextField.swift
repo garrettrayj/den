@@ -23,7 +23,11 @@ struct WebAddressTextField: View {
             prompt: Text("https⁣://example.com/feed", comment: "Web address text field prompt.")
             // Prompt contains an invisible separator after "https" to prevent link coloring
         ) {
-            Text("URL", comment: "Text field label.")
+            Label {
+                Text("URL", comment: "Text field label.")
+            } icon: {
+                Image(systemName: "globe")
+            }
         }
         .disableAutocorrection(true)
         #if os(iOS)

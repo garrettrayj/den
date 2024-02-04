@@ -37,11 +37,26 @@ struct BlocklistSettings: View {
                         text: $blocklist.wrappedName,
                         prompt: Text("Untitled", comment: "Default content filter name.")
                     ) {
-                        Text("Name", comment: "Text field label.")
+                        Label {
+                            Text("Name", comment: "Text field label.")
+                        } icon: {
+                            Image(systemName: "character.cursor.ibeam")
+                        }
                     }
                     
-                    TextField(text: $blocklist.urlString) {
-                        Text("URL", comment: "Text field label.")
+                    TextField(
+                        text: $blocklist.urlString,
+                        prompt: Text(
+                            "https⁣://example.com/blocklist.json",
+                            comment: "Blocklist URL field prompt."
+                        )
+                        // Prompt contains an invisible separator after "https" to prevent link coloring
+                    ) {
+                        Label {
+                            Text("URL", comment: "Text field label.")
+                        } icon: {
+                            Image(systemName: "globe")
+                        }
                     }
                 }
 

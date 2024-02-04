@@ -55,7 +55,11 @@ struct NewBlocklistSheet: View {
                         text: $name,
                         prompt: Text("Untitled", comment: "Default content filter name.")
                     ) {
-                        Text("Name", comment: "Text field label.")
+                        Label {
+                            Text("Name", comment: "Text field label.")
+                        } icon: {
+                            Image(systemName: "character.cursor.ibeam")
+                        }
                     }
                     
                     TextField(
@@ -66,7 +70,11 @@ struct NewBlocklistSheet: View {
                         )
                         // Prompt contains an invisible separator after "https" to prevent link coloring
                     ) {
-                        Text("URL", comment: "Text field label.")
+                        Label {
+                            Text("URL", comment: "Text field label.")
+                        } icon: {
+                            Image(systemName: "globe")
+                        }
                     }
                     .autocorrectionDisabled()
                     #if os(iOS)

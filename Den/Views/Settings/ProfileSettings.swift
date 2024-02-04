@@ -32,7 +32,11 @@ struct ProfileSettings: View {
             Form {
                 Section {
                     TextField(text: $profile.wrappedName, prompt: profile.nameText) {
-                        Text("Name", comment: "Text field label.")
+                        Label {
+                            Text("Name", comment: "Text field label.")
+                        } icon: {
+                            Image(systemName: "character.cursor.ibeam")
+                        }
                     }
                 }
 

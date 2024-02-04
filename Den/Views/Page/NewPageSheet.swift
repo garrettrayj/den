@@ -30,7 +30,11 @@ struct NewPageSheet: View {
                         text: $name,
                         prompt: Text("Untitled", comment: "Page name placeholder.")
                     ) {
-                        Text("Name", comment: "Text field label.")
+                        Label {
+                            Text("Name", comment: "Text field label.")
+                        } icon: {
+                            Image(systemName: "character.cursor.ibeam")
+                        }
                     }
                     .focused($textFieldFocus)
                 }
