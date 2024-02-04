@@ -61,7 +61,7 @@ struct FeedUnavailable: View {
                     )
                     """)
                 } else {
-                    Text("Connection Error", comment: "Feed unavailable title.")
+                    Text("Network Error", comment: "Feed unavailable title.")
                 }
             } else {
                 Text("Unknown Error", comment: "Feed unavailable title.")
