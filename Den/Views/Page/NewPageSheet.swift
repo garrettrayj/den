@@ -30,12 +30,9 @@ struct NewPageSheet: View {
                         text: $name,
                         prompt: Text("Untitled", comment: "Page name placeholder.")
                     ) {
-                        Text("Name")
+                        Text("Name", comment: "Text field label.")
                     }
-                    .labelsHidden()
                     .focused($textFieldFocus)
-                } header: {
-                    Text("Name", comment: "New page sheet section header.")
                 }
 
                 Section {
@@ -43,8 +40,6 @@ struct NewPageSheet: View {
                         .sheet(isPresented: $showingIconSelector) {
                             IconSelector(selection: $symbol)
                         }
-                } header: {
-                    Text("Icon", comment: "New page sheet section header.")
                 }
             }
             .formStyle(.grouped)
@@ -76,6 +71,8 @@ struct NewPageSheet: View {
                 }
             }
         }
-        .frame(minWidth: 360, minHeight: 240)
+        #if os(macOS)
+        .frame(minWidth: 360, minHeight: 160)
+        #endif
     }
 }

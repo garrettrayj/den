@@ -14,22 +14,18 @@ struct BlocklistStatusView: View {
     @ObservedObject var blocklistStatus: BlocklistStatus
     
     var body: some View {
-        Section {
-            LabeledContent {
-                VStack(alignment: .trailing) {
-                    if let refreshed = blocklistStatus.refreshed {
-                        Text(verbatim: "\(refreshed.formatted())")
-                    }
-                    if !blocklistStatus.compiledSuccessfully {
-                        Text("Unable to Load Rules", comment: "Blocklist status message.")
-                            .foregroundStyle(.red)
-                    }
+        LabeledContent {
+            VStack(alignment: .trailing) {
+                if let refreshed = blocklistStatus.refreshed {
+                    Text(verbatim: "\(refreshed.formatted())")
                 }
-            } label: {
-                Text("Updated", comment: "Blocklist status label.")
+                if !blocklistStatus.compiledSuccessfully {
+                    Text("Unable to Load Rules", comment: "Blocklist status message.")
+                        .foregroundStyle(.red)
+                }
             }
-        } header: {
-            Text("Status", comment: "Blocklist settings section header.")
+        } label: {
+            Text("Updated", comment: "Blocklist status label.")
         }
     }
 }

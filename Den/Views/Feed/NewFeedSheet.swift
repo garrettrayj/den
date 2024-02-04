@@ -37,17 +37,14 @@ struct NewFeedSheet: View {
                             isValid: $webAddressIsValid,
                             validationMessage: $webAddressValidationMessage
                         )
-                        .labelsHidden()
                         .focused($textFieldFocus)
-                    } header: {
-                        Text("Web Address", comment: "New feed sheet section header.")
                     } footer: {
                         Group {
                             if let validationMessage = webAddressValidationMessage {
                                 validationMessage.text
                             } else {
                                 Text(
-                                    "Enter the URL for a RSS, Atom, or JSON feed.",
+                                    "Enter the web address for a RSS, Atom, or JSON feed.",
                                     comment: "Feed web address field guidance message."
                                 )
                             }
@@ -89,7 +86,9 @@ struct NewFeedSheet: View {
                 }
             }
         }
-        .frame(minWidth: 360, minHeight: 240)
+        #if os(macOS)
+        .frame(minWidth: 360, minHeight: 204)
+        #endif
     }
 
     private var submitButton: some View {

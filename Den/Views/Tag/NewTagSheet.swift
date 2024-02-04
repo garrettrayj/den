@@ -23,18 +23,13 @@ struct NewTagSheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section {
-                    TextField(
-                        text: $name,
-                        prompt: Text("Untitled", comment: "Tag name placeholder.")
-                    ) {
-                        Text("Name", comment: "Text field label.")
-                    }
-                    .labelsHidden()
-                    .focused($textFieldFocus)
-                } header: {
-                    Text("Name", comment: "New tag sheet section header.")
+                TextField(
+                    text: $name,
+                    prompt: Text("Untitled", comment: "Tag name placeholder.")
+                ) {
+                    Text("Name", comment: "Text field label.")
                 }
+                .focused($textFieldFocus)
             }
             .formStyle(.grouped)
             .onAppear {
@@ -63,6 +58,8 @@ struct NewTagSheet: View {
                 }
             }
         }
-        .frame(minWidth: 360, minHeight: 148)
+        #if os(macOS)
+        .frame(minWidth: 360, minHeight: 116)
+        #endif
     }
 }

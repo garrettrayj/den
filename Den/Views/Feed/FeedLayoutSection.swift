@@ -47,7 +47,7 @@ struct FeedLayoutSection<Header: View>: View {
         } header: {
             HStack {
                 HStack {
-                    header.font(.title2).foregroundStyle(headerForeground)
+                    header.font(.title3).foregroundStyle(headerForeground)
                     Spacer()
                 }
                 .modifier(SafeAreaModifier(geometry: geometry))

@@ -21,23 +21,23 @@ struct SidebarStatus: View {
     var body: some View {
         Group {
             if !networkMonitor.isConnected {
-                Text("Network offline", comment: "Status message.").foregroundStyle(.secondary)
+                Text("Network Offline", comment: "Status message.").foregroundStyle(.secondary)
             } else if refreshing {
                 ProgressView(refreshProgress)
                     .progressViewStyle(RefreshProgressViewStyle(feedCount: profile.feedCount))
             } else if let refreshedDate = RefreshedDateStorage.getRefreshed(profile.id?.uuidString) {
                 RelativeRefreshedDate(date: refreshedDate)
             } else if profile.pagesArray.isEmpty {
-                Text("Profile empty", comment: "Status message.")
+                Text("Profile Empty", comment: "Status message.")
             } else {
                 #if os(macOS)
                 Text(
-                    "Press \(Image(systemName: "command")) R to refresh",
+                    "Press \(Image(systemName: "command")) R to Refresh",
                     comment: "Status message."
                 )
                 .imageScale(.small)
                 #else
-                Text("Pull to refresh", comment: "Status message.")
+                Text("Pull to Refresh", comment: "Status message.")
                 #endif
             }
         }

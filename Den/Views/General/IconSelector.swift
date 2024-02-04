@@ -82,7 +82,7 @@ struct IconSelector: View {
                     
                     Spacer()
                 }
-                .frame(height: 52)
+                .frame(height: 48)
                 .padding(.horizontal)
                 .background(.thinMaterial)
                 .overlay(alignment: .bottom) {
@@ -116,7 +116,9 @@ struct IconSelector: View {
                 }
             }
         }
-        .frame(minWidth: 360, minHeight: 480, idealHeight: 600, maxHeight: 800)
+        #if os(macOS)
+        .frame(minWidth: 360, idealWidth: 600, minHeight: 480, idealHeight: 600, maxHeight: 800)
+        #endif
     }
 
     #if os(macOS)

@@ -18,12 +18,12 @@ struct WebAddressTextField: View {
     @State private var text: String = ""
 
     var body: some View {
-        // Note: Prompt text contains an invisible separator after "https" to prevent link coloring
         TextField(
             text: $text,
             prompt: Text("https⁣://example.com/feed", comment: "Web address text field prompt.")
+            // Prompt contains an invisible separator after "https" to prevent link coloring
         ) {
-            Text("Web Address", comment: "Text field label.")
+            Text("URL", comment: "Text field label.")
         }
         .disableAutocorrection(true)
         #if os(iOS)

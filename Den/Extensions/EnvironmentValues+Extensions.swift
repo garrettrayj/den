@@ -46,7 +46,7 @@ extension EnvironmentValues {
     }
     
     /// Used for NavigationSplitView detail column `.navigationSplitViewColumnWidth()`
-    /// and `.frame(minWidth:)` on views with an inspector (to prevent gross minimization of content)
+    /// and `.frame(minWidth:)` on views with an inspector (to prevent over minimizing content)
     var minDetailColumnWidth: CGFloat { 320 }
 
     var smallThumbnailSize: CGSize {

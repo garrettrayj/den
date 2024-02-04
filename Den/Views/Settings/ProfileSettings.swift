@@ -34,34 +34,18 @@ struct ProfileSettings: View {
                     TextField(text: $profile.wrappedName, prompt: profile.nameText) {
                         Text("Name", comment: "Text field label.")
                     }
-                    .labelsHidden()
-                } header: {
-                    Text("Name", comment: "Profile settings section header.")
                 }
 
                 Section {
                     AccentColorSelector(selection: $profile.tintOption)
-                        .onChange(of: profile.tint) {
-                            do {
-                                try viewContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
-                        }
-                } header: {
-                    Text("Customization", comment: "Profile settings section header.")
                 }
-
-                ProfileHistorySection(profile: profile)
                 
-                #if os(iOS)
                 Section {
-                    DeleteProfileButton(selection: .constant(profile))
-                        .symbolRenderingMode(.multicolor)
-                } header: {
-                    Text("Management", comment: "Profile settings section header.")
+                    ClearProfileHistoryButton(profile: profile)
+                    #if os(iOS)
+                    DeleteProfileButton(selection: .constant(profile)).symbolRenderingMode(.multicolor)
+                    #endif
                 }
-                #endif
             }
             .buttonStyle(.borderless)
             .formStyle(.grouped)

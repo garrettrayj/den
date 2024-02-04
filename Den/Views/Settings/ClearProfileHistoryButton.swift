@@ -1,5 +1,5 @@
 //
-//  ProfileHistorySection.swift
+//  ClearProfileHistoryButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/27/22.
@@ -11,7 +11,7 @@
 import CoreData
 import SwiftUI
 
-struct ProfileHistorySection: View {
+struct ClearProfileHistoryButton: View {
     @ObservedObject var profile: Profile
 
     private var historyCount: Int {
@@ -19,33 +19,29 @@ struct ProfileHistorySection: View {
     }
 
     var body: some View {
-        Section {
-            Button {
-                Task {
-                    await clear()
-                }
-            } label: {
-                Label {
-                    HStack {
-                        Text("Clear History", comment: "Button label.")
-                        Spacer()
-                        Group {
-                            if historyCount == 1 {
-                                Text("1 Record", comment: "History count (singular).")
-                            } else {
-                                Text("\(historyCount) Records", comment: "History count (plural).")
-                            }
+        Button {
+            Task {
+                await clear()
+            }
+        } label: {
+            Label {
+                HStack {
+                    Text("Clear Read History", comment: "Button label.")
+                    Spacer()
+                    Group {
+                        if historyCount == 1 {
+                            Text("1 Record", comment: "History count (singular).")
+                        } else {
+                            Text("\(historyCount) Records", comment: "History count (plural).")
                         }
                     }
-                } icon: {
-                    Image(systemName: "clear")
                 }
+            } icon: {
+                Image(systemName: "clear")
             }
-            .disabled(historyCount == 0)
-            .accessibilityIdentifier("ClearHistory")
-        } header: {
-            Text("Read History", comment: "Profile settings section header.")
         }
+        .disabled(historyCount == 0)
+        .accessibilityIdentifier("ClearHistory")
     }
 
     private func clear() async {

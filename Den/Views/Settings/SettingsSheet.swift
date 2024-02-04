@@ -38,11 +38,14 @@ struct SettingsSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Close", comment: "Button label.")
+                        Label {
+                            Text("Close", comment: "Button label.")
+                        } icon: {
+                            Image(systemName: "xmark")
+                        }
                     }
                 }
             }
         }
-        .frame(minWidth: 360, minHeight: 480)
     }
 }

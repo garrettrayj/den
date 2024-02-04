@@ -22,7 +22,7 @@ struct RelativeRefreshedDate: View {
         TimelineView(.everyMinute) { _ in
             if -date.timeIntervalSinceNow < 60 {
                 Text(
-                    "Updated just now",
+                    "Updated Just Now",
                     comment: "Status message (refreshed less than one minute ago)."
                 )
             } else {

@@ -39,25 +39,17 @@ struct BlocklistSettings: View {
                     ) {
                         Text("Name", comment: "Text field label.")
                     }
-                    .labelsHidden()
-                } header: {
-                    Text("Name", comment: "Blocklist settings section header.")
-                }
-
-                Section {
+                    
                     TextField(text: $blocklist.urlString) {
                         Text("URL", comment: "Text field label.")
                     }
-                    .labelsHidden()
-                } header: {
-                    Text("URL", comment: "Blocklist settings section header.")
                 }
 
                 if let blocklistStatus = blocklist.blocklistStatus {
                     BlocklistStatusView(blocklistStatus: blocklistStatus)
                 } else {
                     Label {
-                        Text("Status Not Available", comment: "Blocklist status message.")
+                        Text("Status Unknown", comment: "Blocklist status message.")
                     } icon: {
                         Image(systemName: "questionmark")
                     }

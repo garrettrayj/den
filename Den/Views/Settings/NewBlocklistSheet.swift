@@ -14,6 +14,7 @@ struct NewBlocklistSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
+    @State private var preset: BlocklistManifest.Item?
     @State private var name: String = ""
     @State private var urlString: String = ""
     @State private var isCreating = false
@@ -29,10 +30,7 @@ struct NewBlocklistSheet: View {
                                 name = blocklistSource.name
                                 urlString = blocklistSource.convertedURL.absoluteString
                             } label: {
-                                VStack(alignment: .leading) {
-                                    Text(blocklistSource.name).fontWeight(.semibold)
-                                    Text(blocklistSource.description).font(.caption)
-                                }
+                                Text(blocklistSource.name)
                             }
                         }
                     } label: {
@@ -42,6 +40,14 @@ struct NewBlocklistSheet: View {
                     .task {
                         blocklistSources = await BlocklistManifest.fetch()
                     }
+                } footer: {
+                    Text(
+                        .init("""
+                        Filters from [EasyList](https://easylist.to) \
+                        regularly updated and converted for Den.
+                        """),
+                        comment: "Blocklist presets guidance."
+                    )
                 }
                 
                 Section {
@@ -51,20 +57,23 @@ struct NewBlocklistSheet: View {
                     ) {
                         Text("Name", comment: "Text field label.")
                     }
-                    .labelsHidden()
-                } header: {
-                    Text("Name", comment: "New blocklist sheet section header.")
-                }
-                
-                Section {
-                    TextField(text: $urlString) {
+                    
+                    TextField(
+                        text: $urlString,
+                        prompt: Text(
+                            "https⁣://example.com/blocklist.json",
+                            comment: "Blocklist URL field prompt."
+                        )
+                        // Prompt contains an invisible separator after "https" to prevent link coloring
+                    ) {
                         Text("URL", comment: "Text field label.")
                     }
-                    .labelsHidden()
-                } header: {
-                    Text("URL", comment: "New blocklist sheet section header.")
+                    .autocorrectionDisabled()
+                    #if os(iOS)
+                    .textInputAutocapitalization(.never)
+                    #endif
                 } footer: {
-                    Text("Filter rules must be in content blocker JSON format.").foregroundStyle(.secondary)
+                    Text("Filter rules must be in content blocker JSON format.")
                 }
             }
             .disabled(isCreating)
@@ -94,7 +103,9 @@ struct NewBlocklistSheet: View {
                     .accessibilityIdentifier("Cancel")
                 }
             }
-            .frame(minWidth: 360, idealWidth: 460, minHeight: 300)
+            #if os(macOS)
+            .frame(minWidth: 360, idealWidth: 460, minHeight: 192)
+            #endif
         }
     }
 

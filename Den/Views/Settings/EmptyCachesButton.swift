@@ -1,5 +1,5 @@
 //
-//  ClearImageCacheButton.swift
+//  EmptyCachesButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/17/23.
@@ -11,7 +11,9 @@
 import SwiftUI
 import SDWebImage
 
-struct ClearImageCacheButton: View {
+struct EmptyCachesButton: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @State private var cacheSize: Int64 = 0
 
     static let cacheSizeFormatter: ByteCountFormatter = {
@@ -27,19 +29,20 @@ struct ClearImageCacheButton: View {
     var body: some View {
         Button {
             Task {
+                clearFeedData()
                 await emptyCache()
                 cacheSize = 0
             }
         } label: {
             HStack {
                 Label {
-                    Text("Clear Image Cache", comment: "Button label.")
+                    Text("Empty Caches", comment: "Button label.")
                 } icon: {
-                    Image(systemName: "square.3.layers.3d.down.right.slash")
+                    Image(systemName: "xmark.bin")
                 }
                 Spacer()
                 Text(
-                    verbatim: ClearImageCacheButton.cacheSizeFormatter.string(
+                    verbatim: EmptyCachesButton.cacheSizeFormatter.string(
                         fromByteCount: cacheSize
                     )
                 )
@@ -51,7 +54,7 @@ struct ClearImageCacheButton: View {
             await calculateCacheSize()
         }
         .disabled(cacheSize == 0)
-        .accessibilityIdentifier("ClearCache")
+        .accessibilityIdentifier("EmptyCaches")
     }
 
     private func emptyCache() async {
@@ -60,6 +63,26 @@ struct ClearImageCacheButton: View {
         await SDImageCache.shared.clearDiskOnCompletion()
 
         URLCache.shared.removeAllCachedResponses()
+    }
+    
+    private func clearFeedData() {
+        guard let profiles = try? viewContext.fetch(Profile.fetchRequest()) as? [Profile] else {
+            return
+        }
+        
+        for profile in profiles {
+            profile.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
+            RefreshedDateStorage.setRefreshed(profile.id?.uuidString, date: nil)
+        }
+
+        do {
+            try viewContext.save()
+            DispatchQueue.main.async {
+                profiles.forEach { $0.objectWillChange.send() }
+            }
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
     }
 
     private func calculateCacheSize() async {

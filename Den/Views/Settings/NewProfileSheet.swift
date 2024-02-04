@@ -18,6 +18,8 @@ struct NewProfileSheet: View {
     @State private var color: AccentColor?
     
     var callback: ((Profile) -> Void)?
+    
+    @FocusState private var textFieldFocus: Bool
 
     var body: some View {
         NavigationStack {
@@ -29,17 +31,14 @@ struct NewProfileSheet: View {
                     ) {
                         Text("Name", comment: "Text field label.")
                     }
-                    .labelsHidden()
+                    .focused($textFieldFocus)
                     .accessibilityIdentifier("ProfileName")
-                } header: {
-                    Text("Name", comment: "New profile sheet section header.")
                 }
 
-                Section {
-                    AccentColorSelector(selection: $color)
-                } header: {
-                    Text("Customization", comment: "New profile sheet section header.")
-                }
+                AccentColorSelector(selection: $color)
+            }
+            .onAppear {
+                textFieldFocus = true
             }
             .formStyle(.grouped)
             .navigationTitle(Text("New Profile", comment: "Navigation title."))
@@ -74,6 +73,8 @@ struct NewProfileSheet: View {
                 }
             }
         }
-        .frame(minWidth: 360, minHeight: 320)
+        #if os(macOS)
+        .frame(minWidth: 360, minHeight: 192)
+        #endif
     }
 }
