@@ -14,18 +14,39 @@ struct BlocklistStatusView: View {
     @ObservedObject var blocklistStatus: BlocklistStatus
     
     var body: some View {
-        LabeledContent {
-            VStack(alignment: .trailing) {
-                if let refreshed = blocklistStatus.refreshed {
-                    Text(verbatim: "\(refreshed.formatted())")
+        Section {
+            LabeledContent {
+                VStack(alignment: .trailing) {
+                    if let refreshed = blocklistStatus.refreshed {
+                        Text(verbatim: "\(refreshed.formatted())")
+                    }
                 }
-                if !blocklistStatus.compiledSuccessfully {
-                    Text("Unable to Load Rules", comment: "Blocklist status message.")
-                        .foregroundStyle(.red)
-                }
+            } label: {
+                Text("Updated", comment: "Blocklist status row label.")
             }
-        } label: {
-            Text("Updated", comment: "Blocklist status label.")
+            
+            LabeledContent {
+                if blocklistStatus.httpCode == 0 {
+                    Text("Unavailable", comment: "Blocklist response code placeholder.")
+                } else {
+                    Text(verbatim: "\(blocklistStatus.httpCode)")
+                }
+            } label: {
+                Text("Response Code", comment: "Blocklist status row label.")
+            }
+            
+            LabeledContent {
+                if blocklistStatus.compiledSuccessfully {
+                    Text("Successful", comment: "Blocklist compile/load status message.")
+                } else {
+                    Text("Failed", comment: "Blocklist compile/load status message.")
+                        .foregroundStyle(.orange)
+                }
+            } label: {
+                Text("Compile & Load", comment: "Blocklist status row label.")
+            }
+        } header: {
+            Text("Status", comment: "Blocklist status section header.")
         }
     }
 }

@@ -34,7 +34,7 @@ struct BlocklistsTab: View {
                     .multilineTextAlignment(.leading)
             }
         } else {
-            HStack {
+            HStack(spacing: 0) {
                 List(selection: $selection) {
                     ForEach(blocklists, id: \.self) { blocklist in
                         blocklist.nameText.tag(blocklist as Blocklist?)

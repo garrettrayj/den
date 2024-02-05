@@ -14,42 +14,23 @@ struct NewBlocklistSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
-    @State private var preset: BlocklistManifest.Item?
     @State private var name: String = ""
     @State private var urlString: String = ""
     @State private var isCreating = false
-    @State private var blocklistSources: [BlocklistManifest.Item] = []
 
     var body: some View {
         NavigationStack {
             Form {
-                Section {
-                    Menu {
-                        ForEach(blocklistSources) { blocklistSource in
-                            Button {
-                                name = blocklistSource.name
-                                urlString = blocklistSource.convertedURL.absoluteString
-                            } label: {
-                                Text(blocklistSource.name)
-                            }
-                        }
-                    } label: {
-                        Text("Presets", comment: "Menu label.")
+                NavigationLink {
+                    BlocklistPresets(name: $name, urlString: $urlString)
+                } label: {
+                    Label {
+                        Text("Select Preset…")
+                    } icon: {
+                        Image(systemName: "filemenu.and.selection")
                     }
-                    .accessibilityIdentifier("BlocklistPresets")
-                    .task {
-                        blocklistSources = await BlocklistManifest.fetch()
-                    }
-                } footer: {
-                    Text(
-                        .init("""
-                        Filters from [EasyList](https://easylist.to) \
-                        regularly updated and converted for Den.
-                        """),
-                        comment: "Blocklist presets guidance."
-                    )
                 }
-                
+
                 Section {
                     TextField(
                         text: $name,
@@ -112,7 +93,7 @@ struct NewBlocklistSheet: View {
                 }
             }
             #if os(macOS)
-            .frame(minWidth: 360, idealWidth: 460, minHeight: 192)
+            .frame(minWidth: 360, idealWidth: 460, minHeight: 300)
             #endif
         }
     }

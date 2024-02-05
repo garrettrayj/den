@@ -37,7 +37,7 @@ struct ProfilesTab: View {
                     .multilineTextAlignment(.leading)
             }
         } else {
-            HStack {
+            HStack(spacing: 0) {
                 List(selection: $selection) {
                     ForEach(profiles, id: \.self) { profile in
                         profile.nameText.tag(profile as Profile?)

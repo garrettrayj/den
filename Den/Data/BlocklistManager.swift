@@ -98,33 +98,32 @@ final class BlocklistManager {
         blocklist: Blocklist,
         context: NSManagedObjectContext
     ) async {
-        guard
-            let identifier = blocklist.id?.uuidString,
-            let url = blocklist.url,
-            let (data, _) = try? await URLSession.shared.data(from: url)
-        else {
-            return
-        }
-
-        let blocklistJSON = String(decoding: data, as: UTF8.self)
-
-        let compiledSuccessfully = await compileContentRulesList(
-            identifier: identifier, 
-            json: blocklistJSON
-        )
-
         let blocklistStatus = blocklist.blocklistStatus ?? BlocklistStatus.create(
             in: context,
             blocklist: blocklist
         )
-
-        blocklistStatus.compiledSuccessfully = compiledSuccessfully
-        blocklistStatus.refreshed = .now
-
-        DispatchQueue.main.async {
-            blocklist.objectWillChange.send()
-        }
         
+        guard
+            let identifier = blocklist.id?.uuidString,
+            let url = blocklist.url,
+            let (data, urlResponse) = try? await URLSession.shared.data(from: url),
+            let httpResponse = urlResponse as? HTTPURLResponse
+        else {
+            blocklistStatus.compiledSuccessfully = false
+            blocklistStatus.refreshed = .now
+            blocklistStatus.httpCode = 0
+            return
+        }
+
+        blocklistStatus.refreshed = .now
+        blocklistStatus.httpCode = Int16(httpResponse.statusCode)
+        blocklistStatus.compiledSuccessfully = await compileContentRulesList(
+            identifier: identifier,
+            json: String(decoding: data, as: UTF8.self)
+        )
+
+        DispatchQueue.main.async { blocklist.objectWillChange.send() }
+
         Logger.main.info("Blocklist refreshed: \(blocklist.wrappedName, privacy: .public)")
     }
     

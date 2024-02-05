@@ -12,6 +12,7 @@
         <attribute name="blocklistId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="compiledSuccessfully" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="errorsCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="httpCode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="overLimit" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="refreshed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
