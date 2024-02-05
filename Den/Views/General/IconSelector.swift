@@ -14,20 +14,22 @@ struct IconSelector: View {
     @Environment(\.dismiss) private var dismiss
 
     @Binding var selection: String
-    
+
     @State private var initialValue: String?
     @State private var showingManualEntry = false
-    
+
     @FocusState private var textFieldFocus: Bool
     
+    #if os(macOS)
+    let gridItem = GridItem(.adaptive(minimum: 36), spacing: 4, alignment: .center)
+    #else
+    let gridItem = GridItem(.adaptive(minimum: 44), spacing: 4, alignment: .center)
+    #endif
+
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVGrid(
-                    columns: [gridItem],
-                    alignment: .center,
-                    spacing: 4
-                ) {
+                LazyVGrid(columns: [gridItem], alignment: .center, spacing: 4) {
                     ForEach(PageIcon.allCases, id: \.self) { pageIcon in
                         ZStack {
                             RoundedRectangle(cornerRadius: 4).fill(.background)
@@ -120,10 +122,4 @@ struct IconSelector: View {
         .frame(minWidth: 360, idealWidth: 600, minHeight: 480, idealHeight: 600, maxHeight: 800)
         #endif
     }
-
-    #if os(macOS)
-    let gridItem = GridItem(.adaptive(minimum: 36), spacing: 4, alignment: .center)
-    #else
-    let gridItem = GridItem(.adaptive(minimum: 44), spacing: 4, alignment: .center)
-    #endif
 }

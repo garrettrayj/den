@@ -57,14 +57,12 @@ struct CompactContentUnavailable<LabelContent: View, DescriptionContent: View, A
         .background(Color(.secondarySystemGroupedBackground))
         #endif
         .clipShape(
-            UnevenRoundedRectangle(
-                cornerRadii: .init(
-                    topLeading: 0,
-                    bottomLeading: 8,
-                    bottomTrailing: 8,
-                    topTrailing: 0
-                )
-            )
+            UnevenRoundedRectangle(cornerRadii: .init(
+                topLeading: 0,
+                bottomLeading: 8,
+                bottomTrailing: 8,
+                topTrailing: 0
+            ))
         )
     }
 }

@@ -11,7 +11,7 @@
 import CoreData
 
 struct AnalyzeTask {
-    unowned let profileObjectID: NSManagedObjectID
+    let profileObjectID: NSManagedObjectID
 
     func execute() async {
         await PersistenceController.shared.container.performBackgroundTask { context in
