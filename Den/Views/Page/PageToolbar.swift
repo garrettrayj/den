@@ -20,6 +20,7 @@ struct PageToolbar: ToolbarContent {
 
     @Binding var hideRead: Bool
     @Binding var pageLayout: PageLayout
+    @Binding var showingDeleteAlert: Bool
     @Binding var showingIconSelector: Bool
 
     let items: FetchedResults<Item>
@@ -41,7 +42,11 @@ struct PageToolbar: ToolbarContent {
         ToolbarTitleMenu {
             RenameButton()
             IconSelectorButton(showingIconSelector: $showingIconSelector, symbol: $page.wrappedSymbol)
-            DeletePageButton(page: page)
+            Button(role: .destructive) {
+                showingDeleteAlert = true
+            } label: {
+                DeleteLabel()
+            }
         }
         
         if horizontalSizeClass == .compact {

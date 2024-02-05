@@ -18,7 +18,8 @@ struct PageView: View {
     
     @Binding var hideRead: Bool
     
-    @State private var showingIconSelector: Bool = false
+    @State private var showingDeleteAlert = false
+    @State private var showingIconSelector = false
 
     private var pageLayout: AppStorage<PageLayout>
 
@@ -74,11 +75,28 @@ struct PageView: View {
                         page: page,
                         hideRead: $hideRead,
                         pageLayout: pageLayout.projectedValue,
+                        showingDeleteAlert: $showingDeleteAlert,
                         showingIconSelector: $showingIconSelector,
                         items: items
                     )
                 }
                 #if os(iOS)
+                .alert(
+                    Text("Delete Page?", comment: "Alert title."),
+                    isPresented: $showingDeleteAlert,
+                    actions: {
+                        Button(role: .cancel) {
+                            // Pass
+                        } label: {
+                            Text("Cancel", comment: "Button label.")
+                        }
+
+                        DeletePageButton(page: page)
+                    },
+                    message: {
+                        Text("Feeds will also be deleted.", comment: "Delete page alert message.")
+                    }
+                )
                 .sheet(
                     isPresented: $showingIconSelector,
                     onDismiss: {
