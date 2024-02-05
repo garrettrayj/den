@@ -21,7 +21,7 @@ struct PageView: View {
     @State private var showingDeleteAlert = false
     @State private var showingIconSelector = false
 
-    private var pageLayout: AppStorage<PageLayout>
+    private var pageLayoutAppStorage: AppStorage<PageLayout>
 
     var body: some View {
         if page.managedObjectContext == nil || page.isDeleted {
@@ -38,19 +38,19 @@ struct PageView: View {
                 ZStack {
                     if page.feedsArray.isEmpty {
                         NoFeeds()
-                    } else if pageLayout.wrappedValue == .grouped {
+                    } else if pageLayoutAppStorage.wrappedValue == .grouped {
                         GroupedLayout(
                             page: page,
                             hideRead: $hideRead,
                             items: items
                         )
-                    } else if pageLayout.wrappedValue == .deck {
+                    } else if pageLayoutAppStorage.wrappedValue == .deck {
                         DeckLayout(
                             page: page,
                             hideRead: $hideRead,
                             items: items
                         )
-                    } else if pageLayout.wrappedValue == .timeline {
+                    } else if pageLayoutAppStorage.wrappedValue == .timeline {
                         TimelineLayout(
                             page: page,
                             hideRead: $hideRead,
@@ -74,7 +74,7 @@ struct PageView: View {
                     PageToolbar(
                         page: page,
                         hideRead: $hideRead,
-                        pageLayout: pageLayout.projectedValue,
+                        pageLayout: pageLayoutAppStorage.projectedValue,
                         showingDeleteAlert: $showingDeleteAlert,
                         showingIconSelector: $showingIconSelector,
                         items: items
@@ -121,7 +121,7 @@ struct PageView: View {
         
         _hideRead = hideRead
 
-        pageLayout = .init(
+        pageLayoutAppStorage = .init(
             wrappedValue: PageLayout.grouped,
             "PageLayout_\(page.id?.uuidString ?? "NoID")"
         )
