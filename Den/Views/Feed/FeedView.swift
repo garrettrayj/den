@@ -20,6 +20,8 @@ struct FeedView: View {
     
     @Binding var hideRead: Bool
     
+    @State private var showingDeleteAlert = false
+    
     @SceneStorage("ShowingFeedInspector") private var showingInspector = false
 
     var body: some View {
@@ -71,6 +73,7 @@ struct FeedView: View {
                             feed: feed,
                             profile: profile,
                             hideRead: $hideRead,
+                            showingDeleteAlert: $showingDeleteAlert,
                             showingInspector: $showingInspector,
                             items: items
                         )
@@ -82,6 +85,24 @@ struct FeedView: View {
                     }
                     #if os(iOS)
                     .toolbarBackground(.visible)
+                    .alert(
+                        Text("Delete Feed?", comment: "Alert title."),
+                        isPresented: $showingDeleteAlert,
+                        actions: {
+                            Button(role: .cancel) {
+                                // Pass
+                            } label: {
+                                Text("Cancel", comment: "Button label.")
+                            }
+                            DeleteFeedButton(feed: feed)
+                        },
+                        message: {
+                            Text(
+                                "This action cannot be undone.",
+                                comment: "Delete feed alert message."
+                            )
+                        }
+                    )
                     #endif
                 }
             }

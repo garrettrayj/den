@@ -90,7 +90,6 @@ struct PageView: View {
                         } label: {
                             Text("Cancel", comment: "Button label.")
                         }
-
                         DeletePageButton(page: page)
                     },
                     message: {

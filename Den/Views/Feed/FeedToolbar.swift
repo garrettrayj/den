@@ -19,6 +19,7 @@ struct FeedToolbar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
+    @Binding var showingDeleteAlert: Bool
     @Binding var showingInspector: Bool
 
     let items: FetchedResults<Item>
@@ -44,7 +45,11 @@ struct FeedToolbar: ToolbarContent {
                 selection: $feed.page,
                 labelText: Text("Move", comment: "Picker label.")
             ).pickerStyle(.menu)
-            DeleteFeedButton(feed: feed)
+            Button(role: .destructive) {
+                showingDeleteAlert = true
+            } label: {
+                DeleteLabel()
+            }
         }
         
         if horizontalSizeClass == .compact {
