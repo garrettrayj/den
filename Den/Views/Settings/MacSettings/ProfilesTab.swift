@@ -29,12 +29,11 @@ struct ProfilesTab: View {
                 }
             } description: {
                 Text(
-                    "Manage separate collections of feeds, pages and tags.",
+                    "Use profiles to manage separate collections of feeds, pages and tags.",
                     comment: "No profiles guidance."
                 )
-                NewProfileButton()
-                    .buttonStyle(.borderedProminent)
-                    .multilineTextAlignment(.leading)
+            } actions: {
+                NewProfileButton().buttonStyle(.borderedProminent).multilineTextAlignment(.leading)
             }
         } else {
             HStack(spacing: 0) {

@@ -43,11 +43,11 @@ struct ContentUnavailable<LabelContent: View, DescriptionContent: View, ActionsC
     }
 
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 16) {
             Spacer(minLength: 0)
             label().labelStyle(ContentUnavailableLabelStyle())
             description?().foregroundStyle(descriptionForegroundStyle)
-            actions?()
+            actions?().padding(.top, 4)
             Spacer(minLength: 0)
         }
         .multilineTextAlignment(.center)

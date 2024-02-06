@@ -27,8 +27,5 @@ struct Welcome: View {
                 Text("\(profile.feedCount) Feeds", comment: "Feed count (zero/plural).")
             }
         }
-        #if os(iOS)
-        .toolbar(.hidden)
-        #endif
     }
 }

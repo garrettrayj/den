@@ -12,45 +12,14 @@ import OSLog
 import SwiftUI
 
 struct Landing: View {
+    @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
+    
     @Binding var currentProfileID: String?
 
     let profiles: FetchedResults<Profile>
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                GeometryReader { geometry in
-                    ScrollView {
-                        HStack {
-                            Spacer()
-                            loadingLayout
-                            Spacer()
-                        }
-                        .frame(minHeight: geometry.size.height)
-                    }
-                }
-            }
-            #if os(iOS)
-            .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
-            #endif
-            .toolbarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem {
-                    NewProfileButton(callback: { profile in
-                        currentProfileID = profile.id?.uuidString
-                    })
-                    .labelStyle(.titleAndIcon)
-                    #if os(iOS)
-                    .buttonStyle(.borderless)
-                    #endif
-                }
-            }
-        }
-    }
-
-    private var loadingLayout: some View {
-        VStack(spacing: 24) {
-            Spacer()
             if profiles.isEmpty {
                 ContentUnavailable {
                     Label {
@@ -59,45 +28,76 @@ struct Landing: View {
                         ProgressView()
                     }
                 } description: {
-                    Text(
-                        """
-                        If you have used the app on another device then synchronization may be in progress. \
-                        Please wait a minute. \n
-                        If you are new or cloud sync is disabled then create a profile to begin.
-                        """,
-                        comment: "Landing guidance message."
-                    )
+                    VStack(spacing: 16) {
+                        Text(
+                            """
+                            If you have used the app on another device \
+                            then synchronization may be in progress. \
+                            \nPlease wait a minute.
+                            """,
+                            comment: "Landing guidance message."
+                        )
+                        Text(
+                            """
+                            If you are new or cloud sync is disabled then create a profile to begin.
+                            """,
+                            comment: "Landing guidance message."
+                        )
+                    }
+                } actions: {
+                    NewProfileButton(callback: { profile in
+                        currentProfileID = profile.id?.uuidString
+                    })
+                    .buttonStyle(.borderedProminent)
                 }
             } else {
-                VStack(spacing: 0) {
-                    ForEach(profiles) { profile in
-                        if profile != profiles.first {
-                            Divider()
-                        }
-                        Button {
-                            currentProfileID = profile.id?.uuidString
-                        } label: {
-                            HStack {
-                                profile.nameText
-                                Spacer()
-                                ButtonChevron()
+                VStack {
+                    Text("Select Profile").font(.title3).foregroundStyle(.secondary)
+                    
+                    VStack(spacing: 0) {
+                        ForEach(profiles) { profile in
+                            if profile != profiles.first {
+                                Divider()
                             }
-                            .padding(.horizontal)
-                            .padding(.vertical, 12)
-                            .contentShape(Rectangle())
+                            Button {
+                                currentProfileID = profile.id?.uuidString
+                            } label: {
+                                HStack {
+                                    profile.nameText
+                                    Spacer()
+                                    ButtonChevron()
+                                }
+                                .padding(.horizontal)
+                                .padding(.vertical, 12)
+                                .contentShape(Rectangle())
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityIdentifier("SelectProfile")
                         }
-                        .buttonStyle(.plain)
-                        .accessibilityIdentifier("SelectProfile")
                     }
+                    .frame(maxWidth: 240)
+                    #if os(macOS)
+                    .background(.background)
+                    #else
+                    .background(Color(.secondarySystemGroupedBackground))
+                    #endif
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
-                .frame(maxWidth: 240)
-                #if os(macOS)
-                .background(.background)
-                #else
-                .background(Color(.secondarySystemGroupedBackground))
-                #endif
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .padding()
+                .lineLimit(1)
             }
+        }
+        .toolbarTitleDisplayMode(.inline)
+        .frame(minWidth: minDetailColumnWidth)
+        #if os(iOS)
+        .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
+        #endif
+    }
+
+    private var loadingLayout: some View {
+        VStack(spacing: 24) {
+            Spacer()
+            
             Spacer()
         }
         .padding()

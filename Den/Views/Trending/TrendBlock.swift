@@ -34,7 +34,7 @@ struct TrendBlock: View {
     var body: some View {
         NavigationLink(value: SubDetailPanel.trend(trend)) {
             VStack(alignment: .leading, spacing: 8) {
-                trend.titleText.font(.title2.weight(.medium))
+                trend.titleText.font(.title2)
 
                 Grid {
                     ForEach(feeds.chunked(by: 9), id: \.self) { feeds in

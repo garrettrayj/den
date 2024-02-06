@@ -29,7 +29,7 @@ struct NewProfileButton: View {
         .sheet(
             isPresented: $showingSheet,
             content: {
-                NewProfileSheet(callback: callback)
+                NewProfileSheet(callback: callback).multilineTextAlignment(.leading)
             }
         )
     }

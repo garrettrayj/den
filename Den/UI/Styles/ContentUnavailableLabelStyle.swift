@@ -17,12 +17,12 @@ struct ContentUnavailableLabelStyle: LabelStyle {
     @Environment(\.isEnabled) private var isEnabled
 
     func makeBody(configuration: Configuration) -> some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 16) {
             configuration.icon
-                .font(.system(size: 36))
+                .font(.system(size: 32))
                 .foregroundStyle(iconForegroundStyle)
             configuration.title
-                .font(.largeTitle.weight(.bold))
+                .font(.largeTitle)
                 .foregroundStyle(titleForegroundStyle)
         }
     }
