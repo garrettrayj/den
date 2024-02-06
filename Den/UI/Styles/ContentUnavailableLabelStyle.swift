@@ -18,17 +18,15 @@ struct ContentUnavailableLabelStyle: LabelStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         VStack(spacing: 16) {
-            configuration.icon
-                .font(.system(size: 32))
-                .foregroundStyle(iconForegroundStyle)
-            configuration.title
-                #if os(macOS)
-                .font(.largeTitle)
-                #else
-                .font(.title)
-                #endif
-                .foregroundStyle(titleForegroundStyle)
+            configuration.icon.foregroundStyle(iconForegroundStyle)
+            configuration.title.foregroundStyle(titleForegroundStyle)
         }
+        .imageScale(.large)
+        #if os(macOS)
+        .font(.largeTitle.weight(.semibold))
+        #else
+        .font(.title.weight(.semibold))
+        #endif
     }
     
     private var iconForegroundStyle: HierarchicalShapeStyle {

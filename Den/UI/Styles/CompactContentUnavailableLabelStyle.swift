@@ -19,12 +19,12 @@ struct CompactContentUnavailableLabelStyle: LabelStyle {
     func makeBody(configuration: Configuration) -> some View {
         VStack(spacing: 8) {
             configuration.icon
-                .font(.system(size: 20))
                 .foregroundStyle(iconForegroundStyle)
             configuration.title
-                .font(.callout)
                 .foregroundStyle(titleForegroundStyle)
         }
+        .imageScale(.large)
+        .font(.callout)
     }
     
     private var iconForegroundStyle: HierarchicalShapeStyle {

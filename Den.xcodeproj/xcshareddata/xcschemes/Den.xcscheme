@@ -116,8 +116,8 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-CurrentProfileID nil"
-            isEnabled = "NO">
+            argument = "-LastProfileID nil"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-disable-cloud"

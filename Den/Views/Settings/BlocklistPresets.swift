@@ -16,35 +16,45 @@ struct BlocklistPresets: View {
     @Binding var name: String
     @Binding var urlString: String
     
-    @State private var blocklistOptions: [BlocklistManifest.Item] = []
+    @State private var manifestCollections: [BlocklistManifest.ManifestCollection] = []
     
     var body: some View {
         List {
-            Section {
-                ForEach(blocklistOptions) { blocklistOption in
-                    Button {
-                        selectOption(blocklistOption)
-                    } label: {
-                        VStack(alignment: .leading) {
-                            Text(blocklistOption.name)
-                            Text(blocklistOption.description).font(.caption)
+            ForEach(manifestCollections) { manifestCollection in
+                Section {
+                    ForEach(manifestCollection.filterLists) { manifestItem in
+                        Button {
+                            selectOption(manifestItem)
+                        } label: {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(manifestItem.name)
+                                Text(manifestItem.description).font(.caption)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("BlocklistPresetOption")
+                        .padding(.vertical, 4)
+                    }
+                } header: {
+                    Link(destination: manifestCollection.website) {
+                        Label {
+                            Text(verbatim: manifestCollection.name)
+                        } icon: {
+                            Image(systemName: "link")
                         }
                     }
-                    .buttonStyle(.plain)
                 }
-            } header: {
-                Text(
-                    .init("[EasyList](https://easylist.to)"),
-                    comment: "Blocklist presets section header."
-                )
             }
         }
         .task {
-            blocklistOptions = await BlocklistManifest.fetch()
+            manifestCollections = await BlocklistManifest.fetch()
         }
+        #if os(macOS)
+        .frame(minWidth: 360, idealWidth: 460, minHeight: 420)
+        #endif
     }
     
-    private func selectOption(_ blocklistOption: BlocklistManifest.Item) {
+    private func selectOption(_ blocklistOption: BlocklistManifest.ManifestItem) {
         name = blocklistOption.name
         urlString = blocklistOption.convertedURL.absoluteString
         dismiss()

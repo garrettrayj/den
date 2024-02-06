@@ -1,5 +1,5 @@
 //
-//  BlocklistSources.swift
+//  BlocklistManifest.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/26/24.
@@ -12,7 +12,14 @@ import Foundation
 import OSLog
 
 struct BlocklistManifest {
-    struct Item: Decodable, Identifiable, Hashable {
+    struct ManifestCollection: Decodable, Identifiable, Hashable {
+        var id: String
+        var name: String
+        var website: URL
+        var filterLists: [ManifestItem]
+    }
+    
+    struct ManifestItem: Decodable, Identifiable, Hashable {
         var id: String
         var name: String
         var description: String
@@ -25,14 +32,14 @@ struct BlocklistManifest {
     
     static let url = URL(string: "https://blocklists.den.io/manifest.json")!
     
-    static func fetch() async -> [Item] {
+    static func fetch() async -> [ManifestCollection] {
         guard let (data, _) = try? await URLSession.shared.data(from: url) else {
             Logger.main.error("Unable to fetch blocklist source manifest")
             return []
         }
         
         do {
-            return try JSONDecoder().decode([Item].self, from: data)
+            return try JSONDecoder().decode([ManifestCollection].self, from: data)
         } catch {
             Logger.main.error("Unable to decode blocklist source manifest: \(error)")
             return []

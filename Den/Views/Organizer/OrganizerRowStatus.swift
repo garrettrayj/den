@@ -16,18 +16,26 @@ struct OrganizerRowStatus: View {
     
     var body: some View {
         if let error = feedData.wrappedError {
-            Image(systemName: "bolt.horizontal").foregroundStyle(.red)
+            
             switch error {
             case .parsing:
-                Text("Parsing Error", comment: "Organizer row status.")
+                Label {
+                    Text("Parsing Error", comment: "Organizer row status.")
+                } icon: {
+                    Image(systemName: "bolt.horizontal").foregroundStyle(.orange)
+                }
             case .request:
-                Text("Network Error", comment: "Organizer row status.")
+                Label {
+                    Text("Network Error", comment: "Organizer row status.")
+                } icon: {
+                    Image(systemName: "network.slash").foregroundStyle(.orange)
+                }
             }
         } else {
             if feedData.responseTime > 5 {
                 Image(systemName: "tortoise").foregroundStyle(.brown)
             } else if !feed.isSecure {
-                Image(systemName: "lock.slash").foregroundStyle(.orange)
+                Image(systemName: "lock.slash").foregroundStyle(.yellow)
             }
             Text(
                 "\(Int(feedData.responseTime * 1000)) ms",

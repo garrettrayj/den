@@ -63,9 +63,9 @@ final class BlocklistUITests: UITestCase {
         
         app.buttons["NewBlocklist"].tap()
         
-        app.buttons["BlocklistPresets"].staticTexts.firstMatch.tap()
+        app.buttons["BlocklistPresets"].tap()
         
-        app.buttons["EasyPrivacy"].tap()
+        app.buttons["BlocklistPresetOption"].firstMatch.tap()
         
         app.buttons["BlocklistPresets"].staticTexts.firstMatch.tap()
 

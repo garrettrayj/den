@@ -30,6 +30,7 @@ struct NewBlocklistSheet: View {
                         Image(systemName: "filemenu.and.selection")
                     }
                 }
+                .accessibilityIdentifier("BlocklistPresets")
 
                 Section {
                     TextField(
@@ -93,7 +94,7 @@ struct NewBlocklistSheet: View {
                 }
             }
             #if os(macOS)
-            .frame(minWidth: 360, idealWidth: 460, minHeight: 300)
+            .frame(minWidth: 360, idealWidth: 460, minHeight: 420)
             #endif
         }
     }
