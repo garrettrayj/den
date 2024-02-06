@@ -22,7 +22,11 @@ struct ContentUnavailableLabelStyle: LabelStyle {
                 .font(.system(size: 32))
                 .foregroundStyle(iconForegroundStyle)
             configuration.title
+                #if os(macOS)
                 .font(.largeTitle)
+                #else
+                .font(.title)
+                #endif
                 .foregroundStyle(titleForegroundStyle)
         }
     }

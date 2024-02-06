@@ -99,12 +99,14 @@ struct FeedUnavailable: View {
 
     @ViewBuilder
     private var icon: some View {
-        if feed.feedData == nil {
-            Image(systemName: "questionmark.folder")
-        } else if feed.feedData?.wrappedError != nil {
-            Image(systemName: "bolt.horizontal")
+        if let feedData = feed.feedData {
+            if feedData.wrappedError == .request {
+                Image(systemName: "network.slash")
+            } else {
+                Image(systemName: "bolt.horizontal")
+            }
         } else {
-            Image(systemName: "questionmark.diamond" )
+            Image(systemName: "questionmark.folder")
         }
     }
 }
