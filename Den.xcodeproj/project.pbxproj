@@ -26,6 +26,7 @@
 		6818F07B2B64CC6900BE06FC /* BlocklistManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */; };
 		6818F07D2B660E2C00BE06FC /* ProfilesSectionNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F07C2B660E2C00BE06FC /* ProfilesSectionNavLink.swift */; };
 		6818F0832B703D3700BE06FC /* BlocklistPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F0822B703D3700BE06FC /* BlocklistPresets.swift */; };
+		6818F0852B7325C000BE06FC /* FeedFaviconPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F0842B7325C000BE06FC /* FeedFaviconPlaceholder.swift */; };
 		681AEAF929954AC70054B084 /* FeedHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AEAF829954AC70054B084 /* FeedHero.swift */; };
 		681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */; };
 		681DE10A2922D02200D2F7B2 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1092922D02200D2F7B2 /* SDWebImageWebPCoder */; };
@@ -380,6 +381,7 @@
 		6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistManifest.swift; sourceTree = "<group>"; };
 		6818F07C2B660E2C00BE06FC /* ProfilesSectionNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesSectionNavLink.swift; sourceTree = "<group>"; };
 		6818F0822B703D3700BE06FC /* BlocklistPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistPresets.swift; sourceTree = "<group>"; };
+		6818F0842B7325C000BE06FC /* FeedFaviconPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFaviconPlaceholder.swift; sourceTree = "<group>"; };
 		681AEAF829954AC70054B084 /* FeedHero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHero.swift; sourceTree = "<group>"; };
 		681F0C252933F4C10037C609 /* ClearProfileHistoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearProfileHistoryButton.swift; sourceTree = "<group>"; };
 		682050742AC773E200C937BE /* ImageSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSize.swift; sourceTree = "<group>"; };
@@ -744,6 +746,7 @@
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
 				683E3F44293BC02A00B16814 /* NewFeedButton.swift */,
 				68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */,
+				6818F0842B7325C000BE06FC /* FeedFaviconPlaceholder.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1872,6 +1875,7 @@
 				686F6B082B38B5210099EB49 /* TrendingLayout.swift in Sources */,
 				6868A3162895D20D0051D43E /* TrendingNavLink.swift in Sources */,
 				683821872B4826D800AD1E26 /* TrendingStatus.swift in Sources */,
+				6818F0852B7325C000BE06FC /* FeedFaviconPlaceholder.swift in Sources */,
 				68FF63F82921DCE00012A275 /* TrendingToolbar.swift in Sources */,
 				68F56B79288C0D31006EC915 /* TrendItem+CoreDataClass.swift in Sources */,
 				6870EBDF29C95F6700E15154 /* TrendLayout.swift in Sources */,

@@ -20,7 +20,7 @@ struct FeedFavicon: View {
     @Environment(\.faviconSize) private var faviconSize
     @Environment(\.faviconPixelSize) private var faviconPixelSize
     
-    @ObservedObject var feed: Feed
+    @ObservedObject var feedData: FeedData
 
     private var opacity: CGFloat {
         #if os(macOS)
@@ -40,13 +40,13 @@ struct FeedFavicon: View {
     
     var body: some View {
         WebImage(
-            url: feed.feedData?.favicon,
+            url: feedData.favicon,
             options: [.decodeFirstFrameOnly, .delayPlaceholder],
             context: [.imageThumbnailPixelSize: faviconPixelSize]
         ) { image in
             image.resizable().scaledToFit()
         } placeholder: {
-            Image(systemName: "dot.radiowaves.up.forward").foregroundStyle(.primary)
+            FeedFaviconPlaceholder()
         }
         .frame(width: faviconSize.width, height: faviconSize.height)
         .clipShape(RoundedRectangle(cornerRadius: 2))

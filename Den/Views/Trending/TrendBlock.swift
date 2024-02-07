@@ -30,6 +30,10 @@ struct TrendBlock: View {
         }
         return nil
     }
+    
+    private var feedDatas: [FeedData] {
+        feeds.compactMap { $0.feedData }
+    }
 
     var body: some View {
         NavigationLink(value: SubDetailPanel.trend(trend)) {
@@ -37,10 +41,10 @@ struct TrendBlock: View {
                 trend.titleText.font(.title2)
 
                 Grid {
-                    ForEach(feeds.chunked(by: 9), id: \.self) { feeds in
+                    ForEach(feedDatas.chunked(by: 9), id: \.self) { feedDatas in
                         GridRow {
-                            ForEach(feeds, id: \.self) { feed in
-                                FeedFavicon(feed: feed)
+                            ForEach(feedDatas, id: \.self) { feedData in
+                                FeedFavicon(feedData: feedData)
                             }
                         }
                     }

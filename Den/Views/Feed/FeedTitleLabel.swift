@@ -19,7 +19,11 @@ struct FeedTitleLabel: View {
         Label {
             feed.displayTitle.lineLimit(1)
         } icon: {
-            FeedFavicon(feed: feed)
+            if let feedData = feed.feedData {
+                FeedFavicon(feedData: feedData)
+            } else {
+                FeedFaviconPlaceholder()
+            }
         }
     }
 }

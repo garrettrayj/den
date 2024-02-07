@@ -34,7 +34,11 @@ struct SidebarFeed: View {
             feed.displayTitle
             #endif
         } icon: {
-            FeedFavicon(feed: feed)
+            if let feedData = feed.feedData {
+                FeedFavicon(feedData: feedData)
+            } else {
+                FeedFaviconPlaceholder()
+            }
         }
         .tag(DetailPanel.feed(feed))
         .modifier(DraggableFeedModifier(feed: feed))
