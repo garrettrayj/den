@@ -18,9 +18,6 @@ final class BlocklistUITests: UITestCase {
         app.menuBarItems["Den"].menuItems["Settings…"].tap()
         app.buttons["Blocklists"].tap()
         app.buttons["NewBlocklist"].tap()
-        app.popUpButtons["BlocklistPresets"].tap()
-        app.menuItems["EasyList"].tap()
-        app.popUpButtons["BlocklistPresets"].tap()
 
         attachScreenshot(of: app.windows.element(boundBy: 1), named: "blocklist-new")
     }
@@ -33,8 +30,10 @@ final class BlocklistUITests: UITestCase {
         
         app.buttons["NewBlocklist"].tap()
         
-        app.popUpButtons["BlocklistPresets"].tap()
-        app.menuItems["EasyList"].tap()
+        app.buttons["BlocklistPresets"].tap()
+        
+        app.buttons["BlocklistPresetOption"].firstMatch.tap()
+        
         app.buttons["AddBlocklist"].tap()
         
         sleep(15)
@@ -62,12 +61,6 @@ final class BlocklistUITests: UITestCase {
         }
         
         app.buttons["NewBlocklist"].tap()
-        
-        app.buttons["BlocklistPresets"].tap()
-        
-        app.buttons["BlocklistPresetOption"].firstMatch.tap()
-        
-        app.buttons["BlocklistPresets"].staticTexts.firstMatch.tap()
 
         attachScreenshot(of: app.windows.firstMatch, named: "blocklist-new")
     }
@@ -92,9 +85,9 @@ final class BlocklistUITests: UITestCase {
         
         app.buttons["NewBlocklist"].tap()
         
-        app.buttons["BlocklistPresets"].staticTexts.firstMatch.tap()
+        app.buttons["BlocklistPresets"].tap()
         
-        app.buttons["EasyList"].tap()
+        app.buttons["BlocklistPresetOption"].firstMatch.tap()
         
         app.buttons["AddBlocklist"].tap()
         
