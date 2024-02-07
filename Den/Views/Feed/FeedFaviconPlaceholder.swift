@@ -15,4 +15,3 @@ struct FeedFaviconPlaceholder: View {
         Image(systemName: "dot.radiowaves.up.forward").foregroundStyle(.primary)
     }
 }
-

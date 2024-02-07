@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <opml version="1.0" xmlns:den="https://den.io/xml/opml">
 	<head>
-		<title>Demo Feb 7, 2024 at 1:42 AM</title>
+		<title>Demo Feb 7, 2024 at 2:45 AM</title>
 	</head>
 	<body>
 		<outline den:icon="globe" text="World" title="World">
@@ -90,7 +90,6 @@
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Nautilus" title="Nautilus" type="rss" xmlUrl="https://nautil.us/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Botany One" title="Botany One" type="rss" xmlUrl="https://botany.one/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="PLOS ONE" title="PLOS ONE" type="atom" xmlUrl="https://journals.plos.org/plosone/feed/atom" />
-			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Royal Society Open Science" title="Royal Society Open Science" type="rss" xmlUrl="https://royalsocietypublishing.org/action/showFeed?type=etoc&amp;feed=rss&amp;jc=rsos" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Improbable Research" title="Improbable Research" type="rss" xmlUrl="https://www.improbable.com/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Singularity Hub" title="Singularity Hub" type="rss" xmlUrl="https://singularityhub.com/feed/" />
 		</outline>
