@@ -17,7 +17,7 @@
         "argument" : "-disable-cloud"
       },
       {
-        "argument" : "-CurrentProfileID nil"
+        "argument" : "-LastProfileID nil"
       }
     ],
     "testTimeoutsEnabled" : true

@@ -47,6 +47,7 @@ struct MacSidebarBottomBar: View {
                 RefreshButton(profile: profile)
                     .labelStyle(.iconOnly)
                     .imageScale(.large)
+                    .fontWeight(.medium)
                     .buttonStyle(.borderless)
                     .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
             }

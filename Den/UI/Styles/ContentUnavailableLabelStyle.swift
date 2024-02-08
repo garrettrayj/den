@@ -23,9 +23,9 @@ struct ContentUnavailableLabelStyle: LabelStyle {
         }
         .imageScale(.large)
         #if os(macOS)
-        .font(.largeTitle.weight(.semibold))
+        .font(.largeTitle.weight(.bold))
         #else
-        .font(.title.weight(.semibold))
+        .font(.title.weight(.bold))
         #endif
     }
     
