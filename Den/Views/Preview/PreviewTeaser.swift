@@ -18,6 +18,5 @@ struct PreviewTeaser: View {
             .font(.subheadline)
             .lineSpacing(2)
             .lineLimit(6)
-            .padding(.top, 4)
     }
 }

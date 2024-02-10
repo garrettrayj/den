@@ -29,7 +29,9 @@ struct FeedLayout: View {
                         FeedHero(url: heroImage)
                     }
                     
-                    if items.isEmpty {
+                    if feed.feedData == nil || feed.feedData?.wrappedError != nil {
+                        FeedUnavailable(feed: feed, largeDisplay: true)
+                    } else if items.isEmpty {
                         FeedEmpty(largeDisplay: true).padding()
                     } else if items.unread().isEmpty && hideRead {
                         AllRead(largeDisplay: true).padding()

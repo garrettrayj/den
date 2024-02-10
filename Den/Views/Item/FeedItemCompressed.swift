@@ -15,11 +15,39 @@ struct FeedItemCompressed: View {
     @ObservedObject var feed: Feed
 
     var body: some View {
-        VStack(spacing: 0) {
-            FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
-            ItemActionView(item: item, isLastInList: true) {
-                ItemPreviewCompressed(item: item, feed: feed)
+        ItemActionView(item: item, isLastInList: true, isStandalone: true) {
+            VStack(alignment: .leading, spacing: 8) {
+                NavigationLink(value: SubDetailPanel.feed(feed)) {
+                    FeedTitleLabel(feed: feed).font(.callout).imageScale(.small)
+                }
+                .accessibilityIdentifier("FeedNavLink")
+                .buttonStyle(.plain)
+                
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        PreviewHeadline(title: item.titleText)
+                        
+                        if !feed.hideBylines, let author = item.author {
+                            PreviewAuthor(author: author)
+                        }
+                        
+                        if let date = item.published {
+                            PreviewDateline(date: date)
+                        }
+                        
+                        if !item.bookmarks.isEmpty {
+                            ItemTags(item: item)
+                        }
+                    }
+                    
+                    Spacer(minLength: 0)
+
+                    if !feed.hideImages, let url = item.image {
+                        SmallThumbnail(url: url, isRead: item.read).padding(.leading, 12)
+                    }
+                }
             }
+            .padding(12)
         }
     }
 }

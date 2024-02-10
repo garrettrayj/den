@@ -15,9 +15,14 @@ struct BookmarkPreviewCompressed: View {
     @ObservedObject var feed: Feed
 
     var body: some View {
-        VStack(spacing: 0) {
-            FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
-            BookmarkActionView(bookmark: bookmark) {
+        BookmarkActionView(bookmark: bookmark) {
+            VStack(alignment: .leading, spacing: 8) {
+                NavigationLink(value: SubDetailPanel.feed(feed)) {
+                    FeedTitleLabel(feed: feed).font(.callout).imageScale(.small)
+                }
+                .accessibilityIdentifier("FeedNavLink")
+                .buttonStyle(.plain)
+                
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 4) {
                         PreviewHeadline(title: bookmark.titleText)
@@ -33,8 +38,8 @@ struct BookmarkPreviewCompressed: View {
                         SmallThumbnail(url: url, isRead: false).padding(.leading, 12)
                     }
                 }
-                .padding(12)
             }
+            .padding(12)
         }
     }
 }

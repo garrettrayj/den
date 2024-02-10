@@ -33,7 +33,7 @@ struct BookmarkActionView<Content: View>: View {
                 }
             }
         }
-        .buttonStyle(PreviewButtonStyle(read: .constant(false), roundedBottom: true))
+        .buttonStyle(PreviewButtonStyle(read: .constant(false), roundedBottom: true, roundedTop: true))
         .accessibilityIdentifier("BookmarkAction")
         .contextMenu {
             UntagButton(bookmark: bookmark)
