@@ -1,5 +1,5 @@
 //
-//  FeedFavicon.swift
+//  Favicon.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/6/24.
@@ -12,7 +12,7 @@ import SwiftUI
 
 import SDWebImageSwiftUI
 
-struct FeedFavicon: View {
+struct Favicon<Placeholder: View>: View {
     #if os(macOS)
     @Environment(\.controlActiveState) private var controlActiveState
     #endif
@@ -20,7 +20,9 @@ struct FeedFavicon: View {
     @Environment(\.faviconSize) private var faviconSize
     @Environment(\.faviconPixelSize) private var faviconPixelSize
     
-    @ObservedObject var feedData: FeedData
+    let url: URL?
+    
+    @ViewBuilder var placeholder: Placeholder
 
     private var opacity: CGFloat {
         #if os(macOS)
@@ -40,13 +42,13 @@ struct FeedFavicon: View {
     
     var body: some View {
         WebImage(
-            url: feedData.favicon,
+            url: url,
             options: [.decodeFirstFrameOnly, .delayPlaceholder],
             context: [.imageThumbnailPixelSize: faviconPixelSize]
         ) { image in
             image.resizable().scaledToFit()
         } placeholder: {
-            FeedFaviconPlaceholder()
+            placeholder
         }
         .frame(width: faviconSize.width, height: faviconSize.height)
         .clipShape(RoundedRectangle(cornerRadius: 2))

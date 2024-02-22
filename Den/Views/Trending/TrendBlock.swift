@@ -44,7 +44,9 @@ struct TrendBlock: View {
                     ForEach(feedDatas.chunked(by: 9), id: \.self) { feedDatas in
                         GridRow {
                             ForEach(feedDatas, id: \.self) { feedData in
-                                FeedFavicon(feedData: feedData)
+                                Favicon(url: feedData.favicon) {
+                                    FeedFaviconPlaceholder()
+                                }
                             }
                         }
                     }

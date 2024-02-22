@@ -19,9 +19,7 @@ struct FeedTitleLabel: View {
         Label {
             feed.displayTitle.lineLimit(1)
         } icon: {
-            if let feedData = feed.feedData {
-                FeedFavicon(feedData: feedData)
-            } else {
+            Favicon(url: feed.feedData?.favicon) {
                 FeedFaviconPlaceholder()
             }
         }

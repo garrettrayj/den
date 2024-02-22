@@ -35,7 +35,7 @@ public class Item: NSManagedObject {
     }
 
     public var bookmarkTags: [Tag] {
-        Array(Set(bookmarks.compactMap { $0.tag }))
+        Array(Set(bookmarks.compactMap { $0.tag }).sorted(using: SortDescriptor(\.userOrder)))
     }
 
     public var wrappedTags: [(String, NLTag)] {

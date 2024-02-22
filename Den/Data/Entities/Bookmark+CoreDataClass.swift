@@ -25,6 +25,19 @@ public class Bookmark: NSManagedObject {
         get { title?.trimmingCharacters(in: .whitespaces) ?? "" }
         set { title = newValue }
     }
+    
+    public var siteText: Text {
+        if wrappedSite == "" {
+            return Text("Untitled", comment: "Bookmark site title placeholder.")
+        }
+
+        return Text(wrappedSite)
+    }
+
+    public var wrappedSite: String {
+        get { site?.trimmingCharacters(in: .whitespaces) ?? "" }
+        set { site = newValue }
+    }
 
     static func create(
         in managedObjectContext: NSManagedObjectContext,
@@ -35,6 +48,12 @@ public class Bookmark: NSManagedObject {
         bookmark.id = UUID()
         bookmark.tag = tag
         bookmark.feed = item.feedData?.feed
+        bookmark.site = item.feedData?.feed?.title
+        bookmark.favicon = item.feedData?.favicon
+        bookmark.hideImage = item.feedData?.feed?.hideImages ?? false
+        bookmark.hideByline = item.feedData?.feed?.hideBylines ?? false
+        bookmark.hideTeaser = item.feedData?.feed?.hideTeasers ?? false
+        bookmark.largePreview = item.feedData?.feed?.largePreviews ?? false
         bookmark.title = item.title
         bookmark.teaser = item.teaser
         bookmark.author = item.author
@@ -44,6 +63,7 @@ public class Bookmark: NSManagedObject {
         bookmark.link = item.link
         bookmark.published = item.published
         bookmark.ingested = item.ingested
+        bookmark.created = .now
 
         return bookmark
     }

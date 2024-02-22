@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct BookmarkToolbar: ToolbarContent {
+    @Environment(\.dismiss) private var dismiss
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -24,7 +25,9 @@ struct BookmarkToolbar: ToolbarContent {
             formatMenu
         }
         ToolbarItem {
-            UntagButton(bookmark: bookmark, dismissAfterAction: true)
+            UntagButton(bookmark: bookmark) {
+                dismiss()
+            }
         }
         ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)

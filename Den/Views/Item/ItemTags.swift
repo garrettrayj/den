@@ -12,31 +12,33 @@ import SwiftUI
 
 struct ItemTags: View {
     @ObservedObject var item: Item
+    
+    static let separator = NSLocale.autoupdatingCurrent.groupingSeparator ?? ","
 
     var body: some View {
-        bookmarksList.font(.caption2).imageScale(.small)
+        HStack(spacing: 4) {
+            Image(systemName: "tag")
+            tagNames
+        }
+        .font(.caption)
+        .imageScale(.small)
+        .lineLimit(2)
     }
 
-    private var bookmarksList: Text {
-        let prefix = Text(Image(systemName: "tag")) + Text(verbatim: "\u{00A0}")
-        
-        let tagLabels = item.bookmarks.compactMap {
-            $0.tag?.displayName
-        }.map { displayName in
-            prefix + displayName
+    private var tagNames: Text {
+        let tagNames = item.bookmarkTags.compactMap {
+            $0.displayName
         }
         
-        var output = Text("")
+        var output = Text(verbatim: "")
         
         // swiftlint:disable shorthand_operator
-        for (idx, label) in tagLabels.enumerated() {
+        for (idx, tagName) in tagNames.enumerated() {
             if idx > 0 {
-                output = output + Text(
-                    verbatim: "\(NSLocale.autoupdatingCurrent.groupingSeparator ?? ",") "
-                )
+                output = output + Text(verbatim: "\(ItemTags.separator) ")
             }
-            output = output + label
             
+            output = output + tagName
         }
         // swiftlint:enable shorthand_operator
 

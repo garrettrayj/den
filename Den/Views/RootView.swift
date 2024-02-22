@@ -64,6 +64,8 @@ struct RootView: View {
             
             await BlocklistManager.initializeMissingContentRulesLists()
             await performMaintenance()
+            
+            CleanupUtility.upgradeBookmarks(context: viewContext)
         }
         .onChange(of: currentProfileID) {
             lastProfileID = currentProfileID

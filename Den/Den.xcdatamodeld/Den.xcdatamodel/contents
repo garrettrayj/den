@@ -24,13 +24,20 @@
     <entity name="Bookmark" representedClassName="Bookmark" syncable="YES" codeGenerationType="category">
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="body" optional="YES" attributeType="String"/>
+        <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="favicon" optional="YES" attributeType="URI"/>
+        <attribute name="hideByline" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="hideImage" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="hideTeaser" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="URI"/>
         <attribute name="imageHeight" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="imageWidth" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="ingested" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="largePreview" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
         <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="site" optional="YES" attributeType="String"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="teaser" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>

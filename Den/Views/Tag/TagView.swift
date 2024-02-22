@@ -12,6 +12,8 @@ import SwiftUI
 
 struct TagView: View {
     @ObservedObject var tag: Tag
+    
+    @AppStorage("TagLayout") private var tagLayout: TagLayout = .spread
 
     var body: some View {
         if tag.managedObjectContext == nil || tag.isDeleted {
@@ -24,8 +26,8 @@ struct TagView: View {
             }
             .navigationTitle("")
         } else {
-            Group {
-                if tag.bookmarksArray.isEmpty {
+            WithBookmarks(scopeObject: tag) { bookmarks in
+                if bookmarks.isEmpty {
                     ContentUnavailable {
                         Label {
                             Text("No Items", comment: "Content unavailable title.")
@@ -33,26 +35,10 @@ struct TagView: View {
                             Image(systemName: "tag")
                         }
                     }
+                } else if tagLayout == .list {
+                    TagTableLayout(bookmarks: bookmarks)
                 } else {
-                    GeometryReader { geometry in
-                        ScrollView {
-                            BoardView(width: geometry.size.width, list: tag.bookmarksArray) { bookmark in
-                                if let feed = bookmark.feed {
-                                    if feed.wrappedPreviewStyle == .expanded {
-                                        BookmarkPreviewExpanded(
-                                            bookmark: bookmark,
-                                            feed: feed
-                                        )
-                                    } else {
-                                        BookmarkPreviewCompressed(
-                                            bookmark: bookmark,
-                                            feed: feed
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    TagSpreadLayout(bookmarks: bookmarks)
                 }
             }
             .navigationTitle(tag.displayName)
@@ -61,6 +47,17 @@ struct TagView: View {
                 ToolbarTitleMenu {
                     RenameButton()
                     DeleteTagButton(tag: tag)
+                }
+                
+                ToolbarItem {
+                    TagLayoutPicker(tagLayout: $tagLayout)
+                    #if os(macOS)
+                    .pickerStyle(.inline)
+                    #else
+                    .pickerStyle(.menu)
+                    .labelStyle(.iconOnly)
+                    .padding(.trailing, -12)
+                    #endif
                 }
             }
         }

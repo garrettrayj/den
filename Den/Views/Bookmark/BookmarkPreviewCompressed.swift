@@ -12,21 +12,24 @@ import SwiftUI
 
 struct BookmarkPreviewCompressed: View {
     @ObservedObject var bookmark: Bookmark
-    @ObservedObject var feed: Feed
 
     var body: some View {
         BookmarkActionView(bookmark: bookmark) {
             VStack(alignment: .leading, spacing: 8) {
-                NavigationLink(value: SubDetailPanel.feed(feed)) {
-                    FeedTitleLabel(feed: feed).font(.callout).imageScale(.small)
+                Label {
+                    bookmark.siteText
+                } icon: {
+                    Favicon(url: bookmark.favicon) {
+                        BookmarkFaviconPlaceholder()
+                    }
                 }
-                .accessibilityIdentifier("FeedNavLink")
-                .buttonStyle(.plain)
+                .font(.callout)
+                .imageScale(.small)
                 
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 4) {
                         PreviewHeadline(title: bookmark.titleText)
-                        if !feed.hideBylines, let author = bookmark.author {
+                        if !bookmark.hideByline, let author = bookmark.author {
                             PreviewAuthor(author: author)
                         }
                         if let date = bookmark.published {
@@ -34,7 +37,7 @@ struct BookmarkPreviewCompressed: View {
                         }
                     }
                     Spacer(minLength: 0)
-                    if !feed.hideImages, let url = bookmark.image {
+                    if !bookmark.hideImage, let url = bookmark.image {
                         SmallThumbnail(url: url, isRead: false).padding(.leading, 12)
                     }
                 }

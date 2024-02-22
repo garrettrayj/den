@@ -11,12 +11,11 @@
 import SwiftUI
 
 struct UntagButton: View {
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var bookmark: Bookmark
     
-    var dismissAfterAction: Bool = false
+    var callback: (() -> Void)?
 
     var body: some View {
         Button(role: .destructive) {
@@ -25,9 +24,7 @@ struct UntagButton: View {
             do {
                 try viewContext.save()
                 tag.objectWillChange.send()
-                if dismissAfterAction {
-                    dismiss()
-                }
+                callback?()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }

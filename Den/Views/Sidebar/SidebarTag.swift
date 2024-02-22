@@ -18,9 +18,9 @@ struct SidebarTag: View {
     var body: some View {
         Label {
             #if os(macOS)
-            TextField(text: $tag.wrappedName) { tag.displayName }.badge(tag.bookmarksArray.count)
+            TextField(text: $tag.wrappedName) { tag.displayName }
             #else
-            tag.displayName.badge(tag.bookmarksArray.count)
+            tag.displayName
             #endif
         } icon: {
             Image(systemName: "tag")

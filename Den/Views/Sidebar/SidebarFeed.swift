@@ -34,9 +34,7 @@ struct SidebarFeed: View {
             feed.displayTitle
             #endif
         } icon: {
-            if let feedData = feed.feedData {
-                FeedFavicon(feedData: feedData)
-            } else {
+            Favicon(url: feed.feedData?.favicon) {
                 FeedFaviconPlaceholder()
             }
         }
