@@ -71,7 +71,6 @@ struct SplitView: View {
             .navigationSplitViewColumnWidth(min: minDetailColumnWidth, ideal: 600)
             #if os(iOS)
             .toolbarTitleDisplayMode(.inline)
-            .toolbarBackground(.visible)
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
             #endif
         }

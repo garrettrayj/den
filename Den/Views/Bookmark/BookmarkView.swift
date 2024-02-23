@@ -32,7 +32,7 @@ struct BookmarkView: View {
         } else {
             ContentUnavailable {
                 Label {
-                    Text("Bookmark Deleted", comment: "Object removed message.")
+                    Text("Untagged", comment: "Object removed message.")
                 } icon: {
                     Image(systemName: "trash")
                 }

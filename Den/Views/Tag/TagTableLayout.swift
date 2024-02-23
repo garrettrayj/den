@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct TagTableLayout: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
     @Environment(\.useSystemBrowser) private var useSystemBrowser
@@ -34,14 +35,35 @@ struct TagTableLayout: View {
     var body: some View {
         Table(selection: $selection, sortOrder: $sortOrder) {
             TableColumn("Feed", value: \.site) { row in
-                Label {
-                    row.bookmark.siteText
-                } icon: {
-                    Favicon(url: row.bookmark.favicon) {
-                        BookmarkFaviconPlaceholder()
+                if horizontalSizeClass == .compact {
+                    VStack(alignment: .leading) {
+                        Label {
+                            row.bookmark.siteText
+                        } icon: {
+                            Favicon(url: row.bookmark.favicon) {
+                                BookmarkFaviconPlaceholder()
+                            }
+                        }
+                        .font(.callout)
+                        .imageScale(.small)
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            row.bookmark.titleText.font(.headline)
+                            
+                            Text("Tagged: \(row.created.formatted())").font(.caption)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                } else {
+                    Label {
+                        row.bookmark.siteText
+                    } icon: {
+                        Favicon(url: row.bookmark.favicon) {
+                            BookmarkFaviconPlaceholder()
+                        }
                     }
                 }
-            }.width(max: 200)
+            }.width(max: horizontalSizeClass == .compact ? nil : 180)
 
             TableColumn("Title", value: \.title) { row in
                 row.bookmark.titleText

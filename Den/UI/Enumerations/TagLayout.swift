@@ -11,6 +11,6 @@
 import Foundation
 
 enum TagLayout: Int, CaseIterable {
-    case spread = 0
-    case list   = 1
+    case previews = 0
+    case list     = 1
 }

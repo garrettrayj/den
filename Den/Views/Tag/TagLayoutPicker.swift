@@ -20,12 +20,12 @@ struct TagLayoutPicker: View {
             } icon: {
                 Image(systemName: "square.grid.2x2")
             }
-            .tag(TagLayout.spread)
+            .tag(TagLayout.previews)
             
             Label {
-                Text("Table")
+                Text("List")
             } icon: {
-                Image(systemName: "list.bullet")
+                Image(systemName: "list.dash")
             }
             .tag(TagLayout.list)
         } label: {

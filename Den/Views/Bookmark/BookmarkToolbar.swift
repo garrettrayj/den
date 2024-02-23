@@ -25,11 +25,6 @@ struct BookmarkToolbar: ToolbarContent {
             formatMenu
         }
         ToolbarItem {
-            UntagButton(bookmark: bookmark) {
-                dismiss()
-            }
-        }
-        ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)
         }
         ToolbarItem {
@@ -42,12 +37,19 @@ struct BookmarkToolbar: ToolbarContent {
             SystemBrowserButton(url: $browserViewModel.url)
         }
         ToolbarItem {
+            UntagButton(bookmark: bookmark) {
+                dismiss()
+            }
+        }
+        ToolbarItem {
             ShareButton(url: $browserViewModel.url)
         }
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem {
-                UntagButton(bookmark: bookmark)
+                UntagButton(bookmark: bookmark) {
+                    dismiss()
+                }
             }
             ToolbarItem {
                 formatMenu
@@ -86,7 +88,9 @@ struct BookmarkToolbar: ToolbarContent {
                 Spacer()
             }
             ToolbarItem(placement: .topBarLeading) {
-                UntagButton(bookmark: bookmark)
+                UntagButton(bookmark: bookmark) {
+                    dismiss()
+                }
             }
             ToolbarItem(placement: .topBarLeading) {
                 formatMenu

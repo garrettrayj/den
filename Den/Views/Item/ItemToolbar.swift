@@ -24,9 +24,6 @@ struct ItemToolbar: ToolbarContent {
             formatMenu
         }
         ToolbarItem {
-            TagsMenu(item: item)
-        }
-        ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)
         }
         ToolbarItem {
@@ -37,6 +34,9 @@ struct ItemToolbar: ToolbarContent {
         }
         ToolbarItem {
             SystemBrowserButton(url: $browserViewModel.url)
+        }
+        ToolbarItem {
+            TagsMenu(item: item)
         }
         ToolbarItem {
             ShareButton(url: $browserViewModel.url)

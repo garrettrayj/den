@@ -13,7 +13,7 @@ import SwiftUI
 struct TagView: View {
     @ObservedObject var tag: Tag
     
-    @AppStorage("TagLayout") private var tagLayout: TagLayout = .spread
+    @AppStorage("TagLayout") private var tagLayout: TagLayout = .previews
 
     var body: some View {
         if tag.managedObjectContext == nil || tag.isDeleted {
