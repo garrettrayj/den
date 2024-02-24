@@ -13,6 +13,7 @@ function updateBadge(tabId, count) {
         browser.browserAction.setBadgeText({tabId: tabId, text: String(count)});
         browser.browserAction.enable(tabId);
     } else {
+        browser.browserAction.setBadgeText({tabId: tabId, text: null});
         browser.browserAction.disable(tabId);
     }
 }
