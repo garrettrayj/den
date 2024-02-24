@@ -16,20 +16,20 @@ struct TagLayoutPicker: View {
     var body: some View {
         Picker(selection: $tagLayout) {
             Label {
-                Text("Previews")
+                Text("Previews", comment: "Tag layout option.")
             } icon: {
                 Image(systemName: "square.grid.2x2")
             }
             .tag(TagLayout.previews)
             
             Label {
-                Text("List")
+                Text("List", comment: "Tag layout option.")
             } icon: {
                 Image(systemName: "list.dash")
             }
             .tag(TagLayout.list)
         } label: {
-            Text("Layout")
+            Text("Layout", comment: "Picker label.")
         }
     }
 }

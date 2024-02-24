@@ -34,7 +34,10 @@ struct TagTableLayout: View {
     
     var body: some View {
         Table(selection: $selection, sortOrder: $sortOrder) {
-            TableColumn("Feed", value: \.site) { row in
+            TableColumn(
+                Text("Feed", comment: "Tagged items table header."),
+                value: \.site
+            ) { row in
                 if horizontalSizeClass == .compact {
                     VStack(alignment: .leading) {
                         Label {
@@ -50,7 +53,11 @@ struct TagTableLayout: View {
                         VStack(alignment: .leading, spacing: 8) {
                             row.bookmark.titleText.font(.headline)
                             
-                            Text("Tagged: \(row.created.formatted())").font(.caption)
+                            Text(
+                                "Tagged: \(row.created.formatted())",
+                                comment: "Tagged date/time label."
+                            )
+                            .font(.caption)
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -63,15 +70,24 @@ struct TagTableLayout: View {
                         }
                     }
                 }
-            }.width(max: horizontalSizeClass == .compact ? nil : 180)
+            }
+            .width(max: horizontalSizeClass == .compact ? nil : 180)
 
-            TableColumn("Title", value: \.title) { row in
+            TableColumn(
+                Text("Title", comment: "Tagged items table header."),
+                value: \.title
+            ) { row in
                 row.bookmark.titleText
-            }.width(ideal: 460)
+            }
+            .width(ideal: 460)
 
-            TableColumn("Tagged", value: \.created) { row in
-                Text("\(row.created.formatted())")
-            }.width(max: 160)
+            TableColumn(
+                Text("Tagged", comment: "Tagged items table header."),
+                value: \.created
+            ) { row in
+                Text(verbatim: row.created.formatted())
+            }
+            .width(max: 160)
         } rows: {
             ForEach(rows) { row in
                 TableRow(row)

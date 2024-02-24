@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "59730af512c06fb569c119d737df4c1c499e001d",
-        "version" : "5.18.10"
+        "revision" : "b11493f76481dff17ac8f45274a6b698ba0d3af5",
+        "version" : "5.18.11"
       }
     },
     {
@@ -51,7 +51,7 @@
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI",
       "state" : {
         "branch" : "master",
-        "revision" : "79961a5ac3ea7a3253ff643291ff3c158777029c"
+        "revision" : "c934a841cc42febe14157708f712ed2ab53fd161"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImageWebPCoder",
       "state" : {
-        "revision" : "db4603921b31a6ce0f8c26d36d6a3fffc2dba481",
-        "version" : "0.14.2"
+        "revision" : "8a33fb3ca75a01267f775f891f7d61f675e95072",
+        "version" : "0.14.5"
       }
     },
     {
@@ -77,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/scinfu/SwiftSoup.git",
       "state" : {
-        "revision" : "f83c097597094a04124eb6e0d1e894d24129af87",
-        "version" : "2.7.0"
+        "revision" : "1d39e56d364cba79ce43b341f9661b534cccb18d",
+        "version" : "2.7.1"
       }
     }
   ],

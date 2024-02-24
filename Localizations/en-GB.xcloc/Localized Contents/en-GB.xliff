@@ -140,10 +140,6 @@
         <source>Age</source>
         <note>Organizer info panel row label.</note>
       </trans-unit>
-      <trans-unit id="All Feeds" xml:space="preserve">
-        <source>All Feeds</source>
-        <note>Sidebar section header.</note>
-      </trans-unit>
       <trans-unit id="All Read" xml:space="preserve">
         <source>All Read</source>
         <note>Card note title.
@@ -184,10 +180,6 @@
         <note>Settings section header.
    Settings tab label.</note>
       </trans-unit>
-      <trans-unit id="Bookmark Deleted" xml:space="preserve">
-        <source>Bookmark Deleted</source>
-        <note>Object removed message.</note>
-      </trans-unit>
       <trans-unit id="Cache Control" xml:space="preserve">
         <source>Cache Control</source>
         <note>Organizer info panel row label.</note>
@@ -205,25 +197,21 @@
         <source>Check the spelling or try a new search.</source>
         <note>No search results guidance.</note>
       </trans-unit>
-      <trans-unit id="Clear" xml:space="preserve">
-        <source>Clear</source>
-        <note>Button label.</note>
-      </trans-unit>
-      <trans-unit id="Clear Image Cache" xml:space="preserve">
-        <source>Clear Image Cache</source>
+      <trans-unit id="Clear Read History" xml:space="preserve">
+        <source>Clear Read History</source>
         <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Close" xml:space="preserve">
         <source>Close</source>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Compile &amp; Load" xml:space="preserve">
+        <source>Compile &amp; Load</source>
+        <note>Blocklist status row label.</note>
+      </trans-unit>
       <trans-unit id="Configuration" xml:space="preserve">
         <source>Configuration</source>
         <note>Inspector panel label.</note>
-      </trans-unit>
-      <trans-unit id="Converted Rules" xml:space="preserve">
-        <source>Converted Rules</source>
-        <note>Blocklist status row label.</note>
       </trans-unit>
       <trans-unit id="Copied" xml:space="preserve">
         <source>Copied</source>
@@ -232,16 +220,6 @@
       <trans-unit id="Copy Link" xml:space="preserve">
         <source>Copy Link</source>
         <note>Button label.</note>
-      </trans-unit>
-      <trans-unit id="Could not fetch data." xml:space="preserve">
-        <source>Could not fetch data.</source>
-        <note>Feed unavailable message.</note>
-      </trans-unit>
-      <trans-unit id="Customization" xml:space="preserve">
-        <source>Customization</source>
-        <target state="translated">Customisation</target>
-        <note>New profile sheet section header.
-   Profile settings section header.</note>
       </trans-unit>
       <trans-unit id="Dark" xml:space="preserve">
         <source>Dark</source>
@@ -254,6 +232,14 @@
       <trans-unit id="Delete" xml:space="preserve">
         <source>Delete</source>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Delete Feed?" xml:space="preserve">
+        <source>Delete Feed?</source>
+        <note>Alert title.</note>
+      </trans-unit>
+      <trans-unit id="Delete Page?" xml:space="preserve">
+        <source>Delete Page?</source>
+        <note>Alert title.</note>
       </trans-unit>
       <trans-unit id="Delete Profile?" xml:space="preserve">
         <source>Delete Profile?</source>
@@ -271,13 +257,13 @@
         <source>Disable JavaScript</source>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Done" xml:space="preserve">
-        <source>Done</source>
-        <note>Button label.</note>
-      </trans-unit>
       <trans-unit id="ETag" xml:space="preserve">
         <source>ETag</source>
         <note>Organizer info panel row label.</note>
+      </trans-unit>
+      <trans-unit id="Empty Caches" xml:space="preserve">
+        <source>Empty Caches</source>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Enable JavaScript" xml:space="preserve">
         <source>Enable JavaScript</source>
@@ -287,21 +273,13 @@
         <source>Enter a term to search item titles.</source>
         <note>Search query empty guidance.</note>
       </trans-unit>
-      <trans-unit id="Enter the URL for a RSS, Atom, or JSON feed." xml:space="preserve">
-        <source>Enter the URL for a RSS, Atom, or JSON feed.</source>
+      <trans-unit id="Enter the web address for a RSS, Atom, or JSON feed." xml:space="preserve">
+        <source>Enter the web address for a RSS, Atom, or JSON feed.</source>
         <note>Feed web address field guidance message.</note>
-      </trans-unit>
-      <trans-unit id="Erase Feed Data" xml:space="preserve">
-        <source>Erase Feed Data</source>
-        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Error" xml:space="preserve">
         <source>Error</source>
         <note>Content unavailable title.</note>
-      </trans-unit>
-      <trans-unit id="Errors" xml:space="preserve">
-        <source>Errors</source>
-        <note>Blocklist status row label.</note>
       </trans-unit>
       <trans-unit id="Expanded Previews" xml:space="preserve">
         <source>Expanded Previews</source>
@@ -315,6 +293,10 @@
         <source>Extra</source>
         <note>Feed view section header.</note>
       </trans-unit>
+      <trans-unit id="Failed" xml:space="preserve">
+        <source>Failed</source>
+        <note>Blocklist compile/load status message.</note>
+      </trans-unit>
       <trans-unit id="Featured" xml:space="preserve">
         <source>Featured</source>
         <note>Feed view section header.</note>
@@ -322,6 +304,10 @@
       <trans-unit id="Featured Items" xml:space="preserve">
         <source>Featured Items</source>
         <note>Picker label.</note>
+      </trans-unit>
+      <trans-unit id="Feed" xml:space="preserve">
+        <source>Feed</source>
+        <note>Tagged items table header.</note>
       </trans-unit>
       <trans-unit id="Feed Deleted" xml:space="preserve">
         <source>Feed Deleted</source>
@@ -332,13 +318,21 @@
         <note>Content unavailable title.
    No items message.</note>
       </trans-unit>
-      <trans-unit id="Feed Unavailable" xml:space="preserve">
-        <source>Feed Unavailable</source>
+      <trans-unit id="Feed unavailable." xml:space="preserve">
+        <source>Feed unavailable.</source>
         <note>Feed unavailable message.</note>
+      </trans-unit>
+      <trans-unit id="Feeds will also be deleted." xml:space="preserve">
+        <source>Feeds will also be deleted.</source>
+        <note>Delete page alert message.</note>
       </trans-unit>
       <trans-unit id="Filter Read" xml:space="preserve">
         <source>Filter Read</source>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Filter rules must be in content blocker JSON format." xml:space="preserve">
+        <source>Filter rules must be in content blocker JSON format.</source>
+        <note>New blocklist guidance.</note>
       </trans-unit>
       <trans-unit id="Format" xml:space="preserve">
         <source>Format</source>
@@ -376,17 +370,15 @@
         <source>Hide Reader</source>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Icon" xml:space="preserve">
-        <source>Icon</source>
-        <note>New page sheet section header.</note>
+      <trans-unit id="If you are new or cloud sync is disabled then create a profile to begin." xml:space="preserve">
+        <source>If you are new or cloud sync is disabled then create a profile to begin.</source>
+        <note>Landing guidance message.</note>
       </trans-unit>
-      <trans-unit id="If you have used the app on another device then synchronization may be in progress. Please wait a minute. &#10;&#10;If you are new or cloud sync is disabled then create a profile to begin." xml:space="preserve">
-        <source>If you have used the app on another device then synchronization may be in progress. Please wait a minute. 
-
-If you are new or cloud sync is disabled then create a profile to begin.</source>
-        <target state="translated">If you have used the app on another device then synchronisation may be in progress. Please wait a minute. 
-
-If you are new or cloud sync is disabled then create a profile to begin.</target>
+      <trans-unit id="If you have used the app on another device then synchronization may be in progress. &#10;Please wait a minute." xml:space="preserve">
+        <source>If you have used the app on another device then synchronization may be in progress. 
+Please wait a minute.</source>
+        <target>If you have used the app on another device then synchronisation may be in progress. 
+Please wait a minute.</target>
         <note>Landing guidance message.</note>
       </trans-unit>
       <trans-unit id="Import OPML" xml:space="preserve">
@@ -427,6 +419,10 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
         <note>Feed inspector section header.
    Organizer configuration panel section header.</note>
       </trans-unit>
+      <trans-unit id="List" xml:space="preserve">
+        <source>List</source>
+        <note>Tag layout option.</note>
+      </trans-unit>
       <trans-unit id="Load Demo" xml:space="preserve">
         <source>Load Demo</source>
         <note>Button label.</note>
@@ -435,14 +431,13 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
         <source>Look &amp; Feel</source>
         <note>Settings section header.</note>
       </trans-unit>
-      <trans-unit id="Manage separate collections of feeds, pages and tags." xml:space="preserve">
-        <source>Manage separate collections of feeds, pages and tags.</source>
-        <note>No profiles guidance.</note>
-      </trans-unit>
       <trans-unit id="Management" xml:space="preserve">
         <source>Management</source>
-        <note>Organizer configuration panel section header.
-   Profile settings section header.</note>
+        <note>Organizer configuration panel section header.</note>
+      </trans-unit>
+      <trans-unit id="Mark All" xml:space="preserve">
+        <source>Mark All</source>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Mark Read" xml:space="preserve">
         <source>Mark Read</source>
@@ -450,14 +445,6 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
       </trans-unit>
       <trans-unit id="Mark Unread" xml:space="preserve">
         <source>Mark Unread</source>
-        <note>Button label.</note>
-      </trans-unit>
-      <trans-unit id="Mark/Unmark All" xml:space="preserve">
-        <source>Mark/Unmark All</source>
-        <note>Button label.</note>
-      </trans-unit>
-      <trans-unit id="Menu" xml:space="preserve">
-        <source>Menu</source>
         <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Move" xml:space="preserve">
@@ -470,17 +457,12 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
       </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
         <source>Name</source>
-        <note>Blocklist settings section header.
-   New blocklist sheet section header.
-   New page sheet section header.
-   New profile sheet section header.
-   New tag sheet section header.
-   Profile settings section header.
-   Text field label.</note>
+        <note>Text field label.</note>
       </trans-unit>
       <trans-unit id="Network Error" xml:space="preserve">
         <source>Network Error</source>
-        <note>Organizer row status.</note>
+        <note>Feed unavailable title.
+   Organizer row status.</note>
       </trans-unit>
       <trans-unit id="Network Offline" xml:space="preserve">
         <source>Network Offline</source>
@@ -521,7 +503,7 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
       </trans-unit>
       <trans-unit id="No Data" xml:space="preserve">
         <source>No Data</source>
-        <note>Feed unavailable message.
+        <note>Feed unavailable title.
    Organizer row status.</note>
       </trans-unit>
       <trans-unit id="No Feeds" xml:space="preserve">
@@ -549,7 +531,8 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
       </trans-unit>
       <trans-unit id="No Results" xml:space="preserve">
         <source>No Results</source>
-        <note>No search results message title.</note>
+        <note>No search results message title.
+   No search results title.</note>
       </trans-unit>
       <trans-unit id="No Selection" xml:space="preserve">
         <source>No Selection</source>
@@ -585,8 +568,9 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
         <source>Open a feed link, drag a URL onto the page list, or go to “(Image(systemName: "ellipsis.circle" )) &gt; New Feed” from the home/sidebar view to enter a web address. Use the Safari extension to discover feeds on websites.</source>
         <note>No feeds guidance (iPad).</note>
       </trans-unit>
-      <trans-unit id="Open a feed link, drag a URL onto the page list, or go to “(Image(systemName: &quot;ellipsis.circle&quot; )) &gt; New Feed” to enter a web address. Use the Safari extension to discover feeds on websites." xml:space="preserve">
-        <source>Open a feed link, drag a URL onto the page list, or go to “(Image(systemName: "ellipsis.circle" )) &gt; New Feed” to enter a web address. Use the Safari extension to discover feeds on websites.</source>
+      <trans-unit id="Open a feed link, drag a URL onto the page list, or go to “File &gt; New Feed” to enter a web address. &#10;Use the Safari extension to discover feeds on websites." xml:space="preserve">
+        <source>Open a feed link, drag a URL onto the page list, or go to “File &gt; New Feed” to enter a web address. 
+Use the Safari extension to discover feeds on websites.</source>
         <note>No feeds guidance (Mac).</note>
       </trans-unit>
       <trans-unit id="Open in Browser" xml:space="preserve">
@@ -612,24 +596,22 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
       </trans-unit>
       <trans-unit id="Parsing Error" xml:space="preserve">
         <source>Parsing Error</source>
-        <note>Organizer row status.</note>
+        <note>Feed unavailable title.
+   Organizer row status.</note>
       </trans-unit>
       <trans-unit id="Preferences" xml:space="preserve">
         <source>Preferences</source>
         <note>Menu label.</note>
       </trans-unit>
-      <trans-unit id="Presets" xml:space="preserve">
-        <source>Presets</source>
-        <note>Menu label.</note>
-      </trans-unit>
-      <trans-unit id="Press %@ + R to refresh." xml:space="preserve">
-        <source>Press %@ + R to refresh.</source>
+      <trans-unit id="Press %@ R to Refresh" xml:space="preserve">
+        <source>Press %@ R to Refresh</source>
         <note>Status message.</note>
       </trans-unit>
       <trans-unit id="Previews" xml:space="preserve">
         <source>Previews</source>
         <note>Feed inspector section header.
-   Organizer configuration panel section header.</note>
+   Organizer configuration panel section header.
+   Tag layout option.</note>
       </trans-unit>
       <trans-unit id="Profile" xml:space="preserve">
         <source>Profile</source>
@@ -652,17 +634,9 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
         <source>Pull to Refresh</source>
         <note>Status message.</note>
       </trans-unit>
-      <trans-unit id="Read History" xml:space="preserve">
-        <source>Read History</source>
-        <note>Profile settings section header.</note>
-      </trans-unit>
       <trans-unit id="Refresh" xml:space="preserve">
         <source>Refresh</source>
         <note>Button label.</note>
-      </trans-unit>
-      <trans-unit id="Refresh Error" xml:space="preserve">
-        <source>Refresh Error</source>
-        <note>Feed unavailable message.</note>
       </trans-unit>
       <trans-unit id="Refresh to check for new items." xml:space="preserve">
         <source>Refresh to check for new items.</source>
@@ -671,10 +645,6 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
       <trans-unit id="Refresh to fetch items." xml:space="preserve">
         <source>Refresh to fetch items.</source>
         <note>Feed unavailable message.</note>
-      </trans-unit>
-      <trans-unit id="Refreshed" xml:space="preserve">
-        <source>Refreshed</source>
-        <note>Blocklist status row label.</note>
       </trans-unit>
       <trans-unit id="Reload" xml:space="preserve">
         <source>Reload</source>
@@ -692,6 +662,10 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
       <trans-unit id="Reset Everything?" xml:space="preserve">
         <source>Reset Everything?</source>
         <note>Alert title.</note>
+      </trans-unit>
+      <trans-unit id="Response Code" xml:space="preserve">
+        <source>Response Code</source>
+        <note>Blocklist status row label.</note>
       </trans-unit>
       <trans-unit id="Response Time" xml:space="preserve">
         <source>Response Time</source>
@@ -722,9 +696,21 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
         <source>Select Icon</source>
         <note>Navigation title.</note>
       </trans-unit>
+      <trans-unit id="Select Preset…" xml:space="preserve">
+        <source>Select Preset…</source>
+        <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Select Profile" xml:space="preserve">
+        <source>Select Profile</source>
+        <note>Landing view title.</note>
+      </trans-unit>
       <trans-unit id="Server" xml:space="preserve">
         <source>Server</source>
         <note>Organizer info panel row label.</note>
+      </trans-unit>
+      <trans-unit id="Server unavailable." xml:space="preserve">
+        <source>Server unavailable.</source>
+        <note>Feed unavailable message.</note>
       </trans-unit>
       <trans-unit id="Settings" xml:space="preserve">
         <source>Settings</source>
@@ -747,10 +733,6 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
         <source>Show Reader</source>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Show/Hide Reader" xml:space="preserve">
-        <source>Show/Hide Reader</source>
-        <note>Button label.</note>
-      </trans-unit>
       <trans-unit id="Showing results for “%@”" xml:space="preserve">
         <source>Showing results for “%@”</source>
         <note>Bottom bar status.
@@ -758,20 +740,24 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
       </trans-unit>
       <trans-unit id="Status" xml:space="preserve">
         <source>Status</source>
-        <note>Blocklist settings section header.
+        <note>Blocklist status section header.
    Organizer info panel row label.</note>
       </trans-unit>
-      <trans-unit id="Status Not Available" xml:space="preserve">
-        <source>Status Not Available</source>
+      <trans-unit id="Status Unknown" xml:space="preserve">
+        <source>Status Unknown</source>
         <note>Blocklist status message.</note>
       </trans-unit>
-      <trans-unit id="Stop Loading" xml:space="preserve">
-        <source>Stop Loading</source>
+      <trans-unit id="Stop" xml:space="preserve">
+        <source>Stop</source>
         <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Stop ads and other annoyances in the built-in browser." xml:space="preserve">
         <source>Stop ads and other annoyances in the built-in browser.</source>
         <note>No blocklists guidance.</note>
+      </trans-unit>
+      <trans-unit id="Successful" xml:space="preserve">
+        <source>Successful</source>
+        <note>Blocklist compile/load status message.</note>
       </trans-unit>
       <trans-unit id="Symbol" xml:space="preserve">
         <source>Symbol</source>
@@ -779,21 +765,36 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
       </trans-unit>
       <trans-unit id="System" xml:space="preserve">
         <source>System</source>
-        <note>Profile color option.
-   User color scheme picker option.</note>
+        <note>User color scheme picker option.</note>
       </trans-unit>
       <trans-unit id="Tag Deleted" xml:space="preserve">
         <source>Tag Deleted</source>
         <note>Object removed message.</note>
+      </trans-unit>
+      <trans-unit id="Tagged" xml:space="preserve">
+        <source>Tagged</source>
+        <note>Tagged items table header.</note>
+      </trans-unit>
+      <trans-unit id="Tagged: %@" xml:space="preserve">
+        <source>Tagged: %@</source>
+        <note>Tagged date/time label.</note>
       </trans-unit>
       <trans-unit id="Tags" xml:space="preserve">
         <source>Tags</source>
         <note>Menu label.
    Sidebar section header.</note>
       </trans-unit>
+      <trans-unit id="This action cannot be undone." xml:space="preserve">
+        <source>This action cannot be undone.</source>
+        <note>Delete feed alert message.</note>
+      </trans-unit>
       <trans-unit id="Timeline" xml:space="preserve">
         <source>Timeline</source>
         <note>Page layout option label.</note>
+      </trans-unit>
+      <trans-unit id="Title" xml:space="preserve">
+        <source>Title</source>
+        <note>Tagged items table header.</note>
       </trans-unit>
       <trans-unit id="Toggle Inspector" xml:space="preserve">
         <source>Toggle Inspector</source>
@@ -826,26 +827,32 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
       </trans-unit>
       <trans-unit id="URL" xml:space="preserve">
         <source>URL</source>
-        <note>Blocklist settings section header.
-   New blocklist sheet section header.
-   Organizer info panel row label.
+        <note>Organizer info panel row label.
    Text field label.</note>
       </trans-unit>
-      <trans-unit id="Unable to parse content." xml:space="preserve">
-        <source>Unable to parse content.</source>
+      <trans-unit id="Unable to read feed content." xml:space="preserve">
+        <source>Unable to read feed content.</source>
         <note>Feed unavailable message.</note>
       </trans-unit>
-      <trans-unit id="Unknown" xml:space="preserve">
-        <source>Unknown</source>
-        <note>Blocklist refresh date not available placeholder.</note>
+      <trans-unit id="Unavailable" xml:space="preserve">
+        <source>Unavailable</source>
+        <note>Blocklist response code placeholder.</note>
+      </trans-unit>
+      <trans-unit id="Unknown Error" xml:space="preserve">
+        <source>Unknown Error</source>
+        <note>Feed unavailable title.</note>
       </trans-unit>
       <trans-unit id="Untag" xml:space="preserve">
         <source>Untag</source>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Untagged" xml:space="preserve">
+        <source>Untagged</source>
+        <note>Object removed message.</note>
+      </trans-unit>
       <trans-unit id="Untitled" xml:space="preserve">
         <source>Untitled</source>
-        <note>Default bookmark title.
+        <note>Bookmark site title placeholder.
    Default content filter name.
    Default feed title.
    Default item title.
@@ -854,7 +861,12 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
    Default trend title.
    Page name placeholder.
    Profile name placeholder.
+   Profile name text field prompt.
    Tag name placeholder.</note>
+      </trans-unit>
+      <trans-unit id="Updated" xml:space="preserve">
+        <source>Updated</source>
+        <note>Blocklist status row label.</note>
       </trans-unit>
       <trans-unit id="Updated %@" xml:space="preserve">
         <source>Updated %@</source>
@@ -876,6 +888,10 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
         <source>Use System Browser</source>
         <note>Toggle label.</note>
       </trans-unit>
+      <trans-unit id="Use profiles to manage separate collections of feeds, pages and tags." xml:space="preserve">
+        <source>Use profiles to manage separate collections of feeds, pages and tags.</source>
+        <note>No profiles guidance.</note>
+      </trans-unit>
       <trans-unit id="Version" xml:space="preserve">
         <source>Version</source>
         <note>Row label.</note>
@@ -888,11 +904,6 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
         <source>Viewing</source>
         <note>Feed inspector section header.
    Organizer configuration panel section header.</note>
-      </trans-unit>
-      <trans-unit id="Web Address" xml:space="preserve">
-        <source>Web Address</source>
-        <note>New feed sheet section header.
-   Text field label.</note>
       </trans-unit>
       <trans-unit id="Yes" xml:space="preserve">
         <source>Yes</source>
@@ -909,6 +920,10 @@ If you are new or cloud sync is disabled then create a profile to begin.</target
       <trans-unit id="Zoom Out" xml:space="preserve">
         <source>Zoom Out</source>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="https⁣://example.com/blocklist.json" xml:space="preserve">
+        <source>https⁣://example.com/blocklist.json</source>
+        <note>Blocklist URL field prompt.</note>
       </trans-unit>
       <trans-unit id="https⁣://example.com/feed" xml:space="preserve">
         <source>https⁣://example.com/feed</source>

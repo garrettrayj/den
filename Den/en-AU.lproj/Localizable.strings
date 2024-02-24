@@ -4,10 +4,6 @@
 /* Status message (analysis in progress). */
 "Analyzing…" = "Analysing…";
 
-/* New profile sheet section header.
-   Profile settings section header. */
-"Customization" = "Customisation";
-
 /* Landing guidance message. */
-"If you have used the app on another device then synchronization may be in progress. Please wait a minute. \n\nIf you are new or cloud sync is disabled then create a profile to begin." = "If you have used the app on another device then synchronisation may be in progress. Please wait a minute. \n\nIf you are new or cloud sync is disabled then create a profile to begin.";
+"If you have used the app on another device then synchronization may be in progress. \nPlease wait a minute." = "If you have used the app on another device then synchronisation may be in progress. \nPlease wait a minute.";
 

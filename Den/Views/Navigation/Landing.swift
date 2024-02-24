@@ -68,7 +68,12 @@ struct Landing: View {
     
     private var profileSelection: some View {
         VStack {
-            Text("Select Profile").font(.title3).foregroundStyle(.secondary)
+            Text(
+                "Select Profile",
+                comment: "Landing view title."
+            )
+            .font(.title3)
+            .foregroundStyle(.secondary)
 
             VStack(spacing: 0) {
                 ForEach(profiles) { profile in

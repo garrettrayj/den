@@ -25,7 +25,7 @@ struct NewBlocklistSheet: View {
                     BlocklistPresets(name: $name, urlString: $urlString)
                 } label: {
                     Label {
-                        Text("Select Preset…")
+                        Text("Select Preset…", comment: "Button label.")
                     } icon: {
                         Image(systemName: "filemenu.and.selection")
                     }
@@ -63,7 +63,10 @@ struct NewBlocklistSheet: View {
                     .textInputAutocapitalization(.never)
                     #endif
                 } footer: {
-                    Text("Filter rules must be in content blocker JSON format.")
+                    Text(
+                        "Filter rules must be in content blocker JSON format.",
+                        comment: "New blocklist guidance."
+                    )
                 }
             }
             .disabled(isCreating)

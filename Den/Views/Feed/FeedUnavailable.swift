@@ -78,7 +78,7 @@ struct FeedUnavailable: View {
                 Text("Unable to read feed content.", comment: "Feed unavailable message.")
             } else if feedData.wrappedError == .request {
                 if feedData.httpStatus > 0 {
-                    Text("Feed unavailable.")
+                    Text("Feed unavailable.", comment: "Feed unavailable message.")
                 } else {
                     Text("Server unavailable.", comment: "Feed unavailable message.")
                 }
