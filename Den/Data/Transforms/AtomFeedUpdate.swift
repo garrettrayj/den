@@ -25,8 +25,13 @@ struct AtomFeedUpdate {
         }
         feedData.link = source.webpage
         feedData.format = "Atom"
+        
+        let sortedEntries = source.entries?.sorted(using: [
+            SortDescriptor(\.published, order: .reverse),
+            SortDescriptor(\.title)
+        ])
 
-        if let sourceItems = source.entries {
+        if let sourceItems = sortedEntries {
             var existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
             for sourceItem in sourceItems.prefix(Feed.totalItemLimit) {
                 // Continue if link is missing

@@ -30,9 +30,10 @@ public class FeedData: NSManagedObject {
     }
 
     public var itemsArray: [Item] {
-        items?.sortedArray(
-            using: [NSSortDescriptor(key: "published", ascending: false)]
-        ) as? [Item] ?? []
+        items?.sortedArray(using: [
+            NSSortDescriptor(key: "published", ascending: false),
+            NSSortDescriptor(key: "title", ascending: true)
+        ]) as? [Item] ?? []
     }
 
     public var responseTimeString: String {

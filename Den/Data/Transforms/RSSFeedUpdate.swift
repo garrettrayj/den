@@ -25,8 +25,13 @@ struct RSSFeedUpdate {
         }
         feedData.link = source.webpage
         feedData.format = "RSS"
+        
+        let sortedSourceItems = source.items?.sorted(using: [
+            SortDescriptor(\.pubDate, order: .reverse),
+            SortDescriptor(\.title)
+        ])
 
-        if let sourceItems = source.items {
+        if let sourceItems = sortedSourceItems {
             var existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
             for rawItem in sourceItems.prefix(Feed.totalItemLimit) {
                 // Continue if link is missing

@@ -28,7 +28,12 @@ struct JSONFeedUpdate {
         feedData.link = source.webpage
         feedData.format = "JSON"
 
-        if let sourceItems = source.items {
+        let sortedSourceItems = source.items?.sorted(using: [
+            SortDescriptor(\.datePublished, order: .reverse),
+            SortDescriptor(\.title)
+        ])
+        
+        if let sourceItems = sortedSourceItems {
             var existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
             for sourceItem in sourceItems.prefix(Feed.totalItemLimit) {
                 // Continue if link is missing
