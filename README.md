@@ -3,9 +3,9 @@
 Den for RSS
 ===========
 
-<img src="screenshot.png" alt="Screenshot" width="830" height="auto" />
-
 Create custom landscape views of what's happening with a fast and modern news aggregator.
+
+<img src="screenshot.png" alt="Screenshot" width="830" height="auto" />
 
 Den is made for people who want a less-is-more browsing experience. What sets it apart from other RSS apps is broadsheet layouts that show more content, especially on larger screens. Having everything plainly laid out makes finding interesting articles, comparing sources, and noticing trends refreshingly simple.
 
