@@ -6,7 +6,7 @@
 #  Created by Garrett Johnson on 7/20/23.
 #  Copyright © 2023 Garrett Johnson
 #
-#  SPDX-License-Identifier: NONE
+#  SPDX-License-Identifier: MIT
 
 # Create logs folder
 logsFolder="${PROJECT_DIR}/Scripts/Logs"

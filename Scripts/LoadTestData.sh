@@ -6,7 +6,7 @@
 #  Created by Garrett Johnson on 7/15/23.
 #  Copyright © 2023 Garrett Johnson
 #
-#  SPDX-License-Identifier: NONE
+#  SPDX-License-Identifier: MIT
 #
 #  Install app data from .xcappdata package. Invoked in Scheme > Test > Pre-actions.
 
