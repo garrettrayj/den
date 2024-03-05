@@ -3,7 +3,7 @@
 Den for RSS
 ===========
 
-<img src="screenshot.png" alt="Screenshot" width="830" height="auto" />
+<kbd><img src="screenshot.png" alt="Screenshot" width="830" height="auto" /></kbd>
 
 Create custom landscape views of what's happening with a fast and modern news aggregator.
 
