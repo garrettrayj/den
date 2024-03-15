@@ -36,7 +36,8 @@ struct RootView: View {
             if let profile = profiles.firstMatchingID(currentProfileID) {
                 SplitView(
                     profile: profile,
-                    currentProfileID: $currentProfileID
+                    currentProfileID: $currentProfileID,
+                    profiles: profiles
                 )
                 .environment(\.userTint, profile.tintColor)
             } else {

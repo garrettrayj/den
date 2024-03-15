@@ -28,6 +28,8 @@ struct Sidebar: View {
     @Binding var showingNewTagSheet: Bool
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
+    
+    let profiles: FetchedResults<Profile>
 
     @State private var exporterIsPresented: Bool = false
     @State private var opmlFile: OPMLFile?
@@ -61,6 +63,13 @@ struct Sidebar: View {
         .buttonStyle(.borderless)
         .badgeProminence(.decreased)
         .refreshable {
+            // Current profile must be found with currentProfileID otherwise action
+            // does not update on iOS when switching profiles.
+            guard let profile = profiles.first(
+                where: { $0.id?.uuidString == currentProfileID }
+            ) else {
+                return
+            }
             await RefreshManager.refresh(profile: profile)
         }
         .searchable(

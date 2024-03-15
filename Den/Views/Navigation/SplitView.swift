@@ -20,9 +20,10 @@ struct SplitView: View {
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
+    
+    let profiles: FetchedResults<Profile>
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    
     @State private var refreshing = false
     @State private var refreshProgress = Progress()
     @State private var showingExporter = false
@@ -57,7 +58,8 @@ struct SplitView: View {
                 showingNewPageSheet: $showingNewPageSheet,
                 showingNewTagSheet: $showingNewTagSheet,
                 refreshing: $refreshing, 
-                refreshProgress: $refreshProgress
+                refreshProgress: $refreshProgress,
+                profiles: profiles
             )
             #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 300)
