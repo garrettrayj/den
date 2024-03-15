@@ -59,7 +59,11 @@ struct SplitView: View {
                 refreshing: $refreshing, 
                 refreshProgress: $refreshProgress
             )
-            .navigationSplitViewColumnWidth(min: 220, ideal: 300, max: 300)
+            #if os(macOS)
+            .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 300)
+            #else
+            .navigationSplitViewColumnWidth(ideal: 280)
+            #endif
         } detail: {
             DetailView(
                 profile: profile,
@@ -68,7 +72,6 @@ struct SplitView: View {
                 path: $navigationStore.path,
                 searchQuery: $searchQuery
             )
-            .navigationSplitViewColumnWidth(min: minDetailColumnWidth, ideal: 600)
             #if os(iOS)
             .toolbarTitleDisplayMode(.inline)
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
