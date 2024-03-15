@@ -24,7 +24,7 @@ struct ProfilesSectionNavLink: View {
             Label {
                 profile.nameText
             } icon: {
-                Image(systemName: "rhombus")
+                Image(systemName: "person")
                     .symbolVariant(profile.id?.uuidString == currentProfileID ? .fill : .none)
             }
         }
