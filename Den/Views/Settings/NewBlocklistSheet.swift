@@ -81,7 +81,7 @@ struct NewBlocklistSheet: View {
                             await addBlocklist()
                         }
                     } label: {
-                        Text("Add Blocklist", comment: "Button Label")
+                        Text("Save", comment: "Button Label.")
                     }
                     .disabled(isCreating)
                     .accessibilityIdentifier("AddBlocklist")
@@ -90,7 +90,7 @@ struct NewBlocklistSheet: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Cancel", comment: "Button Label")
+                        Text("Cancel", comment: "Button Label.")
                     }
                     .disabled(isCreating)
                     .accessibilityIdentifier("Cancel")
