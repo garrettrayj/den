@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Den/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="en-GB" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.2" build-num="15C500b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
     </header>
     <body>
       <trans-unit id="GJd-Yh-RWb.text" xml:space="preserve">
@@ -13,7 +13,7 @@
   </file>
   <file original="Den/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.2" build-num="15C500b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -48,7 +48,7 @@
   </file>
   <file original="Den/en.lproj/Localizable.strings" source-language="en" target-language="en-GB" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.2" build-num="15C500b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
     </header>
     <body>
       <trans-unit id="%@ Feeds" xml:space="preserve">
@@ -116,10 +116,6 @@
         <source>Actual Size</source>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Add Blocklist" xml:space="preserve">
-        <source>Add Blocklist</source>
-        <note>Button Label</note>
-      </trans-unit>
       <trans-unit id="Address cannot be blank." xml:space="preserve">
         <source>Address cannot be blank.</source>
         <note>URL field validation message.</note>
@@ -186,8 +182,8 @@
       </trans-unit>
       <trans-unit id="Cancel" xml:space="preserve">
         <source>Cancel</source>
-        <note>Button Label
-   Button label.</note>
+        <note>Button label.
+   Button Label.</note>
       </trans-unit>
       <trans-unit id="Change Icon" xml:space="preserve">
         <source>Change Icon</source>
@@ -673,7 +669,8 @@ Use the Safari extension to discover feeds on websites.</source>
       </trans-unit>
       <trans-unit id="Save" xml:space="preserve">
         <source>Save</source>
-        <note>Button label.</note>
+        <note>Button label.
+   Button Label.</note>
       </trans-unit>
       <trans-unit id="Search" xml:space="preserve">
         <source>Search</source>
@@ -933,7 +930,7 @@ Use the Safari extension to discover feeds on websites.</source>
   </file>
   <file original="Settings.bundle/en.lproj/Root.strings" datatype="plaintext" source-language="en" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.2" build-num="15C500b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
     </header>
     <body>
       <trans-unit id="Enabled" xml:space="preserve">
@@ -956,7 +953,7 @@ Use the Safari extension to discover feeds on websites.</source>
   </file>
   <file original="WebExtension/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.2" build-num="15C500b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
