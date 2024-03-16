@@ -101,7 +101,6 @@
 		6856DB2E2AB6E2730094615E /* OrganizerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB2D2AB6E2730094615E /* OrganizerToolbar.swift */; };
 		6856DB332AB77CDE0094615E /* UntagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB322AB77CDE0094615E /* UntagButton.swift */; };
 		6856DB362AB787420094615E /* NewProfileSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB352AB787420094615E /* NewProfileSheet.swift */; };
-		6856DB392AB795BF0094615E /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB382AB795BF0094615E /* Array+Extensions.swift */; };
 		6856DB3C2AB7FB510094615E /* IconSelectorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB3B2AB7FB510094615E /* IconSelectorButton.swift */; };
 		6856DB3F2AB8DC3D0094615E /* DeletePageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB3E2AB8DC3D0094615E /* DeletePageButton.swift */; };
 		6856DB422AB8EA090094615E /* InspectorToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB412AB8EA090094615E /* InspectorToggleButton.swift */; };
@@ -459,7 +458,6 @@
 		6856DB2D2AB6E2730094615E /* OrganizerToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerToolbar.swift; sourceTree = "<group>"; };
 		6856DB322AB77CDE0094615E /* UntagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UntagButton.swift; sourceTree = "<group>"; };
 		6856DB352AB787420094615E /* NewProfileSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProfileSheet.swift; sourceTree = "<group>"; };
-		6856DB382AB795BF0094615E /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		6856DB3B2AB7FB510094615E /* IconSelectorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectorButton.swift; sourceTree = "<group>"; };
 		6856DB3E2AB8DC3D0094615E /* DeletePageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePageButton.swift; sourceTree = "<group>"; };
 		6856DB412AB8EA090094615E /* InspectorToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorToggleButton.swift; sourceTree = "<group>"; };
@@ -1094,7 +1092,6 @@
 			isa = PBXGroup;
 			children = (
 				6845BCF924EBE4B60008B296 /* FeedKit */,
-				6856DB382AB795BF0094615E /* Array+Extensions.swift */,
 				683CEC5F250966410005F305 /* Bundle+Extensions.swift */,
 				684152472AD7B6AE00ABE5E2 /* CaseIterable+Extensions.swift */,
 				68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */,
@@ -1641,7 +1638,6 @@
 				68B6CBE22910B84E00B5E3AB /* AnalyzeTask.swift in Sources */,
 				685E611F2B598F73009CABFE /* ApexSection.swift in Sources */,
 				687F4890269165EE00EA2498 /* AppErrorSheet.swift in Sources */,
-				6856DB392AB795BF0094615E /* Array+Extensions.swift in Sources */,
 				6845BCF424EBE4750008B296 /* AtomFeed+Extensions.swift in Sources */,
 				684DFA0124B6515A0023D6DB /* AtomFeedEntry+Extensions.swift in Sources */,
 				68B6CBE62910BD0E00B5E3AB /* AtomFeedUpdater.swift in Sources */,

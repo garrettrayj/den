@@ -19,6 +19,8 @@ struct TrendBlock: View {
     
     let items: [Item]
     let feeds: [Feed]
+    
+    let gridItem = GridItem(.adaptive(minimum: 20), spacing: 4, alignment: .center)
 
     private var symbol: String? {
         if trend.tag == NLTag.personalName.rawValue {
@@ -31,8 +33,8 @@ struct TrendBlock: View {
         return nil
     }
     
-    private var feedDatas: [FeedData] {
-        feeds.compactMap { $0.feedData }
+    private var favicons: [URL] {
+        feeds.compactMap { $0.feedData?.favicon }.uniqueElements()
     }
 
     var body: some View {
@@ -40,18 +42,16 @@ struct TrendBlock: View {
             VStack(alignment: .leading, spacing: 8) {
                 trend.titleText.font(.title2)
 
-                Grid {
-                    ForEach(feedDatas.chunked(by: 9), id: \.self) { feedDatas in
-                        GridRow {
-                            ForEach(feedDatas, id: \.self) { feedData in
-                                Favicon(url: feedData.favicon) {
-                                    FeedFaviconPlaceholder()
-                                }
+                if !favicons.isEmpty {
+                    LazyVGrid(columns: [gridItem], alignment: .center, spacing: 4) {
+                        ForEach(favicons, id: \.self) { favicon in
+                            Favicon(url: favicon) {
+                                FeedFaviconPlaceholder()
                             }
                         }
                     }
+                    .opacity(!items.unread().isEmpty ? 1.0 : 0.5)
                 }
-                .opacity(!items.unread().isEmpty ? 1.0 : 0.5)
 
                 HStack {
                     if let symbol = symbol {

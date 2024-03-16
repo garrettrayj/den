@@ -15,7 +15,12 @@ extension FileManager {
     public var appSupportDirectory: URL? {
         do {
             return try self
-                .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .url(
+                    for: .applicationSupportDirectory,
+                    in: .userDomainMask,
+                    appropriateFor: nil,
+                    create: true
+                )
                 .appendingPathComponent("Den")
                 .standardizedFileURL
         } catch let error as NSError {

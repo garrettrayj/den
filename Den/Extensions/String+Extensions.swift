@@ -19,6 +19,14 @@ extension String {
         case middle
         case tail
     }
+    
+    var urlEncoded: String? {
+        self.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+    }
+    
+    var containsWhitespace: Bool {
+        return self.rangeOfCharacter(from: .whitespacesAndNewlines) != nil
+    }
 
     /**
      Adapted from https://gist.github.com/budidino/8585eecd55fd4284afaaef762450f98e#gistcomment-2270476
@@ -37,10 +45,6 @@ extension String {
         case .tail:
             return self.prefix(limit) + leader
         }
-    }
-
-    var containsWhitespace: Bool {
-        return(self.rangeOfCharacter(from: .whitespacesAndNewlines) != nil)
     }
 
     func strippingTags() -> String {
@@ -71,9 +75,5 @@ extension String {
             .union(.controlCharacters)
 
         return self.components(separatedBy: invalidCharacters).joined(separator: ".")
-    }
-
-    var urlEncoded: String? {
-        self.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
     }
 }

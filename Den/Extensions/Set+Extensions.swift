@@ -10,6 +10,7 @@
 
 import Foundation
 
+/// Extend UUID Set to be RawRepresentable for compatibility with SceneStorage
 extension Set: RawRepresentable where Element == UUID {
     public init?(rawValue: String) {
         guard
