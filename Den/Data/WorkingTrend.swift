@@ -33,13 +33,13 @@ struct WorkingTrend: Identifiable {
 }
 
 extension WorkingTrend: Equatable {
-  static func == (lhs: WorkingTrend, rhs: WorkingTrend) -> Bool {
+    static func == (lhs: WorkingTrend, rhs: WorkingTrend) -> Bool {
       return lhs.id == rhs.id
-  }
+    }
 }
 
 extension WorkingTrend: Hashable {
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(id)
-  }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }

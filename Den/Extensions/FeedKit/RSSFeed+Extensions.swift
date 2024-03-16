@@ -23,4 +23,11 @@ extension RSSFeed: WebFeed {
 
         return nil
     }
+    
+    var itemsSortedByDateAndTitle: [RSSFeedItem]? {
+        items?.sorted(using: [
+            SortDescriptor(\.pubDate, order: .reverse),
+            SortDescriptor(\.title)
+        ])
+    }
 }

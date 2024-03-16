@@ -25,4 +25,11 @@ extension AtomFeed: WebFeed {
 
         return webpage
     }
+    
+    var entriesSortedByDateAndTitle: [AtomFeedEntry]? {
+        entries?.sorted(using: [
+            SortDescriptor(\.published, order: .reverse),
+            SortDescriptor(\.title)
+        ])
+    }
 }

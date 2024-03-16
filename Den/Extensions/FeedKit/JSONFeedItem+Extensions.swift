@@ -12,7 +12,7 @@ import Foundation
 
 import FeedKit
 
-extension JSONFeedItem: LinkableItem {
+extension JSONFeedItem: WebFeedItem {
     /**
      Returns a webpage URL for the item; <link> value is preferred, with fallback to <guid>.
      For example, items from https://devblogs.microsoft.com/feed/landingpage/ do not include a link.

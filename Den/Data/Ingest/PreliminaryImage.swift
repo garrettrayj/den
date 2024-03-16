@@ -1,5 +1,5 @@
 //
-//  LinkableItem.swift
+//  PreliminaryImage.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/31/22.
@@ -10,6 +10,8 @@
 
 import Foundation
 
-protocol LinkableItem {
-    var linkURL: URL? { get }
+public struct PreliminaryImage {
+    var url: URL
+    var width: Int?
+    var height: Int?
 }

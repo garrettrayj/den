@@ -80,6 +80,16 @@ public class Item: NSManagedObject {
 
         return item
     }
+    
+    public func populateImage(imagePool: [PreliminaryImage]) {
+        guard let selectedImage = imagePool.first else { return }
+    
+        image = selectedImage.url
+        if let width = selectedImage.width, let height = selectedImage.height {
+            imageWidth = Int32(width)
+            imageHeight = Int32(height)
+        }
+    }
 
     public func anaylyzeTitleTags() {
         guard let text = title else { return }

@@ -117,11 +117,14 @@ class FeedUpdateTask {
         }
 
         if updateMeta && parsedSuccessfully {
-            var webpageMetadata: WebpageMetadata.Results?
+            var webpageMetadata: WebpageMetadata?
             if let webpage = webpage {
                 let webpageRequest = URLRequest(url: webpage)
-                if let (webpageData, _) = try? await URLSession.shared.data(for: webpageRequest) {
-                    webpageMetadata = WebpageMetadata(webpage: webpage, data: webpageData).results
+                if let (data, _) = try? await URLSession.shared.data(for: webpageRequest) {
+                    webpageMetadata = WebpageScraper.extractMetadata(
+                        webpage: webpage,
+                        data: data
+                    )
                 }
             }
 
@@ -134,7 +137,7 @@ class FeedUpdateTask {
                 self.updateFeedMeta(
                     feedData: feedData,
                     parserResult: self.parserResult!,
-                    metadata: webpageMetadata
+                    webpageMetadata: webpageMetadata
                 )
 
                 self.save(context: context, feed: feed)
@@ -168,30 +171,27 @@ class FeedUpdateTask {
             feedData.error = nil
             
             switch parsedFeed {
-            case let .atom(parsedFeed):
-                AtomFeedUpdate(
+            case let .atom(atomFeed):
+                AtomFeedUpdater.updateFeed(
                     feed: feed,
                     feedData: feedData,
-                    source: parsedFeed,
+                    atomFeed: atomFeed,
                     context: context
                 )
-                .execute()
-            case let .rss(parsedFeed):
-                RSSFeedUpdate(
+            case let .rss(rssFeed):
+                RSSFeedUpdater.updateFeed(
                     feed: feed,
                     feedData: feedData,
-                    source: parsedFeed,
+                    rssFeed: rssFeed,
                     context: context
                 )
-                .execute()
-            case let .json(parsedFeed):
-                JSONFeedUpdate(
+            case let .json(jsonFeed):
+                JSONFeedUpdater.updateFeed(
                     feed: feed,
                     feedData: feedData,
-                    source: parsedFeed,
+                    jsonFeed: jsonFeed,
                     context: context
                 )
-                .execute()
             }
         case .failure:
             feedData.itemsArray.forEach { context.delete($0) }
@@ -202,33 +202,31 @@ class FeedUpdateTask {
     private func updateFeedMeta(
         feedData: FeedData,
         parserResult: Result<FeedKit.Feed, FeedKit.ParserError>,
-        metadata: WebpageMetadata.Results? = nil
+        webpageMetadata: WebpageMetadata? = nil
     ) {
         switch parserResult {
         case .success(let parsedFeed):
             switch parsedFeed {
-            case let .atom(parsedFeed):
-                AtomFeedMetaUpdate(
+            case let .atom(atomFeed):
+                AtomFeedUpdater.updateMeta(
                     feedData: feedData,
-                    source: parsedFeed,
-                    webpageMetadata: metadata
+                    atomFeed: atomFeed,
+                    webpageMetadata: webpageMetadata
                 )
-                .execute()
-            case let .rss(parsedFeed):
-                RSSFeedMetaUpdate(
+            case let .rss(rssFeed):
+                RSSFeedUpdater.updateMeta(
                     feedData: feedData,
-                    source: parsedFeed,
-                    webpageMetadata: metadata
+                    rssFeed: rssFeed,
+                    webpageMetadata: webpageMetadata
                 )
-                .execute()
-            case let .json(parsedFeed):
-                JSONFeedMetaUpdate(
+            case let .json(jsonFeed):
+                JSONFeedUpdater.updateMeta(
                     feedData: feedData,
-                    source: parsedFeed,
-                    webpageMetadata: metadata
+                    jsonFeed: jsonFeed,
+                    webpageMetadata: webpageMetadata
                 )
-                .execute()
             }
+            
             feedData.metaFetched = .now
         case .failure:
             return

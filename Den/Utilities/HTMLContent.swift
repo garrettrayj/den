@@ -73,12 +73,12 @@ struct HTMLContent {
         return elements
     }
 
-    func allowedImages(itemLink: URL?) -> [RankedImage]? {
+    func allowedImages(itemLink: URL?) -> [PreliminaryImage]? {
         guard let elements = imageElements(), !elements.isEmpty() else {
             return nil
         }
 
-        var images: [RankedImage] = []
+        var images: [PreliminaryImage] = []
         for el in elements {
             // Required image atrributes
             guard
@@ -111,15 +111,14 @@ struct HTMLContent {
                 if CGFloat(width) >= ImageSize.smallThumbnail.width
                     && CGFloat(height) >= ImageSize.smallThumbnail.height {
 
-                    images.append(RankedImage(
+                    images.append(PreliminaryImage(
                         url: url.absoluteURL,
-                        rank: width * height,
                         width: width,
                         height: height
                     ))
                 }
             } else {
-                images.append(RankedImage(url: url.absoluteURL))
+                images.append(PreliminaryImage(url: url.absoluteURL))
             }
         }
 

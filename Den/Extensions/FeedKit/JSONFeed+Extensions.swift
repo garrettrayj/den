@@ -23,4 +23,11 @@ extension JSONFeed: WebFeed {
 
         return nil
     }
+    
+    var itemsSortedByDateAndTitle: [JSONFeedItem]? {
+        items?.sorted(using: [
+            SortDescriptor(\.datePublished, order: .reverse),
+            SortDescriptor(\.title)
+        ])
+    }
 }
