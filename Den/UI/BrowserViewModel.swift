@@ -33,7 +33,6 @@ class BrowserViewModel: NSObject, ObservableObject {
     @Published var canGoBack = false
     @Published var canGoForward = false
     @Published var isLoading = true
-    @Published var browserError: Error?
     @Published var isReaderable = false
     @Published var showingReader = false
     @Published var mercuryObject: MercuryObject?

@@ -87,7 +87,20 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         didFailProvisionalNavigation navigation: WKNavigation!,
         withError error: Error
     ) {
-        browserViewModel.browserError = error
+        var url = URL(string: "error://Error")!
+        
+        if let urlError = error as? URLError {
+            if let failingURL = urlError.failingURL {
+                url = failingURL
+            }
+        }
+        
+        let errorHTML = WebViewError(error: error).html
+        
+        webView.loadSimulatedRequest(
+            URLRequest(url: url),
+            responseHTML: errorHTML
+        )
     }
     
     func webView(
@@ -95,6 +108,11 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         decidePolicyFor navigationAction: WKNavigationAction,
         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
+        if navigationAction.shouldPerformDownload {
+            decisionHandler(.download)
+            return
+        }
+        
         // Open external links in system browser
         if navigationAction.targetFrame == nil {
             if let url = navigationAction.request.url {
@@ -105,6 +123,62 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         }
 
         decisionHandler(.allow)
+    }
+    
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationResponse: WKNavigationResponse,
+        decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
+    ) {
+        if navigationResponse.canShowMIMEType {
+            decisionHandler(.allow)
+        } else {
+            decisionHandler(.download)
+        }
+    }
+    
+    func webView(
+        _ webView: WKWebView,
+        navigationAction: WKNavigationAction,
+        didBecome download: WKDownload
+    ) {
+        download.delegate = self
+    }
+        
+    func webView(
+        _ webView: WKWebView,
+        navigationResponse: WKNavigationResponse,
+        didBecome download: WKDownload
+    ) {
+        download.delegate = self
+    }
+}
+
+extension BrowserWebViewCoordinator: WKDownloadDelegate {
+    func download(
+        _ download: WKDownload,
+        decideDestinationUsing response: URLResponse,
+        suggestedFilename: String,
+        completionHandler: @escaping (URL?) -> Void
+    ) {
+        guard let downloadsDirectoryURL = try? FileManager.default.url(
+            for: .downloadsDirectory,
+            in: .userDomainMask,
+            appropriateFor: nil,
+            create: false
+        ) else { return }
+        
+        let url = downloadsDirectoryURL.appending(path: suggestedFilename)
+
+        completionHandler(url)
+    }
+    
+    func downloadDidFinish(_ download: WKDownload) {
+        print("Download finished!")
+    }
+    
+    func download(_ download: WKDownload, didFailWithError error: any Error, resumeData: Data?) {
+        print("Download error: \(error)")
     }
 }
 

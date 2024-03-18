@@ -88,18 +88,6 @@ struct BrowserView: View {
                     .progressViewStyle(ThinLinearProgressViewStyle())
                     .ignoresSafeArea(edges: .horizontal)
             }
-            
-            if let error = browserViewModel.browserError {
-                ContentUnavailable {
-                    Label {
-                        Text("Error", comment: "Content unavailable title.")
-                    } icon: {
-                        Image(systemName: "exclamationmark.octagon")
-                    }
-                } description: {
-                    Text(error.localizedDescription)
-                }
-            }
         }
         .navigationTitle(browserViewModel.url?.host() ?? "")
         .toolbarBackground(.visible)
