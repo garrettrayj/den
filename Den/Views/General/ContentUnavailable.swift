@@ -46,7 +46,7 @@ struct ContentUnavailable<LabelContent: View, DescriptionContent: View, ActionsC
         VStack(spacing: 16) {
             Spacer(minLength: 0)
             label().labelStyle(ContentUnavailableLabelStyle())
-            description?().foregroundStyle(descriptionForegroundStyle).frame(maxWidth: 600)
+            description?().foregroundStyle(descriptionForegroundStyle).frame(maxWidth: 800)
             actions?().padding(.top, 4)
             Spacer(minLength: 0)
         }

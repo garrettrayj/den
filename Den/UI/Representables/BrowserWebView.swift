@@ -161,24 +161,38 @@ extension BrowserWebViewCoordinator: WKDownloadDelegate {
         suggestedFilename: String,
         completionHandler: @escaping (URL?) -> Void
     ) {
-        guard let downloadsDirectoryURL = try? FileManager.default.url(
+        guard let destinationDirectoryURL = try? FileManager.default.url(
             for: .downloadsDirectory,
             in: .userDomainMask,
             appropriateFor: nil,
-            create: false
+            create: true
         ) else { return }
         
-        let url = downloadsDirectoryURL.appending(path: suggestedFilename)
+        let url = destinationDirectoryURL.appending(path: suggestedFilename)
 
         completionHandler(url)
+        
+        NotificationCenter.default.post(
+            name: .downloadStarted,
+            object: download,
+            userInfo: nil
+        )
     }
     
     func downloadDidFinish(_ download: WKDownload) {
-        print("Download finished!")
+        NotificationCenter.default.post(
+            name: .downloadFinished,
+            object: download,
+            userInfo: nil
+        )
     }
     
     func download(_ download: WKDownload, didFailWithError error: any Error, resumeData: Data?) {
-        print("Download error: \(error)")
+        NotificationCenter.default.post(
+            name: .downloadFailed,
+            object: download,
+            userInfo: ["error": error]
+        )
     }
 }
 

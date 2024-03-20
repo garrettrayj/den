@@ -6,6 +6,16 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Den</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict/>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>dfas</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -56,6 +66,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>Save downloaded files</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020-2024 Garrett Johnson</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
@@ -82,6 +94,8 @@
 		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>
