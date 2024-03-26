@@ -91,8 +91,6 @@ struct BrowserView: View {
                         .ignoresSafeArea(edges: .horizontal)
                 }
             }
-            
-            BrowserDownloads()
         }
         .navigationTitle(browserViewModel.url?.host() ?? "")
         .toolbarBackground(.visible)

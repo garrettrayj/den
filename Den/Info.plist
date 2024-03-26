@@ -67,7 +67,7 @@
 		<true/>
 	</dict>
 	<key>NSDownloadsFolderUsageDescription</key>
-	<string>Save downloaded files</string>
+	<string></string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020-2024 Garrett Johnson</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

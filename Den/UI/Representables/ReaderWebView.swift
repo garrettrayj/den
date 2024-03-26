@@ -13,6 +13,8 @@ import WebKit
 
 struct ReaderWebView {
     @Environment(\.openURL) private var openURL
+    
+    @EnvironmentObject private var downloadManager: DownloadManager
 
     @ObservedObject var browserViewModel: BrowserViewModel
 
@@ -30,15 +32,29 @@ struct ReaderWebView {
 
         return wkWebView
     }
+    
+    func makeCoordinator() -> ReaderWebViewCoordinator {
+        ReaderWebViewCoordinator(
+            browserViewModel: browserViewModel,
+            openURL: openURL,
+            downloadManager: downloadManager
+        )
+    }
 }
 
 class ReaderWebViewCoordinator: NSObject {
     let browserViewModel: BrowserViewModel
     let openURL: OpenURLAction
+    let downloadManager: DownloadManager
 
-    init(browserViewModel: BrowserViewModel, openURL: OpenURLAction) {
+    init(
+        browserViewModel: BrowserViewModel,
+        openURL: OpenURLAction,
+        downloadManager: DownloadManager
+    ) {
         self.browserViewModel = browserViewModel
         self.openURL = openURL
+        self.downloadManager = downloadManager
     }
 }
 
@@ -48,6 +64,18 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
         decidePolicyFor navigationAction: WKNavigationAction,
         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
+        if navigationAction.shouldPerformDownload {
+            decisionHandler(.download)
+            return
+        }
+        
+        // Download downloadable file extensions to prevent "Frame load interrupted" error
+        if let url = navigationAction.request.mainDocumentURL,
+           Downloadable.fileExtensions.contains(url.pathExtension) {
+            decisionHandler(.download)
+            return
+        }
+        
         // Open external links in system browser
         if navigationAction.targetFrame == nil {
             if let url = navigationAction.request.url {
@@ -72,6 +100,42 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
         
         decisionHandler(.allow)
     }
+    
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationResponse: WKNavigationResponse,
+        decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
+    ) {
+        if navigationResponse.canShowMIMEType,
+            let url = navigationResponse.response.url,
+            let mimeType = navigationResponse.response.mimeType {
+            
+            if Downloadable.mimeTypes.contains(mimeType) ||
+                Downloadable.fileExtensions.contains(url.pathExtension) {
+                decisionHandler(.download)
+            } else {
+                decisionHandler(.allow)
+            }
+        } else {
+            decisionHandler(.download)
+        }
+    }
+    
+    func webView(
+        _ webView: WKWebView,
+        navigationAction: WKNavigationAction,
+        didBecome download: WKDownload
+    ) {
+        download.delegate = self.downloadManager
+    }
+        
+    func webView(
+        _ webView: WKWebView,
+        navigationResponse: WKNavigationResponse,
+        didBecome download: WKDownload
+    ) {
+        download.delegate = self.downloadManager
+    }
 }
 
 extension ReaderWebViewCoordinator: WKUIDelegate {
@@ -92,10 +156,6 @@ extension ReaderWebViewCoordinator: WKUIDelegate {
 
 #if os(macOS)
 extension ReaderWebView: NSViewRepresentable {
-    func makeCoordinator() -> ReaderWebViewCoordinator {
-        ReaderWebViewCoordinator(browserViewModel: browserViewModel, openURL: openURL)
-    }
-
     func makeNSView(context: Context) -> WKWebView {
         makeWebView(context: context)
     }
@@ -105,10 +165,6 @@ extension ReaderWebView: NSViewRepresentable {
 }
 #else
 extension ReaderWebView: UIViewRepresentable {
-    func makeCoordinator() -> ReaderWebViewCoordinator {
-        ReaderWebViewCoordinator(browserViewModel: browserViewModel, openURL: openURL)
-    }
-
     func makeUIView(context: Context) -> WKWebView {
         makeWebView(context: context)
     }

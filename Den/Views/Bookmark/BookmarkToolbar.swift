@@ -15,12 +15,19 @@ struct BookmarkToolbar: ToolbarContent {
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
+    
+    @EnvironmentObject private var downloadManager: DownloadManager
 
     @ObservedObject var bookmark: Bookmark
     @ObservedObject var browserViewModel: BrowserViewModel
 
     var body: some ToolbarContent {
         #if os(macOS)
+        if !downloadManager.statuses.isEmpty {
+            ToolbarItem {
+                DownloadsButton(downloadManager: downloadManager)
+            }
+        }
         ToolbarItem {
             formatMenu
         }

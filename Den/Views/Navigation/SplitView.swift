@@ -34,6 +34,7 @@ struct SplitView: View {
     
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var navigationStore = NavigationStore()
+    @StateObject private var downloadManager = DownloadManager()
 
     @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
     @SceneStorage("Navigation") private var navigationData: Data?
@@ -92,6 +93,7 @@ struct SplitView: View {
             .opacity(0)
         }
         .environmentObject(networkMonitor)
+        .environmentObject(downloadManager)
         .tint(userTint)
         .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
         .onOpenURL { url in
@@ -135,6 +137,7 @@ struct SplitView: View {
             )
         }
         .navigationTitle(profile.nameText)
+        // Refresh notifications
         .onReceive(
             NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)
         ) { _ in

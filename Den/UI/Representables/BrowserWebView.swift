@@ -14,6 +14,8 @@ import WebKit
 struct BrowserWebView {
     @Environment(\.openURL) private var openURL
     
+    @EnvironmentObject private var downloadManager: DownloadManager
+    
     @ObservedObject var browserViewModel: BrowserViewModel
     
     func makeWebView(context: Context) -> WKWebView {
@@ -34,6 +36,14 @@ struct BrowserWebView {
         browserViewModel.browserWebView = wkWebView
 
         return wkWebView
+    }
+    
+    func makeCoordinator() -> BrowserWebViewCoordinator {
+        BrowserWebViewCoordinator(
+            browserViewModel: browserViewModel,
+            openURL: openURL,
+            downloadManager: downloadManager
+        )
     }
 
     private func addMercuryScript(_ contentController: WKUserContentController) {
@@ -74,10 +84,16 @@ struct BrowserWebView {
 class BrowserWebViewCoordinator: NSObject {
     let browserViewModel: BrowserViewModel
     let openURL: OpenURLAction
+    let downloadManager: DownloadManager
 
-    init(browserViewModel: BrowserViewModel, openURL: OpenURLAction) {
+    init(
+        browserViewModel: BrowserViewModel,
+        openURL: OpenURLAction,
+        downloadManager: DownloadManager
+    ) {
         self.browserViewModel = browserViewModel
         self.openURL = openURL
+        self.downloadManager = downloadManager
     }
 }
 
@@ -113,6 +129,13 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
             return
         }
         
+        // Download downloadable file extensions to prevent "Frame load interrupted" error
+        if let url = navigationAction.request.mainDocumentURL,
+           Downloadable.fileExtensions.contains(url.pathExtension) {
+            decisionHandler(.download)
+            return
+        }
+        
         // Open external links in system browser
         if navigationAction.targetFrame == nil {
             if let url = navigationAction.request.url {
@@ -130,8 +153,16 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         decidePolicyFor navigationResponse: WKNavigationResponse,
         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
     ) {
-        if navigationResponse.canShowMIMEType {
-            decisionHandler(.allow)
+        if navigationResponse.canShowMIMEType,
+            let url = navigationResponse.response.url,
+            let mimeType = navigationResponse.response.mimeType {
+            
+            if Downloadable.mimeTypes.contains(mimeType) ||
+                Downloadable.fileExtensions.contains(url.pathExtension) {
+                decisionHandler(.download)
+            } else {
+                decisionHandler(.allow)
+            }
         } else {
             decisionHandler(.download)
         }
@@ -142,7 +173,7 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         navigationAction: WKNavigationAction,
         didBecome download: WKDownload
     ) {
-        download.delegate = self
+        download.delegate = self.downloadManager
     }
         
     func webView(
@@ -150,49 +181,7 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         navigationResponse: WKNavigationResponse,
         didBecome download: WKDownload
     ) {
-        download.delegate = self
-    }
-}
-
-extension BrowserWebViewCoordinator: WKDownloadDelegate {
-    func download(
-        _ download: WKDownload,
-        decideDestinationUsing response: URLResponse,
-        suggestedFilename: String,
-        completionHandler: @escaping (URL?) -> Void
-    ) {
-        guard let destinationDirectoryURL = try? FileManager.default.url(
-            for: .downloadsDirectory,
-            in: .userDomainMask,
-            appropriateFor: nil,
-            create: true
-        ) else { return }
-        
-        let url = destinationDirectoryURL.appending(path: suggestedFilename)
-
-        completionHandler(url)
-        
-        NotificationCenter.default.post(
-            name: .downloadStarted,
-            object: download,
-            userInfo: nil
-        )
-    }
-    
-    func downloadDidFinish(_ download: WKDownload) {
-        NotificationCenter.default.post(
-            name: .downloadFinished,
-            object: download,
-            userInfo: nil
-        )
-    }
-    
-    func download(_ download: WKDownload, didFailWithError error: any Error, resumeData: Data?) {
-        NotificationCenter.default.post(
-            name: .downloadFailed,
-            object: download,
-            userInfo: ["error": error]
-        )
+        download.delegate = self.downloadManager
     }
 }
 
@@ -274,22 +263,14 @@ extension BrowserWebView: NSViewRepresentable {
 
     func updateNSView(_ nsView: WKWebView, context: Context) {
     }
-
-    func makeCoordinator() -> BrowserWebViewCoordinator {
-        BrowserWebViewCoordinator(browserViewModel: browserViewModel, openURL: openURL)
-    }
 }
 #else
 extension BrowserWebView: UIViewRepresentable {
-     func makeUIView(context: Context) -> WKWebView {
-         makeWebView(context: context)
-     }
+    func makeUIView(context: Context) -> WKWebView {
+        makeWebView(context: context)
+    }
 
-     func updateUIView(_ uiView: WKWebView, context: Context) {
-     }
-
-    func makeCoordinator() -> BrowserWebViewCoordinator {
-        BrowserWebViewCoordinator(browserViewModel: browserViewModel, openURL: openURL)
+    func updateUIView(_ uiView: WKWebView, context: Context) {
     }
 }
 #endif
