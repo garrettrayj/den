@@ -68,20 +68,20 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
             decisionHandler(.download)
             return
         }
-        
-        // Download downloadable file extensions to prevent "Frame load interrupted" error
-        if let url = navigationAction.request.mainDocumentURL,
-           Downloadable.fileExtensions.contains(url.pathExtension) {
-            decisionHandler(.download)
-            return
-        }
-        
+    
         // Open external links in system browser
         if navigationAction.targetFrame == nil {
             if let url = navigationAction.request.url {
                 openURL(url)
             }
             decisionHandler(.cancel)
+            return
+        }
+        
+        // Download downloadable file extensions to prevent "Frame load interrupted" error
+        if let url = navigationAction.targetFrame?.request.url,
+           Downloadable.fileExtensions.contains(url.pathExtension) {
+            decisionHandler(.download)
             return
         }
 
@@ -106,16 +106,8 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
         decidePolicyFor navigationResponse: WKNavigationResponse,
         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
     ) {
-        if navigationResponse.canShowMIMEType,
-            let url = navigationResponse.response.url,
-            let mimeType = navigationResponse.response.mimeType {
-            
-            if Downloadable.mimeTypes.contains(mimeType) ||
-                Downloadable.fileExtensions.contains(url.pathExtension) {
-                decisionHandler(.download)
-            } else {
-                decisionHandler(.allow)
-            }
+        if navigationResponse.canShowMIMEType {
+            decisionHandler(.allow)
         } else {
             decisionHandler(.download)
         }

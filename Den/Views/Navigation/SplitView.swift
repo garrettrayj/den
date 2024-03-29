@@ -16,6 +16,8 @@ import UniformTypeIdentifiers
 struct SplitView: View {
     @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
     @Environment(\.userTint) private var userTint
+    
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
 
     @ObservedObject var profile: Profile
 
@@ -32,10 +34,8 @@ struct SplitView: View {
     @State private var showingNewPageSheet = false
     @State private var showingNewTagSheet = false
     
-    @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var navigationStore = NavigationStore()
-    @StateObject private var downloadManager = DownloadManager()
-
+    
     @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
     @SceneStorage("Navigation") private var navigationData: Data?
     @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
@@ -92,8 +92,6 @@ struct SplitView: View {
             }
             .opacity(0)
         }
-        .environmentObject(networkMonitor)
-        .environmentObject(downloadManager)
         .tint(userTint)
         .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
         .onOpenURL { url in

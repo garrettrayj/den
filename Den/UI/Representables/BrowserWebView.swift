@@ -153,16 +153,8 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         decidePolicyFor navigationResponse: WKNavigationResponse,
         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
     ) {
-        if navigationResponse.canShowMIMEType,
-            let url = navigationResponse.response.url,
-            let mimeType = navigationResponse.response.mimeType {
-            
-            if Downloadable.mimeTypes.contains(mimeType) ||
-                Downloadable.fileExtensions.contains(url.pathExtension) {
-                decisionHandler(.download)
-            } else {
-                decisionHandler(.allow)
-            }
+        if navigationResponse.canShowMIMEType {
+            decisionHandler(.allow)
         } else {
             decisionHandler(.download)
         }

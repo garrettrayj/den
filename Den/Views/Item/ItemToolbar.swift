@@ -14,6 +14,7 @@ struct ItemToolbar: ToolbarContent {
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
+    @Environment(\.scenePhase) private var scenePhase
     
     @EnvironmentObject private var downloadManager: DownloadManager
 
@@ -22,7 +23,7 @@ struct ItemToolbar: ToolbarContent {
 
     var body: some ToolbarContent {
         #if os(macOS)
-        if !downloadManager.statuses.isEmpty {
+        if !downloadManager.downloads.isEmpty {
             ToolbarItem {
                 DownloadsButton(downloadManager: downloadManager)
             }
@@ -94,6 +95,13 @@ struct ItemToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .topBarLeading) {
                 formatMenu
+            }
+            ToolbarItem {
+                // Scene phase check is required because downloadManager environment object
+                // is not available when app moves to background.
+                if scenePhase == .active && !downloadManager.downloads.isEmpty {
+                    DownloadsButton(downloadManager: downloadManager)
+                }
             }
             ToolbarItem {
                 GoBackButton(browserViewModel: browserViewModel)

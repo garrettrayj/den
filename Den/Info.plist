@@ -67,11 +67,11 @@
 		<true/>
 	</dict>
 	<key>NSDownloadsFolderUsageDescription</key>
-	<string></string>
+	<string>Save downloaded files</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020-2024 Garrett Johnson</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string></string>
+	<string>Save downloaded files</string>
 	<key>UIAppFonts</key>
 	<array/>
 	<key>UIApplicationSceneManifest</key>
@@ -130,6 +130,8 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>UISupportsDocumentBrowser</key>
+	<true/>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

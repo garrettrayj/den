@@ -21,15 +21,20 @@ struct DenApp: App {
 
     let defaultSize = CGSize(width: 1280, height: 800)
     let persistenceController = PersistenceController.shared
+    
+    @StateObject private var downloadManager = DownloadManager()
+    @StateObject private var networkMonitor = NetworkMonitor()
 
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
         .handlesExternalEvents(matching: ["*"])
         .commands { commands }
         .defaultSize(defaultSize)
+        .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        .environmentObject(networkMonitor)
+        .environmentObject(downloadManager)
         
         #if os(macOS)
         Settings {

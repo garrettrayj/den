@@ -15,7 +15,7 @@ struct DownloadsButton: View {
     
     @State private var showingPopover = false
     
-    @State private var selection = Set<DownloadManager.Status>()
+    @State private var selection = Set<BrowserDownload>()
     
     var body: some View {
         Button {
@@ -47,19 +47,25 @@ struct DownloadsButton: View {
                 .padding([.top, .horizontal], 8)
                 
                 List(selection: $selection) {
-                    ForEach(downloadManager.statuses) { status in
-                        DownloadStatus(downloadManager: downloadManager, status: status).tag(status)
+                    ForEach(downloadManager.downloads) { download in
+                        DownloadStatus(
+                            downloadManager: downloadManager,
+                            download: download
+                        )
+                        .tag(download)
                     }
                 }
+                #if os(macOS)
                 .onDeleteCommand {
                     downloadManager.removeDownloads(selection: selection)
                 }
+                #endif
                 .scrollContentBackground(.hidden)
-                .contextMenu(forSelectionType: DownloadManager.Status.self) { items in
+                .contextMenu(forSelectionType: BrowserDownload.self) { items in
                     contextMenu(items: items)
                 } primaryAction: { items in
                     guard
-                        let download = downloadManager.statuses.first(where: { $0 == items.first }),
+                        let download = downloadManager.downloads.first(where: { $0 == items.first }),
                         let url = download.wkDownload.progress.fileURL
                     else {
                         return
@@ -74,21 +80,10 @@ struct DownloadsButton: View {
         }
     }
     
-    var listMinHeight: CGFloat {
-        if downloadManager.statuses.count == 1 {
-            56 + 16
-        } else {
-            CGFloat(downloadManager.statuses.count * 56) + 16
-        }
-    }
-    
-    var listMaxHeight: CGFloat {
-        56 * 6 + 16
-    }
-    
     @ViewBuilder
-    private func contextMenu(items: Set<DownloadManager.Status>) -> some View {
-        if items.count == 1, let status = downloadManager.statuses.first(where: { $0 == items.first }) {
+    private func contextMenu(items: Set<BrowserDownload>) -> some View {
+        if items.count == 1, 
+            let status = downloadManager.downloads.first(where: { $0 == items.first }) {
             Button {
                 guard let url = status.wkDownload.progress.fileURL else {
                     return
@@ -122,7 +117,7 @@ struct DownloadsButton: View {
             }
             
             Button {
-                downloadManager.removeDownload(status: status)
+                downloadManager.removeDownload(download: status)
             } label: {
                 Text("Remove from List")
             }
