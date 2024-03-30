@@ -11,21 +11,18 @@
 import SwiftUI
 
 struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-
     let width: CGFloat
     let list: [T]
 
     @ViewBuilder let content: (T) -> Content
+    
+    @ScaledMetric private var idealColumnWidth = Columnizer.idealColumnWidth
 
     var body: some View {
         HStack(alignment: .top) {
             ForEach(
                 Columnizer.columnize(
-                    columnCount: Columnizer.calculateColumnCount(
-                        width: width,
-                        layoutScalingFactor: dynamicTypeSize.layoutScalingFactor
-                    ),
+                    columnCount: Int(width / idealColumnWidth),
                     list: list
                 ),
                 id: \.0

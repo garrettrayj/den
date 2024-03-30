@@ -13,24 +13,29 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct SmallThumbnail: View {
-    @Environment(\.smallThumbnailSize) private var smallThumbnailSize
-    @Environment(\.smallThumbnailPixelSize) private var smallThumbnailPixelSize
-
+    @Environment(\.displayScale) private var displayScale
+    
     let url: URL
     let isRead: Bool
+    
+    @ScaledMetric private var size = 80
+    
+    private var thumbnailPixelSize: CGSize {
+        CGSize(width: size * displayScale, height: size * displayScale)
+    }
 
     var body: some View {
         WebImage(
             url: url,
             options: [.decodeFirstFrameOnly],
-            context: [.imageThumbnailPixelSize: smallThumbnailPixelSize]
+            context: [.imageThumbnailPixelSize: thumbnailPixelSize]
         ) { image in
             image.resizable().scaledToFill()
         } placeholder: {
             ImageErrorPlaceholder()
         }
         .modifier(PreviewImageStateModifier(isRead: isRead))
-        .frame(width: smallThumbnailSize.width, height: smallThumbnailSize.height)
+        .frame(width: size, height: size)
         .background(.fill.tertiary)
         .modifier(ImageBorderModifier(cornerRadius: 6))
     }

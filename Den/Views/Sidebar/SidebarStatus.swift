@@ -19,7 +19,7 @@ struct SidebarStatus: View {
     @Binding var refreshProgress: Progress
 
     var body: some View {
-        Group {
+        VStack {
             if !networkMonitor.isConnected {
                 Text("Network Offline", comment: "Status message.").foregroundStyle(.secondary)
             } else if refreshing {
@@ -41,10 +41,7 @@ struct SidebarStatus: View {
                 #endif
             }
         }
-        .lineLimit(1)
+        .lineLimit(2)
         .font(.caption)
-        #if os(macOS)
-        .padding(.horizontal, 4)
-        #endif
     }
 }

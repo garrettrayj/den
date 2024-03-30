@@ -108,9 +108,7 @@ struct HTMLContent {
             {
                 // Width and height must be greater than thumbnail size if specified
                 // to help filter hidden images
-                if CGFloat(width) >= ImageSize.smallThumbnail.width
-                    && CGFloat(height) >= ImageSize.smallThumbnail.height {
-
+                if CGFloat(width) >= 48 && CGFloat(height) >= 48 {
                     images.append(PreliminaryImage(
                         url: url.absoluteURL,
                         width: width,

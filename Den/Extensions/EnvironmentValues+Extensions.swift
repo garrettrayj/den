@@ -19,43 +19,10 @@ private struct UseSystemBrowserKey: EnvironmentKey {
     static let defaultValue: Bool = true
 }
 
-extension EnvironmentValues {
-    var faviconSize: CGSize {
-        switch self.imageScale {
-        case .small:
-            return ImageSize.smallFavicon
-        case .medium:
-            return ImageSize.mediumFavicon
-        case .large:
-            return ImageSize.largeFavicon
-        @unknown default:
-            return ImageSize.mediumFavicon
-        }
-    }
-    
-    var faviconPixelSize: CGSize {
-        faviconSize.scaled(by: displayScale)
-    }
-
-    var largeThumbnailSize: CGSize {
-        ImageSize.largeThumbnail.scaled(by: dynamicTypeSize.layoutScalingFactor)
-    }
-
-    var largeThumbnailPixelSize: CGSize {
-        largeThumbnailSize.scaled(by: displayScale)
-    }
-    
+extension EnvironmentValues {    
     /// Used for NavigationSplitView detail column `.navigationSplitViewColumnWidth()`
     /// and `.frame(minWidth:)` on views with an inspector (to prevent over minimizing content)
     var minDetailColumnWidth: CGFloat { 320 }
-
-    var smallThumbnailSize: CGSize {
-        ImageSize.smallThumbnail.scaled(by: dynamicTypeSize.layoutScalingFactor)
-    }
-
-    var smallThumbnailPixelSize: CGSize {
-        smallThumbnailSize.scaled(by: displayScale)
-    }
 
     var userTint: Color? {
         get { self[UserTintKey.self] }

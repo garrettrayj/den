@@ -16,6 +16,8 @@ struct GroupedLayout: View {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
+    
+    @ScaledMetric private var idealColumnWidth = Columnizer.idealColumnWidth
 
     let items: FetchedResults<Item>
 
@@ -25,10 +27,7 @@ struct GroupedLayout: View {
                 HStack(alignment: .top) {
                     ForEach(
                         Columnizer.columnize(
-                            columnCount: Columnizer.calculateColumnCount(
-                                width: geometry.size.width,
-                                layoutScalingFactor: dynamicTypeSize.layoutScalingFactor
-                            ),
+                            columnCount: Int(geometry.size.width / idealColumnWidth),
                             list: page.feedsArray
                         ),
                         id: \.0

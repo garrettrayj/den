@@ -65,6 +65,7 @@ struct SidebarToolbar: ToolbarContent {
                 refreshing: $refreshing,
                 refreshProgress: $refreshProgress
             )
+            .layoutPriority(0)
         }
         ToolbarItem(placement: .bottomBar) {
             RefreshButton(profile: profile)

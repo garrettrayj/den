@@ -19,6 +19,8 @@ struct FeedHero: View {
     @Environment(\.isEnabled) private var isEnabled
     
     let url: URL
+    
+    @ScaledMetric private var height = 200
 
     var body: some View {
         WebImage(
@@ -55,7 +57,7 @@ struct FeedHero: View {
                 Divider()
             }
         }
-        .frame(height: 200)
+        .frame(height: height)
     }
     
     private var grayscale: CGFloat {

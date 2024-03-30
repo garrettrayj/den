@@ -18,6 +18,8 @@ struct DeckLayout: View {
     @Binding var hideRead: Bool
 
     let items: FetchedResults<Item>
+    
+    @ScaledMetric private var idealColumnWidth = Columnizer.idealColumnWidth
 
     var body: some View {
         GeometryReader { geometry in
@@ -35,10 +37,7 @@ struct DeckLayout: View {
                         .scrollClipDisabled()
                         .containerRelativeFrame(
                             .horizontal,
-                            count: Columnizer.calculateColumnCount(
-                                width: geometry.size.width,
-                                layoutScalingFactor: dynamicTypeSize.layoutScalingFactor
-                            ),
+                            count: Int(geometry.size.width / idealColumnWidth),
                             spacing: 8
                         )
                         .padding(.bottom, geometry.safeAreaInsets.bottom)

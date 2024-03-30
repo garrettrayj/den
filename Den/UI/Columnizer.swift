@@ -11,14 +11,12 @@
 import Foundation
 
 struct Columnizer {
-    static func calculateColumnCount(width: CGFloat, layoutScalingFactor: Double) -> Int {
-        let adjustedWidth = width / layoutScalingFactor
-
-        return max(1, Int((adjustedWidth / log2(adjustedWidth)) / 32))
-    }
+    static let idealColumnWidth: CGFloat = 320
 
     static func columnize<T: Identifiable>(columnCount: Int, list: [T]) -> [(Int, [T])] {
         var columnData: [(Int, [T])] = []
+        
+        let columnCount = max(1, columnCount)
 
         // Setup empty columns
         for columnIndex in 0...columnCount - 1 {

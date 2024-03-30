@@ -39,8 +39,8 @@ struct BookmarkPreviewExpanded: View {
                     LargeThumbnail(
                         url: url,
                         isRead: false,
-                        width: CGFloat(bookmark.imageWidth),
-                        height: CGFloat(bookmark.imageHeight)
+                        sourceWidth: CGFloat(bookmark.imageWidth),
+                        sourceHeight: CGFloat(bookmark.imageHeight)
                     )
                 }
                 

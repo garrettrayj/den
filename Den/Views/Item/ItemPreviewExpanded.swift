@@ -34,8 +34,8 @@ struct ItemPreviewExpanded: View {
                 LargeThumbnail(
                     url: url,
                     isRead: item.read,
-                    width: CGFloat(item.imageWidth),
-                    height: CGFloat(item.imageHeight)
+                    sourceWidth: CGFloat(item.imageWidth),
+                    sourceHeight: CGFloat(item.imageHeight)
                 )
             }
             
