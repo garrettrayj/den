@@ -57,6 +57,7 @@ struct ItemToolbar: ToolbarContent {
             ToolbarItem {
                 formatMenu
             }
+            
             Group {
                 ToolbarItem(placement: .bottomBar) {
                     GoBackButton(browserViewModel: browserViewModel)
@@ -85,8 +86,15 @@ struct ItemToolbar: ToolbarContent {
                 ToolbarItem(placement: .bottomBar) {
                     StopReloadButton(browserViewModel: browserViewModel)
                 }
-                ToolbarItem(placement: .bottomBar) {
-                    DownloadsButton()
+                if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
+                    ToolbarItem(placement: .bottomBar) {
+                        Spacer()
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        // Scene phase check is required because downloadManager environment object
+                        // is not available when app moves to background.
+                        DownloadsButton()
+                    }
                 }
             }
         } else {
@@ -99,10 +107,10 @@ struct ItemToolbar: ToolbarContent {
             ToolbarItem(placement: .topBarLeading) {
                 formatMenu
             }
-            ToolbarItem {
-                // Scene phase check is required because downloadManager environment object
-                // is not available when app moves to background.
-                if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
+            if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
+                ToolbarItem {
+                    // Scene phase check is required because downloadManager environment object
+                    // is not available when app moves to background.
                     DownloadsButton()
                 }
             }

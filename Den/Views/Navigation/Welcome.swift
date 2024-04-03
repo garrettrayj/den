@@ -18,7 +18,7 @@ struct Welcome: View {
             Label {
                 profile.nameText
             } icon: {
-                Image(systemName: "person.fill")
+                Image(systemName: "person")
             }
         } description: {
             if profile.feedCount == 1 {

@@ -22,7 +22,7 @@ struct ProfilePickerMenu: View {
             Label {
                 profile.nameText
             } icon: {
-                Image(systemName: "person.fill").imageScale(.large)
+                Image(systemName: "person").imageScale(.large)
             }
         }
         .menuStyle(.borderlessButton)
