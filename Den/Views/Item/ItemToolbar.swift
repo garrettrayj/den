@@ -23,9 +23,9 @@ struct ItemToolbar: ToolbarContent {
 
     var body: some ToolbarContent {
         #if os(macOS)
-        if !downloadManager.downloads.isEmpty {
+        if !downloadManager.browserDownloads.isEmpty {
             ToolbarItem {
-                DownloadsButton(downloadManager: downloadManager)
+                DownloadsButton()
             }
         }
         ToolbarItem {
@@ -85,6 +85,9 @@ struct ItemToolbar: ToolbarContent {
                 ToolbarItem(placement: .bottomBar) {
                     StopReloadButton(browserViewModel: browserViewModel)
                 }
+                ToolbarItem(placement: .bottomBar) {
+                    DownloadsButton()
+                }
             }
         } else {
             ToolbarItem(placement: .topBarLeading) {
@@ -99,8 +102,8 @@ struct ItemToolbar: ToolbarContent {
             ToolbarItem {
                 // Scene phase check is required because downloadManager environment object
                 // is not available when app moves to background.
-                if scenePhase == .active && !downloadManager.downloads.isEmpty {
-                    DownloadsButton(downloadManager: downloadManager)
+                if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
+                    DownloadsButton()
                 }
             }
             ToolbarItem {

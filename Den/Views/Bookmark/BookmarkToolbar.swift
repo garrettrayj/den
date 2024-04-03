@@ -23,9 +23,9 @@ struct BookmarkToolbar: ToolbarContent {
 
     var body: some ToolbarContent {
         #if os(macOS)
-        if !downloadManager.downloads.isEmpty {
+        if !downloadManager.browserDownloads.isEmpty {
             ToolbarItem {
-                DownloadsButton(downloadManager: downloadManager)
+                DownloadsButton()
             }
         }
         ToolbarItem {

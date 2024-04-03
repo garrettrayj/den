@@ -9,19 +9,18 @@
 //
 
 import Foundation
+import OSLog
 import WebKit
 
 class BrowserDownload: Hashable, Identifiable, ObservableObject {
     @Published var wkDownload: WKDownload
+    @Published var fileURL: URL
+    @Published var isFinished = false
     @Published var error: Error?
     
-    var finalURL: URL? {
-        // Remove .download extension
-        wkDownload.progress.fileURL?.deletingPathExtension()
-    }
-    
-    init(wkDownload: WKDownload) {
+    init(wkDownload: WKDownload, fileURL: URL) {
         self.wkDownload = wkDownload
+        self.fileURL = fileURL
     }
     
     func hash(into hasher: inout Hasher) {
@@ -30,5 +29,11 @@ class BrowserDownload: Hashable, Identifiable, ObservableObject {
     
     static func == (lhs: BrowserDownload, rhs: BrowserDownload) -> Bool {
         lhs.wkDownload == rhs.wkDownload
+    }
+}
+
+extension Collection where Element == BrowserDownload {
+    func forWKDownload(_ download: WKDownload) -> BrowserDownload? {
+        self.first(where: { $0.wkDownload == download })
     }
 }

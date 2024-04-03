@@ -14,8 +14,9 @@ import WebKit
 struct DownloadStatus: View {
     @Environment(\.openURL) private var openURL
     
-    @ObservedObject var downloadManager: DownloadManager
-    @ObservedObject var download: BrowserDownload
+    @EnvironmentObject private var downloadManager: DownloadManager
+    
+    @ObservedObject var browserDownload: BrowserDownload
 
     static let filesSizeFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()
@@ -31,9 +32,9 @@ struct DownloadStatus: View {
         HStack {
             fileIcon
             
-            if let error = download.error as? URLError {
+            if let error = browserDownload.error as? URLError {
                 Text(error.localizedDescription)
-            } else if download.wkDownload.progress.isFinished {
+            } else if browserDownload.wkDownload.progress.isFinished {
                 VStack(alignment: .leading) {
                     if let fileName = fileName {
                         Text(verbatim: fileName)
@@ -48,7 +49,7 @@ struct DownloadStatus: View {
                 .lineLimit(2)
                 Spacer()
                 Button {
-                    showInFinder(url: download.finalURL)
+                    showInFinder(url: browserDownload.fileURL)
                 } label: {
                     Label {
                         Text("Show in Finder")
@@ -58,10 +59,10 @@ struct DownloadStatus: View {
                 }
                 .tint(.secondary)
             } else {
-                ProgressView(download.wkDownload.progress)
+                ProgressView(browserDownload.wkDownload.progress)
                 Spacer()
                 Button {
-                    downloadManager.removeDownload(download: download)
+                    downloadManager.remove(browserDownload)
                 } label: {
                     Label {
                         Text("Cancel")
@@ -70,46 +71,38 @@ struct DownloadStatus: View {
                     }
                 }
                 .tint(.secondary)
-                Button {
-                    showInFinder(url: download.wkDownload.progress.fileURL)
-                } label: {
-                    Label {
-                        Text("Show in Finder")
-                    } icon: {
-                        Image(systemName: "magnifyingglass.circle.fill")
-                    }
-                }
-                .tint(.secondary)
             }
         }
         .labelStyle(.iconOnly)
         .buttonStyle(.borderless)
-        .padding(.trailing, 4)
-        .frame(height: 56)
     }
     
     private var fileName: String? {
-        download.wkDownload.progress.fileURL?.deletingPathExtension().lastPathComponent
+        browserDownload.fileURL.lastPathComponent
     }
     
     private var fileSize: Int64 {
-        download.wkDownload.progress.completedUnitCount
+        browserDownload.wkDownload.progress.completedUnitCount
     }
     
     private var fileIcon: Image? {
         #if os(macOS)
         guard
-            let fileURL = download.finalURL,
-            let resourceValues = try? fileURL.resourceValues(forKeys: [.effectiveIconKey]),
+            let resourceValues = try? browserDownload.fileURL.resourceValues(
+                forKeys: [.effectiveIconKey]
+            ),
             let nsImage = resourceValues.effectiveIcon as? NSImage
-        else { return nil }
+        else {
+            return nil
+        }
         
         return Image(nsImage: nsImage)
         #else
-        guard
-            let fileURL = download.finalURL,
-            let uiImage = UIDocumentInteractionController(url: fileURL).icons.first
-        else { return nil }
+        guard let uiImage = UIDocumentInteractionController(
+            url: browserDownload.fileURL
+        ).icons.first else {
+            return nil
+        }
         
         return Image(uiImage: uiImage)
         #endif
