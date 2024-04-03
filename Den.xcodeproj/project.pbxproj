@@ -36,7 +36,6 @@
 		6818F0B12B85041D00BE06FC /* TagLayoutPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F0B02B85041D00BE06FC /* TagLayoutPicker.swift */; };
 		681AEAF929954AC70054B084 /* FeedHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AEAF829954AC70054B084 /* FeedHero.swift */; };
 		681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */; };
-		681DE10A2922D02200D2F7B2 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1092922D02200D2F7B2 /* SDWebImageWebPCoder */; };
 		681F0C262933F4C10037C609 /* ClearProfileHistoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681F0C252933F4C10037C609 /* ClearProfileHistoryButton.swift */; };
 		682050792ACB504A00C937BE /* BrowserWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682050782ACB504A00C937BE /* BrowserWebView.swift */; };
 		6820507E2ACB530600C937BE /* BrowserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6820507D2ACB530600C937BE /* BrowserViewModel.swift */; };
@@ -731,7 +730,6 @@
 				6897D52626B91C0100833DDA /* HTMLEntities in Frameworks */,
 				681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */,
 				68EE91EB28D54C66000C00D2 /* SDWebImageSwiftUI in Frameworks */,
-				681DE10A2922D02200D2F7B2 /* SDWebImageWebPCoder in Frameworks */,
 				6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1456,7 +1454,6 @@
 				6897D52E26B91C5800833DDA /* FeedKit */,
 				68EE91EA28D54C66000C00D2 /* SDWebImageSwiftUI */,
 				681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */,
-				681DE1092922D02200D2F7B2 /* SDWebImageWebPCoder */,
 			);
 			productName = Den;
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
@@ -1521,7 +1518,6 @@
 				6897D52D26B91C5800833DDA /* XCRemoteSwiftPackageReference "FeedKit" */,
 				68EE91E928D54C66000C00D2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				681DE1052922CFD400D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
-				681DE1082922D02200D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */,
 			);
 			productRefGroup = 68C4130A247263C700D1DC7B /* Products */;
 			projectDirPath = "";
@@ -2381,14 +2377,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		681DE1082922D02200D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageWebPCoder";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.1;
-			};
-		};
 		6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Kitura/swift-html-entities.git";
@@ -2436,11 +2424,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 681DE1052922CFD400D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
 			productName = SDWebImageSVGCoder;
-		};
-		681DE1092922D02200D2F7B2 /* SDWebImageWebPCoder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 681DE1082922D02200D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */;
-			productName = SDWebImageWebPCoder;
 		};
 		6897D52526B91C0100833DDA /* HTMLEntities */ = {
 			isa = XCSwiftPackageProductDependency;
