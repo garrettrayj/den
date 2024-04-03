@@ -11,9 +11,7 @@
 import SwiftUI
 
 struct TrendingToolbar: ToolbarContent {
-    #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
     
     @ObservedObject var profile: Profile
 

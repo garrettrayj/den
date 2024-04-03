@@ -11,9 +11,7 @@
 import SwiftUI
 
 struct InboxToolbar: ToolbarContent {
-    #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
     
     @ObservedObject var profile: Profile
 

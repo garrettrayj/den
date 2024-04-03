@@ -11,9 +11,7 @@
 import SwiftUI
 
 struct SearchToolbar: ToolbarContent {
-    #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
 
     @Binding var hideRead: Bool
 

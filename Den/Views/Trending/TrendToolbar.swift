@@ -11,9 +11,7 @@
 import SwiftUI
 
 struct TrendToolbar: ToolbarContent {
-    #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
     
     @Environment(\.dismiss) private var dismiss
 

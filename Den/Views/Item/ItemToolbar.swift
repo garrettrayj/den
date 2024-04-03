@@ -11,9 +11,7 @@
 import SwiftUI
 
 struct ItemToolbar: ToolbarContent {
-    #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
     @Environment(\.scenePhase) private var scenePhase
     
     @EnvironmentObject private var downloadManager: DownloadManager

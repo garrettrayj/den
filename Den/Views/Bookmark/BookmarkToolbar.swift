@@ -12,9 +12,8 @@ import SwiftUI
 
 struct BookmarkToolbar: ToolbarContent {
     @Environment(\.dismiss) private var dismiss
-    #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    #endif
+    @Environment(\.scenePhase) private var scenePhase
     
     @EnvironmentObject private var downloadManager: DownloadManager
 
@@ -89,6 +88,16 @@ struct BookmarkToolbar: ToolbarContent {
                 ToolbarItem(placement: .bottomBar) {
                     StopReloadButton(browserViewModel: browserViewModel)
                 }
+                if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
+                    ToolbarItem(placement: .bottomBar) {
+                        Spacer()
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        // Scene phase check is required because downloadManager environment object
+                        // is not available when app moves to background.
+                        DownloadsButton()
+                    }
+                }
             }
         } else {
             ToolbarItem(placement: .topBarLeading) {
@@ -101,6 +110,13 @@ struct BookmarkToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .topBarLeading) {
                 formatMenu
+            }
+            if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
+                ToolbarItem {
+                    // Scene phase check is required because downloadManager environment object
+                    // is not available when app moves to background.
+                    DownloadsButton()
+                }
             }
             ToolbarItem {
                 GoBackButton(browserViewModel: browserViewModel)
