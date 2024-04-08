@@ -16,54 +16,54 @@ struct DownloadsPopover: View {
     @State private var selection = Set<BrowserDownload>()
     
     var body: some View {
-        List(selection: $selection) {
-            Section {
+        NavigationStack {
+            List(selection: $selection) {
                 ForEach(downloadManager.browserDownloads) { browserDownload in
                     DownloadStatus(browserDownload: browserDownload)
                         .tag(browserDownload)
                         .listRowInsets(.init(top: 8, leading: 8, bottom: 8, trailing: 8))
                 }
-            } header: {
-                HStack {
-                    Text("Downloads", comment: "Popover title.")
-                    Spacer()
+            }
+            .listStyle(.inset)
+            .clipped()
+            .background(Rectangle().fill(.background).scaleEffect(1.5))
+            #if os(macOS)
+            .onDeleteCommand {
+                downloadManager.remove(selection)
+            }
+            #endif
+            .contextMenu(forSelectionType: BrowserDownload.self) { items in
+                contextMenu(items: items)
+            } primaryAction: { items in
+                guard
+                    let browserDownload = downloadManager.browserDownloads.first(
+                        where: { $0 == items.first }
+                    )
+                else {
+                    return
+                }
+                
+                #if os(macOS)
+                NSWorkspace.shared.open(browserDownload.fileURL)
+                #endif
+            }
+            .navigationTitle("Downloads")
+            .toolbarTitleDisplayMode(.inline)
+            #if os(iOS)
+            // Limited to iOS because items are added to window toolbar instead of
+            // popover toolbar on macOS
+            .toolbar {
+                ToolbarItem {
                     Button {
                         downloadManager.clear()
                     } label: {
                         Text("Clear", comment: "Button label.")
                     }
                 }
-                #if os(macOS)
-                .padding(.vertical, 4)
-                #else
-                .padding(.bottom, 4)
-                #endif
             }
-        }
-        .frame(minWidth: 320, minHeight: 280)
-        .listStyle(.inset)
-        .clipped()
-        .background(Rectangle().fill(.background).scaleEffect(1.5))
-        #if os(macOS)
-        .onDeleteCommand {
-            downloadManager.remove(selection)
-        }
-        #endif
-        .contextMenu(forSelectionType: BrowserDownload.self) { items in
-            contextMenu(items: items)
-        } primaryAction: { items in
-            guard
-                let browserDownload = downloadManager.browserDownloads.first(
-                    where: { $0 == items.first }
-                )
-            else {
-                return
-            }
-            
-            #if os(macOS)
-            NSWorkspace.shared.open(browserDownload.fileURL)
             #endif
         }
+        .frame(minWidth: 320, minHeight: 280)
     }
     
     @ViewBuilder
