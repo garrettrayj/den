@@ -19,9 +19,9 @@ struct CopyLinkButton: View {
             PasteboardUtility.copyURL(url: url)
         } label: {
             Label {
-                Text("Copy Link", comment: "Button label.")
+                Text("Copy Address", comment: "Button label.")
             } icon: {
-                Image(systemName: "link.circle")
+                Image(systemName: "doc.on.doc")
             }
         }
     }
