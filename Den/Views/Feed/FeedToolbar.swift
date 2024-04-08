@@ -59,7 +59,7 @@ struct FeedToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .status) {
                 if let profile = feed.page?.profile {
-                    CommonStatus(profile: profile, items: Array(items))
+                    CommonStatus(profile: profile)
                 }
             }
             ToolbarItem(placement: .bottomBar) {

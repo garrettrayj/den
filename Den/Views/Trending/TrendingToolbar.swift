@@ -44,7 +44,7 @@ struct TrendingToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
-                TrendingStatus(profile: profile, trends: trends)
+                CommonStatus(profile: profile)
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: unreadCount == 0) {

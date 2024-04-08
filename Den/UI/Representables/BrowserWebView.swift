@@ -103,20 +103,15 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         didFailProvisionalNavigation navigation: WKNavigation!,
         withError error: Error
     ) {
-        var url = URL(string: "error://Error")!
-        
         if let urlError = error as? URLError {
-            if let failingURL = urlError.failingURL {
-                url = failingURL
-            }
+            guard let failingURL = urlError.failingURL else { return }
+            let errorHTML = WebViewError(error: error).html
+            
+            webView.loadSimulatedRequest(
+                URLRequest(url: failingURL),
+                responseHTML: errorHTML
+            )
         }
-        
-        let errorHTML = WebViewError(error: error).html
-        
-        webView.loadSimulatedRequest(
-            URLRequest(url: url),
-            responseHTML: errorHTML
-        )
     }
     
     func webView(
@@ -125,13 +120,6 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
         if navigationAction.shouldPerformDownload {
-            decisionHandler(.download)
-            return
-        }
-        
-        // Download downloadable file extensions to prevent "Frame load interrupted" error
-        if let url = navigationAction.request.mainDocumentURL,
-           Downloadable.fileExtensions.contains(url.pathExtension) {
             decisionHandler(.download)
             return
         }

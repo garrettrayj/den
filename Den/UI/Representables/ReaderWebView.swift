@@ -77,13 +77,6 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
             decisionHandler(.cancel)
             return
         }
-        
-        // Download downloadable file extensions to prevent "Frame load interrupted" error
-        if let url = navigationAction.targetFrame?.request.url,
-           Downloadable.fileExtensions.contains(url.pathExtension) {
-            decisionHandler(.download)
-            return
-        }
 
         // Open links for same frame in browser view
         let browserActions: Set<WKNavigationType> = [.linkActivated]

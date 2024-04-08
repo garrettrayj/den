@@ -57,10 +57,10 @@ struct TrendBlock: View {
                     if let symbol = symbol {
                         Image(systemName: symbol).imageScale(.small)
                     }
-                    Text("""
-                    \(items.count) items in \(trend.feeds.count) feeds. \
-                    \(items.unread().count) unread
-                    """, comment: "Trend status line.")
+                    Text(
+                        "\(items.count) items in \(trend.feeds.count) feeds.",
+                        comment: "Trend status line."
+                    )
                 }
                 .font(.footnote)
                 .foregroundStyle(.secondary)

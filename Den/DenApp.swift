@@ -13,6 +13,7 @@ import SwiftUI
 
 import SDWebImage
 import SDWebImageSVGCoder
+import SDWebImageWebPCoder
 
 @main
 struct DenApp: App {
@@ -82,7 +83,7 @@ struct DenApp: App {
     private func setupImageHandling() {
         // Add additional image format support
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
-        SDImageCodersManager.shared.addCoder(SDImageAWebPCoder.shared)
+        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
 
         // Explicit list of accepted image types so servers may decide what to respond with
         let imageAcceptHeader: String  = ImageMIMEType.allCases.map({ mimeType in

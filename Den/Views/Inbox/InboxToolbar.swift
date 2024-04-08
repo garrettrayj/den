@@ -35,7 +35,7 @@ struct InboxToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
-                CommonStatus(profile: profile, items: Array(items))
+                CommonStatus(profile: profile)
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {

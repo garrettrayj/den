@@ -13,25 +13,10 @@ import SwiftUI
 struct CommonStatus: View {
     @ObservedObject var profile: Profile
     
-    let items: [Item]
-    
     var body: some View {
         VStack {
-            Group {
-                if items.isEmpty {
-                    Text("No Items", comment: "Status message.")
-                } else if items.unread().isEmpty {
-                    Text("All Read", comment: "Status message.")
-                } else {
-                    Text("\(items.unread().count) Unread", comment: "Status message.")
-                }
-            }
-            .font(.caption)
-
             if let refreshedDate = RefreshedDateStorage.getRefreshed(profile.id?.uuidString) {
-                RelativeRefreshedDate(date: refreshedDate)
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
+                RelativeRefreshedDate(date: refreshedDate).font(.caption)
             }
         }
         .lineLimit(1)
