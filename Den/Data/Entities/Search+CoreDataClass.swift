@@ -18,12 +18,10 @@ public class Search: NSManagedObject {
 
     static func create(
         in managedObjectContext: NSManagedObjectContext,
-        profile: Profile,
         query: String
     ) -> Search {
         let search = self.init(context: managedObjectContext)
         search.id = UUID()
-        search.profile = profile
         search.submitted = Date()
         search.query = query
 

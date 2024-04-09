@@ -14,9 +14,6 @@ import UniformTypeIdentifiers
 struct Sidebar: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var profile: Profile
-
-    @Binding var currentProfileID: String?
     @Binding var detailPanel: DetailPanel?
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
@@ -29,33 +26,43 @@ struct Sidebar: View {
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
     
-    let profiles: FetchedResults<Profile>
-
     @State private var exporterIsPresented: Bool = false
     @State private var opmlFile: OPMLFile?
     @State private var searchInput = ""
     @State private var showingSettings = false
+    
+    let pages: FetchedResults<Page>
+    
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.userOrder, order: .forward),
+        SortDescriptor(\.name, order: .forward)
+    ])
+    private var tags: FetchedResults<Tag>
 
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.submitted, order: .reverse)
+    ])
+    private var searches: FetchedResults<Search>
+    
     var body: some View {
         List(selection: $detailPanel) {
-            if profile.pagesArray.isEmpty {
+            if pages.isEmpty {
                 Start(
-                    profile: profile,
                     showingImporter: $showingImporter,
                     showingNewPageSheet: $showingNewPageSheet
                 )
             } else {
-                ApexSection(profile: profile)
+                ApexSection()
 
                 PagesSection(
-                    profile: profile,
                     newFeedPageID: $newFeedPageID,
                     newFeedWebAddress: $newFeedWebAddress,
-                    showingNewFeedSheet: $showingNewFeedSheet
+                    showingNewFeedSheet: $showingNewFeedSheet,
+                    pages: pages
                 )
                 
-                if !profile.tagsArray.isEmpty {
-                    TagsSection(profile: profile)
+                if !tags.isEmpty {
+                    TagsSection(tags: tags)
                 }
             }
         }
@@ -63,14 +70,7 @@ struct Sidebar: View {
         .buttonStyle(.borderless)
         .badgeProminence(.decreased)
         .refreshable {
-            // Current profile must be found with currentProfileID otherwise action
-            // does not update on iOS when switching profiles.
-            guard let profile = profiles.first(
-                where: { $0.id?.uuidString == currentProfileID }
-            ) else {
-                return
-            }
-            await RefreshManager.refresh(profile: profile)
+            await RefreshManager.refresh()
         }
         .searchable(
             text: $searchInput,
@@ -78,7 +78,7 @@ struct Sidebar: View {
             prompt: Text("Search", comment: "Search field prompt.")
         )
         .searchSuggestions {
-            ForEach(profile.searchesArray.prefix(20)) { search in
+            ForEach(searches.prefix(20)) { search in
                 if search.wrappedQuery != "" {
                     Text(verbatim: search.wrappedQuery).searchCompletion(search.wrappedQuery)
                 }
@@ -88,11 +88,8 @@ struct Sidebar: View {
             searchQuery = searchInput.trimmingCharacters(in: .whitespacesAndNewlines)
             detailPanel = .search
         }
-        .navigationTitle(profile.nameText)
         .toolbar {
             SidebarToolbar(
-                profile: profile,
-                currentProfileID: $currentProfileID,
                 detailPanel: $detailPanel,
                 refreshing: $refreshing,
                 refreshProgress: $refreshProgress,
@@ -101,42 +98,40 @@ struct Sidebar: View {
                 showingNewFeedSheet: $showingNewFeedSheet,
                 showingNewPageSheet: $showingNewPageSheet,
                 showingNewTagSheet: $showingNewTagSheet,
-                showingSettings: $showingSettings
+                showingSettings: $showingSettings, 
+                pages: pages
             )
         }
         #if os(macOS)
         .safeAreaInset(edge: .bottom, spacing: 0) {
             MacSidebarBottomBar(
-                profile: profile,
-                currentProfileID: $currentProfileID,
                 refreshing: $refreshing,
-                refreshProgress: $refreshProgress
+                refreshProgress: $refreshProgress,
+                pages: pages
             )
         }
         #endif
         .sheet(
             isPresented: $showingSettings,
             onDismiss: {
-                if !profile.isDeleted {
-                    saveChanges()
-                }
+                saveChanges()
             },
             content: {
-                SettingsSheet(currentProfileID: $currentProfileID)
+                SettingsSheet()
             }
         )
         .sheet(
             isPresented: $showingNewPageSheet,
             onDismiss: saveChanges,
             content: {
-                NewPageSheet(profile: profile)
+                NewPageSheet()
             }
         )
         .sheet(
             isPresented: $showingNewTagSheet,
             onDismiss: saveChanges,
             content: {
-                NewTagSheet(profile: profile)
+                NewTagSheet()
             }
         )
         .fileImporter(
@@ -147,7 +142,11 @@ struct Sidebar: View {
             guard let selectedFile: URL = try? result.get().first else { return }
             if selectedFile.startAccessingSecurityScopedResource() {
                 defer { selectedFile.stopAccessingSecurityScopedResource() }
-                ImportExportUtility.importOPML(url: selectedFile, context: viewContext, profile: profile)
+                ImportExportUtility.importOPML(
+                    url: selectedFile,
+                    context: viewContext,
+                    pageUserOrderMax: pages.maxUserOrder
+                )
             } else {
                 // Handle denied access
             }
@@ -156,13 +155,13 @@ struct Sidebar: View {
             isPresented: $exporterIsPresented,
             document: opmlFile,
             contentType: UTType(importedAs: "public.opml"),
-            defaultFilename: profile.exportTitle.sanitizedForFileName()
+            defaultFilename: "Den Export"
         ) { _ in
             opmlFile = nil
         }
         .onChange(of: showingExporter) {
             if showingExporter {
-                opmlFile = ImportExportUtility.exportOPML(profile: profile)
+                opmlFile = ImportExportUtility.exportOPML()
             }
             exporterIsPresented = showingExporter
         }

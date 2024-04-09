@@ -14,11 +14,15 @@ struct NewTagSheet: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 
-    @ObservedObject var profile: Profile
-
     @State private var name: String = ""
     
     @FocusState private var textFieldFocus: Bool
+    
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.userOrder, order: .forward),
+        SortDescriptor(\.name, order: .forward)
+    ])
+    private var tags: FetchedResults<Tag>
 
     var body: some View {
         NavigationStack {
@@ -44,7 +48,10 @@ struct NewTagSheet: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        let newTag = Tag.create(in: viewContext, profile: profile)
+                        let newTag = Tag.create(
+                            in: viewContext,
+                            userOrder: tags.maxUserOrder + 1
+                        )
                         newTag.wrappedName = name
                         dismiss()
                     } label: {

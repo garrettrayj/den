@@ -11,14 +11,14 @@
 import SwiftUI
 
 struct OrganizerToolbar: ToolbarContent {
-    @ObservedObject var profile: Profile
-
     @Binding var selection: Set<Feed>
     @Binding var showingInspector: Bool
+    
+    let pages: FetchedResults<Page>
 
     var body: some ToolbarContent {
         ToolbarItem {
-            if selection.count == profile.feedsArray.count {
+            if selection.count == pages.feeds.count {
                 Button {
                     selection.removeAll()
                 } label: {
@@ -31,7 +31,7 @@ struct OrganizerToolbar: ToolbarContent {
 
             } else {
                 Button {
-                    selection = selection.union(profile.feedsArray)
+                    selection = selection.union(pages.feeds)
                 } label: {
                     Label {
                         Text("Select All", comment: "Button label.")

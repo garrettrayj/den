@@ -22,7 +22,7 @@ struct WithItems<Content: View>: View {
     }
 
     init(
-        scopeObject: NSManagedObject,
+        scopeObject: NSManagedObject? = nil,
         sortDescriptors: [NSSortDescriptor] = [
             NSSortDescriptor(keyPath: \Item.published, ascending: false)
         ],
@@ -46,11 +46,6 @@ struct WithItems<Content: View>: View {
             predicates.append(NSPredicate(
                 format: "feedData IN %@",
                 page.feedsArray.compactMap { $0.feedData }
-            ))
-        } else if let profile = scopeObject as? Profile {
-            predicates.append(NSPredicate(
-                format: "feedData IN %@",
-                profile.feedsArray.compactMap { $0.feedData }
             ))
         }
 

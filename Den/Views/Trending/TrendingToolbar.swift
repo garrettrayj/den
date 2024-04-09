@@ -12,8 +12,6 @@ import SwiftUI
 
 struct TrendingToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
-    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
     
@@ -35,7 +33,6 @@ struct TrendingToolbar: ToolbarContent {
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: unreadCount == 0) {
                 await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
-                profile.objectWillChange.send()
             }
         }
         #else
@@ -44,12 +41,11 @@ struct TrendingToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
-                CommonStatus(profile: profile)
+                CommonStatus()
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: unreadCount == 0) {
                     await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
-                    profile.objectWillChange.send()
                 }
             }
         } else {
@@ -59,7 +55,6 @@ struct TrendingToolbar: ToolbarContent {
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: unreadCount == 0) {
                     await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
-                    profile.objectWillChange.send()
                 }
             }
         }

@@ -13,10 +13,10 @@ import SwiftUI
 struct SidebarStatus: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
 
-    @ObservedObject var profile: Profile
-
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
+    
+    let pages: FetchedResults<Page>
 
     var body: some View {
         VStack {
@@ -24,11 +24,11 @@ struct SidebarStatus: View {
                 Text("Network Offline", comment: "Status message.").foregroundStyle(.secondary)
             } else if refreshing {
                 ProgressView(refreshProgress)
-                    .progressViewStyle(RefreshProgressViewStyle(feedCount: profile.feedCount))
-            } else if let refreshedDate = RefreshedDateStorage.getRefreshed(profile.id?.uuidString) {
+                    .progressViewStyle(RefreshProgressViewStyle(feedCount: pages.feeds.count))
+            } else if let refreshedDate = RefreshedDateStorage.getRefreshed() {
                 RelativeRefreshedDate(date: refreshedDate)
-            } else if profile.pagesArray.isEmpty {
-                Text("Profile Empty", comment: "Status message.")
+            } else if pages.isEmpty {
+                Text("No Pages", comment: "Status message.")
             } else {
                 #if os(macOS)
                 Text(

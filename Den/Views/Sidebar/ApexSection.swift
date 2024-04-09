@@ -11,12 +11,10 @@
 import SwiftUI
 
 struct ApexSection: View {
-    @ObservedObject var profile: Profile
-    
     var body: some View {
         Section {
-            InboxNavLink(profile: profile)
-            TrendingNavLink(profile: profile)
+            InboxNavLink()
+            TrendingNavLink()
         }
     }
 }

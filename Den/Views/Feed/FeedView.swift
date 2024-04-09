@@ -16,7 +16,6 @@ struct FeedView: View {
     @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
 
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
     
     @Binding var hideRead: Bool
     
@@ -69,7 +68,6 @@ struct FeedView: View {
                     .toolbar {
                         FeedToolbar(
                             feed: feed,
-                            profile: profile,
                             hideRead: $hideRead,
                             showingDeleteAlert: $showingDeleteAlert,
                             showingInspector: $showingInspector,

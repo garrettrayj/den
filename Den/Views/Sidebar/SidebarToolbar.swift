@@ -13,9 +13,6 @@ import SwiftUI
 struct SidebarToolbar: ToolbarContent {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
 
-    @ObservedObject var profile: Profile
-
-    @Binding var currentProfileID: String?
     @Binding var detailPanel: DetailPanel?
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
@@ -25,11 +22,12 @@ struct SidebarToolbar: ToolbarContent {
     @Binding var showingNewPageSheet: Bool
     @Binding var showingNewTagSheet: Bool
     @Binding var showingSettings: Bool
+    
+    let pages: FetchedResults<Page>
 
     var body: some ToolbarContent {
         ToolbarItem(placement: .primaryAction) {
             Menu {
-                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
                 NewPageButton(showingNewPageSheet: $showingNewPageSheet)
                 NewTagButton(showingNewTagSheet: $showingNewTagSheet)
                 Divider()
@@ -53,23 +51,20 @@ struct SidebarToolbar: ToolbarContent {
         }
         #if os(iOS)
         ToolbarItem(placement: .bottomBar) {
-            ProfilePickerMenu(
-                profile: profile,
-                currentProfileID: $currentProfileID
-            )
-            .disabled(refreshing)
+            NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
+                .disabled(refreshing || !networkMonitor.isConnected || pages.isEmpty)
         }
         ToolbarItem(placement: .status) {
             SidebarStatus(
-                profile: profile,
                 refreshing: $refreshing,
-                refreshProgress: $refreshProgress
+                refreshProgress: $refreshProgress, 
+                pages: pages
             )
             .layoutPriority(0)
         }
         ToolbarItem(placement: .bottomBar) {
-            RefreshButton(profile: profile)
-                .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
+            RefreshButton()
+                .disabled(refreshing || !networkMonitor.isConnected || pages.isEmpty)
         }
         #endif
     }

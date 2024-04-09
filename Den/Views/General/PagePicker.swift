@@ -11,15 +11,19 @@
 import SwiftUI
 
 struct PagePicker: View {
-    @ObservedObject var profile: Profile
-
     @Binding var selection: Page?
     
     var labelText: Text = Text("Page", comment: "Picker label.")
+    
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.userOrder, order: .forward),
+        SortDescriptor(\.name, order: .forward)
+    ])
+    private var pages: FetchedResults<Page>
 
     var body: some View {
         Picker(selection: $selection) {
-            ForEach(profile.pagesArray) { page in
+            ForEach(pages) { page in
                 page.displayName.tag(page as Page?)
             }
         } label: {

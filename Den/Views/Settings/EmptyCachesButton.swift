@@ -25,6 +25,9 @@ struct EmptyCachesButton: View {
 
         return formatter
     }()
+    
+    @FetchRequest(sortDescriptors: [])
+    private var feedDatas: FetchedResults<FeedData>
 
     var body: some View {
         Button {
@@ -66,20 +69,12 @@ struct EmptyCachesButton: View {
     }
     
     private func clearFeedData() {
-        guard let profiles = try? viewContext.fetch(Profile.fetchRequest()) as? [Profile] else {
-            return
-        }
+        feedDatas.forEach { viewContext.delete($0) }
         
-        for profile in profiles {
-            profile.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
-            RefreshedDateStorage.setRefreshed(profile.id?.uuidString, date: nil)
-        }
+        RefreshedDateStorage.setRefreshed(date: nil)
 
         do {
             try viewContext.save()
-            DispatchQueue.main.async {
-                profiles.forEach { $0.objectWillChange.send() }
-            }
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

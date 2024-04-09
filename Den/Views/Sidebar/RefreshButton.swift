@@ -11,12 +11,10 @@
 import SwiftUI
 
 struct RefreshButton: View {
-    @ObservedObject var profile: Profile
-    
     var body: some View {
         Button {
             Task {
-                await RefreshManager.refresh(profile: profile)
+                await RefreshManager.refresh()
             }
         } label: {
             Label {

@@ -16,7 +16,6 @@ import FeedKit
 class FeedUpdateTask {
     let feedObjectID: NSManagedObjectID
     let pageObjectID: NSManagedObjectID?
-    let profileObjectID: NSManagedObjectID?
     let url: URL
     let updateMeta: Bool
 
@@ -28,13 +27,11 @@ class FeedUpdateTask {
     init(
         feedObjectID: NSManagedObjectID,
         pageObjectID: NSManagedObjectID?,
-        profileObjectID: NSManagedObjectID?,
         url: URL,
         updateMeta: Bool
     ) {
         self.feedObjectID = feedObjectID
         self.pageObjectID = pageObjectID
-        self.profileObjectID = profileObjectID
         self.url = url
         self.updateMeta = updateMeta
     }
@@ -147,7 +144,7 @@ class FeedUpdateTask {
         await MainActor.run {
             NotificationCenter.default.post(
                 name: .refreshProgressed,
-                object: self.profileObjectID,
+                object: nil,
                 userInfo: [
                     "pageObjectID": self.pageObjectID as Any,
                     "feedObjectID": self.feedObjectID as Any

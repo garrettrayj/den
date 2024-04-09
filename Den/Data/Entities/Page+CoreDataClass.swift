@@ -64,20 +64,33 @@ public class Page: NSManagedObject {
 
     static func create(
         in managedObjectContext: NSManagedObjectContext,
-        profile: Profile,
-        prepend: Bool = false
+        userOrder: Int16
     ) -> Page {
         let newPage = self.init(context: managedObjectContext)
         newPage.id = UUID()
-        newPage.profile = profile
         newPage.created = Date()
-
-        if prepend {
-            newPage.userOrder = Int16(profile.pagesUserOrderMin - 1)
-        } else {
-            newPage.userOrder = Int16(profile.pagesUserOrderMax + 1)
-        }
+        newPage.userOrder = userOrder
 
         return newPage
+    }
+}
+
+extension Collection where Element == Page {    
+    var feeds: [Feed] {
+        self.reduce([]) { partialResult, page in
+            partialResult + page.feedsArray
+        }
+    }
+    
+    var maxUserOrder: Int16 {
+        self.reduce(0) { partialResult, tag in
+            tag.userOrder > partialResult ? tag.userOrder : partialResult
+        }
+    }
+    
+    var minUserOrder: Int16 {
+        self.reduce(0) { partialResult, tag in
+            tag.userOrder < partialResult ? tag.userOrder : partialResult
+        }
     }
 }

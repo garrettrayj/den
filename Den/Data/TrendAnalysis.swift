@@ -11,17 +11,10 @@
 import CoreData
 
 struct TrendAnalysis {
-    static public func run(context: NSManagedObjectContext, profileObjectID: NSManagedObjectID) {
-        guard let profile = context.object(with: profileObjectID) as? Profile else { return }
-
-        let workingTrends = self.analyzeTrends(profile: profile, context: context)
+    static public func run(context: NSManagedObjectContext) {
+        let workingTrends = self.analyzeTrends(context: context)
         
         let request: NSFetchRequest<Trend> = Trend.fetchRequest()
-        if let profileID = profile.id {
-            request.predicate = NSPredicate(format: "profileId = %@", profileID as CVarArg)
-        } else {
-            request.predicate = NSPredicate(format: "1 = 2")
-        }
         guard let existingTrends = try? context.fetch(request) as [Trend] else { return }
         
         for workingTrend in workingTrends {
@@ -30,7 +23,7 @@ struct TrendAnalysis {
             if let existingTrend = existingTrends.first(where: {$0.slug == workingTrend.slug}) {
                 trend = existingTrend
             } else {
-                trend = Trend.create(in: context, profile: profile)
+                trend = Trend.create(in: context)
                 trend.title = workingTrend.title
                 trend.slug = workingTrend.slug
                 trend.tag = workingTrend.tag.rawValue
@@ -56,22 +49,11 @@ struct TrendAnalysis {
         try? context.save()
     }
 
-    static private func analyzeTrends(profile: Profile, context: NSManagedObjectContext) -> [WorkingTrend] {
+    static private func analyzeTrends(context: NSManagedObjectContext) -> [WorkingTrend] {
         var workingTrends: [WorkingTrend] = []
 
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
-        let predicates: [NSPredicate] = [
-            NSPredicate(
-                format: "feedData.id IN %@",
-                profile.pagesArray.flatMap({ page in
-                    page.feedsArray.compactMap { feed in
-                        feed.feedData?.id
-                    }
-                })
-            ),
-            NSPredicate(format: "extra = %@", NSNumber(value: false))
-        ]
-        request.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
+        let request = Item.fetchRequest()
+        request.predicate = NSPredicate(format: "extra = %@", NSNumber(value: false))
 
         guard let items = try? context.fetch(request) else { return [] }
 

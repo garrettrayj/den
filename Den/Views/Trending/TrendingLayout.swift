@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct TrendingLayout: View {
-    @ObservedObject var profile: Profile
-    
     @Binding var hideRead: Bool
     
     let trends: FetchedResults<Trend>
@@ -25,7 +23,6 @@ struct TrendingLayout: View {
                 ScrollView(.vertical) {
                     BoardView(width: geometry.size.width, list: visibleTrends) { trend in
                         TrendBlock(
-                            profile: profile,
                             trend: trend,
                             items: trend.items,
                             feeds: trend.feeds

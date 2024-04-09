@@ -11,11 +11,9 @@
 import SwiftUI
 
 struct CommonStatus: View {
-    @ObservedObject var profile: Profile
-    
     var body: some View {
         VStack {
-            if let refreshedDate = RefreshedDateStorage.getRefreshed(profile.id?.uuidString) {
+            if let refreshedDate = RefreshedDateStorage.getRefreshed() {
                 RelativeRefreshedDate(date: refreshedDate).font(.caption)
             }
         }

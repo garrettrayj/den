@@ -49,7 +49,6 @@ struct DeckLayout: View {
             .scrollClipDisabled()
             .contentMargins(.horizontal, 16)
             .ignoresSafeArea(edges: .bottom)
-            .toolbarBackground(.visible)
         }
     }
 }

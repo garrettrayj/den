@@ -12,10 +12,8 @@ import CoreData
 import SwiftUI
 
 struct InboxNavLink: View {
-    @ObservedObject var profile: Profile
-
     var body: some View {
-        WithItems(scopeObject: profile, readFilter: false) { items in
+        WithItems(readFilter: false) { items in
             Label {
                 Text("Inbox", comment: "Button label.").lineLimit(1)
             } icon: {

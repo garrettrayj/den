@@ -12,11 +12,14 @@ import SwiftUI
 
 struct SearchView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
-    @ObservedObject var profile: Profile
     
     @Binding var hideRead: Bool
     @Binding var searchQuery: String
+    
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.submitted, order: .reverse)
+    ])
+    private var searches: FetchedResults<Search>
     
     var body: some View {
         Group {
@@ -36,12 +39,10 @@ struct SearchView: View {
                 .navigationTitle(Text("Search", comment: "Navigation title."))
             } else {
                 WithItems(
-                    scopeObject: profile,
                     includeExtras: true,
                     searchQuery: searchQuery
                 ) { items in
                     SearchLayout(
-                        profile: profile,
                         hideRead: $hideRead,
                         query: searchQuery,
                         items: items
@@ -62,13 +63,13 @@ struct SearchView: View {
     private func saveSearch() {
         guard searchQuery != "" else { return }
 
-        if let search = profile.searchesArray.first(where: {
+        if let search = searches.first(where: {
             $0.query?.lowercased() == searchQuery.lowercased()
         }) {
             search.query = searchQuery
             search.submitted = Date()
         } else {
-            _ = Search.create(in: viewContext, profile: profile, query: searchQuery)
+            _ = Search.create(in: viewContext, query: searchQuery)
         }
 
         do {

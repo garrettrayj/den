@@ -20,20 +20,11 @@ struct CleanupUtility {
             context.delete(feedData)
         }
         Logger.main.info("Purged \(orphanedFeedDatas) orphaned feed data records.")
-
-        var orphanedTrends = 0
-        let trends = try context.fetch(Trend.fetchRequest()) as [Trend]
-        for trend in trends where trend.profile == nil {
-            orphanedTrends += 1
-            context.delete(trend)
-        }
-        Logger.main.info("Purged \(orphanedTrends) orphaned trends.")
     }
 
-    static func removeExpiredHistory(context: NSManagedObjectContext, profile: Profile) throws {
+    static func removeExpiredHistory(context: NSManagedObjectContext) throws {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
         fetchRequest.fetchOffset = 100000
-        fetchRequest.predicate = NSPredicate(format: "%K = %@", #keyPath(History.profile), profile)
 
         // Create a batch delete request for the fetch request
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
@@ -55,23 +46,21 @@ struct CleanupUtility {
             into: [context]
         )
 
-        Logger.main.info("""
-        Expired history removed for profile: \
-        \(profile.id?.uuidString ?? "NA", privacy: .public)
-        """)
+        Logger.main.info("Expired history removed.")
     }
 
-    static func trimSearches(context: NSManagedObjectContext, profile: Profile) {
-        guard profile.searchesArray.count > 20 else { return }
+    static func trimSearches(context: NSManagedObjectContext) {
+        guard let searches = try? context.fetch(Search.fetchRequest()) as [Search] else {
+            return
+        }
+        
+        guard searches.count > 20 else { return }
         var removedSearches = 0
-        profile.searchesArray.suffix(from: 20).forEach { search in
+        searches.suffix(from: 20).forEach { search in
             context.delete(search)
             removedSearches += 1
         }
-        Logger.main.info("""
-        Trimmed \(removedSearches) searches for profile: \
-        \(profile.id?.uuidString ?? "NA", privacy: .public)
-        """)
+        Logger.main.info("Trimmed \(removedSearches) searches.")
     }
     
     static func upgradeBookmarks(context: NSManagedObjectContext) {

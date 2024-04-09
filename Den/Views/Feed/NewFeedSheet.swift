@@ -15,8 +15,6 @@ struct NewFeedSheet: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 
-    @ObservedObject var profile: Profile
-
     @Binding var webAddress: String
     @Binding var initialPageID: String?
 
@@ -26,6 +24,12 @@ struct NewFeedSheet: View {
     @State private var loading: Bool = false
     
     @FocusState private var textFieldFocus: Bool
+    
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.userOrder, order: .forward),
+        SortDescriptor(\.name, order: .forward)
+    ])
+    private var pages: FetchedResults<Page>
 
     var body: some View {
         NavigationStack {
@@ -52,10 +56,7 @@ struct NewFeedSheet: View {
                         .font(.footnote)
                     }
 
-                    PagePicker(
-                        profile: profile,
-                        selection: $targetPage
-                    )
+                    PagePicker(selection: $targetPage)
                 } else {
                     Text("No Pages Available", comment: "New Feed error message.").font(.title2)
                 }
@@ -105,7 +106,6 @@ struct NewFeedSheet: View {
                 try viewContext.save()
                 Task {
                     await RefreshManager.refresh(feed: newFeed)
-                    newFeed.page?.profile?.objectWillChange.send()
                     dismiss()
                     webAddress = ""
                     loading = false
@@ -121,12 +121,12 @@ struct NewFeedSheet: View {
     }
 
     private func checkTargetPage() {
-        if let pageID = initialPageID, let destinationPage = profile.pagesArray.first(where: {
+        if let pageID = initialPageID, let destinationPage = pages.first(where: {
             $0.id?.uuidString == pageID
         }) {
             targetPage = destinationPage
         } else {
-            targetPage = profile.pagesArray.first
+            targetPage = pages.first
         }
     }
 

@@ -14,11 +14,17 @@ struct TagsMenu: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var item: Item
+    
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.userOrder, order: .forward),
+        SortDescriptor(\.name, order: .forward)
+    ])
+    private var tags: FetchedResults<Tag>
 
     var body: some View {
         Menu {
-            if let profile = item.profile, !profile.tagsArray.isEmpty {
-                ForEach(profile.tagsArray) { tag in
+            if !tags.isEmpty {
+                ForEach(tags) { tag in
                     if item.bookmarkTags.contains(tag) {
                         Button {
                             for bookmark in item.bookmarks where bookmark.tag == tag {
@@ -27,7 +33,6 @@ struct TagsMenu: View {
                             do {
                                 try viewContext.save()
                                 item.objectWillChange.send()
-                                profile.objectWillChange.send()
                             } catch {
                                 CrashUtility.handleCriticalError(error as NSError)
                             }
@@ -44,7 +49,6 @@ struct TagsMenu: View {
                             do {
                                 try viewContext.save()
                                 item.objectWillChange.send()
-                                profile.objectWillChange.send()
                             } catch {
                                 CrashUtility.handleCriticalError(error as NSError)
                             }

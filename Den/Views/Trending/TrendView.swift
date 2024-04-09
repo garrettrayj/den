@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct TrendView: View {
-    @ObservedObject var profile: Profile
     @ObservedObject var trend: Trend
 
     @Binding var hideRead: Bool
@@ -49,7 +48,6 @@ struct TrendView: View {
                 .toolbar {
                     TrendToolbar(
                         trend: trend,
-                        profile: profile,
                         hideRead: $hideRead,
                         items: trend.items
                     )

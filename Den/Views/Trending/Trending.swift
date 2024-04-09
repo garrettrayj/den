@@ -11,12 +11,10 @@
 import SwiftUI
 
 struct Trending: View {
-    @ObservedObject var profile: Profile
-
     @Binding var hideRead: Bool
 
     var body: some View {
-        WithTrends(profile: profile) { trends in
+        WithTrends { trends in
             if trends.isEmpty {
                 ContentUnavailable {
                     Label {
@@ -31,9 +29,9 @@ struct Trending: View {
                     )
                 }
             } else {
-                TrendingLayout(profile: profile, hideRead: $hideRead, trends: trends)
+                TrendingLayout(hideRead: $hideRead, trends: trends)
                     .toolbar {
-                        TrendingToolbar(profile: profile, hideRead: $hideRead, trends: trends)
+                        TrendingToolbar(hideRead: $hideRead, trends: trends)
                     }
             }
         }

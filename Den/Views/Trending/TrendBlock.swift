@@ -14,7 +14,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct TrendBlock: View {
-    @ObservedObject var profile: Profile // Profile observed for updates
     @ObservedObject var trend: Trend
     
     let items: [Item]

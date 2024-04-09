@@ -14,7 +14,6 @@ struct FeedToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
     @Binding var showingDeleteAlert: Bool
@@ -39,7 +38,6 @@ struct FeedToolbar: ToolbarContent {
         ToolbarTitleMenu {
             RenameButton()
             PagePicker(
-                profile: profile,
                 selection: $feed.page,
                 labelText: Text("Move", comment: "Picker label.")
             ).pickerStyle(.menu)
@@ -58,9 +56,7 @@ struct FeedToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
-                if let profile = feed.page?.profile {
-                    CommonStatus(profile: profile)
-                }
+                CommonStatus()
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {

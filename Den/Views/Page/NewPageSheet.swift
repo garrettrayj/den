@@ -14,13 +14,17 @@ struct NewPageSheet: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 
-    @ObservedObject var profile: Profile
-
     @State private var name: String = ""
     @State private var symbol: String = "folder"
     @State private var showingIconSelector: Bool = false
     
     @FocusState private var textFieldFocus: Bool
+    
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.userOrder, order: .forward),
+        SortDescriptor(\.name, order: .forward)
+    ])
+    private var pages: FetchedResults<Page>
 
     var body: some View {
         NavigationStack {
@@ -55,7 +59,7 @@ struct NewPageSheet: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        let page = Page.create(in: viewContext, profile: profile)
+                        let page = Page.create(in: viewContext, userOrder: pages.maxUserOrder + 1)
                         page.wrappedName = name
                         page.wrappedSymbol = symbol
                         dismiss()

@@ -12,19 +12,23 @@ import CoreData
 import OSLog
 
 final class RefreshManager {
-    static public func refresh(profile: Profile) async {
+    static public func refresh() async {
         await MainActor.run {
-            NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)
+            NotificationCenter.default.post(name: .refreshStarted, object: nil)
         }
 
         await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
+            let context = PersistenceController.shared.container.viewContext
+            guard let feeds = try? context.fetch(Feed.fetchRequest()) as [Feed] else {
+                return
+            }
+            
             let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
-            let feedUpdateTasks: [FeedUpdateTask] = profile.feedsArray.compactMap { feed in
+            let feedUpdateTasks: [FeedUpdateTask] = feeds.compactMap { feed in
                 guard let url = feed.url else { return nil }
                 return FeedUpdateTask(
                     feedObjectID: feed.objectID,
                     pageObjectID: feed.page?.objectID,
-                    profileObjectID: feed.page?.profile?.objectID,
                     url: url,
                     updateMeta: feed.needsMetaUpdate
                 )
@@ -44,15 +48,15 @@ final class RefreshManager {
         })
         
         await MainActor.run {
-            NotificationCenter.default.post(name: .refreshProgressed, object: profile.objectID)
+            NotificationCenter.default.post(name: .refreshProgressed, object: nil)
         }
     
-        await AnalyzeTask(profileObjectID: profile.objectID).execute()
+        await AnalyzeTask().execute()
 
-        RefreshedDateStorage.setRefreshed(profile.id?.uuidString, date: .now)
+        RefreshedDateStorage.setRefreshed(date: .now)
 
         await MainActor.run {
-            NotificationCenter.default.post(name: .refreshFinished, object: profile.objectID)
+            NotificationCenter.default.post(name: .refreshFinished, object: nil)
         }
     }
 
@@ -61,7 +65,6 @@ final class RefreshManager {
             let feedUpdateTask = FeedUpdateTask(
                 feedObjectID: feed.objectID,
                 pageObjectID: feed.page?.objectID,
-                profileObjectID: feed.page?.profile?.objectID,
                 url: url,
                 updateMeta: true
             )

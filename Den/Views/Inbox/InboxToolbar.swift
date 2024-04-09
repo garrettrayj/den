@@ -12,8 +12,6 @@ import SwiftUI
 
 struct InboxToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
-    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
 
@@ -35,7 +33,7 @@ struct InboxToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
-                CommonStatus(profile: profile)
+                CommonStatus()
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {

@@ -17,12 +17,9 @@ struct HistoryUtility {
         context: NSManagedObjectContext,
         item: Item
     ) {
-        guard 
-            item.read == false,
-            let profile = item.profile
-        else { return }
+        guard item.read == false else { return }
 
-        let history = History.create(in: context, profile: profile)
+        let history = History.create(in: context)
         history.link = item.link
         history.visited = .now
 
@@ -63,15 +60,12 @@ struct HistoryUtility {
     }
 
     static func logHistory(items: [Item]) async {
-        guard let profileObjectID = items.first?.profile?.objectID else { return }
         let itemObjectIDs = items.map { $0.objectID }
 
         await PersistenceController.shared.container.performBackgroundTask { context in
-            guard let profile = context.object(with: profileObjectID) as? Profile else { return }
-
             for itemObjectID in itemObjectIDs {
                 guard let item = context.object(with: itemObjectID) as? Item else { continue }
-                let history = History.create(in: context, profile: profile)
+                let history = History.create(in: context)
                 history.link = item.link
                 history.visited = .now
                 item.read = true

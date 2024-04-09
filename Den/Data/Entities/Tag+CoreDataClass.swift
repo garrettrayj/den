@@ -34,13 +34,20 @@ public class Tag: NSManagedObject {
 
     static func create(
         in managedObjectContext: NSManagedObjectContext,
-        profile: Profile
+        userOrder: Int16
     ) -> Tag {
         let tag = self.init(context: managedObjectContext)
         tag.id = UUID()
-        tag.profile = profile
-        tag.userOrder = Int16(profile.tagsUserOrderMax + 1)
+        tag.userOrder = userOrder
 
         return tag
+    }
+}
+
+extension Collection where Element == Tag {
+    var maxUserOrder: Int16 {
+        self.reduce(0) { partialResult, tag in
+            tag.userOrder > partialResult ? tag.userOrder : partialResult
+        }
     }
 }

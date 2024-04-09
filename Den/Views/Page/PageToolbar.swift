@@ -58,9 +58,7 @@ struct PageToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
-                if let profile = page.profile {
-                    CommonStatus(profile: profile)
-                }
+                CommonStatus()
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {

@@ -14,8 +14,6 @@ import UniformTypeIdentifiers
 struct Organizer: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var profile: Profile
-
     @State private var selection = Set<Feed>()
     
     #if os(macOS)
@@ -23,10 +21,16 @@ struct Organizer: View {
     #else
     @SceneStorage("ShowingOrganizerInspector") private var showingInspector = false
     #endif
+    
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.userOrder, order: .forward),
+        SortDescriptor(\.name, order: .forward)
+    ])
+    private var pages: FetchedResults<Page>
 
     var body: some View {
         Group {
-            if profile.feedsArray.isEmpty {
+            if pages.feeds.count == 0 {
                 ContentUnavailable {
                     Label {
                         Text("No Feeds", comment: "Content unavailable title.")
@@ -36,7 +40,7 @@ struct Organizer: View {
                 }
             } else {
                 List(selection: $selection) {
-                    ForEach(profile.pagesArray) { page in
+                    ForEach(pages) { page in
                         Section {
                             ForEach(page.feedsArray) { feed in
                                 OrganizerRow(feed: feed)
@@ -63,13 +67,13 @@ struct Organizer: View {
         }
         .navigationTitle(Text("Organizer", comment: "Navigation title."))
         .inspector(isPresented: $showingInspector) {
-            OrganizerInspector(profile: profile, selection: $selection)
+            OrganizerInspector(selection: $selection, pages: pages)
         }
         .toolbar {
             OrganizerToolbar(
-                profile: profile,
                 selection: $selection,
-                showingInspector: $showingInspector
+                showingInspector: $showingInspector, 
+                pages: pages
             )
         }
     }
@@ -90,7 +94,6 @@ struct Organizer: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
-                profile.objectWillChange.send()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }

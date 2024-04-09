@@ -13,9 +13,9 @@ import SwiftUI
 struct OrganizerOptionsPanel: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var profile: Profile
-
     @Binding var selection: Set<Feed>
+    
+    let pages: FetchedResults<Page>
 
     var body: some View {
         if sources.isEmpty {
@@ -69,7 +69,7 @@ struct OrganizerOptionsPanel: View {
 
                 Section {
                     Picker(sources: sources, selection: \.page) {
-                        ForEach(profile.pagesArray) { page in
+                        ForEach(pages) { page in
                             page.displayName.tag(page as Page?)
                         }
                     } label: {
@@ -88,8 +88,7 @@ struct OrganizerOptionsPanel: View {
                         }
                         do {
                             try viewContext.save()
-                            profile.pagesArray.forEach { $0.objectWillChange.send() }
-                            profile.objectWillChange.send()
+                            pages.forEach { $0.objectWillChange.send() }
                         } catch {
                             CrashUtility.handleCriticalError(error as NSError)
                         }
@@ -123,8 +122,7 @@ struct OrganizerOptionsPanel: View {
                 if viewContext.hasChanges {
                     do {
                         try viewContext.save()
-                        profile.pagesArray.forEach { $0.objectWillChange.send() }
-                        profile.objectWillChange.send()
+                        pages.forEach { $0.objectWillChange.send() }
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }

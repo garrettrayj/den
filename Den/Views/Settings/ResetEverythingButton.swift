@@ -46,7 +46,7 @@ struct ResetEverythingButton: View {
             },
             message: {
                 Text(
-                    "All profiles will be removed. Default settings will be restored.",
+                    "All pages/feeds will be removed. Default settings will be restored.",
                     comment: "Alert message."
                 )
             }
@@ -65,17 +65,22 @@ struct ResetEverythingButton: View {
 
         let container = PersistenceController.shared.container
         await container.performBackgroundTask { context in
-            guard 
-                let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile],
-                let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+            guard
+                let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist],
+                let pages = try? context.fetch(Page.fetchRequest()) as [Page],
+                let tags = try? context.fetch(Tag.fetchRequest()) as [Tag],
+                let trends = try? context.fetch(Trend.fetchRequest()) as [Trend]
             else {
                 return
             }
 
-            for profile in profiles {
-                profile.feedsArray.compactMap({ $0.feedData }).forEach { context.delete($0) }
-                context.delete(profile)
+            for page in pages {
+                page.feedsArray.compactMap({ $0.feedData }).forEach { context.delete($0) }
+                context.delete(page)
             }
+            
+            trends.forEach { context.delete($0) }
+            tags.forEach { context.delete($0) }
             
             for blocklist in blocklists {
                 if let status = blocklist.blocklistStatus {

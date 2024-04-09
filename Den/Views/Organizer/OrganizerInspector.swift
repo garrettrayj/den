@@ -11,11 +11,11 @@
 import SwiftUI
 
 struct OrganizerInspector: View {
-    @ObservedObject var profile: Profile
-
     @Binding var selection: Set<Feed>
 
     @State private var panel: String = "info"
+    
+    var pages: FetchedResults<Page>
 
     var body: some View {
         VStack {
@@ -61,7 +61,7 @@ struct OrganizerInspector: View {
                 }
             } else if panel == "config" {
                 if selection.count > 0 {
-                    OrganizerOptionsPanel(profile: profile, selection: $selection)
+                    OrganizerOptionsPanel(selection: $selection, pages: pages)
                 } else {
                     Spacer()
                     Text("No Selection", comment: "Inspector selection message.")

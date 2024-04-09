@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct TrendingNavLink: View {
-    @ObservedObject var profile: Profile
-
     var body: some View {
         Label {
             Text("Trending", comment: "Button label.").lineLimit(1)

@@ -78,7 +78,6 @@ struct TagNavDropDelegate: DropDelegate {
                         try context.save()
                         item.objectWillChange.send()
                         tag.objectWillChange.send()
-                        tag.profile?.objectWillChange.send()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }

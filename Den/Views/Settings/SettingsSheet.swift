@@ -12,9 +12,8 @@ import SwiftUI
 
 struct SettingsSheet: View {
     @Environment(\.dismiss) private var dismiss
-
-    @Binding var currentProfileID: String?
     
+    @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
@@ -22,10 +21,10 @@ struct SettingsSheet: View {
         NavigationStack {
             Form {
                 LookAndFeelSection(
+                    accentColor: $accentColor,
                     userColorScheme: $userColorScheme,
                     useSystemBrowser: $useSystemBrowser
                 )
-                ProfilesSection(currentProfileID: $currentProfileID)
                 BlocklistsSection()
                 ResetSection()
                 AboutSection()

@@ -13,15 +13,15 @@ import SwiftUI
 struct PagesSection: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var profile: Profile
-
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
     @Binding var showingNewFeedSheet: Bool
+    
+    let pages: FetchedResults<Page>
 
     var body: some View {
         Section {
-            ForEach(profile.pagesArray) { page in
+            ForEach(pages) { page in
                 SidebarPage(
                     page: page,
                     newFeedPageID: $newFeedPageID,
@@ -36,7 +36,7 @@ struct PagesSection: View {
     }
 
     private func movePages(from source: IndexSet, to destination: Int) {
-        var revisedItems = profile.pagesArray
+        var revisedItems = Array(pages)
 
         // Change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)
@@ -49,7 +49,6 @@ struct PagesSection: View {
 
         do {
             try viewContext.save()
-            profile.objectWillChange.send()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

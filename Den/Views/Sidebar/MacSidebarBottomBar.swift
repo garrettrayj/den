@@ -15,41 +15,36 @@ struct MacSidebarBottomBar: View {
     
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     
-    @ObservedObject var profile: Profile
-    
-    @Binding var currentProfileID: String?
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
+    
+    let pages: FetchedResults<Page>
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                ProfilePickerMenu(
-                    profile: profile,
-                    currentProfileID: $currentProfileID
-                )
-                .disabled(refreshing)
-
                 SidebarStatus(
-                    profile: profile,
                     refreshing: $refreshing,
-                    refreshProgress: $refreshProgress
+                    refreshProgress: $refreshProgress,
+                    pages: pages
                 )
             }
+            
+            Spacer()
 
             if refreshing {
                 ProgressView(refreshProgress)
                     .progressViewStyle(.circular)
                     .labelsHidden()
                     .scaleEffect(1 / displayScale)
-                    .frame(width: 18)
+                    .frame(width: 20, height: 20)
             } else {
-                RefreshButton(profile: profile)
+                RefreshButton()
                     .labelStyle(.iconOnly)
                     .imageScale(.large)
                     .fontWeight(.medium)
                     .buttonStyle(.borderless)
-                    .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
+                    .disabled(refreshing || !networkMonitor.isConnected || pages.isEmpty)
             }
         }
         .padding(12)

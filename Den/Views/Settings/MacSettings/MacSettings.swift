@@ -12,9 +12,10 @@ import SwiftUI
 
 struct MacSettings: View {
     private enum Tabs: Hashable {
-        case general, profiles, blocklists
+        case general, blocklists
     }
     
+    @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
@@ -22,6 +23,7 @@ struct MacSettings: View {
         TabView {
             Form {
                 LookAndFeelSection(
+                    accentColor: $accentColor,
                     userColorScheme: $userColorScheme,
                     useSystemBrowser: $useSystemBrowser
                 )
@@ -35,16 +37,6 @@ struct MacSettings: View {
                 }
             }
             .tag(Tabs.general)
-            
-            ProfilesTab()
-                .tabItem {
-                    Label {
-                        Text("Profiles", comment: "Settings tab label.")
-                    } icon: {
-                        Image(systemName: "person")
-                    }
-                }
-                .tag(Tabs.profiles)
 
             BlocklistsTab()
                 .tabItem {
@@ -61,5 +53,6 @@ struct MacSettings: View {
         .buttonStyle(.borderless)
         .frame(width: 600, height: 364)
         .preferredColorScheme(userColorScheme.colorScheme)
+        .tint(accentColor?.color)
     }
 }

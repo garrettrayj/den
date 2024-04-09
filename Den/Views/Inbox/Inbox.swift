@@ -11,14 +11,15 @@
 import SwiftUI
 
 struct Inbox: View {
-    @ObservedObject var profile: Profile
-    
     @Binding var hideRead: Bool
+    
+    @FetchRequest(sortDescriptors: [])
+    private var feeds: FetchedResults<Feed>
 
     var body: some View {
-        WithItems(scopeObject: profile) { items in
+        WithItems { items in
             Group {
-                if profile.feedsArray.isEmpty {
+                if feeds.isEmpty {
                     NoFeeds(symbol: "tray")
                 } else if items.isEmpty {
                     ContentUnavailable {
@@ -41,7 +42,6 @@ struct Inbox: View {
             }
             .toolbar {
                 InboxToolbar(
-                    profile: profile,
                     hideRead: $hideRead,
                     items: items
                 )

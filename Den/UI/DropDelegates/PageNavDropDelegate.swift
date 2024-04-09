@@ -63,7 +63,6 @@ struct PageNavDropDelegate: DropDelegate {
                     do {
                         try context.save()
                         page.objectWillChange.send()
-                        page.profile?.objectWillChange.send()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }

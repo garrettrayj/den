@@ -22,7 +22,7 @@ struct WithBookmarks<Content: View>: View {
     }
 
     init(
-        scopeObject: NSManagedObject,
+        scopeObject: NSManagedObject? = nil,
         sortDescriptors: [NSSortDescriptor] = [
             NSSortDescriptor(keyPath: \Bookmark.created, ascending: false)
         ],
@@ -34,12 +34,7 @@ struct WithBookmarks<Content: View>: View {
 
         var predicates: [NSPredicate] = []
 
-        if let profile = scopeObject as? Profile {
-            predicates.append(NSPredicate(
-                format: "profile = %@",
-                profile
-            ))
-        } else if let tag = scopeObject as? Tag {
+        if let tag = scopeObject as? Tag {
             predicates.append(NSPredicate(format: "tag = %@", tag))
         }
 

@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct DetailView: View {
-    @ObservedObject var profile: Profile
-
     @Binding var detailPanel: DetailPanel?
     @Binding var hideRead: Bool
     @Binding var path: NavigationPath
@@ -23,22 +21,21 @@ struct DetailView: View {
             Group {
                 switch detailPanel ?? .welcome {
                 case .feed(let feed):
-                    FeedView(feed: feed, profile: profile, hideRead: $hideRead).id(feed)
+                    FeedView(feed: feed, hideRead: $hideRead).id(feed)
                 case .inbox:
-                    Inbox(profile: profile, hideRead: $hideRead).id(profile)
+                    Inbox(hideRead: $hideRead)
                 case .organizer:
-                    Organizer(profile: profile).id(profile)
+                    Organizer()
                 case .page(let page):
                     PageView(page: page, hideRead: $hideRead).id(page)
                 case .search:
-                    SearchView(profile: profile, hideRead: $hideRead, searchQuery: $searchQuery)
-                        .id(profile)
+                    SearchView(hideRead: $hideRead, searchQuery: $searchQuery)
                 case .tag(let tag):
                     TagView(tag: tag).id(tag)
                 case .trending:
-                    Trending(profile: profile, hideRead: $hideRead).id(profile)
+                    Trending(hideRead: $hideRead)
                 case .welcome:
-                    Welcome(profile: profile).id(profile)
+                    Welcome()
                 }
             }
             .navigationDestination(for: SubDetailPanel.self) { panel in
@@ -46,11 +43,11 @@ struct DetailView: View {
                 case .bookmark(let bookmark):
                     BookmarkView(bookmark: bookmark).id(bookmark)
                 case .feed(let feed):
-                    FeedView(feed: feed, profile: profile, hideRead: $hideRead).id(feed)
+                    FeedView(feed: feed, hideRead: $hideRead).id(feed)
                 case .item(let item):
                     ItemView(item: item).id(item)
                 case .trend(let trend):
-                    TrendView(profile: profile, trend: trend, hideRead: $hideRead).id(trend)
+                    TrendView(trend: trend, hideRead: $hideRead).id(trend)
                 }
             }
         }

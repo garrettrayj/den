@@ -11,20 +11,21 @@
 import SwiftUI
 
 struct Welcome: View {
-    @ObservedObject var profile: Profile
-
+    @FetchRequest(sortDescriptors: [])
+    private var feeds: FetchedResults<Feed>
+    
     var body: some View {
         ContentUnavailable {
             Label {
-                profile.nameText
+                Text("Welcome", comment: "Welcome title.")
             } icon: {
-                Image(systemName: "person")
+                Image(systemName: "house")
             }
         } description: {
-            if profile.feedCount == 1 {
+            if feeds.count == 1 {
                 Text("1 Feed", comment: "Feed count (singular).")
             } else {
-                Text("\(profile.feedCount) Feeds", comment: "Feed count (zero/plural).")
+                Text("\(feeds.count) Feeds", comment: "Feed count (zero/plural).")
             }
         }
     }

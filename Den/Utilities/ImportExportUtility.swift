@@ -11,11 +11,11 @@
 import CoreData
 
 struct ImportExportUtility {
-    static func importOPML(url: URL, context: NSManagedObjectContext, profile: Profile) {
+    static func importOPML(url: URL, context: NSManagedObjectContext, pageUserOrderMax: Int16) {
         let opmlFolders = OPMLReader(xmlURL: url).outlineFolders
 
-        opmlFolders.forEach { opmlFolder in
-            let page = Page.create(in: context, profile: profile)
+        opmlFolders.enumerated().forEach { idx, opmlFolder in
+            let page = Page.create(in: context, userOrder: pageUserOrderMax + Int16(idx))
             page.name = opmlFolder.name
             page.symbol = opmlFolder.icon
 
@@ -57,8 +57,11 @@ struct ImportExportUtility {
         }
     }
 
-    static func exportOPML(profile: Profile) -> OPMLFile? {
-        if let data = OPMLGenerator(title: profile.exportTitle, pages: profile.pagesArray).getData() {
+    static func exportOPML() -> OPMLFile? {
+        let context = PersistenceController.shared.container.viewContext
+        guard let pages = try? context.fetch(Page.fetchRequest()) as [Page] else { return nil }
+        
+        if let data = OPMLGenerator(title: "Den Export", pages: pages).getData() {
             return OPMLFile(initialData: data)
         }
 

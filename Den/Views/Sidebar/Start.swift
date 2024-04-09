@@ -14,8 +14,6 @@ import SwiftUI
 struct Start: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var profile: Profile
-
     @Binding var showingImporter: Bool
     @Binding var showingNewPageSheet: Bool
 
@@ -46,8 +44,8 @@ struct Start: View {
 
         ImportExportUtility.importOPML(
             url: URL(fileURLWithPath: demoPath),
-            context: viewContext,
-            profile: profile
+            context: viewContext, 
+            pageUserOrderMax: 0
         )
     }
 }

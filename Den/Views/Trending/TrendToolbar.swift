@@ -15,7 +15,6 @@ struct TrendToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @ObservedObject var trend: Trend
-    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
 
@@ -29,7 +28,6 @@ struct TrendToolbar: ToolbarContent {
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
-                profile.objectWillChange.send()
                 if hideRead { dismiss() }
             }
         }
@@ -39,12 +37,11 @@ struct TrendToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
-                CommonStatus(profile: profile)
+                CommonStatus()
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
-                    profile.objectWillChange.send()
                     if hideRead { dismiss() }
                 }
             }
@@ -55,7 +52,6 @@ struct TrendToolbar: ToolbarContent {
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread().isEmpty) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
-                    profile.objectWillChange.send()
                     if hideRead { dismiss() }
                 }
             }

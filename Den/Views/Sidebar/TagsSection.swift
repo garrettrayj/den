@@ -13,11 +13,11 @@ import SwiftUI
 struct TagsSection: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var profile: Profile
-
+    let tags: FetchedResults<Tag>
+    
     var body: some View {
         Section {
-            ForEach(profile.tagsArray) { tag in
+            ForEach(tags) { tag in
                 SidebarTag(tag: tag)
             }
             .onMove(perform: moveTags)
@@ -27,7 +27,7 @@ struct TagsSection: View {
     }
 
     private func moveTags(from source: IndexSet, to destination: Int) {
-        var revisedItems = profile.tagsArray
+        var revisedItems = Array(tags)
 
         // Change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)
@@ -40,7 +40,6 @@ struct TagsSection: View {
 
         do {
             try viewContext.save()
-            profile.objectWillChange.send()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

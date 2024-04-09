@@ -43,10 +43,9 @@ public class Trend: NSManagedObject {
         Set(items.compactMap { $0.feedData?.feed }).sorted { $0.wrappedTitle < $1.wrappedTitle }
     }
 
-    static func create(in managedObjectContext: NSManagedObjectContext, profile: Profile) -> Trend {
+    static func create(in managedObjectContext: NSManagedObjectContext) -> Trend {
         let trend = self.init(context: managedObjectContext)
         trend.id = UUID()
-        trend.profileId = profile.id
 
         return trend
     }
