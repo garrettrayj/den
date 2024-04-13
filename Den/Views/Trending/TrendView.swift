@@ -35,7 +35,7 @@ struct TrendView: View {
                                 Image(systemName: "questionmark.folder")
                             }
                         }
-                    } else if trend.items.unread().isEmpty && hideRead {
+                    } else if trend.read && hideRead {
                         AllRead(largeDisplay: true)
                     } else {
                         TrendLayout(

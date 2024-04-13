@@ -49,7 +49,7 @@ struct TrendBlock: View {
                             }
                         }
                     }
-                    .opacity(!items.unread().isEmpty ? 1.0 : 0.5)
+                    .opacity(!trend.read ? 1.0 : 0.5)
                 }
 
                 HStack {
@@ -64,7 +64,7 @@ struct TrendBlock: View {
                 .font(.footnote)
                 .foregroundStyle(.secondary)
             }
-            .foregroundStyle(items.unread().isEmpty ? .secondary : .primary)
+            .foregroundStyle(trend.read ? .secondary : .primary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
         }

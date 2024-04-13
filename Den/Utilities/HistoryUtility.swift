@@ -24,6 +24,7 @@ struct HistoryUtility {
         history.visited = .now
 
         item.read = true
+        item.trends.forEach { $0.updateReadStatus() }
 
         do {
             try context.save()
@@ -43,6 +44,7 @@ struct HistoryUtility {
         }
 
         item.read = false
+        item.trends.forEach { $0.updateReadStatus() }
 
         do {
             try context.save()
@@ -68,7 +70,9 @@ struct HistoryUtility {
                 let history = History.create(in: context)
                 history.link = item.link
                 history.visited = .now
+                
                 item.read = true
+                item.trends.forEach { $0.updateReadStatus() }
             }
 
             do {
@@ -86,7 +90,10 @@ struct HistoryUtility {
         await container.performBackgroundTask { context in
             for itemObjectID in itemObjectIDs {
                 guard let item = context.object(with: itemObjectID) as? Item else { continue }
+
                 item.read = false
+                item.trends.forEach { $0.updateReadStatus() }
+                
                 for history in item.history {
                     context.delete(history)
                 }

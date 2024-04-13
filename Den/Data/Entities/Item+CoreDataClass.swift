@@ -69,6 +69,10 @@ public class Item: NSManagedObject {
         get { trendItems?.allObjects as? [TrendItem] ?? [] }
         set { trendItems = NSSet(array: newValue) }
     }
+    
+    public var trends: [Trend] {
+        trendItemsArray.compactMap { $0.trend }
+    }
 
     static func create(moc managedObjectContext: NSManagedObjectContext, feedData: FeedData) -> Item {
         let item = Item.init(context: managedObjectContext)

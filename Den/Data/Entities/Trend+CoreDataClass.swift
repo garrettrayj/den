@@ -31,16 +31,16 @@ public class Trend: NSManagedObject {
             .sorted(using: SortDescriptor(\.published, order: .reverse))
     }
 
-    public var hasUnread: Bool {
-        items.unread().count > 0
-    }
-
     public var profile: Profile? {
         (value(forKey: "profile") as? [Profile])?.first
     }
 
     public var feeds: [Feed] {
         Set(items.compactMap { $0.feedData?.feed }).sorted { $0.wrappedTitle < $1.wrappedTitle }
+    }
+    
+    public func updateReadStatus() {
+        read = items.unread().isEmpty
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext) -> Trend {
@@ -53,6 +53,6 @@ public class Trend: NSManagedObject {
 
 extension Collection where Element == Trend {
     func containingUnread() -> [Trend] {
-        self.filter { $0.hasUnread }
+        self.filter { !$0.read }
     }
 }
