@@ -28,6 +28,7 @@ struct SidebarToolbar: ToolbarContent {
     var body: some ToolbarContent {
         ToolbarItem(placement: .primaryAction) {
             Menu {
+                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
                 NewPageButton(showingNewPageSheet: $showingNewPageSheet)
                 NewTagButton(showingNewTagSheet: $showingNewTagSheet)
                 Divider()
@@ -50,10 +51,6 @@ struct SidebarToolbar: ToolbarContent {
             .accessibilityIdentifier("SidebarMenu")
         }
         #if os(iOS)
-        ToolbarItem(placement: .bottomBar) {
-            NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                .disabled(refreshing || !networkMonitor.isConnected || pages.isEmpty)
-        }
         ToolbarItem(placement: .status) {
             SidebarStatus(
                 refreshing: $refreshing,
