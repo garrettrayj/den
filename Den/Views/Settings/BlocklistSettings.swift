@@ -78,7 +78,6 @@ struct BlocklistSettings: View {
                                 blocklist: blocklist,
                                 context: viewContext
                             )
-                            blocklist.objectWillChange.send()
                             isRefreshing = false
                         }
                     } label: {

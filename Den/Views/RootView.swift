@@ -150,10 +150,6 @@ struct RootView: View {
         ) { _ in
             refreshing = false
             refreshProgress.completedUnitCount = 0
-            pages.forEach { page in
-                page.objectWillChange.send()
-                page.feedsArray.forEach { $0.objectWillChange.send() }
-            }
         }
         .sensoryFeedback(trigger: refreshing) { _, newValue in
             if newValue == true {
