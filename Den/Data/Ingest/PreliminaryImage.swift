@@ -10,7 +10,7 @@
 
 import Foundation
 
-public struct PreliminaryImage {
+struct PreliminaryImage {
     var url: URL
     var width: Int?
     var height: Int?

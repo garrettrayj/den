@@ -109,7 +109,7 @@ extension SubDetailPanel: Encodable {
 }
 
 extension SubDetailPanel: RawRepresentable {
-    public init?(rawValue: String) {
+    init?(rawValue: String) {
         guard
             let data = rawValue.data(using: .utf8),
             let result = try? JSONDecoder().decode(SubDetailPanel.self, from: data)

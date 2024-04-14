@@ -12,7 +12,7 @@ import CoreData
 import OSLog
 
 final class RefreshManager {
-    static public func refresh() async {
+    static func refresh() async {
         await MainActor.run {
             NotificationCenter.default.post(name: .refreshStarted, object: nil)
         }

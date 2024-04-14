@@ -11,7 +11,7 @@
 import SwiftUI
 
 extension Color {
-    public func hexString(environment: EnvironmentValues) -> String {
+    func hexString(environment: EnvironmentValues) -> String {
         let resolvedColor = self.resolve(in: environment)
 
         return String(

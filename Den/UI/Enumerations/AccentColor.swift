@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-public enum AccentColor: String, CaseIterable {
+enum AccentColor: String, CaseIterable {
     case red
     case orange
     case yellow

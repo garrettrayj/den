@@ -10,7 +10,7 @@
 
 import Foundation
 
-public enum PreviewStyle: Int {
+enum PreviewStyle: Int {
     case compressed = 0
     case expanded   = 1
 

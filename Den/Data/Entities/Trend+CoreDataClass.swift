@@ -39,7 +39,7 @@ public class Trend: NSManagedObject {
         Set(items.compactMap { $0.feedData?.feed }).sorted { $0.wrappedTitle < $1.wrappedTitle }
     }
     
-    public func updateReadStatus() {
+    func updateReadStatus() {
         read = items.unread.isEmpty
     }
 
