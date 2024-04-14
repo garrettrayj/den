@@ -85,7 +85,7 @@ struct WebpageScraper {
         return url.absoluteURL
     }
 
-    private static func getDefaultFavicon(url webpage: URL) -> URL? {
+    static private func getDefaultFavicon(url webpage: URL) -> URL? {
         var components = URLComponents(url: webpage, resolvingAgainstBaseURL: false)!
         components.path = "/favicon.ico"
 
