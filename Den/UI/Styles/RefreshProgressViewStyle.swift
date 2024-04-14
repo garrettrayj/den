@@ -30,14 +30,16 @@ struct RefreshProgressViewStyle: ProgressViewStyle {
                 }
 
                 #if os(iOS)
-                ZStack(alignment: .leading) {
-                    Capsule().fill(.quaternary)
-                    Capsule()
-                        .fill(.tint)
-                        .frame(width: fractionCompleted * 120)
+                GeometryReader { geometry in
+                    ZStack(alignment: .leading) {
+                        Capsule().fill(.quaternary)
+                        Capsule()
+                            .fill(.tint)
+                            .frame(width: fractionCompleted * geometry.size.width)
+                    }
                 }
                 .frame(height: 6)
-                .frame(width: 120)
+                .frame(maxWidth: 140)
                 #endif
             }
         }

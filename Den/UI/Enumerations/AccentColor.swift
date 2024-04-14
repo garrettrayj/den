@@ -11,18 +11,18 @@
 import SwiftUI
 
 public enum AccentColor: String, CaseIterable {
-    case red    = "Red"
-    case orange = "Orange"
-    case yellow = "Yellow"
-    case green  = "Green"
-    case mint   = "Mint"
-    case teal   = "Teal"
-    case cyan   = "Cyan"
-    case blue   = "Blue"
-    case indigo = "Indigo"
-    case purple = "Purple"
-    case pink   = "Pink"
-    case brown  = "Brown"
+    case red
+    case orange
+    case yellow
+    case green
+    case mint
+    case teal
+    case cyan
+    case blue
+    case indigo
+    case purple
+    case pink
+    case brown
 
     var color: Color {
         switch self {
@@ -50,6 +50,35 @@ public enum AccentColor: String, CaseIterable {
             return .pink
         case .brown:
             return .brown
+        }
+    }
+    
+    var labelText: Text {
+        switch self {
+        case .red:
+            Text("Red", comment: "Accent color name.")
+        case .orange:
+            Text("Orange", comment: "Accent color name.")
+        case .yellow:
+            Text("Yellow", comment: "Accent color name.")
+        case .green:
+            Text("Green", comment: "Accent color name.")
+        case .mint:
+            Text("Mint", comment: "Accent color name.")
+        case .teal:
+            Text("Teal", comment: "Accent color name.")
+        case .cyan:
+            Text("Cyan", comment: "Accent color name.")
+        case .blue:
+            Text("Blue", comment: "Accent color name.")
+        case .indigo:
+            Text("Indigo", comment: "Accent color name.")
+        case .purple:
+            Text("Purple", comment: "Accent color name.")
+        case .pink:
+            Text("Pink", comment: "Accent color name.")
+        case .brown:
+            Text("Brown", comment: "Accent color name.")
         }
     }
 }

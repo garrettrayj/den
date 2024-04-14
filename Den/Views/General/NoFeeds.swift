@@ -25,7 +25,8 @@ struct NoFeeds: View {
             Text(
                 """
                 Open a feed link, drag a URL onto the page list, \
-                or go to “File > New Feed” to enter a web address. \
+                or go to “\(Image(systemName: "ellipsis.circle" )) > New Feed” \
+                to enter a web address. \
                 \nUse the Safari extension to discover feeds on websites.
                 """,
                 comment: "No feeds guidance (Mac)."
@@ -36,7 +37,7 @@ struct NoFeeds: View {
                 Text(
                     """
                     Open a feed link or go to “\(Image(systemName: "ellipsis.circle" )) > New Feed” \
-                    from the home/sidebar view to enter a web address. \
+                    to enter a web address. \
                     Use the Safari extension to discover feeds on websites.
                     """,
                     comment: "No feeds guidance (iPhone)."
@@ -47,7 +48,7 @@ struct NoFeeds: View {
                     """
                     Open a feed link, drag a URL onto the page list, \
                     or go to “\(Image(systemName: "ellipsis.circle" )) > New Feed” \
-                    from the home/sidebar view to enter a web address. \
+                    to enter a web address. \
                     Use the Safari extension to discover feeds on websites.
                     """,
                     comment: "No feeds guidance (iPad)."

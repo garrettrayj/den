@@ -51,7 +51,7 @@ struct MacSettings: View {
         .listStyle(.sidebar)
         .formStyle(.grouped)
         .buttonStyle(.borderless)
-        .frame(width: 600, height: 364)
+        .frame(width: 600, height: 380)
         .preferredColorScheme(userColorScheme.colorScheme)
         .tint(accentColor?.color)
     }

@@ -13,11 +13,14 @@ import SwiftUI
 struct AccentColorSelector: View {
     @Binding var selection: AccentColor?
     
-    let gridItem = GridItem(.adaptive(minimum: 20), spacing: 4, alignment: .center)
-
     var body: some View {
+        #if os(macOS)
         LabeledContent {
-            LazyVGrid(columns: [gridItem], alignment: .center, spacing: 4) {
+            LazyVGrid(
+                columns: [GridItem(.adaptive(minimum: 20), spacing: 4, alignment: .center)],
+                alignment: .center,
+                spacing: 4
+            ) {
                 Button {
                     selection = nil
                 } label: {
@@ -45,7 +48,7 @@ struct AccentColorSelector: View {
                     }
                 }
             }
-            .frame(alignment: .trailing)
+            .frame(maxWidth: 200, alignment: .trailing)
             .imageScale(.large)
         } label: {
             Label {
@@ -55,5 +58,31 @@ struct AccentColorSelector: View {
             }
         }
         .buttonStyle(.plain)
+        #else
+        Picker(selection: $selection) {
+            Label {
+                Text("Default", comment: "Accent color option.")
+            } icon: {
+                Image(systemName: "square").foregroundStyle(.gray).imageScale(.large)
+            }
+            .tag(nil as AccentColor?)
+            
+            ForEach(AccentColor.allCases, id: \.self) { option in
+                Label {
+                    option.labelText
+                } icon: {
+                    Image(systemName: "square.fill").foregroundStyle(option.color).imageScale(.large)
+                }
+                .tag(option as AccentColor?)
+            }
+        } label: {
+            Label {
+                Text("Accent Color", comment: "Picker label.")
+            } icon: {
+                Image(systemName: "paintbrush")
+            }
+        }
+        .pickerStyle(.navigationLink)
+        #endif
     }
 }
