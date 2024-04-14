@@ -73,6 +73,7 @@ final class RefreshManager {
         
         DispatchQueue.main.async {
             feed.objectWillChange.send()
+            feed.page?.objectWillChange.send()
         }
     }
 }
