@@ -74,7 +74,7 @@ class FeedUpdateTask {
             feedData.eTag = feedResponse.eTag
             
             guard (200...299).contains(feedData.httpStatus) else {
-                feedData.error = RefreshError.request.rawValue
+                feedData.wrappedError = .request
                 feedData.itemsArray.forEach { context.delete($0) }
                 self.save(context: context, feed: feed)
                 return
@@ -192,7 +192,7 @@ class FeedUpdateTask {
             }
         case .failure:
             feedData.itemsArray.forEach { context.delete($0) }
-            feedData.error = RefreshError.parsing.rawValue
+            feedData.wrappedError = .parsing
         }
     }
 

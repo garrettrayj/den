@@ -12,7 +12,7 @@ import CoreData
 import SwiftUI
 
 @objc(Profile)
-public class Profile: NSManagedObject {
+final public class Profile: NSManagedObject {
     var wrappedName: String {
         get { name ?? "" }
         set { name = newValue }

@@ -12,7 +12,7 @@ import CoreData
 import SwiftUI
 
 @objc(Tag)
-public class Tag: NSManagedObject {
+final public class Tag: NSManagedObject {
     var displayName: Text {
         if wrappedName == "" {
             return Text("Untitled", comment: "Default tag name.")

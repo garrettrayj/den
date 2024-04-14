@@ -12,7 +12,7 @@ import CoreData
 import SwiftUI
 
 @objc(Bookmark)
-public class Bookmark: NSManagedObject {
+final public class Bookmark: NSManagedObject {
     var titleText: Text {
         if wrappedTitle == "" {
             return Text("Untitled", comment: "Default page name.")

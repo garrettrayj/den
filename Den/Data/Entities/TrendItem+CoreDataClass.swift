@@ -11,7 +11,7 @@
 import CoreData
 
 @objc(TrendItem)
-public class TrendItem: NSManagedObject {
+final public class TrendItem: NSManagedObject {
     static func create(
         in managedObjectContext: NSManagedObjectContext,
         trend: Trend,

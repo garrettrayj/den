@@ -13,7 +13,7 @@ import NaturalLanguage
 import SwiftUI
 
 @objc(Item)
-public class Item: NSManagedObject {
+final public class Item: NSManagedObject {
     var titleText: Text {
         if let title = title, title != "" {
             return Text(title)

@@ -11,7 +11,7 @@
 import SwiftUI
 import WebKit
 
-class BrowserViewModel: NSObject, ObservableObject {
+final class BrowserViewModel: NSObject, ObservableObject {
     weak var browserWebView: WKWebView? {
         didSet {
             Task {

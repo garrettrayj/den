@@ -12,7 +12,7 @@ import CoreData
 import SwiftUI
 
 @objc(Page)
-public class Page: NSManagedObject {
+final public class Page: NSManagedObject {
     var displayName: Text {
         if wrappedName == "" {
             return Text("Untitled", comment: "Default page name.")

@@ -12,7 +12,7 @@ import CoreData
 import SwiftUI
 
 @objc(Blocklist)
-public class Blocklist: NSManagedObject {
+final public class Blocklist: NSManagedObject {
     var nameText: Text {
         if wrappedName == "" {
             return Text("Untitled", comment: "Default content filter name.")

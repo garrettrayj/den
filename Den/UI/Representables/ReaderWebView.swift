@@ -42,7 +42,7 @@ struct ReaderWebView {
     }
 }
 
-class ReaderWebViewCoordinator: NSObject {
+final class ReaderWebViewCoordinator: NSObject {
     let browserViewModel: BrowserViewModel
     let openURL: OpenURLAction
     let downloadManager: DownloadManager

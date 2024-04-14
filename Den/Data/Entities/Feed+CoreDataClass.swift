@@ -12,7 +12,7 @@ import CoreData
 import SwiftUI
 
 @objc(Feed)
-public class Feed: NSManagedObject {
+final public class Feed: NSManagedObject {
     static let totalItemLimit = 60
     
     var displayTitle: Text {

@@ -12,7 +12,7 @@ import Foundation
 import OSLog
 import WebKit
 
-class BrowserDownload: Hashable, Identifiable, ObservableObject {
+final class BrowserDownload: Hashable, Identifiable, ObservableObject {
     @Published var wkDownload: WKDownload
     @Published var fileURL: URL
     @Published var isFinished = false

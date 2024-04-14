@@ -12,7 +12,7 @@ import CoreData
 import SwiftUI
 
 @objc(BlocklistStatus)
-public class BlocklistStatus: NSManagedObject {
+final public class BlocklistStatus: NSManagedObject {
     static func create(
         in managedObjectContext: NSManagedObjectContext,
         blocklist: Blocklist

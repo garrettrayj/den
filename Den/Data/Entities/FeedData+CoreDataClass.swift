@@ -13,16 +13,21 @@ import FeedKit
 import OSLog
 import SwiftUI
 
-public enum RefreshError: String {
-    case request
-    case parsing
-}
-
 @objc(FeedData)
-public class FeedData: NSManagedObject {
+final public class FeedData: NSManagedObject {
+    enum RefreshError: String {
+        case request
+        case parsing
+    }
+    
     var wrappedError: RefreshError? {
-        guard let error = error else { return nil }
-        return RefreshError(rawValue: error)
+        get {
+            guard let error = error else { return nil }
+            return RefreshError(rawValue: error)
+        }
+        set {
+            error = newValue?.rawValue
+        }
     }
 
     var feed: Feed? {

@@ -81,7 +81,7 @@ struct BrowserWebView {
     }
 }
 
-class BrowserWebViewCoordinator: NSObject {
+final class BrowserWebViewCoordinator: NSObject {
     let browserViewModel: BrowserViewModel
     let openURL: OpenURLAction
     let downloadManager: DownloadManager

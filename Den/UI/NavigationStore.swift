@@ -10,7 +10,8 @@
 
 import SwiftUI
 
-@MainActor final class NavigationStore: ObservableObject {
+@MainActor 
+final class NavigationStore: ObservableObject {
     @Published var path = NavigationPath()
 
     private let decoder = JSONDecoder()

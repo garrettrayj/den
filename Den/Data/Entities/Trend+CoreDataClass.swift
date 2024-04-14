@@ -12,7 +12,7 @@ import CoreData
 import SwiftUI
 
 @objc(Trend)
-public class Trend: NSManagedObject {
+final public class Trend: NSManagedObject {
     var titleText: Text {
         if let title = title {
             return Text(title)

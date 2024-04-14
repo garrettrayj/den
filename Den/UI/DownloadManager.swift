@@ -12,7 +12,7 @@ import Foundation
 import WebKit
 import OSLog
 
-class DownloadManager: NSObject, ObservableObject {
+final class DownloadManager: NSObject, ObservableObject {
     @Published var browserDownloads: [BrowserDownload] = []
     
     func addDownload(wkDownload: WKDownload, fileURL: URL) {

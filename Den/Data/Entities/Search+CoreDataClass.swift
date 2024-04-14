@@ -11,7 +11,7 @@
 import CoreData
 
 @objc(Search)
-public class Search: NSManagedObject {
+final public class Search: NSManagedObject {
     var wrappedQuery: String {
         query ?? ""
     }
