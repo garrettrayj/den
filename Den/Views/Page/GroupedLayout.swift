@@ -37,7 +37,7 @@ struct GroupedLayout: View {
                                 FeedItemGroup(
                                     feed: feed,
                                     hideRead: hideRead,
-                                    items: items.forFeed(feed: feed)
+                                    items: items.forFeed(feed)
                                 )
                             }
                         }

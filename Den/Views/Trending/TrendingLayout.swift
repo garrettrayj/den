@@ -16,7 +16,7 @@ struct TrendingLayout: View {
     let trends: FetchedResults<Trend>
     
     var body: some View {
-        if trends.containingUnread().isEmpty && hideRead {
+        if trends.containingUnread.isEmpty && hideRead {
             AllRead(largeDisplay: true)
         } else {
             GeometryReader { geometry in
@@ -34,7 +34,7 @@ struct TrendingLayout: View {
     }
     
     private var visibleTrends: [Trend] {
-        let visibleTrends = hideRead ? trends.containingUnread() : Array(trends)
+        let visibleTrends = hideRead ? trends.containingUnread : Array(trends)
 
         return visibleTrends.sorted {
             ($0.feeds.count, $0.items.count) > ($1.feeds.count, $1.items.count)

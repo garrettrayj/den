@@ -123,7 +123,7 @@ public class Item: NSManagedObject {
 }
 
 extension Collection where Element == Item {
-    func forFeed(feed: Feed) -> [Item] {
+    func forFeed(_ feed: Feed) -> [Item] {
         self.filter { $0.feedData?.id == feed.feedData?.id }
     }
 

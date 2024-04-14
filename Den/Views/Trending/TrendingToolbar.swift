@@ -17,10 +17,6 @@ struct TrendingToolbar: ToolbarContent {
     
     let trends: FetchedResults<Trend>
 
-    private var unreadCount: Int {
-        trends.containingUnread().count
-    }
-
     private var itemsFromTrends: [Item] {
         return trends.flatMap { $0.items }.uniqueElements()
     }
@@ -31,7 +27,7 @@ struct TrendingToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
-            MarkAllReadUnreadButton(allRead: unreadCount == 0) {
+            MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
                 await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
             }
         }
@@ -44,7 +40,7 @@ struct TrendingToolbar: ToolbarContent {
                 CommonStatus()
             }
             ToolbarItem(placement: .bottomBar) {
-                MarkAllReadUnreadButton(allRead: unreadCount == 0) {
+                MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
                     await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
                 }
             }
@@ -53,7 +49,7 @@ struct TrendingToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem {
-                MarkAllReadUnreadButton(allRead: unreadCount == 0) {
+                MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
                     await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
                 }
             }

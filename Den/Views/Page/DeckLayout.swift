@@ -30,7 +30,7 @@ struct DeckLayout: View {
                             DeckColumn(
                                 feed: feed,
                                 hideRead: hideRead,
-                                items: items.forFeed(feed: feed)
+                                items: items.forFeed(feed)
                             )
                             .padding(.vertical)
                         }

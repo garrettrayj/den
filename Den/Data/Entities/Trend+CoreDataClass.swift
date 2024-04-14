@@ -52,7 +52,7 @@ public class Trend: NSManagedObject {
 }
 
 extension Collection where Element == Trend {
-    func containingUnread() -> [Trend] {
+    var containingUnread: [Trend] {
         self.filter { !$0.read }
     }
 }
