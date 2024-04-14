@@ -20,23 +20,23 @@ public enum RefreshError: String {
 
 @objc(FeedData)
 public class FeedData: NSManagedObject {
-    public var wrappedError: RefreshError? {
+    var wrappedError: RefreshError? {
         guard let error = error else { return nil }
         return RefreshError(rawValue: error)
     }
 
-    public var feed: Feed? {
+    var feed: Feed? {
         (value(forKey: "feed") as? [Feed])?.first
     }
 
-    public var itemsArray: [Item] {
+    var itemsArray: [Item] {
         items?.sortedArray(using: [
             NSSortDescriptor(key: "published", ascending: false),
             NSSortDescriptor(key: "title", ascending: true)
         ]) as? [Item] ?? []
     }
 
-    public var responseTimeString: String {
+    var responseTimeString: String {
         responseTime > 0 ? String(responseTime) : "NA"
     }
 

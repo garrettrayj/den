@@ -13,7 +13,7 @@ import SwiftUI
 
 @objc(Bookmark)
 public class Bookmark: NSManagedObject {
-    public var titleText: Text {
+    var titleText: Text {
         if wrappedTitle == "" {
             return Text("Untitled", comment: "Default page name.")
         }
@@ -21,12 +21,12 @@ public class Bookmark: NSManagedObject {
         return Text(wrappedTitle)
     }
 
-    public var wrappedTitle: String {
+    var wrappedTitle: String {
         get { title?.trimmingCharacters(in: .whitespaces) ?? "" }
         set { title = newValue }
     }
     
-    public var siteText: Text {
+    var siteText: Text {
         if wrappedSite == "" {
             return Text("Untitled", comment: "Bookmark site title placeholder.")
         }
@@ -34,7 +34,7 @@ public class Bookmark: NSManagedObject {
         return Text(wrappedSite)
     }
 
-    public var wrappedSite: String {
+    var wrappedSite: String {
         get { site?.trimmingCharacters(in: .whitespaces) ?? "" }
         set { site = newValue }
     }

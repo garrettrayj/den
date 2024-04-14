@@ -12,7 +12,7 @@ import CoreData
 
 @objc(Search)
 public class Search: NSManagedObject {
-    public var wrappedQuery: String {
+    var wrappedQuery: String {
         query ?? ""
     }
 

@@ -15,7 +15,7 @@ import SwiftUI
 public class Feed: NSManagedObject {
     static let totalItemLimit = 60
     
-    public var displayTitle: Text {
+    var displayTitle: Text {
         if wrappedTitle == "" {
             return Text("Untitled", comment: "Default feed title.")
         }
@@ -23,69 +23,69 @@ public class Feed: NSManagedObject {
         return Text(wrappedTitle)
     }
 
-    public var wrappedTitle: String {
+    var wrappedTitle: String {
         get { title?.trimmingCharacters(in: .whitespaces) ?? "" }
         set { title = newValue }
     }
 
-    public var wrappedItemLimit: Int {
+    var wrappedItemLimit: Int {
         get { Int(itemLimit) }
         set { itemLimit = Int16(newValue) }
     }
 
-    public var itemLimitChoice: ItemLimit {
+    var itemLimitChoice: ItemLimit {
         get { ItemLimit(rawValue: wrappedItemLimit) ?? .six }
         set { wrappedItemLimit = newValue.rawValue }
     }
 
-    public var feedData: FeedData? {
+    var feedData: FeedData? {
         (value(forKey: "feedData") as? [FeedData])?.first
     }
 
-    public var urlString: String {
+    var urlString: String {
         get { url?.absoluteString ?? "" }
         set { url = URL(string: newValue) }
     }
     
-    public var showExcerpts: Bool {
+    var showExcerpts: Bool {
         get { !hideTeasers }
         set { hideTeasers = !newValue }
     }
     
-    public var showImages: Bool {
+    var showImages: Bool {
         get { !hideImages }
         set { hideImages = !newValue }
     }
     
-    public var showBylines: Bool {
+    var showBylines: Bool {
         get { !hideBylines }
         set { hideBylines = !newValue }
     }
     
-    public var useBlocklists: Bool {
+    var useBlocklists: Bool {
         get { !disableBlocklists }
         set { disableBlocklists = !newValue }
     }
     
-    public var allowJavaScript: Bool {
+    var allowJavaScript: Bool {
         get { !disableJavaScript }
         set { disableJavaScript = !newValue }
     }
 
-    public var needsMetaUpdate: Bool {
+    var needsMetaUpdate: Bool {
         feedData?.metaFetched == nil
         || feedData!.metaFetched! < Date(timeIntervalSinceNow: -7 * 24 * 60 * 60)
     }
 
-    public var isSecure: Bool {
+    var isSecure: Bool {
         url?.scheme?.contains("https") == true
     }
 
-    public var urlSchemeSymbol: String {
+    var urlSchemeSymbol: String {
         isSecure ? "lock" : "lock.slash"
     }
     
-    public var validatorURL: URL? {
+    var validatorURL: URL? {
         guard let urlEncoded = urlString.urlEncoded else { return nil }
             
         if feedData?.format == "JSON" {
@@ -95,12 +95,12 @@ public class Feed: NSManagedObject {
         }
     }
 
-    public var wrappedPreviewStyle: PreviewStyle {
+    var wrappedPreviewStyle: PreviewStyle {
         get { PreviewStyle(rawValue: Int(previewStyle)) ?? .compressed }
         set { previewStyle = Int16(newValue.rawValue) }
     }
 
-    public var largePreviews: Bool {
+    var largePreviews: Bool {
         get { wrappedPreviewStyle == .expanded }
         set { wrappedPreviewStyle = newValue ? .expanded : .compressed }
     }

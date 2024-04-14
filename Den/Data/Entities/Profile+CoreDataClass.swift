@@ -13,12 +13,12 @@ import SwiftUI
 
 @objc(Profile)
 public class Profile: NSManagedObject {
-    public var wrappedName: String {
+    var wrappedName: String {
         get { name ?? "" }
         set { name = newValue }
     }
 
-    public var nameText: Text {
+    var nameText: Text {
         if wrappedName == "" {
             return Text("Untitled", comment: "Profile name placeholder.")
         }
@@ -26,7 +26,7 @@ public class Profile: NSManagedObject {
         return Text(wrappedName)
     }
 
-    public var exportTitle: String {
+    var exportTitle: String {
         if wrappedName != "" {
             return "\(wrappedName) \(Date().formatted(date: .abbreviated, time: .shortened))"
         }
@@ -34,18 +34,18 @@ public class Profile: NSManagedObject {
         return "\(Date().formatted(date: .abbreviated, time: .shortened))"
     }
 
-    public var wrappedHistoryRetention: Int {
+    var wrappedHistoryRetention: Int {
         get { Int(historyRetention) }
         set { historyRetention = Int16(newValue) }
     }
 
-    public var tintColor: Color? {
+    var tintColor: Color? {
         guard let tint = tint, let tintOption = AccentColor(rawValue: tint) else { return nil }
 
         return tintOption.color
     }
 
-    public var tintOption: AccentColor? {
+    var tintOption: AccentColor? {
         get {
             guard let tint = tint else { return nil }
 
@@ -56,7 +56,7 @@ public class Profile: NSManagedObject {
         }
     }
 
-    public var historyArray: [History] {
+    var historyArray: [History] {
         get {
             history?.sortedArray(
                 using: [NSSortDescriptor(key: "visited", ascending: false)]
@@ -67,13 +67,13 @@ public class Profile: NSManagedObject {
         }
     }
 
-    public var pagesArray: [Page] {
+    var pagesArray: [Page] {
         pages?.sortedArray(
             using: [NSSortDescriptor(key: "userOrder", ascending: true)]
         ) as? [Page] ?? []
     }
 
-    public var pagesUserOrderMin: Int16 {
+    var pagesUserOrderMin: Int16 {
         pagesArray.reduce(0) { (result, page) -> Int16 in
             if page.userOrder < result {
                 return page.userOrder
@@ -83,7 +83,7 @@ public class Profile: NSManagedObject {
         }
     }
 
-    public var pagesUserOrderMax: Int16 {
+    var pagesUserOrderMax: Int16 {
         pagesArray.reduce(0) { (result, page) -> Int16 in
             if page.userOrder > result {
                 return page.userOrder
@@ -93,13 +93,13 @@ public class Profile: NSManagedObject {
         }
     }
 
-    public var tagsArray: [Tag] {
+    var tagsArray: [Tag] {
         tags?.sortedArray(
             using: [NSSortDescriptor(key: "userOrder", ascending: true)]
         ) as? [Tag] ?? []
     }
 
-    public var tagsUserOrderMin: Int16 {
+    var tagsUserOrderMin: Int16 {
         tagsArray.reduce(0) { (result, tag) -> Int16 in
             if tag.userOrder < result {
                 return tag.userOrder
@@ -109,7 +109,7 @@ public class Profile: NSManagedObject {
         }
     }
 
-    public var tagsUserOrderMax: Int16 {
+    var tagsUserOrderMax: Int16 {
         tagsArray.reduce(0) { (result, tag) -> Int16 in
             if tag.userOrder > result {
                 return tag.userOrder
@@ -119,15 +119,15 @@ public class Profile: NSManagedObject {
         }
     }
 
-    public var feedsArray: [Feed] {
+    var feedsArray: [Feed] {
         pagesArray.flatMap { $0.feedsArray }
     }
 
-    public var feedCount: Int {
+    var feedCount: Int {
         feedsArray.count
     }
 
-    public var searchesArray: [Search] {
+    var searchesArray: [Search] {
         searches?.sortedArray(
             using: [NSSortDescriptor(key: "submitted", ascending: false)]
         ) as? [Search] ?? []

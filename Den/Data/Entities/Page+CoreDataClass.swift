@@ -13,7 +13,7 @@ import SwiftUI
 
 @objc(Page)
 public class Page: NSManagedObject {
-    public var displayName: Text {
+    var displayName: Text {
         if wrappedName == "" {
             return Text("Untitled", comment: "Default page name.")
         }
@@ -21,28 +21,28 @@ public class Page: NSManagedObject {
         return Text(wrappedName)
     }
 
-    public var wrappedName: String {
+    var wrappedName: String {
         get { name?.trimmingCharacters(in: .whitespaces) ?? "" }
         set { name = newValue }
     }
 
-    public var wrappedSymbol: String {
+    var wrappedSymbol: String {
         get { symbol ?? "folder" }
         set { symbol = newValue }
     }
 
-    public var wrappedItemsPerFeed: Int {
+    var wrappedItemsPerFeed: Int {
         get { Int(itemsPerFeed) }
         set { itemsPerFeed = Int16(newValue) }
     }
 
-    public var feedsArray: [Feed] {
+    var feedsArray: [Feed] {
         feeds?.sortedArray(
             using: [NSSortDescriptor(key: "userOrder", ascending: true)]
         ) as? [Feed] ?? []
     }
 
-    public var feedsUserOrderMin: Int16 {
+    var feedsUserOrderMin: Int16 {
         feedsArray.reduce(0) { (result, feed) -> Int16 in
             if feed.userOrder < result {
                 return feed.userOrder
@@ -52,7 +52,7 @@ public class Page: NSManagedObject {
         }
     }
 
-    public var feedsUserOrderMax: Int16 {
+    var feedsUserOrderMax: Int16 {
         feedsArray.reduce(0) { (result, feed) -> Int16 in
             if feed.userOrder > result {
                 return feed.userOrder

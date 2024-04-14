@@ -13,7 +13,7 @@ import Foundation
 import FeedKit
 
 extension FeedKit.Feed: WebFeed {
-    public var webpage: URL? {
+    var webpage: URL? {
         switch self {
         case .atom(let atomFeed):
             return atomFeed.webpage

@@ -14,7 +14,7 @@ import SwiftUI
 
 @objc(Item)
 public class Item: NSManagedObject {
-    public var titleText: Text {
+    var titleText: Text {
         if let title = title, title != "" {
             return Text(title)
         }
@@ -22,23 +22,23 @@ public class Item: NSManagedObject {
         return Text("Untitled", comment: "Default item title.")
     }
     
-    public var profile: Profile? {
+    var profile: Profile? {
         (value(forKey: "profile") as? [Profile])?.first
     }
 
-    public var history: [History] {
+    var history: [History] {
         value(forKey: "history") as? [History] ?? []
     }
 
-    public var bookmarks: [Bookmark] {
+    var bookmarks: [Bookmark] {
         value(forKey: "bookmarks") as? [Bookmark] ?? []
     }
 
-    public var bookmarkTags: [Tag] {
+    var bookmarkTags: [Tag] {
         Array(Set(bookmarks.compactMap { $0.tag }).sorted(using: SortDescriptor(\.userOrder)))
     }
 
-    public var wrappedTags: [(String, NLTag)] {
+    var wrappedTags: [(String, NLTag)] {
         get {
             var results: [(String, NLTag)] = []
             let decoder = JSONDecoder()
@@ -65,12 +65,12 @@ public class Item: NSManagedObject {
         }
     }
 
-    public var trendItemsArray: [TrendItem] {
+    var trendItemsArray: [TrendItem] {
         get { trendItems?.allObjects as? [TrendItem] ?? [] }
         set { trendItems = NSSet(array: newValue) }
     }
     
-    public var trends: [Trend] {
+    var trends: [Trend] {
         trendItemsArray.compactMap { $0.trend }
     }
 
@@ -85,7 +85,7 @@ public class Item: NSManagedObject {
         return item
     }
     
-    public func populateImage(imagePool: [PreliminaryImage]) {
+    func populateImage(imagePool: [PreliminaryImage]) {
         guard let selectedImage = imagePool.first else { return }
     
         image = selectedImage.url
@@ -95,7 +95,7 @@ public class Item: NSManagedObject {
         }
     }
 
-    public func anaylyzeTitleTags() {
+    func anaylyzeTitleTags() {
         guard let text = title else { return }
         let tagger = NLTagger(tagSchemes: [.nameType])
         tagger.string = text

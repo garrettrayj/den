@@ -13,7 +13,7 @@ import SwiftUI
 
 @objc(Tag)
 public class Tag: NSManagedObject {
-    public var displayName: Text {
+    var displayName: Text {
         if wrappedName == "" {
             return Text("Untitled", comment: "Default tag name.")
         }
@@ -21,12 +21,12 @@ public class Tag: NSManagedObject {
         return Text(wrappedName)
     }
 
-    public var wrappedName: String {
+    var wrappedName: String {
         get { name?.trimmingCharacters(in: .whitespaces) ?? "" }
         set { name = newValue }
     }
 
-    public var bookmarksArray: [Bookmark] {
+    var bookmarksArray: [Bookmark] {
         bookmarks?.sortedArray(
             using: [NSSortDescriptor(key: "published", ascending: false)]
         ) as? [Bookmark] ?? []

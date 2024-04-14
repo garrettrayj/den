@@ -13,7 +13,7 @@ import SwiftUI
 
 @objc(Blocklist)
 public class Blocklist: NSManagedObject {
-    public var nameText: Text {
+    var nameText: Text {
         if wrappedName == "" {
             return Text("Untitled", comment: "Default content filter name.")
         }
@@ -21,23 +21,21 @@ public class Blocklist: NSManagedObject {
         return Text(wrappedName)
     }
 
-    public var wrappedName: String {
+    var wrappedName: String {
         get { name ?? "" }
         set { name = newValue }
     }
 
-    public var urlString: String {
+    var urlString: String {
         get { url?.absoluteString ?? "" }
         set { url = URL(string: newValue) }
     }
 
-    public var blocklistStatus: BlocklistStatus? {
+    var blocklistStatus: BlocklistStatus? {
         (value(forKey: "blocklistStatus") as? [BlocklistStatus])?.first
     }
 
-    static func create(
-        in managedObjectContext: NSManagedObjectContext
-    ) -> Blocklist {
+    static func create(in managedObjectContext: NSManagedObjectContext) -> Blocklist {
         let blocklist = self.init(context: managedObjectContext)
         blocklist.id = UUID()
 

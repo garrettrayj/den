@@ -12,7 +12,7 @@ import Foundation
 import OSLog
 
 extension FileManager {
-    public var appSupportDirectory: URL? {
+    var appSupportDirectory: URL? {
         do {
             return try self
                 .url(
