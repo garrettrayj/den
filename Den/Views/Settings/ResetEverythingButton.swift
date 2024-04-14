@@ -62,37 +62,39 @@ struct ResetEverythingButton: View {
 
     private func resetEverything() async {
         await emptyCache()
-
-        let container = PersistenceController.shared.container
-        await container.performBackgroundTask { context in
-            guard
-                let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist],
-                let pages = try? context.fetch(Page.fetchRequest()) as [Page],
-                let tags = try? context.fetch(Tag.fetchRequest()) as [Tag],
-                let trends = try? context.fetch(Trend.fetchRequest()) as [Trend]
-            else {
-                return
-            }
-
-            for page in pages {
-                page.feedsArray.compactMap({ $0.feedData }).forEach { context.delete($0) }
-                context.delete(page)
-            }
-            
-            trends.forEach { context.delete($0) }
-            tags.forEach { context.delete($0) }
-            
-            for blocklist in blocklists {
-                if let status = blocklist.blocklistStatus {
-                    context.delete(status)
+        
+        await MainActor.run {
+            let container = PersistenceController.shared.container
+            container.performBackgroundTask { context in
+                // Entities that must be cleared with verbose truncate function so UI will update.
+                let verboseTruncateList = [
+                    Blocklist.self,
+                    Item.self,
+                    Page.self,
+                    Tag.self,
+                    Trend.self
+                ]
+                
+                verboseTruncateList.forEach {
+                    PersistenceController.shared.verboseTruncate($0, context: context)
                 }
-                context.delete(blocklist)
-            }
+                
+                // Entities that may be cleared using the more performant batch truncate function.
+                let batchTruncateList = [
+                    BlocklistStatus.self,
+                    FeedData.self,
+                    History.self
+                ]
+                
+                batchTruncateList.forEach {
+                    PersistenceController.shared.batchTruncate($0, context: context)
+                }
 
-            do {
-                try context.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
+                do {
+                    try context.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
             }
         }
         

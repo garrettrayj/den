@@ -88,4 +88,28 @@ struct PersistenceController {
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }
+    
+    /// Truncate function that fires change events for deleted entities so UI will update.
+    func verboseTruncate(_ entityType: NSManagedObject.Type, context: NSManagedObjectContext) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = entityType.fetchRequest()
+        
+        do {
+            let objects = try context.fetch(fetchRequest) as? [NSManagedObject]
+            objects?.forEach { context.delete($0) }
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
+    }
+    
+    /// More performant truncate function to use when the UI doesn't need to be updated.
+    func batchTruncate(_ entityType: NSManagedObject.Type, context: NSManagedObjectContext) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = entityType.fetchRequest()
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try context.execute(deleteRequest)
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
+    }
 }
