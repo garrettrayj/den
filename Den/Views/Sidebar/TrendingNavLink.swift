@@ -11,12 +11,21 @@
 import SwiftUI
 
 struct TrendingNavLink: View {
+    @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
+    
     var body: some View {
         Label {
-            Text("Trending", comment: "Button label.").lineLimit(1)
+            if showUnreadCounts {
+                WithTrends(readFilter: false) { trends in
+                    Text("Trending", comment: "Button label.").badge(trends.count)
+                }
+            } else {
+                Text("Trending", comment: "Button label.")
+            }
         } icon: {
             Image(systemName: "chart.line.uptrend.xyaxis")
         }
+        .lineLimit(1)
         .tag(DetailPanel.trending)
         .accessibilityIdentifier("TrendingNavLink")
     }

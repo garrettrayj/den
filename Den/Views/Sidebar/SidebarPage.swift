@@ -23,6 +23,8 @@ struct SidebarPage: View {
     
     @SceneStorage("ExpandedPages") var expandedPages: Set<UUID> = []
     
+    @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
+    
     var isExpandedBinding: Binding<Bool> {
         Binding<Bool> {
             guard let id = page.id else { return false}
@@ -48,22 +50,44 @@ struct SidebarPage: View {
             .onMove(perform: moveFeed)
         } label: {
             Label {
-                #if os(macOS)
-                TextField(text: $page.wrappedName) {
-                    page.displayName
-                }
-                .onSubmit {
-                    if viewContext.hasChanges {
-                        do {
-                            try viewContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
+                if showUnreadCounts {
+                    WithItems(scopeObject: page, readFilter: false) { items in
+                        #if os(macOS)
+                        TextField(text: $page.wrappedName) {
+                            page.displayName
+                        }
+                        .onSubmit {
+                            if viewContext.hasChanges {
+                                do {
+                                    try viewContext.save()
+                                } catch {
+                                    CrashUtility.handleCriticalError(error as NSError)
+                                }
+                            }
+                        }
+                        .badge(items.count)
+                        #else
+                        page.displayName.badge(items.count)
+                        #endif
+                    }
+                } else {
+                    #if os(macOS)
+                    TextField(text: $page.wrappedName) {
+                        page.displayName
+                    }
+                    .onSubmit {
+                        if viewContext.hasChanges {
+                            do {
+                                try viewContext.save()
+                            } catch {
+                                CrashUtility.handleCriticalError(error as NSError)
+                            }
                         }
                     }
+                    #else
+                    page.displayName
+                    #endif
                 }
-                #else
-                page.displayName
-                #endif
             } icon: {
                 Image(systemName: page.wrappedSymbol)
             }

@@ -14,6 +14,8 @@ struct LookAndFeelSection: View {
     @Binding var accentColor: AccentColor?
     @Binding var userColorScheme: UserColorScheme
     @Binding var useSystemBrowser: Bool
+    
+    @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
 
     var body: some View {
         Section {
@@ -24,6 +26,13 @@ struct LookAndFeelSection: View {
                     Text("Use System Browser", comment: "Toggle label.")
                 } icon: {
                     Image(systemName: "arrow.up.right.square")
+                }
+            }
+            Toggle(isOn: $showUnreadCounts) {
+                Label {
+                    Text("Show Unread Counts", comment: "Toggle label.")
+                } icon: {
+                    Image(systemName: "3.circle")
                 }
             }
         } header: {
