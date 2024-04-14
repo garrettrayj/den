@@ -23,7 +23,7 @@ struct NewFeedButton: View {
                 Image(systemName: "note.text.badge.plus")
             }
         }
-        .keyboardShortcut("k", modifiers: [.command], localization: .withoutMirroring)
+        .keyboardShortcut("k", modifiers: [.command])
         .accessibilityIdentifier("NewFeed")
     }
 }

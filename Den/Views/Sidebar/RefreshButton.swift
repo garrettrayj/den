@@ -23,7 +23,7 @@ struct RefreshButton: View {
                 Image(systemName: "arrow.clockwise")
             }
         }
-        .keyboardShortcut("r", modifiers: [.command], localization: .withoutMirroring)
+        .keyboardShortcut("r", modifiers: [.command])
         .accessibilityIdentifier("Refresh")
     }
 }

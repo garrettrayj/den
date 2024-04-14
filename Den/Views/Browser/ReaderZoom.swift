@@ -25,7 +25,7 @@ struct ReaderZoom: View {
                     Image(systemName: "minus.magnifyingglass")
                 }
             }
-            .keyboardShortcut("-", modifiers: .command, localization: .withoutMirroring)
+            .keyboardShortcut("-", modifiers: .command)
 
             Button {
                 browserViewModel.setReaderZoom(.oneHundredPercent)
@@ -36,7 +36,7 @@ struct ReaderZoom: View {
                 Text("\(browserViewModel.readerZoom.rawValue)%", comment: "Zoom level label.")
                 #endif
             }
-            .keyboardShortcut("0", modifiers: .command, localization: .withoutMirroring)
+            .keyboardShortcut("0", modifiers: .command)
 
             Button {
                 guard let increased = browserViewModel.readerZoom.next() else { return }
@@ -48,7 +48,7 @@ struct ReaderZoom: View {
                     Image(systemName: "plus.magnifyingglass")
                 }
             }
-            .keyboardShortcut("=", modifiers: .command, localization: .withoutMirroring)
+            .keyboardShortcut("=", modifiers: .command)
         } label: {
             Label {
                 Text("Zoom", comment: "Control group label.")
