@@ -54,10 +54,10 @@ struct HistoryUtility {
     }
 
     static func toggleReadUnread(items: [Item]) async {
-        if items.unread().isEmpty == true {
+        if items.unread.isEmpty == true {
             await clearHistory(items: items)
         } else {
-            await logHistory(items: items.unread())
+            await logHistory(items: items.unread)
         }
     }
 

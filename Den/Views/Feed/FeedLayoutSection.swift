@@ -27,7 +27,7 @@ struct FeedLayoutSection<Header: View>: View {
     
     var body: some View {
         Section {
-            if items.unread().isEmpty && hideRead {
+            if items.unread.isEmpty && hideRead {
                 AllRead(largeDisplay: true)
             } else {
                 BoardView(

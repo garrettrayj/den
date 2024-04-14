@@ -33,15 +33,15 @@ struct FeedLayout: View {
                         FeedUnavailable(feed: feed, largeDisplay: true)
                     } else if items.isEmpty {
                         FeedEmpty(largeDisplay: true).padding()
-                    } else if items.unread().isEmpty && hideRead {
+                    } else if items.unread.isEmpty && hideRead {
                         AllRead(largeDisplay: true).padding()
                     } else {
-                        if !items.featured().isEmpty {
+                        if !items.featured.isEmpty {
                             FeedLayoutSection(
                                 feed: feed,
                                 hideRead: $hideRead,
                                 geometry: geometry,
-                                items: items.featured()
+                                items: items.featured
                             ) {
                                 Label {
                                     Text("Featured", comment: "Feed view section header.")
@@ -51,12 +51,12 @@ struct FeedLayout: View {
                             }
                         }
                         
-                        if !items.extra().isEmpty {
+                        if !items.extra.isEmpty {
                             FeedLayoutSection(
                                 feed: feed,
                                 hideRead: $hideRead,
                                 geometry: geometry,
-                                items: items.extra()
+                                items: items.extra
                             ) {
                                 Label {
                                     Text("Extra", comment: "Feed view section header.")

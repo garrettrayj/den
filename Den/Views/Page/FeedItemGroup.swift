@@ -30,7 +30,7 @@ struct FeedItemGroup: View {
                 FeedUnavailable(feed: feed)
             } else if items.isEmpty {
                 FeedEmpty()
-            } else if items.unread().isEmpty && hideRead {
+            } else if items.unread.isEmpty && hideRead {
                 AllRead()
             } else {
                 ForEach(filteredItems) { item in

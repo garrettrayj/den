@@ -26,7 +26,7 @@ struct TimelineLayout: View {
                     Image(systemName: "folder")
                 }
             }
-        } else if items.unread().isEmpty && hideRead {
+        } else if items.unread.isEmpty && hideRead {
             AllRead(largeDisplay: true)
         } else {
             GeometryReader { geometry in

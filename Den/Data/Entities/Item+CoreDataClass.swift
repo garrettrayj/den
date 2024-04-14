@@ -139,19 +139,15 @@ extension Collection where Element == Item {
         }
     }
 
-    func read() -> [Item] {
-        self.filter { $0.read == true }
-    }
-
-    func unread() -> [Item] {
+    var unread: [Item] {
         self.filter { $0.read == false }
     }
 
-    func featured() -> [Item] {
+    var featured: [Item] {
         self.filter { $0.extra == false }
     }
 
-    func extra() -> [Item] {
+    var extra: [Item] {
         self.filter { $0.extra == true }
     }
 }

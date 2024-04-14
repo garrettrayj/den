@@ -34,7 +34,7 @@ struct Inbox: View {
                             comment: "Content unavailable description."
                         )
                     }
-                } else if items.unread().isEmpty && hideRead {
+                } else if items.unread.isEmpty && hideRead {
                     AllRead(largeDisplay: true)
                 } else {
                     InboxLayout(hideRead: $hideRead, items: items)

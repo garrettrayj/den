@@ -40,7 +40,7 @@ public class Trend: NSManagedObject {
     }
     
     public func updateReadStatus() {
-        read = items.unread().isEmpty
+        read = items.unread.isEmpty
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext) -> Trend {

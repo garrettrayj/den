@@ -59,7 +59,7 @@ struct TrendBlock: View {
                     Text(
                         """
                         \(items.count) items in \(trend.feeds.count) feeds. \
-                        \(items.unread().count) unread
+                        \(items.unread.count) unread
                         """,
                         comment: "Trend status line."
                     )
