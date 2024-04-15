@@ -22,10 +22,12 @@ struct Welcome: View {
                 Image(systemName: "house")
             }
         } description: {
-            if feeds.count == 1 {
+            if feeds.isEmpty {
+                Text("No Feeds", comment: "Feed count (zero).")
+            } else if feeds.count == 1 {
                 Text("1 Feed", comment: "Feed count (singular).")
             } else {
-                Text("\(feeds.count) Feeds", comment: "Feed count (zero/plural).")
+                Text("\(feeds.count) Feeds", comment: "Feed count (plural).")
             }
         }
     }
