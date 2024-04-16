@@ -11,10 +11,13 @@
 import SwiftUI
 
 struct RefreshButton: View {
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
+    @EnvironmentObject private var refreshManager: RefreshManager
+    
     var body: some View {
         Button {
             Task {
-                await RefreshManager.refresh()
+                await refreshManager.refresh()
             }
         } label: {
             Label {
@@ -25,5 +28,6 @@ struct RefreshButton: View {
         }
         .keyboardShortcut("r", modifiers: [.command])
         .accessibilityIdentifier("Refresh")
+        .disabled(refreshManager.refreshing || !networkMonitor.isConnected)
     }
 }

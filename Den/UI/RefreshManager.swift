@@ -11,18 +11,23 @@
 import CoreData
 import OSLog
 
-final class RefreshManager {
-    static func refresh() async {
+final class RefreshManager: ObservableObject {
+    @Published var refreshing = false
+    @Published var progress = Progress()
+    
+    func refresh() async {
+        let context = PersistenceController.shared.container.viewContext
+        
+        guard let feeds = try? context.fetch(Feed.fetchRequest()) as [Feed] else {
+            return
+        }
+        
         await MainActor.run {
-            NotificationCenter.default.post(name: .refreshStarted, object: nil)
+            progress.totalUnitCount = Int64(feeds.count)
+            refreshing = true
         }
 
         await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
-            let context = PersistenceController.shared.container.viewContext
-            guard let feeds = try? context.fetch(Feed.fetchRequest()) as [Feed] else {
-                return
-            }
-            
             let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
             let feedUpdateTasks: [FeedUpdateTask] = feeds.compactMap { feed in
                 guard let url = feed.url else { return nil }
@@ -40,7 +45,12 @@ final class RefreshManager {
                     await taskGroup.next()
                     working = 0
                 }
-                taskGroup.addTask { await task.execute() }
+                taskGroup.addTask {
+                    await task.execute()
+                    await MainActor.run {
+                        self.progress.completedUnitCount += 1
+                    }
+                }
                 working += 1
             }
 
@@ -48,15 +58,16 @@ final class RefreshManager {
         })
         
         await MainActor.run {
-            NotificationCenter.default.post(name: .refreshProgressed, object: nil)
+            progress.completedUnitCount += 1
         }
-    
+
         await AnalyzeTask().execute()
 
         RefreshedDateStorage.setRefreshed(date: .now)
 
         await MainActor.run {
-            NotificationCenter.default.post(name: .refreshFinished, object: nil)
+            refreshing = false
+            progress.completedUnitCount = 0
         }
     }
 

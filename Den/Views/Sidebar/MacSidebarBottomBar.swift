@@ -12,11 +12,9 @@ import SwiftUI
 
 struct MacSidebarBottomBar: View {
     @Environment(\.displayScale) private var displayScale
-    
+
     @EnvironmentObject private var networkMonitor: NetworkMonitor
-    
-    @Binding var refreshing: Bool
-    @Binding var refreshProgress: Progress
+    @EnvironmentObject private var refreshManager: RefreshManager
     
     let pages: FetchedResults<Page>
     
@@ -25,17 +23,13 @@ struct MacSidebarBottomBar: View {
             Rectangle().fill(BackgroundSeparatorShapeStyle()).frame(height: 1)
             HStack {
                 VStack(alignment: .leading) {
-                    SidebarStatus(
-                        refreshing: $refreshing,
-                        refreshProgress: $refreshProgress,
-                        pages: pages
-                    )
+                    SidebarStatus(pages: pages)
                 }
                 
                 Spacer()
 
-                if refreshing {
-                    ProgressView(refreshProgress)
+                if refreshManager.refreshing {
+                    ProgressView(refreshManager.progress)
                         .progressViewStyle(.circular)
                         .labelsHidden()
                         .scaleEffect(1 / displayScale)
@@ -47,7 +41,7 @@ struct MacSidebarBottomBar: View {
                         .imageScale(.large)
                         .fontWeight(.medium)
                         .buttonStyle(.borderless)
-                        .disabled(refreshing || !networkMonitor.isConnected || pages.isEmpty)
+                        .disabled(pages.isEmpty)
                 }
             }
             .padding(12)

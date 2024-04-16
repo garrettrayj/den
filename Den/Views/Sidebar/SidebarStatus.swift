@@ -12,9 +12,7 @@ import SwiftUI
 
 struct SidebarStatus: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
-
-    @Binding var refreshing: Bool
-    @Binding var refreshProgress: Progress
+    @EnvironmentObject private var refreshManager: RefreshManager
     
     let pages: FetchedResults<Page>
 
@@ -22,8 +20,8 @@ struct SidebarStatus: View {
         VStack {
             if !networkMonitor.isConnected {
                 Text("Network Offline", comment: "Status message.").foregroundStyle(.secondary)
-            } else if refreshing {
-                ProgressView(refreshProgress)
+            } else if refreshManager.refreshing {
+                ProgressView(refreshManager.progress)
                     .progressViewStyle(RefreshProgressViewStyle(feedCount: pages.feeds.count))
             } else if let refreshedDate = RefreshedDateStorage.getRefreshed() {
                 RelativeRefreshedDate(date: refreshedDate)

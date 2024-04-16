@@ -11,11 +11,9 @@
 import SwiftUI
 
 struct SidebarToolbar: ToolbarContent {
-    @EnvironmentObject private var networkMonitor: NetworkMonitor
-
+    @EnvironmentObject private var refreshManager: RefreshManager
+    
     @Binding var detailPanel: DetailPanel?
-    @Binding var refreshing: Bool
-    @Binding var refreshProgress: Progress
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
     @Binding var showingNewFeedSheet: Bool
@@ -46,22 +44,16 @@ struct SidebarToolbar: ToolbarContent {
                     Image(systemName: "ellipsis.circle")
                 }
             }
-            .disabled(refreshing)
+            .disabled(refreshManager.refreshing)
             .menuIndicator(.hidden)
             .accessibilityIdentifier("SidebarMenu")
         }
         #if os(iOS)
         ToolbarItem(placement: .status) {
-            SidebarStatus(
-                refreshing: $refreshing,
-                refreshProgress: $refreshProgress, 
-                pages: pages
-            )
-            .layoutPriority(0)
+            SidebarStatus(pages: pages).layoutPriority(0)
         }
         ToolbarItem(placement: .bottomBar) {
-            RefreshButton()
-                .disabled(refreshing || !networkMonitor.isConnected || pages.isEmpty)
+            RefreshButton().disabled(pages.isEmpty)
         }
         #endif
     }

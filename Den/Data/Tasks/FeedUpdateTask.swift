@@ -140,17 +140,6 @@ class FeedUpdateTask {
                 self.save(context: context, feed: feed)
             }
         }
-
-        await MainActor.run {
-            NotificationCenter.default.post(
-                name: .refreshProgressed,
-                object: nil,
-                userInfo: [
-                    "pageObjectID": self.pageObjectID as Any,
-                    "feedObjectID": self.feedObjectID as Any
-                ]
-            )
-        }
     }
     // swiftlint:enable cyclomatic_complexity function_body_length
 

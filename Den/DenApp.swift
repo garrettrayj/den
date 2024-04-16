@@ -24,6 +24,7 @@ struct DenApp: App {
     
     @StateObject private var downloadManager = DownloadManager()
     @StateObject private var networkMonitor = NetworkMonitor()
+    @StateObject private var refreshManager = RefreshManager()
 
     var body: some Scene {
         WindowGroup {
@@ -33,8 +34,9 @@ struct DenApp: App {
         .commands { commands }
         .defaultSize(defaultSize)
         .environment(\.managedObjectContext, persistenceController.container.viewContext)
-        .environmentObject(networkMonitor)
         .environmentObject(downloadManager)
+        .environmentObject(networkMonitor)
+        .environmentObject(refreshManager)
         
         #if os(macOS)
         Settings {

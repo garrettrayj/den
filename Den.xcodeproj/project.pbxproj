@@ -996,6 +996,7 @@
 				68906F8E2A78F58900803350 /* NavigationStore.swift */,
 				68ED797A29BD97DE00D85B4F /* NetworkMonitor.swift */,
 				680F495129AB2A240083B664 /* RefreshedDateStorage.swift */,
+				682591FD29D81E3000E5EF3B /* RefreshManager.swift */,
 				68A1044A2BA813EC008BF8E6 /* WebViewError.swift */,
 			);
 			path = UI;
@@ -1015,7 +1016,6 @@
 				684DFA0224BAC7680023D6DB /* ImageMIMEType.swift */,
 				687FEEFA2A3EE4E10042977E /* OPMLFile.swift */,
 				68F6FBA029AF5937001F74B9 /* Persistence.swift */,
-				682591FD29D81E3000E5EF3B /* RefreshManager.swift */,
 				68AC3A162910EEB500D60273 /* WorkingTrend.swift */,
 			);
 			path = Data;

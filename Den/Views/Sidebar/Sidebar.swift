@@ -13,6 +13,8 @@ import UniformTypeIdentifiers
 
 struct Sidebar: View {
     @Environment(\.managedObjectContext) private var viewContext
+    
+    @EnvironmentObject private var refreshManager: RefreshManager
 
     @Binding var detailPanel: DetailPanel?
     @Binding var newFeedPageID: String?
@@ -23,8 +25,6 @@ struct Sidebar: View {
     @Binding var showingNewFeedSheet: Bool
     @Binding var showingNewPageSheet: Bool
     @Binding var showingNewTagSheet: Bool
-    @Binding var refreshing: Bool
-    @Binding var refreshProgress: Progress
     
     @State private var exporterIsPresented: Bool = false
     @State private var opmlFile: OPMLFile?
@@ -70,7 +70,7 @@ struct Sidebar: View {
         .buttonStyle(.borderless)
         .badgeProminence(.decreased)
         .refreshable {
-            await RefreshManager.refresh()
+            await refreshManager.refresh()
         }
         .searchable(
             text: $searchInput,
@@ -91,8 +91,6 @@ struct Sidebar: View {
         .toolbar {
             SidebarToolbar(
                 detailPanel: $detailPanel,
-                refreshing: $refreshing,
-                refreshProgress: $refreshProgress,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
@@ -104,11 +102,7 @@ struct Sidebar: View {
         }
         #if os(macOS)
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            MacSidebarBottomBar(
-                refreshing: $refreshing,
-                refreshProgress: $refreshProgress,
-                pages: pages
-            )
+            MacSidebarBottomBar(pages: pages)
         }
         #endif
         .sheet(

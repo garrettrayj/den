@@ -18,10 +18,9 @@ struct RootView: View {
     @Environment(\.userTint) private var userTint
     
     @EnvironmentObject private var networkMonitor: NetworkMonitor
+    @EnvironmentObject private var refreshManager: RefreshManager
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    @State private var refreshing = false
-    @State private var refreshProgress = Progress()
     @State private var showingExporter = false
     @State private var showingImporter = false
     @State private var showingNewFeedSheet = false
@@ -62,8 +61,6 @@ struct RootView: View {
                 showingNewFeedSheet: $showingNewFeedSheet,
                 showingNewPageSheet: $showingNewPageSheet,
                 showingNewTagSheet: $showingNewTagSheet,
-                refreshing: $refreshing,
-                refreshProgress: $refreshProgress,
                 pages: pages
             )
             #if os(macOS)
@@ -90,7 +87,7 @@ struct RootView: View {
                 NewPageButton(showingNewPageSheet: $showingNewPageSheet)
                 NewTagButton(showingNewTagSheet: $showingNewTagSheet)
                 RefreshButton().disabled(
-                    refreshing || !networkMonitor.isConnected || pages.isEmpty
+                    refreshManager.refreshing || !networkMonitor.isConnected || pages.isEmpty
                 )
             }
             .opacity(0)
@@ -134,28 +131,7 @@ struct RootView: View {
             )
         }
         // Refresh notifications
-        .onReceive(
-            NotificationCenter.default.publisher(for: .refreshStarted, object: nil)
-        ) { _ in
-            refreshProgress.totalUnitCount = Int64(pages.feeds.count)
-            refreshing = true
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .refreshProgressed, object: nil)
-        ) { _ in
-            refreshProgress.completedUnitCount += 1
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .refreshFinished, object: nil)
-        ) { _ in
-            refreshing = false
-            refreshProgress.completedUnitCount = 0
-            pages.forEach { page in
-                page.objectWillChange.send()
-                page.feedsArray.forEach { $0.objectWillChange.send() }
-            }
-        }
-        .sensoryFeedback(trigger: refreshing) { _, newValue in
+        .sensoryFeedback(trigger: refreshManager.refreshing) { _, newValue in
             if newValue == true {
                 return .start
             } else {
