@@ -49,8 +49,6 @@
 	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.news</string>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -84,8 +82,6 @@
 		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
-	<key>UIFileSharingEnabled</key>
-	<true/>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>
@@ -120,8 +116,6 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
-	<key>UISupportsDocumentBrowser</key>
-	<true/>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

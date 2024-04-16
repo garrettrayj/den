@@ -181,6 +181,7 @@
 		687F22232A5A460300B76919 /* ImportExportUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F22222A5A460300B76919 /* ImportExportUtility.swift */; };
 		687F222C2A5B615100B76919 /* FeedURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F222B2A5B615100B76919 /* FeedURLResponse.swift */; };
 		687F4890269165EE00EA2498 /* AppErrorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F488F269165EE00EA2498 /* AppErrorSheet.swift */; };
+		687F73EF2BCDFA8F00FD8EBF /* ShowInFinderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F73EE2BCDFA8F00FD8EBF /* ShowInFinderButton.swift */; };
 		687FEED22A3A57220042977E /* LookAndFeelSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEED12A3A57220042977E /* LookAndFeelSection.swift */; };
 		687FEED72A3B724B0042977E /* UserColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEED62A3B724B0042977E /* UserColorScheme.swift */; };
 		687FEEDB2A3B830D0042977E /* UserColorSchemePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEEDA2A3B830D0042977E /* UserColorSchemePicker.swift */; };
@@ -532,6 +533,7 @@
 		687F22222A5A460300B76919 /* ImportExportUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportUtility.swift; sourceTree = "<group>"; };
 		687F222B2A5B615100B76919 /* FeedURLResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedURLResponse.swift; sourceTree = "<group>"; };
 		687F488F269165EE00EA2498 /* AppErrorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppErrorSheet.swift; sourceTree = "<group>"; };
+		687F73EE2BCDFA8F00FD8EBF /* ShowInFinderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInFinderButton.swift; sourceTree = "<group>"; };
 		687FEED12A3A57220042977E /* LookAndFeelSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookAndFeelSection.swift; sourceTree = "<group>"; };
 		687FEED62A3B724B0042977E /* UserColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColorScheme.swift; sourceTree = "<group>"; };
 		687FEEDA2A3B830D0042977E /* UserColorSchemePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColorSchemePicker.swift; sourceTree = "<group>"; };
@@ -1230,6 +1232,7 @@
 				68E9F6412AE1528800A27E19 /* ToggleBlocklistsButton.swift */,
 				6899FC812AE40B1400367E8B /* ToggleJavaScriptButton.swift */,
 				6899FC7E2AE3515500367E8B /* ToggleReaderButton.swift */,
+				687F73EE2BCDFA8F00FD8EBF /* ShowInFinderButton.swift */,
 			);
 			path = Browser;
 			sourceTree = "<group>";
@@ -1842,6 +1845,7 @@
 				68E9F6422AE1528800A27E19 /* ToggleBlocklistsButton.swift in Sources */,
 				6899FC822AE40B1400367E8B /* ToggleJavaScriptButton.swift in Sources */,
 				6899FC7F2AE3515500367E8B /* ToggleReaderButton.swift in Sources */,
+				687F73EF2BCDFA8F00FD8EBF /* ShowInFinderButton.swift in Sources */,
 				6856DB252AB635700094615E /* TransferableBookmark.swift in Sources */,
 				683C35412A9E570900568E9A /* TransferableFeed.swift in Sources */,
 				6856DAFC2AB587410094615E /* TransferableItem.swift in Sources */,

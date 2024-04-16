@@ -12,6 +12,8 @@ import SwiftUI
 import SDWebImage
 
 struct ResetEverythingButton: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @State private var showingResetAlert = false
 
     var body: some View {
@@ -64,37 +66,34 @@ struct ResetEverythingButton: View {
         await emptyCache()
         
         await MainActor.run {
-            let container = PersistenceController.shared.container
-            container.performBackgroundTask { context in
-                // Entities that must be cleared with verbose truncate function so UI will update.
-                let verboseTruncateList = [
-                    Blocklist.self,
-                    Item.self,
-                    Page.self,
-                    Tag.self,
-                    Trend.self
-                ]
-                
-                verboseTruncateList.forEach {
-                    PersistenceController.shared.verboseTruncate($0, context: context)
-                }
-                
-                // Entities that may be cleared using the more performant batch truncate function.
-                let batchTruncateList = [
-                    BlocklistStatus.self,
-                    FeedData.self,
-                    History.self
-                ]
-                
-                batchTruncateList.forEach {
-                    PersistenceController.shared.batchTruncate($0, context: context)
-                }
+            // Entities that must be cleared with verbose truncate function so UI will update.
+            let verboseTruncateList = [
+                Blocklist.self,
+                Item.self,
+                Page.self,
+                Tag.self,
+                Trend.self
+            ]
+            
+            verboseTruncateList.forEach {
+                PersistenceController.shared.verboseTruncate($0, context: viewContext)
+            }
+            
+            // Entities that may be cleared using the more performant batch truncate function.
+            let batchTruncateList = [
+                BlocklistStatus.self,
+                FeedData.self,
+                History.self
+            ]
+            
+            batchTruncateList.forEach {
+                PersistenceController.shared.batchTruncate($0, context: viewContext)
+            }
 
-                do {
-                    try context.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
+            do {
+                try viewContext.save()
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
             }
         }
         

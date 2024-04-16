@@ -35,15 +35,11 @@ struct DownloadsPopover: View {
             .contextMenu(forSelectionType: BrowserDownload.self) { items in
                 contextMenu(items: items)
             } primaryAction: { items in
-                guard
-                    let browserDownload = downloadManager.browserDownloads.first(
-                        where: { $0 == items.first }
-                    )
-                else {
-                    return
-                }
-                
                 #if os(macOS)
+                guard let browserDownload = downloadManager.browserDownloads.first(
+                    where: { $0 == items.first }
+                ) else { return }
+                
                 NSWorkspace.shared.open(browserDownload.fileURL)
                 #endif
             }
@@ -76,18 +72,9 @@ struct DownloadsPopover: View {
                 } label: {
                     Text("Open")
                 }
-                Button {
-                    if browserDownload.fileURL.hasDirectoryPath {
-                        NSWorkspace.shared.selectFile(
-                            nil,
-                            inFileViewerRootedAtPath: browserDownload.fileURL.path
-                        )
-                    } else {
-                        NSWorkspace.shared.activateFileViewerSelecting([browserDownload.fileURL])
-                    }
-                } label: {
-                    Text("Show in Finder")
-                }
+                ShowInFinderButton(url: browserDownload.fileURL)
+                #else
+                ShareLink(item: browserDownload.fileURL)
                 #endif
             }
             if let url = browserDownload.wkDownload.originalRequest?.url {

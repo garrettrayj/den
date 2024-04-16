@@ -48,16 +48,11 @@ struct DownloadStatus: View {
                 }
                 .lineLimit(2)
                 Spacer()
-                Button {
-                    showInFinder(url: browserDownload.fileURL)
-                } label: {
-                    Label {
-                        Text("Show in Finder")
-                    } icon: {
-                        Image(systemName: "magnifyingglass.circle.fill")
-                    }
-                }
-                .tint(.secondary)
+                #if os(macOS)
+                ShowInFinderButton(url: browserDownload.fileURL).tint(.secondary)
+                #else
+                ShareLink(item: browserDownload.fileURL)
+                #endif
             } else {
                 ProgressView(browserDownload.wkDownload.progress)
                 Spacer()
