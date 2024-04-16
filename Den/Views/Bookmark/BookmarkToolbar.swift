@@ -31,6 +31,11 @@ struct BookmarkToolbar: ToolbarContent {
             formatMenu
         }
         ToolbarItem {
+            UntagButton(bookmark: bookmark) {
+                dismiss()
+            }
+        }
+        ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)
         }
         ToolbarItem {
@@ -39,16 +44,13 @@ struct BookmarkToolbar: ToolbarContent {
         ToolbarItem {
             StopReloadButton(browserViewModel: browserViewModel)
         }
-        ToolbarItem {
-            SystemBrowserButton(url: $browserViewModel.url)
-        }
-        ToolbarItem {
-            UntagButton(bookmark: bookmark) {
-                dismiss()
+        if let url = browserViewModel.url {
+            ToolbarItem {
+                SystemBrowserButton(url: url)
             }
-        }
-        ToolbarItem {
-            ShareButton(url: $browserViewModel.url)
+            ToolbarItem {
+                ShareLink(item: url)
+            }
         }
         #else
         if horizontalSizeClass == .compact {
@@ -73,28 +75,30 @@ struct BookmarkToolbar: ToolbarContent {
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
-                ToolbarItem(placement: .bottomBar) {
-                    ShareButton(url: $browserViewModel.url)
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Spacer()
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    SystemBrowserButton(url: $browserViewModel.url)
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Spacer()
+                if let url = browserViewModel.url {
+                    ToolbarItem(placement: .bottomBar) {
+                        ShareLink(item: url)
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        Spacer()
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        SystemBrowserButton(url: url)
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        Spacer()
+                    }
                 }
                 ToolbarItem(placement: .bottomBar) {
                     StopReloadButton(browserViewModel: browserViewModel)
                 }
+                // Scene phase check is required because downloadManager environment object
+                // is not available when app moves to background.
                 if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
                     ToolbarItem(placement: .bottomBar) {
                         Spacer()
                     }
                     ToolbarItem(placement: .bottomBar) {
-                        // Scene phase check is required because downloadManager environment object
-                        // is not available when app moves to background.
                         DownloadsButton()
                     }
                 }
@@ -127,11 +131,13 @@ struct BookmarkToolbar: ToolbarContent {
             ToolbarItem {
                 StopReloadButton(browserViewModel: browserViewModel)
             }
-            ToolbarItem {
-                SystemBrowserButton(url: $browserViewModel.url)
-            }
-            ToolbarItem {
-                ShareButton(url: $browserViewModel.url)
+            if let url = browserViewModel.url {
+                ToolbarItem {
+                    SystemBrowserButton(url: url)
+                }
+                ToolbarItem {
+                    ShareLink(item: url)
+                }
             }
         }
         #endif

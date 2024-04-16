@@ -30,6 +30,9 @@ struct ItemToolbar: ToolbarContent {
             formatMenu
         }
         ToolbarItem {
+            TagsMenu(item: item)
+        }
+        ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)
         }
         ToolbarItem {
@@ -38,14 +41,13 @@ struct ItemToolbar: ToolbarContent {
         ToolbarItem {
             StopReloadButton(browserViewModel: browserViewModel)
         }
-        ToolbarItem {
-            SystemBrowserButton(url: $browserViewModel.url)
-        }
-        ToolbarItem {
-            TagsMenu(item: item)
-        }
-        ToolbarItem {
-            ShareButton(url: $browserViewModel.url)
+        if let url = browserViewModel.url {
+            ToolbarItem {
+                SystemBrowserButton(url: url)
+            }
+            ToolbarItem {
+                ShareLink(item: url)
+            }
         }
         #else
         if horizontalSizeClass == .compact {
@@ -69,17 +71,19 @@ struct ItemToolbar: ToolbarContent {
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
-                ToolbarItem(placement: .bottomBar) {
-                    ShareButton(url: $browserViewModel.url)
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Spacer()
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    SystemBrowserButton(url: $browserViewModel.url)
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Spacer()
+                if let url = browserViewModel.url {
+                    ToolbarItem(placement: .bottomBar) {
+                        ShareLink(item: url)
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        Spacer()
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        SystemBrowserButton(url: url)
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        Spacer()
+                    }
                 }
                 ToolbarItem(placement: .bottomBar) {
                     StopReloadButton(browserViewModel: browserViewModel)
@@ -121,11 +125,14 @@ struct ItemToolbar: ToolbarContent {
             ToolbarItem {
                 StopReloadButton(browserViewModel: browserViewModel)
             }
-            ToolbarItem {
-                SystemBrowserButton(url: $browserViewModel.url)
-            }
-            ToolbarItem {
-                ShareButton(url: $browserViewModel.url)
+            
+            if let url = browserViewModel.url {
+                ToolbarItem {
+                    SystemBrowserButton(url: url)
+                }
+                ToolbarItem {
+                    ShareLink(item: url)
+                }
             }
         }
         #endif

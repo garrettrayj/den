@@ -142,9 +142,9 @@ struct TagTableLayout: View {
     private func contextMenu(items: Set<Row.ID>) -> some View {
         if items.count == 1, let row = rows.filter({ $0.id == items.first }).first {
             UntagButton(bookmark: row.bookmark)
-            SystemBrowserButton(url: .constant(row.link))
-            CopyLinkButton(url: .constant(row.link))
-            ShareButton(url: .constant(row.link))
+            SystemBrowserButton(url: row.link)
+            CopyAddressButton(url: row.link)
+            ShareLink(item: row.link)
         } else {
             Button {
                 deleteSelection(items: items)

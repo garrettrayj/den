@@ -37,9 +37,11 @@ struct BookmarkActionView<Content: View>: View {
         .accessibilityIdentifier("BookmarkAction")
         .contextMenu {
             UntagButton(bookmark: bookmark)
-            SystemBrowserButton(url: $bookmark.link)
-            CopyLinkButton(url: $bookmark.link)
-            ShareButton(url: $bookmark.link)
+            if let url = bookmark.link {
+                SystemBrowserButton(url: url)
+                CopyAddressButton(url: url)
+                ShareLink(item: url)
+            }
         }
     }
 }

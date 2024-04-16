@@ -57,9 +57,11 @@ struct ItemActionView<Content: View>: View {
             ReadUnreadButton(item: item)
             TagsMenu(item: item)
             #endif
-            SystemBrowserButton(url: $item.link)
-            CopyLinkButton(url: $item.link)
-            ShareButton(url: $item.link)
+            if let url = item.link {
+                SystemBrowserButton(url: url)
+                CopyAddressButton(url: url)
+                ShareLink(item: url)
+            }
         }
     }
 }

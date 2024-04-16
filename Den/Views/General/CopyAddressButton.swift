@@ -1,5 +1,5 @@
 //
-//  CopyLinkButton.swift
+//  CopyAddressButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/2/24.
@@ -10,12 +10,11 @@
 
 import SwiftUI
 
-struct CopyLinkButton: View {
-    @Binding var url: URL?
+struct CopyAddressButton: View {
+    let url: URL
     
     var body: some View {
         Button {
-            guard let url = url else { return }
             PasteboardUtility.copyURL(url: url)
         } label: {
             Label {
