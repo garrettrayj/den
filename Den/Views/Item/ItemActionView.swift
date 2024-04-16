@@ -13,7 +13,6 @@ import SwiftUI
 struct ItemActionView<Content: View>: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
-    @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     @ObservedObject var item: Item
 
@@ -21,6 +20,8 @@ struct ItemActionView<Content: View>: View {
     var isStandalone: Bool = false
 
     @ViewBuilder var content: Content
+    
+    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
     var body: some View {
         Group {

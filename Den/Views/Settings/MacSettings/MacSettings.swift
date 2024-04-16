@@ -17,15 +17,11 @@ struct MacSettings: View {
     
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
-    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
     var body: some View {
         TabView {
             Form {
                 LookAndFeelSection(
-                    accentColor: $accentColor,
-                    userColorScheme: $userColorScheme,
-                    useSystemBrowser: $useSystemBrowser
                 )
                 ResetSection()
             }

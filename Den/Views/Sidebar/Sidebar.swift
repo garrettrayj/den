@@ -72,6 +72,13 @@ struct Sidebar: View {
         .refreshable {
             await refreshManager.refresh()
         }
+        .sensoryFeedback(trigger: refreshManager.refreshing) { _, newValue in
+            if newValue == true {
+                return .start
+            } else {
+                return .success
+            }
+        }
         .searchable(
             text: $searchInput,
             placement: .sidebar,

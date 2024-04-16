@@ -14,7 +14,8 @@ struct TagTableLayout: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
-    @Environment(\.useSystemBrowser) private var useSystemBrowser
+    
+    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
     
     struct Row: Hashable, Identifiable {
         var id: UUID

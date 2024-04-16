@@ -13,7 +13,6 @@ import SwiftUI
 
 struct FeedView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
 
     @ObservedObject var feed: Feed
     
@@ -64,7 +63,7 @@ struct FeedView: View {
                             CrashUtility.handleCriticalError(error as NSError)
                         }
                     }
-                    .frame(minWidth: minDetailColumnWidth)
+                    .frame(minWidth: 320)
                     .toolbar {
                         FeedToolbar(
                             feed: feed,

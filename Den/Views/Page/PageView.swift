@@ -12,7 +12,6 @@ import SwiftUI
 
 struct PageView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
 
     @ObservedObject var page: Page
     
@@ -67,7 +66,7 @@ struct PageView: View {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
-                .frame(minWidth: minDetailColumnWidth)
+                .frame(minWidth: 320)
                 .navigationTitle(page.displayName)
                 .navigationTitle($page.wrappedName)
                 .toolbar {

@@ -14,11 +14,6 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.minDetailColumnWidth) private var minDetailColumnWidth
-    @Environment(\.userTint) private var userTint
-    
-    @EnvironmentObject private var networkMonitor: NetworkMonitor
-    @EnvironmentObject private var refreshManager: RefreshManager
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     @State private var showingExporter = false
@@ -86,10 +81,9 @@ struct RootView: View {
                 NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
                 NewPageButton(showingNewPageSheet: $showingNewPageSheet)
                 NewTagButton(showingNewTagSheet: $showingNewTagSheet)
-                RefreshButton().disabled(
-                    refreshManager.refreshing || !networkMonitor.isConnected || pages.isEmpty
-                )
+                RefreshButton()
             }
+            .disabled(pages.isEmpty)
             .opacity(0)
         }
         .tint(accentColor?.color)
@@ -130,16 +124,6 @@ struct RootView: View {
                 initialPageID: $newFeedPageID
             )
         }
-        // Refresh notifications
-        .sensoryFeedback(trigger: refreshManager.refreshing) { _, newValue in
-            if newValue == true {
-                return .start
-            } else {
-                return .success
-            }
-        }
-        .environment(\.userTint, accentColor?.color)
-        .environment(\.useSystemBrowser, useSystemBrowser)
         .preferredColorScheme(userColorScheme.colorScheme)
         .onReceive(NotificationCenter.default.publisher(for: .appErrored, object: nil)) { output in
             if let message = output.userInfo?["message"] as? String {

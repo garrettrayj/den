@@ -11,12 +11,11 @@
 import SwiftUI
 
 struct LookAndFeelSection: View {
-    @Binding var accentColor: AccentColor?
-    @Binding var userColorScheme: UserColorScheme
-    @Binding var useSystemBrowser: Bool
-    
+    @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
-
+    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
+    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
+    
     var body: some View {
         Section {
             UserColorSchemePicker(userColorScheme: $userColorScheme)
