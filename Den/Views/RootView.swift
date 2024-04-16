@@ -32,11 +32,8 @@ struct RootView: View {
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("SearchQuery") private var searchQuery: String = ""
     
-    @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("HideRead") private var hideRead: Bool = false
     @AppStorage("MaintenanceTimestamp") private var maintenanceTimestamp: Double?
-    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
-    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
     
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.userOrder, order: .forward),
@@ -86,7 +83,6 @@ struct RootView: View {
             .disabled(pages.isEmpty)
             .opacity(0)
         }
-        .tint(accentColor?.color)
         .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
         .onOpenURL { url in
             if case .page(let page) = detailPanel {
@@ -124,7 +120,6 @@ struct RootView: View {
                 initialPageID: $newFeedPageID
             )
         }
-        .preferredColorScheme(userColorScheme.colorScheme)
         .onReceive(NotificationCenter.default.publisher(for: .appErrored, object: nil)) { output in
             if let message = output.userInfo?["message"] as? String {
                 appErrorMessage = message

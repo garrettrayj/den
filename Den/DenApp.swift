@@ -25,10 +25,15 @@ struct DenApp: App {
     @StateObject private var downloadManager = DownloadManager()
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var refreshManager = RefreshManager()
+    
+    @AppStorage("AccentColor") private var accentColor: AccentColor?
+    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
 
     var body: some Scene {
         WindowGroup {
             RootView()
+                .preferredColorScheme(userColorScheme.colorScheme)
+                .tint(accentColor?.color)
         }
         .handlesExternalEvents(matching: ["*"])
         .commands { commands }
@@ -41,10 +46,9 @@ struct DenApp: App {
         #if os(macOS)
         Settings {
             MacSettings()
-                .environment(
-                    \.managedObjectContext,
-                     persistenceController.container.viewContext
-                )
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .preferredColorScheme(userColorScheme.colorScheme)
+                .tint(accentColor?.color)
         }
         #endif
     }
