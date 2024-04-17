@@ -13,7 +13,6 @@ import XCTest
 final class TrendingUITests: UITestCase {
     func testTrending() throws {
         let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         app.staticTexts["TrendingNavLink"].tap()
 
@@ -26,12 +25,6 @@ final class TrendingUITests: UITestCase {
     
     func testTrendingEmpty() throws {
         let app = launchApp(inMemory: true)
-
-        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
-            XCTFail("Create Profile button did not appear in time")
-        }
-        app.buttons["NewProfile"].firstMatch.tap()
-        app.buttons["CreateProfile"].firstMatch.tap()
 
         #if os(macOS)
         if !app.outlines.buttons["NewPage"].waitForExistence(timeout: 2) {

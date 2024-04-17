@@ -86,8 +86,6 @@ extension DownloadManager: WKDownloadDelegate {
         
         let temporaryFileURL = browserDownload.fileURL
         let finalFilename = temporaryFileURL.lastPathComponent
-        let temporaryDirectory = temporaryFileURL.deletingLastPathComponent()
-        
         let fileManager = FileManager.default
         
         #if os(macOS)

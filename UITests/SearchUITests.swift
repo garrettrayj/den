@@ -13,7 +13,6 @@ import XCTest
 final class SearchUITests: UITestCase {
     func testSearch() throws {
         let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(iOS)
         let firstCell = app.cells.element(boundBy: 0)
@@ -48,12 +47,6 @@ final class SearchUITests: UITestCase {
 
     func testSearchNoResults() throws {
         let app = launchApp(inMemory: true)
-
-        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
-            XCTFail("New Profile button did not appear in time")
-        }
-        app.buttons["NewProfile"].firstMatch.tap()
-        app.buttons["CreateProfile"].firstMatch.tap()
 
         #if os(iOS)
         let firstCell = app.cells.element(boundBy: 0)

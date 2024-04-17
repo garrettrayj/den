@@ -5,6 +5,10 @@
 "Den Bookmark" = "Den Bookmark";
 "Den Feed" = "Den Feed";
 "Den Item" = "Den Item";
+/* Privacy - Downloads Folder Usage Description */
+"NSDownloadsFolderUsageDescription" = "";
 /* Copyright (human-readable) */
 "NSHumanReadableCopyright" = "Copyright © 2020-2024 Garrett Johnson";
+/* Privacy - Photo Library Additions Usage Description */
+"NSPhotoLibraryAddUsageDescription" = "";
 "OPML Document" = "OPML Document";

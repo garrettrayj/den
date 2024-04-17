@@ -13,7 +13,6 @@ import XCTest
 final class ItemUITests: UITestCase {
     func testItemView() throws {
         let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
@@ -32,7 +31,6 @@ final class ItemUITests: UITestCase {
     
     func testItemReader() throws {
         let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()

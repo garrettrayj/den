@@ -13,8 +13,7 @@ import OSLog
 
 struct PersistenceController {
     static let shared = PersistenceController(
-        inMemory: CommandLine.arguments.contains("-in-memory"),
-        disableCloud: CommandLine.arguments.contains("-disable-cloud")
+        inMemory: CommandLine.arguments.contains("-in-memory")
     )
 
     let cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
@@ -29,7 +28,7 @@ struct PersistenceController {
 
     let container: NSPersistentContainer
 
-    init(inMemory: Bool = false, disableCloud: Bool = false) {
+    init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "Den")
 
         if inMemory {
@@ -59,7 +58,7 @@ struct PersistenceController {
             localStoreDescription.configuration = "Local"
         }
 
-        if disableCloud || inMemory {
+        if inMemory {
             cloudStoreDescription.cloudKitContainerOptions = nil
         } else {
             cloudStoreDescription.cloudKitContainerOptions = cloudKitContainerOptions

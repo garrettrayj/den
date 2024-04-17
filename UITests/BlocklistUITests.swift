@@ -45,7 +45,6 @@ final class BlocklistUITests: UITestCase {
     #else
     func testNewBlocklist() throws {
         let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")
@@ -67,7 +66,6 @@ final class BlocklistUITests: UITestCase {
 
     func testBlocklistSettings() throws {
         let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")

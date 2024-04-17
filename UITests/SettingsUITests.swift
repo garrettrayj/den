@@ -14,7 +14,6 @@ final class SettingsUITests: UITestCase {
     #if os(macOS)
     func testAppSettings() throws {
         let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         app.menuBarItems["Den"].menuItems["Settings…"].tap()
         app.buttons["General"].tap()
@@ -24,7 +23,6 @@ final class SettingsUITests: UITestCase {
     #else
     func testSettings() throws {
         let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")

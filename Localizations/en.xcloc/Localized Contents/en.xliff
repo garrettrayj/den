@@ -42,10 +42,20 @@
         <target>Den Item</target>
         <note/>
       </trans-unit>
+      <trans-unit id="NSDownloadsFolderUsageDescription" xml:space="preserve">
+        <source/>
+        <target/>
+        <note>Privacy - Downloads Folder Usage Description</note>
+      </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
         <source>Copyright © 2020-2024 Garrett Johnson</source>
         <target>Copyright © 2020-2024 Garrett Johnson</target>
         <note>Copyright (human-readable)</note>
+      </trans-unit>
+      <trans-unit id="NSPhotoLibraryAddUsageDescription" xml:space="preserve">
+        <source/>
+        <target/>
+        <note>Privacy - Photo Library Additions Usage Description</note>
       </trans-unit>
       <trans-unit id="OPML Document" xml:space="preserve">
         <source>OPML Document</source>
@@ -62,17 +72,12 @@
       <trans-unit id="%@ Feeds" xml:space="preserve">
         <source>%@ Feeds</source>
         <target>%@ Feeds</target>
-        <note>Feed count (zero/plural).</note>
+        <note>Feed count (plural).</note>
       </trans-unit>
       <trans-unit id="%@ Records" xml:space="preserve">
         <source>%@ Records</source>
         <target>%@ Records</target>
-        <note>History count (plural).</note>
-      </trans-unit>
-      <trans-unit id="%@ Unread" xml:space="preserve">
-        <source>%@ Unread</source>
-        <target>%@ Unread</target>
-        <note>Status message.</note>
+        <note>History count (zeor/plural).</note>
       </trans-unit>
       <trans-unit id="%@ items in %@ feeds. %@ unread" xml:space="preserve">
         <source>%1$@ items in %2$@ feeds. %3$@ unread</source>
@@ -93,11 +98,6 @@
         <source>%@ s</source>
         <target>%@ s</target>
         <note>Seconds time display.</note>
-      </trans-unit>
-      <trans-unit id="%@ with Unread" xml:space="preserve">
-        <source>%@ with Unread</source>
-        <target>%@ with Unread</target>
-        <note>Status message.</note>
       </trans-unit>
       <trans-unit id="%@%" xml:space="preserve">
         <source>%1$@%2$</source>
@@ -168,17 +168,11 @@
         <source>All Read</source>
         <target>All Read</target>
         <note>Card note title.
-   Content unavailable title.
-   Status message.</note>
+   Content unavailable title.</note>
       </trans-unit>
-      <trans-unit id="All profile content (pages, feeds, history, etc.) will be removed." xml:space="preserve">
-        <source>All profile content (pages, feeds, history, etc.) will be removed.</source>
-        <target>All profile content (pages, feeds, history, etc.) will be removed.</target>
-        <note>Alert message.</note>
-      </trans-unit>
-      <trans-unit id="All profiles will be removed. Default settings will be restored." xml:space="preserve">
-        <source>All profiles will be removed. Default settings will be restored.</source>
-        <target>All profiles will be removed. Default settings will be restored.</target>
+      <trans-unit id="All pages/feeds will be removed. Default settings will be restored." xml:space="preserve">
+        <source>All pages/feeds will be removed. Default settings will be restored.</source>
+        <target>All pages/feeds will be removed. Default settings will be restored.</target>
         <note>Alert message.</note>
       </trans-unit>
       <trans-unit id="Allow JavaScript" xml:space="preserve">
@@ -212,6 +206,16 @@
         <note>Settings section header.
    Settings tab label.</note>
       </trans-unit>
+      <trans-unit id="Blue" xml:space="preserve">
+        <source>Blue</source>
+        <target>Blue</target>
+        <note>Accent color name.</note>
+      </trans-unit>
+      <trans-unit id="Brown" xml:space="preserve">
+        <source>Brown</source>
+        <target>Brown</target>
+        <note>Accent color name.</note>
+      </trans-unit>
       <trans-unit id="Cache Control" xml:space="preserve">
         <source>Cache Control</source>
         <target>Cache Control</target>
@@ -232,6 +236,11 @@
         <source>Check the spelling or try a new search.</source>
         <target>Check the spelling or try a new search.</target>
         <note>No search results guidance.</note>
+      </trans-unit>
+      <trans-unit id="Clear" xml:space="preserve">
+        <source>Clear</source>
+        <target>Clear</target>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Clear Read History" xml:space="preserve">
         <source>Clear Read History</source>
@@ -258,10 +267,15 @@
         <target>Copied</target>
         <note>Copied to pasteboard message.</note>
       </trans-unit>
-      <trans-unit id="Copy Link" xml:space="preserve">
-        <source>Copy Link</source>
-        <target>Copy Link</target>
+      <trans-unit id="Copy Address" xml:space="preserve">
+        <source>Copy Address</source>
+        <target>Copy Address</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Cyan" xml:space="preserve">
+        <source>Cyan</source>
+        <target>Cyan</target>
+        <note>Accent color name.</note>
       </trans-unit>
       <trans-unit id="Dark" xml:space="preserve">
         <source>Dark</source>
@@ -272,6 +286,11 @@
         <source>Deck</source>
         <target>Deck</target>
         <note>Page layout option label.</note>
+      </trans-unit>
+      <trans-unit id="Default" xml:space="preserve">
+        <source>Default</source>
+        <target>Default</target>
+        <note>Accent color option.</note>
       </trans-unit>
       <trans-unit id="Delete" xml:space="preserve">
         <source>Delete</source>
@@ -288,11 +307,6 @@
         <target>Delete Page?</target>
         <note>Alert title.</note>
       </trans-unit>
-      <trans-unit id="Delete Profile?" xml:space="preserve">
-        <source>Delete Profile?</source>
-        <target>Delete Profile?</target>
-        <note>Alert title.</note>
-      </trans-unit>
       <trans-unit id="Den Help" xml:space="preserve">
         <source>Den Help</source>
         <target>Den Help</target>
@@ -306,6 +320,11 @@
       <trans-unit id="Disable JavaScript" xml:space="preserve">
         <source>Disable JavaScript</source>
         <target>Disable JavaScript</target>
+        <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Downloads" xml:space="preserve">
+        <source>Downloads</source>
+        <target>Downloads</target>
         <note>Button label.</note>
       </trans-unit>
       <trans-unit id="ETag" xml:space="preserve">
@@ -332,11 +351,6 @@
         <source>Enter the web address for a RSS, Atom, or JSON feed.</source>
         <target>Enter the web address for a RSS, Atom, or JSON feed.</target>
         <note>Feed web address field guidance message.</note>
-      </trans-unit>
-      <trans-unit id="Error" xml:space="preserve">
-        <source>Error</source>
-        <target>Error</target>
-        <note>Content unavailable title.</note>
       </trans-unit>
       <trans-unit id="Expanded Previews" xml:space="preserve">
         <source>Expanded Previews</source>
@@ -434,6 +448,11 @@
         <target>Go Forward</target>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Green" xml:space="preserve">
+        <source>Green</source>
+        <target>Green</target>
+        <note>Accent color name.</note>
+      </trans-unit>
       <trans-unit id="Grouped" xml:space="preserve">
         <source>Grouped</source>
         <target>Grouped</target>
@@ -448,18 +467,6 @@
         <source>Hide Reader</source>
         <target>Hide Reader</target>
         <note>Button label.</note>
-      </trans-unit>
-      <trans-unit id="If you are new or cloud sync is disabled then create a profile to begin." xml:space="preserve">
-        <source>If you are new or cloud sync is disabled then create a profile to begin.</source>
-        <target>If you are new or cloud sync is disabled then create a profile to begin.</target>
-        <note>Landing guidance message.</note>
-      </trans-unit>
-      <trans-unit id="If you have used the app on another device then synchronization may be in progress. &#10;Please wait a minute." xml:space="preserve">
-        <source>If you have used the app on another device then synchronization may be in progress. 
-Please wait a minute.</source>
-        <target>If you have used the app on another device then synchronization may be in progress. 
-Please wait a minute.</target>
-        <note>Landing guidance message.</note>
       </trans-unit>
       <trans-unit id="Import OPML" xml:space="preserve">
         <source>Import OPML</source>
@@ -476,6 +483,11 @@ Please wait a minute.</target>
         <source>Inbox Empty</source>
         <target>Inbox Empty</target>
         <note>Content unavailable title.</note>
+      </trans-unit>
+      <trans-unit id="Indigo" xml:space="preserve">
+        <source>Indigo</source>
+        <target>Indigo</target>
+        <note>Accent color name.</note>
       </trans-unit>
       <trans-unit id="Info" xml:space="preserve">
         <source>Info</source>
@@ -543,6 +555,11 @@ Please wait a minute.</target>
         <target>Mark Unread</target>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Mint" xml:space="preserve">
+        <source>Mint</source>
+        <target>Mint</target>
+        <note>Accent color name.</note>
+      </trans-unit>
       <trans-unit id="Move" xml:space="preserve">
         <source>Move</source>
         <target>Move</target>
@@ -587,12 +604,6 @@ Please wait a minute.</target>
         <note>Button label.
    Navigation title.</note>
       </trans-unit>
-      <trans-unit id="New Profile" xml:space="preserve">
-        <source>New Profile</source>
-        <target>New Profile</target>
-        <note>Button label.
-   Navigation title.</note>
-      </trans-unit>
       <trans-unit id="New Tag" xml:space="preserve">
         <source>New Tag</source>
         <target>New Tag</target>
@@ -619,24 +630,18 @@ Please wait a minute.</target>
         <source>No Feeds</source>
         <target>No Feeds</target>
         <note>Content unavailable title.
-   Empty page title.</note>
+   Empty page title.
+   Feed count (zero).</note>
       </trans-unit>
       <trans-unit id="No Items" xml:space="preserve">
         <source>No Items</source>
         <target>No Items</target>
-        <note>Content unavailable title.
-   Status message.</note>
+        <note>Content unavailable title.</note>
       </trans-unit>
       <trans-unit id="No Pages Available" xml:space="preserve">
         <source>No Pages Available</source>
         <target>No Pages Available</target>
         <note>New Feed error message.</note>
-      </trans-unit>
-      <trans-unit id="No Profiles" xml:space="preserve">
-        <source>No Profiles</source>
-        <target>No Profiles</target>
-        <note>Content unavailable title.
-   Landing title.</note>
       </trans-unit>
       <trans-unit id="No Query" xml:space="preserve">
         <source>No Query</source>
@@ -663,8 +668,7 @@ Please wait a minute.</target>
       <trans-unit id="No Trends" xml:space="preserve">
         <source>No Trends</source>
         <target>No Trends</target>
-        <note>Content unavailable title.
-   Status message.</note>
+        <note>Content unavailable title.</note>
       </trans-unit>
       <trans-unit id="No Unread Results" xml:space="preserve">
         <source>No Unread Results</source>
@@ -676,32 +680,42 @@ Please wait a minute.</target>
         <target>No common subjects were found in titles.</target>
         <note>Trending empty message.</note>
       </trans-unit>
+      <trans-unit id="Open" xml:space="preserve">
+        <source>Open</source>
+        <target>Open</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Open Validator" xml:space="preserve">
         <source>Open Validator</source>
         <target>Open Validator</target>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Open a feed link or go to “(Image(systemName: &quot;ellipsis.circle&quot; )) &gt; New Feed” from the home/sidebar view to enter a web address. Use the Safari extension to discover feeds on websites." xml:space="preserve">
-        <source>Open a feed link or go to “(Image(systemName: "ellipsis.circle" )) &gt; New Feed” from the home/sidebar view to enter a web address. Use the Safari extension to discover feeds on websites.</source>
-        <target>Open a feed link or go to “(Image(systemName: "ellipsis.circle" )) &gt; New Feed” from the home/sidebar view to enter a web address. Use the Safari extension to discover feeds on websites.</target>
+      <trans-unit id="Open a feed link or go to “(Image(systemName: &quot;ellipsis.circle&quot; )) &gt; New Feed” to enter a web address. Use the Safari extension to discover feeds on websites." xml:space="preserve">
+        <source>Open a feed link or go to “(Image(systemName: "ellipsis.circle" )) &gt; New Feed” to enter a web address. Use the Safari extension to discover feeds on websites.</source>
+        <target>Open a feed link or go to “(Image(systemName: "ellipsis.circle" )) &gt; New Feed” to enter a web address. Use the Safari extension to discover feeds on websites.</target>
         <note>No feeds guidance (iPhone).</note>
       </trans-unit>
-      <trans-unit id="Open a feed link, drag a URL onto the page list, or go to “(Image(systemName: &quot;ellipsis.circle&quot; )) &gt; New Feed” from the home/sidebar view to enter a web address. Use the Safari extension to discover feeds on websites." xml:space="preserve">
-        <source>Open a feed link, drag a URL onto the page list, or go to “(Image(systemName: "ellipsis.circle" )) &gt; New Feed” from the home/sidebar view to enter a web address. Use the Safari extension to discover feeds on websites.</source>
-        <target>Open a feed link, drag a URL onto the page list, or go to “(Image(systemName: "ellipsis.circle" )) &gt; New Feed” from the home/sidebar view to enter a web address. Use the Safari extension to discover feeds on websites.</target>
-        <note>No feeds guidance (iPad).</note>
-      </trans-unit>
-      <trans-unit id="Open a feed link, drag a URL onto the page list, or go to “File &gt; New Feed” to enter a web address. &#10;Use the Safari extension to discover feeds on websites." xml:space="preserve">
-        <source>Open a feed link, drag a URL onto the page list, or go to “File &gt; New Feed” to enter a web address. 
+      <trans-unit id="Open a feed link, drag a URL onto the page list, or go to “(Image(systemName: &quot;ellipsis.circle&quot; )) &gt; New Feed” to enter a web address. &#10;Use the Safari extension to discover feeds on websites." xml:space="preserve">
+        <source>Open a feed link, drag a URL onto the page list, or go to “(Image(systemName: "ellipsis.circle" )) &gt; New Feed” to enter a web address. 
 Use the Safari extension to discover feeds on websites.</source>
-        <target>Open a feed link, drag a URL onto the page list, or go to “File &gt; New Feed” to enter a web address. 
+        <target>Open a feed link, drag a URL onto the page list, or go to “(Image(systemName: "ellipsis.circle" )) &gt; New Feed” to enter a web address. 
 Use the Safari extension to discover feeds on websites.</target>
         <note>No feeds guidance (Mac).</note>
+      </trans-unit>
+      <trans-unit id="Open a feed link, drag a URL onto the page list, or go to “(Image(systemName: &quot;ellipsis.circle&quot; )) &gt; New Feed” to enter a web address. Use the Safari extension to discover feeds on websites." xml:space="preserve">
+        <source>Open a feed link, drag a URL onto the page list, or go to “(Image(systemName: "ellipsis.circle" )) &gt; New Feed” to enter a web address. Use the Safari extension to discover feeds on websites.</source>
+        <target>Open a feed link, drag a URL onto the page list, or go to “(Image(systemName: "ellipsis.circle" )) &gt; New Feed” to enter a web address. Use the Safari extension to discover feeds on websites.</target>
+        <note>No feeds guidance (iPad).</note>
       </trans-unit>
       <trans-unit id="Open in Browser" xml:space="preserve">
         <source>Open in Browser</source>
         <target>Open in Browser</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Orange" xml:space="preserve">
+        <source>Orange</source>
+        <target>Orange</target>
+        <note>Accent color name.</note>
       </trans-unit>
       <trans-unit id="Organizer" xml:space="preserve">
         <source>Organizer</source>
@@ -730,6 +744,11 @@ Use the Safari extension to discover feeds on websites.</target>
         <note>Feed unavailable title.
    Organizer row status.</note>
       </trans-unit>
+      <trans-unit id="Pink" xml:space="preserve">
+        <source>Pink</source>
+        <target>Pink</target>
+        <note>Accent color name.</note>
+      </trans-unit>
       <trans-unit id="Preferences" xml:space="preserve">
         <source>Preferences</source>
         <target>Preferences</target>
@@ -747,31 +766,20 @@ Use the Safari extension to discover feeds on websites.</target>
    Organizer configuration panel section header.
    Tag layout option.</note>
       </trans-unit>
-      <trans-unit id="Profile" xml:space="preserve">
-        <source>Profile</source>
-        <target>Profile</target>
-        <note>Picker label.</note>
-      </trans-unit>
-      <trans-unit id="Profile Deleted" xml:space="preserve">
-        <source>Profile Deleted</source>
-        <target>Profile Deleted</target>
-        <note>Content unavailable title.</note>
-      </trans-unit>
-      <trans-unit id="Profile Empty" xml:space="preserve">
-        <source>Profile Empty</source>
-        <target>Profile Empty</target>
-        <note>Status message.</note>
-      </trans-unit>
-      <trans-unit id="Profiles" xml:space="preserve">
-        <source>Profiles</source>
-        <target>Profiles</target>
-        <note>Settings section header.
-   Settings tab label.</note>
-      </trans-unit>
       <trans-unit id="Pull to Refresh" xml:space="preserve">
         <source>Pull to Refresh</source>
         <target>Pull to Refresh</target>
         <note>Status message.</note>
+      </trans-unit>
+      <trans-unit id="Purple" xml:space="preserve">
+        <source>Purple</source>
+        <target>Purple</target>
+        <note>Accent color name.</note>
+      </trans-unit>
+      <trans-unit id="Red" xml:space="preserve">
+        <source>Red</source>
+        <target>Red</target>
+        <note>Accent color name.</note>
       </trans-unit>
       <trans-unit id="Refresh" xml:space="preserve">
         <source>Refresh</source>
@@ -792,6 +800,11 @@ Use the Safari extension to discover feeds on websites.</target>
         <source>Reload</source>
         <target>Reload</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Remove from List" xml:space="preserve">
+        <source>Remove from List</source>
+        <target>Remove from List</target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reset" xml:space="preserve">
         <source>Reset</source>
@@ -856,11 +869,6 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Select Preset…</target>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Select Profile" xml:space="preserve">
-        <source>Select Profile</source>
-        <target>Select Profile</target>
-        <note>Landing view title.</note>
-      </trans-unit>
       <trans-unit id="Server" xml:space="preserve">
         <source>Server</source>
         <target>Server</target>
@@ -896,6 +904,16 @@ Use the Safari extension to discover feeds on websites.</target>
         <source>Show Reader</source>
         <target>Show Reader</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Show Unread Counts" xml:space="preserve">
+        <source>Show Unread Counts</source>
+        <target>Show Unread Counts</target>
+        <note>Toggle label.</note>
+      </trans-unit>
+      <trans-unit id="Show in Finder" xml:space="preserve">
+        <source>Show in Finder</source>
+        <target>Show in Finder</target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Showing results for “%@”" xml:space="preserve">
         <source>Showing results for “%@”</source>
@@ -959,6 +977,11 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Tags</target>
         <note>Menu label.
    Sidebar section header.</note>
+      </trans-unit>
+      <trans-unit id="Teal" xml:space="preserve">
+        <source>Teal</source>
+        <target>Teal</target>
+        <note>Accent color name.</note>
       </trans-unit>
       <trans-unit id="This action cannot be undone." xml:space="preserve">
         <source>This action cannot be undone.</source>
@@ -1027,6 +1050,11 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Unavailable</target>
         <note>Blocklist response code placeholder.</note>
       </trans-unit>
+      <trans-unit id="Unknown" xml:space="preserve">
+        <source>Unknown</source>
+        <target>Unknown</target>
+        <note>Download file name unavailable.</note>
+      </trans-unit>
       <trans-unit id="Unknown Error" xml:space="preserve">
         <source>Unknown Error</source>
         <target>Unknown Error</target>
@@ -1053,8 +1081,6 @@ Use the Safari extension to discover feeds on websites.</target>
    Default tag name.
    Default trend title.
    Page name placeholder.
-   Profile name placeholder.
-   Profile name text field prompt.
    Tag name placeholder.</note>
       </trans-unit>
       <trans-unit id="Updated" xml:space="preserve">
@@ -1087,11 +1113,6 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Use System Browser</target>
         <note>Toggle label.</note>
       </trans-unit>
-      <trans-unit id="Use profiles to manage separate collections of feeds, pages and tags." xml:space="preserve">
-        <source>Use profiles to manage separate collections of feeds, pages and tags.</source>
-        <target>Use profiles to manage separate collections of feeds, pages and tags.</target>
-        <note>No profiles guidance.</note>
-      </trans-unit>
       <trans-unit id="Version" xml:space="preserve">
         <source>Version</source>
         <target>Version</target>
@@ -1107,6 +1128,16 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Viewing</target>
         <note>Feed inspector section header.
    Organizer configuration panel section header.</note>
+      </trans-unit>
+      <trans-unit id="Welcome" xml:space="preserve">
+        <source>Welcome</source>
+        <target>Welcome</target>
+        <note>Welcome title.</note>
+      </trans-unit>
+      <trans-unit id="Yellow" xml:space="preserve">
+        <source>Yellow</source>
+        <target>Yellow</target>
+        <note>Accent color name.</note>
       </trans-unit>
       <trans-unit id="Yes" xml:space="preserve">
         <source>Yes</source>

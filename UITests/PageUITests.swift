@@ -14,12 +14,6 @@ final class PageUITests: UITestCase {
     func testNewPage() throws {
         let app = launchApp(inMemory: true)
 
-        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
-            XCTFail("Create Profile button did not appear in time")
-        }
-        app.buttons["NewProfile"].firstMatch.tap()
-        app.buttons["CreateProfile"].firstMatch.tap()
-
         #if os(macOS)
         if !app.outlines.buttons["NewPage"].waitForExistence(timeout: 2) {
             XCTFail("New Page button did not appear in time")
@@ -37,12 +31,6 @@ final class PageUITests: UITestCase {
     
     func testPageEmpty() throws {
         let app = launchApp(inMemory: true)
-
-        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
-            XCTFail("Create Profile button did not appear in time")
-        }
-        app.buttons["NewProfile"].firstMatch.tap()
-        app.buttons["CreateProfile"].firstMatch.tap()
 
         #if os(macOS)
         if !app.outlines.buttons["NewPage"].waitForExistence(timeout: 2) {
@@ -81,7 +69,6 @@ final class PageUITests: UITestCase {
 
     func testPageGroupedLayout() throws {
         let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
@@ -106,7 +93,6 @@ final class PageUITests: UITestCase {
 
     func testPageTimelineLayout() throws {
         let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
@@ -131,7 +117,6 @@ final class PageUITests: UITestCase {
 
     func testPageDeckLayout() throws {
         let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()

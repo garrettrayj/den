@@ -11,22 +11,14 @@
 import XCTest
 
 final class SidebarUITests: UITestCase {
-    func testGetStarted() throws {
+    func testSidebarGetStarted() throws {
         let app = launchApp(inMemory: true)
 
-        if !app.buttons["NewProfile"].waitForExistence(timeout: 20) {
-            XCTFail("Create Profile button did not appear in time")
-        }
-        app.buttons["NewProfile"].firstMatch.tap()
-
-        app.buttons["CreateProfile"].firstMatch.tap()
-
-        attachScreenshot(of: app.windows.firstMatch, named: "get-started")
+        attachScreenshot(of: app.windows.firstMatch, named: "sidebar-get-started")
     }
 
-    func testAppMenu() throws {
+    func testSidebarAppMenu() throws {
         let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.popUpButtons["SidebarMenu"].tap()
@@ -34,19 +26,6 @@ final class SidebarUITests: UITestCase {
         app.buttons["SidebarMenu"].tap()
         #endif
 
-        attachScreenshot(of: app.windows.firstMatch, named: "app-menu")
-    }
-    
-    func testProfileMenu() throws {
-        let app = launchApp(inMemory: false)
-        app.buttons["SelectProfile"].firstMatch.tap()
-
-        #if os(macOS)
-        app.popUpButtons["ProfileMenu"].tap()
-        #else
-        app.buttons["ProfileMenu"].tap()
-        #endif
-
-        attachScreenshot(of: app.windows.firstMatch, named: "profile-menu")
+        attachScreenshot(of: app.windows.firstMatch, named: "sidebar-app-menu")
     }
 }
