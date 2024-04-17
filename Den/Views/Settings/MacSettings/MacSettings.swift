@@ -43,6 +43,6 @@ struct MacSettings: View {
         .listStyle(.sidebar)
         .formStyle(.grouped)
         .buttonStyle(.borderless)
-        .frame(width: 600, height: 380)
+        .frame(width: 600, height: 412)
     }
 }

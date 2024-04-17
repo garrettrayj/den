@@ -14,6 +14,7 @@ struct ResetSection: View {
     var body: some View {
         Section {
             EmptyCachesButton()
+            ClearHistoryButton()
             ResetEverythingButton()
         } header: {
             Text("Reset", comment: "Settings section header.")
