@@ -15,6 +15,8 @@ struct SidebarStatus: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     
     let pages: FetchedResults<Page>
+    
+    @AppStorage("Refreshed") private var refreshedTimestamp: Double?
 
     var body: some View {
         VStack {
@@ -23,8 +25,8 @@ struct SidebarStatus: View {
             } else if refreshManager.refreshing {
                 ProgressView(refreshManager.progress)
                     .progressViewStyle(RefreshProgressViewStyle(feedCount: pages.feeds.count))
-            } else if let refreshedDate = RefreshedDateStorage.getRefreshed() {
-                RelativeRefreshedDate(date: refreshedDate)
+            } else if let timestamp = refreshedTimestamp {
+                RelativeRefreshedDate(timestamp: timestamp)
             } else if pages.isEmpty {
                 Text("No Pages", comment: "Status message.")
             } else {

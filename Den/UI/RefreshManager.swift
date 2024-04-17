@@ -63,7 +63,7 @@ final class RefreshManager: ObservableObject {
 
         await AnalyzeTask().execute()
 
-        RefreshedDateStorage.setRefreshed(date: .now)
+        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
 
         await MainActor.run {
             refreshing = false

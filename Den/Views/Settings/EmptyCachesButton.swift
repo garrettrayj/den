@@ -15,6 +15,8 @@ struct EmptyCachesButton: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @State private var cacheSize: Int64 = 0
+    
+    @AppStorage("Refreshed") private var refreshedTimestamp: Double?
 
     static let cacheSizeFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()
@@ -70,14 +72,14 @@ struct EmptyCachesButton: View {
     
     private func clearFeedData() {
         feedDatas.forEach { viewContext.delete($0) }
-        
-        RefreshedDateStorage.setRefreshed(date: nil)
 
         do {
             try viewContext.save()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }
+        
+        refreshedTimestamp = nil
     }
 
     private func calculateCacheSize() async {

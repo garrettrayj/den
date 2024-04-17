@@ -11,9 +11,13 @@
 import SwiftUI
 
 struct RelativeRefreshedDate: View {
-    let date: Date
+    let timestamp: Double
+    
+    var date: Date {
+        return Date(timeIntervalSince1970: timestamp)
+    }
 
-    static let relativeDateStyle: Date.RelativeFormatStyle = .relative(
+    static let formatStyle: Date.RelativeFormatStyle = .relative(
         presentation: .numeric,
         unitsStyle: .wide
     )
@@ -27,7 +31,7 @@ struct RelativeRefreshedDate: View {
                 )
             } else {
                 Text(
-                    "Updated \(date.formatted(RelativeRefreshedDate.relativeDateStyle))",
+                    "Updated \(date.formatted(RelativeRefreshedDate.formatStyle))",
                     comment: "Status message (relative date display)."
                 )
             }

@@ -11,10 +11,12 @@
 import SwiftUI
 
 struct CommonStatus: View {
+    @AppStorage("Refreshed") private var refreshedTimestamp: Double?
+    
     var body: some View {
         VStack {
-            if let refreshedDate = RefreshedDateStorage.getRefreshed() {
-                RelativeRefreshedDate(date: refreshedDate).font(.caption)
+            if let timestamp = refreshedTimestamp {
+                RelativeRefreshedDate(timestamp: timestamp).font(.caption)
             }
         }
         .lineLimit(1)

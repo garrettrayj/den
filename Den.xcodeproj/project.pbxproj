@@ -18,7 +18,6 @@
 		680E57E824D29F2200196F6D /* FeedData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */; };
 		680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */; };
 		680F495029AA56BE0083B664 /* WithItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F494F29AA56BE0083B664 /* WithItems.swift */; };
-		680F495229AB2A240083B664 /* RefreshedDateStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F495129AB2A240083B664 /* RefreshedDateStorage.swift */; };
 		681087D329FEEE1100F2630C /* PreviewHeadline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681087D229FEEE1100F2630C /* PreviewHeadline.swift */; };
 		6818F0792B64CC3500BE06FC /* BlocklistSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F0782B64CC3500BE06FC /* BlocklistSource.swift */; };
 		6818F07B2B64CC6900BE06FC /* BlocklistManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */; };
@@ -365,7 +364,6 @@
 		680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680F494F29AA56BE0083B664 /* WithItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithItems.swift; sourceTree = "<group>"; };
-		680F495129AB2A240083B664 /* RefreshedDateStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshedDateStorage.swift; sourceTree = "<group>"; };
 		681087D229FEEE1100F2630C /* PreviewHeadline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHeadline.swift; sourceTree = "<group>"; };
 		6818F0772B63363C00BE06FC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6818F0782B64CC3500BE06FC /* BlocklistSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistSource.swift; sourceTree = "<group>"; };
@@ -993,7 +991,6 @@
 				684152372AD559C300ABE5E2 /* MercuryObject.swift */,
 				68906F8E2A78F58900803350 /* NavigationStore.swift */,
 				68ED797A29BD97DE00D85B4F /* NetworkMonitor.swift */,
-				680F495129AB2A240083B664 /* RefreshedDateStorage.swift */,
 				682591FD29D81E3000E5EF3B /* RefreshManager.swift */,
 				68A1044A2BA813EC008BF8E6 /* WebViewError.swift */,
 			);
@@ -1791,7 +1788,6 @@
 				686F6B0C2B38D3CC0099EB49 /* ReaderZoom.swift in Sources */,
 				6856DB4E2ABA29B80094615E /* ReadUnreadButton.swift in Sources */,
 				683E3F49293BC19800B16814 /* RefreshButton.swift in Sources */,
-				680F495229AB2A240083B664 /* RefreshedDateStorage.swift in Sources */,
 				682591FE29D81E3000E5EF3B /* RefreshManager.swift in Sources */,
 				687FEF082A3FAD610042977E /* RefreshProgressViewStyle.swift in Sources */,
 				6862A59A2A25B6DF000CAB19 /* RelativeRefreshedDate.swift in Sources */,
