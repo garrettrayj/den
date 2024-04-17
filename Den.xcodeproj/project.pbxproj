@@ -19,7 +19,6 @@
 		680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */; };
 		680F495029AA56BE0083B664 /* WithItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F494F29AA56BE0083B664 /* WithItems.swift */; };
 		681087D329FEEE1100F2630C /* PreviewHeadline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681087D229FEEE1100F2630C /* PreviewHeadline.swift */; };
-		6818F0792B64CC3500BE06FC /* BlocklistSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F0782B64CC3500BE06FC /* BlocklistSource.swift */; };
 		6818F07B2B64CC6900BE06FC /* BlocklistManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */; };
 		6818F0832B703D3700BE06FC /* BlocklistPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F0822B703D3700BE06FC /* BlocklistPresets.swift */; };
 		6818F0852B7325C000BE06FC /* FeedFaviconPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6818F0842B7325C000BE06FC /* FeedFaviconPlaceholder.swift */; };
@@ -366,7 +365,6 @@
 		680F494F29AA56BE0083B664 /* WithItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithItems.swift; sourceTree = "<group>"; };
 		681087D229FEEE1100F2630C /* PreviewHeadline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHeadline.swift; sourceTree = "<group>"; };
 		6818F0772B63363C00BE06FC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		6818F0782B64CC3500BE06FC /* BlocklistSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistSource.swift; sourceTree = "<group>"; };
 		6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistManifest.swift; sourceTree = "<group>"; };
 		6818F0822B703D3700BE06FC /* BlocklistPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistPresets.swift; sourceTree = "<group>"; };
 		6818F0842B7325C000BE06FC /* FeedFaviconPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFaviconPlaceholder.swift; sourceTree = "<group>"; };
@@ -1006,7 +1004,6 @@
 				6856DAFA2AB587240094615E /* Transferable */,
 				684152112AD0036600ABE5E2 /* BlocklistManager.swift */,
 				6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */,
-				6818F0782B64CC3500BE06FC /* BlocklistSource.swift */,
 				687F222B2A5B615100B76919 /* FeedURLResponse.swift */,
 				684DFA0224BAC7680023D6DB /* ImageMIMEType.swift */,
 				687FEEFA2A3EE4E10042977E /* OPMLFile.swift */,
@@ -1616,7 +1613,6 @@
 				6818F07B2B64CC6900BE06FC /* BlocklistManifest.swift in Sources */,
 				6818F0832B703D3700BE06FC /* BlocklistPresets.swift in Sources */,
 				680BBC912ADF761400F32046 /* BlocklistSettings.swift in Sources */,
-				6818F0792B64CC3500BE06FC /* BlocklistSource.swift in Sources */,
 				6841526A2AD9E74100ABE5E2 /* BlocklistsSection.swift in Sources */,
 				685EB3902AFB46A8001683E3 /* BlocklistsTab.swift in Sources */,
 				680BBC8D2ADEC74600F32046 /* BlocklistStatus+CoreDataClass.swift in Sources */,

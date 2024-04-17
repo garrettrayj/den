@@ -14,7 +14,7 @@ struct ImageErrorPlaceholder: View {
     var body: some View {
         Image(systemName: "photo")
             .imageScale(.large)
-            .foregroundStyle(.tertiary)
+            .foregroundStyle(.fill.tertiary)
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

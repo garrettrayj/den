@@ -34,8 +34,8 @@ struct EmptyCachesButton: View {
     var body: some View {
         Button {
             Task {
-                clearFeedData()
-                await emptyCache()
+                clearData()
+                await emptyCaches()
                 cacheSize = 0
             }
         } label: {
@@ -62,7 +62,7 @@ struct EmptyCachesButton: View {
         .accessibilityIdentifier("EmptyCaches")
     }
 
-    private func emptyCache() async {
+    private func emptyCaches() async {
         SDImageCache.shared.clearMemory()
 
         await SDImageCache.shared.clearDiskOnCompletion()
@@ -70,8 +70,14 @@ struct EmptyCachesButton: View {
         URLCache.shared.removeAllCachedResponses()
     }
     
-    private func clearFeedData() {
-        feedDatas.forEach { viewContext.delete($0) }
+    private func clearData() {
+        if let feedDatas = try? viewContext.fetch(FeedData.fetchRequest()) {
+            feedDatas.forEach { viewContext.delete($0) }
+        }
+        
+        if let trends = try? viewContext.fetch(Trend.fetchRequest()) {
+            trends.forEach { viewContext.delete($0) }
+        }
 
         do {
             try viewContext.save()
