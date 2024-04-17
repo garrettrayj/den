@@ -78,7 +78,6 @@ struct RootView: View {
                 NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
                 NewPageButton(showingNewPageSheet: $showingNewPageSheet)
                 NewTagButton(showingNewTagSheet: $showingNewTagSheet)
-                RefreshButton()
             }
             .disabled(pages.isEmpty)
             .opacity(0)

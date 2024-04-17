@@ -19,7 +19,6 @@ import SDWebImageWebPCoder
 struct DenApp: App {
     @Environment(\.openURL) private var openURL
 
-    let defaultSize = CGSize(width: 1280, height: 800)
     let persistenceController = PersistenceController.shared
     
     @StateObject private var downloadManager = DownloadManager()
@@ -37,7 +36,7 @@ struct DenApp: App {
         }
         .handlesExternalEvents(matching: ["*"])
         .commands { commands }
-        .defaultSize(defaultSize)
+        .defaultSize(CGSize(width: 1280, height: 800))
         .environment(\.managedObjectContext, persistenceController.container.viewContext)
         .environmentObject(downloadManager)
         .environmentObject(networkMonitor)
@@ -58,6 +57,11 @@ struct DenApp: App {
         ToolbarCommands()
         SidebarCommands()
         InspectorCommands()
+        CommandGroup(after: .toolbar) {
+            RefreshButton()
+                .environmentObject(networkMonitor)
+                .environmentObject(refreshManager)
+        }
         CommandGroup(replacing: .help) {
             Button {
                 openURL(URL(string: "https://den.io/help/")!)
