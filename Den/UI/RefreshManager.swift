@@ -63,9 +63,9 @@ final class RefreshManager: ObservableObject {
 
         await AnalyzeTask().execute()
 
-        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
-
         await MainActor.run {
+            UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
+            
             refreshing = false
             progress.completedUnitCount = 0
         }
@@ -82,7 +82,7 @@ final class RefreshManager: ObservableObject {
             _ = await feedUpdateTask.execute()
         }
         
-        DispatchQueue.main.async {
+        await MainActor.run {
             feed.objectWillChange.send()
             feed.page?.objectWillChange.send()
         }
