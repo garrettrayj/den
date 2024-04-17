@@ -37,20 +37,22 @@ struct ClearHistoryButton: View {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         } label: {
-            Label {
-                HStack {
+            HStack {
+                Label {
                     Text("Clear Read History", comment: "Button label.")
-                    Spacer()
-                    Group {
-                        if history.count == 1 {
-                            Text("1 Record", comment: "History count (singular).")
-                        } else {
-                            Text("\(history.count) Records", comment: "History count (zeor/plural).")
-                        }
+                } icon: {
+                    Image(systemName: "clear")
+                }
+                Spacer()
+                Group {
+                    if history.count == 1 {
+                        Text("1 Record", comment: "History count (singular).")
+                    } else {
+                        Text("\(history.count) Records", comment: "History count (zeor/plural).")
                     }
                 }
-            } icon: {
-                Image(systemName: "clear")
+                .font(.callout)
+                .foregroundStyle(.secondary)
             }
         }
         .disabled(history.isEmpty)
