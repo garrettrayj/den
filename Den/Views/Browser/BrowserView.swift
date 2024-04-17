@@ -24,7 +24,6 @@ struct BrowserView: View {
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("BrowserZoom") private var browserZoom: PageZoomLevel = .oneHundredPercent
     @AppStorage("ReaderZoom") private var readerZoom: PageZoomLevel = .oneHundredPercent
-    
 
     init(
         url: URL,

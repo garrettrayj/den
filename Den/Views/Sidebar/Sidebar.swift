@@ -104,12 +104,12 @@ struct Sidebar: View {
                 showingNewPageSheet: $showingNewPageSheet,
                 showingNewTagSheet: $showingNewTagSheet,
                 showingSettings: $showingSettings, 
-                pages: pages
+                feedCount: pages.feeds.count
             )
         }
         #if os(macOS)
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            MacSidebarBottomBar(pages: pages)
+            MacSidebarBottomBar(feedCount: pages.feeds.count)
         }
         #endif
         .sheet(

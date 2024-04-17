@@ -16,14 +16,14 @@ struct MacSidebarBottomBar: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var refreshManager: RefreshManager
     
-    let pages: FetchedResults<Page>
+    let feedCount: Int
     
     var body: some View {
         VStack(spacing: 0) {
             Rectangle().fill(BackgroundSeparatorShapeStyle()).frame(height: 1)
             HStack {
                 VStack(alignment: .leading) {
-                    SidebarStatus(pages: pages)
+                    SidebarStatus(feedCount: feedCount)
                 }
                 
                 Spacer()
@@ -41,7 +41,7 @@ struct MacSidebarBottomBar: View {
                         .imageScale(.large)
                         .fontWeight(.medium)
                         .buttonStyle(.borderless)
-                        .disabled(pages.isEmpty)
+                        .disabled(feedCount == 0)
                 }
             }
             .padding(12)

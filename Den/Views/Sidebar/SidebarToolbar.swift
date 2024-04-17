@@ -21,7 +21,7 @@ struct SidebarToolbar: ToolbarContent {
     @Binding var showingNewTagSheet: Bool
     @Binding var showingSettings: Bool
     
-    let pages: FetchedResults<Page>
+    let feedCount: Int
 
     var body: some ToolbarContent {
         ToolbarItem(placement: .primaryAction) {
@@ -50,10 +50,10 @@ struct SidebarToolbar: ToolbarContent {
         }
         #if os(iOS)
         ToolbarItem(placement: .status) {
-            SidebarStatus(pages: pages).layoutPriority(0)
+            SidebarStatus(feedCount: feedCount).layoutPriority(0)
         }
         ToolbarItem(placement: .bottomBar) {
-            RefreshButton().disabled(pages.isEmpty)
+            RefreshButton().disabled(feedCount == 0)
         }
         #endif
     }
