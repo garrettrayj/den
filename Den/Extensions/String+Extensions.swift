@@ -74,6 +74,6 @@ extension String {
             .union(.illegalCharacters)
             .union(.controlCharacters)
 
-        return self.components(separatedBy: invalidCharacters).joined(separator: ".")
+        return self.components(separatedBy: invalidCharacters).joined(separator: "-")
     }
 }

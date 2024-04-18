@@ -157,7 +157,11 @@ struct Sidebar: View {
             isPresented: $exporterIsPresented,
             document: opmlFile,
             contentType: UTType(importedAs: "public.opml"),
-            defaultFilename: "Den Export"
+            defaultFilename: {
+                let date = Date().formatted(date: .numeric, time: .omitted).sanitizedForFileName()
+                return "Den Export \(date)"
+            }()
+                
         ) { _ in
             opmlFile = nil
         }
