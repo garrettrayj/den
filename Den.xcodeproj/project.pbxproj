@@ -178,6 +178,7 @@
 		687F222C2A5B615100B76919 /* FeedURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F222B2A5B615100B76919 /* FeedURLResponse.swift */; };
 		687F4890269165EE00EA2498 /* AppErrorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F488F269165EE00EA2498 /* AppErrorSheet.swift */; };
 		687F73EF2BCDFA8F00FD8EBF /* ShowInFinderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F73EE2BCDFA8F00FD8EBF /* ShowInFinderButton.swift */; };
+		687F73F32BD1586300FD8EBF /* DenWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F73F22BD1586300FD8EBF /* DenWebView.swift */; };
 		687FEED22A3A57220042977E /* LookAndFeelSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEED12A3A57220042977E /* LookAndFeelSection.swift */; };
 		687FEED72A3B724B0042977E /* UserColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEED62A3B724B0042977E /* UserColorScheme.swift */; };
 		687FEEDB2A3B830D0042977E /* UserColorSchemePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEEDA2A3B830D0042977E /* UserColorSchemePicker.swift */; };
@@ -525,6 +526,7 @@
 		687F222B2A5B615100B76919 /* FeedURLResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedURLResponse.swift; sourceTree = "<group>"; };
 		687F488F269165EE00EA2498 /* AppErrorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppErrorSheet.swift; sourceTree = "<group>"; };
 		687F73EE2BCDFA8F00FD8EBF /* ShowInFinderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInFinderButton.swift; sourceTree = "<group>"; };
+		687F73F22BD1586300FD8EBF /* DenWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DenWebView.swift; sourceTree = "<group>"; };
 		687FEED12A3A57220042977E /* LookAndFeelSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookAndFeelSection.swift; sourceTree = "<group>"; };
 		687FEED62A3B724B0042977E /* UserColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColorScheme.swift; sourceTree = "<group>"; };
 		687FEEDA2A3B830D0042977E /* UserColorSchemePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColorSchemePicker.swift; sourceTree = "<group>"; };
@@ -983,6 +985,7 @@
 				68EBB50B2BB315220014305F /* BrowserDownload.swift */,
 				6820507D2ACB530600C937BE /* BrowserViewModel.swift */,
 				6863A4002AC6E37400A7DC61 /* Columnizer.swift */,
+				687F73F22BD1586300FD8EBF /* DenWebView.swift */,
 				68A104572BACC42C008BF8E6 /* DownloadManager.swift */,
 				684152372AD559C300ABE5E2 /* MercuryObject.swift */,
 				68906F8E2A78F58900803350 /* NavigationStore.swift */,
@@ -1747,6 +1750,7 @@
 				687D9CB024A8CABD00EB7F46 /* OPMLGenerator.swift in Sources */,
 				68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */,
 				6851F0DB2AAB9CF8000F7CBC /* Organizer.swift in Sources */,
+				687F73F32BD1586300FD8EBF /* DenWebView.swift in Sources */,
 				686F6B022B37E6830099EB49 /* OrganizerButton.swift in Sources */,
 				6851F0F12AAF7314000F7CBC /* OrganizerInfoPanel.swift in Sources */,
 				6851F0E32AAD77E8000F7CBC /* OrganizerInspector.swift in Sources */,

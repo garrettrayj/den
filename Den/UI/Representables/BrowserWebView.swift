@@ -19,7 +19,7 @@ struct BrowserWebView {
     @ObservedObject var browserViewModel: BrowserViewModel
     
     func makeWebView(context: Context) -> WKWebView {
-        let wkWebView = WKWebView()
+        let wkWebView = DenWebView()
         wkWebView.isInspectable = true
         wkWebView.navigationDelegate = context.coordinator
         wkWebView.uiDelegate = context.coordinator
