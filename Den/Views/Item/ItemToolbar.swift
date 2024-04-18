@@ -27,11 +27,12 @@ struct ItemToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            formatMenu
-        }
-        ToolbarItem {
             TagsMenu(item: item)
         }
+        ToolbarItem {
+            formatMenu
+        }
+        
         ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)
         }
@@ -57,52 +58,46 @@ struct ItemToolbar: ToolbarContent {
             ToolbarItem {
                 formatMenu
             }
-            
-            Group {
+            ToolbarItem(placement: .bottomBar) {
+                GoBackButton(browserViewModel: browserViewModel)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                GoForwardButton(browserViewModel: browserViewModel)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            if let url = browserViewModel.url {
                 ToolbarItem(placement: .bottomBar) {
-                    GoBackButton(browserViewModel: browserViewModel)
+                    ShareLink(item: url)
                 }
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    GoForwardButton(browserViewModel: browserViewModel)
+                    SystemBrowserButton(url: url)
                 }
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
-                if let url = browserViewModel.url {
-                    ToolbarItem(placement: .bottomBar) {
-                        ShareLink(item: url)
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        Spacer()
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        SystemBrowserButton(url: url)
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        Spacer()
-                    }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                StopReloadButton(browserViewModel: browserViewModel)
+            }
+            if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    StopReloadButton(browserViewModel: browserViewModel)
-                }
-                if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
-                    ToolbarItem(placement: .bottomBar) {
-                        Spacer()
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        // Scene phase check is required because downloadManager environment object
-                        // is not available when app moves to background.
-                        DownloadsButton()
-                    }
+                    // Scene phase check is required because downloadManager environment object
+                    // is not available when app moves to background.
+                    DownloadsButton()
                 }
             }
         } else {
-            ToolbarItem(placement: .topBarLeading) {
-                Spacer()
-            }
             ToolbarItem(placement: .topBarLeading) {
                 TagsMenu(item: item)
             }

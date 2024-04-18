@@ -28,12 +28,12 @@ struct BookmarkToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            formatMenu
-        }
-        ToolbarItem {
             UntagButton(bookmark: bookmark) {
                 dismiss()
             }
+        }
+        ToolbarItem {
+            formatMenu
         }
         ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)
@@ -62,51 +62,46 @@ struct BookmarkToolbar: ToolbarContent {
             ToolbarItem {
                 formatMenu
             }
-            Group {
+            ToolbarItem(placement: .bottomBar) {
+                GoBackButton(browserViewModel: browserViewModel)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                GoForwardButton(browserViewModel: browserViewModel)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            if let url = browserViewModel.url {
                 ToolbarItem(placement: .bottomBar) {
-                    GoBackButton(browserViewModel: browserViewModel)
+                    ShareLink(item: url)
                 }
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    GoForwardButton(browserViewModel: browserViewModel)
+                    SystemBrowserButton(url: url)
                 }
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
-                if let url = browserViewModel.url {
-                    ToolbarItem(placement: .bottomBar) {
-                        ShareLink(item: url)
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        Spacer()
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        SystemBrowserButton(url: url)
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        Spacer()
-                    }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                StopReloadButton(browserViewModel: browserViewModel)
+            }
+            // Scene phase check is required because downloadManager environment object
+            // is not available when app moves to background.
+            if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    StopReloadButton(browserViewModel: browserViewModel)
-                }
-                // Scene phase check is required because downloadManager environment object
-                // is not available when app moves to background.
-                if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
-                    ToolbarItem(placement: .bottomBar) {
-                        Spacer()
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        DownloadsButton()
-                    }
+                    DownloadsButton()
                 }
             }
         } else {
-            ToolbarItem(placement: .topBarLeading) {
-                Spacer()
-            }
             ToolbarItem(placement: .topBarLeading) {
                 UntagButton(bookmark: bookmark) {
                     dismiss()
