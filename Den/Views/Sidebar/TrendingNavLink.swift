@@ -14,19 +14,20 @@ struct TrendingNavLink: View {
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
     var body: some View {
-        Label {
-            if showUnreadCounts {
-                WithTrends(readFilter: false) { trends in
-                    Text("Trending", comment: "Button label.").badge(trends.count)
-                }
-            } else {
+        WithTrends { trends in
+            Label {
                 Text("Trending", comment: "Button label.")
+            } icon: {
+                Image(systemName: "chart.line.uptrend.xyaxis")
             }
-        } icon: {
-            Image(systemName: "chart.line.uptrend.xyaxis")
+            .badge(showUnreadCounts ? trends.containingUnread.count : 0)
+            .tag(DetailPanel.trending)
+            .accessibilityIdentifier("TrendingNavLink")
+            .contextMenu {
+                MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
+                    await HistoryUtility.toggleReadUnread(items: trends.items)
+                }
+            }
         }
-        .lineLimit(1)
-        .tag(DetailPanel.trending)
-        .accessibilityIdentifier("TrendingNavLink")
     }
 }

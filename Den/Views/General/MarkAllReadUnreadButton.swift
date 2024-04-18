@@ -25,7 +25,11 @@ struct MarkAllReadUnreadButton: View {
             }
         } label: {
             Label {
-                Text("Mark All", comment: "Button label.")
+                if allRead {
+                    Text("Mark All Unread", comment: "Button label.")
+                } else {
+                    Text("Mark All Read", comment: "Button label.")
+                }
             } icon: {
                 Image(systemName: "checkmark.circle").symbolVariant(allRead ? .fill : .none)
             }

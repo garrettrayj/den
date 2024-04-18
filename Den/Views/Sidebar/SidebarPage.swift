@@ -49,28 +49,8 @@ struct SidebarPage: View {
             }
             .onMove(perform: moveFeed)
         } label: {
-            Label {
-                if showUnreadCounts {
-                    WithItems(scopeObject: page, readFilter: false) { items in
-                        #if os(macOS)
-                        TextField(text: $page.wrappedName) {
-                            page.displayName
-                        }
-                        .onSubmit {
-                            if viewContext.hasChanges {
-                                do {
-                                    try viewContext.save()
-                                } catch {
-                                    CrashUtility.handleCriticalError(error as NSError)
-                                }
-                            }
-                        }
-                        .badge(items.count)
-                        #else
-                        page.displayName.badge(items.count)
-                        #endif
-                    }
-                } else {
+            WithItems(scopeObject: page) { items in
+                Label {
                     #if os(macOS)
                     TextField(text: $page.wrappedName) {
                         page.displayName
@@ -87,50 +67,51 @@ struct SidebarPage: View {
                     #else
                     page.displayName
                     #endif
+                } icon: {
+                    Image(systemName: page.wrappedSymbol)
                 }
-            } icon: {
-                Image(systemName: page.wrappedSymbol)
-            }
-            .accessibilityIdentifier("SidebarPage")
-            .contentShape(Rectangle())
-            .onDrop(
-                of: [.denFeed, .url, .text],
-                delegate: PageNavDropDelegate(
-                    context: viewContext,
-                    page: page,
-                    newFeedPageID: $newFeedPageID,
-                    newFeedWebAddress: $newFeedWebAddress,
-                    showingNewFeedSheet: $showingNewFeedSheet
+                .badge(showUnreadCounts ? items.unread.count : 0)
+                .accessibilityIdentifier("SidebarPage")
+                .contentShape(Rectangle())
+                .onDrop(
+                    of: [.denFeed, .url, .text],
+                    delegate: PageNavDropDelegate(
+                        context: viewContext,
+                        page: page,
+                        newFeedPageID: $newFeedPageID,
+                        newFeedWebAddress: $newFeedWebAddress,
+                        showingNewFeedSheet: $showingNewFeedSheet
+                    )
                 )
-            )
-            #if os(macOS)
-            .contextMenu {
-                IconSelectorButton(
-                    showingIconSelector: $showingIconSelector,
-                    symbol: $page.wrappedSymbol
-                )
-                
-                DeletePageButton(page: page)
-            }
-            .sheet(
-                isPresented: $showingIconSelector,
-                onDismiss: {
-                    if viewContext.hasChanges {
-                        do {
-                            try viewContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
+                .contextMenu {
+                    MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                        await HistoryUtility.toggleReadUnread(items: Array(items))
                     }
-                },
-                content: {
-                    IconSelector(selection: $page.wrappedSymbol)
+                    Divider()
+                    IconSelectorButton(
+                        showingIconSelector: $showingIconSelector,
+                        symbol: $page.wrappedSymbol
+                    )
+                    DeletePageButton(page: page)
                 }
-            )
-            #endif
+                .sheet(
+                    isPresented: $showingIconSelector,
+                    onDismiss: {
+                        if viewContext.hasChanges {
+                            do {
+                                try viewContext.save()
+                            } catch {
+                                CrashUtility.handleCriticalError(error as NSError)
+                            }
+                        }
+                    },
+                    content: {
+                        IconSelector(selection: $page.wrappedSymbol)
+                    }
+                )
+            }
         }
         .tag(DetailPanel.page(page))
-        .lineLimit(1)
     }
     
     private func moveFeed( from source: IndexSet, to destination: Int) {

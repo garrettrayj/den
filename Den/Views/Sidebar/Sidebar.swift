@@ -69,6 +69,7 @@ struct Sidebar: View {
         .listStyle(.sidebar)
         .buttonStyle(.borderless)
         .badgeProminence(.decreased)
+        .lineLimit(1)
         .refreshable {
             await refreshManager.refresh()
         }

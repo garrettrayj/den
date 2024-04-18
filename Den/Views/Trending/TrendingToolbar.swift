@@ -17,10 +17,6 @@ struct TrendingToolbar: ToolbarContent {
     
     let trends: FetchedResults<Trend>
 
-    private var itemsFromTrends: [Item] {
-        return trends.flatMap { $0.items }.uniqueElements()
-    }
-
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
@@ -28,7 +24,7 @@ struct TrendingToolbar: ToolbarContent {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
+                await HistoryUtility.toggleReadUnread(items: trends.items)
             }
         }
         #else
@@ -41,7 +37,7 @@ struct TrendingToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                    await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
+                    await HistoryUtility.toggleReadUnread(items: trends.items)
                 }
             }
         } else {
@@ -50,7 +46,7 @@ struct TrendingToolbar: ToolbarContent {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                    await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
+                    await HistoryUtility.toggleReadUnread(items: trends.items)
                 }
             }
         }
