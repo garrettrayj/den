@@ -167,7 +167,7 @@ struct Sidebar: View {
         }
         .onChange(of: showingExporter) {
             if showingExporter {
-                opmlFile = ImportExportUtility.exportOPML()
+                opmlFile = ImportExportUtility.exportOPML(pages: Array(pages))
             }
             exporterIsPresented = showingExporter
         }

@@ -57,10 +57,7 @@ struct ImportExportUtility {
         }
     }
 
-    static func exportOPML() -> OPMLFile? {
-        let context = PersistenceController.shared.container.viewContext
-        guard let pages = try? context.fetch(Page.fetchRequest()) as [Page] else { return nil }
-        
+    static func exportOPML(pages: [Page]) -> OPMLFile? {
         if let data = OPMLGenerator(title: "Den Export", pages: pages).getData() {
             return OPMLFile(initialData: data)
         }
