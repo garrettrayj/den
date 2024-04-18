@@ -37,13 +37,13 @@ struct BlocklistStatusView: View {
             
             LabeledContent {
                 if blocklistStatus.compiledSuccessfully {
-                    Text("Successful", comment: "Blocklist compile/load status message.")
+                    Text("Yes", comment: "Blocklist compile/load status message.")
                 } else {
-                    Text("Failed", comment: "Blocklist compile/load status message.")
+                    Text("No", comment: "Blocklist compile/load status message.")
                         .foregroundStyle(.orange)
                 }
             } label: {
-                Text("Compile & Load", comment: "Blocklist status row label.")
+                Text("Rules Applied", comment: "Blocklist status row label.")
             }
         } header: {
             Text("Status", comment: "Blocklist status section header.")

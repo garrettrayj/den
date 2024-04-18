@@ -20,18 +20,18 @@ struct LookAndFeelSection: View {
         Section {
             UserColorSchemePicker(userColorScheme: $userColorScheme)
             AccentColorSelector(selection: $accentColor)
+            Toggle(isOn: $showUnreadCounts) {
+                Label {
+                    Text("Show Unread Counts", comment: "Toggle label.")
+                } icon: {
+                    Image(systemName: "number.circle")
+                }
+            }
             Toggle(isOn: $useSystemBrowser) {
                 Label {
                     Text("Use System Browser", comment: "Toggle label.")
                 } icon: {
                     Image(systemName: "arrow.up.right.square")
-                }
-            }
-            Toggle(isOn: $showUnreadCounts) {
-                Label {
-                    Text("Show Unread Counts", comment: "Toggle label.")
-                } icon: {
-                    Image(systemName: "3.circle")
                 }
             }
         } header: {

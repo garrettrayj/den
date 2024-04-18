@@ -46,11 +46,8 @@ struct BlocklistSettings: View {
                     
                     TextField(
                         text: $blocklist.urlString,
-                        prompt: Text(
-                            "https⁣://example.com/blocklist.json",
-                            comment: "Blocklist URL field prompt."
-                        )
                         // Prompt contains an invisible separator after "https" to prevent link coloring
+                        prompt: Text(verbatim: "https⁣://example.com/blocklist.json")
                     ) {
                         Label {
                             Text("URL", comment: "Text field label.")

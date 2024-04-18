@@ -170,9 +170,9 @@
         <note>Card note title.
    Content unavailable title.</note>
       </trans-unit>
-      <trans-unit id="All pages/feeds will be removed. Default settings will be restored." xml:space="preserve">
-        <source>All pages/feeds will be removed. Default settings will be restored.</source>
-        <target>All pages/feeds will be removed. Default settings will be restored.</target>
+      <trans-unit id="All content will be deleted. Default settings will be restored." xml:space="preserve">
+        <source>All content will be deleted. Default settings will be restored.</source>
+        <target>All content will be deleted. Default settings will be restored.</target>
         <note>Alert message.</note>
       </trans-unit>
       <trans-unit id="Allow JavaScript" xml:space="preserve">
@@ -251,11 +251,6 @@
         <source>Close</source>
         <target>Close</target>
         <note>Button label.</note>
-      </trans-unit>
-      <trans-unit id="Compile &amp; Load" xml:space="preserve">
-        <source>Compile &amp; Load</source>
-        <target>Compile &amp; Load</target>
-        <note>Blocklist status row label.</note>
       </trans-unit>
       <trans-unit id="Configuration" xml:space="preserve">
         <source>Configuration</source>
@@ -366,11 +361,6 @@
         <source>Extra</source>
         <target>Extra</target>
         <note>Feed view section header.</note>
-      </trans-unit>
-      <trans-unit id="Failed" xml:space="preserve">
-        <source>Failed</source>
-        <target>Failed</target>
-        <note>Blocklist compile/load status message.</note>
       </trans-unit>
       <trans-unit id="Featured" xml:space="preserve">
         <source>Featured</source>
@@ -540,9 +530,14 @@
         <target>Management</target>
         <note>Organizer configuration panel section header.</note>
       </trans-unit>
-      <trans-unit id="Mark All" xml:space="preserve">
-        <source>Mark All</source>
-        <target>Mark All</target>
+      <trans-unit id="Mark All Read" xml:space="preserve">
+        <source>Mark All Read</source>
+        <target>Mark All Read</target>
+        <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Mark All Unread" xml:space="preserve">
+        <source>Mark All Unread</source>
+        <target>Mark All Unread</target>
         <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Mark Read" xml:space="preserve">
@@ -613,7 +608,8 @@
       <trans-unit id="No" xml:space="preserve">
         <source>No</source>
         <target>No</target>
-        <note>Boolean value.</note>
+        <note>Blocklist compile/load status message.
+   Boolean value.</note>
       </trans-unit>
       <trans-unit id="No Blocklists" xml:space="preserve">
         <source>No Blocklists</source>
@@ -832,6 +828,11 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Response Time</target>
         <note>Organizer info panel row label.</note>
       </trans-unit>
+      <trans-unit id="Rules Applied" xml:space="preserve">
+        <source>Rules Applied</source>
+        <target>Rules Applied</target>
+        <note>Blocklist status row label.</note>
+      </trans-unit>
       <trans-unit id="Save" xml:space="preserve">
         <source>Save</source>
         <target>Save</target>
@@ -941,11 +942,6 @@ Use the Safari extension to discover feeds on websites.</target>
         <source>Stop ads and other annoyances in the built-in browser.</source>
         <target>Stop ads and other annoyances in the built-in browser.</target>
         <note>No blocklists guidance.</note>
-      </trans-unit>
-      <trans-unit id="Successful" xml:space="preserve">
-        <source>Successful</source>
-        <target>Successful</target>
-        <note>Blocklist compile/load status message.</note>
       </trans-unit>
       <trans-unit id="Symbol" xml:space="preserve">
         <source>Symbol</source>
@@ -1142,7 +1138,8 @@ Use the Safari extension to discover feeds on websites.</target>
       <trans-unit id="Yes" xml:space="preserve">
         <source>Yes</source>
         <target>Yes</target>
-        <note>Boolean value.</note>
+        <note>Blocklist compile/load status message.
+   Boolean value.</note>
       </trans-unit>
       <trans-unit id="Zoom" xml:space="preserve">
         <source>Zoom</source>

@@ -141,8 +141,8 @@
         <note>Card note title.
    Content unavailable title.</note>
       </trans-unit>
-      <trans-unit id="All pages/feeds will be removed. Default settings will be restored." xml:space="preserve">
-        <source>All pages/feeds will be removed. Default settings will be restored.</source>
+      <trans-unit id="All content will be deleted. Default settings will be restored." xml:space="preserve">
+        <source>All content will be deleted. Default settings will be restored.</source>
         <note>Alert message.</note>
       </trans-unit>
       <trans-unit id="Allow JavaScript" xml:space="preserve">
@@ -207,10 +207,6 @@
       <trans-unit id="Close" xml:space="preserve">
         <source>Close</source>
         <note>Button label.</note>
-      </trans-unit>
-      <trans-unit id="Compile &amp; Load" xml:space="preserve">
-        <source>Compile &amp; Load</source>
-        <note>Blocklist status row label.</note>
       </trans-unit>
       <trans-unit id="Configuration" xml:space="preserve">
         <source>Configuration</source>
@@ -299,10 +295,6 @@
       <trans-unit id="Extra" xml:space="preserve">
         <source>Extra</source>
         <note>Feed view section header.</note>
-      </trans-unit>
-      <trans-unit id="Failed" xml:space="preserve">
-        <source>Failed</source>
-        <note>Blocklist compile/load status message.</note>
       </trans-unit>
       <trans-unit id="Featured" xml:space="preserve">
         <source>Featured</source>
@@ -439,8 +431,12 @@
         <source>Management</source>
         <note>Organizer configuration panel section header.</note>
       </trans-unit>
-      <trans-unit id="Mark All" xml:space="preserve">
-        <source>Mark All</source>
+      <trans-unit id="Mark All Read" xml:space="preserve">
+        <source>Mark All Read</source>
+        <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Mark All Unread" xml:space="preserve">
+        <source>Mark All Unread</source>
         <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Mark Read" xml:space="preserve">
@@ -498,7 +494,8 @@
       </trans-unit>
       <trans-unit id="No" xml:space="preserve">
         <source>No</source>
-        <note>Boolean value.</note>
+        <note>Blocklist compile/load status message.
+   Boolean value.</note>
       </trans-unit>
       <trans-unit id="No Blocklists" xml:space="preserve">
         <source>No Blocklists</source>
@@ -675,6 +672,10 @@ Use the Safari extension to discover feeds on websites.</source>
         <source>Response Time</source>
         <note>Organizer info panel row label.</note>
       </trans-unit>
+      <trans-unit id="Rules Applied" xml:space="preserve">
+        <source>Rules Applied</source>
+        <note>Blocklist status row label.</note>
+      </trans-unit>
       <trans-unit id="Save" xml:space="preserve">
         <source>Save</source>
         <note>Button label.
@@ -763,10 +764,6 @@ Use the Safari extension to discover feeds on websites.</source>
       <trans-unit id="Stop ads and other annoyances in the built-in browser." xml:space="preserve">
         <source>Stop ads and other annoyances in the built-in browser.</source>
         <note>No blocklists guidance.</note>
-      </trans-unit>
-      <trans-unit id="Successful" xml:space="preserve">
-        <source>Successful</source>
-        <note>Blocklist compile/load status message.</note>
       </trans-unit>
       <trans-unit id="Symbol" xml:space="preserve">
         <source>Symbol</source>
@@ -926,7 +923,8 @@ Use the Safari extension to discover feeds on websites.</source>
       </trans-unit>
       <trans-unit id="Yes" xml:space="preserve">
         <source>Yes</source>
-        <note>Boolean value.</note>
+        <note>Blocklist compile/load status message.
+   Boolean value.</note>
       </trans-unit>
       <trans-unit id="Zoom" xml:space="preserve">
         <source>Zoom</source>

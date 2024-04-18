@@ -48,7 +48,7 @@ struct ResetEverythingButton: View {
             },
             message: {
                 Text(
-                    "All pages/feeds will be removed. Default settings will be restored.",
+                    "All content will be deleted. Default settings will be restored.",
                     comment: "Alert message."
                 )
             }
