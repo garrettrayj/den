@@ -171,6 +171,7 @@
 		687925A82A60C1DB00188A83 /* InboxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687925A02A60C1DB00188A83 /* InboxUITests.swift */; };
 		687925AA2A60C1DB00188A83 /* SearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687925A22A60C1DB00188A83 /* SearchUITests.swift */; };
 		687925AB2A60C1DB00188A83 /* FeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687925A32A60C1DB00188A83 /* FeedUITests.swift */; };
+		6879B3DD2BD23B5D00659FE8 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 68F0FB732B891BFC00B64B78 /* PrivacyInfo.xcprivacy */; };
 		687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687C27782631F6A000099FCA /* FileManager+Extensions.swift */; };
 		687D9CB024A8CABD00EB7F46 /* OPMLGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CAF24A8CABD00EB7F46 /* OPMLGenerator.swift */; };
 		687D9CB824A9CA2A00EB7F46 /* ItemPreviewCompressed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CB724A9CA2A00EB7F46 /* ItemPreviewCompressed.swift */; };
@@ -1504,6 +1505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68E6C5452A69127C00CA46B2 /* Acknowledgements.html in Resources */,
+				6879B3DD2BD23B5D00659FE8 /* PrivacyInfo.xcprivacy in Resources */,
 				68C41318247263C700D1DC7B /* Assets.xcassets in Resources */,
 				68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */,
 				68906F832A78B85900803350 /* LaunchScreen.storyboard in Resources */,
