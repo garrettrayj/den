@@ -28,7 +28,7 @@ final class RefreshManager: ObservableObject {
         }
 
         await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
-            let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
+            let maxConcurrency = min(3, ProcessInfo().activeProcessorCount)
             let feedUpdateTasks: [FeedUpdateTask] = feeds.compactMap { feed in
                 guard let url = feed.url else { return nil }
                 return FeedUpdateTask(
