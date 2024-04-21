@@ -88,25 +88,34 @@ struct PersistenceController {
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }
     
-    /// Truncate function that fires change events for deleted entities so UI will update.
-    func verboseTruncate(_ entityType: NSManagedObject.Type, context: NSManagedObjectContext) {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = entityType.fetchRequest()
-        
-        do {
-            let objects = try context.fetch(fetchRequest) as? [NSManagedObject]
-            objects?.forEach { context.delete($0) }
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
-    }
-    
     /// More performant truncate function to use when the UI doesn't need to be updated.
-    func batchTruncate(_ entityType: NSManagedObject.Type, context: NSManagedObjectContext) {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = entityType.fetchRequest()
+    static func truncate(
+        _ entityType: NSManagedObject.Type,
+        context: NSManagedObjectContext,
+        offset: Int = 0
+    ) {
+        let fetchRequest = entityType.fetchRequest()
+        fetchRequest.fetchOffset = offset
+        
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
+        // Specify the result of the NSBatchDeleteRequest
+        // should be the NSManagedObject IDs for the deleted objects
+        deleteRequest.resultType = .resultTypeObjectIDs
+
         do {
-            try context.execute(deleteRequest)
+            // Perform the batch delete
+            let batchDelete = try context.execute(deleteRequest) as? NSBatchDeleteResult
+
+            guard let deleteResult = batchDelete?.result as? [NSManagedObjectID] else { return }
+
+            let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
+
+            // Merge the delete changes into the managed object context
+            NSManagedObjectContext.mergeChanges(
+                fromRemoteContextSave: deletedObjects,
+                into: [context]
+            )
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

@@ -23,28 +23,7 @@ struct CleanupUtility {
     }
 
     static func removeExpiredHistory(context: NSManagedObjectContext) throws {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
-        fetchRequest.fetchOffset = 100000
-
-        // Create a batch delete request for the fetch request
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-        // Specify the result of the NSBatchDeleteRequest
-        // should be the NSManagedObject IDs for the deleted objects
-        deleteRequest.resultType = .resultTypeObjectIDs
-
-        // Perform the batch delete
-        let batchDelete = try? context.execute(deleteRequest) as? NSBatchDeleteResult
-
-        guard let deleteResult = batchDelete?.result as? [NSManagedObjectID] else { return }
-
-        let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
-
-        // Merge the delete changes into the managed object context
-        NSManagedObjectContext.mergeChanges(
-            fromRemoteContextSave: deletedObjects,
-            into: [context]
-        )
+        PersistenceController.truncate(History.self, context: context, offset: 100000)
 
         Logger.main.info("Expired history removed.")
     }

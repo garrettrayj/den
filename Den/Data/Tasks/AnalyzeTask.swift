@@ -15,7 +15,7 @@ struct AnalyzeTask {
         await PersistenceController.shared.container.performBackgroundTask { context in
             let workingTrends = self.analyzeTrends(context: context)
             
-            let request: NSFetchRequest<Trend> = Trend.fetchRequest()
+            let request = Trend.fetchRequest()
             guard let existingTrends = try? context.fetch(request) as [Trend] else { return }
             
             for workingTrend in workingTrends {
