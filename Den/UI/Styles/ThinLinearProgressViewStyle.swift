@@ -15,7 +15,7 @@ struct ThinLinearProgressViewStyle: ProgressViewStyle {
         if let fractionCompleted = configuration.fractionCompleted {
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
-                    Rectangle().fill(.quinary)
+                    Rectangle().fill(.fill.secondary)
                     Rectangle()
                         .fill(.tint)
                         .frame(width: fractionCompleted * geometry.size.width)

@@ -56,10 +56,9 @@ struct BrowserView: View {
                     // Fix for videos continuing to play after view is dismissed
                     browserViewModel.loadBlank()
                 }
-                #if os(macOS)
+                .frame(height: browserViewModel.showingReader ? 0 : nil)
+                .opacity(browserViewModel.showingReader ? 0 : 1)
                 .ignoresSafeArea()
-                .padding(.top, 1)
-                #endif
             
             if browserViewModel.showingReader == true {
                 ReaderWebView(browserViewModel: browserViewModel)
@@ -76,14 +75,7 @@ struct BrowserView: View {
                         // Fix for videos continuing to play after view is dismissed
                         browserViewModel.clearReader()
                     }
-                    .background(.background)
-                    #if os(macOS)
-                    .transition(.flipFromBottom)
                     .ignoresSafeArea()
-                    #else
-                    .transition(.flipFromTop)
-                    .ignoresSafeArea(edges: .vertical)
-                    #endif
             }
             
             if browserViewModel.isLoading {

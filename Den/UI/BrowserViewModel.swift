@@ -103,16 +103,12 @@ final class BrowserViewModel: NSObject, ObservableObject {
     }
 
     func showReader() {
-        withAnimation {
-            showingReader = true
-        }
+        showingReader = true
     }
 
     func hideReader() {
-        withAnimation {
-            useReaderAutomatically = false
-            showingReader = false
-        }
+        useReaderAutomatically = false
+        showingReader = false
     }
 
     func toggleReader() {

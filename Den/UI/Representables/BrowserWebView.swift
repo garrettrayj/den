@@ -25,10 +25,6 @@ struct BrowserWebView {
         wkWebView.uiDelegate = context.coordinator
         wkWebView.configuration.mediaTypesRequiringUserActionForPlayback = .all
         wkWebView.configuration.userContentController.add(context.coordinator, name: "reader")
-        #if os(iOS)
-        wkWebView.scrollView.contentInsetAdjustmentBehavior = .never
-        wkWebView.scrollView.clipsToBounds = false
-        #endif
 
         addMercuryScript(wkWebView.configuration.userContentController)
         addParseForReaderScript(wkWebView.configuration.userContentController)
