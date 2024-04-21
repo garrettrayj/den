@@ -65,7 +65,7 @@ struct WithItems<Content: View>: View {
         }
 
         let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        let request = Item.fetchRequest()
         request.predicate = compoundPredicate
         request.sortDescriptors = sortDescriptors
 

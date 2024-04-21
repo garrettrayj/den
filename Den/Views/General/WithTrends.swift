@@ -35,7 +35,7 @@ struct WithTrends<Content: View>: View {
         
         let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
         
-        let request: NSFetchRequest<Trend> = Trend.fetchRequest()
+        let request = Trend.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \Trend.title, ascending: true)]
         request.predicate = compoundPredicate
         

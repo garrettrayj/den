@@ -50,7 +50,7 @@ struct WithBookmarks<Content: View>: View {
         }
 
         let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
-        let request: NSFetchRequest<Bookmark> = Bookmark.fetchRequest()
+        let request = Bookmark.fetchRequest()
         request.predicate = compoundPredicate
         request.sortDescriptors = sortDescriptors
 
