@@ -122,30 +122,4 @@ struct HTMLContent {
 
         return images.isEmpty ? nil : images
     }
-
-    func customWhitelist() throws -> Whitelist {
-        let whitelist: Whitelist = try .relaxed()
-
-        try whitelist
-            .addTags("figure", "figcaption", "hr")
-
-            // Media
-            .addTags("picture")
-
-            // Embeds
-            .addTags("iframe", "object", "video", "audio")
-            .addAttributes("iframe", "height", "src", "srcdoc", "width", "allow")
-            .addAttributes("object", "data", "height", "name", "type", "width")
-            .addAttributes("video", "controls", "src", "height", "width")
-            .addAttributes("audio", "controls", "src")
-
-            // Scripts
-            .addTags("script")
-            .addAttributes("script", "src", "type", "charset", "async")
-
-            // Everything
-            .addAttributes(":all", "class", "dir")
-
-        return whitelist
-    }
 }

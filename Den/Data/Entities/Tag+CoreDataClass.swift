@@ -26,12 +26,6 @@ final public class Tag: NSManagedObject {
         set { name = newValue }
     }
 
-    var bookmarksArray: [Bookmark] {
-        bookmarks?.sortedArray(
-            using: [NSSortDescriptor(key: "published", ascending: false)]
-        ) as? [Bookmark] ?? []
-    }
-
     static func create(
         in managedObjectContext: NSManagedObjectContext,
         userOrder: Int16

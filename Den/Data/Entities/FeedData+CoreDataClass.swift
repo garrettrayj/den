@@ -41,10 +41,6 @@ final public class FeedData: NSManagedObject {
         ]) as? [Item] ?? []
     }
 
-    var responseTimeString: String {
-        responseTime > 0 ? String(responseTime) : "NA"
-    }
-
     static func create(in managedObjectContext: NSManagedObjectContext, feedId: UUID) -> FeedData {
         let newFeed = self.init(context: managedObjectContext)
         newFeed.id = UUID()

@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct DownloadsButton: View {
-    @EnvironmentObject private var downloadManager: DownloadManager
-    
     @State private var showingPopover = false
     
     var body: some View {

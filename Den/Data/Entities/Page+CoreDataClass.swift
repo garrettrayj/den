@@ -31,11 +31,6 @@ final public class Page: NSManagedObject {
         set { symbol = newValue }
     }
 
-    var wrappedItemsPerFeed: Int {
-        get { Int(itemsPerFeed) }
-        set { itemsPerFeed = Int16(newValue) }
-    }
-
     var feedsArray: [Feed] {
         feeds?.sortedArray(
             using: [NSSortDescriptor(key: "userOrder", ascending: true)]
@@ -85,12 +80,6 @@ extension Collection where Element == Page {
     var maxUserOrder: Int16 {
         self.reduce(0) { partialResult, tag in
             tag.userOrder > partialResult ? tag.userOrder : partialResult
-        }
-    }
-    
-    var minUserOrder: Int16 {
-        self.reduce(0) { partialResult, tag in
-            tag.userOrder < partialResult ? tag.userOrder : partialResult
         }
     }
 }

@@ -102,16 +102,4 @@ struct DownloadStatus: View {
         return Image(uiImage: uiImage)
         #endif
     }
-    
-    private func showInFinder(url: URL?) {
-        guard let url = url else { return }
-        
-        #if os(macOS)
-        if url.hasDirectoryPath {
-            NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: url.path)
-        } else {
-            NSWorkspace.shared.activateFileViewerSelecting([url])
-        }
-        #endif
-    }
 }

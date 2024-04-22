@@ -129,15 +129,4 @@ struct NewFeedSheet: View {
             targetPage = pages.first
         }
     }
-
-    private func addFeed() -> Feed? {
-        guard
-            let url = URL(string: webAddress.trimmingCharacters(in: .whitespacesAndNewlines)),
-            let page = targetPage
-        else { return nil }
-
-        let newFeed = Feed.create(in: viewContext, page: page, url: url, prepend: true)
-
-        return newFeed
-    }
 }
