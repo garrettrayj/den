@@ -20,16 +20,18 @@ struct IconSelector: View {
 
     @FocusState private var textFieldFocus: Bool
     
-    #if os(macOS)
-    let gridItem = GridItem(.adaptive(minimum: 36), spacing: 4, alignment: .center)
-    #else
-    let gridItem = GridItem(.adaptive(minimum: 44), spacing: 4, alignment: .center)
-    #endif
+    @ScaledMetric var gridSize = 40
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVGrid(columns: [gridItem], alignment: .center, spacing: 4) {
+                LazyVGrid(
+                    columns: [
+                        GridItem(.adaptive(minimum: gridSize), spacing: 4, alignment: .center)
+                    ],
+                    alignment: .center,
+                    spacing: 4
+                ) {
                     ForEach(PageIcon.allCases, id: \.self) { pageIcon in
                         ZStack {
                             RoundedRectangle(cornerRadius: 4).fill(.background)
@@ -54,9 +56,11 @@ struct IconSelector: View {
             .safeAreaInset(edge: .top, spacing: 0) {
                 HStack {
                     Image(systemName: selection)
-                        .imageScale(.large)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: gridSize, height: gridSize)
                         .foregroundStyle(.tint)
-                        .frame(width: 40)
+                        .padding(.trailing)
 
                     if showingManualEntry {
                         TextField(text: $selection) {
@@ -76,7 +80,7 @@ struct IconSelector: View {
                         } label: {
                             HStack {
                                 Text(selection)
-                                Image(systemName: "pencil")
+                                Image(systemName: "pencil").foregroundStyle(.fill)
                             }
                         }
                         .buttonStyle(.plain)
@@ -84,8 +88,7 @@ struct IconSelector: View {
                     
                     Spacer()
                 }
-                .frame(height: 48)
-                .padding(.horizontal)
+                .padding()
                 .background(.thinMaterial)
                 .overlay(alignment: .bottom) {
                     Divider().opacity(0.75)

@@ -51,7 +51,8 @@ struct SearchLayout: View {
                 } description: {
                     Text(
                         """
-                        Turn off filter to show hidden items.
+                        Turn off filter \(Image(systemName: "line.3.horizontal.decrease.circle.fill")) \
+                        to show hidden items.
                         """,
                         comment: "No unread search results guidance."
                     )

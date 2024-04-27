@@ -92,7 +92,7 @@ struct PageView: View {
                         DeletePageButton(page: page)
                     },
                     message: {
-                        Text("Feeds will also be deleted.", comment: "Delete page alert message.")
+                        Text("All feeds will removed.", comment: "Delete page alert message.")
                     }
                 )
                 .sheet(

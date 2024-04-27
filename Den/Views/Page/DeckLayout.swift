@@ -37,7 +37,7 @@ struct DeckLayout: View {
                         .scrollClipDisabled()
                         .containerRelativeFrame(
                             .horizontal,
-                            count: Int(geometry.size.width / idealColumnWidth),
+                            count: max(1, Int(geometry.size.width / idealColumnWidth)),
                             spacing: 8
                         )
                         .padding(.bottom, geometry.safeAreaInsets.bottom)
