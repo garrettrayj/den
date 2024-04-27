@@ -148,9 +148,7 @@ struct ResetSection: View {
     }
     
     private func clearHistory() {
-        for record in history {
-            viewContext.delete(record)
-        }
+        PersistenceController.truncate(History.self, context: viewContext)
 
         if let items = try? viewContext.fetch(Item.fetchRequest()) {
             items.forEach { $0.read = false }

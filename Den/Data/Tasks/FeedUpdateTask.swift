@@ -41,7 +41,7 @@ class FeedUpdateTask {
         start = CFAbsoluteTimeGetCurrent()
 
         let context = PersistenceController.shared.container.newBackgroundContext()
-        context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
         let feedRequest = URLRequest(url: url)
 
