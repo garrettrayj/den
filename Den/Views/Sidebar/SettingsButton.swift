@@ -13,7 +13,7 @@ import SwiftUI
 struct SettingsButton: View {
     @Binding var showingSettings: Bool
 
-    var body: some View {
+    var body: some View {        
         Button {
             showingSettings = true
         } label: {

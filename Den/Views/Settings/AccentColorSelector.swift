@@ -61,7 +61,7 @@ struct AccentColorSelector: View {
         #else
         Picker(selection: $selection) {
             Label {
-                Text("Default", comment: "Accent color option.")
+                Text("Default", comment: "Accent color option.").foregroundStyle(.secondary)
             } icon: {
                 Image(systemName: "square").foregroundStyle(.gray).imageScale(.large)
             }
@@ -69,7 +69,7 @@ struct AccentColorSelector: View {
             
             ForEach(AccentColor.allCases, id: \.self) { option in
                 Label {
-                    option.labelText
+                    option.labelText.foregroundStyle(option.color)
                 } icon: {
                     Image(systemName: "square.fill").foregroundStyle(option.color).imageScale(.large)
                 }

@@ -19,7 +19,7 @@ struct TrendBlock: View {
     let items: [Item]
     let feeds: [Feed]
     
-    let gridItem = GridItem(.adaptive(minimum: 20), spacing: 4, alignment: .center)
+    @ScaledMetric var gridSize = 20
 
     private var symbol: String? {
         if trend.tag == NLTag.personalName.rawValue {
@@ -42,7 +42,13 @@ struct TrendBlock: View {
                 trend.titleText.font(.title2)
 
                 if !favicons.isEmpty {
-                    LazyVGrid(columns: [gridItem], alignment: .center, spacing: 4) {
+                    LazyVGrid(
+                        columns: [
+                            GridItem(.adaptive(minimum: gridSize), spacing: 4, alignment: .center)
+                        ],
+                        alignment: .center,
+                        spacing: 4
+                    ) {
                         ForEach(favicons, id: \.self) { favicon in
                             Favicon(url: favicon) {
                                 FeedFaviconPlaceholder()

@@ -40,6 +40,8 @@ struct RootView: View {
         SortDescriptor(\.name, order: .forward)
     ])
     private var pages: FetchedResults<Page>
+    
+    @ScaledMetric var sidebarWidth = 264
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -58,7 +60,8 @@ struct RootView: View {
             #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 300)
             #else
-            .navigationSplitViewColumnWidth(ideal: 280)
+            // On iOS, sidebar width changes are appplied when app is relaunched.
+            .navigationSplitViewColumnWidth(sidebarWidth)
             #endif
         } detail: {
             DetailView(

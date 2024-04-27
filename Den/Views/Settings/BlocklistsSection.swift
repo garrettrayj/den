@@ -16,28 +16,24 @@ struct BlocklistsSection: View {
 
     var body: some View {
         Section {
-            if blocklists.isEmpty {
-                Text("No Blocklists")
-            } else {
-                ForEach(blocklists) { blocklist in
-                    NavigationLink {
-                        BlocklistSettings(blocklist: blocklist)
-                            .navigationTitle(blocklist.nameText)
-                            .toolbarTitleDisplayMode(.inline)
-                    } label: {
-                        Label {
-                            VStack(alignment: .leading) {
-                                blocklist.nameText
-                                if let url = blocklist.url {
-                                    Text(url.absoluteString).font(.caption)
-                                }
+            ForEach(blocklists) { blocklist in
+                NavigationLink {
+                    BlocklistSettings(blocklist: blocklist)
+                        .navigationTitle(blocklist.nameText)
+                        .toolbarTitleDisplayMode(.inline)
+                } label: {
+                    Label {
+                        VStack(alignment: .leading) {
+                            blocklist.nameText
+                            if let url = blocklist.url {
+                                Text(url.absoluteString).font(.caption)
                             }
-                        } icon: {
-                            Image(systemName: "square.slash")
                         }
+                    } icon: {
+                        Image(systemName: "square.slash")
                     }
-                    .accessibilityIdentifier("BlocklistNavLink")
                 }
+                .accessibilityIdentifier("BlocklistNavLink")
             }
             
             NewBlocklistButton()

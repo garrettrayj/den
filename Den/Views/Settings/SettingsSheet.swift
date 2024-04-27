@@ -22,7 +22,6 @@ struct SettingsSheet: View {
                 AboutSection()
             }
             .buttonStyle(.borderless)
-            .formStyle(.grouped)
             .navigationTitle(Text("Settings", comment: "Navigation title."))
             .toolbar {
                 ToolbarItem {

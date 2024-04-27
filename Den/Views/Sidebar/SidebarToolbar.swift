@@ -34,7 +34,9 @@ struct SidebarToolbar: ToolbarContent {
                 ExportButton(showingExporter: $showingExporter)
                 Divider()
                 OrganizerButton(detailPanel: $detailPanel)
-                #if !os(macOS)
+                #if os(macOS)
+                SettingsLink()
+                #else
                 SettingsButton(showingSettings: $showingSettings)
                 #endif
             } label: {

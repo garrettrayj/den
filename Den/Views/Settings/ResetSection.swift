@@ -115,7 +115,7 @@ struct ResetSection: View {
                 },
                 message: {
                     Text(
-                        "All content will be deleted. Default settings will be restored.",
+                        "All data will be deleted. Default settings will be restored.",
                         comment: "Alert message."
                     )
                 }
@@ -176,7 +176,8 @@ struct ResetSection: View {
                 Trend.self,
                 BlocklistStatus.self,
                 FeedData.self,
-                History.self
+                History.self,
+                Search.self
             ]
             
             batchTruncateList.forEach {
