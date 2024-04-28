@@ -57,6 +57,7 @@ struct ReaderZoom: View {
             }
         }
         #if os(iOS)
+        .menuActionDismissBehavior(.disabled)
         .labelsHidden()
         .controlGroupStyle(.compactMenu)
         #endif

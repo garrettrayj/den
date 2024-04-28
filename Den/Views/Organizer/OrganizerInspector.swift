@@ -16,6 +16,8 @@ struct OrganizerInspector: View {
     @State private var panel: String = "info"
     
     var pages: FetchedResults<Page>
+    
+    @ScaledMetric(relativeTo: .largeTitle) var width = 300
 
     var body: some View {
         VStack {
@@ -71,6 +73,7 @@ struct OrganizerInspector: View {
                 }
             }
         }
+        .inspectorColumnWidth(width)
         #if os(iOS)
         .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
         #endif

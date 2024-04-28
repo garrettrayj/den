@@ -77,7 +77,7 @@ struct AccentColorSelector: View {
             }
         } label: {
             Label {
-                Text("Accent Color", comment: "Picker label.")
+                Text("Accent", comment: "Picker label.")
             } icon: {
                 Image(systemName: "paintbrush")
             }

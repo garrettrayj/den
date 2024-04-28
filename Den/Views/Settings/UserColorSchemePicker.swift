@@ -25,5 +25,8 @@ struct UserColorSchemePicker: View {
                 Image(systemName: "paintpalette")
             }
         }
+        #if os(iOS)
+        .pickerStyle(.navigationLink)
+        #endif
     }
 }

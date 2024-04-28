@@ -79,6 +79,11 @@ struct OrganizerOptionsPanel: View {
                             Image(systemName: "folder")
                         }
                     }
+                    .lineLimit(1)
+                    #if os(iOS)
+                    .pickerStyle(.navigationLink)
+                    #endif
+                    
                     
                     Button(role: .destructive) {
                         selection.forEach { feed in

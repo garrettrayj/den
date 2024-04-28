@@ -29,6 +29,7 @@ struct OrganizerRow: View {
             .imageScale(.medium)
             .foregroundStyle(.secondary)
         }
+        .lineLimit(1)
         .tag(feed)
     }
 }

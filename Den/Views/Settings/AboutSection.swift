@@ -16,13 +16,16 @@ struct AboutSection: View {
     
     var body: some View {
         Section {
-            LabeledContent {
-                Text(verbatim: "\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
-            } label: {
-                Label {
-                    Text("Version", comment: "Row label.")
-                } icon: {
-                    Image(systemName: "info.square")
+            ViewThatFits {
+                LabeledContent {
+                    versionInfo
+                } label: {
+                    versionLabel
+                }
+                
+                VStack(alignment: .leading) {
+                    versionLabel
+                    versionInfo
                 }
             }
             
@@ -52,5 +55,20 @@ struct AboutSection: View {
                 .padding(.bottom)
                 .padding(.top, 4)
         }
+    }
+    
+    private var versionLabel: some View {
+        Label {
+            Text("Version", comment: "Row label.")
+        } icon: {
+            Image(systemName: "info.square")
+        }
+        .lineLimit(1)
+    }
+    
+    private var versionInfo: some View {
+        Text(verbatim: "\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
+            .font(.callout)
+            .foregroundStyle(.secondary)
     }
 }

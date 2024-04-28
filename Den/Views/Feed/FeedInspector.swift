@@ -14,6 +14,8 @@ struct FeedInspector: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var feed: Feed
+    
+    @ScaledMetric(relativeTo: .largeTitle) var width = 300
 
     var body: some View {
         Form {
@@ -132,6 +134,7 @@ struct FeedInspector: View {
             }
         }
         .formStyle(.grouped)
+        .inspectorColumnWidth(width)
         #if os(iOS)
         .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
         #endif

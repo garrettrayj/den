@@ -42,19 +42,16 @@ struct ResetSection: View {
                     cacheSize = 0
                 }
             } label: {
-                HStack {
-                    Label {
-                        Text("Empty Caches", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "xmark.bin")
+                ViewThatFits {
+                    LabeledContent {
+                        emptyCachesInfo
+                    } label: {
+                        emptyCachesLabel
                     }
-                    Spacer()
-                    Text(
-                        verbatim: ResetSection.cacheSizeFormatter.string(fromByteCount: cacheSize)
-                    )
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
-                    .task { await calculateCacheSize() }
+                    VStack(alignment: .leading) {
+                        emptyCachesLabel
+                        emptyCachesInfo
+                    }
                 }
             }
             .accessibilityIdentifier("EmptyCaches")
@@ -62,23 +59,18 @@ struct ResetSection: View {
             Button {
                 clearHistory()
             } label: {
-                HStack {
-                    Label {
-                        Text("Clear Read History", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "clear")
+                ViewThatFits {
+                    LabeledContent {
+                        clearHistoryInfo
+                    } label: {
+                        clearHistoryLabel
                     }
-                    Spacer()
-                    Group {
-                        if history.count == 1 {
-                            Text("1 Record", comment: "History count (singular).")
-                        } else {
-                            Text("\(history.count) Records", comment: "History count (zeor/plural).")
-                        }
+                    VStack(alignment: .leading) {
+                        clearHistoryLabel
+                        clearHistoryInfo
                     }
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
                 }
+                
             }
             .disabled(history.isEmpty)
             .accessibilityIdentifier("ClearHistory")
@@ -124,6 +116,43 @@ struct ResetSection: View {
         } header: {
             Text("Reset", comment: "Settings section header.")
         }
+    }
+    
+    private var emptyCachesLabel: some View {
+        Label {
+            Text("Empty Caches", comment: "Button label.")
+        } icon: {
+            Image(systemName: "xmark.bin")
+        }
+    }
+    
+    private var emptyCachesInfo: some View {
+        Text(
+            verbatim: ResetSection.cacheSizeFormatter.string(fromByteCount: cacheSize)
+        )
+        .font(.callout)
+        .foregroundStyle(.secondary)
+        .task { await calculateCacheSize() }
+    }
+    
+    private var clearHistoryLabel: some View {
+        Label {
+            Text("Clear History", comment: "Button label.")
+        } icon: {
+            Image(systemName: "clear")
+        }
+    }
+    
+    private var clearHistoryInfo: some View {
+        Group {
+            if history.count == 1 {
+                Text("1 Record", comment: "History count (singular).")
+            } else {
+                Text("\(history.count) Records", comment: "History count (zeor/plural).")
+            }
+        }
+        .font(.callout)
+        .foregroundStyle(.secondary)
     }
     
     private func emptyCaches() async {
