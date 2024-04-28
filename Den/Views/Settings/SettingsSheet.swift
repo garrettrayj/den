@@ -17,6 +17,7 @@ struct SettingsSheet: View {
         NavigationStack {
             Form {
                 LookAndFeelSection()
+                RefreshSection()
                 BlocklistsSection()
                 ResetSection()
                 AboutSection()

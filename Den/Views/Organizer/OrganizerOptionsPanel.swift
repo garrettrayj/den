@@ -84,7 +84,6 @@ struct OrganizerOptionsPanel: View {
                     .pickerStyle(.navigationLink)
                     #endif
                     
-                    
                     Button(role: .destructive) {
                         selection.forEach { feed in
                             if let feedData = feed.feedData { viewContext.delete(feedData) }

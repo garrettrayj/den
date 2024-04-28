@@ -7,6 +7,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import BackgroundTasks
 import CoreData
 import OSLog
 import SwiftUI
@@ -18,6 +19,7 @@ import SDWebImageWebPCoder
 @main
 struct DenApp: App {
     @Environment(\.openURL) private var openURL
+    @Environment(\.scenePhase) private var phase
 
     let persistenceController = PersistenceController.shared
     
@@ -27,6 +29,7 @@ struct DenApp: App {
     
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
+    @AppStorage("BackgroundRefresh") private var backgroundRefresh = true
 
     var body: some Scene {
         WindowGroup {
@@ -41,6 +44,18 @@ struct DenApp: App {
         .environmentObject(downloadManager)
         .environmentObject(networkMonitor)
         .environmentObject(refreshManager)
+        #if os(iOS)
+        .onChange(of: phase) {
+            switch phase {
+            case .background: scheduleAppRefresh()
+            default: break
+            }
+        }
+        .backgroundTask(.appRefresh("net.devsci.den.refresh")) { _ in
+            Logger.main.debug("Performing background refresh task...")
+            await refreshManager.refresh()
+        }
+        #endif
         
         #if os(macOS)
         Settings {
@@ -100,5 +115,23 @@ struct DenApp: App {
             mimeType.rawValue
         }).joined(separator: ",")
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
+    }
+    
+    func scheduleAppRefresh() {
+        guard backgroundRefresh else {
+            Logger.main.debug("Skipping scheduling. Background refresh is disabled.")
+            return
+        }
+        
+        let request = BGAppRefreshTaskRequest(identifier: "net.devsci.den.refresh")
+        
+        let earliestBeginDate = Date().addingTimeInterval(60 * 60)
+        request.earliestBeginDate = earliestBeginDate
+
+        try? BGTaskScheduler.shared.submit(request)
+        
+        Logger.main.debug(
+            "Background refresh scheduled with earliest begin date of \(earliestBeginDate)"
+        )
     }
 }
