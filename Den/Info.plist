@@ -55,11 +55,11 @@
 		<true/>
 	</dict>
 	<key>NSDownloadsFolderUsageDescription</key>
-	<string></string>
+	<string>Completed file downloads will be moved here.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020-2024 Garrett Johnson</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string></string>
+	<string>Save images selected in the built-in browser.</string>
 	<key>UIAppFonts</key>
 	<array/>
 	<key>UIApplicationSceneManifest</key>
