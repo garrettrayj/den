@@ -117,6 +117,7 @@ struct DenApp: App {
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
     }
     
+    #if os(iOS)
     func scheduleAppRefresh() {
         guard backgroundRefresh else {
             Logger.main.debug("Skipping scheduling. Background refresh is disabled.")
@@ -134,4 +135,5 @@ struct DenApp: App {
             "Background refresh scheduled with earliest begin date of \(earliestBeginDate)"
         )
     }
+    #endif
 }
