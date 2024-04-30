@@ -19,17 +19,17 @@ struct PersistenceController {
     let cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
         containerIdentifier: "iCloud.net.devsci.den"
     )
-
-    let cloudStoreDescription: NSPersistentStoreDescription
-    let cloudStoreURL: URL
-
-    let localStoreDescription: NSPersistentStoreDescription
-    let localStoreURL: URL
-
-    let container: NSPersistentContainer
-
+    
+    let container = NSPersistentCloudKitContainer(name: "Den")
+    
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "Den")
+        let cloudStoreDescription: NSPersistentStoreDescription
+        let cloudStoreURL: URL
+        let cloudStoreAppGroupURL: URL
+
+        let localStoreDescription: NSPersistentStoreDescription
+        let localStoreURL: URL
+        let localStoreAppGroupURL: URL
 
         if inMemory {
             cloudStoreURL = URL(fileURLWithPath: "/dev/null/Den.sqlite")
@@ -46,15 +46,28 @@ struct PersistenceController {
             guard let appSupportDirectory = FileManager.default.appSupportDirectory else {
                 preconditionFailure("Storage directory not available")
             }
+            
+            guard let appGroupURL = FileManager.default.containerURL(
+                forSecurityApplicationGroupIdentifier: AppGroup.den.rawValue
+            ) else {
+                preconditionFailure("Storage directory not available")
+            }
+            
             cloudStoreURL = appSupportDirectory.appendingPathComponent("Den.sqlite")
+            cloudStoreAppGroupURL = appGroupURL.appendingPathComponent("Den.sqlite")
+            
             localStoreURL = appSupportDirectory.appendingPathComponent("Den-Local.sqlite")
-
+            localStoreAppGroupURL = appGroupURL.appendingPathComponent("Den-Local.sqlite")
+            
+            moveDB(source: cloudStoreURL, destination: cloudStoreAppGroupURL)
+            moveDB(source: localStoreURL, destination: localStoreAppGroupURL)
+            
             // Create CloudKit-backed store description for syncing profile data
-            cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
+            cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreAppGroupURL)
             cloudStoreDescription.configuration = "Cloud"
 
             // Create local store description for content and high churn data
-            localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
+            localStoreDescription = NSPersistentStoreDescription(url: localStoreAppGroupURL)
             localStoreDescription.configuration = "Local"
         }
 
@@ -86,6 +99,62 @@ struct PersistenceController {
         // Configure view context
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+    }
+    
+    private func moveDB(source: URL, destination: URL) {
+        // Move database to shared location if needed
+        if FileManager.default.fileExists(atPath: source.path) && 
+            !FileManager.default.fileExists(atPath: destination.path) {
+            
+            Logger.main.debug("Moving database from \(source) to \(destination)")
+            
+            let coordinator = container.persistentStoreCoordinator
+            do {
+                try coordinator.replacePersistentStore(
+                    at: destination,
+                    destinationOptions: nil,
+                    withPersistentStoreFrom: source,
+                    sourceOptions: nil,
+                    ofType: NSSQLiteStoreType
+                )
+                try? coordinator.destroyPersistentStore(
+                    at: source,
+                    ofType: NSSQLiteStoreType,
+                    options: nil
+                )
+                
+                // destroyPersistentStore says it deletes the old store 
+                // but it actually truncates so we'll manually delete the files
+                NSFileCoordinator(filePresenter: nil).coordinate(
+                    writingItemAt: source.deletingLastPathComponent(),
+                    options: .forDeleting,
+                    error: nil,
+                    byAccessor: { _ in
+                        try? FileManager.default.removeItem(at: source)
+                        try? FileManager.default.removeItem(
+                            at: source
+                                .deletingPathExtension()
+                                .appendingPathExtension("sqlite-shm")
+                        )
+                        try? FileManager.default.removeItem(
+                            at: source
+                                .deletingPathExtension()
+                                .appendingPathExtension("sqlite-wal")
+                        )
+                        try? FileManager.default.removeItem(
+                            at: source
+                                .deletingLastPathComponent()
+                                .appendingPathComponent("\(container.name)_ckAssets")
+                        )
+                })
+            } catch {
+                Logger.main.error("""
+                Error moving database \(source) to \(destination):
+                \(error.localizedDescription)
+                """)
+                CrashUtility.handleCriticalError(error as NSError)
+            }
+        }
     }
     
     /// More performant truncate function to use when the UI doesn't need to be updated.

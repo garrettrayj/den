@@ -223,8 +223,12 @@ struct ResetSection: View {
         await BlocklistManager.cleanupContentRulesLists()
 
         let domain = Bundle.main.bundleIdentifier!
+        
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
+        
+        UserDefaults(suiteName: AppGroup.den.rawValue)?.removePersistentDomain(forName: domain)
+        UserDefaults(suiteName: AppGroup.den.rawValue)?.synchronize()
         
         await emptyCaches()
     }
