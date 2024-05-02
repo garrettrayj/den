@@ -10,6 +10,7 @@
 
 import CoreData
 import OSLog
+import WidgetKit
 
 final class RefreshManager: ObservableObject {
     @Published var refreshing = false
@@ -68,6 +69,8 @@ final class RefreshManager: ObservableObject {
             
             refreshing = false
             progress.completedUnitCount = 0
+            
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 
