@@ -12,7 +12,9 @@ import CoreData
 import WidgetKit
 import SwiftUI
 
-import SDWebImageSwiftUI
+import SDWebImage
+import SDWebImageSVGCoder
+import SDWebImageWebPCoder
 
 struct LatestItemsWidgetProvider: AppIntentTimelineProvider {
     var viewContext: NSManagedObjectContext
@@ -95,6 +97,8 @@ struct LatestItemsWidgetProvider: AppIntentTimelineProvider {
             maxItems = 6
         }
         
+        let dispatchGroup = DispatchGroup()
+        
         if let items = try? viewContext.fetch(request) {
             let entry = LatestItemsWidgetEntry(
                 date: .now,
@@ -102,35 +106,40 @@ struct LatestItemsWidgetProvider: AppIntentTimelineProvider {
                     guard let id = $0.id else { return nil }
                     
                     var faviconImage: Image?
-                    
-                    #if os(macOS)
-                    if let url = $0.feedData?.favicon,
-                       let imageData = try? Data(contentsOf: url),
-                       let nsImage = NSImage(data: imageData) {
-                        faviconImage = Image(nsImage: nsImage)
+                    dispatchGroup.enter()
+                    SDWebImageManager.shared.loadImage(
+                        with: $0.feedData?.favicon,
+                        context: [.imageThumbnailPixelSize: CGSize(width: 32, height: 32)],
+                        progress: nil
+                    ) { image, _, _, _, _, _ in
+                        if let image = image {
+                            #if os(macOS)
+                            faviconImage = Image(nsImage: image)
+                            #else
+                            faviconImage = Image(uiImage: image)
+                            #endif
+                        }
+                        dispatchGroup.leave()
                     }
-                    #else
-                    if let url = $0.feedData?.favicon,
-                       let imageData = try? Data(contentsOf: url),
-                       let uiImage = UIImage(data: imageData) {
-                        faviconImage = Image(uiImage: uiImage)
-                    }
-                    #endif
+                    dispatchGroup.wait()
                     
                     var thumbnailImage: Image?
-                    #if os(macOS)
-                    if let url = $0.image,
-                       let imageData = try? Data(contentsOf: url),
-                       let nsImage = NSImage(data: imageData) {
-                        thumbnailImage = Image(nsImage: nsImage)
+                    dispatchGroup.enter()
+                    SDWebImageManager.shared.loadImage(
+                        with: $0.image,
+                        context: [.imageThumbnailPixelSize: CGSize(width: 192, height: 192)],
+                        progress: nil
+                    ) { image, _, _, _, _, _ in
+                        if let image = image {
+                            #if os(macOS)
+                            thumbnailImage = Image(nsImage: image)
+                            #else
+                            thumbnailImage = Image(uiImage: image)
+                            #endif
+                        }
+                        dispatchGroup.leave()
                     }
-                    #else
-                    if let url = $0.image,
-                       let imageData = try? Data(contentsOf: url),
-                       let uiImage = UIImage(data: imageData) {
-                        thumbnailImage = Image(uiImage: uiImage)
-                    }
-                    #endif
+                    dispatchGroup.wait()
                     
                     return .init(
                         id: id,
@@ -170,6 +179,9 @@ struct LatestItemsWidgetEntryView: View {
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
+    @ScaledMetric var denIconSize = 20
+    @ScaledMetric var thumbnailSize = 64
+    
     var entry: LatestItemsWidgetProvider.Entry
 
     var body: some View {
@@ -198,6 +210,7 @@ struct LatestItemsWidgetEntryView: View {
                     }
                 }
                 .font(.title3)
+                .lineLimit(1)
                 
                 Spacer()
                 
@@ -213,9 +226,9 @@ struct LatestItemsWidgetEntryView: View {
                 Image("SimpleIcon")
                     .resizable()
                     .scaledToFit()
-                    .opacity(0.6)
-                    .frame(width: 20, height: 20)
-                    .offset(y: -2)
+                    .opacity(0.8)
+                    .frame(width: denIconSize, height: denIconSize)
+                    .offset(y: -(denIconSize / 10))
             }
             
             if entry.items.isEmpty {
@@ -234,7 +247,7 @@ struct LatestItemsWidgetEntryView: View {
                             itemView(item: item)
                         }
                     }
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
                     
                     VStack(spacing: 8) {
                         ForEach(
@@ -245,7 +258,7 @@ struct LatestItemsWidgetEntryView: View {
                             itemView(item: item)
                         }
                     }
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
                 }
             } else {
                 ForEach(entry.items) { item in
@@ -282,7 +295,8 @@ struct LatestItemsWidgetEntryView: View {
                     .lineLimit(1)
                 }
                 Text(item.itemTitle)
-                    .lineLimit(3)
+                    .lineLimit(entry.configuration.source.entityType == Feed.self ? 4 : 3)
+                    .fixedSize(horizontal: false, vertical: true)
                     #if os(macOS)
                     .font(.headline)
                     #else
@@ -296,7 +310,7 @@ struct LatestItemsWidgetEntryView: View {
                 image
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 64, height: 64)
+                    .frame(width: thumbnailSize, height: thumbnailSize)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay {
                         RoundedRectangle(cornerRadius: 8).strokeBorder(.separator, lineWidth: 1)
@@ -311,6 +325,11 @@ struct LatestItemsWidget: Widget {
     let kind: String = "LatestItemsWidget"
     
     var persistentContainer = PersistenceController.shared.container
+    
+    init() {
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
+        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
+    }
 
     var body: some WidgetConfiguration {
         AppIntentConfiguration(

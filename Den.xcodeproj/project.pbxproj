@@ -345,6 +345,8 @@
 		68FB95082BE4ACEA004EFA73 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB95062BE4ACEA004EFA73 /* UserDefaults+Extensions.swift */; };
 		68FB95092BE4D263004EFA73 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6845BD4D24F6824C0008B296 /* CloudKit.framework */; };
 		68FB950C2BE605D3004EFA73 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB950A2BE605D3004EFA73 /* Array+Extensions.swift */; };
+		68FB950E2BE6A688004EFA73 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 68FB950D2BE6A688004EFA73 /* SDWebImageSVGCoder */; };
+		68FB95102BE6A691004EFA73 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 68FB950F2BE6A691004EFA73 /* SDWebImageWebPCoder */; };
 		68FC25552758B2250073979F /* FeedUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC25542758B2250073979F /* FeedUnavailable.swift */; };
 		68FC2563275E07770073979F /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC2562275E07770073979F /* Sidebar.swift */; };
 		68FC256F27640AA00073979F /* ItemPreviewExpanded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC256E27640AA00073979F /* ItemPreviewExpanded.swift */; };
@@ -764,8 +766,10 @@
 				6871CFEA2BE31FDE0039FD3E /* SDWebImageSwiftUI in Frameworks */,
 				68CC01212BDF0D9C00E723DC /* SwiftUI.framework in Frameworks */,
 				68CC011F2BDF0D9C00E723DC /* WidgetKit.framework in Frameworks */,
+				68FB950E2BE6A688004EFA73 /* SDWebImageSVGCoder in Frameworks */,
 				68FB95092BE4D263004EFA73 /* CloudKit.framework in Frameworks */,
 				68A5A1552BE194BF00FEA8D3 /* HTMLEntities in Frameworks */,
+				68FB95102BE6A691004EFA73 /* SDWebImageWebPCoder in Frameworks */,
 				68A5A1532BE194B000FEA8D3 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1530,6 +1534,8 @@
 				68A5A1522BE194B000FEA8D3 /* SwiftSoup */,
 				68A5A1542BE194BF00FEA8D3 /* HTMLEntities */,
 				6871CFE92BE31FDE0039FD3E /* SDWebImageSwiftUI */,
+				68FB950D2BE6A688004EFA73 /* SDWebImageSVGCoder */,
+				68FB950F2BE6A691004EFA73 /* SDWebImageWebPCoder */,
 			);
 			productName = WidgetExtensionExtension;
 			productReference = 68CC011D2BDF0D9C00E723DC /* Widget Extension.appex */;
@@ -2691,6 +2697,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 68EE91E928D54C66000C00D2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		68FB950D2BE6A688004EFA73 /* SDWebImageSVGCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 681DE1052922CFD400D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
+		};
+		68FB950F2BE6A691004EFA73 /* SDWebImageWebPCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68EBB58F2BC3BD1B0014305F /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */;
+			productName = SDWebImageWebPCoder;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
