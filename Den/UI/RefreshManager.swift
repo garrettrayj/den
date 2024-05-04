@@ -65,7 +65,7 @@ final class RefreshManager: ObservableObject {
         await AnalyzeTask().execute()
 
         await MainActor.run {
-            UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
+            UserDefaults.group.set(Date().timeIntervalSince1970, forKey: "Refreshed")
             
             refreshing = false
             progress.completedUnitCount = 0

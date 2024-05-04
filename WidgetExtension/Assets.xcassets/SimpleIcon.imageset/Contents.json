@@ -3,6 +3,16 @@
     {
       "filename" : "SimpleIcon.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "SimpleIconWhite.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

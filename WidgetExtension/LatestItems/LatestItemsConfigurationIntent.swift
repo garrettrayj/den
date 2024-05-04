@@ -15,6 +15,13 @@ struct LatestItemsConfigurationIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "Configuration"
     static var description = IntentDescription("Shows latest items.")
 
-    @Parameter(title: "Source", default: "")
-    var source: String
+    @Parameter(title: "Source")
+    var source: SourceDetail
+
+    init(source: SourceDetail) {
+        self.source = source
+    }
+
+    init() {
+    }
 }

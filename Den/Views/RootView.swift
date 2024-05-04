@@ -34,6 +34,9 @@ struct RootView: View {
     
     @AppStorage("HideRead") private var hideRead: Bool = false
     @AppStorage("MaintenanceTimestamp") private var maintenanceTimestamp: Double?
+    @AppStorage("AccentColor") private var accentColor: AccentColor?
+    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
+    @AppStorage("BackgroundRefresh") private var backgroundRefresh = true
     
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.userOrder, order: .forward),
@@ -137,6 +140,8 @@ struct RootView: View {
             
             CleanupUtility.upgradeBookmarks(context: viewContext)
         }
+        .preferredColorScheme(userColorScheme.colorScheme)
+        .tint(accentColor?.color)
     }
     
     private func performMaintenance() async {

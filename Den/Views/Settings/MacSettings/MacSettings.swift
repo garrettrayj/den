@@ -14,6 +14,9 @@ struct MacSettings: View {
     private enum Tabs: Hashable {
         case general, blocklists
     }
+    
+    @AppStorage("AccentColor") private var accentColor: AccentColor?
+    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
 
     var body: some View {
         TabView {
@@ -44,5 +47,7 @@ struct MacSettings: View {
         .formStyle(.grouped)
         .buttonStyle(.borderless)
         .frame(width: 600, height: 412)
+        .preferredColorScheme(userColorScheme.colorScheme)
+        .tint(accentColor?.color)
     }
 }

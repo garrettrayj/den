@@ -26,17 +26,12 @@ struct DenApp: App {
     @StateObject private var downloadManager = DownloadManager()
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var refreshManager = RefreshManager()
-    
-    @AppStorage("AccentColor") private var accentColor: AccentColor?
-    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
-    @AppStorage("BackgroundRefresh") private var backgroundRefresh = true
 
     var body: some Scene {
         WindowGroup {
             RootView()
-                .preferredColorScheme(userColorScheme.colorScheme)
-                .tint(accentColor?.color)
         }
+        .defaultAppStorage(.group)
         .handlesExternalEvents(matching: ["*"])
         .commands { commands }
         .defaultSize(CGSize(width: 1280, height: 800))
@@ -61,9 +56,9 @@ struct DenApp: App {
         Settings {
             MacSettings()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .preferredColorScheme(userColorScheme.colorScheme)
-                .tint(accentColor?.color)
+                
         }
+        .defaultAppStorage(.group)
         #endif
     }
     
@@ -119,7 +114,7 @@ struct DenApp: App {
     
     #if os(iOS)
     func scheduleAppRefresh() {
-        guard backgroundRefresh else {
+        guard UserDefaults.group.bool(forKey: "BackgroundRefresh") else {
             Logger.main.debug("Skipping scheduling. Background refresh is disabled.")
             return
         }

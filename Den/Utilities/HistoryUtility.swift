@@ -11,6 +11,7 @@
 import CoreData
 import OSLog
 import SwiftUI
+import WidgetKit
 
 struct HistoryUtility {
     static func markItemRead(
@@ -28,6 +29,7 @@ struct HistoryUtility {
 
         do {
             try context.save()
+            WidgetCenter.shared.reloadAllTimelines()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }
@@ -48,6 +50,7 @@ struct HistoryUtility {
 
         do {
             try context.save()
+            WidgetCenter.shared.reloadAllTimelines()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }
@@ -77,6 +80,7 @@ struct HistoryUtility {
 
             do {
                 try context.save()
+                WidgetCenter.shared.reloadAllTimelines()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
@@ -101,6 +105,7 @@ struct HistoryUtility {
 
             do {
                 try context.save()
+                WidgetCenter.shared.reloadAllTimelines()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
