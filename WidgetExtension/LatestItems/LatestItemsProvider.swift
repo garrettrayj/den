@@ -23,8 +23,12 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> LatestItemsEntry {
         LatestItemsEntry(
             date: Date(),
-            items: [],
+            items: [], 
+            sourceType: nil,
             unread: 10,
+            title: Text("Inbox"),
+            favicon: nil,
+            symbol: "tray",
             configuration: LatestItemsConfigurationIntent(source: .allSources.first!)
         )
     }
@@ -35,8 +39,12 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
     ) async -> LatestItemsEntry {
         LatestItemsEntry(
             date: Date(),
-            items: [],
+            items: [], 
+            sourceType: nil,
             unread: 10,
+            title: Text("Inbox"),
+            favicon: nil,
+            symbol: "tray",
             configuration: configuration
         )
     }
@@ -101,6 +109,24 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
         
         let dispatchGroup = DispatchGroup()
         
+        var feedFaviconImage: Image?
+        dispatchGroup.enter()
+        SDWebImageManager.shared.loadImage(
+            with: feed?.feedData?.favicon,
+            context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)],
+            progress: nil
+        ) { image, _, _, _, _, _ in
+            if let image = image {
+                #if os(macOS)
+                feedFaviconImage = Image(nsImage: image)
+                #else
+                feedFaviconImage = Image(uiImage: image)
+                #endif
+            }
+            dispatchGroup.leave()
+        }
+        dispatchGroup.wait()
+        
         if let items = try? viewContext.fetch(request) {
             let entry = LatestItemsEntry(
                 date: .now,
@@ -151,7 +177,19 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
                         thumbnail: thumbnailImage
                     )
                 },
+                sourceType: {
+                    if page != nil {
+                        return Page.self
+                    } else if feed != nil {
+                        return Feed.self
+                    } else {
+                        return nil
+                    }
+                }(),
                 unread: items.count,
+                title: feed?.displayTitle ?? page?.displayName ?? Text("Inbox"),
+                favicon: feedFaviconImage,
+                symbol: page?.wrappedSymbol,
                 configuration: configuration
             )
             entries.append(entry)

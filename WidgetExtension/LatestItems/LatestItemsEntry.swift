@@ -22,6 +22,10 @@ struct LatestItemsEntry: TimelineEntry {
     
     let date: Date
     let items: [WidgetItem]
+    let sourceType: NSManagedObject.Type?
     let unread: Int
+    let title: Text
+    let favicon: Image?
+    let symbol: String?
     let configuration: LatestItemsConfigurationIntent
 }

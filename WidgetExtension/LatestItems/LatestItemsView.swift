@@ -61,7 +61,7 @@ struct LatestItemsView: View {
                 denIcon
             }
             Spacer()
-            Text(entry.configuration.source.title)
+            entry.title
                 .font(.title)
                 .foregroundStyle(entry.unread == 0 ? .secondary : .primary)
                 .minimumScaleFactor(0.6)
@@ -72,7 +72,7 @@ struct LatestItemsView: View {
         VStack(spacing: 8) {
             HStack(alignment: .top) {
                 Label {
-                    Text(entry.configuration.source.title)
+                    entry.title
                 } icon: {
                     sourceIcon
                         .scaledToFit()
@@ -125,16 +125,16 @@ struct LatestItemsView: View {
     
     @ViewBuilder
     private var sourceIcon: some View {
-        if entry.configuration.source.entityType == Feed.self {
-            if let favicon = entry.configuration.source.favicon {
+        if entry.sourceType == Feed.self {
+            if let favicon = entry.favicon {
                 favicon.resizable().clipShape(RoundedRectangle(
                     cornerRadius: widgetFamily == .systemSmall ? 4 : 2
                 ))
             } else {
                 Image(systemName: "dot.radiowaves.up.forward").resizable()
             }
-        } else if entry.configuration.source.entityType == Page.self {
-            if let symbol = entry.configuration.source.symbol {
+        } else if entry.sourceType == Page.self {
+            if let symbol = entry.symbol {
                 Image(systemName: symbol).resizable()
             }
         } else if entry.unread > 0 {
