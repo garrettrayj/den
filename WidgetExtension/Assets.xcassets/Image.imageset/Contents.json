@@ -1,9 +1,6 @@
 {
   "images" : [
-    {
-      "filename" : "SimpleIcon.pdf",
-      "idiom" : "universal"
-    }
+
   ],
   "info" : {
     "author" : "xcode",
