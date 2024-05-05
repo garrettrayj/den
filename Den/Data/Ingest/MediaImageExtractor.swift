@@ -28,7 +28,12 @@ struct MediaImageExtractor {
             itemLink: itemLink,
             imagePool: &imagePool
         )
-        extractMediaThumbnailsImages(
+        extractMediaThumbnailImages(
+            mediaNamespace: mediaNamespace,
+            itemLink: itemLink,
+            imagePool: &imagePool
+        )
+        extractMediaGroupThumbnailImages(
             mediaNamespace: mediaNamespace,
             itemLink: itemLink,
             imagePool: &imagePool
@@ -100,12 +105,41 @@ struct MediaImageExtractor {
         }
     }
 
-    static func extractMediaThumbnailsImages(
+    static func extractMediaThumbnailImages(
         mediaNamespace: MediaNamespace,
         itemLink: URL,
         imagePool: inout [PreliminaryImage]
     ) {
         guard let thumbnails = mediaNamespace.mediaThumbnails else { return }
+        
+        for thumbnail in thumbnails {
+            if
+                let urlString = thumbnail.attributes?.url,
+                let url = URL(string: urlString, relativeTo: itemLink)
+            {
+                if
+                    let width = Int(thumbnail.attributes?.width ?? ""),
+                    let height = Int(thumbnail.attributes?.height ?? "")
+                {
+                    imagePool.append(PreliminaryImage(
+                        url: url.absoluteURL,
+                        width: width,
+                        height: height
+                    ))
+                } else {
+                    imagePool.append(PreliminaryImage(url: url.absoluteURL))
+                }
+            }
+        }
+    }
+    
+    /// Used to extract YouTube thumbnails. Custom FeedKit required.
+    static func extractMediaGroupThumbnailImages(
+        mediaNamespace: MediaNamespace,
+        itemLink: URL,
+        imagePool: inout [PreliminaryImage]
+    ) {
+        guard let thumbnails = mediaNamespace.mediaGroup?.mediaThumbnails else { return }
         
         for thumbnail in thumbnails {
             if
