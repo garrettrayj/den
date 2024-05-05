@@ -176,13 +176,28 @@ struct LatestItemsWidgetEntry: TimelineEntry {
 
 struct LatestItemsWidgetEntryView: View {
     @Environment(\.widgetFamily) private var widgetFamily
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
-    @ScaledMetric var denIconSize = 20
-    @ScaledMetric var thumbnailSize = 64
+    @ScaledMetric(relativeTo: .largeTitle) var denIconSize = 20
+    @ScaledMetric(relativeTo: .title) var thumbnailSize = 64
     
     var entry: LatestItemsWidgetProvider.Entry
+    
+    var maxColumnItems: Int {
+        if widgetFamily == .systemLarge || widgetFamily == .systemExtraLarge {
+            if dynamicTypeSize > .xxxLarge {
+                return 1
+            } else if dynamicTypeSize > .large {
+                return 2
+            } else {
+                return 3
+            }
+        }
+        
+        return 1
+    }
 
     var body: some View {
         VStack(spacing: 8) {
@@ -240,7 +255,7 @@ struct LatestItemsWidgetEntryView: View {
                 HStack(alignment: .top, spacing: 16) {
                     VStack(spacing: 8) {
                         ForEach(
-                            entry.items.enumerated().filter { $0.offset.isMultiple(of: 2) },
+                            entry.items.enumerated().filter { $0.offset.isMultiple(of: 2) }.prefix(maxColumnItems),
                             id: \.element.id
                         ) { _, item in
                             Divider()
@@ -251,7 +266,7 @@ struct LatestItemsWidgetEntryView: View {
                     
                     VStack(spacing: 8) {
                         ForEach(
-                            entry.items.enumerated().filter { !$0.offset.isMultiple(of: 2) },
+                            entry.items.enumerated().filter { !$0.offset.isMultiple(of: 2) }.prefix(maxColumnItems),
                             id: \.element.id
                         ) { _, item in
                             Divider()
@@ -261,7 +276,7 @@ struct LatestItemsWidgetEntryView: View {
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 }
             } else {
-                ForEach(entry.items) { item in
+                ForEach(entry.items.prefix(maxColumnItems)) { item in
                     Divider()
                     itemView(item: item)
                 }
