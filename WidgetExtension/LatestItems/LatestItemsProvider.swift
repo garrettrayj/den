@@ -107,76 +107,39 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             maxItems = 6
         }
         
-        let dispatchGroup = DispatchGroup()
-        
-        var feedFaviconImage: Image?
-        dispatchGroup.enter()
-        SDWebImageManager.shared.loadImage(
+        let (feedFaviconImage, _) = await SDWebImageManager.shared.loadImage(
             with: feed?.feedData?.favicon,
-            context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)],
-            progress: nil
-        ) { image, _, _, _, _, _ in
-            if let image = image {
-                #if os(macOS)
-                feedFaviconImage = Image(nsImage: image)
-                #else
-                feedFaviconImage = Image(uiImage: image)
-                #endif
-            }
-            dispatchGroup.leave()
-        }
-        dispatchGroup.wait()
+            context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
+        )
         
         if let items = try? viewContext.fetch(request) {
+            var entryItems: [Entry.WidgetItem] = []
+
+            for item in items.prefix(maxItems) {
+                guard let id = item.id else { continue }
+                
+                let (faviconImage, _) = await SDWebImageManager.shared.loadImage(
+                    with: item.feedData?.favicon,
+                    context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
+                )
+                
+                let (thumbnailImage, _) = await SDWebImageManager.shared.loadImage(
+                    with: item.image,
+                    context: [.imageThumbnailPixelSize: CGSize(width: 192, height: 192)]
+                )
+                
+                entryItems.append(.init(
+                    id: id,
+                    itemTitle: item.title ?? "Untitled",
+                    feedTitle: item.feedData?.feed?.wrappedTitle ?? "Untitled",
+                    favicon: faviconImage,
+                    thumbnail: thumbnailImage
+                ))
+            }
+            
             let entry = LatestItemsEntry(
                 date: .now,
-                items: items.prefix(maxItems).compactMap {
-                    guard let id = $0.id else { return nil }
-                    
-                    var faviconImage: Image?
-                    dispatchGroup.enter()
-                    SDWebImageManager.shared.loadImage(
-                        with: $0.feedData?.favicon,
-                        context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)],
-                        progress: nil
-                    ) { image, _, _, _, _, _ in
-                        if let image = image {
-                            #if os(macOS)
-                            faviconImage = Image(nsImage: image)
-                            #else
-                            faviconImage = Image(uiImage: image)
-                            #endif
-                        }
-                        dispatchGroup.leave()
-                    }
-                    dispatchGroup.wait()
-                    
-                    var thumbnailImage: Image?
-                    dispatchGroup.enter()
-                    SDWebImageManager.shared.loadImage(
-                        with: $0.image,
-                        context: [.imageThumbnailPixelSize: CGSize(width: 192, height: 192)],
-                        progress: nil
-                    ) { image, _, _, _, _, _ in
-                        if let image = image {
-                            #if os(macOS)
-                            thumbnailImage = Image(nsImage: image)
-                            #else
-                            thumbnailImage = Image(uiImage: image)
-                            #endif
-                        }
-                        dispatchGroup.leave()
-                    }
-                    dispatchGroup.wait()
-                    
-                    return .init(
-                        id: id,
-                        itemTitle: $0.title ?? "Untitled",
-                        feedTitle: $0.feedData?.feed?.wrappedTitle ?? "Untitled",
-                        favicon: faviconImage,
-                        thumbnail: thumbnailImage
-                    )
-                },
+                items: entryItems,
                 sourceType: {
                     if page != nil {
                         return Page.self
