@@ -24,6 +24,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
         LatestItemsEntry(
             date: Date(),
             items: [], 
+            sourceID: nil,
             sourceType: nil,
             unread: 10,
             title: Text("Inbox"),
@@ -39,7 +40,8 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
     ) async -> LatestItemsEntry {
         LatestItemsEntry(
             date: Date(),
-            items: [], 
+            items: [],
+            sourceID: nil,
             sourceType: nil,
             unread: 10,
             title: Text("Inbox"),
@@ -140,6 +142,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             let entry = LatestItemsEntry(
                 date: .now,
                 items: entryItems,
+                sourceID: page?.id ?? feed?.id,
                 sourceType: {
                     if page != nil {
                         return Page.self

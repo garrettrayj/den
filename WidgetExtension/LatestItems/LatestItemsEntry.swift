@@ -23,10 +23,32 @@ struct LatestItemsEntry: TimelineEntry {
     
     let date: Date
     let items: [WidgetItem]
+    let sourceID: UUID?
     let sourceType: NSManagedObject.Type?
     let unread: Int
     let title: Text
     let favicon: Image?
     let symbol: String?
     let configuration: LatestItemsConfigurationIntent
+    
+    func url(item: WidgetItem? = nil) -> URL {
+        var source = "inbox"
+        if sourceType == Feed.self {
+            source = "feed"
+        } else if sourceType == Page.self {
+            source = "page"
+        }
+        
+        var url = URL(string: "den+widget://latest-items/\(source)")!
+        
+        if let sourceID = sourceID {
+            url.append(path: "\(sourceID.uuidString)")
+        }
+        
+        if let item = item {
+            url.append(queryItems: [.init(name: "item", value: item.id.uuidString)])
+        }
+        
+        return url
+    }
 }

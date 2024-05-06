@@ -44,6 +44,7 @@ struct LatestItemsView: View {
                 itemListLayout
             }
         }
+        .widgetURL(entry.url())
     }
     
     private var statusLayout: some View {
@@ -178,51 +179,53 @@ struct LatestItemsView: View {
     }
     
     private func itemView(item: LatestItemsEntry.WidgetItem) -> some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 4) {
-                if entry.configuration.source.entityType != Feed.self {
-                    Label {
-                        Text(item.feedTitle)
-                    } icon: {
-                        if let favicon = item.favicon {
-                            favicon
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 12, height: 12)
-                        } else {
-                            Image(systemName: "dot.radiowaves.up.forward").imageScale(.small)
+        Link(destination: entry.url(item: item)) {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 4) {
+                    if entry.configuration.source.entityType != Feed.self {
+                        Label {
+                            Text(item.feedTitle)
+                        } icon: {
+                            if let favicon = item.favicon {
+                                favicon
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 12, height: 12)
+                            } else {
+                                Image(systemName: "dot.radiowaves.up.forward").imageScale(.small)
+                            }
                         }
+                        #if os(macOS)
+                        .font(.callout)
+                        #else
+                        .font(.footnote)
+                        #endif
+                        .imageScale(.small)
+                        .lineLimit(1)
                     }
-                    #if os(macOS)
-                    .font(.callout)
-                    #else
-                    .font(.footnote)
-                    #endif
-                    .imageScale(.small)
-                    .lineLimit(1)
+                    Text(item.itemTitle)
+                        .lineLimit(entry.configuration.source.entityType == Feed.self ? 4 : 3)
+                        .fixedSize(horizontal: false, vertical: true)
+                        #if os(macOS)
+                        .font(.headline)
+                        #else
+                        .font(.body.weight(.semibold))
+                        #endif
                 }
-                Text(item.itemTitle)
-                    .lineLimit(entry.configuration.source.entityType == Feed.self ? 4 : 3)
-                    .fixedSize(horizontal: false, vertical: true)
-                    #if os(macOS)
-                    .font(.headline)
-                    #else
-                    .font(.body.weight(.semibold))
-                    #endif
-            }
-            
-            Spacer(minLength: 0)
-            
-            if let image = item.thumbnail {
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: thumbnailSize, height: thumbnailSize)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 8).strokeBorder(.separator, lineWidth: 1)
-                    }
-                    .padding(.leading, 8)
+                
+                Spacer(minLength: 0)
+                
+                if let image = item.thumbnail {
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: thumbnailSize, height: thumbnailSize)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 8).strokeBorder(.separator, lineWidth: 1)
+                        }
+                        .padding(.leading, 8)
+                }
             }
         }
     }

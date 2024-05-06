@@ -69,6 +69,7 @@ extension LatestItemsConfigurationIntent {
     LatestItemsEntry(
         date: .now, 
         items: [],
+        sourceID: nil,
         sourceType: nil,
         unread: 10,
         title: Text("Inbox"),
