@@ -13,7 +13,7 @@ import AppIntents
 
 struct LatestItemsConfigurationIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "Configuration"
-    static var description = IntentDescription("Shows latest items.")
+    static var description = IntentDescription("Filter items by source.")
 
     @Parameter(title: "Source")
     var source: SourceDetail

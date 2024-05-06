@@ -55,7 +55,7 @@ extension LatestItemsConfigurationIntent {
                 entityType: nil,
                 title: "Inbox",
                 symbol: "tray",
-                favicon: nil
+                faviconData: nil
             )
         )
         

@@ -22,16 +22,48 @@ struct SourceDetail: AppEntity {
     let entityType: NSManagedObject.Type?
     let title: String
     let symbol: String?
-    let favicon: Image?
+    let faviconData: Data?
 
     static var typeDisplayRepresentation: TypeDisplayRepresentation = "Source"
     static var defaultQuery = SourceQuery()
             
     var displayRepresentation: DisplayRepresentation {
-        if let symbol = symbol {
-            DisplayRepresentation(title: "\(title)", image: .init(systemName: symbol))
+        if entityType == Page.self {
+            if let symbol = symbol {
+                DisplayRepresentation(
+                    title: "\(title)",
+                    subtitle: "Page",
+                    image: .init(systemName: symbol)
+                )
+            } else {
+                DisplayRepresentation(
+                    title: "\(title)",
+                    subtitle: "Page",
+                    image: .init(systemName: "folder")
+                )
+            }
+        } else if entityType == Feed.self {
+            if let faviconData = faviconData {
+                DisplayRepresentation(
+                    title: "\(title)",
+                    image: .init(data: faviconData)
+                )
+            } else {
+                DisplayRepresentation(
+                    title: "\(title)",
+                    image: .init(systemName: "dot.radiowaves.up.forward")
+                )
+            }
         } else {
-            DisplayRepresentation(title: "- \(title)")
+            if let symbol = symbol {
+                DisplayRepresentation(
+                    title: "\(title)",
+                    subtitle: "All Feeds",
+                    image: .init(systemName: symbol)
+                )
+            } else {
+                DisplayRepresentation(title: "\(title)", subtitle: "All Feeds")
+            }
         }
     }
     
@@ -45,7 +77,7 @@ struct SourceDetail: AppEntity {
                 entityType: Profile.self,
                 title: "Inbox",
                 symbol: "tray",
-                favicon: nil
+                faviconData: nil
             )
         ]
         
@@ -60,24 +92,20 @@ struct SourceDetail: AppEntity {
                     entityType: Page.self,
                     title: page.wrappedName,
                     symbol: page.wrappedSymbol, 
-                    favicon: nil
+                    faviconData: nil
                 ))
                 
                 for feed in page.feedsArray {
                     let dispatchGroup = DispatchGroup()
-                    var faviconImage: Image?
+                    var faviconData: Data?
                     dispatchGroup.enter()
                     SDWebImageManager.shared.loadImage(
                         with: feed.feedData?.favicon,
                         context: [.imageThumbnailPixelSize: CGSize(width: 32, height: 32)],
                         progress: nil
-                    ) { image, _, _, _, _, _ in
-                        if let image = image {
-                            #if os(macOS)
-                            faviconImage = Image(nsImage: image)
-                            #else
-                            faviconImage = Image(uiImage: image)
-                            #endif
+                    ) { _, data, _, _, _, _ in
+                        if let data = data {
+                            faviconData = data
                         }
                         dispatchGroup.leave()
                     }
@@ -88,7 +116,7 @@ struct SourceDetail: AppEntity {
                         entityType: Feed.self,
                         title: feed.wrappedTitle, 
                         symbol: nil,
-                        favicon: faviconImage
+                        faviconData: faviconData
                     ))
                 }
             }
