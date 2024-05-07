@@ -127,7 +127,9 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
                 
                 let (thumbnailImage, _) = await SDWebImageManager.shared.loadImage(
                     with: item.image,
-                    context: [.imageThumbnailPixelSize: CGSize(width: 192, height: 192)]
+                    context: [
+                        .imageThumbnailPixelSize: CGSize(width: 240, height: 240)
+                    ]
                 )
                 
                 entryItems.append(.init(

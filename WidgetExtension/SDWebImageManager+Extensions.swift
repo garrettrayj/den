@@ -21,7 +21,8 @@ extension SDWebImageManager {
         return await withCheckedContinuation { continuation in
             SDWebImageManager.shared.loadImage(
                 with: url,
-                context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)],
+                options: options ?? [],
+                context: context,
                 progress: nil
             ) { image, data, _, _, _, _ in
                 var platformImage: Image?

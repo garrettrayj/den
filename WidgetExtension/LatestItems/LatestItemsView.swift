@@ -18,7 +18,8 @@ struct LatestItemsView: View {
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
     @ScaledMetric(relativeTo: .largeTitle) var denIconSize = 20
-    @ScaledMetric(relativeTo: .title) var thumbnailSize = 64
+    
+    @ScaledMetric var thumbnailSize = 80
     
     var entry: LatestItemsProvider.Entry
     
@@ -227,6 +228,9 @@ struct LatestItemsView: View {
                         .padding(.leading, 8)
                 }
             }
+            #if os(macOS)
+            .frame(height: 80, alignment: .top)
+            #endif
         }
     }
 }

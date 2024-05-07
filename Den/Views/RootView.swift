@@ -95,37 +95,37 @@ struct RootView: View {
                     return
                 }
                 
-                // Restore detail panel from widget source
-                let sourceType = url.pathComponents[1]
-                var sourceID: UUID?
-                if url.pathComponents.indices.contains(2) {
-                    sourceID = UUID(uuidString: url.pathComponents[2])
-                }
-                
-                if sourceType == "inbox" && detailPanel != .inbox {
-                    detailPanel = .inbox
-                } else if sourceType == "page" {
-                    if let page = pages.first(where: { $0.id == sourceID }),
-                        detailPanel != .page(page) {
-                        detailPanel = .page(page)
-                    }
-                } else if sourceType == "feed" {
-                    if let feed = pages.flatMap({ $0.feedsArray }).first(where: { $0.id == sourceID }),
-                       detailPanel != .feed(feed) {
-                        detailPanel = .feed(feed)
-                    }
-                }
-                
                 navigationStore.path.removeLast(navigationStore.path.count)
                 
-                // Restore item from widget links
                 if let itemID = urlComponents.queryItems?.first(where: {$0.name == "item"})?.value {
+                    // Restore item sub-detail view
                     let request = Item.fetchRequest()
                     request.predicate = NSPredicate(format: "id = %@", itemID)
                     
                     if let item = try? viewContext.fetch(request).first {
                         DispatchQueue.main.async {
                             navigationStore.path.append(SubDetailPanel.item(item))
+                        }
+                    }
+                } else {
+                    // Restore detail panel from widget source
+                    let sourceType = url.pathComponents[1]
+                    var sourceID: UUID?
+                    if url.pathComponents.indices.contains(2) {
+                        sourceID = UUID(uuidString: url.pathComponents[2])
+                    }
+                    
+                    if sourceType == "inbox" && detailPanel != .inbox {
+                        detailPanel = .inbox
+                    } else if sourceType == "page" {
+                        if let page = pages.first(where: { $0.id == sourceID }),
+                            detailPanel != .page(page) {
+                            detailPanel = .page(page)
+                        }
+                    } else if sourceType == "feed" {
+                        if let feed = pages.flatMap({ $0.feedsArray }).first(where: { $0.id == sourceID }),
+                           detailPanel != .feed(feed) {
+                            detailPanel = .feed(feed)
                         }
                     }
                 }

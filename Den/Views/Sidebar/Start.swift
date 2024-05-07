@@ -38,9 +38,15 @@ struct Start: View {
     }
 
     private func loadDemo() {
+        #if DEBUG
+        guard let demoPath = Bundle.main.path(forResource: "Debug", ofType: "opml") else {
+            preconditionFailure("Missing demo feeds source file")
+        }
+        #else
         guard let demoPath = Bundle.main.path(forResource: "Demo", ofType: "opml") else {
             preconditionFailure("Missing demo feeds source file")
         }
+        #endif
 
         ImportExportUtility.importOPML(
             url: URL(fileURLWithPath: demoPath),
