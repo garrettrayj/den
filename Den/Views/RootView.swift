@@ -91,13 +91,18 @@ struct RootView: View {
         .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
         .onOpenURL { url in
             if url.scheme == "den+widget" {
-                guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+                guard let urlComponents = URLComponents(
+                    url: url,
+                    resolvingAgainstBaseURL: false
+                ) else {
                     return
                 }
                 
                 navigationStore.path.removeLast(navigationStore.path.count)
                 
-                if let itemID = urlComponents.queryItems?.first(where: {$0.name == "item"})?.value {
+                if let itemID = urlComponents.queryItems?.first(
+                    where: {$0.name == "item"}
+                )?.value {
                     // Restore item sub-detail view
                     let request = Item.fetchRequest()
                     request.predicate = NSPredicate(format: "id = %@", itemID)

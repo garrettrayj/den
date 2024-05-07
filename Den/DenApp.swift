@@ -101,6 +101,8 @@ struct DenApp: App {
     }
 
     private func setupImageHandling() {
+        SDImageCache.shared.config.maxMemoryCount = 200
+        
         // Add additional image format support
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
         SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)

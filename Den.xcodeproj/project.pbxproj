@@ -1249,9 +1249,9 @@
 				68A5A1562BE2767B00FEA8D3 /* LatestItems */,
 				68CC01292BDF0D9C00E723DC /* Assets.xcassets */,
 				68CC012B2BDF0D9C00E723DC /* Info.plist */,
+				68FB95232BE93BF2004EFA73 /* SDWebImageManager+Extensions.swift */,
 				68CC012C2BDF0D9C00E723DC /* WidgetExtension.entitlements */,
 				68CC01232BDF0D9C00E723DC /* WidgetExtensionBundle.swift */,
-				68FB95232BE93BF2004EFA73 /* SDWebImageManager+Extensions.swift */,
 			);
 			path = WidgetExtension;
 			sourceTree = "<group>";
@@ -1665,8 +1665,8 @@
 			files = (
 				68E6C5452A69127C00CA46B2 /* Acknowledgements.html in Resources */,
 				68C41318247263C700D1DC7B /* Assets.xcassets in Resources */,
-				68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */,
 				68FB95262BE97BEF004EFA73 /* Debug.opml in Resources */,
+				68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */,
 				68906F832A78B85900803350 /* LaunchScreen.storyboard in Resources */,
 				6862A5922A23EEE4000CAB19 /* Localizable.strings in Resources */,
 				684152352AD5546E00ABE5E2 /* Mercury.js in Resources */,
@@ -2059,6 +2059,7 @@
 				68A5A14F2BE193D900FEA8D3 /* PreliminaryImage.swift in Sources */,
 				68A5A14E2BE193B700FEA8D3 /* PreviewStyle.swift in Sources */,
 				68A5A1412BE192B900FEA8D3 /* Profile+CoreDataClass.swift in Sources */,
+				68FB95242BE93BF2004EFA73 /* SDWebImageManager+Extensions.swift in Sources */,
 				68A5A1492BE192B900FEA8D3 /* Search+CoreDataClass.swift in Sources */,
 				6871CFF02BE341570039FD3E /* SourceDetail.swift in Sources */,
 				6871CFF22BE341630039FD3E /* SourceQuery.swift in Sources */,
@@ -2066,7 +2067,6 @@
 				68A5A1482BE192B900FEA8D3 /* Tag+CoreDataClass.swift in Sources */,
 				68A5A1402BE192B900FEA8D3 /* Trend+CoreDataClass.swift in Sources */,
 				68A5A14A2BE192B900FEA8D3 /* TrendItem+CoreDataClass.swift in Sources */,
-				68FB95242BE93BF2004EFA73 /* SDWebImageManager+Extensions.swift in Sources */,
 				68FB95082BE4ACEA004EFA73 /* UserDefaults+Extensions.swift in Sources */,
 				68CC01242BDF0D9C00E723DC /* WidgetExtensionBundle.swift in Sources */,
 			);
