@@ -1,0 +1,18 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Inbox" : {
+      "comment" : "Widget placeholder title.\n   Widget snapshot title.\n   Widget title.\nWidget title."
+    },
+    "Latest Items" : {
+      "comment" : "Widget display name."
+    },
+    "No Unread Items" : {
+      "comment" : "Widget empty message."
+    },
+    "Untitled" : {
+      "comment" : "Bookmark site title placeholder.\n   Default page name.\nDefault content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title."
+    }
+  },
+  "version" : "1.0"
+}

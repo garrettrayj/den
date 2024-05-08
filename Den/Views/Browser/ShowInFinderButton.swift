@@ -24,7 +24,7 @@ struct ShowInFinderButton: View {
             #endif
         } label: {
             Label {
-                Text("Show in Finder")
+                Text("Show in Finder", comment: "Button label.")
             } icon: {
                 Image(systemName: "magnifyingglass.circle.fill")
             }

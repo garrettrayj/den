@@ -72,7 +72,7 @@ extension LatestItemsConfigurationIntent {
         sourceID: nil,
         sourceType: nil,
         unread: 10,
-        title: Text("Inbox"),
+        title: Text("Inbox", comment: "Widget title."),
         favicon: nil,
         symbol: nil,
         configuration: .inbox

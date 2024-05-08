@@ -59,7 +59,7 @@ struct GeneralSection: View {
                 }
             } label: {
                 Label {
-                    Text("Auto Refresh")
+                    Text("Auto Refresh", comment: "Picker label.")
                 } icon: {
                     Image(systemName: "timer")
                 }

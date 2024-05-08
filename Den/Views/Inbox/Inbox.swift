@@ -46,7 +46,7 @@ struct Inbox: View {
                     items: items
                 )
             }
-            .navigationTitle(Text("Inbox", comment: "Navigation title"))
+            .navigationTitle(Text("Inbox", comment: "Navigation title."))
         }
     }
 }

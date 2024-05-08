@@ -70,7 +70,7 @@ struct DownloadsPopover: View {
                 Button {
                     NSWorkspace.shared.open(browserDownload.fileURL)
                 } label: {
-                    Text("Open")
+                    Text("Open File", comment: "Button label.")
                 }
                 ShowInFinderButton(url: browserDownload.fileURL)
                 #else
@@ -87,13 +87,13 @@ struct DownloadsPopover: View {
             Button {
                 downloadManager.remove(browserDownload)
             } label: {
-                Text("Remove from List")
+                Text("Remove from List", comment: "Button label.")
             }
         } else {
             Button {
                 downloadManager.remove(selection)
             } label: {
-                Text("Remove from List")
+                Text("Remove from List", comment: "Button label.")
             }
         }
     }

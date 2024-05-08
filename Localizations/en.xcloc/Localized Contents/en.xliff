@@ -43,8 +43,8 @@
         <note/>
       </trans-unit>
       <trans-unit id="NSDownloadsFolderUsageDescription" xml:space="preserve">
-        <source/>
-        <target/>
+        <source>Completed file downloads will be moved here.</source>
+        <target>Completed file downloads will be moved here.</target>
         <note>Privacy - Downloads Folder Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
@@ -53,8 +53,8 @@
         <note>Copyright (human-readable)</note>
       </trans-unit>
       <trans-unit id="NSPhotoLibraryAddUsageDescription" xml:space="preserve">
-        <source/>
-        <target/>
+        <source>Save images selected in the built-in browser.</source>
+        <target>Save images selected in the built-in browser.</target>
         <note>Privacy - Photo Library Additions Usage Description</note>
       </trans-unit>
       <trans-unit id="OPML Document" xml:space="preserve">
@@ -170,10 +170,15 @@
         <note>Card note title.
    Content unavailable title.</note>
       </trans-unit>
-      <trans-unit id="All content will be deleted. Default settings will be restored." xml:space="preserve">
-        <source>All content will be deleted. Default settings will be restored.</source>
-        <target>All content will be deleted. Default settings will be restored.</target>
+      <trans-unit id="All data will be deleted. Default settings will be restored." xml:space="preserve">
+        <source>All data will be deleted. Default settings will be restored.</source>
+        <target>All data will be deleted. Default settings will be restored.</target>
         <note>Alert message.</note>
+      </trans-unit>
+      <trans-unit id="All feeds will removed." xml:space="preserve">
+        <source>All feeds will removed.</source>
+        <target>All feeds will removed.</target>
+        <note>Delete page alert message.</note>
       </trans-unit>
       <trans-unit id="Allow JavaScript" xml:space="preserve">
         <source>Allow JavaScript</source>
@@ -195,6 +200,16 @@
         <target>Application Error</target>
         <note>Crash view title.</note>
       </trans-unit>
+      <trans-unit id="Auto Refresh" xml:space="preserve">
+        <source>Auto Refresh</source>
+        <target>Auto Refresh</target>
+        <note>Picker label.</note>
+      </trans-unit>
+      <trans-unit id="Auto refresh requires the app be running." xml:space="preserve">
+        <source>Auto refresh requires the app be running.</source>
+        <target>Auto refresh requires the app be running.</target>
+        <note>Refresh settings guidance.</note>
+      </trans-unit>
       <trans-unit id="Blocklist Deleted" xml:space="preserve">
         <source>Blocklist Deleted</source>
         <target>Blocklist Deleted</target>
@@ -203,18 +218,17 @@
       <trans-unit id="Blocklists" xml:space="preserve">
         <source>Blocklists</source>
         <target>Blocklists</target>
-        <note>Settings section header.
-   Settings tab label.</note>
+        <note>Settings section header.</note>
       </trans-unit>
       <trans-unit id="Blue" xml:space="preserve">
         <source>Blue</source>
         <target>Blue</target>
-        <note>Accent color name.</note>
+        <note>Accent color option.</note>
       </trans-unit>
       <trans-unit id="Brown" xml:space="preserve">
         <source>Brown</source>
         <target>Brown</target>
-        <note>Accent color name.</note>
+        <note>Accent color option.</note>
       </trans-unit>
       <trans-unit id="Cache Control" xml:space="preserve">
         <source>Cache Control</source>
@@ -242,9 +256,9 @@
         <target>Clear</target>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Clear Read History" xml:space="preserve">
-        <source>Clear Read History</source>
-        <target>Clear Read History</target>
+      <trans-unit id="Clear History" xml:space="preserve">
+        <source>Clear History</source>
+        <target>Clear History</target>
         <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Close" xml:space="preserve">
@@ -270,7 +284,7 @@
       <trans-unit id="Cyan" xml:space="preserve">
         <source>Cyan</source>
         <target>Cyan</target>
-        <note>Accent color name.</note>
+        <note>Accent color option.</note>
       </trans-unit>
       <trans-unit id="Dark" xml:space="preserve">
         <source>Dark</source>
@@ -307,11 +321,6 @@
         <target>Den Help</target>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Deselect All" xml:space="preserve">
-        <source>Deselect All</source>
-        <target>Deselect All</target>
-        <note>Button label.</note>
-      </trans-unit>
       <trans-unit id="Disable JavaScript" xml:space="preserve">
         <source>Disable JavaScript</source>
         <target>Disable JavaScript</target>
@@ -321,6 +330,11 @@
         <source>Downloads</source>
         <target>Downloads</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Drag to move feed to another page." xml:space="preserve">
+        <source>Drag to move feed to another page.</source>
+        <target>Drag to move feed to another page.</target>
+        <note>Draggable help text.</note>
       </trans-unit>
       <trans-unit id="ETag" xml:space="preserve">
         <source>ETag</source>
@@ -346,6 +360,11 @@
         <source>Enter the web address for a RSS, Atom, or JSON feed.</source>
         <target>Enter the web address for a RSS, Atom, or JSON feed.</target>
         <note>Feed web address field guidance message.</note>
+      </trans-unit>
+      <trans-unit id="Every %@" xml:space="preserve">
+        <source>Every %@</source>
+        <target>Every %@</target>
+        <note>Auto refresh interval.</note>
       </trans-unit>
       <trans-unit id="Expanded Previews" xml:space="preserve">
         <source>Expanded Previews</source>
@@ -393,11 +412,6 @@
         <target>Feed unavailable.</target>
         <note>Feed unavailable message.</note>
       </trans-unit>
-      <trans-unit id="Feeds will also be deleted." xml:space="preserve">
-        <source>Feeds will also be deleted.</source>
-        <target>Feeds will also be deleted.</target>
-        <note>Delete page alert message.</note>
-      </trans-unit>
       <trans-unit id="Filter Read" xml:space="preserve">
         <source>Filter Read</source>
         <target>Filter Read</target>
@@ -421,7 +435,7 @@
       <trans-unit id="General" xml:space="preserve">
         <source>General</source>
         <target>General</target>
-        <note>Settings tab label.</note>
+        <note>Settings section header.</note>
       </trans-unit>
       <trans-unit id="Get Started" xml:space="preserve">
         <source>Get Started</source>
@@ -441,7 +455,7 @@
       <trans-unit id="Green" xml:space="preserve">
         <source>Green</source>
         <target>Green</target>
-        <note>Accent color name.</note>
+        <note>Accent color option.</note>
       </trans-unit>
       <trans-unit id="Grouped" xml:space="preserve">
         <source>Grouped</source>
@@ -452,6 +466,16 @@
         <source>Help</source>
         <target>Help</target>
         <note>Row label.</note>
+      </trans-unit>
+      <trans-unit id="Hide Inspector" xml:space="preserve">
+        <source>Hide Inspector</source>
+        <target>Hide Inspector</target>
+        <note>Button help text.</note>
+      </trans-unit>
+      <trans-unit id="Hide Read Items" xml:space="preserve">
+        <source>Hide Read Items</source>
+        <target>Hide Read Items</target>
+        <note>Button help text.</note>
       </trans-unit>
       <trans-unit id="Hide Reader" xml:space="preserve">
         <source>Hide Reader</source>
@@ -467,7 +491,7 @@
         <source>Inbox</source>
         <target>Inbox</target>
         <note>Button label.
-   Navigation title</note>
+   Navigation title.</note>
       </trans-unit>
       <trans-unit id="Inbox Empty" xml:space="preserve">
         <source>Inbox Empty</source>
@@ -477,7 +501,7 @@
       <trans-unit id="Indigo" xml:space="preserve">
         <source>Indigo</source>
         <target>Indigo</target>
-        <note>Accent color name.</note>
+        <note>Accent color option.</note>
       </trans-unit>
       <trans-unit id="Info" xml:space="preserve">
         <source>Info</source>
@@ -520,11 +544,6 @@
         <target>Load Demo</target>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Look &amp; Feel" xml:space="preserve">
-        <source>Look &amp; Feel</source>
-        <target>Look &amp; Feel</target>
-        <note>Settings section header.</note>
-      </trans-unit>
       <trans-unit id="Management" xml:space="preserve">
         <source>Management</source>
         <target>Management</target>
@@ -533,12 +552,14 @@
       <trans-unit id="Mark All Read" xml:space="preserve">
         <source>Mark All Read</source>
         <target>Mark All Read</target>
-        <note>Button label.</note>
+        <note>Button help text.
+   Button label.</note>
       </trans-unit>
       <trans-unit id="Mark All Unread" xml:space="preserve">
         <source>Mark All Unread</source>
         <target>Mark All Unread</target>
-        <note>Button label.</note>
+        <note>Button help text.
+   Button label.</note>
       </trans-unit>
       <trans-unit id="Mark Read" xml:space="preserve">
         <source>Mark Read</source>
@@ -553,7 +574,7 @@
       <trans-unit id="Mint" xml:space="preserve">
         <source>Mint</source>
         <target>Mint</target>
-        <note>Accent color name.</note>
+        <note>Accent color option.</note>
       </trans-unit>
       <trans-unit id="Move" xml:space="preserve">
         <source>Move</source>
@@ -611,11 +632,6 @@
         <note>Blocklist compile/load status message.
    Boolean value.</note>
       </trans-unit>
-      <trans-unit id="No Blocklists" xml:space="preserve">
-        <source>No Blocklists</source>
-        <target>No Blocklists</target>
-        <note>Content unavailable title.</note>
-      </trans-unit>
       <trans-unit id="No Data" xml:space="preserve">
         <source>No Data</source>
         <target>No Data</target>
@@ -647,14 +663,12 @@
       <trans-unit id="No Results" xml:space="preserve">
         <source>No Results</source>
         <target>No Results</target>
-        <note>No search results message title.
-   No search results title.</note>
+        <note>No search results message title.</note>
       </trans-unit>
       <trans-unit id="No Selection" xml:space="preserve">
         <source>No Selection</source>
         <target>No Selection</target>
-        <note>Content unavailable title.
-   Inspector selection message.</note>
+        <note>Inspector selection message.</note>
       </trans-unit>
       <trans-unit id="No Tags" xml:space="preserve">
         <source>No Tags</source>
@@ -676,10 +690,15 @@
         <target>No common subjects were found in titles.</target>
         <note>Trending empty message.</note>
       </trans-unit>
-      <trans-unit id="Open" xml:space="preserve">
-        <source>Open</source>
-        <target>Open</target>
-        <note>No comment provided by engineer.</note>
+      <trans-unit id="Off" xml:space="preserve">
+        <source>Off</source>
+        <target>Off</target>
+        <note>Auto refresh disabled.</note>
+      </trans-unit>
+      <trans-unit id="Open File" xml:space="preserve">
+        <source>Open File</source>
+        <target>Open File</target>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Open Validator" xml:space="preserve">
         <source>Open Validator</source>
@@ -708,10 +727,15 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Open in Browser</target>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Open in System Browser" xml:space="preserve">
+        <source>Open in System Browser</source>
+        <target>Open in System Browser</target>
+        <note>Button help text.</note>
+      </trans-unit>
       <trans-unit id="Orange" xml:space="preserve">
         <source>Orange</source>
         <target>Orange</target>
-        <note>Accent color name.</note>
+        <note>Accent color option.</note>
       </trans-unit>
       <trans-unit id="Organizer" xml:space="preserve">
         <source>Organizer</source>
@@ -743,7 +767,7 @@ Use the Safari extension to discover feeds on websites.</target>
       <trans-unit id="Pink" xml:space="preserve">
         <source>Pink</source>
         <target>Pink</target>
-        <note>Accent color name.</note>
+        <note>Accent color option.</note>
       </trans-unit>
       <trans-unit id="Preferences" xml:space="preserve">
         <source>Preferences</source>
@@ -770,17 +794,22 @@ Use the Safari extension to discover feeds on websites.</target>
       <trans-unit id="Purple" xml:space="preserve">
         <source>Purple</source>
         <target>Purple</target>
-        <note>Accent color name.</note>
+        <note>Accent color option.</note>
       </trans-unit>
       <trans-unit id="Red" xml:space="preserve">
         <source>Red</source>
         <target>Red</target>
-        <note>Accent color name.</note>
+        <note>Accent color option.</note>
       </trans-unit>
       <trans-unit id="Refresh" xml:space="preserve">
         <source>Refresh</source>
         <target>Refresh</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Refresh Feeds" xml:space="preserve">
+        <source>Refresh Feeds</source>
+        <target>Refresh Feeds</target>
+        <note>Button help text.</note>
       </trans-unit>
       <trans-unit id="Refresh to check for new items." xml:space="preserve">
         <source>Refresh to check for new items.</source>
@@ -797,10 +826,20 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Reload</target>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Reload Page" xml:space="preserve">
+        <source>Reload Page</source>
+        <target>Reload Page</target>
+        <note>Button help text.</note>
+      </trans-unit>
+      <trans-unit id="Remove Bookmark" xml:space="preserve">
+        <source>Remove Bookmark</source>
+        <target>Remove Bookmark</target>
+        <note>Button help text.</note>
+      </trans-unit>
       <trans-unit id="Remove from List" xml:space="preserve">
         <source>Remove from List</source>
         <target>Remove from List</target>
-        <note>No comment provided by engineer.</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Reset" xml:space="preserve">
         <source>Reset</source>
@@ -845,11 +884,6 @@ Use the Safari extension to discover feeds on websites.</target>
         <note>Navigation title.
    Search field prompt.</note>
       </trans-unit>
-      <trans-unit id="Searching for “%@”" xml:space="preserve">
-        <source>Searching for “%@”</source>
-        <target>Searching for “%@”</target>
-        <note>Bottom bar status.</note>
-      </trans-unit>
       <trans-unit id="Secure" xml:space="preserve">
         <source>Secure</source>
         <target>Secure</target>
@@ -858,12 +892,19 @@ Use the Safari extension to discover feeds on websites.</target>
       <trans-unit id="Select All" xml:space="preserve">
         <source>Select All</source>
         <target>Select All</target>
-        <note>Button label.</note>
+        <note>Button help text.
+   Button label.</note>
       </trans-unit>
       <trans-unit id="Select Icon" xml:space="preserve">
         <source>Select Icon</source>
         <target>Select Icon</target>
         <note>Navigation title.</note>
+      </trans-unit>
+      <trans-unit id="Select None" xml:space="preserve">
+        <source>Select None</source>
+        <target>Select None</target>
+        <note>Button help text.
+   Button label.</note>
       </trans-unit>
       <trans-unit id="Select Preset…" xml:space="preserve">
         <source>Select Preset…</source>
@@ -886,25 +927,80 @@ Use the Safari extension to discover feeds on websites.</target>
         <note>Button label.
    Navigation title.</note>
       </trans-unit>
+      <trans-unit id="Share" xml:space="preserve">
+        <source>Share</source>
+        <target>Share</target>
+        <note>Button help text.</note>
+      </trans-unit>
       <trans-unit id="Show Bylines" xml:space="preserve">
         <source>Show Bylines</source>
         <target>Show Bylines</target>
         <note>Toggle label.</note>
+      </trans-unit>
+      <trans-unit id="Show Downloads" xml:space="preserve">
+        <source>Show Downloads</source>
+        <target>Show Downloads</target>
+        <note>Button help text.</note>
       </trans-unit>
       <trans-unit id="Show Excerpts" xml:space="preserve">
         <source>Show Excerpts</source>
         <target>Show Excerpts</target>
         <note>Toggle label.</note>
       </trans-unit>
+      <trans-unit id="Show Format Menu" xml:space="preserve">
+        <source>Show Format Menu</source>
+        <target>Show Format Menu</target>
+        <note>Menu help text.</note>
+      </trans-unit>
       <trans-unit id="Show Images" xml:space="preserve">
         <source>Show Images</source>
         <target>Show Images</target>
         <note>Toggle label.</note>
       </trans-unit>
+      <trans-unit id="Show Inspector" xml:space="preserve">
+        <source>Show Inspector</source>
+        <target>Show Inspector</target>
+        <note>Button help text.</note>
+      </trans-unit>
+      <trans-unit id="Show Menu" xml:space="preserve">
+        <source>Show Menu</source>
+        <target>Show Menu</target>
+        <note>Menu help text.</note>
+      </trans-unit>
+      <trans-unit id="Show Next Page" xml:space="preserve">
+        <source>Show Next Page</source>
+        <target>Show Next Page</target>
+        <note>Button help text.</note>
+      </trans-unit>
+      <trans-unit id="Show Previous Page" xml:space="preserve">
+        <source>Show Previous Page</source>
+        <target>Show Previous Page</target>
+        <note>Button help text.</note>
+      </trans-unit>
+      <trans-unit id="Show Read Items" xml:space="preserve">
+        <source>Show Read Items</source>
+        <target>Show Read Items</target>
+        <note>Button help text.</note>
+      </trans-unit>
       <trans-unit id="Show Reader" xml:space="preserve">
         <source>Show Reader</source>
         <target>Show Reader</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Show Reader / Show Format Menu" xml:space="preserve">
+        <source>Show Reader / Show Format Menu</source>
+        <target>Show Reader / Show Format Menu</target>
+        <note>Menu help text.</note>
+      </trans-unit>
+      <trans-unit id="Show Reader Formatting" xml:space="preserve">
+        <source>Show Reader Formatting</source>
+        <target>Show Reader Formatting</target>
+        <note>Menu help text.</note>
+      </trans-unit>
+      <trans-unit id="Show Tags Menu" xml:space="preserve">
+        <source>Show Tags Menu</source>
+        <target>Show Tags Menu</target>
+        <note>Menu help text.</note>
       </trans-unit>
       <trans-unit id="Show Unread Counts" xml:space="preserve">
         <source>Show Unread Counts</source>
@@ -914,7 +1010,7 @@ Use the Safari extension to discover feeds on websites.</target>
       <trans-unit id="Show in Finder" xml:space="preserve">
         <source>Show in Finder</source>
         <target>Show in Finder</target>
-        <note>No comment provided by engineer.</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Showing results for “%@”" xml:space="preserve">
         <source>Showing results for “%@”</source>
@@ -938,10 +1034,15 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Stop</target>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Stop ads and other annoyances in the built-in browser." xml:space="preserve">
-        <source>Stop ads and other annoyances in the built-in browser.</source>
-        <target>Stop ads and other annoyances in the built-in browser.</target>
-        <note>No blocklists guidance.</note>
+      <trans-unit id="Stop Loading Page" xml:space="preserve">
+        <source>Stop Loading Page</source>
+        <target>Stop Loading Page</target>
+        <note>Button help text.</note>
+      </trans-unit>
+      <trans-unit id="Switch Page Layout" xml:space="preserve">
+        <source>Switch Page Layout</source>
+        <target>Switch Page Layout</target>
+        <note>Button help text.</note>
       </trans-unit>
       <trans-unit id="Symbol" xml:space="preserve">
         <source>Symbol</source>
@@ -977,7 +1078,12 @@ Use the Safari extension to discover feeds on websites.</target>
       <trans-unit id="Teal" xml:space="preserve">
         <source>Teal</source>
         <target>Teal</target>
-        <note>Accent color name.</note>
+        <note>Accent color option.</note>
+      </trans-unit>
+      <trans-unit id="The operating system decides when/if background refresh occurs. Auto refresh will not happen while the app is active." xml:space="preserve">
+        <source>The operating system decides when/if background refresh occurs. Auto refresh will not happen while the app is active.</source>
+        <target>The operating system decides when/if background refresh occurs. Auto refresh will not happen while the app is active.</target>
+        <note>Refresh settings guidance.</note>
       </trans-unit>
       <trans-unit id="This action cannot be undone." xml:space="preserve">
         <source>This action cannot be undone.</source>
@@ -1020,15 +1126,11 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Turn On Blocklists</target>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Turn off filter (Image(systemName: &quot;line.3.horizontal.decrease&quot;)) to show hidden items." xml:space="preserve">
-        <source>Turn off filter (Image(systemName: "line.3.horizontal.decrease")) to show hidden items.</source>
-        <target>Turn off filter (Image(systemName: "line.3.horizontal.decrease")) to show hidden items.</target>
-        <note>All read guidance.</note>
-      </trans-unit>
-      <trans-unit id="Turn off filter to show hidden items." xml:space="preserve">
-        <source>Turn off filter to show hidden items.</source>
-        <target>Turn off filter to show hidden items.</target>
-        <note>No unread search results guidance.</note>
+      <trans-unit id="Turn off filter (Image(systemName: &quot;line.3.horizontal.decrease.circle.fill&quot;)) to show hidden items." xml:space="preserve">
+        <source>Turn off filter (Image(systemName: "line.3.horizontal.decrease.circle.fill")) to show hidden items.</source>
+        <target>Turn off filter (Image(systemName: "line.3.horizontal.decrease.circle.fill")) to show hidden items.</target>
+        <note>All read guidance.
+   No unread search results guidance.</note>
       </trans-unit>
       <trans-unit id="URL" xml:space="preserve">
         <source>URL</source>
@@ -1130,10 +1232,15 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Welcome</target>
         <note>Welcome title.</note>
       </trans-unit>
+      <trans-unit id="Widgets will only update when feeds are manually refreshed." xml:space="preserve">
+        <source>Widgets will only update when feeds are manually refreshed.</source>
+        <target>Widgets will only update when feeds are manually refreshed.</target>
+        <note>Refresh settings guidance.</note>
+      </trans-unit>
       <trans-unit id="Yellow" xml:space="preserve">
         <source>Yellow</source>
         <target>Yellow</target>
-        <note>Accent color name.</note>
+        <note>Accent color option.</note>
       </trans-unit>
       <trans-unit id="Yes" xml:space="preserve">
         <source>Yes</source>
@@ -1214,6 +1321,65 @@ Use the Safari extension to discover feeds on websites.</target>
         <source>Copyright © 2020-2024 Garrett Johnson</source>
         <target>Copyright © 2020-2024 Garrett Johnson</target>
         <note>Copyright (human-readable)</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="WidgetExtension/InfoPlist.xcstrings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
+        <source>Den Widgets</source>
+        <target state="new">Den Widgets</target>
+        <note>Bundle display name</note>
+      </trans-unit>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>Widget Extension</source>
+        <target state="new">Widget Extension</target>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
+        <source>Copyright © 2024 Garrett Johnson. All rights reserved.</source>
+        <target state="new">Copyright © 2024 Garrett Johnson. All rights reserved.</target>
+        <note>Copyright (human-readable)</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="WidgetExtension/Localizable.xcstrings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+    </header>
+    <body>
+      <trans-unit id="Inbox" xml:space="preserve">
+        <source>Inbox</source>
+        <target state="new">Inbox</target>
+        <note>Widget placeholder title.
+   Widget snapshot title.
+   Widget title.
+Widget title.</note>
+      </trans-unit>
+      <trans-unit id="Latest Items" xml:space="preserve">
+        <source>Latest Items</source>
+        <target state="new">Latest Items</target>
+        <note>Widget display name.</note>
+      </trans-unit>
+      <trans-unit id="No Unread Items" xml:space="preserve">
+        <source>No Unread Items</source>
+        <target state="new">No Unread Items</target>
+        <note>Widget empty message.</note>
+      </trans-unit>
+      <trans-unit id="Untitled" xml:space="preserve">
+        <source>Untitled</source>
+        <target state="new">Untitled</target>
+        <note>Bookmark site title placeholder.
+   Default page name.
+Default content filter name.
+Default feed title.
+Default item title.
+Default page name.
+Default tag name.
+Default trend title.</note>
       </trans-unit>
     </body>
   </file>

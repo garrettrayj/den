@@ -51,11 +51,7 @@ struct AccentColorSelector: View {
             .frame(maxWidth: 200, alignment: .trailing)
             .imageScale(.large)
         } label: {
-            Label {
-                Text("Accent Color", comment: "Picker label.")
-            } icon: {
-                Image(systemName: "paintbrush")
-            }
+            label
         }
         .buttonStyle(.plain)
         #else
@@ -76,13 +72,17 @@ struct AccentColorSelector: View {
                 .tag(option as AccentColor?)
             }
         } label: {
-            Label {
-                Text("Accent", comment: "Picker label.")
-            } icon: {
-                Image(systemName: "paintbrush")
-            }
+            label
         }
         .pickerStyle(.navigationLink)
         #endif
+    }
+    
+    private var label: some View {
+        Label {
+            Text("Accent Color", comment: "Picker label.")
+        } icon: {
+            Image(systemName: "paintbrush")
+        }
     }
 }

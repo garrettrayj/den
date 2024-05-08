@@ -56,29 +56,29 @@ enum AccentColor: String, CaseIterable {
     var labelText: Text {
         switch self {
         case .red:
-            Text("Red", comment: "Accent color name.")
+            Text("Red", comment: "Accent color option.")
         case .orange:
-            Text("Orange", comment: "Accent color name.")
+            Text("Orange", comment: "Accent color option.")
         case .yellow:
-            Text("Yellow", comment: "Accent color name.")
+            Text("Yellow", comment: "Accent color option.")
         case .green:
-            Text("Green", comment: "Accent color name.")
+            Text("Green", comment: "Accent color option.")
         case .mint:
-            Text("Mint", comment: "Accent color name.")
+            Text("Mint", comment: "Accent color option.")
         case .teal:
-            Text("Teal", comment: "Accent color name.")
+            Text("Teal", comment: "Accent color option.")
         case .cyan:
-            Text("Cyan", comment: "Accent color name.")
+            Text("Cyan", comment: "Accent color option.")
         case .blue:
-            Text("Blue", comment: "Accent color name.")
+            Text("Blue", comment: "Accent color option.")
         case .indigo:
-            Text("Indigo", comment: "Accent color name.")
+            Text("Indigo", comment: "Accent color option.")
         case .purple:
-            Text("Purple", comment: "Accent color name.")
+            Text("Purple", comment: "Accent color option.")
         case .pink:
-            Text("Pink", comment: "Accent color name.")
+            Text("Pink", comment: "Accent color option.")
         case .brown:
-            Text("Brown", comment: "Accent color name.")
+            Text("Brown", comment: "Accent color option.")
         }
     }
 }

@@ -27,7 +27,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             sourceID: nil,
             sourceType: nil,
             unread: 10,
-            title: Text("Inbox"),
+            title: Text("Inbox", comment: "Widget placeholder title."),
             favicon: nil,
             symbol: "tray",
             configuration: LatestItemsConfigurationIntent(source: .allSources.first!)
@@ -44,7 +44,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             sourceID: nil,
             sourceType: nil,
             unread: 10,
-            title: Text("Inbox"),
+            title: Text("Inbox", comment: "Widget snapshot title."),
             favicon: nil,
             symbol: "tray",
             configuration: configuration
@@ -155,7 +155,9 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
                     }
                 }(),
                 unread: items.count,
-                title: feed?.displayTitle ?? page?.displayName ?? Text("Inbox"),
+                title: feed?.displayTitle
+                    ?? page?.displayName
+                    ?? Text("Inbox", comment: "Widget title."),
                 favicon: feedFaviconImage,
                 symbol: page?.wrappedSymbol,
                 configuration: configuration

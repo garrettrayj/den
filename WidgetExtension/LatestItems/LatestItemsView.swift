@@ -115,7 +115,7 @@ struct LatestItemsView: View {
     }
     
     private var unreadCount: some View {
-        Text("\(entry.unread)")
+        Text(verbatim: "\(entry.unread)")
             .font(.footnote.weight(.medium).monospacedDigit())
             .foregroundStyle(.secondary)
             .padding(.horizontal, 8)
