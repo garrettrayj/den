@@ -11,10 +11,34 @@
 import CoreData
 import OSLog
 import WidgetKit
+import Combine
 
 final class RefreshManager: ObservableObject {
     @Published var refreshing = false
     @Published var progress = Progress()
+    
+    #if os(macOS)
+    private let autoRefreshQueue = OperationQueue()
+    private var autoRefreshCancellable: Cancellable?
+    
+    func startAutoRefresh(interval: TimeInterval) {
+        Logger.main.debug("Starting auto refresh with interval: \(interval)")
+        autoRefreshCancellable = autoRefreshQueue.schedule(
+            after: .init(.now + interval),
+            interval: .init(floatLiteral: interval),
+            tolerance: .seconds(60)
+        ) {
+            Task {
+                await self.refresh()
+            }
+        }
+    }
+    
+    func stopAutoRefresh() {
+        Logger.main.debug("Stopping auto refresh")
+        autoRefreshCancellable?.cancel()
+    }
+    #endif
     
     func refresh() async {
         let context = PersistenceController.shared.container.viewContext

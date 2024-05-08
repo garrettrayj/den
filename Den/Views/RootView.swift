@@ -15,6 +15,8 @@ import SwiftUI
 struct RootView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
+    @EnvironmentObject private var refreshManager: RefreshManager
+    
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     @State private var showingExporter = false
     @State private var showingImporter = false
@@ -36,7 +38,7 @@ struct RootView: View {
     @AppStorage("MaintenanceTimestamp") private var maintenanceTimestamp: Double?
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
-    @AppStorage("BackgroundRefresh") private var backgroundRefresh = true
+    @AppStorage("AutoRefresh") private var autoRefresh: AutoRefreshInterval = .threeHours
     
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.userOrder, order: .forward),
@@ -145,6 +147,10 @@ struct RootView: View {
             showingNewFeedSheet = true
         }
         .task {
+            #if os(macOS)
+            startStopAutoRefresh()
+            #endif
+            
             if let navigationData {
                 navigationStore.restore(from: navigationData)
             }
@@ -152,6 +158,11 @@ struct RootView: View {
                 navigationData = navigationStore.encoded()
             }
         }
+        #if os(macOS)
+        .onChange(of: autoRefresh) {
+            startStopAutoRefresh()
+        }
+        #endif
         .onChange(of: detailPanel) {
             navigationStore.path.removeLast(navigationStore.path.count)
         }
@@ -191,6 +202,16 @@ struct RootView: View {
         .preferredColorScheme(userColorScheme.colorScheme)
         .tint(accentColor?.color)
     }
+    
+    #if os(macOS)
+    private func startStopAutoRefresh() {
+        if autoRefresh == .zero {
+            refreshManager.stopAutoRefresh()
+        } else {
+            refreshManager.startAutoRefresh(interval: TimeInterval(autoRefresh.rawValue))
+        }
+    }
+    #endif
     
     private func performMaintenance() async {
         if let maintenanceTimestamp = maintenanceTimestamp {

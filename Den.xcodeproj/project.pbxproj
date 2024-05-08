@@ -118,8 +118,6 @@
 		685EB3852AF2B2F7001683E3 /* BlocklistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3842AF2B2F7001683E3 /* BlocklistUITests.swift */; };
 		685EB3872AF95CB1001683E3 /* AboutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3862AF95CB1001683E3 /* AboutSection.swift */; };
 		685EB3892AFAA102001683E3 /* OrganizerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3882AFAA102001683E3 /* OrganizerRow.swift */; };
-		685EB38C2AFB4621001683E3 /* MacSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB38B2AFB4621001683E3 /* MacSettings.swift */; };
-		685EB3902AFB46A8001683E3 /* BlocklistsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB38F2AFB46A8001683E3 /* BlocklistsTab.swift */; };
 		685EB3982AFB58BB001683E3 /* NewBlocklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */; };
 		685EB39A2AFB5997001683E3 /* DeleteBlocklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3992AFB5997001683E3 /* DeleteBlocklistButton.swift */; };
 		685ECB1126EE611000A3B184 /* SidebarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685ECB1026EE611000A3B184 /* SidebarPage.swift */; };
@@ -180,7 +178,7 @@
 		687F4890269165EE00EA2498 /* AppErrorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F488F269165EE00EA2498 /* AppErrorSheet.swift */; };
 		687F73EF2BCDFA8F00FD8EBF /* ShowInFinderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F73EE2BCDFA8F00FD8EBF /* ShowInFinderButton.swift */; };
 		687F73F32BD1586300FD8EBF /* DenWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F73F22BD1586300FD8EBF /* DenWebView.swift */; };
-		687FEED22A3A57220042977E /* LookAndFeelSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEED12A3A57220042977E /* LookAndFeelSection.swift */; };
+		687FEED22A3A57220042977E /* GeneralSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEED12A3A57220042977E /* GeneralSection.swift */; };
 		687FEED72A3B724B0042977E /* UserColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEED62A3B724B0042977E /* UserColorScheme.swift */; };
 		687FEEDB2A3B830D0042977E /* UserColorSchemePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEEDA2A3B830D0042977E /* UserColorSchemePicker.swift */; };
 		687FEEF72A3E431E0042977E /* ImportButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEEF62A3E431E0042977E /* ImportButton.swift */; };
@@ -272,7 +270,6 @@
 		68C4DE912B361E2E0023E362 /* ItemToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4DE902B361E2E0023E362 /* ItemToolbar.swift */; };
 		68C4DE932B362ADB0023E362 /* BookmarkToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4DE922B362ADB0023E362 /* BookmarkToolbar.swift */; };
 		68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */ = {isa = PBXBuildFile; fileRef = 68CAC50B292954C7002D9EB9 /* Demo.opml */; };
-		68CC00B22BDEA2A100E723DC /* RefreshSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC00B12BDEA2A100E723DC /* RefreshSection.swift */; };
 		68CC011F2BDF0D9C00E723DC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CC011E2BDF0D9C00E723DC /* WidgetKit.framework */; };
 		68CC01212BDF0D9C00E723DC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CC01202BDF0D9C00E723DC /* SwiftUI.framework */; };
 		68CC01242BDF0D9C00E723DC /* WidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC01232BDF0D9C00E723DC /* WidgetExtensionBundle.swift */; };
@@ -351,6 +348,7 @@
 		68FB95202BE80706004EFA73 /* LatestItemsEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB951E2BE80706004EFA73 /* LatestItemsEntry.swift */; };
 		68FB95242BE93BF2004EFA73 /* SDWebImageManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB95232BE93BF2004EFA73 /* SDWebImageManager+Extensions.swift */; };
 		68FB95262BE97BEF004EFA73 /* Debug.opml in Resources */ = {isa = PBXBuildFile; fileRef = 68FB95252BE97BEF004EFA73 /* Debug.opml */; };
+		68FB95282BEAB479004EFA73 /* AutoRefreshInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB95272BEAB479004EFA73 /* AutoRefreshInterval.swift */; };
 		68FC25552758B2250073979F /* FeedUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC25542758B2250073979F /* FeedUnavailable.swift */; };
 		68FC2563275E07770073979F /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC2562275E07770073979F /* Sidebar.swift */; };
 		68FC256F27640AA00073979F /* ItemPreviewExpanded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC256E27640AA00073979F /* ItemPreviewExpanded.swift */; };
@@ -516,8 +514,6 @@
 		685EB3842AF2B2F7001683E3 /* BlocklistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistUITests.swift; sourceTree = "<group>"; };
 		685EB3862AF95CB1001683E3 /* AboutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSection.swift; sourceTree = "<group>"; };
 		685EB3882AFAA102001683E3 /* OrganizerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerRow.swift; sourceTree = "<group>"; };
-		685EB38B2AFB4621001683E3 /* MacSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacSettings.swift; sourceTree = "<group>"; };
-		685EB38F2AFB46A8001683E3 /* BlocklistsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistsTab.swift; sourceTree = "<group>"; };
 		685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBlocklistButton.swift; sourceTree = "<group>"; };
 		685EB3992AFB5997001683E3 /* DeleteBlocklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBlocklistButton.swift; sourceTree = "<group>"; };
 		685ECB1026EE611000A3B184 /* SidebarPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarPage.swift; sourceTree = "<group>"; };
@@ -578,7 +574,7 @@
 		687F488F269165EE00EA2498 /* AppErrorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppErrorSheet.swift; sourceTree = "<group>"; };
 		687F73EE2BCDFA8F00FD8EBF /* ShowInFinderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInFinderButton.swift; sourceTree = "<group>"; };
 		687F73F22BD1586300FD8EBF /* DenWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DenWebView.swift; sourceTree = "<group>"; };
-		687FEED12A3A57220042977E /* LookAndFeelSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookAndFeelSection.swift; sourceTree = "<group>"; };
+		687FEED12A3A57220042977E /* GeneralSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSection.swift; sourceTree = "<group>"; };
 		687FEED62A3B724B0042977E /* UserColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColorScheme.swift; sourceTree = "<group>"; };
 		687FEEDA2A3B830D0042977E /* UserColorSchemePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColorSchemePicker.swift; sourceTree = "<group>"; };
 		687FEEF62A3E431E0042977E /* ImportButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportButton.swift; sourceTree = "<group>"; };
@@ -651,7 +647,6 @@
 		68C4DE902B361E2E0023E362 /* ItemToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToolbar.swift; sourceTree = "<group>"; };
 		68C4DE922B362ADB0023E362 /* BookmarkToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkToolbar.swift; sourceTree = "<group>"; };
 		68CAC50B292954C7002D9EB9 /* Demo.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Demo.opml; sourceTree = "<group>"; };
-		68CC00B12BDEA2A100E723DC /* RefreshSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshSection.swift; sourceTree = "<group>"; };
 		68CC011D2BDF0D9C00E723DC /* Widget Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Widget Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68CC011E2BDF0D9C00E723DC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = /System/Library/Frameworks/WidgetKit.framework; sourceTree = "<absolute>"; };
 		68CC01202BDF0D9C00E723DC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = /System/Library/Frameworks/SwiftUI.framework; sourceTree = "<absolute>"; };
@@ -731,6 +726,7 @@
 		68FB951E2BE80706004EFA73 /* LatestItemsEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestItemsEntry.swift; sourceTree = "<group>"; };
 		68FB95232BE93BF2004EFA73 /* SDWebImageManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SDWebImageManager+Extensions.swift"; sourceTree = "<group>"; };
 		68FB95252BE97BEF004EFA73 /* Debug.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Debug.opml; sourceTree = "<group>"; };
+		68FB95272BEAB479004EFA73 /* AutoRefreshInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoRefreshInterval.swift; sourceTree = "<group>"; };
 		68FC25542758B2250073979F /* FeedUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUnavailable.swift; sourceTree = "<group>"; };
 		68FC2562275E07770073979F /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		68FC256E27640AA00073979F /* ItemPreviewExpanded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPreviewExpanded.swift; sourceTree = "<group>"; };
@@ -840,7 +836,6 @@
 		683B285327D54141009C0302 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				685EB38A2AFB4610001683E3 /* MacSettings */,
 				685EB3862AF95CB1001683E3 /* AboutSection.swift */,
 				68352D1529B16C5F0073CEFD /* AccentColorSelector.swift */,
 				6818F0822B703D3700BE06FC /* BlocklistPresets.swift */,
@@ -848,10 +843,9 @@
 				684152692AD9E74100ABE5E2 /* BlocklistsSection.swift */,
 				686114FB2B3F624400BC2235 /* BlocklistStatusView.swift */,
 				685EB3992AFB5997001683E3 /* DeleteBlocklistButton.swift */,
-				687FEED12A3A57220042977E /* LookAndFeelSection.swift */,
+				687FEED12A3A57220042977E /* GeneralSection.swift */,
 				685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */,
 				6841525F2AD9E15B00ABE5E2 /* NewBlocklistSheet.swift */,
-				68CC00B12BDEA2A100E723DC /* RefreshSection.swift */,
 				684152782ADC7C8700ABE5E2 /* ResetSection.swift */,
 				684152752ADC6ABD00ABE5E2 /* SettingsSheet.swift */,
 				687FEEDA2A3B830D0042977E /* UserColorSchemePicker.swift */,
@@ -973,15 +967,6 @@
 			path = Preview;
 			sourceTree = "<group>";
 		};
-		685EB38A2AFB4610001683E3 /* MacSettings */ = {
-			isa = PBXGroup;
-			children = (
-				685EB38F2AFB46A8001683E3 /* BlocklistsTab.swift */,
-				685EB38B2AFB4621001683E3 /* MacSettings.swift */,
-			);
-			path = MacSettings;
-			sourceTree = "<group>";
-		};
 		686068E42831501B000068DE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1044,6 +1029,7 @@
 				6818F0AC2B8502C900BE06FC /* TagLayout.swift */,
 				687FEED62A3B724B0042977E /* UserColorScheme.swift */,
 				687FEF192A4227810042977E /* WebAddressValidationMessage.swift */,
+				68FB95272BEAB479004EFA73 /* AutoRefreshInterval.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -1786,7 +1772,6 @@
 				6818F0832B703D3700BE06FC /* BlocklistPresets.swift in Sources */,
 				680BBC912ADF761400F32046 /* BlocklistSettings.swift in Sources */,
 				6841526A2AD9E74100ABE5E2 /* BlocklistsSection.swift in Sources */,
-				685EB3902AFB46A8001683E3 /* BlocklistsTab.swift in Sources */,
 				680BBC8D2ADEC74600F32046 /* BlocklistStatus+CoreDataClass.swift in Sources */,
 				686114FC2B3F624400BC2235 /* BlocklistStatusView.swift in Sources */,
 				683041B227542E2000BE7631 /* BoardView.swift in Sources */,
@@ -1894,8 +1879,7 @@
 				68B6CBEC2910CA3000B5E3AB /* JSONItemLoader.swift in Sources */,
 				68B1895A289B7B320002A7FE /* LargeThumbnail.swift in Sources */,
 				68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */,
-				687FEED22A3A57220042977E /* LookAndFeelSection.swift in Sources */,
-				685EB38C2AFB4621001683E3 /* MacSettings.swift in Sources */,
+				687FEED22A3A57220042977E /* GeneralSection.swift in Sources */,
 				685E61232B5EE701009CABFE /* MacSidebarBottomBar.swift in Sources */,
 				68FF63F42921D9C50012A275 /* MarkAllReadUnreadButton.swift in Sources */,
 				68A104452BA5B15D008BF8E6 /* MediaImageExtractor.swift in Sources */,
@@ -1953,7 +1937,6 @@
 				683E3F49293BC19800B16814 /* RefreshButton.swift in Sources */,
 				682591FE29D81E3000E5EF3B /* RefreshManager.swift in Sources */,
 				687FEF082A3FAD610042977E /* RefreshProgressViewStyle.swift in Sources */,
-				68CC00B22BDEA2A100E723DC /* RefreshSection.swift in Sources */,
 				6862A59A2A25B6DF000CAB19 /* RelativeRefreshedDate.swift in Sources */,
 				684152792ADC7C8700ABE5E2 /* ResetSection.swift in Sources */,
 				68C41316247263C700D1DC7B /* RootView.swift in Sources */,
@@ -2006,6 +1989,7 @@
 				6868A3162895D20D0051D43E /* TrendingNavLink.swift in Sources */,
 				68FF63F82921DCE00012A275 /* TrendingToolbar.swift in Sources */,
 				68F56B79288C0D31006EC915 /* TrendItem+CoreDataClass.swift in Sources */,
+				68FB95282BEAB479004EFA73 /* AutoRefreshInterval.swift in Sources */,
 				6870EBDF29C95F6700E15154 /* TrendLayout.swift in Sources */,
 				68FF63FA2921DCF20012A275 /* TrendToolbar.swift in Sources */,
 				68F56B472870C123006EC915 /* TrendView.swift in Sources */,

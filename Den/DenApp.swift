@@ -54,10 +54,11 @@ struct DenApp: App {
         
         #if os(macOS)
         Settings {
-            MacSettings()
+            SettingsSheet()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                
+                .frame(minWidth: 440, minHeight: 600)
         }
+        .windowToolbarStyle(.expanded)
         .defaultAppStorage(.group)
         #endif
     }
@@ -101,7 +102,7 @@ struct DenApp: App {
     }
 
     private func setupImageHandling() {
-        SDImageCache.shared.config.maxMemoryCount = 200
+        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 1024
         
         // Add additional image format support
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
@@ -116,20 +117,22 @@ struct DenApp: App {
     
     #if os(iOS)
     func scheduleAppRefresh() {
-        guard UserDefaults.group.bool(forKey: "BackgroundRefresh") else {
+        let interval = UserDefaults.group.value(forKey: "AutoRefresh") as? Int ?? 10800
+        
+        guard interval > 0 else {
             Logger.main.debug("Skipping scheduling. Background refresh is disabled.")
             return
         }
         
         let request = BGAppRefreshTaskRequest(identifier: "net.devsci.den.refresh")
         
-        let earliestBeginDate = Date().addingTimeInterval(60 * 60)
+        let earliestBeginDate = Date().addingTimeInterval(TimeInterval(interval))
         request.earliestBeginDate = earliestBeginDate
 
         try? BGTaskScheduler.shared.submit(request)
         
         Logger.main.debug(
-            "Background refresh scheduled with earliest begin date of \(earliestBeginDate)"
+            "Background refresh scheduled with earliest begin date of \(earliestBeginDate.formatted())"
         )
     }
     #endif

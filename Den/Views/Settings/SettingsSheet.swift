@@ -16,14 +16,17 @@ struct SettingsSheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                LookAndFeelSection()
-                RefreshSection()
+                GeneralSection()
                 BlocklistsSection()
                 ResetSection()
+                #if os(iOS)
                 AboutSection()
+                #endif
             }
+            .formStyle(.grouped)
             .buttonStyle(.borderless)
             .navigationTitle(Text("Settings", comment: "Navigation title."))
+            #if os(iOS)
             .toolbar {
                 ToolbarItem {
                     Button {
@@ -37,6 +40,7 @@ struct SettingsSheet: View {
                     }
                 }
             }
+            #endif
         }
     }
 }
