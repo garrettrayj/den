@@ -32,6 +32,7 @@ struct BrowserFormatMenu: View {
                 } primaryAction: {
                     browserViewModel.toggleReader()
                 }
+                .help(Text("Show Reader / Show Format Menu", comment: "Menu help text."))
             } else {
                 Menu {
                     ToggleBlocklistsButton(browserViewModel: browserViewModel)
@@ -46,8 +47,11 @@ struct BrowserFormatMenu: View {
                         Image(systemName: "textformat.size")
                     }
                 }
+                .help(Text("Show Format Menu", comment: "Menu help text."))
             }
         }
+        
+        .accessibilityIdentifier("FormatMenu")
         .accessibilityLabel("FormatMenu")
     }
 }

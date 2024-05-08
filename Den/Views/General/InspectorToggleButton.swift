@@ -25,6 +25,10 @@ struct InspectorToggleButton: View {
                 Image(systemName: symbol)
             }
         }
+        .help(
+            showingInspector ? Text("Hide Inspector", comment: "Button help text.") :
+                Text("Show Inspector", comment: "Button help text.")
+        )
         .accessibilityIdentifier("ToggleInspector")
     }
     

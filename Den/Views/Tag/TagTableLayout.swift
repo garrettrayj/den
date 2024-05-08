@@ -145,7 +145,7 @@ struct TagTableLayout: View {
             UntagButton(bookmark: row.bookmark)
             SystemBrowserButton(url: row.link)
             CopyAddressButton(url: row.link)
-            ShareLink(item: row.link)
+            ShareButton(item: row.link)
         } else {
             Button {
                 deleteSelection(items: items)

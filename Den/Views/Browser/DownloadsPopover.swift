@@ -74,7 +74,7 @@ struct DownloadsPopover: View {
                 }
                 ShowInFinderButton(url: browserDownload.fileURL)
                 #else
-                ShareLink(item: browserDownload.fileURL)
+                ShareButton(item: browserDownload.fileURL)
                 #endif
             }
             if let url = browserDownload.wkDownload.originalRequest?.url {

@@ -51,7 +51,7 @@ struct DownloadStatus: View {
                 #if os(macOS)
                 ShowInFinderButton(url: browserDownload.fileURL).tint(.secondary)
                 #else
-                ShareLink(item: browserDownload.fileURL)
+                ShareButton(item: browserDownload.fileURL)
                 #endif
             } else {
                 ProgressView(browserDownload.wkDownload.progress)

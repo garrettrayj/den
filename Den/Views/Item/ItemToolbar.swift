@@ -47,7 +47,7 @@ struct ItemToolbar: ToolbarContent {
                 SystemBrowserButton(url: url)
             }
             ToolbarItem {
-                ShareLink(item: url)
+                ShareButton(item: url)
             }
         }
         #else
@@ -72,7 +72,7 @@ struct ItemToolbar: ToolbarContent {
             }
             if let url = browserViewModel.url {
                 ToolbarItem(placement: .bottomBar) {
-                    ShareLink(item: url)
+                    ShareButton(item: url)
                 }
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
@@ -126,7 +126,7 @@ struct ItemToolbar: ToolbarContent {
                     SystemBrowserButton(url: url)
                 }
                 ToolbarItem {
-                    ShareLink(item: url)
+                    ShareButton(item: url)
                 }
             }
         }

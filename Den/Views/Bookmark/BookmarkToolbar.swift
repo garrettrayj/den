@@ -49,7 +49,7 @@ struct BookmarkToolbar: ToolbarContent {
                 SystemBrowserButton(url: url)
             }
             ToolbarItem {
-                ShareLink(item: url)
+                ShareButton(item: url).help(Text("Share", comment: "Button help text."))
             }
         }
         #else
@@ -76,7 +76,7 @@ struct BookmarkToolbar: ToolbarContent {
             }
             if let url = browserViewModel.url {
                 ToolbarItem(placement: .bottomBar) {
-                    ShareLink(item: url)
+                    ShareButton(item: url)
                 }
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
@@ -131,7 +131,7 @@ struct BookmarkToolbar: ToolbarContent {
                     SystemBrowserButton(url: url)
                 }
                 ToolbarItem {
-                    ShareLink(item: url)
+                    ShareButton(item: url)
                 }
             }
         }

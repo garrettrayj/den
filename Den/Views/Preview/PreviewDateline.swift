@@ -14,13 +14,23 @@ struct PreviewDateline: View {
     let date: Date
 
     static let dateFormatter: DateFormatter = {
-        let relativeDateFormatter = DateFormatter()
-        relativeDateFormatter.timeStyle = .short
-        relativeDateFormatter.dateStyle = .medium
-        relativeDateFormatter.locale = .current
-        relativeDateFormatter.doesRelativeDateFormatting = true
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateStyle = .medium
+        formatter.locale = .current
+        formatter.doesRelativeDateFormatting = true
 
-        return relativeDateFormatter
+        return formatter
+    }()
+    
+    static let helpDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateStyle = .full
+        formatter.locale = .current
+        formatter.doesRelativeDateFormatting = false
+
+        return formatter
     }()
 
     var body: some View {
@@ -28,6 +38,12 @@ struct PreviewDateline: View {
             Text(verbatim: PreviewDateline.dateFormatter.string(from: date))
                 .font(.caption2)
                 .lineLimit(1)
+                .help(Text(
+                    verbatim: """
+                    \(date.formatted(date: .complete, time: .shortened)) \
+                    (\(date.formatted(.relative(presentation: .numeric))))
+                    """
+                ))
         }
     }
 }

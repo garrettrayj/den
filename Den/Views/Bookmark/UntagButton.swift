@@ -35,5 +35,7 @@ struct UntagButton: View {
                 Image(systemName: "tag.slash")
             }
         }
+        .help(Text("Remove Bookmark", comment: "Button help text."))
+        .accessibilityIdentifier("Untag")
     }
 }

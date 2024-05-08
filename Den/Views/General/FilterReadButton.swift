@@ -24,6 +24,10 @@ struct FilterReadButton: View {
                     .symbolVariant(hideRead ? .circle.fill : .circle)
             }
         }
+        .help(
+            hideRead ? Text("Show Read Items", comment: "Button help text.") :
+                Text("Hide Read Items", comment: "Button help text.")
+        )
         .accessibilityIdentifier("FilterRead")
     }
 }

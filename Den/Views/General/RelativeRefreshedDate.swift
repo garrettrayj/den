@@ -24,17 +24,20 @@ struct RelativeRefreshedDate: View {
 
     var body: some View {
         TimelineView(.everyMinute) { _ in
-            if -date.timeIntervalSinceNow < 60 {
-                Text(
-                    "Updated Just Now",
-                    comment: "Status message (refreshed less than one minute ago)."
-                )
-            } else {
-                Text(
-                    "Updated \(date.formatted(RelativeRefreshedDate.formatStyle))",
-                    comment: "Status message (relative date display)."
-                )
+            Group {
+                if -date.timeIntervalSinceNow < 60 {
+                    Text(
+                        "Updated Just Now",
+                        comment: "Status message (refreshed less than one minute ago)."
+                    )
+                } else {
+                    Text(
+                        "Updated \(date.formatted(RelativeRefreshedDate.formatStyle))",
+                        comment: "Status message (relative date display)."
+                    )
+                }
             }
+            .help(Text(verbatim: "\(date.formatted(date: .complete, time: .shortened))"))
         }
     }
 }

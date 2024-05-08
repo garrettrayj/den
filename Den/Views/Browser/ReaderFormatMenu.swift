@@ -26,5 +26,7 @@ struct ReaderFormatMenu: View {
         } primaryAction: {
             browserViewModel.toggleReader()
         }
+        .help(Text("Show Reader Formatting", comment: "Menu help text."))
+        .accessibilityIdentifier("ReaderFormat")
     }
 }

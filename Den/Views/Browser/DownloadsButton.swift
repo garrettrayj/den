@@ -26,5 +26,7 @@ struct DownloadsButton: View {
         .popover(isPresented: $showingPopover, arrowEdge: .top) {
             DownloadsPopover()
         }
+        .help(Text("Show Downloads", comment: "Button help text."))
+        .accessibilityIdentifier("Downloads")
     }
 }

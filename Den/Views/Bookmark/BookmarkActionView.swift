@@ -41,7 +41,7 @@ struct BookmarkActionView<Content: View>: View {
             if let url = bookmark.link {
                 SystemBrowserButton(url: url)
                 CopyAddressButton(url: url)
-                ShareLink(item: url)
+                ShareButton(item: url)
             }
         }
     }

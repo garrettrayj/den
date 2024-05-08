@@ -27,6 +27,7 @@ struct RefreshButton: View {
             }
         }
         .keyboardShortcut("r", modifiers: [.command])
+        .help(Text("Refresh Feeds", comment: "Button help text."))
         .accessibilityIdentifier("Refresh")
         .disabled(refreshManager.refreshing || !networkMonitor.isConnected)
     }

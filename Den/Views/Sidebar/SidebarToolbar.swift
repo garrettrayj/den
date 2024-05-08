@@ -48,6 +48,7 @@ struct SidebarToolbar: ToolbarContent {
             }
             .disabled(refreshManager.refreshing)
             .menuIndicator(.hidden)
+            .help(Text("Show Menu", comment: "Menu help text."))
             .accessibilityIdentifier("SidebarMenu")
         }
         #if os(iOS)

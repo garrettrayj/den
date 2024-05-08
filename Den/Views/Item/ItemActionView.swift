@@ -61,7 +61,7 @@ struct ItemActionView<Content: View>: View {
             if let url = item.link {
                 SystemBrowserButton(url: url)
                 CopyAddressButton(url: url)
-                ShareLink(item: url)
+                ShareButton(item: url)
             }
         }
     }
