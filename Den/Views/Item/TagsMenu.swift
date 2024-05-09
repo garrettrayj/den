@@ -76,7 +76,7 @@ struct TagsMenu: View {
             }
         }
         .menuIndicator(.hidden)
-        .help(Text("Show Tags Menu", comment: "Menu help text."))
+        .help(Text("Select Tags", comment: "Menu help text."))
         .accessibilityIdentifier("TagsMenu")
     }
 }

@@ -47,7 +47,7 @@ struct AboutSection: View {
                 }
             }
         } header: {
-            Text("About", comment: "Settings section header.")
+            Text("About \(Bundle.main.name)", comment: "Settings section header.")
         } footer: {
             Text(Bundle.main.copyright)
                 .font(.footnote)
