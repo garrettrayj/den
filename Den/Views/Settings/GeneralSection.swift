@@ -95,7 +95,7 @@ struct GeneralSection: View {
             } else {
                 Text(
                     """
-                    The operating system decides when/if background refresh occurs. \
+                    The operating system decides when background refresh occurs. \
                     Auto refresh will not happen while the app is active.
                     """,
                     comment: "Refresh settings guidance."
