@@ -18,7 +18,12 @@ import SDWebImageSVGCoder
 import SDWebImageWebPCoder
 
 struct LatestItemsProvider: AppIntentTimelineProvider {
-    var viewContext: NSManagedObjectContext
+    init() {
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
+        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
+    }
+    
+    let container = PersistenceController.shared.container
     
     func placeholder(in context: Context) -> LatestItemsEntry {
         LatestItemsEntry(
@@ -30,7 +35,9 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             title: Text("Inbox", comment: "Widget placeholder title."),
             favicon: nil,
             symbol: "tray",
-            configuration: LatestItemsConfigurationIntent(source: .allSources.first!)
+            configuration: LatestItemsConfigurationIntent(
+                source: SourceQuery.defaultSource
+            )
         )
     }
 
@@ -56,6 +63,8 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
         for configuration: LatestItemsConfigurationIntent,
         in context: Context
     ) async -> Timeline<LatestItemsEntry> {
+        let moc = container.newBackgroundContext()
+        
         var entries: [LatestItemsEntry] = []
         
         var feed: Feed?
@@ -66,16 +75,16 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             let request = Page.fetchRequest()
             request.predicate = NSPredicate(
                 format: "id = %@",
-                configuration.source.id.uuidString
+                configuration.source.id
             )
-            page = try? viewContext.fetch(request).first
+            page = try? moc.fetch(request).first
         } else if configuration.source.entityType == Feed.self {
             let request = Feed.fetchRequest()
             request.predicate = NSPredicate(
                 format: "id = %@",
-                configuration.source.id.uuidString
+                configuration.source.id
             )
-            feed = try? viewContext.fetch(request).first
+            feed = try? moc.fetch(request).first
         }
         
         // Get items
@@ -114,7 +123,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
         )
         
-        if let items = try? viewContext.fetch(request) {
+        if let items = try? moc.fetch(request) {
             var entryItems: [Entry.WidgetItem] = []
 
             for item in items.prefix(maxItems) {

@@ -2437,7 +2437,7 @@
 				INFOPLIST_FILE = WidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Den Widgets";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "$(INFOPLIST_KEY_NSHumanReadableCopyright)";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2450,7 +2450,7 @@
 				);
 				LOCALIZATION_EXPORT_SUPPORTED = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = "$(inherited)";
 				MARKETING_VERSION = "${MARKETING_VERSION}";
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den.widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2483,7 +2483,7 @@
 				INFOPLIST_FILE = WidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Den Widgets";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "$(INFOPLIST_KEY_NSHumanReadableCopyright)";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2496,7 +2496,7 @@
 				);
 				LOCALIZATION_EXPORT_SUPPORTED = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = "$(inherited)";
 				MARKETING_VERSION = "${MARKETING_VERSION}";
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den.widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";

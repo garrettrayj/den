@@ -100,8 +100,6 @@ struct RootView: View {
                     return
                 }
                 
-                navigationStore.path.removeLast(navigationStore.path.count)
-                
                 // Restore detail panel from widget source
                 let sourceType = url.pathComponents[1]
                 var sourceID: UUID?
@@ -109,19 +107,19 @@ struct RootView: View {
                     sourceID = UUID(uuidString: url.pathComponents[2])
                 }
                 
-                if sourceType == "inbox" && detailPanel != .inbox {
+                if sourceType == "inbox" {
                     detailPanel = .inbox
                 } else if sourceType == "page" {
-                    if let page = pages.first(where: { $0.id == sourceID }),
-                        detailPanel != .page(page) {
+                    if let page = pages.first(where: { $0.id == sourceID }) {
                         detailPanel = .page(page)
                     }
                 } else if sourceType == "feed" {
-                    if let feed = pages.flatMap({ $0.feedsArray }).first(where: { $0.id == sourceID }),
-                       detailPanel != .feed(feed) {
+                    if let feed = pages.flatMap({ $0.feedsArray }).first(where: { $0.id == sourceID }) {
                         detailPanel = .feed(feed)
                     }
                 }
+                
+                navigationStore.path.removeLast(navigationStore.path.count)
                 
                 // Restore item sub-detail view
                 if let itemID = urlComponents.queryItems?.first(
@@ -132,9 +130,7 @@ struct RootView: View {
                     request.predicate = NSPredicate(format: "id = %@", itemID)
                     
                     if let item = try? viewContext.fetch(request).first {
-                        DispatchQueue.main.async {
-                            navigationStore.path.append(SubDetailPanel.item(item))
-                        }
+                        navigationStore.path.append(SubDetailPanel.item(item))
                     }
                 }
                 

@@ -17,19 +17,12 @@ import SDWebImageWebPCoder
 
 struct LatestItemsWidget: Widget {
     let kind: String = "LatestItemsWidget"
-    
-    var persistentContainer = PersistenceController.shared.container
-    
-    init() {
-        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
-        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
-    }
 
     var body: some WidgetConfiguration {
         AppIntentConfiguration(
             kind: kind,
             intent: LatestItemsConfigurationIntent.self,
-            provider: LatestItemsProvider(viewContext: persistentContainer.viewContext)
+            provider: LatestItemsProvider()
         ) { entry in
             LatestItemsView(entry: entry)
                 .containerBackground(.background, for: .widget)
@@ -47,22 +40,6 @@ struct LatestItemsWidget: Widget {
     }
 }
 
-extension LatestItemsConfigurationIntent {
-    fileprivate static var inbox: LatestItemsConfigurationIntent {
-        let intent = LatestItemsConfigurationIntent(
-            source: SourceDetail(
-                id: UUID(),
-                entityType: nil,
-                title: "Inbox",
-                symbol: "tray",
-                faviconData: nil
-            )
-        )
-        
-        return intent
-    }
-}
-
 #Preview(as: .systemMedium) {
     LatestItemsWidget()
 } timeline: {
@@ -75,6 +52,6 @@ extension LatestItemsConfigurationIntent {
         title: Text("Inbox", comment: "Widget title."),
         favicon: nil,
         symbol: nil,
-        configuration: .inbox
+        configuration: .init(source: SourceQuery.defaultSource)
     )
 }
