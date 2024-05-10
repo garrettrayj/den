@@ -11,8 +11,10 @@
 import SwiftUI
 
 struct GeneralSection: View {
+    @Environment(\.colorScheme) private var colorScheme
+    
     @AppStorage("AccentColor") private var accentColor: AccentColor?
-    @AppStorage("AutoRefresh") private var autoRefresh: AutoRefreshInterval = .threeHours
+    @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .threeHours
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
@@ -43,32 +45,32 @@ struct GeneralSection: View {
                     Image(systemName: "arrow.up.right.square")
                 }
             }
-            Picker(selection: $autoRefresh) {
-                ForEach(AutoRefreshInterval.allCases, id: \.self) { interval in
+            Picker(selection: $refreshInterval) {
+                ForEach(RefreshInterval.allCases, id: \.self) { interval in
                     if interval == .zero {
-                        Text("Off", comment: "Auto refresh disabled.")
+                        Text("None", comment: "Empty picker option.")
                     } else {
                         if let formatted = formatter.string(from: TimeInterval(interval.rawValue)) {
-                            Text(
-                                "Every \(formatted)",
-                                comment: "Auto refresh interval."
-                            )
-                            .tag(interval)
+                            Text(verbatim: formatted.localizedCapitalized).tag(interval)
                         }
                     }
                 }
+                // Workaround for iOS navigationLink picker style issue
+                .foregroundStyle(colorScheme == .light ? .black : .white)
             } label: {
                 Label {
-                    Text("Auto Refresh", comment: "Picker label.")
+                    Text("Refresh Interval", comment: "Picker label.")
                 } icon: {
                     Image(systemName: "timer")
                 }
             }
+            #if os(iOS)
+            .pickerStyle(.navigationLink)
+            #endif
         } header: {
             Text("General", comment: "Settings section header.")
         } footer: {
-            #if os(macOS)
-            if autoRefresh == .zero {
+            if refreshInterval == .zero {
                 Text(
                     """
                     Widgets will only update when feeds are manually refreshed.
@@ -76,32 +78,23 @@ struct GeneralSection: View {
                     comment: "Refresh settings guidance."
                 )
             } else {
+                #if os(macOS)
                 Text(
                     """
-                    Auto refresh requires the app be running.
+                    Automatic refresh requires the app be running.
                     """,
                     comment: "Refresh settings guidance."
                 )
+                #else
+                Text(
+                    """
+                    The system decides when background refresh occurs. \
+                    Refresh Interval sets the minimum amount of time between background refresh tasks.
+                    """,
+                    comment: "Refresh settings guidance."
+                )
+                #endif
             }
-            #else
-            if autoRefresh == .zero {
-                Text(
-                    """
-                    Widgets will only update when feeds are manually refreshed.
-                    """,
-                    comment: "Refresh settings guidance."
-                )
-                
-            } else {
-                Text(
-                    """
-                    The operating system decides when background refresh occurs. \
-                    Auto refresh will not happen while the app is active.
-                    """,
-                    comment: "Refresh settings guidance."
-                )
-            }
-            #endif
         }
     }
 }

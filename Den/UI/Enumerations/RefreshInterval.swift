@@ -1,5 +1,5 @@
 //
-//  AutoRefreshInterval.swift
+//  RefreshInterval.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/7/24.
@@ -10,7 +10,7 @@
 
 import Foundation
 
-enum AutoRefreshInterval: Int, CaseIterable {
+enum RefreshInterval: Int, CaseIterable {
     #if DEBUG
     case fiveMinutes = 300
     #endif

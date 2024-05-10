@@ -38,7 +38,7 @@ struct RootView: View {
     @AppStorage("MaintenanceTimestamp") private var maintenanceTimestamp: Double?
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
-    @AppStorage("AutoRefresh") private var autoRefresh: AutoRefreshInterval = .threeHours
+    @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .threeHours
     
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.userOrder, order: .forward),
@@ -156,7 +156,7 @@ struct RootView: View {
             }
         }
         #if os(macOS)
-        .onChange(of: autoRefresh) {
+        .onChange(of: refreshInterval) {
             startStopAutoRefresh()
         }
         #endif
@@ -202,10 +202,10 @@ struct RootView: View {
     
     #if os(macOS)
     private func startStopAutoRefresh() {
-        if autoRefresh == .zero {
+        if refreshInterval == .zero {
             refreshManager.stopAutoRefresh()
         } else {
-            refreshManager.startAutoRefresh(interval: TimeInterval(autoRefresh.rawValue))
+            refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
         }
     }
     #endif

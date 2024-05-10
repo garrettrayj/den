@@ -117,7 +117,7 @@ struct DenApp: App {
     
     #if os(iOS)
     func scheduleAppRefresh() {
-        let interval = UserDefaults.group.value(forKey: "AutoRefresh") as? Int ?? 10800
+        let interval = UserDefaults.group.value(forKey: "RefreshInterval") as? Int ?? 10800
         
         guard interval > 0 else {
             Logger.main.debug("Skipping scheduling. Background refresh is disabled.")

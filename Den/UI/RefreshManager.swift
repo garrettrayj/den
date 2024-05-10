@@ -18,12 +18,12 @@ final class RefreshManager: ObservableObject {
     @Published var progress = Progress()
     
     #if os(macOS)
-    private let autoRefreshQueue = OperationQueue()
-    private var autoRefreshCancellable: Cancellable?
+    private let queue = OperationQueue()
+    private var cancellable: Cancellable?
     
     func startAutoRefresh(interval: TimeInterval) {
-        Logger.main.debug("Starting auto refresh with interval: \(interval)")
-        autoRefreshCancellable = autoRefreshQueue.schedule(
+        Logger.main.debug("Starting auto refresh with \(Int(interval)) second interval")
+        cancellable = queue.schedule(
             after: .init(.now + interval),
             interval: .init(floatLiteral: interval),
             tolerance: .seconds(60)
@@ -36,7 +36,7 @@ final class RefreshManager: ObservableObject {
     
     func stopAutoRefresh() {
         Logger.main.debug("Stopping auto refresh")
-        autoRefreshCancellable?.cancel()
+        cancellable?.cancel()
     }
     #endif
     
