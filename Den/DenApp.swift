@@ -49,6 +49,7 @@ struct DenApp: App {
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) { _ in
             Logger.main.debug("Performing background refresh task...")
             await refreshManager.refresh()
+            await scheduleAppRefresh()
         }
         #endif
         
@@ -120,7 +121,7 @@ struct DenApp: App {
         let interval = UserDefaults.group.value(forKey: "RefreshInterval") as? Int ?? 10800
         
         guard interval > 0 else {
-            Logger.main.debug("Skipping scheduling. Background refresh is disabled.")
+            Logger.main.debug("Background refresh is disabled. Scheduling skipped.")
             return
         }
         

@@ -15,35 +15,39 @@ struct SidebarFeed: View {
     
     @ObservedObject var feed: Feed
     
+    @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
+    
     var body: some View {
-        Label {
-            #if os(macOS)
-            TextField(text: $feed.wrappedTitle) { 
-                feed.displayTitle
-            }
-            .onSubmit {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
+        WithItems(scopeObject: feed) { items in
+            Label {
+                #if os(macOS)
+                TextField(text: $feed.wrappedTitle) {
+                    feed.displayTitle
+                }
+                .onSubmit {
+                    if viewContext.hasChanges {
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
                     }
                 }
+                #else
+                feed.displayTitle
+                #endif
+            } icon: {
+                Favicon(url: feed.feedData?.favicon) {
+                    FeedFaviconPlaceholder()
+                }
             }
-            #else
-            feed.displayTitle
-            #endif
-        } icon: {
-            Favicon(url: feed.feedData?.favicon) {
-                FeedFaviconPlaceholder()
+            .badge(showUnreadCounts ? items.unread.count : 0)
+            .tag(DetailPanel.feed(feed))
+            .modifier(DraggableFeedModifier(feed: feed))
+            .contextMenu {
+                DeleteFeedButton(feed: feed)
             }
         }
-        .tag(DetailPanel.feed(feed))
-        .modifier(DraggableFeedModifier(feed: feed))
-        #if os(macOS)
-        .contextMenu {
-            DeleteFeedButton(feed: feed)
-        }
-        #endif
+        
     }
 }

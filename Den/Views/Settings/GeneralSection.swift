@@ -81,7 +81,7 @@ struct GeneralSection: View {
                 #if os(macOS)
                 Text(
                     """
-                    Automatic refresh requires the app be running.
+                    Feeds will refresh automatically while the app is running.
                     """,
                     comment: "Refresh settings guidance."
                 )
