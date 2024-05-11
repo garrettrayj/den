@@ -347,7 +347,6 @@
 		68FB951D2BE8066C004EFA73 /* LatestItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB951B2BE8066C004EFA73 /* LatestItemsView.swift */; };
 		68FB95202BE80706004EFA73 /* LatestItemsEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB951E2BE80706004EFA73 /* LatestItemsEntry.swift */; };
 		68FB95242BE93BF2004EFA73 /* SDWebImageManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB95232BE93BF2004EFA73 /* SDWebImageManager+Extensions.swift */; };
-		68FB95262BE97BEF004EFA73 /* Debug.opml in Resources */ = {isa = PBXBuildFile; fileRef = 68FB95252BE97BEF004EFA73 /* Debug.opml */; };
 		68FB95282BEAB479004EFA73 /* RefreshInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB95272BEAB479004EFA73 /* RefreshInterval.swift */; };
 		68FB952A2BEBEE99004EFA73 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB95292BEBEE99004EFA73 /* ShareButton.swift */; };
 		68FC25552758B2250073979F /* FeedUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC25542758B2250073979F /* FeedUnavailable.swift */; };
@@ -726,7 +725,6 @@
 		68FB951B2BE8066C004EFA73 /* LatestItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestItemsView.swift; sourceTree = "<group>"; };
 		68FB951E2BE80706004EFA73 /* LatestItemsEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestItemsEntry.swift; sourceTree = "<group>"; };
 		68FB95232BE93BF2004EFA73 /* SDWebImageManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SDWebImageManager+Extensions.swift"; sourceTree = "<group>"; };
-		68FB95252BE97BEF004EFA73 /* Debug.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Debug.opml; sourceTree = "<group>"; };
 		68FB95272BEAB479004EFA73 /* RefreshInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshInterval.swift; sourceTree = "<group>"; };
 		68FB95292BEBEE99004EFA73 /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		68FC25542758B2250073979F /* FeedUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUnavailable.swift; sourceTree = "<group>"; };
@@ -875,7 +873,6 @@
 			isa = PBXGroup;
 			children = (
 				68E6C5442A69127C00CA46B2 /* Acknowledgements.html */,
-				68FB95252BE97BEF004EFA73 /* Debug.opml */,
 				68CAC50B292954C7002D9EB9 /* Demo.opml */,
 				684152342AD5546E00ABE5E2 /* Mercury.js */,
 				6841522F2AD5501E00ABE5E2 /* ParseForReader.js */,
@@ -1654,7 +1651,6 @@
 			files = (
 				68E6C5452A69127C00CA46B2 /* Acknowledgements.html in Resources */,
 				68C41318247263C700D1DC7B /* Assets.xcassets in Resources */,
-				68FB95262BE97BEF004EFA73 /* Debug.opml in Resources */,
 				68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */,
 				68906F832A78B85900803350 /* LaunchScreen.storyboard in Resources */,
 				6862A5922A23EEE4000CAB19 /* Localizable.strings in Resources */,

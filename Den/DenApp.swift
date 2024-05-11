@@ -57,7 +57,8 @@ struct DenApp: App {
         Settings {
             SettingsSheet()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .frame(minWidth: 440, minHeight: 600)
+                .frame(width: 440)
+                .frame(minHeight: 560)
         }
         .windowToolbarStyle(.expanded)
         .defaultAppStorage(.group)

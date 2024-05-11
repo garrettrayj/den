@@ -25,6 +25,7 @@ struct RootView: View {
     @State private var showingNewTagSheet = false
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
+    @State private var clearPathOnDetailChange = true
     
     @StateObject private var navigationStore = NavigationStore()
     
@@ -93,67 +94,32 @@ struct RootView: View {
         .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
         .onOpenURL { url in
             if url.scheme == "den+widget" {
-                guard let urlComponents = URLComponents(
-                    url: url,
-                    resolvingAgainstBaseURL: false
-                ) else {
-                    return
+                openWidgetURL(url: url)
+            } else {
+                if case .page(let page) = detailPanel {
+                    newFeedPageID = page.id?.uuidString
                 }
-                
-                // Restore detail panel from widget source
-                let sourceType = url.pathComponents[1]
-                var sourceID: UUID?
-                if url.pathComponents.indices.contains(2) {
-                    sourceID = UUID(uuidString: url.pathComponents[2])
-                }
-                
-                if sourceType == "inbox" {
-                    detailPanel = .inbox
-                } else if sourceType == "page" {
-                    if let page = pages.first(where: { $0.id == sourceID }) {
-                        detailPanel = .page(page)
-                    }
-                } else if sourceType == "feed" {
-                    if let feed = pages.flatMap({ $0.feedsArray }).first(where: { $0.id == sourceID }) {
-                        detailPanel = .feed(feed)
-                    }
-                }
-                
-                navigationStore.path.removeLast(navigationStore.path.count)
-                
-                // Restore item sub-detail view
-                if let itemID = urlComponents.queryItems?.first(
-                    where: {$0.name == "item"}
-                )?.value {
-                    
-                    let request = Item.fetchRequest()
-                    request.predicate = NSPredicate(format: "id = %@", itemID)
-                    
-                    if let item = try? viewContext.fetch(request).first {
-                        navigationStore.path.append(SubDetailPanel.item(item))
-                    }
-                }
-                
-                return
+                newFeedWebAddress = url.absoluteStringForNewFeed
+                showingNewFeedSheet = true
             }
-            
-            if case .page(let page) = detailPanel {
-                newFeedPageID = page.id?.uuidString
-            }
-            newFeedWebAddress = url.absoluteStringForNewFeed
-            showingNewFeedSheet = true
         }
         .task {
-            #if os(macOS)
-            startStopAutoRefresh()
-            #endif
-            
             if let navigationData {
                 navigationStore.restore(from: navigationData)
             }
+
             for await _ in navigationStore.$path.values.map({ $0.count }) {
                 navigationData = navigationStore.encoded()
             }
+            
+            await BlocklistManager.initializeMissingContentRulesLists()
+            await performMaintenance()
+            
+            CleanupUtility.upgradeBookmarks(context: viewContext)
+            
+            #if os(macOS)
+            startStopAutoRefresh()
+            #endif
         }
         #if os(macOS)
         .onChange(of: refreshInterval) {
@@ -190,12 +156,6 @@ struct RootView: View {
         .sheet(isPresented: $showingAppErrorSheet) {
             AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
         }
-        .task {
-            await BlocklistManager.initializeMissingContentRulesLists()
-            await performMaintenance()
-            
-            CleanupUtility.upgradeBookmarks(context: viewContext)
-        }
         .preferredColorScheme(userColorScheme.colorScheme)
         .tint(accentColor?.color)
     }
@@ -209,6 +169,49 @@ struct RootView: View {
         }
     }
     #endif
+    
+    private func openWidgetURL(url: URL) {
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return
+        }
+        
+        // Restore detail panel from widget source
+        let sourceType = url.pathComponents[1]
+        var sourceID: UUID?
+        if url.pathComponents.indices.contains(2) {
+            sourceID = UUID(uuidString: url.pathComponents[2])
+        }
+        
+        withAnimation {
+            if sourceType == "inbox" {
+                detailPanel = .inbox
+            } else if sourceType == "page" {
+                if let page = pages.first(where: { $0.id == sourceID }) {
+                    detailPanel = .page(page)
+                }
+            } else if sourceType == "feed" {
+                if let feed = pages.flatMap({ $0.feedsArray }).first(where: { $0.id == sourceID }) {
+                    detailPanel = .feed(feed)
+                }
+            }
+        } completion: {
+            if !navigationStore.path.isEmpty {
+                navigationStore.path.removeLast(navigationStore.path.count)
+            }
+            
+            // Restore item sub-detail view
+            if let itemID = urlComponents.queryItems?.first(
+                where: {$0.name == "item"}
+            )?.value {
+                let request = Item.fetchRequest()
+                request.predicate = NSPredicate(format: "id = %@", itemID)
+                
+                if let item = try? viewContext.fetch(request).first {
+                    navigationStore.path.append(SubDetailPanel.item(item))
+                }
+            }
+        }
+    }
     
     private func performMaintenance() async {
         if let maintenanceTimestamp = maintenanceTimestamp {
