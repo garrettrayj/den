@@ -27,7 +27,7 @@ if [ "$__IS_NOT_MACOS" == "NO" ]
 then
     echo "$runDate Load MacOS Test Data"
     rm -rf $HOME/Library/Containers/net.devsci.den/Data/*
-    copyCommand="cp -a $PROJECT_DIR/TestData/en.xcappdata/AppData/. $HOME/Library/Containers/net.devsci.den/Data"
+    copyCommand="cp -a $PROJECT_DIR/TestData/. $HOME/Library/Group\ Containers/group.net.devsci.den/Library/Application\ Support"
     echo $copyCommand
     exec $copyCommand
 else
@@ -36,11 +36,15 @@ else
     uuidRegex="([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})"
     device=$(xcrun simctl list | grep Booted | grep -E -o -i $uuidRegex | head -1)
     appContainer=$(xcrun simctl get_app_container $device net.devsci.den data)
+    groupDirectory=$(xcrun simctl get_app_container $device net.devsci.den groups | awk -F'\t' '{print $2}')
     
     echo "Device:    $device"
     echo "Container: $appContainer"
+    echo "Group Dir: $groupDirectory"
     
-    copyCommand="cp -a $PROJECT_DIR/TestData/en.xcappdata/AppData/. $appContainer/"
-    echo $copyCommand
-    exec $copyCommand
+    rm -rf $groupDirectory/Library/Application\ Support/*
+    
+    cp -a "$PROJECT_DIR/TestData/." "$groupDirectory/Library/Application Support/"
+    
+    ls -la "$groupDirectory/Library/Application Support/"
 fi

@@ -95,7 +95,7 @@ final class BlocklistUITests: UITestCase {
             XCTFail("Nav link did not appear in time")
         }
         
-        app.buttons["BlocklistNavLink"].tap()
+        app.buttons["BlocklistNavLink"].firstMatch.tap()
 
         attachScreenshot(of: app.windows.firstMatch, named: "blocklist-settings")
     }

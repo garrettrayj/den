@@ -49,7 +49,7 @@ struct PersistenceController {
             
             guard let appGroupURL = FileManager.default.containerURL(
                 forSecurityApplicationGroupIdentifier: AppGroup.den.rawValue
-            ) else {
+            )?.appending(path: "Library/Application Support") else {
                 preconditionFailure("Storage directory not available")
             }
             

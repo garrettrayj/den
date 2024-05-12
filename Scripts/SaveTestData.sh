@@ -7,17 +7,12 @@
 #  Copyright © 2023 Garrett Johnson
 #
 #  SPDX-License-Identifier: MIT
+set -e
 
-rm -rf /tmp/TestData/en.xcappdata/AppData
-mkdir -p /tmp/TestData/en.xcappdata/AppData
+rm -f ./TestData/Den.sqlite
+rm -f ./TestData/Den-Local.sqlite
 
-cp -r $(xcrun simctl get_app_container "iPad Air (5th generation)" net.devsci.den data)/ /tmp/TestData/en.xcappdata/AppData/
+groupDirectory=$(xcrun simctl get_app_container "iPad Air (5th generation)" net.devsci.den groups | awk -F'\t' '{print $2}')
 
-rm -rf ./TestData/en.xcappdata/AppData
-mkdir -p ./TestData/en.xcappdata/AppData/Library/Application\ Support/Den
-
-cp -a /tmp/TestData/en.xcappdata/AppData/Library/Application\ Support/Den/ ./TestData/en.xcappdata/AppData/Library/Application\ Support/Den/
-
-cp -a /tmp/TestData/en.xcappdata/AppData/Library/Preferences/ ./TestData/en.xcappdata/AppData/Library/Preferences/
-
-cp -a /tmp/TestData/en.xcappdata/AppData/Library/Saved\ Application\ State/ ./TestData/en.xcappdata/AppData/Library/Saved\ Application\ State/
+cp -r $groupDirectory/Library/Application\ Support/Den.sqlite* ./TestData/
+cp -r $groupDirectory/Library/Application\ Support/Den-Local.sqlite* ./TestData/
