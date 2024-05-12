@@ -9,10 +9,19 @@
 #  SPDX-License-Identifier: MIT
 set -e
 
-rm -f ./TestData/Den.sqlite
-rm -f ./TestData/Den-Local.sqlite
+rm -rf ./TestData/Library
+mkdir -p ./TestData/Library
 
-groupDirectory=$(xcrun simctl get_app_container "iPad Air (5th generation)" net.devsci.den groups | awk -F'\t' '{print $2}')
+groupDirectory="$HOME/Library/Group Containers/group.net.devsci.den"
 
-cp -r $groupDirectory/Library/Application\ Support/Den.sqlite* ./TestData/
-cp -r $groupDirectory/Library/Application\ Support/Den-Local.sqlite* ./TestData/
+appSupportDirectory="$groupDirectory/Library/Application Support"
+
+mkdir -p "./TestData/Library/Application Support/"
+cp "$appSupportDirectory/Den.sqlite" "./TestData/Library/Application Support/"
+cp "$appSupportDirectory/Den.sqlite-wal" "./TestData/Library/Application Support/"
+cp "$appSupportDirectory/Den-Local.sqlite" "./TestData/Library/Application Support/"
+cp "$appSupportDirectory/Den-Local.sqlite-wal" "./TestData/Library/Application Support/"
+
+mkdir -p "./TestData/Library/Preferences/"
+
+cp "$groupDirectory/Library/Preferences/group.net.devsci.den.plist" "./TestData/Library/Preferences/"

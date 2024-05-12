@@ -19,9 +19,6 @@
   },
   "testTargets" : [
     {
-      "deviceAppDataReference" : {
-        "resolvedPath" : "..\/..\/TestData\/en.xcappdata"
-      },
       "target" : {
         "containerPath" : "container:Den.xcodeproj",
         "identifier" : "68E83BF82A6004590014DC64",

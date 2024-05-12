@@ -26,10 +26,8 @@ runDate=$(date '+%Y-%m-%d %H:%M:%S')
 if [ "$__IS_NOT_MACOS" == "NO" ]
 then
     echo "$runDate Load MacOS Test Data"
-    rm -rf $HOME/Library/Containers/net.devsci.den/Data/*
-    copyCommand="cp -a $PROJECT_DIR/TestData/. $HOME/Library/Group\ Containers/group.net.devsci.den/Library/Application\ Support"
-    echo $copyCommand
-    exec $copyCommand
+    rm -rf "$HOME/Library/Group Containers/group.net.devsci.den/Library/"*
+    cp -a "$PROJECT_DIR/TestData/Library/." "$HOME/Library/Group Containers/group.net.devsci.den/Library/"
 else
     echo "$runDate Load Simulator Test Data"
     echo $PROJECT_DIR
@@ -42,9 +40,7 @@ else
     echo "Container: $appContainer"
     echo "Group Dir: $groupDirectory"
     
-    rm -rf $groupDirectory/Library/Application\ Support/*
+    rm -rf $groupDirectory/Library/*
     
-    cp -a "$PROJECT_DIR/TestData/." "$groupDirectory/Library/Application Support/"
-    
-    ls -la "$groupDirectory/Library/Application Support/"
+    cp -a "$PROJECT_DIR/TestData/Library/." "$groupDirectory/Library/"
 fi
