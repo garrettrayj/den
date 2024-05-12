@@ -15,10 +15,10 @@ final class FeedUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.disclosureTriangles.element(boundBy: 4).tap()
+        app.disclosureTriangles.element(boundBy: 3).tap()
         app.textFields.matching(identifier: "SidebarFeed").firstMatch.tap()
         #else
-        app.collectionViews["Sidebar"].cells.element(boundBy: 7).buttons.firstMatch.tap()
+        app.collectionViews["Sidebar"].cells.element(boundBy: 6).buttons.firstMatch.tap()
         app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
         #endif
         
@@ -41,10 +41,10 @@ final class FeedUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.disclosureTriangles.element(boundBy: 4).tap()
+        app.disclosureTriangles.element(boundBy: 3).tap()
         app.textFields.matching(identifier: "SidebarFeed").firstMatch.tap()
         #else
-        app.collectionViews["Sidebar"].cells.element(boundBy: 7).buttons.firstMatch.tap()
+        app.collectionViews["Sidebar"].cells.element(boundBy: 6).buttons.firstMatch.tap()
         app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
         #endif
 
@@ -86,10 +86,10 @@ final class FeedUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.disclosureTriangles.element(boundBy: 4).tap()
+        app.disclosureTriangles.element(boundBy: 3).tap()
         app.textFields.matching(identifier: "SidebarFeed").firstMatch.tap()
         #else
-        app.collectionViews["Sidebar"].cells.element(boundBy: 7).buttons.firstMatch.tap()
+        app.collectionViews["Sidebar"].cells.element(boundBy: 6).buttons.firstMatch.tap()
         app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
         #endif
 
@@ -115,10 +115,10 @@ final class FeedUITests: UITestCase {
         app.buttons["LoadDemo"].tap()
 
         #if os(macOS)
-        app.disclosureTriangles.element(boundBy: 4).tap()
+        app.disclosureTriangles.element(boundBy: 3).tap()
         app.textFields.matching(identifier: "SidebarFeed").firstMatch.tap()
         #else
-        app.collectionViews["Sidebar"].cells.element(boundBy: 7).buttons.firstMatch.tap()
+        app.collectionViews["Sidebar"].cells.element(boundBy: 6).buttons.firstMatch.tap()
         app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
         #endif
 

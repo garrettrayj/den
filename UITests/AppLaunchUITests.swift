@@ -19,8 +19,10 @@ final class AppLaunchUITests: UITestCase {
         }
 
         #if os(macOS)
-        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.disclosureTriangles.element(boundBy: 3).tap()
+        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
         #else
+        app.collectionViews["Sidebar"].cells.element(boundBy: 6).buttons.firstMatch.tap()
         if UIDevice.current.userInterfaceIdiom == .pad {
             app.staticTexts["Science"].tap()
         }
