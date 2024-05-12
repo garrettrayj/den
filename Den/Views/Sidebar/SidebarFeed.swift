@@ -47,6 +47,7 @@ struct SidebarFeed: View {
             .contextMenu {
                 DeleteFeedButton(feed: feed)
             }
+            .accessibilityIdentifier("SidebarFeed")
         }
         
     }

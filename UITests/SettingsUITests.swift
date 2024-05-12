@@ -16,7 +16,6 @@ final class SettingsUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         app.menuBarItems["Den"].menuItems["Settings…"].tap()
-        app.buttons["General"].tap()
 
         attachScreenshot(of: app.windows.element(boundBy: 1), named: "settings")
     }

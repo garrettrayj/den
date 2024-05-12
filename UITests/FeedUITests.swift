@@ -15,28 +15,14 @@ final class FeedUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
-        app.buttons["Hide Sidebar"].firstMatch.tap()
+        app.disclosureTriangles.element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarFeed").firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular &&
-                app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-                app.tap()
-            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Science"].tap()
-            }
-        } else {
-            app.staticTexts["Science"].tap()
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
+        app.collectionViews["Sidebar"].cells.element(boundBy: 7).buttons.firstMatch.tap()
+        app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
         #endif
-
-        app.buttons["FeedNavLink"].firstMatch.tap()
+        
+        hideSidebar(app)
 
         #if os(macOS)
         if !app.staticTexts["Futurity"].waitForExistence(timeout: 2) {
@@ -55,14 +41,14 @@ final class FeedUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.disclosureTriangles.element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarFeed").firstMatch.tap()
         #else
-        app.staticTexts["Science"].tap()
+        app.collectionViews["Sidebar"].cells.element(boundBy: 7).buttons.firstMatch.tap()
+        app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
         #endif
-        
-        hideSidebar(app)
 
-        app.buttons["FeedNavLink"].firstMatch.tap()
+        hideSidebar(app)
 
         #if os(macOS)
         if !app.staticTexts["Futurity"].waitForExistence(timeout: 2) {
@@ -100,14 +86,14 @@ final class FeedUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.disclosureTriangles.element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarFeed").firstMatch.tap()
         #else
-        app.staticTexts["Science"].tap()
+        app.collectionViews["Sidebar"].cells.element(boundBy: 7).buttons.firstMatch.tap()
+        app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
         #endif
-        
-        hideSidebar(app)
 
-        app.buttons["FeedNavLink"].firstMatch.tap()
+        hideSidebar(app)
 
         if !app.buttons["ToggleInspector"].waitForExistence(timeout: 2) {
             XCTFail("Feed options button did not appear in time")
@@ -129,14 +115,14 @@ final class FeedUITests: UITestCase {
         app.buttons["LoadDemo"].tap()
 
         #if os(macOS)
-        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.disclosureTriangles.element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarFeed").firstMatch.tap()
         #else
-        app.staticTexts["Science"].tap()
+        app.collectionViews["Sidebar"].cells.element(boundBy: 7).buttons.firstMatch.tap()
+        app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
         #endif
-        
-        hideSidebar(app)
 
-        app.buttons["FeedNavLink"].firstMatch.tap()
+        hideSidebar(app)
 
         attachScreenshot(of: app.windows.firstMatch, named: "feed-no-data")
     }

@@ -71,7 +71,6 @@ struct SidebarPage: View {
                     Image(systemName: page.wrappedSymbol)
                 }
                 .badge(showUnreadCounts ? items.unread.count : 0)
-                .accessibilityIdentifier("SidebarPage")
                 .contentShape(Rectangle())
                 .onDrop(
                     of: [.denFeed, .url, .text],
@@ -109,6 +108,7 @@ struct SidebarPage: View {
                         IconSelector(selection: $page.wrappedSymbol)
                     }
                 )
+                .accessibilityIdentifier("SidebarPage")
             }
         }
         .tag(DetailPanel.page(page))
