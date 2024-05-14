@@ -98,7 +98,7 @@ final class RefreshManager: ObservableObject {
         }
     }
 
-    static func refresh(feed: Feed) async {
+    func refresh(feed: Feed) async {
         if let url = feed.url {
             let feedUpdateTask = FeedUpdateTask(
                 feedObjectID: feed.objectID,

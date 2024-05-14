@@ -47,17 +47,13 @@ struct PersistenceController {
                 preconditionFailure("Storage directory not available")
             }
             
-            guard let appGroupURL = FileManager.default.containerURL(
-                forSecurityApplicationGroupIdentifier: AppGroup.den.rawValue
-            )?.appending(path: "Library/Application Support") else {
-                preconditionFailure("Storage directory not available")
-            }
+            let appGroupURL = AppGroup.den.containerURL.appending(path: "Library/Application Support")
             
-            cloudStoreURL = appSupportDirectory.appendingPathComponent("Den.sqlite")
-            cloudStoreAppGroupURL = appGroupURL.appendingPathComponent("Den.sqlite")
+            cloudStoreURL = appSupportDirectory.appending(path: "Den.sqlite")
+            cloudStoreAppGroupURL = appGroupURL.appending(path: "Den.sqlite")
             
-            localStoreURL = appSupportDirectory.appendingPathComponent("Den-Local.sqlite")
-            localStoreAppGroupURL = appGroupURL.appendingPathComponent("Den-Local.sqlite")
+            localStoreURL = appSupportDirectory.appending(path: "Den-Local.sqlite")
+            localStoreAppGroupURL = appGroupURL.appending(path: "Den-Local.sqlite")
             
             moveDB(source: cloudStoreURL, destination: cloudStoreAppGroupURL)
             moveDB(source: localStoreURL, destination: localStoreAppGroupURL)

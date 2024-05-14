@@ -104,14 +104,6 @@ struct RootView: View {
             }
         }
         .task {
-            if let navigationData {
-                navigationStore.restore(from: navigationData)
-            }
-
-            for await _ in navigationStore.$path.values.map({ $0.count }) {
-                navigationData = navigationStore.encoded()
-            }
-            
             await BlocklistManager.initializeMissingContentRulesLists()
             await performMaintenance()
             
@@ -120,6 +112,14 @@ struct RootView: View {
             #if os(macOS)
             startStopAutoRefresh()
             #endif
+            
+            if let navigationData {
+                navigationStore.restore(from: navigationData)
+            }
+
+            for await _ in navigationStore.$path.values.map({ $0.count }) {
+                navigationData = navigationStore.encoded()
+            }
         }
         #if os(macOS)
         .onChange(of: refreshInterval) {
