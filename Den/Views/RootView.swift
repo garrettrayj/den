@@ -36,7 +36,7 @@ struct RootView: View {
     @SceneStorage("SearchQuery") private var searchQuery: String = ""
     
     @AppStorage("HideRead") private var hideRead: Bool = false
-    @AppStorage("MaintenanceTimestamp") private var maintenanceTimestamp: Double?
+    @AppStorage("Maintained") private var maintenanceTimestamp: Double?
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .threeHours
@@ -105,11 +105,12 @@ struct RootView: View {
         }
         .task {
             await BlocklistManager.initializeMissingContentRulesLists()
-            await performMaintenance()
-            
+
             CleanupUtility.upgradeBookmarks(context: viewContext)
             
             #if os(macOS)
+            await performMaintenance()
+            
             if !refreshManager.autoRefreshActive {
                 refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
             }
@@ -200,22 +201,18 @@ struct RootView: View {
     }
     
     private func performMaintenance() async {
-        if let maintenanceTimestamp = maintenanceTimestamp {
-            let nextMaintenanceDate = Date(
-                timeIntervalSince1970: maintenanceTimestamp
-            ) + 7 * 24 * 60 * 60
-            
-            if nextMaintenanceDate > .now {
+        if let maintained = maintenanceTimestamp {
+            let nextMaintenance = Date(timeIntervalSince1970: maintained) + 3 * 24 * 60 * 60
+            if nextMaintenance > .now {
                 Logger.main.info("""
                 Next maintenance operation will be performed after \
-                \(nextMaintenanceDate.formatted(), privacy: .public)
+                \(nextMaintenance.formatted(), privacy: .public)
                 """)
+
                 return
             }
         }
         
         await MaintenanceTask().execute()
-
-        maintenanceTimestamp = Date.now.timeIntervalSince1970
     }
 }

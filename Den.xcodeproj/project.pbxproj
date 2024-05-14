@@ -2362,7 +2362,13 @@
 				INFOPLIST_FILE = Den/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Den;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.news";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "$(INFOPLIST_KEY_NSHumanReadableCopyright)";
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "Completed file downloads will be moved here.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2020-2024 Garrett Johnson";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save images selected in the built-in browser.";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2402,7 +2408,13 @@
 				INFOPLIST_FILE = Den/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Den;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.news";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "$(INFOPLIST_KEY_NSHumanReadableCopyright)";
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "Completed file downloads will be moved here.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2020-2024 Garrett Johnson";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save images selected in the built-in browser.";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
