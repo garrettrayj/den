@@ -47,15 +47,19 @@ final class BlocklistManager {
         return await WKContentRuleListStore.default().availableIdentifiers() ?? []
     }
     
-    static func cleanupContentRulesLists() async {
-        let context = PersistenceController.shared.container.newBackgroundContext()
-        
+    static func cleanupContentRulesLists(context: NSManagedObjectContext) async {
         guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
         else { return }
         
         let blocklistIdentifiers = blocklists.compactMap { $0.id?.uuidString }
         let ruleLists = await getCompiledRulesListIdentifiers()
         for ruleList in ruleLists where !blocklistIdentifiers.contains(ruleList) {
+            await removeContentRulesList(identifier: ruleList)
+        }
+    }
+    
+    static func removeAllContentRulesLists() async {
+        for ruleList in await getCompiledRulesListIdentifiers() {
             await removeContentRulesList(identifier: ruleList)
         }
     }
@@ -127,16 +131,12 @@ final class BlocklistManager {
         Logger.main.info("Blocklist refreshed: \(blocklist.wrappedName, privacy: .public)")
     }
     
-    static func refreshAllContentRulesLists() async {
-        let context = PersistenceController.shared.container.newBackgroundContext()
-        
+    static func refreshAllContentRulesLists(context: NSManagedObjectContext) async {
         guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
         else { return }
         
         for blocklist in blocklists {
             await refreshContentRulesList(blocklist: blocklist, context: context)
         }
-        
-        try? context.save()
     }
 }

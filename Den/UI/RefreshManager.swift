@@ -52,10 +52,15 @@ final class RefreshManager: ObservableObject {
     func refresh() async {
         let context = PersistenceController.shared.container.viewContext
         
-        guard let feeds = try? context.fetch(Feed.fetchRequest()) as [Feed] else {
+        cleanupFeedData(context: context)
+        
+        let request = Page.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
+        guard let pages = try? context.fetch(request) as [Page] else {
             return
         }
-        
+        let feeds = pages.flatMap { $0.feedsArray }
+
         await MainActor.run {
             progress.totalUnitCount = Int64(feeds.count)
             refreshing = true
@@ -99,10 +104,8 @@ final class RefreshManager: ObservableObject {
 
         await MainActor.run {
             UserDefaults.group.set(Date().timeIntervalSince1970, forKey: "Refreshed")
-            
             refreshing = false
             progress.completedUnitCount = 0
-            
             WidgetCenter.shared.reloadAllTimelines()
         }
     }
@@ -121,6 +124,20 @@ final class RefreshManager: ObservableObject {
         await MainActor.run {
             feed.objectWillChange.send()
             feed.page?.objectWillChange.send()
+        }
+    }
+    
+    private func cleanupFeedData(context: NSManagedObjectContext) {
+        guard let feedDatas = try? context.fetch(FeedData.fetchRequest()) as [FeedData] else {
+            return
+        }
+        var orphansPurged = 0
+        for feedData in feedDatas where feedData.feed == nil {
+            context.delete(feedData)
+            orphansPurged += 1
+        }
+        if orphansPurged > 0 {
+            Logger.main.info("Purged \(orphansPurged) orphaned feed data records.")
         }
     }
 }

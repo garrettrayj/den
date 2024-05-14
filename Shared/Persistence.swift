@@ -157,10 +157,12 @@ struct PersistenceController {
     static func truncate(
         _ entityType: NSManagedObject.Type,
         context: NSManagedObjectContext,
+        sortDescriptors: [NSSortDescriptor] = [],
         offset: Int = 0
     ) {
         let fetchRequest = entityType.fetchRequest()
         fetchRequest.fetchOffset = offset
+        fetchRequest.sortDescriptors = sortDescriptors
         
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 

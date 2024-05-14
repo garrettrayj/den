@@ -191,7 +191,7 @@ struct ResetSection: View {
             }
         }
         
-        await BlocklistManager.cleanupContentRulesLists()
+        await BlocklistManager.removeAllContentRulesLists()
 
         let domain = Bundle.main.bundleIdentifier!
         

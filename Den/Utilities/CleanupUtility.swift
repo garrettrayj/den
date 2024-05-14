@@ -12,36 +12,6 @@ import CoreData
 import OSLog
 
 struct CleanupUtility {
-    static func purgeOrphans(context: NSManagedObjectContext) throws {
-        var orphanedFeedDatas = 0
-        let feedDatas = try context.fetch(FeedData.fetchRequest()) as [FeedData]
-        for feedData in feedDatas where feedData.feed == nil {
-            orphanedFeedDatas += 1
-            context.delete(feedData)
-        }
-        Logger.main.info("Purged \(orphanedFeedDatas) orphaned feed data records.")
-    }
-
-    static func removeExpiredHistory(context: NSManagedObjectContext) throws {
-        PersistenceController.truncate(History.self, context: context, offset: 100000)
-
-        Logger.main.info("Expired history removed.")
-    }
-
-    static func trimSearches(context: NSManagedObjectContext) {
-        guard let searches = try? context.fetch(Search.fetchRequest()) as [Search] else {
-            return
-        }
-        
-        guard searches.count > 20 else { return }
-        var removedSearches = 0
-        searches.suffix(from: 20).forEach { search in
-            context.delete(search)
-            removedSearches += 1
-        }
-        Logger.main.info("Trimmed \(removedSearches) searches.")
-    }
-    
     static func upgradeBookmarks(context: NSManagedObjectContext) {
         let request = Bookmark.fetchRequest()
         request.predicate = NSPredicate(format: "created = nil")

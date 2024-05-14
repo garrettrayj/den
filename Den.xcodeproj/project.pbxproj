@@ -200,6 +200,7 @@
 		6887D40925B35B83004A170D /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6887D40825B35B83004A170D /* History+CoreDataClass.swift */; };
 		6887D41C25B6D016004A170D /* Feed+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6887D41B25B6D016004A170D /* Feed+CoreDataClass.swift */; };
 		6889E8832BF3EBA500E700E6 /* AppCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889E8822BF3EBA500E700E6 /* AppCommands.swift */; };
+		6889E8872BF3F0E400E700E6 /* MaintenanceTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889E8862BF3F0E400E700E6 /* MaintenanceTask.swift */; };
 		688A2A752A9728BF00847D8B /* Search+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A2A742A9728BF00847D8B /* Search+CoreDataClass.swift */; };
 		688FD931247A34830006A2DE /* FeedInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD930247A34830006A2DE /* FeedInspector.swift */; };
 		68906F832A78B85900803350 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68906F852A78B85900803350 /* LaunchScreen.storyboard */; platformFilter = ios; };
@@ -598,6 +599,7 @@
 		6887D41B25B6D016004A170D /* Feed+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed+CoreDataClass.swift"; sourceTree = "<group>"; };
 		68895CFA2A62A0B700E25385 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
 		6889E8822BF3EBA500E700E6 /* AppCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCommands.swift; sourceTree = "<group>"; };
+		6889E8862BF3F0E400E700E6 /* MaintenanceTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceTask.swift; sourceTree = "<group>"; };
 		688A2A742A9728BF00847D8B /* Search+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+CoreDataClass.swift"; sourceTree = "<group>"; };
 		688FD930247A34830006A2DE /* FeedInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedInspector.swift; sourceTree = "<group>"; };
 		68906F842A78B85900803350 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -815,6 +817,7 @@
 			children = (
 				68B6CBE12910B84E00B5E3AB /* AnalyzeTask.swift */,
 				685ABADD290F187C0080110A /* FeedUpdateTask.swift */,
+				6889E8862BF3F0E400E700E6 /* MaintenanceTask.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -1815,6 +1818,7 @@
 				68F56B75288BFCCC006EC915 /* Den.xcdatamodel in Sources */,
 				689460852596A7BB00ED4064 /* DenApp.swift in Sources */,
 				687F73F32BD1586300FD8EBF /* DenWebView.swift in Sources */,
+				6889E8872BF3F0E400E700E6 /* MaintenanceTask.swift in Sources */,
 				6835738E29614C5600843A8E /* DetailPanel.swift in Sources */,
 				6829A4FC28C2744900F75C5A /* DetailView.swift in Sources */,
 				68A104582BACC42C008BF8E6 /* DownloadManager.swift in Sources */,

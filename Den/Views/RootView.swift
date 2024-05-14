@@ -213,16 +213,8 @@ struct RootView: View {
                 return
             }
         }
-
-        try? CleanupUtility.removeExpiredHistory(context: viewContext)
-        CleanupUtility.trimSearches(context: viewContext)
-
-        try? CleanupUtility.purgeOrphans(context: viewContext)
         
-        await BlocklistManager.cleanupContentRulesLists()
-        await BlocklistManager.refreshAllContentRulesLists()
-
-        try? viewContext.save()
+        await MaintenanceTask().execute()
 
         maintenanceTimestamp = Date.now.timeIntervalSince1970
     }
