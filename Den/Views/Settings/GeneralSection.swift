@@ -9,9 +9,12 @@
 //
 
 import SwiftUI
+import BackgroundTasks
 
 struct GeneralSection: View {
     @Environment(\.colorScheme) private var colorScheme
+    
+    @EnvironmentObject private var refreshManager: RefreshManager
     
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .threeHours
@@ -63,6 +66,17 @@ struct GeneralSection: View {
                 } icon: {
                     Image(systemName: "timer")
                 }
+            }
+            .onChange(of: refreshInterval) {
+                #if os(macOS)
+                if refreshInterval == .zero {
+                    refreshManager.stopAutoRefresh()
+                } else {
+                    refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
+                }
+                #else
+                BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: "net.devsci.den.refresh")
+                #endif
             }
             #if os(iOS)
             .pickerStyle(.navigationLink)

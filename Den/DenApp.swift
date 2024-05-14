@@ -57,6 +57,7 @@ struct DenApp: App {
         Settings {
             SettingsSheet()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(refreshManager)
                 .frame(width: 440)
                 .frame(minHeight: 560)
         }
@@ -131,11 +132,18 @@ struct DenApp: App {
         let earliestBeginDate = Date().addingTimeInterval(TimeInterval(interval))
         request.earliestBeginDate = earliestBeginDate
 
-        try? BGTaskScheduler.shared.submit(request)
-        
-        Logger.main.debug(
-            "Background refresh scheduled with earliest begin date of \(earliestBeginDate.formatted())"
-        )
+        do {
+            try BGTaskScheduler.shared.submit(request)
+
+            Logger.main.info("""
+            Background app refresh task scheduled with earliest begin date of \
+            \(earliestBeginDate.formatted())
+            """)
+        } catch {
+            Logger.main.debug("""
+            Scheduling background app refresh task failed: \(error.localizedDescription)
+            """)
+        }
     }
     #endif
 }

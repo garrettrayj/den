@@ -110,22 +110,18 @@ struct RootView: View {
             CleanupUtility.upgradeBookmarks(context: viewContext)
             
             #if os(macOS)
-            startStopAutoRefresh()
+            if !refreshManager.autoRefreshActive {
+                refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
+            }
             #endif
             
             if let navigationData {
                 navigationStore.restore(from: navigationData)
             }
-
             for await _ in navigationStore.$path.values.map({ $0.count }) {
                 navigationData = navigationStore.encoded()
             }
         }
-        #if os(macOS)
-        .onChange(of: refreshInterval) {
-            startStopAutoRefresh()
-        }
-        #endif
         .onChange(of: detailPanel) {
             navigationStore.path.removeLast(navigationStore.path.count)
         }
@@ -159,16 +155,6 @@ struct RootView: View {
         .preferredColorScheme(userColorScheme.colorScheme)
         .tint(accentColor?.color)
     }
-    
-    #if os(macOS)
-    private func startStopAutoRefresh() {
-        if refreshInterval == .zero {
-            refreshManager.stopAutoRefresh()
-        } else {
-            refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
-        }
-    }
-    #endif
     
     private func openWidgetURL(url: URL) {
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {

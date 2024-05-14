@@ -16,6 +16,7 @@ import Combine
 final class RefreshManager: ObservableObject {
     @Published var refreshing = false
     @Published var progress = Progress()
+    @Published var autoRefreshActive = false
     
     #if os(macOS)
     private let queue = OperationQueue()
@@ -23,6 +24,9 @@ final class RefreshManager: ObservableObject {
     
     func startAutoRefresh(interval: TimeInterval) {
         Logger.main.debug("Starting auto refresh with \(Int(interval)) second interval")
+
+        cancellable?.cancel()
+
         cancellable = queue.schedule(
             after: .init(.now + interval),
             interval: .init(floatLiteral: interval),
@@ -32,11 +36,16 @@ final class RefreshManager: ObservableObject {
                 await self.refresh()
             }
         }
+        
+        autoRefreshActive = true
     }
     
     func stopAutoRefresh() {
         Logger.main.debug("Stopping auto refresh")
+
         cancellable?.cancel()
+
+        autoRefreshActive = false
     }
     #endif
     
