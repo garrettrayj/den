@@ -13,32 +13,19 @@ import OSLog
 
 import FeedKit
 
-class FeedUpdateTask {
+struct FeedUpdateTask {
     let feedObjectID: NSManagedObjectID
     let pageObjectID: NSManagedObjectID?
     let url: URL
     let updateMeta: Bool
 
-    private var parsedSuccessfully: Bool = false
-    private var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
-    private var start: Double?
-    private var webpage: URL?
-
-    init(
-        feedObjectID: NSManagedObjectID,
-        pageObjectID: NSManagedObjectID?,
-        url: URL,
-        updateMeta: Bool
-    ) {
-        self.feedObjectID = feedObjectID
-        self.pageObjectID = pageObjectID
-        self.url = url
-        self.updateMeta = updateMeta
-    }
-
     // swiftlint:disable cyclomatic_complexity function_body_length
     func execute() async {
-        start = CFAbsoluteTimeGetCurrent()
+        let start = CFAbsoluteTimeGetCurrent()
+        
+        var parsedSuccessfully: Bool = false
+        var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
+        var webpage: URL?
 
         let context = PersistenceController.shared.container.newBackgroundContext()
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -47,7 +34,7 @@ class FeedUpdateTask {
 
         var feedResponse = FeedURLResponse()
         if let (data, urlResponse) = try? await URLSession.shared.data(for: feedRequest) {
-            feedResponse.responseTime = Float(CFAbsoluteTimeGetCurrent() - start!)
+            feedResponse.responseTime = Float(CFAbsoluteTimeGetCurrent() - start)
             if let httpResponse = urlResponse as? HTTPURLResponse {
                 feedResponse.statusCode = Int16(httpResponse.statusCode)
                 feedResponse.server = httpResponse.value(forHTTPHeaderField: "Server")
@@ -76,12 +63,12 @@ class FeedUpdateTask {
             guard (200...299).contains(feedData.httpStatus) else {
                 feedData.wrappedError = .request
                 feedData.itemsArray.forEach { context.delete($0) }
-                self.save(context: context, feed: feed)
+                self.save(context: context, feed: feed, start: start)
                 return
             }
             
             if let parserResult = parserResult {
-                self.updateFeed(
+                (parsedSuccessfully, webpage) = self.updateFeed(
                     feed: feed,
                     feedData: feedData,
                     parserResult: parserResult,
@@ -108,8 +95,8 @@ class FeedUpdateTask {
                 }
             }
 
-            if !self.updateMeta || !self.parsedSuccessfully {
-                self.save(context: context, feed: feed)
+            if !self.updateMeta || !parsedSuccessfully {
+                self.save(context: context, feed: feed, start: start)
             }
         }
 
@@ -133,11 +120,11 @@ class FeedUpdateTask {
 
                 self.updateFeedMeta(
                     feedData: feedData,
-                    parserResult: self.parserResult!,
+                    parserResult: parserResult!,
                     webpageMetadata: webpageMetadata
                 )
 
-                self.save(context: context, feed: feed)
+                self.save(context: context, feed: feed, start: start)
             }
         }
     }
@@ -148,12 +135,9 @@ class FeedUpdateTask {
         feedData: FeedData,
         parserResult: Result<FeedKit.Feed, FeedKit.ParserError>,
         context: NSManagedObjectContext
-    ) {
+    ) -> (Bool, URL?) {
         switch parserResult {
         case .success(let parsedFeed):
-            self.parsedSuccessfully = true
-            self.webpage = parsedFeed.webpage
-            
             feedData.error = nil
             
             switch parsedFeed {
@@ -179,9 +163,13 @@ class FeedUpdateTask {
                     context: context
                 )
             }
+            
+            return (true, parsedFeed.webpage)
         case .failure:
             feedData.itemsArray.forEach { context.delete($0) }
             feedData.wrappedError = .parsing
+            
+            return (false, nil)
         }
     }
 
@@ -219,7 +207,7 @@ class FeedUpdateTask {
         }
     }
 
-    private func save(context: NSManagedObjectContext, feed: Feed) {
+    private func save(context: NSManagedObjectContext, feed: Feed, start: CFAbsoluteTime) {
         if context.hasChanges {
             do {
                 try context.save()
@@ -228,11 +216,9 @@ class FeedUpdateTask {
             }
         }
 
-        if let start = start {
-            Logger.main.info("""
-            Feed updated in \(CFAbsoluteTimeGetCurrent() - start) seconds: \
-            \(feed.wrappedTitle, privacy: .public)
-            """)
-        }
+        Logger.main.info("""
+        Feed updated in \(CFAbsoluteTimeGetCurrent() - start) seconds: \
+        \(feed.wrappedTitle, privacy: .public)
+        """)
     }
 }
