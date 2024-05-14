@@ -199,6 +199,7 @@
 		6885FD0E24819446007A3D5B /* PreviewButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885FD0D24819446007A3D5B /* PreviewButtonStyle.swift */; };
 		6887D40925B35B83004A170D /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6887D40825B35B83004A170D /* History+CoreDataClass.swift */; };
 		6887D41C25B6D016004A170D /* Feed+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6887D41B25B6D016004A170D /* Feed+CoreDataClass.swift */; };
+		6889E8832BF3EBA500E700E6 /* AppCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889E8822BF3EBA500E700E6 /* AppCommands.swift */; };
 		688A2A752A9728BF00847D8B /* Search+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A2A742A9728BF00847D8B /* Search+CoreDataClass.swift */; };
 		688FD931247A34830006A2DE /* FeedInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD930247A34830006A2DE /* FeedInspector.swift */; };
 		68906F832A78B85900803350 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68906F852A78B85900803350 /* LaunchScreen.storyboard */; platformFilter = ios; };
@@ -596,6 +597,7 @@
 		6887D40825B35B83004A170D /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6887D41B25B6D016004A170D /* Feed+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed+CoreDataClass.swift"; sourceTree = "<group>"; };
 		68895CFA2A62A0B700E25385 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
+		6889E8822BF3EBA500E700E6 /* AppCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCommands.swift; sourceTree = "<group>"; };
 		688A2A742A9728BF00847D8B /* Search+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+CoreDataClass.swift"; sourceTree = "<group>"; };
 		688FD930247A34830006A2DE /* FeedInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedInspector.swift; sourceTree = "<group>"; };
 		68906F842A78B85900803350 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1223,6 +1225,7 @@
 				68FC2566275E07E20073979F /* Sidebar */,
 				68599B642AB0E24D0057FEA8 /* Tag */,
 				68F56B3B286F5C01006EC915 /* Trending */,
+				6889E8822BF3EBA500E700E6 /* AppCommands.swift */,
 				68C41315247263C700D1DC7B /* RootView.swift */,
 			);
 			path = Views;
@@ -1940,6 +1943,7 @@
 				6862A59A2A25B6DF000CAB19 /* RelativeRefreshedDate.swift in Sources */,
 				684152792ADC7C8700ABE5E2 /* ResetSection.swift in Sources */,
 				68C41316247263C700D1DC7B /* RootView.swift in Sources */,
+				6889E8832BF3EBA500E700E6 /* AppCommands.swift in Sources */,
 				6845BCF824EBE4AD0008B296 /* RSSFeed+Extensions.swift in Sources */,
 				684DF9FF24B64AC20023D6DB /* RSSFeedItem+Extensions.swift in Sources */,
 				685ABADA290F0BDC0080110A /* RSSFeedUpdater.swift in Sources */,

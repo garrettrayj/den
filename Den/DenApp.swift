@@ -18,7 +18,6 @@ import SDWebImageWebPCoder
 
 @main
 struct DenApp: App {
-    @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var phase
 
     let persistenceController = PersistenceController.shared
@@ -33,7 +32,7 @@ struct DenApp: App {
         }
         .defaultAppStorage(.group)
         .handlesExternalEvents(matching: ["*"])
-        .commands { commands }
+        .commands { AppCommands() }
         .defaultSize(CGSize(width: 1280, height: 800))
         .environment(\.managedObjectContext, persistenceController.container.viewContext)
         .environmentObject(downloadManager)
@@ -64,40 +63,6 @@ struct DenApp: App {
         .windowToolbarStyle(.expanded)
         .defaultAppStorage(.group)
         #endif
-    }
-    
-    @CommandsBuilder
-    private var commands: some Commands {
-        ToolbarCommands()
-        SidebarCommands()
-        InspectorCommands()
-        CommandGroup(after: .toolbar) {
-            RefreshButton()
-                .environmentObject(networkMonitor)
-                .environmentObject(refreshManager)
-        }
-        CommandGroup(replacing: .help) {
-            Button {
-                openURL(URL(string: "https://den.io/help/")!)
-            } label: {
-                Text("Den Help", comment: "Button label.")
-            }
-            Divider()
-            Button {
-                if let url = Bundle.main.url(
-                    forResource: "Acknowledgements",
-                    withExtension: "html"
-                ) {
-                    #if os(macOS)
-                    NSWorkspace.shared.open(url)
-                    #else
-                    UIApplication.shared.open(url)
-                    #endif
-                }
-            } label: {
-                Text("Acknowledgements", comment: "Button label.")
-            }
-        }
     }
     
     init() {
