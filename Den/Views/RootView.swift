@@ -169,7 +169,7 @@ struct RootView: View {
             sourceID = UUID(uuidString: url.pathComponents[2])
         }
         
-        withAnimation {
+        withAnimation(completionCriteria: .removed) {
             if sourceType == "inbox" {
                 detailPanel = .inbox
             } else if sourceType == "page" {

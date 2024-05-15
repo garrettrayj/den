@@ -15,7 +15,6 @@ import FeedKit
 
 struct FeedUpdateTask {
     let feedObjectID: NSManagedObjectID
-    let pageObjectID: NSManagedObjectID?
     let url: URL
     let updateMeta: Bool
 

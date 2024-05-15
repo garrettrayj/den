@@ -138,12 +138,7 @@ struct DenApp: App {
         }
         
         let request = BGAppRefreshTaskRequest(identifier: "net.devsci.den.refresh")
-        
-        #if DEBUG
-        let earliestBeginDate = Date().addingTimeInterval(1)
-        #else
         let earliestBeginDate = Date().addingTimeInterval(TimeInterval(interval))
-        #endif
         request.earliestBeginDate = earliestBeginDate
 
         do {

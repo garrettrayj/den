@@ -50,71 +50,62 @@ final class RefreshManager: ObservableObject {
     #endif
     
     func refresh() async {
-        let context = PersistenceController.shared.container.viewContext
-        
-        cleanupFeedData(context: context)
-        
-        let request = Page.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
-        guard let pages = try? context.fetch(request) as [Page] else {
-            return
-        }
-        let feeds = pages.flatMap { $0.feedsArray }
+        guard !refreshing else { return }
 
-        await MainActor.run {
-            progress.totalUnitCount = Int64(feeds.count)
-            refreshing = true
-        }
-
-        await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
-            let maxConcurrency = min(3, ProcessInfo().activeProcessorCount)
-            let feedUpdateTasks: [FeedUpdateTask] = feeds.compactMap { feed in
+        await MainActor.run { refreshing = true }
+        
+        var feedUpdates: [FeedUpdateTask] = []
+        
+        await PersistenceController.shared.container.performBackgroundTask { context in
+            self.cleanupFeedData(context: context)
+            
+            let request = Page.fetchRequest()
+            request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
+            guard let pages = try? context.fetch(request) as [Page] else { return }
+            
+            feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
                 guard let url = feed.url else { return nil }
                 return FeedUpdateTask(
                     feedObjectID: feed.objectID,
-                    pageObjectID: feed.page?.objectID,
                     url: url,
                     updateMeta: feed.needsMetaUpdate
                 )
             }
-            
-            var working: Int = 0
-            for task in feedUpdateTasks {
-                if working >= maxConcurrency {
+        }
+        
+        progress.totalUnitCount = Int64(feedUpdates.count)
+
+        let maxConcurrency = min(3, ProcessInfo().activeProcessorCount)
+        
+        await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
+            for (index, feedUpdate) in feedUpdates.enumerated() {
+                if index % maxConcurrency == 0 {
                     await taskGroup.next()
-                    working = 0
+                    await MainActor.run { progress.completedUnitCount = Int64(index + 1) }
                 }
-                taskGroup.addTask {
-                    await task.execute()
-                    await MainActor.run {
-                        self.progress.completedUnitCount += 1
-                    }
-                }
-                working += 1
+                
+                taskGroup.addTask { await feedUpdate.execute() }
             }
 
             await taskGroup.waitForAll()
         })
         
-        await MainActor.run {
-            progress.completedUnitCount += 1
-        }
+        progress.completedUnitCount = Int64(feedUpdates.count + 1)
 
         await AnalyzeTask().execute()
 
-        await MainActor.run {
-            UserDefaults.group.set(Date().timeIntervalSince1970, forKey: "Refreshed")
-            refreshing = false
-            progress.completedUnitCount = 0
-            WidgetCenter.shared.reloadAllTimelines()
-        }
+        UserDefaults.group.set(Date().timeIntervalSince1970, forKey: "Refreshed")
+        
+        await MainActor.run { refreshing = false }
+        progress.completedUnitCount = 0
+        
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     func refresh(feed: Feed) async {
         if let url = feed.url {
             let feedUpdateTask = FeedUpdateTask(
                 feedObjectID: feed.objectID,
-                pageObjectID: feed.page?.objectID,
                 url: url,
                 updateMeta: true
             )
@@ -131,13 +122,20 @@ final class RefreshManager: ObservableObject {
         guard let feedDatas = try? context.fetch(FeedData.fetchRequest()) as [FeedData] else {
             return
         }
+        
         var orphansPurged = 0
         for feedData in feedDatas where feedData.feed == nil {
             context.delete(feedData)
             orphansPurged += 1
         }
+        
         if orphansPurged > 0 {
-            Logger.main.info("Purged \(orphansPurged) orphaned feed data records.")
+            do {
+                try context.save()
+                Logger.main.info("Purged \(orphansPurged) orphaned feed data records.")
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
+            }
         }
     }
 }
