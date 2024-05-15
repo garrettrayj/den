@@ -12,11 +12,11 @@ import Foundation
 import OSLog
 import WebKit
 
-final class BrowserDownload: Hashable, Identifiable, ObservableObject {
-    @Published var wkDownload: WKDownload
-    @Published var fileURL: URL
-    @Published var isFinished = false
-    @Published var error: Error?
+@Observable final class BrowserDownload: Hashable, Identifiable {
+    var wkDownload: WKDownload
+    var fileURL: URL
+    var isFinished = false
+    var error: Error?
     
     init(wkDownload: WKDownload, fileURL: URL) {
         self.wkDownload = wkDownload

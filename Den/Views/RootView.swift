@@ -15,7 +15,7 @@ import SwiftUI
 struct RootView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
-    @EnvironmentObject private var refreshManager: RefreshManager
+    @Environment(RefreshManager.self) private var refreshManager
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     @State private var showingExporter = false

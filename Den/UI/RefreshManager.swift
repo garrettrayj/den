@@ -13,10 +13,10 @@ import OSLog
 import WidgetKit
 import Combine
 
-final class RefreshManager: ObservableObject {
-    @Published var refreshing = false
-    @Published var progress = Progress()
-    @Published var autoRefreshActive = false
+@Observable final class RefreshManager {
+    var refreshing = false
+    var progress = Progress()
+    var autoRefreshActive = false
     
     #if os(macOS)
     private let queue = OperationQueue()

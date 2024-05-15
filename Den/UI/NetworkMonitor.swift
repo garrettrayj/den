@@ -11,11 +11,11 @@
 import Foundation
 import Network
 
-final class NetworkMonitor: ObservableObject {
+@Observable final class NetworkMonitor {
+    private(set) var isConnected: Bool = false
+    
     private let networkMonitor = NWPathMonitor()
     private let workerQueue = DispatchQueue(label: "Monitor")
-
-    @Published private(set) var isConnected: Bool = false
 
     init() {
         networkMonitor.pathUpdateHandler = { path in

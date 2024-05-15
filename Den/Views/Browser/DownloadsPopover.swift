@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct DownloadsPopover: View {
-    @EnvironmentObject private var downloadManager: DownloadManager
+    @Environment(DownloadManager.self) private var downloadManager
     
     @State private var selection = Set<BrowserDownload>()
     

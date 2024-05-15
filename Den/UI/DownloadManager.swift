@@ -12,8 +12,8 @@ import Foundation
 import WebKit
 import OSLog
 
-final class DownloadManager: NSObject, ObservableObject {
-    @Published var browserDownloads: [BrowserDownload] = []
+@Observable final class DownloadManager: NSObject {
+    var browserDownloads: [BrowserDownload] = []
     
     func addDownload(wkDownload: WKDownload, fileURL: URL) {
         browserDownloads.insert(BrowserDownload(wkDownload: wkDownload, fileURL: fileURL), at: 0)

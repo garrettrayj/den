@@ -14,7 +14,7 @@ import BackgroundTasks
 struct GeneralSection: View {
     @Environment(\.colorScheme) private var colorScheme
     
-    @EnvironmentObject private var refreshManager: RefreshManager
+    @Environment(RefreshManager.self) private var refreshManager
     
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .threeHours

@@ -14,9 +14,9 @@ import WebKit
 struct DownloadStatus: View {
     @Environment(\.openURL) private var openURL
     
-    @EnvironmentObject private var downloadManager: DownloadManager
+    @Environment(DownloadManager.self) private var downloadManager
     
-    @ObservedObject var browserDownload: BrowserDownload
+    var browserDownload: BrowserDownload
 
     static let filesSizeFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()

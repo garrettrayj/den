@@ -22,22 +22,22 @@ struct DenApp: App {
 
     let persistenceController = PersistenceController.shared
     
-    @StateObject private var downloadManager = DownloadManager()
-    @StateObject private var networkMonitor = NetworkMonitor()
-    @StateObject private var refreshManager = RefreshManager()
+    @State private var downloadManager = DownloadManager()
+    @State private var networkMonitor = NetworkMonitor()
+    @State private var refreshManager = RefreshManager()
 
     var body: some Scene {
         WindowGroup {
             RootView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(downloadManager)
+                .environment(networkMonitor)
+                .environment(refreshManager)
         }
         .defaultAppStorage(.group)
         .handlesExternalEvents(matching: ["*"])
-        .commands { AppCommands() }
+        .commands { AppCommands(networkMonitor: networkMonitor, refreshManager: refreshManager) }
         .defaultSize(CGSize(width: 1280, height: 800))
-        .environment(\.managedObjectContext, persistenceController.container.viewContext)
-        .environmentObject(downloadManager)
-        .environmentObject(networkMonitor)
-        .environmentObject(refreshManager)
         #if os(iOS)
         .onChange(of: phase) {
             switch phase {
@@ -62,7 +62,7 @@ struct DenApp: App {
         Settings {
             SettingsSheet()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .environmentObject(refreshManager)
+                .environment(refreshManager)
                 .frame(width: 440)
                 .frame(minHeight: 560)
         }
