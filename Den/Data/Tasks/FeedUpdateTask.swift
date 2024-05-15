@@ -44,59 +44,57 @@ struct FeedUpdateTask {
             parserResult = FeedParser(data: data).parse()
         }
 
-        await context.perform { [self] in
-            guard
-                let feed = context.object(with: self.feedObjectID) as? Feed,
-                let feedId = feed.id
-            else { return }
+        guard
+            let feed = context.object(with: self.feedObjectID) as? Feed,
+            let feedId = feed.id
+        else { return }
 
-            let feedData = feed.feedData ?? FeedData.create(in: context, feedId: feedId)
-            feedData.refreshed = .now
-            feedData.responseTime = feedResponse.responseTime
-            feedData.httpStatus = feedResponse.statusCode
-            feedData.server = feedResponse.server
-            feedData.cacheControl = feedResponse.cacheControl
-            feedData.age = feedResponse.age
-            feedData.eTag = feedResponse.eTag
-            
-            guard (200...299).contains(feedData.httpStatus) else {
-                feedData.wrappedError = .request
-                feedData.itemsArray.forEach { context.delete($0) }
-                self.save(context: context, feed: feed, start: start)
-                return
-            }
-            
-            if let parserResult = parserResult {
-                (parsedSuccessfully, webpage) = self.updateFeed(
-                    feed: feed,
-                    feedData: feedData,
-                    parserResult: parserResult,
-                    context: context
-                )
-            }
+        let feedData = feed.feedData ?? FeedData.create(in: context, feedId: feedId)
+        feedData.refreshed = .now
+        feedData.responseTime = feedResponse.responseTime
+        feedData.httpStatus = feedResponse.statusCode
+        feedData.server = feedResponse.server
+        feedData.cacheControl = feedResponse.cacheControl
+        feedData.age = feedResponse.age
+        feedData.eTag = feedResponse.eTag
+        
+        guard (200...299).contains(feedData.httpStatus) else {
+            feedData.wrappedError = .request
+            feedData.itemsArray.forEach { context.delete($0) }
+            self.save(context: context, feed: feed, start: start)
+            return
+        }
+        
+        if let parserResult = parserResult {
+            (parsedSuccessfully, webpage) = self.updateFeed(
+                feed: feed,
+                feedData: feedData,
+                parserResult: parserResult,
+                context: context
+            )
+        }
 
-            // Cleanup old items
-            if feedData.itemsArray.count > Feed.totalItemLimit {
-                feedData.itemsArray.suffix(from: Feed.totalItemLimit).forEach { item in
-                    feedData.removeFromItems(item)
-                    context.delete(item)
-                }
+        // Cleanup old items
+        if feedData.itemsArray.count > Feed.totalItemLimit {
+            feedData.itemsArray.suffix(from: Feed.totalItemLimit).forEach { item in
+                feedData.removeFromItems(item)
+                context.delete(item)
             }
+        }
 
-            // Update read and extra status of items
-            for (idx, item) in feedData.itemsArray.enumerated() {
-                item.read = !item.history.isEmpty
+        // Update read and extra status of items
+        for (idx, item) in feedData.itemsArray.enumerated() {
+            item.read = !item.history.isEmpty
 
-                if idx + 1 > feed.wrappedItemLimit {
-                    item.extra = true
-                } else {
-                    item.extra = false
-                }
+            if idx + 1 > feed.wrappedItemLimit {
+                item.extra = true
+            } else {
+                item.extra = false
             }
+        }
 
-            if !self.updateMeta || !parsedSuccessfully {
-                self.save(context: context, feed: feed, start: start)
-            }
+        if !self.updateMeta || !parsedSuccessfully {
+            self.save(context: context, feed: feed, start: start)
         }
 
         if updateMeta && parsedSuccessfully {
@@ -111,20 +109,18 @@ struct FeedUpdateTask {
                 }
             }
 
-            await context.perform {
-                guard
-                    let feed = context.object(with: self.feedObjectID) as? Feed,
-                    let feedData = feed.feedData
-                else { return }
+            guard
+                let feed = context.object(with: self.feedObjectID) as? Feed,
+                let feedData = feed.feedData
+            else { return }
 
-                self.updateFeedMeta(
-                    feedData: feedData,
-                    parserResult: parserResult!,
-                    webpageMetadata: webpageMetadata
-                )
+            self.updateFeedMeta(
+                feedData: feedData,
+                parserResult: parserResult!,
+                webpageMetadata: webpageMetadata
+            )
 
-                self.save(context: context, feed: feed, start: start)
-            }
+            self.save(context: context, feed: feed, start: start)
         }
     }
     // swiftlint:enable cyclomatic_complexity function_body_length

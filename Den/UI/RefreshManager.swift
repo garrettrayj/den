@@ -81,17 +81,18 @@ final class RefreshManager: ObservableObject {
             for (index, feedUpdate) in feedUpdates.enumerated() {
                 if index % maxConcurrency == 0 {
                     await taskGroup.next()
-                    await MainActor.run { progress.completedUnitCount = Int64(index + 1) }
                 }
                 
-                taskGroup.addTask { await feedUpdate.execute() }
+                taskGroup.addTask {
+                    await feedUpdate.execute()
+                    self.progress.completedUnitCount += 1
+                }
             }
 
             await taskGroup.waitForAll()
         })
         
-        progress.completedUnitCount = Int64(feedUpdates.count + 1)
-
+        progress.completedUnitCount += 1
         await AnalyzeTask().execute()
 
         UserDefaults.group.set(Date().timeIntervalSince1970, forKey: "Refreshed")
