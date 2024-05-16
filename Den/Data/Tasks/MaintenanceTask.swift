@@ -24,7 +24,7 @@ struct MaintenanceTask {
 
         do {
             try context.save()
-            UserDefaults.group.set(Date().timeIntervalSince1970, forKey: "Maintained")
+            UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Maintained")
             Logger.main.info("Maintenance operations completed")
         } catch {
             Logger.main.error("Saving maintenance task context failed with error: \(error)")

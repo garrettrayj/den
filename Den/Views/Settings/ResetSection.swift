@@ -166,42 +166,37 @@ struct ResetSection: View {
     }
     
     private func resetEverything() async {
-        await MainActor.run {
-            // Entities that may be cleared using the more performant batch truncate function.
-            let batchTruncateList = [
-                Blocklist.self,
-                Item.self,
-                Page.self,
-                Tag.self,
-                Trend.self,
-                BlocklistStatus.self,
-                FeedData.self,
-                History.self,
-                Search.self
-            ]
-            
-            batchTruncateList.forEach {
-                PersistenceController.truncate($0, context: viewContext)
-            }
+        let batchTruncateList = [
+            Blocklist.self,
+            Item.self,
+            Page.self,
+            Tag.self,
+            Trend.self,
+            BlocklistStatus.self,
+            FeedData.self,
+            History.self,
+            Search.self
+        ]
+        
+        batchTruncateList.forEach {
+            PersistenceController.truncate($0, context: viewContext)
+        }
 
-            do {
-                try viewContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
+        do {
+            try viewContext.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+            return
         }
         
         await BlocklistManager.removeAllContentRulesLists()
 
-        let domain = Bundle.main.bundleIdentifier!
-        
-        UserDefaults.standard.removePersistentDomain(forName: domain)
-        UserDefaults.standard.synchronize()
-        
-        UserDefaults(suiteName: AppGroup.den.rawValue)?.removePersistentDomain(forName: domain)
-        UserDefaults(suiteName: AppGroup.den.rawValue)?.synchronize()
-        
         await emptyCaches()
+
+        UserDefaults.group.removePersistentDomain(forName: AppGroup.den.rawValue)
+        if let domain = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: domain)
+        }
     }
 
     private func calculateCacheSize() async {

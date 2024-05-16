@@ -97,7 +97,7 @@ import WidgetKit
         progress.completedUnitCount = Int64(feedUpdates.count)
         await AnalyzeTask().execute()
 
-        UserDefaults.group.set(Date().timeIntervalSince1970, forKey: "Refreshed")
+        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
         
         progress.completedUnitCount = 0
         refreshing = false

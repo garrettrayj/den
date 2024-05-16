@@ -8,8 +8,9 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import SwiftUI
 import BackgroundTasks
+import SwiftUI
+import WidgetKit
 
 struct GeneralSection: View {
     @Environment(\.colorScheme) private var colorScheme
@@ -41,6 +42,10 @@ struct GeneralSection: View {
                     Image(systemName: "number.circle")
                 }
             }
+            .onChange(of: showUnreadCounts) {
+                UserDefaults.group.set(showUnreadCounts, forKey: "ShowUnreadCounts")
+                WidgetCenter.shared.reloadAllTimelines()
+            }
             Toggle(isOn: $useSystemBrowser) {
                 Label {
                     Text("Use System Browser", comment: "Toggle label.")
@@ -51,7 +56,7 @@ struct GeneralSection: View {
             Picker(selection: $refreshInterval) {
                 ForEach(RefreshInterval.allCases, id: \.self) { interval in
                     if interval == .zero {
-                        Text("None", comment: "Empty picker option.")
+                        Text("None", comment: "Empty picker option.").tag(interval)
                     } else {
                         if let formatted = formatter.string(from: TimeInterval(interval.rawValue)) {
                             Text(verbatim: formatted.localizedCapitalized).tag(interval)
@@ -87,7 +92,7 @@ struct GeneralSection: View {
             if refreshInterval == .zero {
                 Text(
                     """
-                    Widgets will only update when feeds are manually refreshed.
+                    Widgets will update only when feeds are manually refreshed.
                     """,
                     comment: "Refresh settings guidance."
                 )

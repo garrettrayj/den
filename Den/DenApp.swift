@@ -34,7 +34,6 @@ struct DenApp: App {
                 .environment(networkMonitor)
                 .environment(refreshManager)
         }
-        .defaultAppStorage(.group)
         .handlesExternalEvents(matching: ["*"])
         .commands { AppCommands(networkMonitor: networkMonitor, refreshManager: refreshManager) }
         .defaultSize(CGSize(width: 1280, height: 800))
@@ -67,7 +66,6 @@ struct DenApp: App {
                 .frame(minHeight: 560)
         }
         .windowToolbarStyle(.expanded)
-        .defaultAppStorage(.group)
         #endif
     }
     
@@ -91,7 +89,7 @@ struct DenApp: App {
     
     #if os(iOS)
     func scheduleMaintenance() {
-        if let maintained = UserDefaults.group.value(forKey: "Maintained") as? Double {
+        if let maintained = UserDefaults.standard.value(forKey: "Maintained") as? Double {
             let nextMaintenance = Date(timeIntervalSince1970: maintained) + 3 * 24 * 60 * 60
             if nextMaintenance > .now {
                 Logger.main.info("""
@@ -130,8 +128,7 @@ struct DenApp: App {
     }
     
     func scheduleRefresh() {
-        let interval = UserDefaults.group.value(forKey: "RefreshInterval") as? Int ?? 10800
-        
+        let interval = UserDefaults.standard.integer(forKey: "RefreshInterval")
         guard interval > 0 else {
             Logger.main.debug("Background refresh is disabled. Scheduling skipped.")
             return

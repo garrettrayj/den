@@ -111,7 +111,7 @@ struct RootView: View {
             #if os(macOS)
             await performMaintenance()
             
-            if !refreshManager.autoRefreshActive {
+            if !refreshManager.autoRefreshActive && refreshInterval.rawValue > 0 {
                 refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
             }
             #endif
