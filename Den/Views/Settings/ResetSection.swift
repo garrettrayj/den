@@ -168,7 +168,6 @@ struct ResetSection: View {
     private func resetEverything() async {
         let batchTruncateList = [
             Blocklist.self,
-            Item.self,
             Page.self,
             Tag.self,
             Trend.self,
