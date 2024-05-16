@@ -8,15 +8,16 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import Combine
 import CoreData
 import OSLog
 import WidgetKit
-import Combine
 
 @Observable final class RefreshManager {
     var refreshing = false
-    var progress = Progress()
     var autoRefreshActive = false
+    
+    @ObservationIgnored var progress = Progress()
     
     #if os(macOS)
     private let queue = OperationQueue()
@@ -49,10 +50,11 @@ import Combine
     }
     #endif
     
+    @MainActor
     func refresh() async {
         guard !refreshing else { return }
 
-        await MainActor.run { refreshing = true }
+        refreshing = true
         
         var feedUpdates: [FeedUpdateTask] = []
         
@@ -75,11 +77,11 @@ import Combine
         
         progress.totalUnitCount = Int64(feedUpdates.count)
 
-        let maxConcurrency = min(3, ProcessInfo().activeProcessorCount)
+        let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
         
         await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
             for (index, feedUpdate) in feedUpdates.enumerated() {
-                if index % maxConcurrency == 0 {
+                if index > 0 && index % maxConcurrency == 0 {
                     await taskGroup.next()
                 }
                 
@@ -92,17 +94,18 @@ import Combine
             await taskGroup.waitForAll()
         })
         
-        progress.completedUnitCount += 1
+        progress.completedUnitCount = Int64(feedUpdates.count)
         await AnalyzeTask().execute()
 
         UserDefaults.group.set(Date().timeIntervalSince1970, forKey: "Refreshed")
         
-        await MainActor.run { refreshing = false }
         progress.completedUnitCount = 0
+        refreshing = false
         
         WidgetCenter.shared.reloadAllTimelines()
     }
 
+    @MainActor
     func refresh(feed: Feed) async {
         if let url = feed.url {
             let feedUpdateTask = FeedUpdateTask(
@@ -110,13 +113,11 @@ import Combine
                 url: url,
                 updateMeta: true
             )
-            _ = await feedUpdateTask.execute()
+            await feedUpdateTask.execute()
         }
         
-        await MainActor.run {
-            feed.objectWillChange.send()
-            feed.page?.objectWillChange.send()
-        }
+        feed.objectWillChange.send()
+        feed.page?.objectWillChange.send()
     }
     
     private func cleanupFeedData(context: NSManagedObjectContext) {

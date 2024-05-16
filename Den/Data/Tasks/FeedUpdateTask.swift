@@ -109,11 +109,6 @@ struct FeedUpdateTask {
                 }
             }
 
-            guard
-                let feed = context.object(with: self.feedObjectID) as? Feed,
-                let feedData = feed.feedData
-            else { return }
-
             self.updateFeedMeta(
                 feedData: feedData,
                 parserResult: parserResult!,
@@ -203,17 +198,14 @@ struct FeedUpdateTask {
     }
 
     private func save(context: NSManagedObjectContext, feed: Feed, start: CFAbsoluteTime) {
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
+        do {
+            try context.save()
+            Logger.main.info("""
+            Feed updated in \(CFAbsoluteTimeGetCurrent() - start) seconds: \
+            \(feed.wrappedTitle, privacy: .public)
+            """)
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
         }
-
-        Logger.main.info("""
-        Feed updated in \(CFAbsoluteTimeGetCurrent() - start) seconds: \
-        \(feed.wrappedTitle, privacy: .public)
-        """)
     }
 }
