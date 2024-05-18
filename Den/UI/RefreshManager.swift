@@ -20,32 +20,22 @@ import WidgetKit
     @ObservationIgnored var progress = Progress()
     
     #if os(macOS)
-    private let queue = OperationQueue()
-    private var cancellable: Cancellable?
+    private var timer: Timer?
     
     func startAutoRefresh(interval: TimeInterval) {
         Logger.main.debug("Starting auto refresh with \(Int(interval)) second interval")
-
-        cancellable?.cancel()
-
-        cancellable = queue.schedule(
-            after: .init(.now + interval),
-            interval: .init(floatLiteral: interval),
-            tolerance: .seconds(60)
-        ) {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { _ in
             Task {
                 await self.refresh()
             }
         }
-        
         autoRefreshActive = true
     }
     
     func stopAutoRefresh() {
         Logger.main.debug("Stopping auto refresh")
-
-        cancellable?.cancel()
-
+        timer?.invalidate()
         autoRefreshActive = false
     }
     #endif
