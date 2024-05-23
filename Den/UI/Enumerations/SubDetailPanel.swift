@@ -8,6 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import CoreData
 import Foundation
 
 enum SubDetailPanel: Hashable {
@@ -55,6 +56,12 @@ extension SubDetailPanel: Decodable {
     }
 
     init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[
+            CodingUserInfoKey.managedObjectContext
+        ] as? NSManagedObjectContext else {
+            throw DecoderConfigurationError.missingManagedObjectContext
+        }
+        
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let panelID = try values.decode(String.self, forKey: .panelID)
 
@@ -64,7 +71,6 @@ extension SubDetailPanel: Decodable {
 
         let objectID = try values.decode(String.self, forKey: .objectID)
         let predicate = NSPredicate(format: "id = %@", objectID)
-        let context = DataController.shared.container.viewContext
 
         if panelID == "bookmark" {
             let request = Bookmark.fetchRequest()

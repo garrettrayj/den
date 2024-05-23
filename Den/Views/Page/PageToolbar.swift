@@ -13,6 +13,7 @@ import SwiftUI
 
 struct PageToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(DataController.self) private var dataController
 
     @ObservedObject var page: Page
 
@@ -33,7 +34,10 @@ struct PageToolbar: ToolbarContent {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
+                await HistoryUtility.toggleReadUnread(
+                    items: Array(items),
+                    container: dataController.container
+                )
             }
         }
         #else
@@ -62,7 +66,10 @@ struct PageToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                    await HistoryUtility.toggleReadUnread(
+                        items: Array(items),
+                        container: dataController.container
+                    )
                 }
             }
         } else {
@@ -74,7 +81,10 @@ struct PageToolbar: ToolbarContent {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                    await HistoryUtility.toggleReadUnread(
+                        items: Array(items),
+                        container: dataController.container
+                    )
                 }
             }
         }

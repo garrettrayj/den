@@ -11,16 +11,14 @@
 import CoreData
 import OSLog
 
-struct DataController {
-    static let shared = DataController(inMemory: CommandLine.arguments.contains("-in-memory"))
-    
+@Observable class DataController {
     let container = NSPersistentCloudKitContainer(name: "Den")
     
-    init(inMemory: Bool = false) {
+    init() {
         let cloudStoreDescription: NSPersistentStoreDescription
         let localStoreDescription: NSPersistentStoreDescription
 
-        if inMemory {
+        if CommandLine.arguments.contains("-in-memory") {
             let cloudStoreURL = URL(fileURLWithPath: "/dev/null/Den.sqlite")
             let localStoreURL = URL(fileURLWithPath: "/dev/null/Den-Local.sqlite")
 

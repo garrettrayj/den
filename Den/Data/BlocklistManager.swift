@@ -13,9 +13,7 @@ import OSLog
 import WebKit
 
 final class BlocklistManager {
-    static func getContentRuleLists() async -> [WKContentRuleList] {
-        let context = DataController.shared.container.newBackgroundContext()
-        
+    static func getContentRuleLists(context: NSManagedObjectContext) async -> [WKContentRuleList] {
         guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
         else { return [] }
         
@@ -64,9 +62,7 @@ final class BlocklistManager {
         }
     }
     
-    static func initializeMissingContentRulesLists() async {
-        let context = DataController.shared.container.newBackgroundContext()
-        
+    static func initializeMissingContentRulesLists(context: NSManagedObjectContext) async {
         guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
         else { return }
         

@@ -8,23 +8,23 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import CoreData
 import SwiftUI
 
 final class NavigationStore: ObservableObject {
     @Published var path = NavigationPath()
 
-    private let decoder = JSONDecoder()
-    private let encoder = JSONEncoder()
-
     func encoded() -> Data? {
-        try? path.codable.map(encoder.encode)
+        let encoder = JSONEncoder()
+        return try? path.codable.map(encoder.encode)
     }
 
-    func restore(from data: Data) {
+    func restore(from data: Data, context: NSManagedObjectContext) {
+        let decoder = JSONDecoder()
+        decoder.userInfo[CodingUserInfoKey.managedObjectContext] = context
+        
         do {
-            let codable = try decoder.decode(
-                NavigationPath.CodableRepresentation.self, from: data
-            )
+            let codable = try decoder.decode(NavigationPath.CodableRepresentation.self, from: data)
             path = NavigationPath(codable)
         } catch {
             path = NavigationPath()
