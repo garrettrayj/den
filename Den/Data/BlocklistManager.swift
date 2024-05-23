@@ -14,7 +14,7 @@ import WebKit
 
 final class BlocklistManager {
     static func getContentRuleLists() async -> [WKContentRuleList] {
-        let context = PersistenceController.shared.container.newBackgroundContext()
+        let context = DataController.shared.container.newBackgroundContext()
         
         guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
         else { return [] }
@@ -65,7 +65,7 @@ final class BlocklistManager {
     }
     
     static func initializeMissingContentRulesLists() async {
-        let context = PersistenceController.shared.container.newBackgroundContext()
+        let context = DataController.shared.container.newBackgroundContext()
         
         guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
         else { return }

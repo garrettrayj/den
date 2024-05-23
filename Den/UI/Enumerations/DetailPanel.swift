@@ -84,7 +84,7 @@ extension DetailPanel: Decodable {
             let request = Feed.fetchRequest()
             request.predicate = NSPredicate(format: "id = %@", decodedFeedID)
 
-            let context = PersistenceController.shared.container.viewContext
+            let context = DataController.shared.container.viewContext
             if let feed = try? context.fetch(request).first {
                 detailPanel = .feed(feed)
             }
@@ -98,7 +98,7 @@ extension DetailPanel: Decodable {
             let request = Page.fetchRequest()
             request.predicate = NSPredicate(format: "id = %@", decodedPageID)
 
-            let context = PersistenceController.shared.container.viewContext
+            let context = DataController.shared.container.viewContext
             if let page = try? context.fetch(request).first {
                 detailPanel = .page(page)
             }
@@ -108,7 +108,7 @@ extension DetailPanel: Decodable {
             let request = Tag.fetchRequest()
             request.predicate = NSPredicate(format: "id = %@", decodedTagID)
 
-            let context = PersistenceController.shared.container.viewContext
+            let context = DataController.shared.container.viewContext
             if let tag = try? context.fetch(request).first {
                 detailPanel = .tag(tag)
             }

@@ -34,7 +34,7 @@ struct SourceQuery: EntityQuery {
     func suggestedEntities() async throws -> [SourceDetail] {
         var sources = [SourceQuery.defaultSource]
         
-        await PersistenceController.shared.container.performBackgroundTask { context in
+        await WidgetDataController.shared.container.performBackgroundTask { context in
             let request = Page.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
             

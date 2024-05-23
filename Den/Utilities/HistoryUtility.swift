@@ -67,7 +67,7 @@ struct HistoryUtility {
     static func logHistory(items: [Item]) async {
         let itemObjectIDs = items.map { $0.objectID }
 
-        await PersistenceController.shared.container.performBackgroundTask { context in
+        await DataController.shared.container.performBackgroundTask { context in
             for itemObjectID in itemObjectIDs {
                 guard let item = context.object(with: itemObjectID) as? Item else { continue }
                 let history = History.create(in: context)
@@ -89,7 +89,7 @@ struct HistoryUtility {
 
     static func clearHistory(items: [Item]) async {
         let itemObjectIDs = items.map { $0.objectID }
-        let container = PersistenceController.shared.container
+        let container = DataController.shared.container
 
         await container.performBackgroundTask { context in
             for itemObjectID in itemObjectIDs {

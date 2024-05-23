@@ -13,7 +13,7 @@ import OSLog
 
 struct MaintenanceTask {
     func execute() async {
-        let context = PersistenceController.shared.container.newBackgroundContext()
+        let context = DataController.shared.container.newBackgroundContext()
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         trimHistory(context: context)
@@ -32,7 +32,7 @@ struct MaintenanceTask {
     }
     
     private func trimHistory(context: NSManagedObjectContext) {
-        PersistenceController.truncate(
+        DataController.truncate(
             History.self,
             context: context,
             sortDescriptors: [NSSortDescriptor(keyPath: \History.visited, ascending: false)],
@@ -41,7 +41,7 @@ struct MaintenanceTask {
     }
     
     private func trimSearches(context: NSManagedObjectContext) {
-        PersistenceController.truncate(
+        DataController.truncate(
             Search.self,
             context: context,
             sortDescriptors: [NSSortDescriptor(keyPath: \Search.submitted, ascending: false)],

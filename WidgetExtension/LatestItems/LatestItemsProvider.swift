@@ -23,8 +23,6 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
         SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
     }
     
-    let container = PersistenceController.shared.container
-    
     func placeholder(in context: Context) -> LatestItemsEntry {
         LatestItemsEntry(
             date: Date(),
@@ -63,7 +61,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
         for configuration: LatestItemsConfigurationIntent,
         in context: Context
     ) async -> Timeline<LatestItemsEntry> {
-        let moc = container.newBackgroundContext()
+        let moc = WidgetDataController.shared.container.newBackgroundContext()
         
         var entries: [LatestItemsEntry] = []
         

@@ -135,8 +135,8 @@ struct ResetSection: View {
     }
     
     private func clearData() {
-        PersistenceController.truncate(FeedData.self, context: viewContext)
-        PersistenceController.truncate(Trend.self, context: viewContext)
+        DataController.truncate(FeedData.self, context: viewContext)
+        DataController.truncate(Trend.self, context: viewContext)
         
         do {
             try viewContext.save()
@@ -148,7 +148,7 @@ struct ResetSection: View {
     }
     
     private func clearHistory() {
-        PersistenceController.truncate(History.self, context: viewContext)
+        DataController.truncate(History.self, context: viewContext)
 
         if let items = try? viewContext.fetch(Item.fetchRequest()) {
             items.forEach { $0.read = false }
@@ -178,7 +178,7 @@ struct ResetSection: View {
         ]
         
         batchTruncateList.forEach {
-            PersistenceController.truncate($0, context: viewContext)
+            DataController.truncate($0, context: viewContext)
         }
 
         do {

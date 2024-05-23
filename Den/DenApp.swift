@@ -20,7 +20,7 @@ import SDWebImageWebPCoder
 struct DenApp: App {
     @Environment(\.scenePhase) private var phase
 
-    let persistenceController = PersistenceController.shared
+    let container = DataController.shared.container
     
     @State private var downloadManager = DownloadManager()
     @State private var networkMonitor = NetworkMonitor()
@@ -29,7 +29,7 @@ struct DenApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, container.viewContext)
                 .environment(downloadManager)
                 .environment(networkMonitor)
                 .environment(refreshManager)
@@ -60,7 +60,7 @@ struct DenApp: App {
         #if os(macOS)
         Settings {
             SettingsSheet()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, container.viewContext)
                 .environment(refreshManager)
                 .frame(width: 440)
                 .frame(minHeight: 560)

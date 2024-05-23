@@ -45,7 +45,7 @@ struct BrowserWebView {
     private func addMercuryScript(_ contentController: WKUserContentController) {
         guard
             let path = Bundle.main.path(forResource: "Mercury", ofType: "js"),
-            let script = try? String(contentsOfFile: path)
+            let script = try? String(contentsOfFile: path, encoding: .utf8)
         else {
             return
         }

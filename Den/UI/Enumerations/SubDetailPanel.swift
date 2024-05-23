@@ -64,7 +64,7 @@ extension SubDetailPanel: Decodable {
 
         let objectID = try values.decode(String.self, forKey: .objectID)
         let predicate = NSPredicate(format: "id = %@", objectID)
-        let context = PersistenceController.shared.container.viewContext
+        let context = DataController.shared.container.viewContext
 
         if panelID == "bookmark" {
             let request = Bookmark.fetchRequest()

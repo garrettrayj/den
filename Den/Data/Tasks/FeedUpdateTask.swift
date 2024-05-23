@@ -26,7 +26,7 @@ struct FeedUpdateTask {
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
         var webpage: URL?
 
-        let context = PersistenceController.shared.container.newBackgroundContext()
+        let context = DataController.shared.container.newBackgroundContext()
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
         let feedRequest = URLRequest(url: url)

@@ -48,7 +48,7 @@ import WidgetKit
         
         var feedUpdates: [FeedUpdateTask] = []
         
-        await PersistenceController.shared.container.performBackgroundTask { context in
+        await DataController.shared.container.performBackgroundTask { context in
             self.cleanupFeedData(context: context)
             
             let request = Page.fetchRequest()
@@ -112,6 +112,7 @@ import WidgetKit
     
     private func cleanupFeedData(context: NSManagedObjectContext) {
         guard let feedDatas = try? context.fetch(FeedData.fetchRequest()) as [FeedData] else {
+            Logger.main.error("Unable to fetch FeedData records for cleanup")
             return
         }
         

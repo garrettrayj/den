@@ -13,12 +13,12 @@ import Foundation
 public enum AppGroup: String {
     case den = "group.net.devsci.den"
 
-    public var containerURL: URL {
+    public var containerURL: URL? {
         switch self {
         case .den:
             return FileManager.default.containerURL(
                 forSecurityApplicationGroupIdentifier: self.rawValue
-            )!
+            )
         }
     }
 }
