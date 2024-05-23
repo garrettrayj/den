@@ -73,7 +73,6 @@
 		684DFA0324BAC7680023D6DB /* ImageMIMEType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DFA0224BAC7680023D6DB /* ImageMIMEType.swift */; };
 		6851F0DB2AAB9CF8000F7CBC /* Organizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0DA2AAB9CF8000F7CBC /* Organizer.swift */; };
 		6851F0E32AAD77E8000F7CBC /* OrganizerInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0E22AAD77E8000F7CBC /* OrganizerInspector.swift */; };
-		6851F0E72AAE96F1000F7CBC /* ItemLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0E62AAE96F1000F7CBC /* ItemLimit.swift */; };
 		6851F0EB2AAEC1B5000F7CBC /* ExportButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0EA2AAEC1B5000F7CBC /* ExportButton.swift */; };
 		6851F0ED2AAEC1C6000F7CBC /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0EC2AAEC1C6000F7CBC /* SettingsButton.swift */; };
 		6851F0F12AAF7314000F7CBC /* OrganizerInfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0F02AAF7314000F7CBC /* OrganizerInfoPanel.swift */; };
@@ -236,7 +235,6 @@
 		68A5A1492BE192B900FEA8D3 /* Search+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688A2A742A9728BF00847D8B /* Search+CoreDataClass.swift */; };
 		68A5A14A2BE192B900FEA8D3 /* TrendItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B78288C0D31006EC915 /* TrendItem+CoreDataClass.swift */; };
 		68A5A14B2BE192E600FEA8D3 /* Den.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B74288BFCCC006EC915 /* Den.xcdatamodel */; };
-		68A5A14C2BE1934100FEA8D3 /* ItemLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0E62AAE96F1000F7CBC /* ItemLimit.swift */; };
 		68A5A14D2BE1938400FEA8D3 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BD5724F90F450008B296 /* String+Extensions.swift */; };
 		68A5A14E2BE193B700FEA8D3 /* PreviewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F6FB9A29ADDC83001F74B9 /* PreviewStyle.swift */; };
 		68A5A14F2BE193D900FEA8D3 /* PreliminaryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBE027A8E61C00B479F4 /* PreliminaryImage.swift */; };
@@ -471,7 +469,6 @@
 		684DFA0224BAC7680023D6DB /* ImageMIMEType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMIMEType.swift; sourceTree = "<group>"; };
 		6851F0DA2AAB9CF8000F7CBC /* Organizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organizer.swift; sourceTree = "<group>"; };
 		6851F0E22AAD77E8000F7CBC /* OrganizerInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerInspector.swift; sourceTree = "<group>"; };
-		6851F0E62AAE96F1000F7CBC /* ItemLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLimit.swift; sourceTree = "<group>"; };
 		6851F0EA2AAEC1B5000F7CBC /* ExportButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportButton.swift; sourceTree = "<group>"; };
 		6851F0EC2AAEC1C6000F7CBC /* SettingsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		6851F0F02AAF7314000F7CBC /* OrganizerInfoPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerInfoPanel.swift; sourceTree = "<group>"; };
@@ -1428,7 +1425,6 @@
 			isa = PBXGroup;
 			children = (
 				68CC01382BDFD6EC00E723DC /* AppGroup.swift */,
-				6851F0E62AAE96F1000F7CBC /* ItemLimit.swift */,
 				68F6FB9A29ADDC83001F74B9 /* PreviewStyle.swift */,
 			);
 			path = Enumerations;
@@ -1879,7 +1875,6 @@
 				6856DB422AB8EA090094615E /* InspectorToggleButton.swift in Sources */,
 				680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */,
 				68F56B6B287832A9006EC915 /* ItemActionView.swift in Sources */,
-				6851F0E72AAE96F1000F7CBC /* ItemLimit.swift in Sources */,
 				687D9CB824A9CA2A00EB7F46 /* ItemPreviewCompressed.swift in Sources */,
 				68FC256F27640AA00073979F /* ItemPreviewExpanded.swift in Sources */,
 				68599B742AB275AE0057FEA8 /* ItemTags.swift in Sources */,
@@ -2042,7 +2037,6 @@
 				68A5A13C2BE18F5200FEA8D3 /* FileManager+Extensions.swift in Sources */,
 				68A5A1462BE192B900FEA8D3 /* History+CoreDataClass.swift in Sources */,
 				68A5A1452BE192B900FEA8D3 /* Item+CoreDataClass.swift in Sources */,
-				68A5A14C2BE1934100FEA8D3 /* ItemLimit.swift in Sources */,
 				68A5A1582BE2778000FEA8D3 /* LatestItemsConfigurationIntent.swift in Sources */,
 				68FB95202BE80706004EFA73 /* LatestItemsEntry.swift in Sources */,
 				68FB951A2BE805C9004EFA73 /* LatestItemsProvider.swift in Sources */,
