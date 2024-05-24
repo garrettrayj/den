@@ -13,7 +13,7 @@ import UniformTypeIdentifiers
 
 struct Sidebar: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(DataController.self) private var dataController
+    
     @Environment(RefreshManager.self) private var refreshManager
 
     @Binding var detailPanel: DetailPanel?
@@ -71,7 +71,7 @@ struct Sidebar: View {
         .badgeProminence(.decreased)
         .lineLimit(1)
         .refreshable {
-            await refreshManager.refresh(container: dataController.container)
+            await refreshManager.refresh()
         }
         .sensoryFeedback(trigger: refreshManager.refreshing) { _, newValue in
             if newValue == true {

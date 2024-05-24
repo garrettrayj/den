@@ -8,7 +8,6 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
 import Foundation
 
 enum DetailPanel: Hashable, Identifiable {
@@ -73,18 +72,8 @@ enum DetailPanel: Hashable, Identifiable {
     }
 }
 
-enum DecoderConfigurationError: Error {
-    case missingManagedObjectContext
-}
-
 extension DetailPanel: Decodable {
     init(from decoder: Decoder) throws {
-        guard let context = decoder.userInfo[
-            CodingUserInfoKey.managedObjectContext
-        ] as? NSManagedObjectContext else {
-            throw DecoderConfigurationError.missingManagedObjectContext
-        }
-        
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let panelID = try values.decode(String.self, forKey: .panelID)
         var detailPanel: DetailPanel = .welcome
@@ -95,6 +84,7 @@ extension DetailPanel: Decodable {
             let request = Feed.fetchRequest()
             request.predicate = NSPredicate(format: "id = %@", decodedFeedID)
 
+            let context = DataController.shared.container.viewContext
             if let feed = try? context.fetch(request).first {
                 detailPanel = .feed(feed)
             }
@@ -108,6 +98,7 @@ extension DetailPanel: Decodable {
             let request = Page.fetchRequest()
             request.predicate = NSPredicate(format: "id = %@", decodedPageID)
 
+            let context = DataController.shared.container.viewContext
             if let page = try? context.fetch(request).first {
                 detailPanel = .page(page)
             }
@@ -117,6 +108,7 @@ extension DetailPanel: Decodable {
             let request = Tag.fetchRequest()
             request.predicate = NSPredicate(format: "id = %@", decodedTagID)
 
+            let context = DataController.shared.container.viewContext
             if let tag = try? context.fetch(request).first {
                 detailPanel = .tag(tag)
             }

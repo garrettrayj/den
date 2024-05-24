@@ -33,6 +33,11 @@ final public class Feed: NSManagedObject {
         set { itemLimit = Int16(newValue) }
     }
 
+    var itemLimitChoice: ItemLimit {
+        get { ItemLimit(rawValue: wrappedItemLimit) ?? .six }
+        set { wrappedItemLimit = newValue.rawValue }
+    }
+
     var feedData: FeedData? {
         (value(forKey: "feedData") as? [FeedData])?.first
     }
@@ -110,7 +115,7 @@ final public class Feed: NSManagedObject {
         feed.id = UUID()
         feed.page = page
         feed.url = url
-        feed.itemLimit = 6
+        feed.itemLimitChoice = .six
 
         if prepend {
             feed.userOrder = page.feedsUserOrderMin - 1

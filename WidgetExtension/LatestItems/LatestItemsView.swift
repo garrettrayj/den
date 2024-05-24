@@ -17,7 +17,7 @@ struct LatestItemsView: View {
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
-    @ScaledMetric(relativeTo: .largeTitle) var iconSize = 20
+    @ScaledMetric(relativeTo: .largeTitle) var denIconSize = 20
     @ScaledMetric(relativeTo: .largeTitle) var thumbnailSize = 80
     
     var entry: LatestItemsProvider.Entry
@@ -77,7 +77,7 @@ struct LatestItemsView: View {
                 } icon: {
                     sourceIcon
                         .scaledToFit()
-                        .frame(width: iconSize, height: iconSize)
+                        .frame(width: 20, height: 20)
                 }
                 .font(.title3)
                 .lineLimit(1)
@@ -111,15 +111,15 @@ struct LatestItemsView: View {
             .mask(alignment: .center) {
                 Image("SimpleIcon").resizable().scaledToFit()
             }
-            .frame(width: iconSize, height: iconSize)
+            .frame(width: denIconSize, height: denIconSize)
     }
     
     private var unreadCount: some View {
         Text(verbatim: "\(entry.unread)")
             .font(.footnote.weight(.medium).monospacedDigit())
             .foregroundStyle(.secondary)
-            .padding(.horizontal, 7)
-            .padding(.vertical, 3)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
             .background { Capsule().fill(.fill.secondary) }
             .padding(.trailing, 4)
     }

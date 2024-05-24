@@ -20,7 +20,8 @@ import SDWebImageWebPCoder
 struct DenApp: App {
     @Environment(\.scenePhase) private var phase
 
-    @State private var dataController = DataController()
+    let container = DataController.shared.container
+    
     @State private var downloadManager = DownloadManager()
     @State private var networkMonitor = NetworkMonitor()
     @State private var refreshManager = RefreshManager()
@@ -28,20 +29,13 @@ struct DenApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
-                .environment(dataController)
+                .environment(\.managedObjectContext, container.viewContext)
                 .environment(downloadManager)
                 .environment(networkMonitor)
                 .environment(refreshManager)
         }
         .handlesExternalEvents(matching: ["*"])
-        .commands {
-            AppCommands(
-                dataController: dataController,
-                networkMonitor: networkMonitor,
-                refreshManager: refreshManager
-            )
-        }
+        .commands { AppCommands(networkMonitor: networkMonitor, refreshManager: refreshManager) }
         .defaultSize(CGSize(width: 1280, height: 800))
         #if os(iOS)
         .onChange(of: phase) {
@@ -54,11 +48,11 @@ struct DenApp: App {
         }
         .backgroundTask(.appRefresh("net.devsci.den.maintenance")) { _ in
             Logger.main.debug("Performing background maintenance task...")
-            await MaintenanceTask().execute(container: dataController.container)
+            await MaintenanceTask().execute()
         }
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) { _ in
             Logger.main.debug("Performing background refresh task...")
-            await refreshManager.refresh(container: dataController.container)
+            await refreshManager.refresh()
             scheduleRefresh()
         }
         #endif
@@ -66,8 +60,7 @@ struct DenApp: App {
         #if os(macOS)
         Settings {
             SettingsSheet()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
-                .environment(dataController)
+                .environment(\.managedObjectContext, container.viewContext)
                 .environment(refreshManager)
                 .frame(width: 440)
                 .frame(minHeight: 560)

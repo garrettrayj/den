@@ -12,7 +12,6 @@ import SwiftUI
 
 struct SidebarPage: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(DataController.self) private var dataController
 
     @ObservedObject var page: Page
 
@@ -85,10 +84,7 @@ struct SidebarPage: View {
                 )
                 .contextMenu {
                     MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                        await HistoryUtility.toggleReadUnread(
-                            items: Array(items),
-                            container: dataController.container
-                        )
+                        await HistoryUtility.toggleReadUnread(items: Array(items))
                     }
                     Divider()
                     IconSelectorButton(

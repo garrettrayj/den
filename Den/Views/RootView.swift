@@ -14,7 +14,7 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(DataController.self) private var dataController
+    
     @Environment(RefreshManager.self) private var refreshManager
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
@@ -104,7 +104,7 @@ struct RootView: View {
             }
         }
         .task {
-            await BlocklistManager.initializeMissingContentRulesLists(context: viewContext)
+            await BlocklistManager.initializeMissingContentRulesLists()
 
             CleanupUtility.upgradeBookmarks(context: viewContext)
             
@@ -112,15 +112,12 @@ struct RootView: View {
             await performMaintenance()
             
             if !refreshManager.autoRefreshActive && refreshInterval.rawValue > 0 {
-                refreshManager.startAutoRefresh(
-                    interval: TimeInterval(refreshInterval.rawValue),
-                    container: dataController.container
-                )
+                refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
             }
             #endif
             
             if let navigationData {
-                navigationStore.restore(from: navigationData, context: viewContext)
+                navigationStore.restore(from: navigationData)
             }
             for await _ in navigationStore.$path.values.map({ $0.count }) {
                 navigationData = navigationStore.encoded()
@@ -216,6 +213,6 @@ struct RootView: View {
             }
         }
         
-        await MaintenanceTask().execute(container: dataController.container)
+        await MaintenanceTask().execute()
     }
 }

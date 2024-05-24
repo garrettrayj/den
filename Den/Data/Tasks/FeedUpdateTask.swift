@@ -19,14 +19,14 @@ struct FeedUpdateTask {
     let updateMeta: Bool
 
     // swiftlint:disable cyclomatic_complexity function_body_length
-    func execute(container: NSPersistentContainer) async {
+    func execute() async {
         let start = CFAbsoluteTimeGetCurrent()
         
         var parsedSuccessfully: Bool = false
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
         var webpage: URL?
 
-        let context = container.newBackgroundContext()
+        let context = DataController.shared.container.newBackgroundContext()
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
         let feedRequest = URLRequest(url: url)
