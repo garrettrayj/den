@@ -11,7 +11,7 @@
 import CoreData
 import OSLog
 
-struct DataController {
+@Observable final class DataController {
     static let shared = DataController(inMemory: CommandLine.arguments.contains("-in-memory"))
     
     let container = NSPersistentCloudKitContainer(name: "Den")

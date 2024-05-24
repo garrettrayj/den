@@ -11,8 +11,8 @@
 import CoreData
 
 struct AnalyzeTask {
-    func execute() async {
-        await DataController.shared.container.performBackgroundTask { context in
+    func execute(container: NSPersistentContainer) async {
+        await container.performBackgroundTask { context in
             let workingTrends = self.analyzeTrends(context: context)
             
             let request = Trend.fetchRequest()

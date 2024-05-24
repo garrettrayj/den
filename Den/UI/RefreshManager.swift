@@ -22,12 +22,12 @@ import WidgetKit
     #if os(macOS)
     private var timer: Timer?
     
-    func startAutoRefresh(interval: TimeInterval) {
+    func startAutoRefresh(interval: TimeInterval, container: NSPersistentContainer) {
         Logger.main.debug("Starting auto refresh with \(Int(interval)) second interval")
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { _ in
             Task {
-                await self.refresh()
+                await self.refresh(container: container)
             }
         }
         autoRefreshActive = true
@@ -41,14 +41,14 @@ import WidgetKit
     #endif
     
     @MainActor
-    func refresh() async {
+    func refresh(container: NSPersistentContainer) async {
         guard !refreshing else { return }
 
         refreshing = true
         
         var feedUpdates: [FeedUpdateTask] = []
         
-        await DataController.shared.container.performBackgroundTask { context in
+        await container.performBackgroundTask { context in
             self.cleanupFeedData(context: context)
             
             let request = Page.fetchRequest()
@@ -76,7 +76,7 @@ import WidgetKit
                 }
                 
                 taskGroup.addTask {
-                    await feedUpdate.execute()
+                    await feedUpdate.execute(container: container)
                     self.progress.completedUnitCount += 1
                 }
             }
@@ -85,7 +85,7 @@ import WidgetKit
         })
         
         progress.completedUnitCount = Int64(feedUpdates.count)
-        await AnalyzeTask().execute()
+        await AnalyzeTask().execute(container: container)
 
         UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
         
@@ -96,14 +96,14 @@ import WidgetKit
     }
 
     @MainActor
-    func refresh(feed: Feed) async {
+    func refresh(feed: Feed, container: NSPersistentContainer) async {
         if let url = feed.url {
             let feedUpdateTask = FeedUpdateTask(
                 feedObjectID: feed.objectID,
                 url: url,
                 updateMeta: true
             )
-            await feedUpdateTask.execute()
+            await feedUpdateTask.execute(container: container)
         }
         
         feed.objectWillChange.send()

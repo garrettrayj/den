@@ -14,7 +14,7 @@ import SwiftUI
 struct NewFeedSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
-
+    @Environment(DataController.self) private var dataController
     @Environment(RefreshManager.self) private var refreshManager
 
     @Binding var webAddress: String
@@ -107,7 +107,7 @@ struct NewFeedSheet: View {
             do {
                 try viewContext.save()
                 Task {
-                    await refreshManager.refresh(feed: newFeed)
+                    await refreshManager.refresh(feed: newFeed, container: dataController.container)
                     dismiss()
                     webAddress = ""
                     loading = false

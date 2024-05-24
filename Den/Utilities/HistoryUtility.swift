@@ -56,18 +56,18 @@ struct HistoryUtility {
         }
     }
 
-    static func toggleReadUnread(items: [Item]) async {
+    static func toggleReadUnread(items: [Item], container: NSPersistentContainer) async {
         if items.unread.isEmpty == true {
-            await clearHistory(items: items)
+            await clearHistory(items: items, container: container)
         } else {
-            await logHistory(items: items.unread)
+            await logHistory(items: items.unread, container: container)
         }
     }
 
-    static func logHistory(items: [Item]) async {
+    static func logHistory(items: [Item], container: NSPersistentContainer) async {
         let itemObjectIDs = items.map { $0.objectID }
 
-        await DataController.shared.container.performBackgroundTask { context in
+        await container.performBackgroundTask { context in
             for itemObjectID in itemObjectIDs {
                 guard let item = context.object(with: itemObjectID) as? Item else { continue }
                 let history = History.create(in: context)
@@ -87,9 +87,8 @@ struct HistoryUtility {
         }
     }
 
-    static func clearHistory(items: [Item]) async {
+    static func clearHistory(items: [Item], container: NSPersistentContainer) async {
         let itemObjectIDs = items.map { $0.objectID }
-        let container = DataController.shared.container
 
         await container.performBackgroundTask { context in
             for itemObjectID in itemObjectIDs {

@@ -14,7 +14,7 @@ import WidgetKit
 
 struct GeneralSection: View {
     @Environment(\.colorScheme) private var colorScheme
-    
+    @Environment(DataController.self) private var dataController
     @Environment(RefreshManager.self) private var refreshManager
     
     @AppStorage("AccentColor") private var accentColor: AccentColor?
@@ -77,7 +77,10 @@ struct GeneralSection: View {
                 if refreshInterval == .zero {
                     refreshManager.stopAutoRefresh()
                 } else {
-                    refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
+                    refreshManager.startAutoRefresh(
+                        interval: TimeInterval(refreshInterval.rawValue),
+                        container: dataController.container
+                    )
                 }
                 #else
                 BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: "net.devsci.den.refresh")
