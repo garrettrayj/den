@@ -11,7 +11,7 @@
 import CoreData
 import OSLog
 
-@Observable class DataController {
+@Observable final class DataController {
     let container = NSPersistentCloudKitContainer(name: "Den")
     
     init() {
