@@ -20,9 +20,9 @@ struct FeedInspector: View {
     var body: some View {
         Form {
             Section {
-                Picker(selection: $feed.itemLimitChoice) {
-                    ForEach(ItemLimit.allCases, id: \.self) { choice in
-                        Text(verbatim: "\(choice.rawValue)").tag(choice)
+                Picker(selection: $feed.itemLimit) {
+                    ForEach(1...100, id: \.self) { choice in
+                        Text(verbatim: "\(choice)").tag(Int16(choice))
                     }
                 } label: {
                     Text("Featured Items", comment: "Picker label.")
@@ -36,7 +36,6 @@ struct FeedInspector: View {
 
                     do {
                         try viewContext.save()
-                        feed.objectWillChange.send()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
