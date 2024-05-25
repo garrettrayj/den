@@ -112,13 +112,14 @@ struct LatestItemsView: View {
                 Image("SimpleIcon").resizable().scaledToFit()
             }
             .frame(width: iconSize, height: iconSize)
+            .offset(y: -2)
     }
     
     private var unreadCount: some View {
         Text(verbatim: "\(entry.unread)")
             .font(.footnote.weight(.medium).monospacedDigit())
             .foregroundStyle(.secondary)
-            .padding(.horizontal, 7)
+            .padding(.horizontal, 8)
             .padding(.vertical, 3)
             .background { Capsule().fill(.fill.secondary) }
             .padding(.trailing, 4)

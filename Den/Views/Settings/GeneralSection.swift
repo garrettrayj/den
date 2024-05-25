@@ -103,14 +103,14 @@ struct GeneralSection: View {
                 #if os(macOS)
                 Text(
                     """
-                    Feeds will refresh automatically while the app is running.
+                    Feeds will automatically refresh while the app is running.
                     """,
                     comment: "Refresh settings guidance."
                 )
                 #else
                 Text(
                     """
-                    The system decides when background refresh occurs. \
+                    The system decides when background refresh will occur. \
                     Refresh Interval sets the minimum amount of time between background refresh tasks.
                     """,
                     comment: "Refresh settings guidance."
