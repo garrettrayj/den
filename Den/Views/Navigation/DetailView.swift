@@ -21,17 +21,17 @@ struct DetailView: View {
             Group {
                 switch detailPanel ?? .welcome {
                 case .feed(let feed):
-                    FeedView(feed: feed, hideRead: $hideRead).id(feed)
+                    FeedView(feed: feed, hideRead: $hideRead)
                 case .inbox:
                     Inbox(hideRead: $hideRead)
                 case .organizer:
                     Organizer()
                 case .page(let page):
-                    PageView(page: page, hideRead: $hideRead).id(page)
+                    PageView(page: page, hideRead: $hideRead)
                 case .search:
                     SearchView(hideRead: $hideRead, searchQuery: $searchQuery)
                 case .tag(let tag):
-                    TagView(tag: tag).id(tag)
+                    TagView(tag: tag)
                 case .trending:
                     Trending(hideRead: $hideRead)
                 case .welcome:
@@ -41,13 +41,13 @@ struct DetailView: View {
             .navigationDestination(for: SubDetailPanel.self) { panel in
                 switch panel {
                 case .bookmark(let bookmark):
-                    BookmarkView(bookmark: bookmark).id(bookmark)
+                    BookmarkView(bookmark: bookmark)
                 case .feed(let feed):
-                    FeedView(feed: feed, hideRead: $hideRead).id(feed)
+                    FeedView(feed: feed, hideRead: $hideRead)
                 case .item(let item):
-                    ItemView(item: item).id(item)
+                    ItemView(item: item)
                 case .trend(let trend):
-                    TrendView(trend: trend, hideRead: $hideRead).id(trend)
+                    TrendView(trend: trend, hideRead: $hideRead)
                 }
             }
         }
