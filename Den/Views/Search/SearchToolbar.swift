@@ -12,7 +12,7 @@ import SwiftUI
 
 struct SearchToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @Environment(DataController.self) private var dataController
+    @EnvironmentObject private var dataController: DataController
 
     @Binding var hideRead: Bool
 

@@ -23,9 +23,9 @@ struct AppCommands: Commands {
         InspectorCommands()
         CommandGroup(after: .toolbar) {
             RefreshButton()
-                .environment(dataController)
-                .environment(networkMonitor)
-                .environment(refreshManager)
+                .environmentObject(dataController)
+                .environmentObject(networkMonitor)
+                .environmentObject(refreshManager)
         }
         CommandGroup(replacing: .help) {
             Button {

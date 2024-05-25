@@ -15,7 +15,7 @@ struct BookmarkToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.scenePhase) private var scenePhase
     
-    @Environment(DownloadManager.self) private var downloadManager
+    @EnvironmentObject private var downloadManager: DownloadManager
 
     @ObservedObject var bookmark: Bookmark
     @ObservedObject var browserViewModel: BrowserViewModel

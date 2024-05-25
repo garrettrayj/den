@@ -11,13 +11,15 @@
 import Foundation
 import Network
 
-@Observable final class NetworkMonitor {
-    private(set) var isConnected: Bool = false
+final class NetworkMonitor: NSObject, ObservableObject {
+    @Published private(set) var isConnected: Bool = false
     
     private let networkMonitor = NWPathMonitor()
     private let workerQueue = DispatchQueue(label: "Monitor")
 
-    init() {
+    override init() {
+        super.init()
+        
         networkMonitor.pathUpdateHandler = { path in
             DispatchQueue.main.async {
                 self.isConnected = path.status == .satisfied

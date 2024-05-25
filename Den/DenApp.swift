@@ -20,20 +20,20 @@ import SDWebImageWebPCoder
 struct DenApp: App {
     @Environment(\.scenePhase) private var phase
     
-    @State private var dataController = DataController.shared
-    @State private var downloadManager = DownloadManager()
-    @State private var networkMonitor = NetworkMonitor()
-    @State private var refreshManager = RefreshManager()
+    @StateObject private var dataController = DataController.shared
+    @StateObject private var downloadManager = DownloadManager()
+    @StateObject private var networkMonitor = NetworkMonitor()
+    @StateObject private var refreshManager = RefreshManager()
 
     var body: some Scene {
         WindowGroup {
             RootView()
         }
         .environment(\.managedObjectContext, dataController.container.viewContext)
-        .environment(dataController)
-        .environment(downloadManager)
-        .environment(networkMonitor)
-        .environment(refreshManager)
+        .environmentObject(dataController)
+        .environmentObject(downloadManager)
+        .environmentObject(networkMonitor)
+        .environmentObject(refreshManager)
         .handlesExternalEvents(matching: ["*"])
         .commands { 
             AppCommands(
@@ -59,7 +59,7 @@ struct DenApp: App {
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) { _ in
             Logger.main.debug("Performing background refresh task...")
             await refreshManager.refresh(container: dataController.container)
-            scheduleRefresh()
+            await scheduleRefresh()
         }
         #endif
         
@@ -67,8 +67,8 @@ struct DenApp: App {
         Settings {
             SettingsSheet()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
-                .environment(dataController)
-                .environment(refreshManager)
+                .environmentObject(dataController)
+                .environmentObject(refreshManager)
                 .frame(width: 440)
                 .frame(minHeight: 560)
         }

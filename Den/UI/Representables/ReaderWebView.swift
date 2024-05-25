@@ -14,7 +14,7 @@ import WebKit
 struct ReaderWebView {
     @Environment(\.openURL) private var openURL
     
-    @Environment(DownloadManager.self) private var downloadManager
+    @EnvironmentObject private var downloadManager: DownloadManager
 
     @ObservedObject var browserViewModel: BrowserViewModel
 

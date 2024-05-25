@@ -12,7 +12,7 @@ import CoreData
 import SwiftUI
 
 struct InboxNavLink: View {
-    @Environment(DataController.self) private var dataController
+    @EnvironmentObject private var dataController: DataController
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     

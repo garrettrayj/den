@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct SidebarToolbar: ToolbarContent {
-    @Environment(RefreshManager.self) private var refreshManager
+    @EnvironmentObject private var refreshManager: RefreshManager
     
     @Binding var detailPanel: DetailPanel?
     @Binding var showingExporter: Bool

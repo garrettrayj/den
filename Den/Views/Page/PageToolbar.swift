@@ -13,7 +13,7 @@ import SwiftUI
 
 struct PageToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @Environment(DataController.self) private var dataController
+    @EnvironmentObject private var dataController: DataController
 
     @ObservedObject var page: Page
 

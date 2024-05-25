@@ -12,7 +12,7 @@ import SwiftUI
 
 struct SidebarPage: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(DataController.self) private var dataController
+    @EnvironmentObject private var dataController: DataController
 
     @ObservedObject var page: Page
 

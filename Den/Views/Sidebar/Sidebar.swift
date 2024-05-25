@@ -13,8 +13,8 @@ import UniformTypeIdentifiers
 
 struct Sidebar: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(DataController.self) private var dataController
-    @Environment(RefreshManager.self) private var refreshManager
+    @EnvironmentObject private var dataController: DataController
+    @EnvironmentObject private var refreshManager: RefreshManager
 
     @Binding var detailPanel: DetailPanel?
     @Binding var newFeedPageID: String?

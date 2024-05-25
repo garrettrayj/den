@@ -14,8 +14,8 @@ import WidgetKit
 
 struct GeneralSection: View {
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(DataController.self) private var dataController
-    @Environment(RefreshManager.self) private var refreshManager
+    @EnvironmentObject private var dataController: DataController
+    @EnvironmentObject private var refreshManager: RefreshManager
     
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .threeHours

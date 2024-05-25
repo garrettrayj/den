@@ -14,8 +14,8 @@ import SwiftUI
 struct NewFeedSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(DataController.self) private var dataController
-    @Environment(RefreshManager.self) private var refreshManager
+    @EnvironmentObject private var dataController: DataController
+    @EnvironmentObject private var refreshManager: RefreshManager
 
     @Binding var webAddress: String
     @Binding var initialPageID: String?

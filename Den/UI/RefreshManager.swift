@@ -13,11 +13,11 @@ import CoreData
 import OSLog
 import WidgetKit
 
-@Observable final class RefreshManager {
-    var refreshing = false
-    var autoRefreshActive = false
+final class RefreshManager: NSObject, ObservableObject {
+    @Published var refreshing = false
+    @Published var autoRefreshActive = false
     
-    @ObservationIgnored var progress = Progress()
+    let progress = Progress()
     
     #if os(macOS)
     private var timer: Timer?

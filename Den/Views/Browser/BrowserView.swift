@@ -13,7 +13,7 @@ import WebKit
 
 struct BrowserView: View {
     @Environment(\.self) private var environment
-    @Environment(DataController.self) private var dataController
+    @EnvironmentObject private var dataController: DataController
     
     var url: URL
     var useBlocklists: Bool?
