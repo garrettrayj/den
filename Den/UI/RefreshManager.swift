@@ -13,7 +13,7 @@ import CoreData
 import OSLog
 import WidgetKit
 
-final class RefreshManager: NSObject, ObservableObject {
+final class RefreshManager: ObservableObject {
     @Published var refreshing = false
     @Published var autoRefreshActive = false
     

@@ -60,7 +60,7 @@ struct DenApp: App {
         #if os(macOS)
         Settings {
             SettingsSheet()
-                .environment(\.managedObjectContext, container.viewContext)
+                .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(refreshManager)
                 .frame(width: 440)
                 .frame(minHeight: 560)
@@ -74,7 +74,7 @@ struct DenApp: App {
     }
 
     private func setupImageHandling() {
-        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 1024
+        // SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 1024
         
         // Add additional image format support
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)

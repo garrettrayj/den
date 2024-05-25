@@ -17,7 +17,8 @@ struct LatestItemsView: View {
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
-    @ScaledMetric(relativeTo: .largeTitle) var denIconSize = 20
+    @ScaledMetric(relativeTo: .largeTitle) var smallIconSize = 20
+    @ScaledMetric(relativeTo: .largeTitle) var largeIconSize = 32
     @ScaledMetric(relativeTo: .largeTitle) var thumbnailSize = 80
     
     var entry: LatestItemsProvider.Entry
@@ -52,7 +53,7 @@ struct LatestItemsView: View {
             HStack(alignment: .top) {
                 sourceIcon
                     .scaledToFit()
-                    .frame(width: 32, height: 32)
+                    .frame(width: largeIconSize, height: largeIconSize)
                 Spacer()
                 
                 if !entry.items.isEmpty && showUnreadCounts {
@@ -71,13 +72,13 @@ struct LatestItemsView: View {
     
     private var itemListLayout: some View {
         VStack(spacing: 8) {
-            HStack(alignment: .top) {
+            HStack {
                 Label {
                     entry.title
                 } icon: {
                     sourceIcon
                         .scaledToFit()
-                        .frame(width: 20, height: 20)
+                        .frame(width: smallIconSize, height: smallIconSize)
                 }
                 .font(.title3)
                 .lineLimit(1)
@@ -111,7 +112,8 @@ struct LatestItemsView: View {
             .mask(alignment: .center) {
                 Image("SimpleIcon").resizable().scaledToFit()
             }
-            .frame(width: denIconSize, height: denIconSize)
+            .frame(width: smallIconSize, height: smallIconSize)
+            .offset(y: -1)
     }
     
     private var unreadCount: some View {
@@ -119,9 +121,8 @@ struct LatestItemsView: View {
             .font(.footnote.weight(.medium).monospacedDigit())
             .foregroundStyle(.secondary)
             .padding(.horizontal, 8)
-            .padding(.vertical, 4)
+            .padding(.vertical, 2)
             .background { Capsule().fill(.fill.secondary) }
-            .padding(.trailing, 4)
     }
     
     @ViewBuilder
