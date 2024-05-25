@@ -15,8 +15,6 @@ struct OrganizerOptionsPanel: View {
 
     @Binding var selection: Set<Feed>
     
-    @State private var itemLimitPickerID = UUID()
-    
     let pages: FetchedResults<Page>
 
     var body: some View {
@@ -25,14 +23,13 @@ struct OrganizerOptionsPanel: View {
         } else {
             Form {
                 Section {
-                    Picker(sources: sources, selection: \.itemLimit) {
-                        ForEach(1...100, id: \.self) { choice in
-                            Text(verbatim: "\(choice)").tag(Int16(choice))
+                    Picker(sources: sources, selection: \.itemLimitChoice) {
+                        ForEach(ItemLimit.allCases, id: \.self) { choice in
+                            Text(verbatim: "\(choice.rawValue)").tag(choice)
                         }
                     } label: {
                         Text("Featured Items", comment: "Picker label.")
                     }
-                    .id(itemLimitPickerID)
                 } header: {
                     Text("Limits", comment: "Organizer configuration panel section header.")
                 }
@@ -127,10 +124,9 @@ struct OrganizerOptionsPanel: View {
                 }
                 
                 if viewContext.hasChanges {
-                    itemLimitPickerID = UUID()
-                    
                     do {
                         try viewContext.save()
+                        pages.forEach { $0.objectWillChange.send() }
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }

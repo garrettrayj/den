@@ -13,7 +13,6 @@ import SwiftUI
 struct AppCommands: Commands {
     @Environment(\.openURL) private var openURL
 
-    let dataController: DataController
     let networkMonitor: NetworkMonitor
     let refreshManager: RefreshManager
     
@@ -23,7 +22,6 @@ struct AppCommands: Commands {
         InspectorCommands()
         CommandGroup(after: .toolbar) {
             RefreshButton()
-                .environmentObject(dataController)
                 .environmentObject(networkMonitor)
                 .environmentObject(refreshManager)
         }

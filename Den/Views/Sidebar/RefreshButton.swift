@@ -11,14 +11,13 @@
 import SwiftUI
 
 struct RefreshButton: View {
-    @EnvironmentObject private var dataController: DataController
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var refreshManager: RefreshManager
     
     var body: some View {
         Button {
             Task {
-                await refreshManager.refresh(container: dataController.container)
+                await refreshManager.refresh()
             }
         } label: {
             Label {

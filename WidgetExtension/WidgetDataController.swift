@@ -18,13 +18,12 @@ struct WidgetDataController {
     let container = NSPersistentCloudKitContainer(name: "Den")
     
     init() {
-        let fileManager = FileManager.default
-        guard let groupApplicationSupportDirectory = fileManager.groupSupportDirectory else {
+        guard let appGroupURL = AppGroup.den.containerURL else {
             preconditionFailure("Storage directory not available")
         }
         
-        // Create CloudKit-backed store description
-        let cloudStoreURL = groupApplicationSupportDirectory.appending(path: "Den.sqlite")
+        // Create CloudKit-backed store description for syncing profile data
+        let cloudStoreURL = appGroupURL.appending(path: "Den.sqlite")
         let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
         cloudStoreDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
             containerIdentifier: "iCloud.net.devsci.den"
@@ -32,8 +31,8 @@ struct WidgetDataController {
         cloudStoreDescription.configuration = "Cloud"
         cloudStoreDescription.isReadOnly = true
         
-        // Create local store description
-        let localStoreURL = groupApplicationSupportDirectory.appending(path: "Den-Local.sqlite")
+        // Create local store description for content and high churn data
+        let localStoreURL = appGroupURL.appending(path: "Den-Local.sqlite")
         let localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
         localStoreDescription.configuration = "Local"
         localStoreDescription.isReadOnly = true

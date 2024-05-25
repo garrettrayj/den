@@ -12,7 +12,6 @@ import SwiftUI
 
 struct SearchToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @EnvironmentObject private var dataController: DataController
 
     @Binding var hideRead: Bool
 
@@ -26,10 +25,7 @@ struct SearchToolbar: ToolbarContent {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                await HistoryUtility.toggleReadUnread(
-                    items: Array(items),
-                    container: dataController.container
-                )
+                await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
         #else
@@ -43,10 +39,7 @@ struct SearchToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    await HistoryUtility.toggleReadUnread(
-                        items: Array(items),
-                        container: dataController.container
-                    )
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
                 }
             }
         } else {
@@ -55,10 +48,7 @@ struct SearchToolbar: ToolbarContent {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    await HistoryUtility.toggleReadUnread(
-                        items: Array(items),
-                        container: dataController.container
-                    )
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
                 }
             }
             ToolbarItem(placement: .status) {

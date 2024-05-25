@@ -14,7 +14,7 @@ import WidgetKit
 
 struct GeneralSection: View {
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject private var dataController: DataController
+    
     @EnvironmentObject private var refreshManager: RefreshManager
     
     @AppStorage("AccentColor") private var accentColor: AccentColor?
@@ -77,10 +77,7 @@ struct GeneralSection: View {
                 if refreshInterval == .zero {
                     refreshManager.stopAutoRefresh()
                 } else {
-                    refreshManager.startAutoRefresh(
-                        interval: TimeInterval(refreshInterval.rawValue),
-                        container: dataController.container
-                    )
+                    refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
                 }
                 #else
                 BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: "net.devsci.den.refresh")
@@ -103,14 +100,14 @@ struct GeneralSection: View {
                 #if os(macOS)
                 Text(
                     """
-                    Feeds will automatically refresh while the app is running.
+                    Feeds will refresh automatically while the app is running.
                     """,
                     comment: "Refresh settings guidance."
                 )
                 #else
                 Text(
                     """
-                    The system decides when background refresh will occur. \
+                    The system decides when background refresh occurs. \
                     Refresh Interval sets the minimum amount of time between background refresh tasks.
                     """,
                     comment: "Refresh settings guidance."

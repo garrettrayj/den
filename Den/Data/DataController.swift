@@ -11,14 +11,12 @@
 import CoreData
 import OSLog
 
-final class DataController: NSObject, ObservableObject {
+struct DataController {
     static let shared = DataController(inMemory: CommandLine.arguments.contains("-in-memory"))
     
     let container = NSPersistentCloudKitContainer(name: "Den")
     
     init(inMemory: Bool = false) {
-        super.init()
-        
         let cloudStoreDescription: NSPersistentStoreDescription
         let localStoreDescription: NSPersistentStoreDescription
 
@@ -26,42 +24,37 @@ final class DataController: NSObject, ObservableObject {
             let cloudStoreURL = URL(fileURLWithPath: "/dev/null/Den.sqlite")
             let localStoreURL = URL(fileURLWithPath: "/dev/null/Den-Local.sqlite")
 
-            // Create cloud store description without `cloudKitContainerOptions`
+            // Create Cloud store description without `cloudKitContainerOptions`
             cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
             cloudStoreDescription.cloudKitContainerOptions = nil
             
             // Create local store description
             localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
         } else {
-            let fileManager = FileManager.default
-            guard
-                let applicationSupportDirectory = fileManager.appSupportDirectory,
-                let groupApplicationSupportDirectory = fileManager.groupSupportDirectory
+            guard 
+                let appSupportDirectory = FileManager.default.appSupportDirectory,
+                let appGroupURL = AppGroup.den.containerURL
             else {
-                preconditionFailure("Database storage directory not available")
+                preconditionFailure("Storage directory not available")
             }
             
-            let legacyCloudStoreURL = applicationSupportDirectory.appending(path: "Den.sqlite")
-            let groupCloudStoreURL = groupApplicationSupportDirectory.appending(
-                path: "Den.sqlite"
-            )
+            let cloudStoreURL = appSupportDirectory.appending(path: "Den.sqlite")
+            let cloudStoreAppGroupURL = appGroupURL.appending(path: "Den.sqlite")
             
-            let legacyLocalStoreURL = applicationSupportDirectory.appending(path: "Den-Local.sqlite")
-            let groupLocalStoreURL = groupApplicationSupportDirectory.appending(
-                path: "Den-Local.sqlite"
-            )
+            let localStoreURL = appSupportDirectory.appending(path: "Den-Local.sqlite")
+            let localStoreAppGroupURL = appGroupURL.appending(path: "Den-Local.sqlite")
             
-            migrateDatabaseIfNeeded(source: legacyCloudStoreURL, destination: groupCloudStoreURL)
-            migrateDatabaseIfNeeded(source: legacyLocalStoreURL, destination: groupLocalStoreURL)
+            migrateDatabaseIfNeeded(source: cloudStoreURL, destination: cloudStoreAppGroupURL)
+            migrateDatabaseIfNeeded(source: localStoreURL, destination: localStoreAppGroupURL)
             
             // Create CloudKit-backed store description for syncing profile data
-            cloudStoreDescription = NSPersistentStoreDescription(url: groupCloudStoreURL)
+            cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreAppGroupURL)
             cloudStoreDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
                 containerIdentifier: "iCloud.net.devsci.den"
             )
             
             // Create local store description for content and high churn data
-            localStoreDescription = NSPersistentStoreDescription(url: groupLocalStoreURL)
+            localStoreDescription = NSPersistentStoreDescription(url: localStoreAppGroupURL)
         }
         
         cloudStoreDescription.configuration = "Cloud"
@@ -90,10 +83,9 @@ final class DataController: NSObject, ObservableObject {
     }
     
     private func migrateDatabaseIfNeeded(source: URL, destination: URL) {
-        let fileManager = FileManager.default
-        guard
-            fileManager.fileExists(atPath: source.path),
-            !fileManager.fileExists(atPath: destination.path)
+        guard 
+            FileManager.default.fileExists(atPath: source.path),
+            !FileManager.default.fileExists(atPath: destination.path) 
         else {
             return
         }
@@ -122,20 +114,23 @@ final class DataController: NSObject, ObservableObject {
                 options: .forDeleting,
                 error: nil,
                 byAccessor: { _ in
-                    try? fileManager.removeItem(at: source)
-                    try? fileManager.removeItem(
-                        at: source.deletingPathExtension().appendingPathExtension("sqlite-shm")
+                    try? FileManager.default.removeItem(at: source)
+                    try? FileManager.default.removeItem(
+                        at: source
+                            .deletingPathExtension()
+                            .appendingPathExtension("sqlite-shm")
                     )
-                    try? fileManager.removeItem(
-                        at: source.deletingPathExtension().appendingPathExtension("sqlite-wal")
+                    try? FileManager.default.removeItem(
+                        at: source
+                            .deletingPathExtension()
+                            .appendingPathExtension("sqlite-wal")
                     )
-                    try? fileManager.removeItem(
-                        at: source.deletingLastPathComponent().appendingPathComponent(
-                            "\(container.name)_ckAssets"
-                        )
+                    try? FileManager.default.removeItem(
+                        at: source
+                            .deletingLastPathComponent()
+                            .appendingPathComponent("\(container.name)_ckAssets")
                     )
-                }
-            )
+            })
         } catch {
             Logger.main.error("""
             Error moving database \(source) to \(destination):
