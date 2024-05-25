@@ -18,7 +18,7 @@ struct GeneralSection: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     
     @AppStorage("AccentColor") private var accentColor: AccentColor?
-    @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .threeHours
+    @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false

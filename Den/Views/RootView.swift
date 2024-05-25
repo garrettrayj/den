@@ -18,6 +18,7 @@ struct RootView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+    @State private var preferredCompactColumn: NavigationSplitViewColumn = .sidebar
     @State private var showingExporter = false
     @State private var showingImporter = false
     @State private var showingNewFeedSheet = false
@@ -26,10 +27,11 @@ struct RootView: View {
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
     @State private var clearPathOnDetailChange = true
+    @State private var detailPanel: DetailPanel?
     
     @StateObject private var navigationStore = NavigationStore()
     
-    @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
+    @SceneStorage("DetailPanel") private var detailPanelData: Data?
     @SceneStorage("Navigation") private var navigationData: Data?
     @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
@@ -50,7 +52,10 @@ struct RootView: View {
     @ScaledMetric var sidebarWidth = 264
 
     var body: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
+        NavigationSplitView(
+            columnVisibility: $columnVisibility,
+            preferredCompactColumn: $preferredCompactColumn
+        ) {
             Sidebar(
                 detailPanel: $detailPanel,
                 newFeedPageID: $newFeedPageID,
@@ -104,6 +109,14 @@ struct RootView: View {
             }
         }
         .task {
+            if let detailPanelData {
+                detailPanel = try? JSONDecoder().decode(DetailPanel.self, from: detailPanelData)
+            }
+            
+            if let navigationData {
+                navigationStore.restore(from: navigationData)
+            }
+            
             await BlocklistManager.initializeMissingContentRulesLists()
 
             CleanupUtility.upgradeBookmarks(context: viewContext)
@@ -115,15 +128,13 @@ struct RootView: View {
                 refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
             }
             #endif
-            
-            if let navigationData {
-                navigationStore.restore(from: navigationData)
-            }
+
             for await _ in navigationStore.$path.values.map({ $0.count }) {
                 navigationData = navigationStore.encoded()
             }
         }
         .onChange(of: detailPanel) {
+            detailPanelData = try? JSONEncoder().encode(detailPanel)
             navigationStore.path.removeLast(navigationStore.path.count)
         }
         .onChange(of: showingNewFeedSheet) {
