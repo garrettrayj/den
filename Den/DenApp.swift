@@ -47,7 +47,7 @@ struct DenApp: App {
         }
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             Logger.main.debug("Performing background refresh task...")
-            await refreshManager.refresh()
+            await refreshManager.refresh(inBackground: true)
             await scheduleRefresh()
         }
         #endif

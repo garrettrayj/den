@@ -12,7 +12,7 @@ import Foundation
 
 enum RefreshInterval: Int, CaseIterable {
     #if DEBUG
-    case fiveMinutes = 300
+    case oneSecond = 1
     #endif
     case zero = 0
     case halfHour = 1800
