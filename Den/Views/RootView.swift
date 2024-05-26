@@ -112,7 +112,6 @@ struct RootView: View {
             if let detailPanelData {
                 detailPanel = try? JSONDecoder().decode(DetailPanel.self, from: detailPanelData)
             }
-            
             if let navigationData {
                 navigationStore.restore(from: navigationData)
             }
@@ -121,21 +120,20 @@ struct RootView: View {
 
             CleanupUtility.upgradeBookmarks(context: viewContext)
             
-            #if os(macOS)
             await performMaintenance()
             
+            #if os(macOS)
             if !refreshManager.autoRefreshActive && refreshInterval.rawValue > 0 {
                 refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
             }
             #endif
-
-            for await _ in navigationStore.$path.values.map({ $0.count }) {
-                navigationData = navigationStore.encoded()
-            }
         }
         .onChange(of: detailPanel) {
             detailPanelData = try? JSONEncoder().encode(detailPanel)
             navigationStore.path.removeLast(navigationStore.path.count)
+        }
+        .onChange(of: navigationStore.path) {
+            navigationData = navigationStore.encoded()
         }
         .onChange(of: showingNewFeedSheet) {
             if showingNewFeedSheet {

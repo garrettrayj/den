@@ -5,7 +5,6 @@
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>net.devsci.den.refresh</string>
-		<string>net.devsci.den.maintenance</string>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>

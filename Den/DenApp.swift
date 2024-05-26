@@ -18,7 +18,7 @@ import SDWebImageWebPCoder
 
 @main
 struct DenApp: App {
-    @Environment(\.scenePhase) private var phase
+    @Environment(\.scenePhase) private var scenePhase
 
     let dataController = DataController.shared
     
@@ -38,20 +38,12 @@ struct DenApp: App {
         .commands { AppCommands(networkMonitor: networkMonitor, refreshManager: refreshManager) }
         .defaultSize(CGSize(width: 1280, height: 800))
         #if os(iOS)
-        .onChange(of: phase) {
-            switch phase {
-            case .background: 
-                Task {
-                    await scheduleMaintenance()
-                    scheduleRefresh()
-                }
+        .onChange(of: scenePhase) {
+            switch scenePhase {
+            case .background:
+                scheduleRefresh()
             default: break
             }
-        }
-        .backgroundTask(.appRefresh("net.devsci.den.maintenance")) {
-            Logger.main.debug("Performing background maintenance task...")
-            await MaintenanceTask().execute()
-            await scheduleMaintenance()
         }
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             Logger.main.debug("Performing background refresh task...")
@@ -91,39 +83,6 @@ struct DenApp: App {
     }
     
     #if os(iOS)
-    func scheduleMaintenance() async {
-        if await BGTaskScheduler.shared.pendingTaskRequests().map({
-            $0.identifier
-        }).contains("net.devsci.den.maintenance") {
-            Logger.main.info("Maintenance task is already scheduled")
-            return
-        }
-
-        #if DEBUG
-        let earliestBeginDate = Date().addingTimeInterval(1)
-        #else
-        let earliestBeginDate = Date().addingTimeInterval(60 * 60 * 48)
-        #endif
-        
-        let request = BGProcessingTaskRequest(identifier: "net.devsci.den.maintenance")
-        request.requiresExternalPower = false
-        request.requiresNetworkConnectivity = true
-        request.earliestBeginDate = earliestBeginDate
-
-        do {
-            try BGTaskScheduler.shared.submit(request)
-
-            Logger.main.info("""
-            Maintenance task scheduled with earliest begin date of \
-            \(earliestBeginDate.formatted())
-            """)
-        } catch {
-            Logger.main.debug("""
-            Scheduling maintenance task failed: \(error.localizedDescription)
-            """)
-        }
-    }
-    
     func scheduleRefresh() {
         let interval = UserDefaults.standard.integer(forKey: "RefreshInterval")
         guard interval > 0 else {
@@ -131,21 +90,15 @@ struct DenApp: App {
             return
         }
         
-        #if DEBUG
-        let earliestBeginDate = Date().addingTimeInterval(1)
-        #else
-        let earliestBeginDate = Date().addingTimeInterval(TimeInterval(interval))
-        #endif
-        
         let request = BGAppRefreshTaskRequest(identifier: "net.devsci.den.refresh")
-        request.earliestBeginDate = earliestBeginDate
+        request.earliestBeginDate = Date().addingTimeInterval(TimeInterval(interval))
 
         do {
             try BGTaskScheduler.shared.submit(request)
 
             Logger.main.info("""
             Refresh task scheduled with earliest begin date of \
-            \(earliestBeginDate.formatted())
+            \(request.earliestBeginDate!.formatted())
             """)
         } catch {
             Logger.main.debug("Scheduling refresh task failed: \(error.localizedDescription)")
