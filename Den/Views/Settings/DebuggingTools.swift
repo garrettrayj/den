@@ -92,13 +92,13 @@ struct DebuggingTools: View {
                     Text(
                         """
                         Background behavior has been explicitly disabled for this app \
-                        or the whole system. Maintenance and refresh tasks are unavailable.
+                        or the whole system. Refresh task is unavailable.
                         """,
                         comment: "Background refresh status guidance."
                     )
                 case .available:
                     Text(
-                        "Background maintenance and refresh tasks are available.",
+                        "Background refresh task is available.",
                         comment: "Background refresh status guidance."
                     )
                 @unknown default:

@@ -846,6 +846,7 @@
 				680BBC902ADF761400F32046 /* BlocklistSettings.swift */,
 				684152692AD9E74100ABE5E2 /* BlocklistsSection.swift */,
 				686114FB2B3F624400BC2235 /* BlocklistStatusView.swift */,
+				68C3DE292C02B6AE000C9897 /* DebuggingTools.swift */,
 				685EB3992AFB5997001683E3 /* DeleteBlocklistButton.swift */,
 				687FEED12A3A57220042977E /* GeneralSection.swift */,
 				685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */,
@@ -853,7 +854,6 @@
 				684152782ADC7C8700ABE5E2 /* ResetSection.swift */,
 				684152752ADC6ABD00ABE5E2 /* SettingsSheet.swift */,
 				687FEEDA2A3B830D0042977E /* UserColorSchemePicker.swift */,
-				68C3DE292C02B6AE000C9897 /* DebuggingTools.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";

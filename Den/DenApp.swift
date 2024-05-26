@@ -41,7 +41,7 @@ struct DenApp: App {
         .onChange(of: scenePhase) {
             switch scenePhase {
             case .background:
-                scheduleRefresh()
+                Task { await scheduleRefresh() }
             default: break
             }
         }
@@ -83,10 +83,15 @@ struct DenApp: App {
     }
     
     #if os(iOS)
-    func scheduleRefresh() {
+    func scheduleRefresh() async {
         let interval = UserDefaults.standard.integer(forKey: "RefreshInterval")
         guard interval > 0 else {
             Logger.main.debug("Background refresh is disabled. Scheduling skipped.")
+            return
+        }
+        
+        if await !BGTaskScheduler.shared.pendingTaskRequests().isEmpty {
+            Logger.main.debug("Pending background refresh task already exists.")
             return
         }
         
