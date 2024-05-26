@@ -213,7 +213,7 @@ struct RootView: View {
     
     private func performMaintenance() async {
         if let maintained = maintenanceTimestamp {
-            let nextMaintenance = Date(timeIntervalSince1970: maintained) + 3 * 24 * 60 * 60
+            let nextMaintenance = Date(timeIntervalSince1970: maintained) + 2 * 24 * 60 * 60
             if nextMaintenance > .now {
                 Logger.main.info("""
                 Next maintenance operation will be performed after \

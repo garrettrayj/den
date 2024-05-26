@@ -41,16 +41,19 @@ struct DenApp: App {
         .onChange(of: phase) {
             switch phase {
             case .background: 
-                scheduleMaintenance()
-                scheduleRefresh()
+                Task {
+                    await scheduleMaintenance()
+                    scheduleRefresh()
+                }
             default: break
             }
         }
-        .backgroundTask(.appRefresh("net.devsci.den.maintenance")) { _ in
+        .backgroundTask(.appRefresh("net.devsci.den.maintenance")) {
             Logger.main.debug("Performing background maintenance task...")
             await MaintenanceTask().execute()
+            await scheduleMaintenance()
         }
-        .backgroundTask(.appRefresh("net.devsci.den.refresh")) { _ in
+        .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             Logger.main.debug("Performing background refresh task...")
             await refreshManager.refresh()
             await scheduleRefresh()
@@ -88,27 +91,21 @@ struct DenApp: App {
     }
     
     #if os(iOS)
-    func scheduleMaintenance() {
-        if let maintained = UserDefaults.standard.value(forKey: "Maintained") as? Double {
-            let nextMaintenance = Date(timeIntervalSince1970: maintained) + 3 * 24 * 60 * 60
-            if nextMaintenance > .now {
-                Logger.main.info("""
-                Next maintenance task will be scheduled after \
-                \(nextMaintenance.formatted(), privacy: .public)
-                """)
-
-                return
-            }
+    func scheduleMaintenance() async {
+        if await BGTaskScheduler.shared.pendingTaskRequests().map({
+            $0.identifier
+        }).contains("net.devsci.den.maintenance") {
+            Logger.main.info("Maintenance task is already scheduled")
+            return
         }
-        
-        let request = BGProcessingTaskRequest(identifier: "net.devsci.den.maintenance")
-        
+
         #if DEBUG
         let earliestBeginDate = Date().addingTimeInterval(1)
         #else
-        let earliestBeginDate = Date().addingTimeInterval(60 * 60)
+        let earliestBeginDate = Date().addingTimeInterval(60 * 60 * 48)
         #endif
         
+        let request = BGProcessingTaskRequest(identifier: "net.devsci.den.maintenance")
         request.requiresExternalPower = false
         request.requiresNetworkConnectivity = true
         request.earliestBeginDate = earliestBeginDate
@@ -134,8 +131,13 @@ struct DenApp: App {
             return
         }
         
-        let request = BGAppRefreshTaskRequest(identifier: "net.devsci.den.refresh")
+        #if DEBUG
+        let earliestBeginDate = Date().addingTimeInterval(1)
+        #else
         let earliestBeginDate = Date().addingTimeInterval(TimeInterval(interval))
+        #endif
+        
+        let request = BGAppRefreshTaskRequest(identifier: "net.devsci.den.refresh")
         request.earliestBeginDate = earliestBeginDate
 
         do {
@@ -146,9 +148,7 @@ struct DenApp: App {
             \(earliestBeginDate.formatted())
             """)
         } catch {
-            Logger.main.debug("""
-            Scheduling refresh task failed: \(error.localizedDescription)
-            """)
+            Logger.main.debug("Scheduling refresh task failed: \(error.localizedDescription)")
         }
     }
     #endif

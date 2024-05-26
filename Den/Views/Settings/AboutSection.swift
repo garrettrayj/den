@@ -50,10 +50,6 @@ struct AboutSection: View {
             Text("About \(Bundle.main.name)", comment: "Settings section header.")
         } footer: {
             Text(Bundle.main.copyright)
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-                .padding(.bottom)
-                .padding(.top, 4)
         }
     }
     

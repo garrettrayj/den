@@ -25,6 +25,16 @@ struct SettingsSheet: View {
                 #if os(iOS)
                 AboutSection()
                 #endif
+                
+                NavigationLink {
+                    DebuggingTools()
+                } label: {
+                    Label {
+                        Text("Debugging Tools")
+                    } icon: {
+                        Image(systemName: "ladybug")
+                    }
+                }
             }
             .formStyle(.grouped)
             .buttonStyle(.borderless)
