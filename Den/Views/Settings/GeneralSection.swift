@@ -107,7 +107,7 @@ struct GeneralSection: View {
                 #else
                 Text(
                     """
-                    The operating system ultimately decides when background refresh will occur. \
+                    The operating system decides when background refresh will occur. \
                     Refresh interval sets the minimum amount of time between background refresh tasks.
                     """,
                     comment: "Refresh settings guidance."
