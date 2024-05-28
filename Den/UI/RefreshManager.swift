@@ -90,12 +90,12 @@ final class RefreshManager: ObservableObject {
 
         UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
         
-        progress.completedUnitCount = 0
-        progress.totalUnitCount = 0
-        
         if !inBackground {
             await MainActor.run { refreshing = false }
         }
+        
+        progress.completedUnitCount = 0
+        progress.totalUnitCount = 0
         
         WidgetCenter.shared.reloadAllTimelines()
     }

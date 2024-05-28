@@ -16,7 +16,10 @@ struct WidgetDataController {
     static func getContainer() -> NSPersistentContainer {
         let container = NSPersistentCloudKitContainer(name: "Den")
         
-        guard let appGroupURL = AppGroup.den.containerURL else {
+        guard let appGroupURL = AppGroup.den.containerURL?.appending(
+            path: "Library/Application Support",
+            directoryHint: .isDirectory
+        ) else {
             preconditionFailure("Storage directory not available")
         }
         

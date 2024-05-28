@@ -27,7 +27,10 @@ if [ "$__IS_NOT_MACOS" == "NO" ]
 then
     echo "$runDate Load MacOS Test Data"
     rm -rf "$HOME/Library/Group Containers/group.net.devsci.den/Library/"*
-    cp -a "$PROJECT_DIR/TestData/Library/." "$HOME/Library/Group Containers/group.net.devsci.den/Library/"
+    rm -rf "$HOME/Library/Containers/net.devsci.den/Data/Library/"*
+    
+    cp -a "$PROJECT_DIR/TestData/Group/Library/." "$HOME/Library/Group Containers/group.net.devsci.den/Library/"
+    cp -a "$PROJECT_DIR/TestData/App/Library/." "$HOME/Library/Containers/net.devsci.den/Data/Library/"
 else
     echo "$runDate Load Simulator Test Data"
     echo $PROJECT_DIR
@@ -42,5 +45,6 @@ else
     
     rm -rf $groupDirectory/Library/*
     
-    cp -a "$PROJECT_DIR/TestData/Library/." "$groupDirectory/Library/"
+    cp -a "$PROJECT_DIR/TestData/App/Library/." "$appContainer/Library/"
+    cp -a "$PROJECT_DIR/TestData/Group/Library/." "$groupDirectory/Library/"
 fi

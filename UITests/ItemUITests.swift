@@ -15,7 +15,7 @@ final class ItemUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif
@@ -33,7 +33,7 @@ final class ItemUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 4).tap()
+        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
         #else
         app.staticTexts["Science"].tap()
         #endif

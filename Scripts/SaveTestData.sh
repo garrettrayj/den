@@ -13,15 +13,15 @@ rm -rf ./TestData/Library
 mkdir -p ./TestData/Library
 
 groupDirectory="$HOME/Library/Group Containers/group.net.devsci.den"
+groupAppSupportDirectory="$groupDirectory/Library/Application Support"
 
-appSupportDirectory="$groupDirectory/Library/Application Support"
+mkdir -p "./TestData/Group/Library/Application Support/"
+cp "$groupAppSupportDirectory/Den.sqlite" "./TestData/Group/Library/Application Support/"
+cp "$groupAppSupportDirectory/Den.sqlite-wal" "./TestData/Group/Library/Application Support/"
+cp "$groupAppSupportDirectory/Den-Local.sqlite" "./TestData/Group/Library/Application Support/"
+cp "$groupAppSupportDirectory/Den-Local.sqlite-wal" "./TestData/Group/Library/Application Support/"
 
-mkdir -p "./TestData/Library/Application Support/"
-cp "$appSupportDirectory/Den.sqlite" "./TestData/Library/Application Support/"
-cp "$appSupportDirectory/Den.sqlite-wal" "./TestData/Library/Application Support/"
-cp "$appSupportDirectory/Den-Local.sqlite" "./TestData/Library/Application Support/"
-cp "$appSupportDirectory/Den-Local.sqlite-wal" "./TestData/Library/Application Support/"
+appPreferences="$HOME/Library/Containers/net.devsci.den/Data/Library/Preferences/net.devsci.den.plist"
 
-mkdir -p "./TestData/Library/Preferences/"
-
-cp "$groupDirectory/Library/Preferences/group.net.devsci.den.plist" "./TestData/Library/Preferences/"
+mkdir -p "./TestData/App/Library/Preferences/"
+cp "$appPreferences" "./TestData/App/Library/Preferences/net.devsci.den.plist"

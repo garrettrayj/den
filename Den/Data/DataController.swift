@@ -33,7 +33,10 @@ struct DataController {
         } else {
             guard 
                 let appSupportDirectory = FileManager.default.appSupportDirectory,
-                let appGroupURL = AppGroup.den.containerURL
+                let appGroupURL = AppGroup.den.containerURL?.appending(
+                    path: "Library/Application Support",
+                    directoryHint: .isDirectory
+                )
             else {
                 preconditionFailure("Storage directory not available")
             }
