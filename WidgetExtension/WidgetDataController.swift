@@ -13,11 +13,9 @@ import OSLog
 
 /// Simplified, read-only, version of data controller used in the application.
 struct WidgetDataController {
-    static let shared = WidgetDataController()
-    
-    let container = NSPersistentCloudKitContainer(name: "Den")
-    
-    init() {
+    static func getContainer() -> NSPersistentContainer {
+        let container = NSPersistentCloudKitContainer(name: "Den")
+        
         guard let appGroupURL = AppGroup.den.containerURL else {
             preconditionFailure("Storage directory not available")
         }
@@ -57,5 +55,7 @@ struct WidgetDataController {
         // Configure view context
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        return container
     }
 }
