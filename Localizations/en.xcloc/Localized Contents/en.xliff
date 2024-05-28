@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Den/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="GJd-Yh-RWb.text" xml:space="preserve">
@@ -14,7 +14,7 @@
   </file>
   <file original="Den/en.lproj/InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -66,7 +66,7 @@
   </file>
   <file original="Den/en.lproj/Localizable.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="%@ Feeds" xml:space="preserve">
@@ -119,9 +119,9 @@
         <target>A critical error occurred. Restart to try again.</target>
         <note>Crash view guidance.</note>
       </trans-unit>
-      <trans-unit id="About" xml:space="preserve">
-        <source>About</source>
-        <target>About</target>
+      <trans-unit id="About %@" xml:space="preserve">
+        <source>About %@</source>
+        <target>About %@</target>
         <note>Settings section header.</note>
       </trans-unit>
       <trans-unit id="Accent Color" xml:space="preserve">
@@ -200,15 +200,30 @@
         <target>Application Error</target>
         <note>Crash view title.</note>
       </trans-unit>
-      <trans-unit id="Auto Refresh" xml:space="preserve">
-        <source>Auto Refresh</source>
-        <target>Auto Refresh</target>
-        <note>Picker label.</note>
+      <trans-unit id="Available" xml:space="preserve">
+        <source>Available</source>
+        <target>Available</target>
+        <note>Background refresh status.</note>
       </trans-unit>
-      <trans-unit id="Auto refresh requires the app be running." xml:space="preserve">
-        <source>Auto refresh requires the app be running.</source>
-        <target>Auto refresh requires the app be running.</target>
-        <note>Refresh settings guidance.</note>
+      <trans-unit id="Background Refresh Status" xml:space="preserve">
+        <source>Background Refresh Status</source>
+        <target>Background Refresh Status</target>
+        <note>Debugging tools section header.</note>
+      </trans-unit>
+      <trans-unit id="Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable." xml:space="preserve">
+        <source>Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable.</source>
+        <target>Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable.</target>
+        <note>Background refresh status guidance.</note>
+      </trans-unit>
+      <trans-unit id="Background refresh task is available." xml:space="preserve">
+        <source>Background refresh task is available.</source>
+        <target>Background refresh task is available.</target>
+        <note>Background refresh status guidance.</note>
+      </trans-unit>
+      <trans-unit id="Background updates are unavailable and the user cannot enable them again." xml:space="preserve">
+        <source>Background updates are unavailable and the user cannot enable them again.</source>
+        <target>Background updates are unavailable and the user cannot enable them again.</target>
+        <note>Background refresh status guidance.</note>
       </trans-unit>
       <trans-unit id="Blocklist Deleted" xml:space="preserve">
         <source>Blocklist Deleted</source>
@@ -291,6 +306,11 @@
         <target>Dark</target>
         <note>User color scheme picker option.</note>
       </trans-unit>
+      <trans-unit id="Debugging Tools" xml:space="preserve">
+        <source>Debugging Tools</source>
+        <target>Debugging Tools</target>
+        <note>Navigation title.</note>
+      </trans-unit>
       <trans-unit id="Deck" xml:space="preserve">
         <source>Deck</source>
         <target>Deck</target>
@@ -321,6 +341,11 @@
         <target>Den Help</target>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Denied" xml:space="preserve">
+        <source>Denied</source>
+        <target>Denied</target>
+        <note>Background refresh status.</note>
+      </trans-unit>
       <trans-unit id="Disable JavaScript" xml:space="preserve">
         <source>Disable JavaScript</source>
         <target>Disable JavaScript</target>
@@ -341,6 +366,11 @@
         <target>ETag</target>
         <note>Organizer info panel row label.</note>
       </trans-unit>
+      <trans-unit id="Earliest Begin Date" xml:space="preserve">
+        <source>Earliest Begin Date</source>
+        <target>Earliest Begin Date</target>
+        <note>Content label.</note>
+      </trans-unit>
       <trans-unit id="Empty Caches" xml:space="preserve">
         <source>Empty Caches</source>
         <target>Empty Caches</target>
@@ -360,11 +390,6 @@
         <source>Enter the web address for a RSS, Atom, or JSON feed.</source>
         <target>Enter the web address for a RSS, Atom, or JSON feed.</target>
         <note>Feed web address field guidance message.</note>
-      </trans-unit>
-      <trans-unit id="Every %@" xml:space="preserve">
-        <source>Every %@</source>
-        <target>Every %@</target>
-        <note>Auto refresh interval.</note>
       </trans-unit>
       <trans-unit id="Expanded Previews" xml:space="preserve">
         <source>Expanded Previews</source>
@@ -411,6 +436,11 @@
         <source>Feed unavailable.</source>
         <target>Feed unavailable.</target>
         <note>Feed unavailable message.</note>
+      </trans-unit>
+      <trans-unit id="Feeds will refresh automatically while the app is running." xml:space="preserve">
+        <source>Feeds will refresh automatically while the app is running.</source>
+        <target>Feeds will refresh automatically while the app is running.</target>
+        <note>Refresh settings guidance.</note>
       </trans-unit>
       <trans-unit id="Filter Read" xml:space="preserve">
         <source>Filter Read</source>
@@ -513,6 +543,11 @@
         <target>Item Removed</target>
         <note>Object removed message.</note>
       </trans-unit>
+      <trans-unit id="Last Run" xml:space="preserve">
+        <source>Last Run</source>
+        <target>Last Run</target>
+        <note>Maintenance date label.</note>
+      </trans-unit>
       <trans-unit id="Layout" xml:space="preserve">
         <source>Layout</source>
         <target>Layout</target>
@@ -543,6 +578,11 @@
         <source>Load Demo</source>
         <target>Load Demo</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Maintenance" xml:space="preserve">
+        <source>Maintenance</source>
+        <target>Maintenance</target>
+        <note>Debugging tools section header.</note>
       </trans-unit>
       <trans-unit id="Management" xml:space="preserve">
         <source>Management</source>
@@ -585,6 +625,11 @@
         <source>Multiple Selected</source>
         <target>Multiple Selected</target>
         <note>Inspector selection message.</note>
+      </trans-unit>
+      <trans-unit id="N/A" xml:space="preserve">
+        <source>N/A</source>
+        <target>N/A</target>
+        <note>Not available.</note>
       </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
         <source>Name</source>
@@ -655,6 +700,11 @@
         <target>No Pages Available</target>
         <note>New Feed error message.</note>
       </trans-unit>
+      <trans-unit id="No Pending Tasks" xml:space="preserve">
+        <source>No Pending Tasks</source>
+        <target>No Pending Tasks</target>
+        <note>Debugging tools message.</note>
+      </trans-unit>
       <trans-unit id="No Query" xml:space="preserve">
         <source>No Query</source>
         <target>No Query</target>
@@ -690,10 +740,10 @@
         <target>No common subjects were found in titles.</target>
         <note>Trending empty message.</note>
       </trans-unit>
-      <trans-unit id="Off" xml:space="preserve">
-        <source>Off</source>
-        <target>Off</target>
-        <note>Auto refresh disabled.</note>
+      <trans-unit id="None" xml:space="preserve">
+        <source>None</source>
+        <target>None</target>
+        <note>Empty picker option.</note>
       </trans-unit>
       <trans-unit id="Open File" xml:space="preserve">
         <source>Open File</source>
@@ -764,6 +814,11 @@ Use the Safari extension to discover feeds on websites.</target>
         <note>Feed unavailable title.
    Organizer row status.</note>
       </trans-unit>
+      <trans-unit id="Perform Maintenance" xml:space="preserve">
+        <source>Perform Maintenance</source>
+        <target>Perform Maintenance</target>
+        <note>Button label.</note>
+      </trans-unit>
       <trans-unit id="Pink" xml:space="preserve">
         <source>Pink</source>
         <target>Pink</target>
@@ -810,6 +865,11 @@ Use the Safari extension to discover feeds on websites.</target>
         <source>Refresh Feeds</source>
         <target>Refresh Feeds</target>
         <note>Button help text.</note>
+      </trans-unit>
+      <trans-unit id="Refresh Interval" xml:space="preserve">
+        <source>Refresh Interval</source>
+        <target>Refresh Interval</target>
+        <note>Picker label.</note>
       </trans-unit>
       <trans-unit id="Refresh to check for new items." xml:space="preserve">
         <source>Refresh to check for new items.</source>
@@ -867,6 +927,11 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Response Time</target>
         <note>Organizer info panel row label.</note>
       </trans-unit>
+      <trans-unit id="Restricted" xml:space="preserve">
+        <source>Restricted</source>
+        <target>Restricted</target>
+        <note>Background refresh status.</note>
+      </trans-unit>
       <trans-unit id="Rules Applied" xml:space="preserve">
         <source>Rules Applied</source>
         <target>Rules Applied</target>
@@ -877,6 +942,11 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Save</target>
         <note>Button label.
    Button Label.</note>
+      </trans-unit>
+      <trans-unit id="Scheduled Background Tasks" xml:space="preserve">
+        <source>Scheduled Background Tasks</source>
+        <target>Scheduled Background Tasks</target>
+        <note>Debugging tools section header.</note>
       </trans-unit>
       <trans-unit id="Search" xml:space="preserve">
         <source>Search</source>
@@ -910,6 +980,11 @@ Use the Safari extension to discover feeds on websites.</target>
         <source>Select Preset…</source>
         <target>Select Preset…</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Select Tags" xml:space="preserve">
+        <source>Select Tags</source>
+        <target>Select Tags</target>
+        <note>Menu help text.</note>
       </trans-unit>
       <trans-unit id="Server" xml:space="preserve">
         <source>Server</source>
@@ -997,11 +1072,6 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Show Reader Formatting</target>
         <note>Menu help text.</note>
       </trans-unit>
-      <trans-unit id="Show Tags Menu" xml:space="preserve">
-        <source>Show Tags Menu</source>
-        <target>Show Tags Menu</target>
-        <note>Menu help text.</note>
-      </trans-unit>
       <trans-unit id="Show Unread Counts" xml:space="preserve">
         <source>Show Unread Counts</source>
         <target>Show Unread Counts</target>
@@ -1080,9 +1150,9 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Teal</target>
         <note>Accent color option.</note>
       </trans-unit>
-      <trans-unit id="The operating system decides when/if background refresh occurs. Auto refresh will not happen while the app is active." xml:space="preserve">
-        <source>The operating system decides when/if background refresh occurs. Auto refresh will not happen while the app is active.</source>
-        <target>The operating system decides when/if background refresh occurs. Auto refresh will not happen while the app is active.</target>
+      <trans-unit id="The operating system decides when background refresh will occur. Refresh interval sets the minimum amount of time between background refresh tasks." xml:space="preserve">
+        <source>The operating system decides when background refresh will occur. Refresh interval sets the minimum amount of time between background refresh tasks.</source>
+        <target>The operating system decides when background refresh will occur. Refresh interval sets the minimum amount of time between background refresh tasks.</target>
         <note>Refresh settings guidance.</note>
       </trans-unit>
       <trans-unit id="This action cannot be undone." xml:space="preserve">
@@ -1232,9 +1302,9 @@ Use the Safari extension to discover feeds on websites.</target>
         <target>Welcome</target>
         <note>Welcome title.</note>
       </trans-unit>
-      <trans-unit id="Widgets will only update when feeds are manually refreshed." xml:space="preserve">
-        <source>Widgets will only update when feeds are manually refreshed.</source>
-        <target>Widgets will only update when feeds are manually refreshed.</target>
+      <trans-unit id="Widgets will update only when feeds are manually refreshed." xml:space="preserve">
+        <source>Widgets will update only when feeds are manually refreshed.</source>
+        <target>Widgets will update only when feeds are manually refreshed.</target>
         <note>Refresh settings guidance.</note>
       </trans-unit>
       <trans-unit id="Yellow" xml:space="preserve">
@@ -1277,7 +1347,7 @@ Use the Safari extension to discover feeds on websites.</target>
   </file>
   <file original="Settings.bundle/en.lproj/Root.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="Enabled" xml:space="preserve">
@@ -1304,7 +1374,7 @@ Use the Safari extension to discover feeds on websites.</target>
   </file>
   <file original="WebExtension/en.lproj/InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -1326,7 +1396,7 @@ Use the Safari extension to discover feeds on websites.</target>
   </file>
   <file original="WidgetExtension/InfoPlist.xcstrings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -1340,15 +1410,15 @@ Use the Safari extension to discover feeds on websites.</target>
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>Copyright © 2024 Garrett Johnson. All rights reserved.</source>
-        <target state="new">Copyright © 2024 Garrett Johnson. All rights reserved.</target>
+        <source>Copyright © 2020-2024 Garrett Johnson</source>
+        <target state="new">Copyright © 2020-2024 Garrett Johnson</target>
         <note>Copyright (human-readable)</note>
       </trans-unit>
     </body>
   </file>
   <file original="WidgetExtension/Localizable.xcstrings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="Inbox" xml:space="preserve">

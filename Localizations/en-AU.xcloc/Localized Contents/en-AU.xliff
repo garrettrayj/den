@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Den/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="en-AU" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="GJd-Yh-RWb.text" xml:space="preserve">
@@ -13,7 +13,7 @@
   </file>
   <file original="Den/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="en-AU">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -56,7 +56,7 @@
   </file>
   <file original="Den/en.lproj/Localizable.strings" source-language="en" target-language="en-AU" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="%@ Feeds" xml:space="preserve">
@@ -99,8 +99,8 @@
         <source>A critical error occurred. Restart to try again.</source>
         <note>Crash view guidance.</note>
       </trans-unit>
-      <trans-unit id="About" xml:space="preserve">
-        <source>About</source>
+      <trans-unit id="About %@" xml:space="preserve">
+        <source>About %@</source>
         <note>Settings section header.</note>
       </trans-unit>
       <trans-unit id="Accent Color" xml:space="preserve">
@@ -166,13 +166,25 @@
         <source>Application Error</source>
         <note>Crash view title.</note>
       </trans-unit>
-      <trans-unit id="Auto Refresh" xml:space="preserve">
-        <source>Auto Refresh</source>
-        <note>Picker label.</note>
+      <trans-unit id="Available" xml:space="preserve">
+        <source>Available</source>
+        <note>Background refresh status.</note>
       </trans-unit>
-      <trans-unit id="Auto refresh requires the app be running." xml:space="preserve">
-        <source>Auto refresh requires the app be running.</source>
-        <note>Refresh settings guidance.</note>
+      <trans-unit id="Background Refresh Status" xml:space="preserve">
+        <source>Background Refresh Status</source>
+        <note>Debugging tools section header.</note>
+      </trans-unit>
+      <trans-unit id="Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable." xml:space="preserve">
+        <source>Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable.</source>
+        <note>Background refresh status guidance.</note>
+      </trans-unit>
+      <trans-unit id="Background refresh task is available." xml:space="preserve">
+        <source>Background refresh task is available.</source>
+        <note>Background refresh status guidance.</note>
+      </trans-unit>
+      <trans-unit id="Background updates are unavailable and the user cannot enable them again." xml:space="preserve">
+        <source>Background updates are unavailable and the user cannot enable them again.</source>
+        <note>Background refresh status guidance.</note>
       </trans-unit>
       <trans-unit id="Blocklist Deleted" xml:space="preserve">
         <source>Blocklist Deleted</source>
@@ -239,6 +251,10 @@
         <source>Dark</source>
         <note>User color scheme picker option.</note>
       </trans-unit>
+      <trans-unit id="Debugging Tools" xml:space="preserve">
+        <source>Debugging Tools</source>
+        <note>Navigation title.</note>
+      </trans-unit>
       <trans-unit id="Deck" xml:space="preserve">
         <source>Deck</source>
         <note>Page layout option label.</note>
@@ -263,6 +279,10 @@
         <source>Den Help</source>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Denied" xml:space="preserve">
+        <source>Denied</source>
+        <note>Background refresh status.</note>
+      </trans-unit>
       <trans-unit id="Disable JavaScript" xml:space="preserve">
         <source>Disable JavaScript</source>
         <note>Button label.</note>
@@ -279,6 +299,10 @@
         <source>ETag</source>
         <note>Organizer info panel row label.</note>
       </trans-unit>
+      <trans-unit id="Earliest Begin Date" xml:space="preserve">
+        <source>Earliest Begin Date</source>
+        <note>Content label.</note>
+      </trans-unit>
       <trans-unit id="Empty Caches" xml:space="preserve">
         <source>Empty Caches</source>
         <note>Button label.</note>
@@ -294,10 +318,6 @@
       <trans-unit id="Enter the web address for a RSS, Atom, or JSON feed." xml:space="preserve">
         <source>Enter the web address for a RSS, Atom, or JSON feed.</source>
         <note>Feed web address field guidance message.</note>
-      </trans-unit>
-      <trans-unit id="Every %@" xml:space="preserve">
-        <source>Every %@</source>
-        <note>Auto refresh interval.</note>
       </trans-unit>
       <trans-unit id="Expanded Previews" xml:space="preserve">
         <source>Expanded Previews</source>
@@ -335,6 +355,10 @@
       <trans-unit id="Feed unavailable." xml:space="preserve">
         <source>Feed unavailable.</source>
         <note>Feed unavailable message.</note>
+      </trans-unit>
+      <trans-unit id="Feeds will refresh automatically while the app is running." xml:space="preserve">
+        <source>Feeds will refresh automatically while the app is running.</source>
+        <note>Refresh settings guidance.</note>
       </trans-unit>
       <trans-unit id="Filter Read" xml:space="preserve">
         <source>Filter Read</source>
@@ -417,6 +441,10 @@
         <source>Item Removed</source>
         <note>Object removed message.</note>
       </trans-unit>
+      <trans-unit id="Last Run" xml:space="preserve">
+        <source>Last Run</source>
+        <note>Maintenance date label.</note>
+      </trans-unit>
       <trans-unit id="Layout" xml:space="preserve">
         <source>Layout</source>
         <note>Picker label.</note>
@@ -441,6 +469,10 @@
       <trans-unit id="Load Demo" xml:space="preserve">
         <source>Load Demo</source>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Maintenance" xml:space="preserve">
+        <source>Maintenance</source>
+        <note>Debugging tools section header.</note>
       </trans-unit>
       <trans-unit id="Management" xml:space="preserve">
         <source>Management</source>
@@ -475,6 +507,10 @@
       <trans-unit id="Multiple Selected" xml:space="preserve">
         <source>Multiple Selected</source>
         <note>Inspector selection message.</note>
+      </trans-unit>
+      <trans-unit id="N/A" xml:space="preserve">
+        <source>N/A</source>
+        <note>Not available.</note>
       </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
         <source>Name</source>
@@ -533,6 +569,10 @@
         <source>No Pages Available</source>
         <note>New Feed error message.</note>
       </trans-unit>
+      <trans-unit id="No Pending Tasks" xml:space="preserve">
+        <source>No Pending Tasks</source>
+        <note>Debugging tools message.</note>
+      </trans-unit>
       <trans-unit id="No Query" xml:space="preserve">
         <source>No Query</source>
         <note>Search query empty title.</note>
@@ -561,9 +601,9 @@
         <source>No common subjects were found in titles.</source>
         <note>Trending empty message.</note>
       </trans-unit>
-      <trans-unit id="Off" xml:space="preserve">
-        <source>Off</source>
-        <note>Auto refresh disabled.</note>
+      <trans-unit id="None" xml:space="preserve">
+        <source>None</source>
+        <note>Empty picker option.</note>
       </trans-unit>
       <trans-unit id="Open File" xml:space="preserve">
         <source>Open File</source>
@@ -620,6 +660,10 @@ Use the Safari extension to discover feeds on websites.</source>
         <note>Feed unavailable title.
    Organizer row status.</note>
       </trans-unit>
+      <trans-unit id="Perform Maintenance" xml:space="preserve">
+        <source>Perform Maintenance</source>
+        <note>Button label.</note>
+      </trans-unit>
       <trans-unit id="Pink" xml:space="preserve">
         <source>Pink</source>
         <note>Accent color option.</note>
@@ -657,6 +701,10 @@ Use the Safari extension to discover feeds on websites.</source>
       <trans-unit id="Refresh Feeds" xml:space="preserve">
         <source>Refresh Feeds</source>
         <note>Button help text.</note>
+      </trans-unit>
+      <trans-unit id="Refresh Interval" xml:space="preserve">
+        <source>Refresh Interval</source>
+        <note>Picker label.</note>
       </trans-unit>
       <trans-unit id="Refresh to check for new items." xml:space="preserve">
         <source>Refresh to check for new items.</source>
@@ -703,6 +751,10 @@ Use the Safari extension to discover feeds on websites.</source>
         <source>Response Time</source>
         <note>Organizer info panel row label.</note>
       </trans-unit>
+      <trans-unit id="Restricted" xml:space="preserve">
+        <source>Restricted</source>
+        <note>Background refresh status.</note>
+      </trans-unit>
       <trans-unit id="Rules Applied" xml:space="preserve">
         <source>Rules Applied</source>
         <note>Blocklist status row label.</note>
@@ -711,6 +763,10 @@ Use the Safari extension to discover feeds on websites.</source>
         <source>Save</source>
         <note>Button label.
    Button Label.</note>
+      </trans-unit>
+      <trans-unit id="Scheduled Background Tasks" xml:space="preserve">
+        <source>Scheduled Background Tasks</source>
+        <note>Debugging tools section header.</note>
       </trans-unit>
       <trans-unit id="Search" xml:space="preserve">
         <source>Search</source>
@@ -738,6 +794,10 @@ Use the Safari extension to discover feeds on websites.</source>
       <trans-unit id="Select Preset…" xml:space="preserve">
         <source>Select Preset…</source>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Select Tags" xml:space="preserve">
+        <source>Select Tags</source>
+        <note>Menu help text.</note>
       </trans-unit>
       <trans-unit id="Server" xml:space="preserve">
         <source>Server</source>
@@ -808,10 +868,6 @@ Use the Safari extension to discover feeds on websites.</source>
         <source>Show Reader Formatting</source>
         <note>Menu help text.</note>
       </trans-unit>
-      <trans-unit id="Show Tags Menu" xml:space="preserve">
-        <source>Show Tags Menu</source>
-        <note>Menu help text.</note>
-      </trans-unit>
       <trans-unit id="Show Unread Counts" xml:space="preserve">
         <source>Show Unread Counts</source>
         <note>Toggle label.</note>
@@ -875,8 +931,8 @@ Use the Safari extension to discover feeds on websites.</source>
         <source>Teal</source>
         <note>Accent color option.</note>
       </trans-unit>
-      <trans-unit id="The operating system decides when/if background refresh occurs. Auto refresh will not happen while the app is active." xml:space="preserve">
-        <source>The operating system decides when/if background refresh occurs. Auto refresh will not happen while the app is active.</source>
+      <trans-unit id="The operating system decides when background refresh will occur. Refresh interval sets the minimum amount of time between background refresh tasks." xml:space="preserve">
+        <source>The operating system decides when background refresh will occur. Refresh interval sets the minimum amount of time between background refresh tasks.</source>
         <note>Refresh settings guidance.</note>
       </trans-unit>
       <trans-unit id="This action cannot be undone." xml:space="preserve">
@@ -999,8 +1055,8 @@ Use the Safari extension to discover feeds on websites.</source>
         <source>Welcome</source>
         <note>Welcome title.</note>
       </trans-unit>
-      <trans-unit id="Widgets will only update when feeds are manually refreshed." xml:space="preserve">
-        <source>Widgets will only update when feeds are manually refreshed.</source>
+      <trans-unit id="Widgets will update only when feeds are manually refreshed." xml:space="preserve">
+        <source>Widgets will update only when feeds are manually refreshed.</source>
         <note>Refresh settings guidance.</note>
       </trans-unit>
       <trans-unit id="Yellow" xml:space="preserve">
@@ -1036,7 +1092,7 @@ Use the Safari extension to discover feeds on websites.</source>
   </file>
   <file original="Settings.bundle/en.lproj/Root.strings" datatype="plaintext" source-language="en" target-language="en-AU">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="Enabled" xml:space="preserve">
@@ -1059,7 +1115,7 @@ Use the Safari extension to discover feeds on websites.</source>
   </file>
   <file original="WebExtension/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="en-AU">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -1078,7 +1134,7 @@ Use the Safari extension to discover feeds on websites.</source>
   </file>
   <file original="WidgetExtension/InfoPlist.xcstrings" source-language="en" target-language="en-AU" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -1090,14 +1146,14 @@ Use the Safari extension to discover feeds on websites.</source>
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>Copyright © 2024 Garrett Johnson. All rights reserved.</source>
+        <source>Copyright © 2020-2024 Garrett Johnson</source>
         <note>Copyright (human-readable)</note>
       </trans-unit>
     </body>
   </file>
   <file original="WidgetExtension/Localizable.xcstrings" source-language="en" target-language="en-AU" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.3" build-num="15E204a"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
     </header>
     <body>
       <trans-unit id="Inbox" xml:space="preserve">

@@ -35,12 +35,12 @@ struct DebuggingTools: View {
             Section {
                 LabeledContent {
                     if let maintainedDate {
-                        Text("\(maintainedDate.formatted())")
+                        Text(verbatim: "\(maintainedDate.formatted())")
                     } else {
-                        Text("N/A")
+                        Text("N/A", comment: "Not available.")
                     }
                 } label: {
-                    Text("Last Run")
+                    Text("Last Run", comment: "Maintenance date label.")
                 }
                 
                 Button {
@@ -51,7 +51,7 @@ struct DebuggingTools: View {
                     }
                 } label: {
                     Label {
-                        Text("Perform Maintenance")
+                        Text("Perform Maintenance", comment: "Button label.")
                     } icon: {
                         if maintenanceInProgress {
                             ProgressView().progressViewStyle(.circular)
@@ -64,7 +64,7 @@ struct DebuggingTools: View {
                     }
                 }
             } header: {
-                Text("Maintenance", comment: "Debug info section header.")
+                Text("Maintenance", comment: "Debugging tools section header.")
             }
             
             #if os(iOS)
@@ -80,7 +80,7 @@ struct DebuggingTools: View {
                     Text("Unknown")
                 }
             } header: {
-                Text("Background Refresh Status")
+                Text("Background Refresh Status", comment: "Debugging tools section header.")
             } footer: {
                 switch UIApplication.shared.backgroundRefreshStatus {
                 case .restricted:
@@ -131,14 +131,14 @@ struct DebuggingTools: View {
                     pendingTaskRequests = []
                 } label: {
                     Label {
-                        Text("Cancel All", comment: "Button label.")
+                        Text("Cancel", comment: "Button label.")
                     } icon: {
                         Image(systemName: "clear")
                     }
                 }
                 .disabled(pendingTaskRequests.isEmpty)
             } header: {
-                Text("Scheduled Background Tasks", comment: "Debug info section header.")
+                Text("Scheduled Background Tasks", comment: "Debugging tools section header.")
             }
             .task {
                 pendingTaskRequests = await BGTaskScheduler.shared.pendingTaskRequests()
