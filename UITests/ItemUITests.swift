@@ -24,7 +24,7 @@ final class ItemUITests: UITestCase {
 
         app.buttons["ItemAction"].firstMatch.tap()
 
-        sleep(3)
+        sleep(5)
 
         attachScreenshot(of: app.windows.firstMatch, named: "item-browser-view")
     }
@@ -48,7 +48,7 @@ final class ItemUITests: UITestCase {
         #else
         app.buttons["FormatMenu"].tap()
         #endif
-        sleep(2)
+        sleep(5)
 
         attachScreenshot(of: app.windows.firstMatch, named: "item-reader-view")
     }
