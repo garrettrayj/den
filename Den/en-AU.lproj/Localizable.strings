@@ -1,9 +1,0 @@
-/* Picker label. */
-"Accent Color" = "Accent Colour";
-
-/* Status message (analysis in progress). */
-"Analyzing…" = "Analysing…";
-
-/* Landing guidance message. */
-"If you have used the app on another device then synchronization may be in progress. \nPlease wait a minute." = "If you have used the app on another device then synchronisation may be in progress. \nPlease wait a minute.";
-

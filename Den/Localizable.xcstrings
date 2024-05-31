@@ -1,0 +1,821 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%lld Feeds" : {
+      "comment" : "Feed count (plural)."
+    },
+    "%lld items in %lld feeds. %lld unread" : {
+      "comment" : "Trend status line.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld items in %2$lld feeds. %3$lld unread"
+          }
+        }
+      }
+    },
+    "%lld ms" : {
+      "comment" : "Milliseconds time display."
+    },
+    "%lld of %lld Updated" : {
+      "comment" : "Status message (refresh in progress).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld Updated"
+          }
+        }
+      }
+    },
+    "%lld Records" : {
+      "comment" : "History count (zeor/plural)."
+    },
+    "%lld s" : {
+      "comment" : "Seconds time display."
+    },
+    "%lld%%" : {
+      "comment" : "Zoom level label."
+    },
+    "1 Feed" : {
+      "comment" : "Feed count (singular)."
+    },
+    "1 Record" : {
+      "comment" : "History count (singular)."
+    },
+    "A critical error occurred. Restart to try again." : {
+      "comment" : "Crash view guidance."
+    },
+    "About %@" : {
+      "comment" : "Settings section header."
+    },
+    "Accent Color" : {
+      "comment" : "Picker label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accent Colour"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accent Colour"
+          }
+        }
+      }
+    },
+    "Acknowledgements" : {
+      "comment" : "Button label."
+    },
+    "Actual Size" : {
+      "comment" : "Button label."
+    },
+    "Address cannot be blank." : {
+      "comment" : "URL field validation message."
+    },
+    "Address could not be parsed." : {
+      "comment" : "URL field validation message."
+    },
+    "Address must begin with “http://” or “https://”." : {
+      "comment" : "URL field validation message."
+    },
+    "Address must not contain spaces." : {
+      "comment" : "URL field validation message."
+    },
+    "Age" : {
+      "comment" : "Organizer info panel row label."
+    },
+    "All data will be deleted. Default settings will be restored." : {
+      "comment" : "Alert message."
+    },
+    "All feeds will removed." : {
+      "comment" : "Delete page alert message."
+    },
+    "All Read" : {
+      "comment" : "Content unavailable title."
+    },
+    "Allow JavaScript" : {
+      "comment" : "Toggle label."
+    },
+    "Analyzing…" : {
+      "comment" : "Status message (analysis in progress).",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Analysing…"
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Analysing…"
+          }
+        }
+      }
+    },
+    "Appearance" : {
+      "comment" : "Picker label."
+    },
+    "Application Error" : {
+      "comment" : "Crash view title."
+    },
+    "Available" : {
+      "comment" : "Background refresh status."
+    },
+    "Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable." : {
+      "comment" : "Background refresh status guidance."
+    },
+    "Background Refresh Status" : {
+      "comment" : "Debugging tools section header."
+    },
+    "Background refresh task is available." : {
+      "comment" : "Background refresh status guidance."
+    },
+    "Background updates are unavailable and the user cannot enable them again." : {
+      "comment" : "Background refresh status guidance."
+    },
+    "Blocklist Deleted" : {
+      "comment" : "Content unavailable title."
+    },
+    "Blocklists" : {
+      "comment" : "Settings section header."
+    },
+    "Blue" : {
+      "comment" : "Accent color option."
+    },
+    "Brown" : {
+      "comment" : "Accent color option."
+    },
+    "Cache Control" : {
+      "comment" : "Organizer info panel row label."
+    },
+    "Cancel" : {
+      "comment" : "Button Label.\nButton label."
+    },
+    "Change Icon" : {
+      "comment" : "Button label."
+    },
+    "Check the spelling or try a new search." : {
+      "comment" : "No search results guidance."
+    },
+    "Clear" : {
+      "comment" : "Button label."
+    },
+    "Clear History" : {
+      "comment" : "Button label."
+    },
+    "Close" : {
+      "comment" : "Button label."
+    },
+    "Configuration" : {
+      "comment" : "Inspector panel label."
+    },
+    "Copied" : {
+      "comment" : "Copied to pasteboard message."
+    },
+    "Copy Address" : {
+      "comment" : "Button label."
+    },
+    "Cyan" : {
+      "comment" : "Accent color option."
+    },
+    "Dark" : {
+      "comment" : "User color scheme picker option."
+    },
+    "Debugging Tools" : {
+      "comment" : "Navigation title."
+    },
+    "Deck" : {
+      "comment" : "Page layout option label."
+    },
+    "Default" : {
+      "comment" : "Accent color option."
+    },
+    "Delete" : {
+      "comment" : "Button label."
+    },
+    "Delete Feed?" : {
+      "comment" : "Alert title."
+    },
+    "Delete Page?" : {
+      "comment" : "Alert title."
+    },
+    "Den Help" : {
+      "comment" : "Button label."
+    },
+    "Denied" : {
+      "comment" : "Background refresh status."
+    },
+    "Disable JavaScript" : {
+      "comment" : "Button label."
+    },
+    "Downloads" : {
+      "comment" : "Button label."
+    },
+    "Drag to move feed to another page." : {
+      "comment" : "Draggable help text."
+    },
+    "Earliest Begin Date" : {
+      "comment" : "Content label."
+    },
+    "Empty Caches" : {
+      "comment" : "Button label."
+    },
+    "Enable JavaScript" : {
+      "comment" : "Button label."
+    },
+    "Enter a term to search item titles." : {
+      "comment" : "Search query empty guidance."
+    },
+    "Enter the web address for a RSS, Atom, or JSON feed." : {
+      "comment" : "Feed web address field guidance message."
+    },
+    "ETag" : {
+      "comment" : "Organizer info panel row label."
+    },
+    "Expanded Previews" : {
+      "comment" : "Toggle label."
+    },
+    "Export OPML" : {
+      "comment" : "Button label."
+    },
+    "Extra" : {
+      "comment" : "Feed view section header."
+    },
+    "Featured" : {
+      "comment" : "Feed view section header."
+    },
+    "Featured Items" : {
+      "comment" : "Picker label."
+    },
+    "Feed" : {
+      "comment" : "Tagged items table header."
+    },
+    "Feed Deleted" : {
+      "comment" : "Object removed message."
+    },
+    "Feed Empty" : {
+      "comment" : "Content unavailable title."
+    },
+    "Feed unavailable." : {
+      "comment" : "Feed unavailable message."
+    },
+    "Feeds will refresh automatically while the app is running." : {
+      "comment" : "Refresh settings guidance."
+    },
+    "Filter Read" : {
+      "comment" : "Button label."
+    },
+    "Filter rules must be in content blocker JSON format." : {
+      "comment" : "New blocklist guidance."
+    },
+    "Format" : {
+      "comment" : "Organizer info panel row label."
+    },
+    "FormatMenu" : {
+
+    },
+    "Formatting" : {
+      "comment" : "Button label."
+    },
+    "General" : {
+      "comment" : "Settings section header."
+    },
+    "Get Started" : {
+      "comment" : "Sidebar section header."
+    },
+    "Go Back" : {
+      "comment" : "Button label."
+    },
+    "Go Forward" : {
+      "comment" : "Button label."
+    },
+    "Green" : {
+      "comment" : "Accent color option."
+    },
+    "Grouped" : {
+      "comment" : "Page layout option label."
+    },
+    "Help" : {
+      "comment" : "Row label."
+    },
+    "Hide Inspector" : {
+      "comment" : "Button help text."
+    },
+    "Hide Read Items" : {
+      "comment" : "Button help text."
+    },
+    "Hide Reader" : {
+      "comment" : "Button label."
+    },
+    "https⁣://example.com/blocklist.json" : {
+      "comment" : "Blocklist URL field prompt."
+    },
+    "https⁣://example.com/feed" : {
+      "comment" : "Web address text field prompt."
+    },
+    "If you have used the app on another device then synchronization may be in progress. \nPlease wait a minute." : {
+      "comment" : "Landing guidance message.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you have used the app on another device then synchronisation may be in progress. \nPlease wait a minute."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you have used the app on another device then synchronisation may be in progress. \nPlease wait a minute."
+          }
+        }
+      }
+    },
+    "Import OPML" : {
+      "comment" : "Button label."
+    },
+    "Inbox" : {
+      "comment" : "Button label.\nNavigation title."
+    },
+    "Inbox Empty" : {
+      "comment" : "Content unavailable title."
+    },
+    "Indigo" : {
+      "comment" : "Accent color option."
+    },
+    "Info" : {
+      "comment" : "Inspector panel label."
+    },
+    "Item Removed" : {
+      "comment" : "Object removed message."
+    },
+    "Last Run" : {
+      "comment" : "Maintenance date label."
+    },
+    "Layout" : {
+      "comment" : "Picker label."
+    },
+    "Leave a Review" : {
+      "comment" : "Button label."
+    },
+    "Light" : {
+      "comment" : "User color scheme picker option."
+    },
+    "Limits" : {
+      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header."
+    },
+    "List" : {
+      "comment" : "Tag layout option."
+    },
+    "Load Demo" : {
+      "comment" : "Button label."
+    },
+    "Maintenance" : {
+      "comment" : "Debugging tools section header."
+    },
+    "Management" : {
+      "comment" : "Organizer configuration panel section header."
+    },
+    "Mark All Read" : {
+      "comment" : "Button help text."
+    },
+    "Mark All Unread" : {
+      "comment" : "Button help text."
+    },
+    "Mark Read" : {
+      "comment" : "Button label."
+    },
+    "Mark Unread" : {
+      "comment" : "Button label."
+    },
+    "Mint" : {
+      "comment" : "Accent color option."
+    },
+    "Move" : {
+      "comment" : "Picker label."
+    },
+    "Multiple Selected" : {
+      "comment" : "Inspector selection message."
+    },
+    "N/A" : {
+      "comment" : "Not available."
+    },
+    "Name" : {
+      "comment" : "Text field label."
+    },
+    "Network Error" : {
+      "comment" : "Feed unavailable title.\nOrganizer row status."
+    },
+    "Network Offline" : {
+      "comment" : "Status message."
+    },
+    "New Blocklist" : {
+      "comment" : "Button label.\nNavigation title."
+    },
+    "New Feed" : {
+      "comment" : "Button label.\nNavigation title."
+    },
+    "New Page" : {
+      "comment" : "Button label.\nNavigation title."
+    },
+    "New Tag" : {
+      "comment" : "Button label.\nNavigation title."
+    },
+    "NewBlocklist" : {
+
+    },
+    "No" : {
+      "comment" : "Blocklist compile/load status message.\nBoolean value."
+    },
+    "No common subjects were found in titles." : {
+      "comment" : "Trending empty message."
+    },
+    "No Data" : {
+      "comment" : "Feed unavailable title.\nOrganizer row status."
+    },
+    "No Feeds" : {
+      "comment" : "Content unavailable title.\nEmpty page title.\nFeed count (zero)."
+    },
+    "No Items" : {
+      "comment" : "Content unavailable title."
+    },
+    "No Pages Available" : {
+      "comment" : "New Feed error message."
+    },
+    "No Pending Tasks" : {
+      "comment" : "Debugging tools message."
+    },
+    "No Query" : {
+      "comment" : "Search query empty title."
+    },
+    "No Results" : {
+      "comment" : "No search results message title."
+    },
+    "No Selection" : {
+      "comment" : "Inspector selection message."
+    },
+    "No Tags" : {
+      "comment" : "Menu options unavailable message."
+    },
+    "No Trends" : {
+      "comment" : "Content unavailable title."
+    },
+    "No Unread Results" : {
+      "comment" : "No unread search results title."
+    },
+    "None" : {
+      "comment" : "Empty picker option."
+    },
+    "Open a feed link or go to “%@ > New Feed” to enter a web address. Use the Safari extension to discover feeds on websites." : {
+      "comment" : "No feeds guidance (iPhone)."
+    },
+    "Open a feed link, drag a URL onto the page list, or go to “%@ > New Feed” to enter a web address. \nUse the Safari extension to discover feeds on websites." : {
+      "comment" : "No feeds guidance (Mac)."
+    },
+    "Open a feed link, drag a URL onto the page list, or go to “%@ > New Feed” to enter a web address. Use the Safari extension to discover feeds on websites." : {
+      "comment" : "No feeds guidance (iPad)."
+    },
+    "Open File" : {
+      "comment" : "Button label."
+    },
+    "Open in Browser" : {
+      "comment" : "Button label."
+    },
+    "Open in System Browser" : {
+      "comment" : "Button help text."
+    },
+    "Open Validator" : {
+      "comment" : "Button label."
+    },
+    "Orange" : {
+      "comment" : "Accent color option."
+    },
+    "Organizer" : {
+      "comment" : "Button label.\nNavigation title."
+    },
+    "OrganizerConfig" : {
+
+    },
+    "OrganizerInfo" : {
+
+    },
+    "Page" : {
+      "comment" : "Picker label."
+    },
+    "Page Deleted" : {
+      "comment" : "Object removed message."
+    },
+    "Pages" : {
+      "comment" : "Sidebar section header."
+    },
+    "Parsing Error" : {
+      "comment" : "Feed unavailable title.\nOrganizer row status."
+    },
+    "Perform Maintenance" : {
+      "comment" : "Button label."
+    },
+    "Pink" : {
+      "comment" : "Accent color option."
+    },
+    "Preferences" : {
+      "comment" : "Menu label."
+    },
+    "Press %@ R to Refresh" : {
+      "comment" : "Status message."
+    },
+    "Previews" : {
+      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header.\nTag layout option."
+    },
+    "Pull to Refresh" : {
+      "comment" : "Status message."
+    },
+    "Purple" : {
+      "comment" : "Accent color option."
+    },
+    "Red" : {
+      "comment" : "Accent color option."
+    },
+    "Refresh" : {
+      "comment" : "Button label."
+    },
+    "Refresh Feeds" : {
+      "comment" : "Button help text."
+    },
+    "Refresh Interval" : {
+      "comment" : "Picker label."
+    },
+    "Refresh to check for new items." : {
+      "comment" : "Content unavailable description."
+    },
+    "Refresh to fetch items." : {
+      "comment" : "Feed unavailable message."
+    },
+    "Reload" : {
+      "comment" : "Button label."
+    },
+    "Reload Page" : {
+      "comment" : "Button help text."
+    },
+    "Remove Bookmark" : {
+      "comment" : "Button help text."
+    },
+    "Remove from List" : {
+      "comment" : "Button label."
+    },
+    "Reset" : {
+      "comment" : "Button label."
+    },
+    "Reset Everything" : {
+      "comment" : "Button label."
+    },
+    "Reset Everything?" : {
+      "comment" : "Alert title."
+    },
+    "Response Code" : {
+      "comment" : "Blocklist status row label."
+    },
+    "Response Time" : {
+      "comment" : "Organizer info panel row label."
+    },
+    "Restricted" : {
+      "comment" : "Background refresh status."
+    },
+    "Rules Applied" : {
+      "comment" : "Blocklist status row label."
+    },
+    "Save" : {
+      "comment" : "Button Label.\nButton label."
+    },
+    "Scheduled Background Tasks" : {
+      "comment" : "Debugging tools section header."
+    },
+    "Search" : {
+      "comment" : "Navigation title.\nSearch field prompt."
+    },
+    "Secure" : {
+      "comment" : "Organizer info panel row label."
+    },
+    "Select All" : {
+      "comment" : "Button help text."
+    },
+    "Select Icon" : {
+      "comment" : "Navigation title."
+    },
+    "Select None" : {
+      "comment" : "Button help text."
+    },
+    "Select Preset…" : {
+      "comment" : "Button label."
+    },
+    "Select Tags" : {
+      "comment" : "Menu help text."
+    },
+    "Server" : {
+      "comment" : "Organizer info panel row label."
+    },
+    "Server unavailable." : {
+      "comment" : "Feed unavailable message."
+    },
+    "Settings" : {
+      "comment" : "Button label.\nNavigation title."
+    },
+    "Share" : {
+      "comment" : "Button help text."
+    },
+    "Show Bylines" : {
+      "comment" : "Toggle label."
+    },
+    "Show Downloads" : {
+      "comment" : "Button help text."
+    },
+    "Show Excerpts" : {
+      "comment" : "Toggle label."
+    },
+    "Show Format Menu" : {
+      "comment" : "Menu help text."
+    },
+    "Show Images" : {
+      "comment" : "Toggle label."
+    },
+    "Show in Finder" : {
+      "comment" : "Button label."
+    },
+    "Show Inspector" : {
+      "comment" : "Button help text."
+    },
+    "Show Menu" : {
+      "comment" : "Menu help text."
+    },
+    "Show Next Page" : {
+      "comment" : "Button help text."
+    },
+    "Show Previous Page" : {
+      "comment" : "Button help text."
+    },
+    "Show Read Items" : {
+      "comment" : "Button help text."
+    },
+    "Show Reader" : {
+      "comment" : "Button label."
+    },
+    "Show Reader / Show Format Menu" : {
+      "comment" : "Menu help text."
+    },
+    "Show Reader Formatting" : {
+      "comment" : "Menu help text."
+    },
+    "Show Unread Counts" : {
+      "comment" : "Toggle label."
+    },
+    "Showing results for “%@”" : {
+      "comment" : "Navigation subtitle."
+    },
+    "Status" : {
+      "comment" : "Blocklist status section header.\nOrganizer info panel row label."
+    },
+    "Status Unknown" : {
+      "comment" : "Blocklist status message."
+    },
+    "Stop" : {
+      "comment" : "Button label."
+    },
+    "Stop Loading Page" : {
+      "comment" : "Button help text."
+    },
+    "Switch Page Layout" : {
+      "comment" : "Button help text."
+    },
+    "Symbol" : {
+      "comment" : "Text field label."
+    },
+    "System" : {
+      "comment" : "User color scheme picker option."
+    },
+    "Tag Deleted" : {
+      "comment" : "Object removed message."
+    },
+    "Tagged" : {
+      "comment" : "Tagged items table header."
+    },
+    "Tagged: %@" : {
+      "comment" : "Tagged date/time label."
+    },
+    "Tags" : {
+      "comment" : "Menu label.\nSidebar section header."
+    },
+    "Teal" : {
+      "comment" : "Accent color option."
+    },
+    "The operating system decides when background refresh will occur. Refresh interval sets the minimum amount of time between background refresh tasks." : {
+      "comment" : "Refresh settings guidance."
+    },
+    "This action cannot be undone." : {
+      "comment" : "Delete feed alert message."
+    },
+    "Timeline" : {
+      "comment" : "Page layout option label."
+    },
+    "Title" : {
+      "comment" : "Tagged items table header."
+    },
+    "Toggle Inspector" : {
+      "comment" : "Button label."
+    },
+    "Trend Removed" : {
+      "comment" : "Object removed message."
+    },
+    "Trending" : {
+      "comment" : "Button label.\nNavigation title."
+    },
+    "Turn Off Blocklists" : {
+      "comment" : "Button label."
+    },
+    "Turn off filter %@ to show hidden items." : {
+      "comment" : "All read guidance.\nNo unread search results guidance."
+    },
+    "Turn On Blocklists" : {
+      "comment" : "Button label."
+    },
+    "Unable to read feed content." : {
+      "comment" : "Feed unavailable message."
+    },
+    "Unavailable" : {
+      "comment" : "Blocklist response code placeholder."
+    },
+    "Unknown" : {
+      "comment" : "Download file name unavailable."
+    },
+    "Unknown Error" : {
+      "comment" : "Feed unavailable title."
+    },
+    "Untag" : {
+      "comment" : "Button label."
+    },
+    "Untagged" : {
+      "comment" : "Object removed message."
+    },
+    "Untitled" : {
+      "comment" : "Default content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nPage name placeholder.\nTag name placeholder."
+    },
+    "Updated" : {
+      "comment" : "Blocklist status row label."
+    },
+    "Updated %@" : {
+      "comment" : "Status message (relative date display)."
+    },
+    "Updated Just Now" : {
+      "comment" : "Status message (refreshed less than one minute ago)."
+    },
+    "URL" : {
+      "comment" : "Organizer info panel row label.\nText field label."
+    },
+    "Use Blocklists" : {
+      "comment" : "Toggle label."
+    },
+    "Use Reader Automatically" : {
+      "comment" : "Toggle label."
+    },
+    "Use System Browser" : {
+      "comment" : "Toggle label."
+    },
+    "Version" : {
+      "comment" : "Row label."
+    },
+    "View" : {
+      "comment" : "Picker label."
+    },
+    "Viewing" : {
+      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header."
+    },
+    "Welcome" : {
+      "comment" : "Welcome title."
+    },
+    "Widgets will update only when feeds are manually refreshed." : {
+      "comment" : "Refresh settings guidance."
+    },
+    "Yellow" : {
+      "comment" : "Accent color option."
+    },
+    "Yes" : {
+      "comment" : "Blocklist compile/load status message.\nBoolean value."
+    },
+    "Zoom" : {
+      "comment" : "Control group label."
+    },
+    "Zoom In" : {
+      "comment" : "Button label."
+    },
+    "Zoom Out" : {
+      "comment" : "Button label."
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,12 @@
+
+{
+  "upload": {
+    "type": "xcstrings",
+    "files": "locales/en.xcstrings"
+  },
+  
+  "download": {
+    "files": "locales/${lang}.xcstrings"
+  }
+  
+}
