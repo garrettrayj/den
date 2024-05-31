@@ -1,6 +1,6 @@
 .DS_Store
 xcuserdata/
-localazy.json
+localazy.keys.json
 Scripts/Logs/
 TestData/*
 !TestData/.keep
