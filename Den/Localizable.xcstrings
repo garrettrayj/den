@@ -676,7 +676,7 @@
       "comment" : "Toggle label."
     },
     "Showing results for “%@”" : {
-      "comment" : "Navigation subtitle."
+      "comment" : "Bottom bar status.\nNavigation subtitle."
     },
     "Status" : {
       "comment" : "Blocklist status section header.\nOrganizer info panel row label."

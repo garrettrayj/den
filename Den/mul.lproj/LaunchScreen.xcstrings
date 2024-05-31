@@ -2,12 +2,23 @@
   "sourceLanguage" : "en",
   "strings" : {
     "GJd-Yh-RWb.text" : {
-      "comment" : "Class = \"UILabel\"; text = \"Loading...\"; ObjectID = \"GJd-Yh-RWb\";",
-      "extractionState" : "extracted_with_value",
+      "comment" : "Class = \"UILabel\"; text = \"Loading…\"; ObjectID = \"GJd-Yh-RWb\";",
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
+            "value" : "Loading..."
+          }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading..."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "Loading..."
           }
         }
