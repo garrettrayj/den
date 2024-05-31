@@ -66,10 +66,17 @@ struct AnalyzeTask {
         for item in items {
             for (tokenText, tag) in item.wrappedTags {
                 if let workingTrendIndex = workingTrends.firstIndex(where: { $0.slug == tokenText }) {
-                    workingTrends[workingTrendIndex].items.append(item)
+                    workingTrends[workingTrendIndex].items.insert(item)
+                    workingTrends[workingTrendIndex].feeds.insert(item.feedData!.feed!)
                 } else {
                     workingTrends.append(
-                        WorkingTrend(slug: tokenText, tag: tag, title: tokenText, items: [item])
+                        WorkingTrend(
+                            slug: tokenText,
+                            tag: tag,
+                            title: tokenText,
+                            items: [item],
+                            feeds: [item.feedData!.feed!]
+                        )
                     )
                 }
             }

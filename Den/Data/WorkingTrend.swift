@@ -16,20 +16,8 @@ struct WorkingTrend: Identifiable {
     var slug: String
     var tag: NLTag
     var title: String
-    var items: [Item]
-
-    var feeds: [Feed] {
-        var feeds: Set<Feed> = []
-        items.forEach { item in
-            if let feed = item.feedData?.feed {
-                feeds.insert(feed)
-            }
-        }
-
-        return feeds.sorted { lhs, rhs in
-            lhs.wrappedTitle < rhs.wrappedTitle
-        }
-    }
+    var items: Set<Item>
+    var feeds: Set<Feed>
 }
 
 extension WorkingTrend: Equatable {

@@ -145,6 +145,7 @@ struct DebuggingTools: View {
             }
             #endif
         }
+        .formStyle(.grouped)
         .navigationTitle(Text("Debugging Tools", comment: "Navigation title."))
         .toolbarTitleDisplayMode(.inline)
     }
