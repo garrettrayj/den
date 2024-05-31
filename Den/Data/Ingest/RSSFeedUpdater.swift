@@ -50,14 +50,6 @@ struct RSSFeedUpdater {
             item.anaylyzeTitleTags()
             feedData.addToItems(item)
         }
-
-        // Remove items no longer in feed
-        let rssFeedItemURLs = rssFeedItems.compactMap { $0.linkURL }
-        for item in feedData.itemsArray {
-            if let link = item.link, rssFeedItemURLs.contains(link) == false {
-                context.delete(item)
-            }
-        }
     }
     
     static func updateMeta(

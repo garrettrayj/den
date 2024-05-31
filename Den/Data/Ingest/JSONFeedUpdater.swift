@@ -50,14 +50,6 @@ struct JSONFeedUpdater {
             
             item.anaylyzeTitleTags()
         }
-
-        // Remove items no longer in feed
-        let jsonFeedItemURLs = jsonFeedItems.compactMap { $0.linkURL }
-        for item in feedData.itemsArray {
-            if let link = item.link, jsonFeedItemURLs.contains(link) == false {
-                context.delete(item)
-            }
-        }
     }
     
     static func updateMeta(

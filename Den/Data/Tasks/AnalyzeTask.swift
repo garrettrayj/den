@@ -12,12 +12,14 @@ import CoreData
 
 struct AnalyzeTask {
     func execute() async {
-        await DataController.shared.container.performBackgroundTask { context in
+        let context = DataController.shared.container.newBackgroundContext()
+        
+        await context.perform {
+            guard let existingTrends = try? context.fetch(Trend.fetchRequest()) as [Trend] else {
+                return
+            }
+            
             let workingTrends = self.analyzeTrends(context: context)
-            
-            let request = Trend.fetchRequest()
-            guard let existingTrends = try? context.fetch(request) as [Trend] else { return }
-            
             for workingTrend in workingTrends {
                 var trend: Trend
 

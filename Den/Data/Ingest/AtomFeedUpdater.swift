@@ -50,14 +50,6 @@ struct AtomFeedUpdater {
 
             item.anaylyzeTitleTags()
         }
-
-        // Remove items no longer in feed
-        let sourceItemURLs = atomFeedEntries.compactMap { $0.linkURL }
-        for item in feedData.itemsArray {
-            if let link = item.link, !sourceItemURLs.contains(link) {
-                context.delete(item)
-            }
-        }
     }
     
     // swiftlint:disable cyclomatic_complexity

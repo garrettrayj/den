@@ -25,9 +25,7 @@ struct FeedUpdateTask {
         var parsedSuccessfully: Bool = false
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
         var webpage: URL?
-
-        let context = DataController.shared.container.newBackgroundContext()
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        var webpageMetadata: WebpageMetadata?
 
         let feedRequest = URLRequest(url: url)
 
@@ -43,62 +41,8 @@ struct FeedUpdateTask {
             }
             parserResult = FeedParser(data: data).parse()
         }
-
-        guard
-            let feed = context.object(with: self.feedObjectID) as? Feed,
-            let feedId = feed.id
-        else { return }
-
-        let feedData = feed.feedData ?? FeedData.create(in: context, feedId: feedId)
-        feedData.refreshed = .now
-        feedData.responseTime = feedResponse.responseTime
-        feedData.httpStatus = feedResponse.statusCode
-        feedData.server = feedResponse.server
-        feedData.cacheControl = feedResponse.cacheControl
-        feedData.age = feedResponse.age
-        feedData.eTag = feedResponse.eTag
         
-        guard (200...299).contains(feedData.httpStatus) else {
-            feedData.wrappedError = .request
-            feedData.itemsArray.forEach { context.delete($0) }
-            self.save(context: context, feed: feed, start: start)
-            return
-        }
-        
-        if let parserResult = parserResult {
-            (parsedSuccessfully, webpage) = self.updateFeed(
-                feed: feed,
-                feedData: feedData,
-                parserResult: parserResult,
-                context: context
-            )
-        }
-
-        // Cleanup old items
-        if feedData.itemsArray.count > Feed.totalItemLimit {
-            feedData.itemsArray.suffix(from: Feed.totalItemLimit).forEach { item in
-                feedData.removeFromItems(item)
-                context.delete(item)
-            }
-        }
-
-        // Update read and extra status of items
-        for (idx, item) in feedData.itemsArray.enumerated() {
-            item.read = !item.history.isEmpty
-
-            if idx + 1 > feed.wrappedItemLimit {
-                item.extra = true
-            } else {
-                item.extra = false
-            }
-        }
-
-        if !self.updateMeta || !parsedSuccessfully {
-            self.save(context: context, feed: feed, start: start)
-        }
-
         if updateMeta && parsedSuccessfully {
-            var webpageMetadata: WebpageMetadata?
             if let webpage = webpage {
                 let webpageRequest = URLRequest(url: webpage)
                 if let (data, _) = try? await URLSession.shared.data(for: webpageRequest) {
@@ -108,14 +52,71 @@ struct FeedUpdateTask {
                     )
                 }
             }
+        }
+        
+        let context = DataController.shared.container.newBackgroundContext()
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-            self.updateFeedMeta(
-                feedData: feedData,
-                parserResult: parserResult!,
-                webpageMetadata: webpageMetadata
-            )
+        await context.perform {
+            guard
+                let feed = context.object(with: self.feedObjectID) as? Feed,
+                let feedId = feed.id
+            else { return }
 
-            self.save(context: context, feed: feed, start: start)
+            let feedData = feed.feedData ?? FeedData.create(in: context, feedId: feedId)
+            feedData.refreshed = .now
+            feedData.responseTime = feedResponse.responseTime
+            feedData.httpStatus = feedResponse.statusCode
+            feedData.server = feedResponse.server
+            feedData.cacheControl = feedResponse.cacheControl
+            feedData.age = feedResponse.age
+            feedData.eTag = feedResponse.eTag
+            
+            guard (200...299).contains(feedData.httpStatus) else {
+                feedData.wrappedError = .request
+                feedData.itemsArray.forEach { context.delete($0) }
+                self.save(context: context, feed: feed, start: start)
+                return
+            }
+            
+            if let parserResult = parserResult {
+                (parsedSuccessfully, webpage) = self.updateFeed(
+                    feed: feed,
+                    feedData: feedData,
+                    parserResult: parserResult,
+                    context: context
+                )
+            }
+
+            // Cleanup old items
+            if feedData.itemsArray.count > Feed.totalItemLimit {
+                feedData.itemsArray.suffix(from: Feed.totalItemLimit).forEach { item in
+                    context.delete(item)
+                }
+            }
+
+            // Update read and extra status of items
+            for (idx, item) in feedData.itemsArray.enumerated() {
+                item.read = !item.history.isEmpty
+
+                if idx + 1 > feed.wrappedItemLimit {
+                    item.extra = true
+                } else {
+                    item.extra = false
+                }
+            }
+
+            if !self.updateMeta || !parsedSuccessfully {
+                self.save(context: context, feed: feed, start: start)
+            } else if updateMeta && parsedSuccessfully {
+                self.updateFeedMeta(
+                    feedData: feedData,
+                    parserResult: parserResult!,
+                    webpageMetadata: webpageMetadata
+                )
+
+                self.save(context: context, feed: feed, start: start)
+            }
         }
     }
     // swiftlint:enable cyclomatic_complexity function_body_length

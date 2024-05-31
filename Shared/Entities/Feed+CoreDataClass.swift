@@ -13,7 +13,7 @@ import SwiftUI
 
 @objc(Feed)
 final public class Feed: NSManagedObject {
-    static let totalItemLimit = 60
+    static let totalItemLimit = 100
     
     var displayTitle: Text {
         if wrappedTitle == "" {

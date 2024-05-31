@@ -67,22 +67,25 @@ final class RefreshManager: ObservableObject {
         
         progress.totalUnitCount = Int64(feedUpdates.count)
 
-        let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
+        let maxConcurrency = min(2, ProcessInfo().activeProcessorCount)
         
-        await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
-            for (index, feedUpdate) in feedUpdates.enumerated() {
-                if index > 0 && index % maxConcurrency == 0 {
+        await withTaskGroup(of: Void.self, returning: Void.self) { taskGroup in
+            var working = 0
+            for feedUpdate in feedUpdates {
+                if working >= maxConcurrency {
                     await taskGroup.next()
+                    working = 0
                 }
                 
                 taskGroup.addTask {
                     await feedUpdate.execute()
                     self.progress.completedUnitCount += 1
                 }
+                working += 1
             }
 
             await taskGroup.waitForAll()
-        })
+        }
         
         progress.completedUnitCount += 1
 
