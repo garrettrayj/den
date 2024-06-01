@@ -81,7 +81,7 @@ struct DownloadsPopover: View {
                 Button {
                     PasteboardUtility.copyURL(url: url)
                 } label: {
-                    Text("Copy Address")
+                    Text("Copy Address", comment: "Button label.")
                 }
             }
             Button {

@@ -25,7 +25,7 @@ struct FeedEmpty: View {
         } else {
             CompactContentUnavailable {
                 Label {
-                    Text("Feed Empty", comment: "No items message.")
+                    Text("Feed Empty", comment: "Content unavailable title.")
                 } icon: {
                     Image(systemName: "questionmark.folder")
                 }

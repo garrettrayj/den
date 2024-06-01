@@ -27,7 +27,7 @@ struct AppErrorSheet: View {
                     comment: "Crash view guidance."
                 )
 
-                if let message = message {
+                if let message {
                     Text(message)
                 }
             }

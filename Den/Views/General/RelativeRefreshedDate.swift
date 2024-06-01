@@ -37,7 +37,7 @@ struct RelativeRefreshedDate: View {
                     )
                 }
             }
-            .help(Text(verbatim: "\(date.formatted(date: .complete, time: .shortened))"))
+            .help(Text(date.formatted(date: .complete, time: .shortened)))
         }
     }
 }

@@ -2,7 +2,48 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    "%@ Feeds" : {
+      "comment" : "Feed count (plural)."
+    },
+    "%@ items in %@ feeds. %@ unread" : {
+      "comment" : "Trend status line.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ items in %2$@ feeds. %3$@ unread"
+          }
+        }
+      }
+    },
+    "%@ ms" : {
+      "comment" : "Milliseconds time display."
+    },
+    "%@ of %@ Updated" : {
+      "comment" : "Status message (refresh in progress).",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ of %2$@ Updated"
+          }
+        }
+      }
+    },
+    "%@ Records" : {
+      "comment" : "History count (zero/plural)."
+    },
+    "%@ s" : {
+      "comment" : "Seconds time display."
     },
     "%lld Feeds" : {
       "comment" : "Feed count (plural).",
@@ -61,7 +102,7 @@
       }
     },
     "%lld Records" : {
-      "comment" : "History count (zeor/plural).",
+      "comment" : "History count (zero/plural).",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -546,7 +587,7 @@
       }
     },
     "Debugging Tools" : {
-      "comment" : "Navigation title.",
+      "comment" : "Button label.\nNavigation title.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -953,7 +994,7 @@
       }
     },
     "Help" : {
-      "comment" : "Row label.",
+      "comment" : "Button label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2218,7 +2259,7 @@
       }
     },
     "Showing results for “%@”" : {
-      "comment" : "Bottom bar status.\nNavigation subtitle.",
+      "comment" : "Navigation subtitle.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2625,7 +2666,7 @@
       }
     },
     "Version" : {
-      "comment" : "Row label.",
+      "comment" : "About row label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

@@ -35,7 +35,7 @@ struct DebuggingTools: View {
             Section {
                 LabeledContent {
                     if let maintainedDate {
-                        Text(verbatim: "\(maintainedDate.formatted())")
+                        Text(maintainedDate.formatted())
                     } else {
                         Text("N/A", comment: "Not available.")
                     }
@@ -77,7 +77,7 @@ struct DebuggingTools: View {
                 case .available:
                     Text("Available", comment: "Background refresh status.")
                 @unknown default:
-                    Text("Unknown")
+                    Text("Unknown", comment: "Background refresh status.")
                 }
             } header: {
                 Text("Background Refresh Status", comment: "Debugging tools section header.")
@@ -112,11 +112,11 @@ struct DebuggingTools: View {
                 } else {
                     ForEach(pendingTaskRequests, id: \.self) { request in
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(verbatim: "\(request.identifier)")
+                            Text(request.identifier)
                             
                             if let date = request.earliestBeginDate {
                                 LabeledContent {
-                                    Text(verbatim: "\(date.formatted())")
+                                    Text(date.formatted())
                                 } label: {
                                     Text("Earliest Begin Date", comment: "Content label.")
                                 }

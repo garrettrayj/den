@@ -59,7 +59,7 @@ struct GeneralSection: View {
                         Text("None", comment: "Empty picker option.").tag(interval)
                     } else {
                         if let formatted = formatter.string(from: TimeInterval(interval.rawValue)) {
-                            Text(verbatim: formatted.localizedCapitalized).tag(interval)
+                            Text(formatted.localizedCapitalized).tag(interval)
                         }
                     }
                 }

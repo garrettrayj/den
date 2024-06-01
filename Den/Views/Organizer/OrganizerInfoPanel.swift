@@ -17,7 +17,7 @@ struct OrganizerInfoPanel: View {
     var body: some View {
         List {
             LabeledContent {
-                Text(verbatim: "\(feed.urlString)")
+                Text(feed.urlString)
             } label: {
                 Text("URL", comment: "Organizer info panel row label.")
             }
@@ -58,7 +58,7 @@ struct OrganizerInfoPanel: View {
                 
                 if let format = feedData.format {
                     LabeledContent {
-                        Text(verbatim: "\(format)")
+                        Text(format)
                     } label: {
                         Text("Format", comment: "Organizer info panel row label.")
                     }
@@ -74,7 +74,7 @@ struct OrganizerInfoPanel: View {
                 
                 if let cacheControl = feedData.cacheControl {
                     LabeledContent {
-                        Text(verbatim: "\(cacheControl)")
+                        Text(cacheControl)
                     } label: {
                         Text("Cache Control", comment: "Organizer info panel row label.")
                     }
@@ -82,7 +82,7 @@ struct OrganizerInfoPanel: View {
                 
                 if let eTag = feedData.eTag {
                     LabeledContent {
-                        Text(verbatim: "\(eTag)")
+                        Text(eTag)
                     } label: {
                         Text("ETag", comment: "Organizer info panel row label.")
                     }
@@ -90,7 +90,7 @@ struct OrganizerInfoPanel: View {
                 
                 if let server = feedData.server {
                     LabeledContent {
-                        Text(verbatim: "\(server)")
+                        Text(server)
                     } label: {
                         Text("Server", comment: "Organizer info panel row label.")
                     }

@@ -82,7 +82,7 @@
       <trans-unit id="%lld Records" xml:space="preserve">
         <source>%lld Records</source>
         <target state="new">%lld Records</target>
-        <note>History count (zeor/plural).</note>
+        <note>History count (zero/plural).</note>
       </trans-unit>
       <trans-unit id="%lld items in %lld feeds. %lld unread" xml:space="preserve">
         <source>%1$lld items in %2$lld feeds. %3$lld unread</source>
@@ -313,7 +313,8 @@ Button label.</note>
       <trans-unit id="Debugging Tools" xml:space="preserve">
         <source>Debugging Tools</source>
         <target state="new">Debugging Tools</target>
-        <note>Navigation title.</note>
+        <note>Button label.
+Navigation title.</note>
       </trans-unit>
       <trans-unit id="Deck" xml:space="preserve">
         <source>Deck</source>
@@ -460,11 +461,6 @@ Button label.</note>
         <target state="new">Format</target>
         <note>Organizer info panel row label.</note>
       </trans-unit>
-      <trans-unit id="FormatMenu" xml:space="preserve">
-        <source>FormatMenu</source>
-        <target state="new">FormatMenu</target>
-        <note/>
-      </trans-unit>
       <trans-unit id="Formatting" xml:space="preserve">
         <source>Formatting</source>
         <target state="new">Formatting</target>
@@ -503,7 +499,7 @@ Button label.</note>
       <trans-unit id="Help" xml:space="preserve">
         <source>Help</source>
         <target state="new">Help</target>
-        <note>Row label.</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Hide Inspector" xml:space="preserve">
         <source>Hide Inspector</source>
@@ -677,11 +673,6 @@ Navigation title.</note>
         <note>Button label.
 Navigation title.</note>
       </trans-unit>
-      <trans-unit id="NewBlocklist" xml:space="preserve">
-        <source>NewBlocklist</source>
-        <target state="new">NewBlocklist</target>
-        <note/>
-      </trans-unit>
       <trans-unit id="No" xml:space="preserve">
         <source>No</source>
         <target state="new">No</target>
@@ -803,16 +794,6 @@ Use the Safari extension to discover feeds on websites.</target>
         <target state="new">Organizer</target>
         <note>Button label.
 Navigation title.</note>
-      </trans-unit>
-      <trans-unit id="OrganizerConfig" xml:space="preserve">
-        <source>OrganizerConfig</source>
-        <target state="new">OrganizerConfig</target>
-        <note/>
-      </trans-unit>
-      <trans-unit id="OrganizerInfo" xml:space="preserve">
-        <source>OrganizerInfo</source>
-        <target state="new">OrganizerInfo</target>
-        <note/>
       </trans-unit>
       <trans-unit id="Page" xml:space="preserve">
         <source>Page</source>
@@ -1239,7 +1220,8 @@ Text field label.</note>
       <trans-unit id="Unknown" xml:space="preserve">
         <source>Unknown</source>
         <target state="new">Unknown</target>
-        <note>Download file name unavailable.</note>
+        <note>Background refresh status.
+Download file name unavailable.</note>
       </trans-unit>
       <trans-unit id="Unknown Error" xml:space="preserve">
         <source>Unknown Error</source>
@@ -1301,7 +1283,7 @@ Tag name placeholder.</note>
       <trans-unit id="Version" xml:space="preserve">
         <source>Version</source>
         <target state="new">Version</target>
-        <note>Row label.</note>
+        <note>About row label.</note>
       </trans-unit>
       <trans-unit id="View" xml:space="preserve">
         <source>View</source>

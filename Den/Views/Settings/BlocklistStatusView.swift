@@ -18,7 +18,7 @@ struct BlocklistStatusView: View {
             LabeledContent {
                 VStack(alignment: .trailing) {
                     if let refreshed = blocklistStatus.refreshed {
-                        Text(verbatim: "\(refreshed.formatted())")
+                        Text(refreshed.formatted())
                     }
                 }
             } label: {

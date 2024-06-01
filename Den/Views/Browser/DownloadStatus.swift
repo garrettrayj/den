@@ -36,13 +36,13 @@ struct DownloadStatus: View {
                 Text(error.localizedDescription)
             } else if browserDownload.wkDownload.progress.isFinished {
                 VStack(alignment: .leading) {
-                    if let fileName = fileName {
-                        Text(verbatim: fileName)
+                    if let fileName {
+                        Text(fileName)
                     } else {
                         Text("Unknown", comment: "Download file name unavailable.")
                     }
                     
-                    Text(verbatim: DownloadStatus.filesSizeFormatter.string(
+                    Text(DownloadStatus.filesSizeFormatter.string(
                         fromByteCount: fileSize
                     )).font(.footnote)
                 }
@@ -60,7 +60,7 @@ struct DownloadStatus: View {
                     downloadManager.remove(browserDownload)
                 } label: {
                     Label {
-                        Text("Cancel")
+                        Text("Cancel", comment: "Button label.")
                     } icon: {
                         Image(systemName: "xmark.circle.fill")
                     }

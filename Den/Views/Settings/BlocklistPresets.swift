@@ -38,7 +38,7 @@ struct BlocklistPresets: View {
                 } header: {
                     Link(destination: manifestCollection.website) {
                         Label {
-                            Text(verbatim: manifestCollection.name)
+                            Text(manifestCollection.name)
                         } icon: {
                             Image(systemName: "link")
                         }

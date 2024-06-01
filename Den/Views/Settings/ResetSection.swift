@@ -49,9 +49,7 @@ struct ResetSection: View {
                         Image(systemName: "xmark.bin")
                     }
                     Spacer()
-                    Text(
-                        verbatim: ResetSection.cacheSizeFormatter.string(fromByteCount: cacheSize)
-                    )
+                    Text(ResetSection.cacheSizeFormatter.string(fromByteCount: cacheSize))
                     .font(.callout)
                     .foregroundStyle(.secondary)
                     .task { await calculateCacheSize() }
@@ -73,7 +71,7 @@ struct ResetSection: View {
                         if history.count == 1 {
                             Text("1 Record", comment: "History count (singular).")
                         } else {
-                            Text("\(history.count) Records", comment: "History count (zeor/plural).")
+                            Text("\(history.count) Records", comment: "History count (zero/plural).")
                         }
                     }
                     .font(.callout)

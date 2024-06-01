@@ -88,7 +88,7 @@ struct Sidebar: View {
         .searchSuggestions {
             ForEach(searches.prefix(20)) { search in
                 if search.wrappedQuery != "" {
-                    Text(verbatim: search.wrappedQuery).searchCompletion(search.wrappedQuery)
+                    Text(search.wrappedQuery).searchCompletion(search.wrappedQuery)
                 }
             }
         }

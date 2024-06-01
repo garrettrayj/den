@@ -86,7 +86,7 @@ struct TagTableLayout: View {
                 Text("Tagged", comment: "Tagged items table header."),
                 value: \.created
             ) { row in
-                Text(verbatim: row.created.formatted())
+                Text(row.created.formatted())
             }
             .width(max: 160)
         } rows: {
@@ -150,7 +150,7 @@ struct TagTableLayout: View {
             Button {
                 deleteSelection(items: items)
             } label: {
-                Text("Untag")
+                Text("Untag", comment: "Button label.")
             }
         }
     }

@@ -33,7 +33,7 @@
       }
     },
     "%lld Records" : {
-      "comment" : "History count (zeor/plural)."
+      "comment" : "History count (zero/plural)."
     },
     "%lld s" : {
       "comment" : "Seconds time display."
@@ -162,7 +162,7 @@
       "comment" : "User color scheme picker option."
     },
     "Debugging Tools" : {
-      "comment" : "Navigation title."
+      "comment" : "Button label.\nNavigation title."
     },
     "Deck" : {
       "comment" : "Page layout option label."
@@ -251,9 +251,6 @@
     "Format" : {
       "comment" : "Organizer info panel row label."
     },
-    "FormatMenu" : {
-      "extractionState" : "stale"
-    },
     "Formatting" : {
       "comment" : "Button label."
     },
@@ -276,7 +273,7 @@
       "comment" : "Page layout option label."
     },
     "Help" : {
-      "comment" : "Row label."
+      "comment" : "Button label."
     },
     "Hide Inspector" : {
       "comment" : "Button help text."
@@ -383,9 +380,6 @@
     "New Tag" : {
       "comment" : "Button label.\nNavigation title."
     },
-    "NewBlocklist" : {
-      "extractionState" : "stale"
-    },
     "No" : {
       "comment" : "Blocklist compile/load status message.\nBoolean value."
     },
@@ -454,12 +448,6 @@
     },
     "Organizer" : {
       "comment" : "Button label.\nNavigation title."
-    },
-    "OrganizerConfig" : {
-      "extractionState" : "stale"
-    },
-    "OrganizerInfo" : {
-      "extractionState" : "stale"
     },
     "Page" : {
       "comment" : "Picker label."
@@ -705,7 +693,7 @@
       "comment" : "Blocklist response code placeholder."
     },
     "Unknown" : {
-      "comment" : "Download file name unavailable."
+      "comment" : "Background refresh status.\nDownload file name unavailable."
     },
     "Unknown Error" : {
       "comment" : "Feed unavailable title."
@@ -741,7 +729,7 @@
       "comment" : "Toggle label."
     },
     "Version" : {
-      "comment" : "Row label."
+      "comment" : "About row label."
     },
     "View" : {
       "comment" : "Picker label."

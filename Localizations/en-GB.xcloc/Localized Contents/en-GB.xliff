@@ -70,7 +70,7 @@
       </trans-unit>
       <trans-unit id="%lld Records" xml:space="preserve">
         <source>%lld Records</source>
-        <note>History count (zeor/plural).</note>
+        <note>History count (zero/plural).</note>
       </trans-unit>
       <trans-unit id="%lld items in %lld feeds. %lld unread" xml:space="preserve">
         <source>%1$lld items in %2$lld feeds. %3$lld unread</source>
@@ -257,7 +257,8 @@ Button label.</note>
       </trans-unit>
       <trans-unit id="Debugging Tools" xml:space="preserve">
         <source>Debugging Tools</source>
-        <note>Navigation title.</note>
+        <note>Button label.
+Navigation title.</note>
       </trans-unit>
       <trans-unit id="Deck" xml:space="preserve">
         <source>Deck</source>
@@ -375,10 +376,6 @@ Button label.</note>
         <source>Format</source>
         <note>Organizer info panel row label.</note>
       </trans-unit>
-      <trans-unit id="FormatMenu" xml:space="preserve">
-        <source>FormatMenu</source>
-        <note/>
-      </trans-unit>
       <trans-unit id="Formatting" xml:space="preserve">
         <source>Formatting</source>
         <note>Button label.</note>
@@ -409,7 +406,7 @@ Button label.</note>
       </trans-unit>
       <trans-unit id="Help" xml:space="preserve">
         <source>Help</source>
-        <note>Row label.</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Hide Inspector" xml:space="preserve">
         <source>Hide Inspector</source>
@@ -550,10 +547,6 @@ Navigation title.</note>
         <note>Button label.
 Navigation title.</note>
       </trans-unit>
-      <trans-unit id="NewBlocklist" xml:space="preserve">
-        <source>NewBlocklist</source>
-        <note/>
-      </trans-unit>
       <trans-unit id="No" xml:space="preserve">
         <source>No</source>
         <note>Blocklist compile/load status message.
@@ -651,14 +644,6 @@ Use the Safari extension to discover feeds on websites.</source>
         <source>Organizer</source>
         <note>Button label.
 Navigation title.</note>
-      </trans-unit>
-      <trans-unit id="OrganizerConfig" xml:space="preserve">
-        <source>OrganizerConfig</source>
-        <note/>
-      </trans-unit>
-      <trans-unit id="OrganizerInfo" xml:space="preserve">
-        <source>OrganizerInfo</source>
-        <note/>
       </trans-unit>
       <trans-unit id="Page" xml:space="preserve">
         <source>Page</source>
@@ -1002,7 +987,8 @@ Text field label.</note>
       </trans-unit>
       <trans-unit id="Unknown" xml:space="preserve">
         <source>Unknown</source>
-        <note>Download file name unavailable.</note>
+        <note>Background refresh status.
+Download file name unavailable.</note>
       </trans-unit>
       <trans-unit id="Unknown Error" xml:space="preserve">
         <source>Unknown Error</source>
@@ -1053,7 +1039,7 @@ Tag name placeholder.</note>
       </trans-unit>
       <trans-unit id="Version" xml:space="preserve">
         <source>Version</source>
-        <note>Row label.</note>
+        <note>About row label.</note>
       </trans-unit>
       <trans-unit id="View" xml:space="preserve">
         <source>View</source>

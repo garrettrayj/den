@@ -30,7 +30,7 @@ struct SettingsSheet: View {
                     DebuggingTools()
                 } label: {
                     Label {
-                        Text("Debugging Tools")
+                        Text("Debugging Tools", comment: "Button label.")
                     } icon: {
                         Image(systemName: "ladybug")
                     }
