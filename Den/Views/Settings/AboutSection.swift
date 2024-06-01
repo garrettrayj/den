@@ -31,7 +31,7 @@ struct AboutSection: View {
             
             Link(destination: URL(string: "https://den.io/help/")!) {
                 Label {
-                    Text("Help", comment: "Row label.")
+                    Text("Help", comment: "Button label.")
                 } icon: {
                     Image(systemName: "questionmark.circle")
                 }
@@ -55,7 +55,7 @@ struct AboutSection: View {
     
     private var versionLabel: some View {
         Label {
-            Text("Version", comment: "Row label.")
+            Text("Version", comment: "About row label.")
         } icon: {
             Image(systemName: "info.square")
         }

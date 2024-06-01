@@ -5,7 +5,15 @@
 
     },
     "%lld Feeds" : {
-      "comment" : "Feed count (plural)."
+      "comment" : "Feed count (plural).",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Feeds"
+          }
+        }
+      }
     },
     "%lld items in %lld feeds. %lld unread" : {
       "comment" : "Trend status line.",
@@ -15,11 +23,25 @@
             "state" : "new",
             "value" : "%1$lld items in %2$lld feeds. %3$lld unread"
           }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld items in %2$lld feeds. %3$lld unread"
+          }
         }
       }
     },
     "%lld ms" : {
-      "comment" : "Milliseconds time display."
+      "comment" : "Milliseconds time display.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ms"
+          }
+        }
+      }
     },
     "%lld of %lld Updated" : {
       "comment" : "Status message (refresh in progress).",
@@ -29,29 +51,91 @@
             "state" : "new",
             "value" : "%1$lld of %2$lld Updated"
           }
+        },
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld of %2$lld Updated"
+          }
         }
       }
     },
     "%lld Records" : {
-      "comment" : "History count (zeor/plural)."
+      "comment" : "History count (zeor/plural).",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Records"
+          }
+        }
+      }
     },
     "%lld s" : {
-      "comment" : "Seconds time display."
+      "comment" : "Seconds time display.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld s"
+          }
+        }
+      }
     },
     "%lld%%" : {
-      "comment" : "Zoom level label."
+      "comment" : "Zoom level label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld%%"
+          }
+        }
+      }
     },
     "1 Feed" : {
-      "comment" : "Feed count (singular)."
+      "comment" : "Feed count (singular).",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Feed"
+          }
+        }
+      }
     },
     "1 Record" : {
-      "comment" : "History count (singular)."
+      "comment" : "History count (singular).",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Record"
+          }
+        }
+      }
     },
     "A critical error occurred. Restart to try again." : {
-      "comment" : "Crash view guidance."
+      "comment" : "Crash view guidance.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A critical error occurred. Restart to try again."
+          }
+        }
+      }
     },
     "About %@" : {
-      "comment" : "Settings section header."
+      "comment" : "Settings section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About %@"
+          }
+        }
+      }
     },
     "Accent Color" : {
       "comment" : "Picker label.",
@@ -71,37 +155,125 @@
       }
     },
     "Acknowledgements" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acknowledgements"
+          }
+        }
+      }
     },
     "Actual Size" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actual Size"
+          }
+        }
+      }
     },
     "Address cannot be blank." : {
-      "comment" : "URL field validation message."
+      "comment" : "URL field validation message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Address cannot be blank."
+          }
+        }
+      }
     },
     "Address could not be parsed." : {
-      "comment" : "URL field validation message."
+      "comment" : "URL field validation message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Address could not be parsed."
+          }
+        }
+      }
     },
     "Address must begin with “http://” or “https://”." : {
-      "comment" : "URL field validation message."
+      "comment" : "URL field validation message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Address must begin with “http://” or “https://”."
+          }
+        }
+      }
     },
     "Address must not contain spaces." : {
-      "comment" : "URL field validation message."
+      "comment" : "URL field validation message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Address must not contain spaces."
+          }
+        }
+      }
     },
     "Age" : {
-      "comment" : "Organizer info panel row label."
+      "comment" : "Organizer info panel row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Age"
+          }
+        }
+      }
     },
     "All data will be deleted. Default settings will be restored." : {
-      "comment" : "Alert message."
+      "comment" : "Alert message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All data will be deleted. Default settings will be restored."
+          }
+        }
+      }
     },
     "All feeds will removed." : {
-      "comment" : "Delete page alert message."
+      "comment" : "Delete page alert message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All feeds will removed."
+          }
+        }
+      }
     },
     "All Read" : {
-      "comment" : "Content unavailable title."
+      "comment" : "Content unavailable title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All Read"
+          }
+        }
+      }
     },
     "Allow JavaScript" : {
-      "comment" : "Toggle label."
+      "comment" : "Toggle label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow JavaScript"
+          }
+        }
+      }
     },
     "Analyzing…" : {
       "comment" : "Status message (analysis in progress).",
@@ -121,700 +293,2446 @@
       }
     },
     "Appearance" : {
-      "comment" : "Picker label."
-    },
-    "Application Error" : {
-      "comment" : "Crash view title."
-    },
-    "Available" : {
-      "comment" : "Background refresh status."
-    },
-    "Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable." : {
-      "comment" : "Background refresh status guidance."
-    },
-    "Background Refresh Status" : {
-      "comment" : "Debugging tools section header."
-    },
-    "Background refresh task is available." : {
-      "comment" : "Background refresh status guidance."
-    },
-    "Background updates are unavailable and the user cannot enable them again." : {
-      "comment" : "Background refresh status guidance."
-    },
-    "Blocklist Deleted" : {
-      "comment" : "Content unavailable title."
-    },
-    "Blocklists" : {
-      "comment" : "Settings section header."
-    },
-    "Blue" : {
-      "comment" : "Accent color option."
-    },
-    "Brown" : {
-      "comment" : "Accent color option."
-    },
-    "Cache Control" : {
-      "comment" : "Organizer info panel row label."
-    },
-    "Cancel" : {
-      "comment" : "Button Label.\nButton label."
-    },
-    "Change Icon" : {
-      "comment" : "Button label."
-    },
-    "Check the spelling or try a new search." : {
-      "comment" : "No search results guidance."
-    },
-    "Clear" : {
-      "comment" : "Button label."
-    },
-    "Clear History" : {
-      "comment" : "Button label."
-    },
-    "Close" : {
-      "comment" : "Button label."
-    },
-    "Configuration" : {
-      "comment" : "Inspector panel label."
-    },
-    "Copied" : {
-      "comment" : "Copied to pasteboard message."
-    },
-    "Copy Address" : {
-      "comment" : "Button label."
-    },
-    "Cyan" : {
-      "comment" : "Accent color option."
-    },
-    "Dark" : {
-      "comment" : "User color scheme picker option."
-    },
-    "Debugging Tools" : {
-      "comment" : "Navigation title."
-    },
-    "Deck" : {
-      "comment" : "Page layout option label."
-    },
-    "Default" : {
-      "comment" : "Accent color option."
-    },
-    "Delete" : {
-      "comment" : "Button label."
-    },
-    "Delete Feed?" : {
-      "comment" : "Alert title."
-    },
-    "Delete Page?" : {
-      "comment" : "Alert title."
-    },
-    "Den Help" : {
-      "comment" : "Button label."
-    },
-    "Denied" : {
-      "comment" : "Background refresh status."
-    },
-    "Disable JavaScript" : {
-      "comment" : "Button label."
-    },
-    "Downloads" : {
-      "comment" : "Button label."
-    },
-    "Drag to move feed to another page." : {
-      "comment" : "Draggable help text."
-    },
-    "Earliest Begin Date" : {
-      "comment" : "Content label."
-    },
-    "Empty Caches" : {
-      "comment" : "Button label."
-    },
-    "Enable JavaScript" : {
-      "comment" : "Button label."
-    },
-    "Enter a term to search item titles." : {
-      "comment" : "Search query empty guidance."
-    },
-    "Enter the web address for a RSS, Atom, or JSON feed." : {
-      "comment" : "Feed web address field guidance message."
-    },
-    "ETag" : {
-      "comment" : "Organizer info panel row label."
-    },
-    "Expanded Previews" : {
-      "comment" : "Toggle label."
-    },
-    "Export OPML" : {
-      "comment" : "Button label."
-    },
-    "Extra" : {
-      "comment" : "Feed view section header."
-    },
-    "Featured" : {
-      "comment" : "Feed view section header."
-    },
-    "Featured Items" : {
-      "comment" : "Picker label."
-    },
-    "Feed" : {
-      "comment" : "Tagged items table header."
-    },
-    "Feed Deleted" : {
-      "comment" : "Object removed message."
-    },
-    "Feed Empty" : {
-      "comment" : "Content unavailable title."
-    },
-    "Feed unavailable." : {
-      "comment" : "Feed unavailable message."
-    },
-    "Feeds will refresh automatically while the app is running." : {
-      "comment" : "Refresh settings guidance."
-    },
-    "Filter Read" : {
-      "comment" : "Button label."
-    },
-    "Filter rules must be in content blocker JSON format." : {
-      "comment" : "New blocklist guidance."
-    },
-    "Format" : {
-      "comment" : "Organizer info panel row label."
-    },
-    "FormatMenu" : {
-
-    },
-    "Formatting" : {
-      "comment" : "Button label."
-    },
-    "General" : {
-      "comment" : "Settings section header."
-    },
-    "Get Started" : {
-      "comment" : "Sidebar section header."
-    },
-    "Go Back" : {
-      "comment" : "Button label."
-    },
-    "Go Forward" : {
-      "comment" : "Button label."
-    },
-    "Green" : {
-      "comment" : "Accent color option."
-    },
-    "Grouped" : {
-      "comment" : "Page layout option label."
-    },
-    "Help" : {
-      "comment" : "Row label."
-    },
-    "Hide Inspector" : {
-      "comment" : "Button help text."
-    },
-    "Hide Read Items" : {
-      "comment" : "Button help text."
-    },
-    "Hide Reader" : {
-      "comment" : "Button label."
-    },
-    "https⁣://example.com/blocklist.json" : {
-      "comment" : "Blocklist URL field prompt."
-    },
-    "https⁣://example.com/feed" : {
-      "comment" : "Web address text field prompt."
-    },
-    "If you have used the app on another device then synchronization may be in progress. \nPlease wait a minute." : {
-      "comment" : "Landing guidance message.",
-      "extractionState" : "manual",
+      "comment" : "Picker label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "If you have used the app on another device then synchronisation may be in progress. \nPlease wait a minute."
+            "value" : "Appearance"
           }
-        },
-        "en-GB" : {
+        }
+      }
+    },
+    "Application Error" : {
+      "comment" : "Crash view title.",
+      "localizations" : {
+        "en-AU" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "If you have used the app on another device then synchronisation may be in progress. \nPlease wait a minute."
+            "value" : "Application Error"
+          }
+        }
+      }
+    },
+    "Available" : {
+      "comment" : "Background refresh status.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Available"
+          }
+        }
+      }
+    },
+    "Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable." : {
+      "comment" : "Background refresh status guidance.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable."
+          }
+        }
+      }
+    },
+    "Background Refresh Status" : {
+      "comment" : "Debugging tools section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background Refresh Status"
+          }
+        }
+      }
+    },
+    "Background refresh task is available." : {
+      "comment" : "Background refresh status guidance.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background refresh task is available."
+          }
+        }
+      }
+    },
+    "Background updates are unavailable and the user cannot enable them again." : {
+      "comment" : "Background refresh status guidance.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background updates are unavailable and the user cannot enable them again."
+          }
+        }
+      }
+    },
+    "Blocklist Deleted" : {
+      "comment" : "Content unavailable title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocklist Deleted"
+          }
+        }
+      }
+    },
+    "Blocklists" : {
+      "comment" : "Settings section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocklists"
+          }
+        }
+      }
+    },
+    "Blue" : {
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blue"
+          }
+        }
+      }
+    },
+    "Brown" : {
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brown"
+          }
+        }
+      }
+    },
+    "Cache Control" : {
+      "comment" : "Organizer info panel row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cache Control"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "comment" : "Button Label.\nButton label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Change Icon" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Icon"
+          }
+        }
+      }
+    },
+    "Check the spelling or try a new search." : {
+      "comment" : "No search results guidance.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check the spelling or try a new search."
+          }
+        }
+      }
+    },
+    "Clear" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear"
+          }
+        }
+      }
+    },
+    "Clear History" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear History"
+          }
+        }
+      }
+    },
+    "Close" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "Configuration" : {
+      "comment" : "Inspector panel label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration"
+          }
+        }
+      }
+    },
+    "Copied" : {
+      "comment" : "Copied to pasteboard message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copied"
+          }
+        }
+      }
+    },
+    "Copy Address" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy Address"
+          }
+        }
+      }
+    },
+    "Cyan" : {
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cyan"
+          }
+        }
+      }
+    },
+    "Dark" : {
+      "comment" : "User color scheme picker option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
+          }
+        }
+      }
+    },
+    "Debugging Tools" : {
+      "comment" : "Navigation title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debugging Tools"
+          }
+        }
+      }
+    },
+    "Deck" : {
+      "comment" : "Page layout option label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deck"
+          }
+        }
+      }
+    },
+    "Default" : {
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "Delete Feed?" : {
+      "comment" : "Alert title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Feed?"
+          }
+        }
+      }
+    },
+    "Delete Page?" : {
+      "comment" : "Alert title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Page?"
+          }
+        }
+      }
+    },
+    "Den Help" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den Help"
+          }
+        }
+      }
+    },
+    "Denied" : {
+      "comment" : "Background refresh status.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Denied"
+          }
+        }
+      }
+    },
+    "Disable JavaScript" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disable JavaScript"
+          }
+        }
+      }
+    },
+    "Downloads" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloads"
+          }
+        }
+      }
+    },
+    "Drag to move feed to another page." : {
+      "comment" : "Draggable help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag to move feed to another page."
+          }
+        }
+      }
+    },
+    "Earliest Begin Date" : {
+      "comment" : "Content label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Earliest Begin Date"
+          }
+        }
+      }
+    },
+    "Empty Caches" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empty Caches"
+          }
+        }
+      }
+    },
+    "Enable JavaScript" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable JavaScript"
+          }
+        }
+      }
+    },
+    "Enter a term to search item titles." : {
+      "comment" : "Search query empty guidance.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a term to search item titles."
+          }
+        }
+      }
+    },
+    "Enter the web address for a RSS, Atom, or JSON feed." : {
+      "comment" : "Feed web address field guidance message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the web address for a RSS, Atom, or JSON feed."
+          }
+        }
+      }
+    },
+    "ETag" : {
+      "comment" : "Organizer info panel row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ETag"
+          }
+        }
+      }
+    },
+    "Expanded Previews" : {
+      "comment" : "Toggle label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expanded Previews"
+          }
+        }
+      }
+    },
+    "Export OPML" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export OPML"
+          }
+        }
+      }
+    },
+    "Extra" : {
+      "comment" : "Feed view section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Extra"
+          }
+        }
+      }
+    },
+    "Featured" : {
+      "comment" : "Feed view section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Featured"
+          }
+        }
+      }
+    },
+    "Featured Items" : {
+      "comment" : "Picker label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Featured Items"
+          }
+        }
+      }
+    },
+    "Feed" : {
+      "comment" : "Tagged items table header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feed"
+          }
+        }
+      }
+    },
+    "Feed Deleted" : {
+      "comment" : "Object removed message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feed Deleted"
+          }
+        }
+      }
+    },
+    "Feed Empty" : {
+      "comment" : "Content unavailable title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feed Empty"
+          }
+        }
+      }
+    },
+    "Feed unavailable." : {
+      "comment" : "Feed unavailable message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feed unavailable."
+          }
+        }
+      }
+    },
+    "Feeds will refresh automatically while the app is running." : {
+      "comment" : "Refresh settings guidance.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feeds will refresh automatically while the app is running."
+          }
+        }
+      }
+    },
+    "Filter Read" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter Read"
+          }
+        }
+      }
+    },
+    "Filter rules must be in content blocker JSON format." : {
+      "comment" : "New blocklist guidance.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter rules must be in content blocker JSON format."
+          }
+        }
+      }
+    },
+    "Format" : {
+      "comment" : "Organizer info panel row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Format"
+          }
+        }
+      }
+    },
+    "Formatting" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Formatting"
+          }
+        }
+      }
+    },
+    "General" : {
+      "comment" : "Settings section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
+    },
+    "Get Started" : {
+      "comment" : "Sidebar section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get Started"
+          }
+        }
+      }
+    },
+    "Go Back" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go Back"
+          }
+        }
+      }
+    },
+    "Go Forward" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go Forward"
+          }
+        }
+      }
+    },
+    "Green" : {
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green"
+          }
+        }
+      }
+    },
+    "Grouped" : {
+      "comment" : "Page layout option label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grouped"
+          }
+        }
+      }
+    },
+    "Help" : {
+      "comment" : "Row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help"
+          }
+        }
+      }
+    },
+    "Hide Inspector" : {
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide Inspector"
+          }
+        }
+      }
+    },
+    "Hide Read Items" : {
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide Read Items"
+          }
+        }
+      }
+    },
+    "Hide Reader" : {
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide Reader"
+          }
+        }
+      }
+    },
+    "https⁣://example.com/blocklist.json" : {
+      "comment" : "Blocklist URL field prompt.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https⁣://example.com/blocklist.json"
+          }
+        }
+      }
+    },
+    "https⁣://example.com/feed" : {
+      "comment" : "Web address text field prompt.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https⁣://example.com/feed"
           }
         }
       }
     },
     "Import OPML" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import OPML"
+          }
+        }
+      }
     },
     "Inbox" : {
-      "comment" : "Button label.\nNavigation title."
+      "comment" : "Button label.\nNavigation title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inbox"
+          }
+        }
+      }
     },
     "Inbox Empty" : {
-      "comment" : "Content unavailable title."
+      "comment" : "Content unavailable title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inbox Empty"
+          }
+        }
+      }
     },
     "Indigo" : {
-      "comment" : "Accent color option."
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indigo"
+          }
+        }
+      }
     },
     "Info" : {
-      "comment" : "Inspector panel label."
+      "comment" : "Inspector panel label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Info"
+          }
+        }
+      }
     },
     "Item Removed" : {
-      "comment" : "Object removed message."
+      "comment" : "Object removed message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item Removed"
+          }
+        }
+      }
     },
     "Last Run" : {
-      "comment" : "Maintenance date label."
+      "comment" : "Maintenance date label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last Run"
+          }
+        }
+      }
     },
     "Layout" : {
-      "comment" : "Picker label."
+      "comment" : "Picker label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Layout"
+          }
+        }
+      }
     },
     "Leave a Review" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave a Review"
+          }
+        }
+      }
     },
     "Light" : {
-      "comment" : "User color scheme picker option."
+      "comment" : "User color scheme picker option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
+          }
+        }
+      }
     },
     "Limits" : {
-      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header."
+      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limits"
+          }
+        }
+      }
     },
     "List" : {
-      "comment" : "Tag layout option."
+      "comment" : "Tag layout option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "List"
+          }
+        }
+      }
     },
     "Load Demo" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Load Demo"
+          }
+        }
+      }
     },
     "Maintenance" : {
-      "comment" : "Debugging tools section header."
+      "comment" : "Debugging tools section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maintenance"
+          }
+        }
+      }
     },
     "Management" : {
-      "comment" : "Organizer configuration panel section header."
+      "comment" : "Organizer configuration panel section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Management"
+          }
+        }
+      }
     },
     "Mark All Read" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark All Read"
+          }
+        }
+      }
     },
     "Mark All Unread" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark All Unread"
+          }
+        }
+      }
     },
     "Mark Read" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark Read"
+          }
+        }
+      }
     },
     "Mark Unread" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark Unread"
+          }
+        }
+      }
     },
     "Mint" : {
-      "comment" : "Accent color option."
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mint"
+          }
+        }
+      }
     },
     "Move" : {
-      "comment" : "Picker label."
+      "comment" : "Picker label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move"
+          }
+        }
+      }
     },
     "Multiple Selected" : {
-      "comment" : "Inspector selection message."
+      "comment" : "Inspector selection message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multiple Selected"
+          }
+        }
+      }
     },
     "N/A" : {
-      "comment" : "Not available."
+      "comment" : "Not available.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "N/A"
+          }
+        }
+      }
     },
     "Name" : {
-      "comment" : "Text field label."
+      "comment" : "Text field label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
     },
     "Network Error" : {
-      "comment" : "Feed unavailable title.\nOrganizer row status."
+      "comment" : "Feed unavailable title.\nOrganizer row status.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Network Error"
+          }
+        }
+      }
     },
     "Network Offline" : {
-      "comment" : "Status message."
+      "comment" : "Status message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Network Offline"
+          }
+        }
+      }
     },
     "New Blocklist" : {
-      "comment" : "Button label.\nNavigation title."
+      "comment" : "Button label.\nNavigation title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Blocklist"
+          }
+        }
+      }
     },
     "New Feed" : {
-      "comment" : "Button label.\nNavigation title."
+      "comment" : "Button label.\nNavigation title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Feed"
+          }
+        }
+      }
     },
     "New Page" : {
-      "comment" : "Button label.\nNavigation title."
+      "comment" : "Button label.\nNavigation title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Page"
+          }
+        }
+      }
     },
     "New Tag" : {
-      "comment" : "Button label.\nNavigation title."
-    },
-    "NewBlocklist" : {
-
+      "comment" : "Button label.\nNavigation title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Tag"
+          }
+        }
+      }
     },
     "No" : {
-      "comment" : "Blocklist compile/load status message.\nBoolean value."
+      "comment" : "Blocklist compile/load status message.\nBoolean value.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No"
+          }
+        }
+      }
     },
     "No common subjects were found in titles." : {
-      "comment" : "Trending empty message."
+      "comment" : "Trending empty message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No common subjects were found in titles."
+          }
+        }
+      }
     },
     "No Data" : {
-      "comment" : "Feed unavailable title.\nOrganizer row status."
+      "comment" : "Feed unavailable title.\nOrganizer row status.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Data"
+          }
+        }
+      }
     },
     "No Feeds" : {
-      "comment" : "Content unavailable title.\nEmpty page title.\nFeed count (zero)."
+      "comment" : "Content unavailable title.\nEmpty page title.\nFeed count (zero).",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Feeds"
+          }
+        }
+      }
     },
     "No Items" : {
-      "comment" : "Content unavailable title."
+      "comment" : "Content unavailable title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Items"
+          }
+        }
+      }
     },
     "No Pages Available" : {
-      "comment" : "New Feed error message."
+      "comment" : "New Feed error message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Pages Available"
+          }
+        }
+      }
     },
     "No Pending Tasks" : {
-      "comment" : "Debugging tools message."
+      "comment" : "Debugging tools message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Pending Tasks"
+          }
+        }
+      }
     },
     "No Query" : {
-      "comment" : "Search query empty title."
+      "comment" : "Search query empty title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Query"
+          }
+        }
+      }
     },
     "No Results" : {
-      "comment" : "No search results message title."
+      "comment" : "No search results message title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Results"
+          }
+        }
+      }
     },
     "No Selection" : {
-      "comment" : "Inspector selection message."
+      "comment" : "Inspector selection message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Selection"
+          }
+        }
+      }
     },
     "No Tags" : {
-      "comment" : "Menu options unavailable message."
+      "comment" : "Menu options unavailable message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Tags"
+          }
+        }
+      }
     },
     "No Trends" : {
-      "comment" : "Content unavailable title."
+      "comment" : "Content unavailable title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Trends"
+          }
+        }
+      }
     },
     "No Unread Results" : {
-      "comment" : "No unread search results title."
+      "comment" : "No unread search results title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Unread Results"
+          }
+        }
+      }
     },
     "None" : {
-      "comment" : "Empty picker option."
+      "comment" : "Empty picker option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        }
+      }
     },
     "Open a feed link or go to “%@ > New Feed” to enter a web address. Use the Safari extension to discover feeds on websites." : {
-      "comment" : "No feeds guidance (iPhone)."
+      "comment" : "No feeds guidance (iPhone).",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open a feed link or go to “%@ > New Feed” to enter a web address. Use the Safari extension to discover feeds on websites."
+          }
+        }
+      }
     },
     "Open a feed link, drag a URL onto the page list, or go to “%@ > New Feed” to enter a web address. \nUse the Safari extension to discover feeds on websites." : {
-      "comment" : "No feeds guidance (Mac)."
+      "comment" : "No feeds guidance (Mac).",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open a feed link, drag a URL onto the page list, or go to “%@ > New Feed” to enter a web address. \nUse the Safari extension to discover feeds on websites."
+          }
+        }
+      }
     },
     "Open a feed link, drag a URL onto the page list, or go to “%@ > New Feed” to enter a web address. Use the Safari extension to discover feeds on websites." : {
-      "comment" : "No feeds guidance (iPad)."
+      "comment" : "No feeds guidance (iPad).",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open a feed link, drag a URL onto the page list, or go to “%@ > New Feed” to enter a web address. Use the Safari extension to discover feeds on websites."
+          }
+        }
+      }
     },
     "Open File" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open File"
+          }
+        }
+      }
     },
     "Open in Browser" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open in Browser"
+          }
+        }
+      }
     },
     "Open in System Browser" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open in System Browser"
+          }
+        }
+      }
     },
     "Open Validator" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Validator"
+          }
+        }
+      }
     },
     "Orange" : {
-      "comment" : "Accent color option."
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orange"
+          }
+        }
+      }
     },
     "Organizer" : {
-      "comment" : "Button label.\nNavigation title."
-    },
-    "OrganizerConfig" : {
-
-    },
-    "OrganizerInfo" : {
-
+      "comment" : "Button label.\nNavigation title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Organizer"
+          }
+        }
+      }
     },
     "Page" : {
-      "comment" : "Picker label."
+      "comment" : "Picker label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Page"
+          }
+        }
+      }
     },
     "Page Deleted" : {
-      "comment" : "Object removed message."
+      "comment" : "Object removed message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Page Deleted"
+          }
+        }
+      }
     },
     "Pages" : {
-      "comment" : "Sidebar section header."
+      "comment" : "Sidebar section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pages"
+          }
+        }
+      }
     },
     "Parsing Error" : {
-      "comment" : "Feed unavailable title.\nOrganizer row status."
+      "comment" : "Feed unavailable title.\nOrganizer row status.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parsing Error"
+          }
+        }
+      }
     },
     "Perform Maintenance" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perform Maintenance"
+          }
+        }
+      }
     },
     "Pink" : {
-      "comment" : "Accent color option."
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pink"
+          }
+        }
+      }
     },
     "Preferences" : {
-      "comment" : "Menu label."
+      "comment" : "Menu label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferences"
+          }
+        }
+      }
     },
     "Press %@ R to Refresh" : {
-      "comment" : "Status message."
+      "comment" : "Status message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Press %@ R to Refresh"
+          }
+        }
+      }
     },
     "Previews" : {
-      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header.\nTag layout option."
+      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header.\nTag layout option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previews"
+          }
+        }
+      }
     },
     "Pull to Refresh" : {
-      "comment" : "Status message."
+      "comment" : "Status message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pull to Refresh"
+          }
+        }
+      }
     },
     "Purple" : {
-      "comment" : "Accent color option."
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purple"
+          }
+        }
+      }
     },
     "Red" : {
-      "comment" : "Accent color option."
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red"
+          }
+        }
+      }
     },
     "Refresh" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh"
+          }
+        }
+      }
     },
     "Refresh Feeds" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh Feeds"
+          }
+        }
+      }
     },
     "Refresh Interval" : {
-      "comment" : "Picker label."
+      "comment" : "Picker label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh Interval"
+          }
+        }
+      }
     },
     "Refresh to check for new items." : {
-      "comment" : "Content unavailable description."
+      "comment" : "Content unavailable description.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh to check for new items."
+          }
+        }
+      }
     },
     "Refresh to fetch items." : {
-      "comment" : "Feed unavailable message."
+      "comment" : "Feed unavailable message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh to fetch items."
+          }
+        }
+      }
     },
     "Reload" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reload"
+          }
+        }
+      }
     },
     "Reload Page" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reload Page"
+          }
+        }
+      }
     },
     "Remove Bookmark" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove Bookmark"
+          }
+        }
+      }
     },
     "Remove from List" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from List"
+          }
+        }
+      }
     },
     "Reset" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        }
+      }
     },
     "Reset Everything" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset Everything"
+          }
+        }
+      }
     },
     "Reset Everything?" : {
-      "comment" : "Alert title."
+      "comment" : "Alert title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset Everything?"
+          }
+        }
+      }
     },
     "Response Code" : {
-      "comment" : "Blocklist status row label."
+      "comment" : "Blocklist status row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Response Code"
+          }
+        }
+      }
     },
     "Response Time" : {
-      "comment" : "Organizer info panel row label."
+      "comment" : "Organizer info panel row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Response Time"
+          }
+        }
+      }
     },
     "Restricted" : {
-      "comment" : "Background refresh status."
+      "comment" : "Background refresh status.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restricted"
+          }
+        }
+      }
     },
     "Rules Applied" : {
-      "comment" : "Blocklist status row label."
+      "comment" : "Blocklist status row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rules Applied"
+          }
+        }
+      }
     },
     "Save" : {
-      "comment" : "Button Label.\nButton label."
+      "comment" : "Button Label.\nButton label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
     },
     "Scheduled Background Tasks" : {
-      "comment" : "Debugging tools section header."
+      "comment" : "Debugging tools section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scheduled Background Tasks"
+          }
+        }
+      }
     },
     "Search" : {
-      "comment" : "Navigation title.\nSearch field prompt."
+      "comment" : "Navigation title.\nSearch field prompt.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        }
+      }
     },
     "Secure" : {
-      "comment" : "Organizer info panel row label."
+      "comment" : "Organizer info panel row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secure"
+          }
+        }
+      }
     },
     "Select All" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select All"
+          }
+        }
+      }
     },
     "Select Icon" : {
-      "comment" : "Navigation title."
+      "comment" : "Navigation title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Icon"
+          }
+        }
+      }
     },
     "Select None" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select None"
+          }
+        }
+      }
     },
     "Select Preset…" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Preset…"
+          }
+        }
+      }
     },
     "Select Tags" : {
-      "comment" : "Menu help text."
+      "comment" : "Menu help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Tags"
+          }
+        }
+      }
     },
     "Server" : {
-      "comment" : "Organizer info panel row label."
+      "comment" : "Organizer info panel row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server"
+          }
+        }
+      }
     },
     "Server unavailable." : {
-      "comment" : "Feed unavailable message."
+      "comment" : "Feed unavailable message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server unavailable."
+          }
+        }
+      }
     },
     "Settings" : {
-      "comment" : "Button label.\nNavigation title."
+      "comment" : "Button label.\nNavigation title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
     },
     "Share" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share"
+          }
+        }
+      }
     },
     "Show Bylines" : {
-      "comment" : "Toggle label."
+      "comment" : "Toggle label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Bylines"
+          }
+        }
+      }
     },
     "Show Downloads" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Downloads"
+          }
+        }
+      }
     },
     "Show Excerpts" : {
-      "comment" : "Toggle label."
+      "comment" : "Toggle label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Excerpts"
+          }
+        }
+      }
     },
     "Show Format Menu" : {
-      "comment" : "Menu help text."
+      "comment" : "Menu help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Format Menu"
+          }
+        }
+      }
     },
     "Show Images" : {
-      "comment" : "Toggle label."
+      "comment" : "Toggle label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Images"
+          }
+        }
+      }
     },
     "Show in Finder" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show in Finder"
+          }
+        }
+      }
     },
     "Show Inspector" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Inspector"
+          }
+        }
+      }
     },
     "Show Menu" : {
-      "comment" : "Menu help text."
+      "comment" : "Menu help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Menu"
+          }
+        }
+      }
     },
     "Show Next Page" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Next Page"
+          }
+        }
+      }
     },
     "Show Previous Page" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Previous Page"
+          }
+        }
+      }
     },
     "Show Read Items" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Read Items"
+          }
+        }
+      }
     },
     "Show Reader" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Reader"
+          }
+        }
+      }
     },
     "Show Reader / Show Format Menu" : {
-      "comment" : "Menu help text."
+      "comment" : "Menu help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Reader / Show Format Menu"
+          }
+        }
+      }
     },
     "Show Reader Formatting" : {
-      "comment" : "Menu help text."
+      "comment" : "Menu help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Reader Formatting"
+          }
+        }
+      }
     },
     "Show Unread Counts" : {
-      "comment" : "Toggle label."
+      "comment" : "Toggle label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Unread Counts"
+          }
+        }
+      }
     },
     "Showing results for “%@”" : {
-      "comment" : "Bottom bar status.\nNavigation subtitle."
+      "comment" : "Bottom bar status.\nNavigation subtitle.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Showing results for “%@”"
+          }
+        }
+      }
     },
     "Status" : {
-      "comment" : "Blocklist status section header.\nOrganizer info panel row label."
+      "comment" : "Blocklist status section header.\nOrganizer info panel row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Status"
+          }
+        }
+      }
     },
     "Status Unknown" : {
-      "comment" : "Blocklist status message."
+      "comment" : "Blocklist status message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Status Unknown"
+          }
+        }
+      }
     },
     "Stop" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop"
+          }
+        }
+      }
     },
     "Stop Loading Page" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop Loading Page"
+          }
+        }
+      }
     },
     "Switch Page Layout" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch Page Layout"
+          }
+        }
+      }
     },
     "Symbol" : {
-      "comment" : "Text field label."
+      "comment" : "Text field label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbol"
+          }
+        }
+      }
     },
     "System" : {
-      "comment" : "User color scheme picker option."
+      "comment" : "User color scheme picker option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        }
+      }
     },
     "Tag Deleted" : {
-      "comment" : "Object removed message."
+      "comment" : "Object removed message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tag Deleted"
+          }
+        }
+      }
     },
     "Tagged" : {
-      "comment" : "Tagged items table header."
+      "comment" : "Tagged items table header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tagged"
+          }
+        }
+      }
     },
     "Tagged: %@" : {
-      "comment" : "Tagged date/time label."
+      "comment" : "Tagged date/time label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tagged: %@"
+          }
+        }
+      }
     },
     "Tags" : {
-      "comment" : "Menu label.\nSidebar section header."
+      "comment" : "Menu label.\nSidebar section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tags"
+          }
+        }
+      }
     },
     "Teal" : {
-      "comment" : "Accent color option."
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teal"
+          }
+        }
+      }
     },
     "The operating system decides when background refresh will occur. Refresh interval sets the minimum amount of time between background refresh tasks." : {
-      "comment" : "Refresh settings guidance."
+      "comment" : "Refresh settings guidance.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The operating system decides when background refresh will occur. Refresh interval sets the minimum amount of time between background refresh tasks."
+          }
+        }
+      }
     },
     "This action cannot be undone." : {
-      "comment" : "Delete feed alert message."
+      "comment" : "Delete feed alert message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This action cannot be undone."
+          }
+        }
+      }
     },
     "Timeline" : {
-      "comment" : "Page layout option label."
+      "comment" : "Page layout option label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timeline"
+          }
+        }
+      }
     },
     "Title" : {
-      "comment" : "Tagged items table header."
+      "comment" : "Tagged items table header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Title"
+          }
+        }
+      }
     },
     "Toggle Inspector" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toggle Inspector"
+          }
+        }
+      }
     },
     "Trend Removed" : {
-      "comment" : "Object removed message."
+      "comment" : "Object removed message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trend Removed"
+          }
+        }
+      }
     },
     "Trending" : {
-      "comment" : "Button label.\nNavigation title."
+      "comment" : "Button label.\nNavigation title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trending"
+          }
+        }
+      }
     },
     "Turn Off Blocklists" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn Off Blocklists"
+          }
+        }
+      }
     },
     "Turn off filter %@ to show hidden items." : {
-      "comment" : "All read guidance.\nNo unread search results guidance."
+      "comment" : "All read guidance.\nNo unread search results guidance.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn off filter %@ to show hidden items."
+          }
+        }
+      }
     },
     "Turn On Blocklists" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn On Blocklists"
+          }
+        }
+      }
     },
     "Unable to read feed content." : {
-      "comment" : "Feed unavailable message."
+      "comment" : "Feed unavailable message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to read feed content."
+          }
+        }
+      }
     },
     "Unavailable" : {
-      "comment" : "Blocklist response code placeholder."
+      "comment" : "Blocklist response code placeholder.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unavailable"
+          }
+        }
+      }
     },
     "Unknown" : {
-      "comment" : "Download file name unavailable."
+      "comment" : "Download file name unavailable.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown"
+          }
+        }
+      }
     },
     "Unknown Error" : {
-      "comment" : "Feed unavailable title."
+      "comment" : "Feed unavailable title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown Error"
+          }
+        }
+      }
     },
     "Untag" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Untag"
+          }
+        }
+      }
     },
     "Untagged" : {
-      "comment" : "Object removed message."
+      "comment" : "Object removed message.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Untagged"
+          }
+        }
+      }
     },
     "Untitled" : {
-      "comment" : "Default content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nPage name placeholder.\nTag name placeholder."
+      "comment" : "Default content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nPage name placeholder.\nTag name placeholder.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Untitled"
+          }
+        }
+      }
     },
     "Updated" : {
-      "comment" : "Blocklist status row label."
+      "comment" : "Blocklist status row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updated"
+          }
+        }
+      }
     },
     "Updated %@" : {
-      "comment" : "Status message (relative date display)."
+      "comment" : "Status message (relative date display).",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updated %@"
+          }
+        }
+      }
     },
     "Updated Just Now" : {
-      "comment" : "Status message (refreshed less than one minute ago)."
+      "comment" : "Status message (refreshed less than one minute ago).",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updated Just Now"
+          }
+        }
+      }
     },
     "URL" : {
-      "comment" : "Organizer info panel row label.\nText field label."
+      "comment" : "Organizer info panel row label.\nText field label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL"
+          }
+        }
+      }
     },
     "Use Blocklists" : {
-      "comment" : "Toggle label."
+      "comment" : "Toggle label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use Blocklists"
+          }
+        }
+      }
     },
     "Use Reader Automatically" : {
-      "comment" : "Toggle label."
+      "comment" : "Toggle label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use Reader Automatically"
+          }
+        }
+      }
     },
     "Use System Browser" : {
-      "comment" : "Toggle label."
+      "comment" : "Toggle label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use System Browser"
+          }
+        }
+      }
     },
     "Version" : {
-      "comment" : "Row label."
+      "comment" : "Row label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        }
+      }
     },
     "View" : {
-      "comment" : "Picker label."
+      "comment" : "Picker label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View"
+          }
+        }
+      }
     },
     "Viewing" : {
-      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header."
+      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viewing"
+          }
+        }
+      }
     },
     "Welcome" : {
-      "comment" : "Welcome title."
+      "comment" : "Welcome title.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome"
+          }
+        }
+      }
     },
     "Widgets will update only when feeds are manually refreshed." : {
-      "comment" : "Refresh settings guidance."
+      "comment" : "Refresh settings guidance.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widgets will update only when feeds are manually refreshed."
+          }
+        }
+      }
     },
     "Yellow" : {
-      "comment" : "Accent color option."
+      "comment" : "Accent color option.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yellow"
+          }
+        }
+      }
     },
     "Yes" : {
-      "comment" : "Blocklist compile/load status message.\nBoolean value."
+      "comment" : "Blocklist compile/load status message.\nBoolean value.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yes"
+          }
+        }
+      }
     },
     "Zoom" : {
-      "comment" : "Control group label."
+      "comment" : "Control group label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom"
+          }
+        }
+      }
     },
     "Zoom In" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom In"
+          }
+        }
+      }
     },
     "Zoom Out" : {
-      "comment" : "Button label."
+      "comment" : "Button label.",
+      "localizations" : {
+        "en-AU" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom Out"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

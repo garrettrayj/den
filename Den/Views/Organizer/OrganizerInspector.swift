@@ -28,7 +28,7 @@ struct OrganizerInspector: View {
                     Image(systemName: "info.circle")
                 }
                 .tag("info")
-                .accessibilityLabel("OrganizerInfo")
+                .accessibilityIdentifier("OrganizerInfo")
 
                 Label {
                     Text("Configuration", comment: "Inspector panel label.")
@@ -36,7 +36,7 @@ struct OrganizerInspector: View {
                     Image(systemName: "slider.horizontal.3")
                 }
                 .tag("config")
-                .accessibilityLabel("OrganizerConfig")
+                .accessibilityIdentifier("OrganizerConfig")
             } label: {
                 Text("View", comment: "Picker label.")
             }

@@ -23,7 +23,7 @@ struct NewBlocklistButton: View {
                 Image(systemName: "plus")
             }
         }
-        .accessibilityLabel("NewBlocklist")
+        .accessibilityIdentifier("NewBlocklist")
         .sheet(isPresented: $showingSheet) {
             NewBlocklistSheet()
         }

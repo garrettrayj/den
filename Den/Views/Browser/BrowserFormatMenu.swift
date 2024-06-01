@@ -50,8 +50,6 @@ struct BrowserFormatMenu: View {
                 .help(Text("Show Format Menu", comment: "Menu help text."))
             }
         }
-        
         .accessibilityIdentifier("FormatMenu")
-        .accessibilityLabel("FormatMenu")
     }
 }

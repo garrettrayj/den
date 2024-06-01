@@ -10,12 +10,6 @@
             "state" : "new",
             "value" : "Den"
           }
-        },
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Den"
-          }
         }
       }
     },
@@ -28,44 +22,17 @@
             "state" : "new",
             "value" : "Den"
           }
-        },
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Den"
-          }
         }
       }
     },
     "Den Bookmark" : {
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Den Bookmark"
-          }
-        }
-      }
+
     },
     "Den Feed" : {
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Den Feed"
-          }
-        }
-      }
+
     },
     "Den Item" : {
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Den Item"
-          }
-        }
-      }
+
     },
     "NSDownloadsFolderUsageDescription" : {
       "comment" : "Privacy - Downloads Folder Usage Description",
@@ -74,12 +41,6 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Completed file downloads will be moved here."
-          }
-        },
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
             "value" : "Completed file downloads will be moved here."
           }
         }
@@ -94,12 +55,6 @@
             "state" : "new",
             "value" : "Copyright © 2020-2024 Garrett Johnson"
           }
-        },
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Copyright © 2020-2024 Garrett Johnson"
-          }
         }
       }
     },
@@ -112,24 +67,11 @@
             "state" : "new",
             "value" : "Save images selected in the built-in browser."
           }
-        },
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Save images selected in the built-in browser."
-          }
         }
       }
     },
     "OPML Document" : {
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OPML Document"
-          }
-        }
-      }
+
     }
   },
   "version" : "1.0"

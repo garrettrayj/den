@@ -102,7 +102,7 @@ struct DebuggingTools: View {
                         comment: "Background refresh status guidance."
                     )
                 @unknown default:
-                    Text(verbatim: "")
+                    EmptyView()
                 }
             }
             
