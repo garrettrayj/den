@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
-  <file original="Den/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="en-GB" datatype="plaintext">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
-    </header>
-    <body>
-      <trans-unit id="GJd-Yh-RWb.text" xml:space="preserve">
-        <source>Loading…</source>
-        <note>Class = "UILabel"; text = "Loading…"; ObjectID = "GJd-Yh-RWb";</note>
-      </trans-unit>
-    </body>
-  </file>
   <file original="Den/InfoPlist.xcstrings" source-language="en" target-language="en-GB" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
@@ -1085,29 +1074,6 @@ Boolean value.</note>
       <trans-unit id="https⁣://example.com/feed" xml:space="preserve">
         <source>https⁣://example.com/feed</source>
         <note>Web address text field prompt.</note>
-      </trans-unit>
-    </body>
-  </file>
-  <file original="Settings.bundle/en.lproj/Root.strings" datatype="plaintext" source-language="en" target-language="en-GB">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
-    </header>
-    <body>
-      <trans-unit id="Enabled" xml:space="preserve">
-        <source>Enabled</source>
-        <note/>
-      </trans-unit>
-      <trans-unit id="Group" xml:space="preserve">
-        <source>Group</source>
-        <note>A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences.</note>
-      </trans-unit>
-      <trans-unit id="Name" xml:space="preserve">
-        <source>Name</source>
-        <note/>
-      </trans-unit>
-      <trans-unit id="none given" xml:space="preserve">
-        <source>none given</source>
-        <note/>
       </trans-unit>
     </body>
   </file>

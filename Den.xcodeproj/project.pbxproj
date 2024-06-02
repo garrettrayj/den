@@ -266,7 +266,7 @@
 		68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */; };
 		68C4DE912B361E2E0023E362 /* ItemToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4DE902B361E2E0023E362 /* ItemToolbar.swift */; };
 		68C4DE932B362ADB0023E362 /* BookmarkToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4DE922B362ADB0023E362 /* BookmarkToolbar.swift */; };
-		68C9FEB62BFD7173006B8BD6 /* Widget Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 68CC011D2BDF0D9C00E723DC /* Widget Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		68C9FEB62BFD7173006B8BD6 /* Den Widget Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 68CC011D2BDF0D9C00E723DC /* Den Widget Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		68C9FEBA2BFEF652006B8BD6 /* WidgetDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C9FEB92BFEF652006B8BD6 /* WidgetDataController.swift */; };
 		68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */ = {isa = PBXBuildFile; fileRef = 68CAC50B292954C7002D9EB9 /* Demo.opml */; };
 		68CC011F2BDF0D9C00E723DC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CC011E2BDF0D9C00E723DC /* WidgetKit.framework */; };
@@ -398,7 +398,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				6860694C2831533E000068DE /* Den Web Extension.appex in Embed Foundation Extensions */,
-				68C9FEB62BFD7173006B8BD6 /* Widget Extension.appex in Embed Foundation Extensions */,
+				68C9FEB62BFD7173006B8BD6 /* Den Widget Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -649,7 +649,7 @@
 		68C4DE922B362ADB0023E362 /* BookmarkToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkToolbar.swift; sourceTree = "<group>"; };
 		68C9FEB92BFEF652006B8BD6 /* WidgetDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataController.swift; sourceTree = "<group>"; };
 		68CAC50B292954C7002D9EB9 /* Demo.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Demo.opml; sourceTree = "<group>"; };
-		68CC011D2BDF0D9C00E723DC /* Widget Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Widget Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68CC011D2BDF0D9C00E723DC /* Den Widget Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Den Widget Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68CC011E2BDF0D9C00E723DC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = /System/Library/Frameworks/WidgetKit.framework; sourceTree = "<absolute>"; };
 		68CC01202BDF0D9C00E723DC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = /System/Library/Frameworks/SwiftUI.framework; sourceTree = "<absolute>"; };
 		68CC01232BDF0D9C00E723DC /* WidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetExtensionBundle.swift; sourceTree = "<group>"; };
@@ -1187,7 +1187,7 @@
 				68C41309247263C700D1DC7B /* Den.app */,
 				6860690E2831501B000068DE /* Den Web Extension.appex */,
 				68E83BF92A6004590014DC64 /* UI Tests.xctest */,
-				68CC011D2BDF0D9C00E723DC /* Widget Extension.appex */,
+				68CC011D2BDF0D9C00E723DC /* Den Widget Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1568,7 +1568,7 @@
 				68FB950F2BE6A691004EFA73 /* SDWebImageWebPCoder */,
 			);
 			productName = WidgetExtensionExtension;
-			productReference = 68CC011D2BDF0D9C00E723DC /* Widget Extension.appex */;
+			productReference = 68CC011D2BDF0D9C00E723DC /* Den Widget Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		68E83BF82A6004590014DC64 /* UI Tests */ = {
@@ -2451,7 +2451,7 @@
 				MACOSX_DEPLOYMENT_TARGET = "$(inherited)";
 				MARKETING_VERSION = "${MARKETING_VERSION}";
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den.widgets;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Den Widget Extension";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -2497,7 +2497,7 @@
 				MACOSX_DEPLOYMENT_TARGET = "$(inherited)";
 				MARKETING_VERSION = "${MARKETING_VERSION}";
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den.widgets;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Den Widget Extension";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";

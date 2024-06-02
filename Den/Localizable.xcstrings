@@ -2225,7 +2225,7 @@
       }
     },
     "Showing results for “%@”" : {
-      "comment" : "Bottom bar status.",
+      "comment" : "Bottom bar status.\nNavigation subtitle.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
