@@ -11,40 +11,6 @@
         }
       }
     },
-    "%@ Feeds" : {
-      "comment" : "Feed count (plural)."
-    },
-    "%@ items in %@ feeds. %@ unread" : {
-      "comment" : "Trend status line.",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ items in %2$@ feeds. %3$@ unread"
-          }
-        }
-      }
-    },
-    "%@ ms" : {
-      "comment" : "Milliseconds time display."
-    },
-    "%@ of %@ Updated" : {
-      "comment" : "Status message (refresh in progress).",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ of %2$@ Updated"
-          }
-        }
-      }
-    },
-    "%@ Records" : {
-      "comment" : "History count (zero/plural)."
-    },
-    "%@ s" : {
-      "comment" : "Seconds time display."
-    },
     "%lld Feeds" : {
       "comment" : "Feed count (plural).",
       "localizations" : {
@@ -2259,7 +2225,7 @@
       }
     },
     "Showing results for “%@”" : {
-      "comment" : "Navigation subtitle.",
+      "comment" : "Bottom bar status.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2534,7 +2500,7 @@
       }
     },
     "Unknown" : {
-      "comment" : "Download file name unavailable.",
+      "comment" : "Background refresh status.\nDownload file name unavailable.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

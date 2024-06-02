@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="Den/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="en-AU" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
+    </header>
+    <body>
+      <trans-unit id="GJd-Yh-RWb.text" xml:space="preserve">
+        <source>Loading…</source>
+        <note>Class = "UILabel"; text = "Loading…"; ObjectID = "GJd-Yh-RWb";</note>
+      </trans-unit>
+    </body>
+  </file>
   <file original="Den/InfoPlist.xcstrings" source-language="en" target-language="en-AU" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
@@ -49,18 +60,6 @@
         <source>OPML Document</source>
         <target state="translated">OPML Document</target>
         <note/>
-      </trans-unit>
-    </body>
-  </file>
-  <file original="Den/LaunchScreen.xcstrings" source-language="en" target-language="en-AU" datatype="plaintext">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
-    </header>
-    <body>
-      <trans-unit id="GJd-Yh-RWb.text" xml:space="preserve">
-        <source>Loading...</source>
-        <target state="translated">Loading...</target>
-        <note>Class = "UILabel"; text = "Loading…"; ObjectID = "GJd-Yh-RWb";</note>
       </trans-unit>
     </body>
   </file>

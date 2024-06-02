@@ -32,20 +32,19 @@ struct AppCommands: Commands {
                 Text("Den Help", comment: "Button label.")
             }
             Divider()
+            
+            #if os(macOS)
             Button {
                 if let url = Bundle.main.url(
                     forResource: "Acknowledgements",
                     withExtension: "html"
                 ) {
-                    #if os(macOS)
                     NSWorkspace.shared.open(url)
-                    #else
-                    UIApplication.shared.open(url)
-                    #endif
                 }
             } label: {
                 Text("Acknowledgements", comment: "Button label.")
             }
+            #endif
         }
     }
 }

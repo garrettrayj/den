@@ -46,6 +46,16 @@ struct AboutSection: View {
                     Image(systemName: "square.and.pencil")
                 }
             }
+            
+            NavigationLink {
+                Acknowledgements()
+            } label: {
+                Label {
+                    Text("Acknowledgements")
+                } icon: {
+                    Image(systemName: "rosette")
+                }
+            }
         } header: {
             Text("About \(Bundle.main.name)", comment: "Settings section header.")
         } footer: {

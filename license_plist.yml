@@ -1,5 +1,5 @@
 options:
-  outputPath: "./Settings.bundle"
+  outputPath: /tmp/denLicensePlist
   prefix: LicensePlist
   htmlPath: ./Den/Misc/Acknowledgements.html
   addVersionNumbers: false
