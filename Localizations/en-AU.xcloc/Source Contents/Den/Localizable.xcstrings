@@ -100,7 +100,7 @@
       "comment" : "Status message (analysis in progress)."
     },
     "Appearance" : {
-      "comment" : "Picker label."
+      "comment" : "Settings section header."
     },
     "Application Error" : {
       "comment" : "Crash view title."
@@ -172,7 +172,7 @@
       "comment" : "Button label.\nNavigation title."
     },
     "Deck" : {
-      "comment" : "Page layout option label."
+      "comment" : "Layout option label."
     },
     "Default" : {
       "comment" : "Accent color option."
@@ -183,7 +183,7 @@
     "Delete Feed?" : {
       "comment" : "Alert title."
     },
-    "Delete Page?" : {
+    "Delete Folder?" : {
       "comment" : "Alert title."
     },
     "Den Help" : {
@@ -255,6 +255,15 @@
     "Filter rules must be in content blocker JSON format." : {
       "comment" : "New blocklist guidance."
     },
+    "Folder" : {
+      "comment" : "Picker label."
+    },
+    "Folder Deleted" : {
+      "comment" : "Object removed message."
+    },
+    "Folders" : {
+      "comment" : "Sidebar section header."
+    },
     "Format" : {
       "comment" : "Organizer info panel row label."
     },
@@ -277,7 +286,7 @@
       "comment" : "Accent color option."
     },
     "Grouped" : {
-      "comment" : "Page layout option label."
+      "comment" : "Layout option label."
     },
     "Help" : {
       "comment" : "Button label."
@@ -381,7 +390,7 @@
     "New Feed" : {
       "comment" : "Button label.\nNavigation title."
     },
-    "New Page" : {
+    "New Folder" : {
       "comment" : "Button label.\nNavigation title."
     },
     "New Tag" : {
@@ -455,15 +464,6 @@
     },
     "Organizer" : {
       "comment" : "Button label.\nNavigation title."
-    },
-    "Page" : {
-      "comment" : "Picker label."
-    },
-    "Page Deleted" : {
-      "comment" : "Object removed message."
-    },
-    "Pages" : {
-      "comment" : "Sidebar section header."
     },
     "Parsing Error" : {
       "comment" : "Feed unavailable title.\nOrganizer row status."
@@ -639,7 +639,7 @@
     "Stop Loading Page" : {
       "comment" : "Button help text."
     },
-    "Switch Page Layout" : {
+    "Switch Layout" : {
       "comment" : "Button help text."
     },
     "Symbol" : {
@@ -666,11 +666,14 @@
     "The operating system decides when background refresh will occur. Refresh interval sets the minimum amount of time between background refresh tasks." : {
       "comment" : "Refresh settings guidance."
     },
+    "Theme" : {
+      "comment" : "Picker label."
+    },
     "This action cannot be undone." : {
       "comment" : "Delete feed alert message."
     },
     "Timeline" : {
-      "comment" : "Page layout option label."
+      "comment" : "Layout option label."
     },
     "Title" : {
       "comment" : "Tagged items table header."
@@ -712,7 +715,7 @@
       "comment" : "Object removed message."
     },
     "Untitled" : {
-      "comment" : "Default content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nPage name placeholder.\nTag name placeholder."
+      "comment" : "Default content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nFolder name placeholder.\nTag name placeholder."
     },
     "Updated" : {
       "comment" : "Blocklist status row label."

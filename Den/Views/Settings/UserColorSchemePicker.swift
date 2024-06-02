@@ -29,7 +29,7 @@ struct UserColorSchemePicker: View {
             
         } label: {
             Label {
-                Text("Appearance", comment: "Picker label.")
+                Text("Theme", comment: "Picker label.")
             } icon: {
                 Image(systemName: "paintpalette")
             }

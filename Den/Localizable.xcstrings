@@ -300,7 +300,7 @@
       }
     },
     "Appearance" : {
-      "comment" : "Picker label.",
+      "comment" : "Settings section header.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -607,17 +607,8 @@
         }
       }
     },
-    "Delete Page?" : {
-      "comment" : "Alert title.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete Page?"
-          }
-        }
-      }
+    "Delete Folder?" : {
+      "comment" : "Alert title."
     },
     "Den Help" : {
       "comment" : "Button label.",
@@ -1346,18 +1337,6 @@
     "New Folder" : {
       "comment" : "Button label.\nNavigation title."
     },
-    "New Page" : {
-      "comment" : "Button label.\nNavigation title.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "New Page"
-          }
-        }
-      }
-    },
     "New Tag" : {
       "comment" : "Button label.\nNavigation title.",
       "localizations" : {
@@ -1618,42 +1597,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Organizer"
-          }
-        }
-      }
-    },
-    "Page" : {
-      "comment" : "Picker label.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Page"
-          }
-        }
-      }
-    },
-    "Page Deleted" : {
-      "comment" : "Object removed message.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Page Deleted"
-          }
-        }
-      }
-    },
-    "Pages" : {
-      "comment" : "Sidebar section header.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pages"
           }
         }
       }
@@ -2242,7 +2185,7 @@
       }
     },
     "Showing results for “%@”" : {
-      "comment" : "Navigation subtitle.",
+      "comment" : "Bottom bar status.\nNavigation subtitle.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2298,18 +2241,6 @@
     },
     "Switch Layout" : {
       "comment" : "Button help text."
-    },
-    "Switch Page Layout" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Switch Page Layout"
-          }
-        }
-      }
     },
     "Symbol" : {
       "comment" : "Text field label.",
@@ -2398,6 +2329,9 @@
           }
         }
       }
+    },
+    "Theme" : {
+      "comment" : "Picker label."
     },
     "This action cannot be undone." : {
       "comment" : "Delete feed alert message.",
@@ -2521,7 +2455,7 @@
       }
     },
     "Unknown" : {
-      "comment" : "Download file name unavailable.",
+      "comment" : "Background refresh status.\nDownload file name unavailable.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

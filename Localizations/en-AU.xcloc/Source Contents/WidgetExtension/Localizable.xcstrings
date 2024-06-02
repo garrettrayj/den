@@ -10,6 +10,9 @@
     "Configuration" : {
 
     },
+    "Folder" : {
+
+    },
     "Inbox" : {
       "comment" : "Widget placeholder title.\nWidget title."
     },
@@ -18,9 +21,6 @@
     },
     "No Unread Items" : {
       "comment" : "Widget empty message."
-    },
-    "Page" : {
-
     },
     "Source" : {
 

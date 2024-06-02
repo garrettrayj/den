@@ -17,10 +17,8 @@ struct GeneralSection: View {
     
     @EnvironmentObject private var refreshManager: RefreshManager
     
-    @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
-    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
     
     private let formatter = {
@@ -33,8 +31,6 @@ struct GeneralSection: View {
     
     var body: some View {
         Section {
-            UserColorSchemePicker(userColorScheme: $userColorScheme)
-            AccentColorSelector(selection: $accentColor)
             Toggle(isOn: $showUnreadCounts) {
                 Label {
                     Text("Show Unread Counts", comment: "Toggle label.")

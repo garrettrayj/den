@@ -152,7 +152,7 @@
       </trans-unit>
       <trans-unit id="Appearance" xml:space="preserve">
         <source>Appearance</source>
-        <note>Picker label.</note>
+        <note>Settings section header.</note>
       </trans-unit>
       <trans-unit id="Application Error" xml:space="preserve">
         <source>Application Error</source>
@@ -250,7 +250,7 @@ Navigation title.</note>
       </trans-unit>
       <trans-unit id="Deck" xml:space="preserve">
         <source>Deck</source>
-        <note>Page layout option label.</note>
+        <note>Layout option label.</note>
       </trans-unit>
       <trans-unit id="Default" xml:space="preserve">
         <source>Default</source>
@@ -264,8 +264,8 @@ Navigation title.</note>
         <source>Delete Feed?</source>
         <note>Alert title.</note>
       </trans-unit>
-      <trans-unit id="Delete Page?" xml:space="preserve">
-        <source>Delete Page?</source>
+      <trans-unit id="Delete Folder?" xml:space="preserve">
+        <source>Delete Folder?</source>
         <note>Alert title.</note>
       </trans-unit>
       <trans-unit id="Den Help" xml:space="preserve">
@@ -360,6 +360,18 @@ Navigation title.</note>
         <source>Filter rules must be in content blocker JSON format.</source>
         <note>New blocklist guidance.</note>
       </trans-unit>
+      <trans-unit id="Folder" xml:space="preserve">
+        <source>Folder</source>
+        <note>Picker label.</note>
+      </trans-unit>
+      <trans-unit id="Folder Deleted" xml:space="preserve">
+        <source>Folder Deleted</source>
+        <note>Object removed message.</note>
+      </trans-unit>
+      <trans-unit id="Folders" xml:space="preserve">
+        <source>Folders</source>
+        <note>Sidebar section header.</note>
+      </trans-unit>
       <trans-unit id="Format" xml:space="preserve">
         <source>Format</source>
         <note>Organizer info panel row label.</note>
@@ -390,7 +402,7 @@ Navigation title.</note>
       </trans-unit>
       <trans-unit id="Grouped" xml:space="preserve">
         <source>Grouped</source>
-        <note>Page layout option label.</note>
+        <note>Layout option label.</note>
       </trans-unit>
       <trans-unit id="Help" xml:space="preserve">
         <source>Help</source>
@@ -525,8 +537,8 @@ Navigation title.</note>
         <note>Button label.
 Navigation title.</note>
       </trans-unit>
-      <trans-unit id="New Page" xml:space="preserve">
-        <source>New Page</source>
+      <trans-unit id="New Folder" xml:space="preserve">
+        <source>New Folder</source>
         <note>Button label.
 Navigation title.</note>
       </trans-unit>
@@ -632,18 +644,6 @@ Use the Safari extension to discover feeds on websites.</source>
         <source>Organizer</source>
         <note>Button label.
 Navigation title.</note>
-      </trans-unit>
-      <trans-unit id="Page" xml:space="preserve">
-        <source>Page</source>
-        <note>Picker label.</note>
-      </trans-unit>
-      <trans-unit id="Page Deleted" xml:space="preserve">
-        <source>Page Deleted</source>
-        <note>Object removed message.</note>
-      </trans-unit>
-      <trans-unit id="Pages" xml:space="preserve">
-        <source>Pages</source>
-        <note>Sidebar section header.</note>
       </trans-unit>
       <trans-unit id="Parsing Error" xml:space="preserve">
         <source>Parsing Error</source>
@@ -885,8 +885,8 @@ Organizer info panel row label.</note>
         <source>Stop Loading Page</source>
         <note>Button help text.</note>
       </trans-unit>
-      <trans-unit id="Switch Page Layout" xml:space="preserve">
-        <source>Switch Page Layout</source>
+      <trans-unit id="Switch Layout" xml:space="preserve">
+        <source>Switch Layout</source>
         <note>Button help text.</note>
       </trans-unit>
       <trans-unit id="Symbol" xml:space="preserve">
@@ -922,13 +922,17 @@ Sidebar section header.</note>
         <source>The operating system decides when background refresh will occur. Refresh interval sets the minimum amount of time between background refresh tasks.</source>
         <note>Refresh settings guidance.</note>
       </trans-unit>
+      <trans-unit id="Theme" xml:space="preserve">
+        <source>Theme</source>
+        <note>Picker label.</note>
+      </trans-unit>
       <trans-unit id="This action cannot be undone." xml:space="preserve">
         <source>This action cannot be undone.</source>
         <note>Delete feed alert message.</note>
       </trans-unit>
       <trans-unit id="Timeline" xml:space="preserve">
         <source>Timeline</source>
-        <note>Page layout option label.</note>
+        <note>Layout option label.</note>
       </trans-unit>
       <trans-unit id="Title" xml:space="preserve">
         <source>Title</source>
@@ -998,7 +1002,7 @@ Default item title.
 Default page name.
 Default tag name.
 Default trend title.
-Page name placeholder.
+Folder name placeholder.
 Tag name placeholder.</note>
       </trans-unit>
       <trans-unit id="Updated" xml:space="preserve">
@@ -1106,7 +1110,7 @@ Boolean value.</note>
         <note>Bundle display name</note>
       </trans-unit>
       <trans-unit id="CFBundleName" xml:space="preserve">
-        <source>Widget Extension</source>
+        <source>Den Widget Extension</source>
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
@@ -1132,6 +1136,10 @@ Boolean value.</note>
         <source>Configuration</source>
         <note/>
       </trans-unit>
+      <trans-unit id="Folder" xml:space="preserve">
+        <source>Folder</source>
+        <note/>
+      </trans-unit>
       <trans-unit id="Inbox" xml:space="preserve">
         <source>Inbox</source>
         <note>Widget placeholder title.
@@ -1144,10 +1152,6 @@ Widget title.</note>
       <trans-unit id="No Unread Items" xml:space="preserve">
         <source>No Unread Items</source>
         <note>Widget empty message.</note>
-      </trans-unit>
-      <trans-unit id="Page" xml:space="preserve">
-        <source>Page</source>
-        <note/>
       </trans-unit>
       <trans-unit id="Source" xml:space="preserve">
         <source>Source</source>

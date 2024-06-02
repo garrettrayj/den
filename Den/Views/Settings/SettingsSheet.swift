@@ -20,6 +20,7 @@ struct SettingsSheet: View {
         NavigationStack {
             Form {
                 GeneralSection()
+                AppearanceSection()
                 BlocklistsSection()
                 ResetSection()
                 #if os(iOS)

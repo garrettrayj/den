@@ -184,7 +184,7 @@
       <trans-unit id="Appearance" xml:space="preserve">
         <source>Appearance</source>
         <target state="translated">Appearance</target>
-        <note>Picker label.</note>
+        <note>Settings section header.</note>
       </trans-unit>
       <trans-unit id="Application Error" xml:space="preserve">
         <source>Application Error</source>
@@ -306,7 +306,7 @@ Navigation title.</note>
       <trans-unit id="Deck" xml:space="preserve">
         <source>Deck</source>
         <target state="translated">Deck</target>
-        <note>Page layout option label.</note>
+        <note>Layout option label.</note>
       </trans-unit>
       <trans-unit id="Default" xml:space="preserve">
         <source>Default</source>
@@ -323,9 +323,8 @@ Navigation title.</note>
         <target state="translated">Delete Feed?</target>
         <note>Alert title.</note>
       </trans-unit>
-      <trans-unit id="Delete Page?" xml:space="preserve">
-        <source>Delete Page?</source>
-        <target state="translated">Delete Page?</target>
+      <trans-unit id="Delete Folder?" xml:space="preserve">
+        <source>Delete Folder?</source>
         <note>Alert title.</note>
       </trans-unit>
       <trans-unit id="Den Help" xml:space="preserve">
@@ -443,6 +442,18 @@ Navigation title.</note>
         <target state="translated">Filter rules must be in content blocker JSON format.</target>
         <note>New blocklist guidance.</note>
       </trans-unit>
+      <trans-unit id="Folder" xml:space="preserve">
+        <source>Folder</source>
+        <note>Picker label.</note>
+      </trans-unit>
+      <trans-unit id="Folder Deleted" xml:space="preserve">
+        <source>Folder Deleted</source>
+        <note>Object removed message.</note>
+      </trans-unit>
+      <trans-unit id="Folders" xml:space="preserve">
+        <source>Folders</source>
+        <note>Sidebar section header.</note>
+      </trans-unit>
       <trans-unit id="Format" xml:space="preserve">
         <source>Format</source>
         <target state="translated">Format</target>
@@ -481,7 +492,7 @@ Navigation title.</note>
       <trans-unit id="Grouped" xml:space="preserve">
         <source>Grouped</source>
         <target state="translated">Grouped</target>
-        <note>Page layout option label.</note>
+        <note>Layout option label.</note>
       </trans-unit>
       <trans-unit id="Help" xml:space="preserve">
         <source>Help</source>
@@ -648,9 +659,8 @@ Navigation title.</note>
         <note>Button label.
 Navigation title.</note>
       </trans-unit>
-      <trans-unit id="New Page" xml:space="preserve">
-        <source>New Page</source>
-        <target state="translated">New Page</target>
+      <trans-unit id="New Folder" xml:space="preserve">
+        <source>New Folder</source>
         <note>Button label.
 Navigation title.</note>
       </trans-unit>
@@ -781,21 +791,6 @@ Use the Safari extension to discover feeds on websites.</target>
         <target state="translated">Organizer</target>
         <note>Button label.
 Navigation title.</note>
-      </trans-unit>
-      <trans-unit id="Page" xml:space="preserve">
-        <source>Page</source>
-        <target state="translated">Page</target>
-        <note>Picker label.</note>
-      </trans-unit>
-      <trans-unit id="Page Deleted" xml:space="preserve">
-        <source>Page Deleted</source>
-        <target state="translated">Page Deleted</target>
-        <note>Object removed message.</note>
-      </trans-unit>
-      <trans-unit id="Pages" xml:space="preserve">
-        <source>Pages</source>
-        <target state="translated">Pages</target>
-        <note>Sidebar section header.</note>
       </trans-unit>
       <trans-unit id="Parsing Error" xml:space="preserve">
         <source>Parsing Error</source>
@@ -1095,9 +1090,8 @@ Organizer info panel row label.</note>
         <target state="translated">Stop Loading Page</target>
         <note>Button help text.</note>
       </trans-unit>
-      <trans-unit id="Switch Page Layout" xml:space="preserve">
-        <source>Switch Page Layout</source>
-        <target state="translated">Switch Page Layout</target>
+      <trans-unit id="Switch Layout" xml:space="preserve">
+        <source>Switch Layout</source>
         <note>Button help text.</note>
       </trans-unit>
       <trans-unit id="Symbol" xml:space="preserve">
@@ -1141,6 +1135,10 @@ Sidebar section header.</note>
         <target state="translated">The operating system decides when background refresh will occur. Refresh interval sets the minimum amount of time between background refresh tasks.</target>
         <note>Refresh settings guidance.</note>
       </trans-unit>
+      <trans-unit id="Theme" xml:space="preserve">
+        <source>Theme</source>
+        <note>Picker label.</note>
+      </trans-unit>
       <trans-unit id="This action cannot be undone." xml:space="preserve">
         <source>This action cannot be undone.</source>
         <target state="translated">This action cannot be undone.</target>
@@ -1149,7 +1147,7 @@ Sidebar section header.</note>
       <trans-unit id="Timeline" xml:space="preserve">
         <source>Timeline</source>
         <target state="translated">Timeline</target>
-        <note>Page layout option label.</note>
+        <note>Layout option label.</note>
       </trans-unit>
       <trans-unit id="Title" xml:space="preserve">
         <source>Title</source>
@@ -1234,7 +1232,7 @@ Default item title.
 Default page name.
 Default tag name.
 Default trend title.
-Page name placeholder.
+Folder name placeholder.
 Tag name placeholder.</note>
       </trans-unit>
       <trans-unit id="Updated" xml:space="preserve">
@@ -1364,8 +1362,8 @@ Boolean value.</note>
         <note>Bundle display name</note>
       </trans-unit>
       <trans-unit id="CFBundleName" xml:space="preserve">
-        <source>Widget Extension</source>
-        <target state="translated">Widget Extension</target>
+        <source>Den Widget Extension</source>
+        <target state="needs-review-l10n">Widget Extension</target>
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
@@ -1395,6 +1393,10 @@ Boolean value.</note>
         <target state="translated">Configuration</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Folder" xml:space="preserve">
+        <source>Folder</source>
+        <note/>
+      </trans-unit>
       <trans-unit id="Inbox" xml:space="preserve">
         <source>Inbox</source>
         <target state="translated">Inbox</target>
@@ -1410,11 +1412,6 @@ Widget title.</note>
         <source>No Unread Items</source>
         <target state="translated">No Unread Items</target>
         <note>Widget empty message.</note>
-      </trans-unit>
-      <trans-unit id="Page" xml:space="preserve">
-        <source>Page</source>
-        <target state="translated">Page</target>
-        <note/>
       </trans-unit>
       <trans-unit id="Source" xml:space="preserve">
         <source>Source</source>

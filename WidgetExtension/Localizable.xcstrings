@@ -67,17 +67,6 @@
         }
       }
     },
-    "Page" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Page"
-          }
-        }
-      }
-    },
     "Source" : {
       "localizations" : {
         "en-AU" : {
