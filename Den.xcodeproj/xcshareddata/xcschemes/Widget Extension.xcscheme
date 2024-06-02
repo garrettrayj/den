@@ -17,7 +17,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "68CC011C2BDF0D9C00E723DC"
-               BuildableName = "Widget Extension.appex"
+               BuildableName = "Den Widget Extension.appex"
                BlueprintName = "Widget Extension"
                ReferencedContainer = "container:Den.xcodeproj">
             </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "68CC011C2BDF0D9C00E723DC"
-            BuildableName = "Widget Extension.appex"
+            BuildableName = "Den Widget Extension.appex"
             BlueprintName = "Widget Extension"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>

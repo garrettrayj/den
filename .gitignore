@@ -4,4 +4,3 @@ localazy.keys.json
 Scripts/Logs/
 TestData/*
 !TestData/.keep
-Settings.bundle/LicensePlist.latest_result.txt
