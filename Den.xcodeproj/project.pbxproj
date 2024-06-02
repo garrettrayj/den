@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -298,11 +298,10 @@
 		68E558362ACC02EC0010E424 /* BrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E558352ACC02EC0010E424 /* BrowserView.swift */; };
 		68E5B4E62C09F38700641CC7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 68E5B4E52C09F38700641CC7 /* Localizable.xcstrings */; };
 		68E5B4E82C09F99B00641CC7 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 68E5B4E72C09F99B00641CC7 /* InfoPlist.xcstrings */; };
-		68E5B4EC2C0A042500641CC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E5B4EA2C0A042500641CC7 /* LaunchScreen.storyboard */; platformFilter = ios; };
-		68E5B4ED2C0A042500641CC7 /* LaunchScreen.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 68E5B4EB2C0A042500641CC7 /* LaunchScreen.xcstrings */; platformFilter = ios; };
 		68E5B4EF2C0A171400641CC7 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 68E5B4EE2C0A171400641CC7 /* InfoPlist.xcstrings */; };
 		68E5B4F12C0A171400641CC7 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 68E5B4F02C0A171400641CC7 /* InfoPlist.xcstrings */; };
 		68E5B4F32C0A171400641CC7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 68E5B4F22C0A171400641CC7 /* Localizable.xcstrings */; };
+		68E5B4F62C0B03D900641CC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E5B4F52C0B03D900641CC7 /* LaunchScreen.storyboard */; platformFilter = ios; };
 		68E6C5412A68E61C00CA46B2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5402A68E4D800CA46B2 /* Settings.bundle */; platformFilter = ios; };
 		68E6C5452A69127C00CA46B2 /* Acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5442A69127C00CA46B2 /* Acknowledgements.html */; };
 		68E6C5622A6C86D300CA46B2 /* CompactContentUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E6C5612A6C86D300CA46B2 /* CompactContentUnavailable.swift */; };
@@ -686,11 +685,11 @@
 		68E5B4E42C09EF6E00641CC7 /* localazy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = localazy.json; sourceTree = "<group>"; };
 		68E5B4E52C09F38700641CC7 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		68E5B4E72C09F99B00641CC7 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
-		68E5B4EA2C0A042500641CC7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		68E5B4EB2C0A042500641CC7 /* LaunchScreen.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = LaunchScreen.xcstrings; sourceTree = "<group>"; };
 		68E5B4EE2C0A171400641CC7 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		68E5B4F02C0A171400641CC7 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		68E5B4F22C0A171400641CC7 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		68E5B4F42C0B03D900641CC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		68E5B4F72C0B03D900641CC7 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/LaunchScreen.xcstrings; sourceTree = "<group>"; };
 		68E6C5402A68E4D800CA46B2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		68E6C5422A68EF2E00CA46B2 /* license_plist.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = license_plist.yml; sourceTree = "<group>"; };
 		68E6C5442A69127C00CA46B2 /* Acknowledgements.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Acknowledgements.html; sourceTree = "<group>"; };
@@ -1206,8 +1205,7 @@
 				689460822596A7BB00ED4064 /* DenApp.swift */,
 				68C4131F247263C700D1DC7B /* Info.plist */,
 				68E5B4E72C09F99B00641CC7 /* InfoPlist.xcstrings */,
-				68E5B4EA2C0A042500641CC7 /* LaunchScreen.storyboard */,
-				68E5B4EB2C0A042500641CC7 /* LaunchScreen.xcstrings */,
+				68E5B4F52C0B03D900641CC7 /* LaunchScreen.storyboard */,
 				68E5B4E52C09F38700641CC7 /* Localizable.xcstrings */,
 				68F0FB732B891BFC00B64B78 /* PrivacyInfo.xcprivacy */,
 			);
@@ -1673,8 +1671,7 @@
 				68C41318247263C700D1DC7B /* Assets.xcassets in Resources */,
 				68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */,
 				68E5B4E82C09F99B00641CC7 /* InfoPlist.xcstrings in Resources */,
-				68E5B4EC2C0A042500641CC7 /* LaunchScreen.storyboard in Resources */,
-				68E5B4ED2C0A042500641CC7 /* LaunchScreen.xcstrings in Resources */,
+				68E5B4F62C0B03D900641CC7 /* LaunchScreen.storyboard in Resources */,
 				68E5B4E62C09F38700641CC7 /* Localizable.xcstrings in Resources */,
 				684152352AD5546E00ABE5E2 /* Mercury.js in Resources */,
 				684152302AD5501E00ABE5E2 /* ParseForReader.js in Resources */,
@@ -2124,6 +2121,18 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		68E5B4F52C0B03D900641CC7 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				68E5B4F42C0B03D900641CC7 /* Base */,
+				68E5B4F72C0B03D900641CC7 /* mul */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		686069432831501B000068DE /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2344,6 +2353,7 @@
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_INFOPLIST_LOCALIZATIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = NO;
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -2392,6 +2402,7 @@
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_INFOPLIST_LOCALIZATIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = NO;
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
