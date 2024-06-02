@@ -18,7 +18,7 @@ struct NewPageButton: View {
             showingNewPageSheet = true
         } label: {
             Label {
-                Text("New Page", comment: "Button label.")
+                Text("New Folder", comment: "Button label.")
             } icon: {
                 Image(systemName: "folder.badge.plus")
             }

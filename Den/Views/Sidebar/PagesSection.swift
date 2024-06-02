@@ -31,7 +31,7 @@ struct PagesSection: View {
             }
             .onMove(perform: movePages)
         } header: {
-            Text("Pages", comment: "Sidebar section header.")
+            Text("Folders", comment: "Sidebar section header.")
         }
     }
 

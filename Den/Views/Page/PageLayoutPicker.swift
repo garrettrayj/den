@@ -16,7 +16,7 @@ struct PageLayoutPicker: View {
     var body: some View {
         Picker(selection: $pageLayout) {
             Label {
-                Text("Grouped", comment: "Page layout option label.")
+                Text("Grouped", comment: "Layout option label.")
             } icon: {
                 Image(systemName: "rectangle.grid.3x2")
             }
@@ -24,7 +24,7 @@ struct PageLayoutPicker: View {
             .accessibilityIdentifier("GroupedLayout")
 
             Label {
-                Text("Deck", comment: "Page layout option label.")
+                Text("Deck", comment: "Layout option label.")
             } icon: {
                 Image(systemName: "rectangle.split.3x1")
             }
@@ -32,7 +32,7 @@ struct PageLayoutPicker: View {
             .accessibilityIdentifier("DeckLayout")
 
             Label {
-                Text("Timeline", comment: "Page layout option label.")
+                Text("Timeline", comment: "Layout option label.")
             } icon: {
                 Image(systemName: "calendar.day.timeline.leading")
             }
@@ -42,7 +42,7 @@ struct PageLayoutPicker: View {
             Text("Layout", comment: "Picker label.")
         }
         .labelsHidden()
-        .help(Text("Switch Page Layout", comment: "Button help text."))
+        .help(Text("Switch Layout", comment: "Button help text."))
         .accessibilityIdentifier("PageLayoutPicker")
     }
 }

@@ -27,13 +27,13 @@ struct SourceDetail: AppEntity {
             if let symbol = symbol {
                 DisplayRepresentation(
                     title: "\(title)",
-                    subtitle: "Page",
+                    subtitle: "Folder",
                     image: .init(systemName: symbol)
                 )
             } else {
                 DisplayRepresentation(
                     title: "\(title)",
-                    subtitle: "Page",
+                    subtitle: "Folder",
                     image: .init(systemName: "folder")
                 )
             }

@@ -13,7 +13,7 @@ import SwiftUI
 struct PagePicker: View {
     @Binding var selection: Page?
     
-    var labelText: Text = Text("Page", comment: "Picker label.")
+    var labelText: Text = Text("Folder", comment: "Picker label.")
     
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.userOrder, order: .forward),

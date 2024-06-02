@@ -26,12 +26,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget Extension"
+            "value" : "Den Widget Extension"
           }
         },
         "en-AU" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Widget Extension"
           }
         }

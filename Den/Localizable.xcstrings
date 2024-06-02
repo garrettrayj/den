@@ -564,7 +564,7 @@
       }
     },
     "Deck" : {
-      "comment" : "Page layout option label.",
+      "comment" : "Layout option label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -609,6 +609,7 @@
     },
     "Delete Page?" : {
       "comment" : "Alert title.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -871,6 +872,15 @@
         }
       }
     },
+    "Folder" : {
+      "comment" : "Picker label."
+    },
+    "Folder Deleted" : {
+      "comment" : "Object removed message."
+    },
+    "Folders" : {
+      "comment" : "Sidebar section header."
+    },
     "Format" : {
       "comment" : "Organizer info panel row label.",
       "localizations" : {
@@ -949,7 +959,7 @@
       }
     },
     "Grouped" : {
-      "comment" : "Page layout option label.",
+      "comment" : "Layout option label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1333,8 +1343,12 @@
         }
       }
     },
+    "New Folder" : {
+      "comment" : "Button label.\nNavigation title."
+    },
     "New Page" : {
       "comment" : "Button label.\nNavigation title.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1610,6 +1624,7 @@
     },
     "Page" : {
       "comment" : "Picker label.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1621,6 +1636,7 @@
     },
     "Page Deleted" : {
       "comment" : "Object removed message.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1632,6 +1648,7 @@
     },
     "Pages" : {
       "comment" : "Sidebar section header.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2225,7 +2242,7 @@
       }
     },
     "Showing results for “%@”" : {
-      "comment" : "Bottom bar status.\nNavigation subtitle.",
+      "comment" : "Navigation subtitle.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2279,8 +2296,12 @@
         }
       }
     },
+    "Switch Layout" : {
+      "comment" : "Button help text."
+    },
     "Switch Page Layout" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2390,7 +2411,7 @@
       }
     },
     "Timeline" : {
-      "comment" : "Page layout option label.",
+      "comment" : "Layout option label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2500,7 +2521,7 @@
       }
     },
     "Unknown" : {
-      "comment" : "Background refresh status.\nDownload file name unavailable.",
+      "comment" : "Download file name unavailable.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2544,7 +2565,7 @@
       }
     },
     "Untitled" : {
-      "comment" : "Default content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nPage name placeholder.\nTag name placeholder.",
+      "comment" : "Default content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nFolder name placeholder.\nTag name placeholder.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

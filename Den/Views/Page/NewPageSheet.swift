@@ -32,7 +32,7 @@ struct NewPageSheet: View {
                 Section {
                     TextField(
                         text: $name,
-                        prompt: Text("Untitled", comment: "Page name placeholder.")
+                        prompt: Text("Untitled", comment: "Folder name placeholder.")
                     ) {
                         Label {
                             Text("Name", comment: "Text field label.")
@@ -54,7 +54,7 @@ struct NewPageSheet: View {
             .onAppear {
                 textFieldFocus = true
             }
-            .navigationTitle(Text("New Page", comment: "Navigation title."))
+            .navigationTitle(Text("New Folder", comment: "Navigation title."))
             .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {

@@ -26,7 +26,7 @@ struct PageView: View {
         if page.managedObjectContext == nil || page.isDeleted {
             ContentUnavailable {
                 Label {
-                    Text("Page Deleted", comment: "Object removed message.")
+                    Text("Folder Deleted", comment: "Object removed message.")
                 } icon: {
                     Image(systemName: "trash")
                 }
@@ -81,7 +81,7 @@ struct PageView: View {
                 }
                 #if os(iOS)
                 .alert(
-                    Text("Delete Page?", comment: "Alert title."),
+                    Text("Delete Folder?", comment: "Alert title."),
                     isPresented: $showingDeleteAlert,
                     actions: {
                         Button(role: .cancel) {
