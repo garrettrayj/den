@@ -67,6 +67,9 @@
         }
       }
     },
+    "Inbox" : {
+
+    },
     "NSDownloadsFolderUsageDescription" : {
       "comment" : "Privacy - Downloads Folder Usage Description",
       "extractionState" : "extracted_with_value",
@@ -130,6 +133,9 @@
           }
         }
       }
+    },
+    "Trending" : {
+
     }
   },
   "version" : "1.0"

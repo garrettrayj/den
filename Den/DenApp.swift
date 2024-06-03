@@ -18,6 +18,10 @@ import SDWebImageWebPCoder
 
 @main
 struct DenApp: App {
+    #if os(iOS)
+    @UIApplicationDelegateAdaptor var delegate: AppDelegate
+    #endif
+    
     @Environment(\.scenePhase) private var scenePhase
 
     let dataController = DataController.shared

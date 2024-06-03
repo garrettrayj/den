@@ -14,6 +14,7 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.scenePhase) private var scenePhase
     
     @EnvironmentObject private var refreshManager: RefreshManager
     
@@ -128,6 +129,23 @@ struct RootView: View {
             }
             #endif
         }
+        #if os(iOS)
+        .onChange(of: scenePhase) {
+            switch scenePhase {
+            case .active:
+                if let shortcutItem = QuickActionManager.shared.shortcutItem {
+                    if shortcutItem.type == "InboxAction" {
+                        detailPanel = .inbox
+                    } else if shortcutItem.type == "TrendingAction" {
+                        detailPanel = .trending
+                    }
+                    QuickActionManager.shared.shortcutItem = nil
+                }
+            default:
+                break
+            }
+        }
+        #endif
         .onChange(of: detailPanel) {
             detailPanelData = try? JSONEncoder().encode(detailPanel)
             navigationStore.path.removeLast(navigationStore.path.count)
