@@ -92,6 +92,7 @@ final class RefreshManager: ObservableObject {
         await AnalyzeTask().execute()
 
         UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
+        WidgetCenter.shared.reloadAllTimelines()
         
         if !inBackground {
             await MainActor.run { refreshing = false }
@@ -99,8 +100,6 @@ final class RefreshManager: ObservableObject {
         
         progress.completedUnitCount = 0
         progress.totalUnitCount = 0
-        
-        WidgetCenter.shared.reloadAllTimelines()
     }
 
     @MainActor
