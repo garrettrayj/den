@@ -34,6 +34,9 @@
     "Den Item" : {
 
     },
+    "Inbox" : {
+
+    },
     "NSDownloadsFolderUsageDescription" : {
       "comment" : "Privacy - Downloads Folder Usage Description",
       "extractionState" : "extracted_with_value",
@@ -71,6 +74,9 @@
       }
     },
     "OPML Document" : {
+
+    },
+    "Trending" : {
 
     }
   },

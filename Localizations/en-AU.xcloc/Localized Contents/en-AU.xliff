@@ -30,6 +30,10 @@
         <target state="translated">Den Item</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Inbox" xml:space="preserve">
+        <source>Inbox</source>
+        <note/>
+      </trans-unit>
       <trans-unit id="NSDownloadsFolderUsageDescription" xml:space="preserve">
         <source>Completed file downloads will be moved here.</source>
         <target state="translated">Completed file downloads will be moved here.</target>
@@ -48,6 +52,10 @@
       <trans-unit id="OPML Document" xml:space="preserve">
         <source>OPML Document</source>
         <target state="translated">OPML Document</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Trending" xml:space="preserve">
+        <source>Trending</source>
         <note/>
       </trans-unit>
     </body>
@@ -1363,7 +1371,7 @@ Boolean value.</note>
       </trans-unit>
       <trans-unit id="CFBundleName" xml:space="preserve">
         <source>Den Widget Extension</source>
-        <target state="needs-review-l10n">Widget Extension</target>
+        <target state="translated">Den Widget Extension</target>
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">

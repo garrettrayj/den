@@ -139,6 +139,7 @@
 		6861EC092BD7A1190058C073 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6861EC082BD7A0880058C073 /* SafariWebExtensionHandler.swift */; };
 		6862A59A2A25B6DF000CAB19 /* RelativeRefreshedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */; };
 		6862A59E2A26D90F000CAB19 /* PagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862A59D2A26D90F000CAB19 /* PagePicker.swift */; };
+		686319932C0DFA5F007C95E7 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 686319922C0DFA5F007C95E7 /* FeedKit */; };
 		6863A3FD2AC5A63400A7DC61 /* FeedItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6863A3FC2AC5A63400A7DC61 /* FeedItemGroup.swift */; };
 		6863A4012AC6E37400A7DC61 /* Columnizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6863A4002AC6E37400A7DC61 /* Columnizer.swift */; };
 		6868A30E2895229D0051D43E /* ImageErrorPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A30D2895229D0051D43E /* ImageErrorPlaceholder.swift */; };
@@ -790,6 +791,7 @@
 				6871CFEA2BE31FDE0039FD3E /* SDWebImageSwiftUI in Frameworks */,
 				68FB95102BE6A691004EFA73 /* SDWebImageWebPCoder in Frameworks */,
 				68A5A1532BE194B000FEA8D3 /* SwiftSoup in Frameworks */,
+				686319932C0DFA5F007C95E7 /* FeedKit in Frameworks */,
 				68CC01212BDF0D9C00E723DC /* SwiftUI.framework in Frameworks */,
 				68CC011F2BDF0D9C00E723DC /* WidgetKit.framework in Frameworks */,
 			);
@@ -1578,6 +1580,7 @@
 				6871CFE92BE31FDE0039FD3E /* SDWebImageSwiftUI */,
 				68FB950D2BE6A688004EFA73 /* SDWebImageSVGCoder */,
 				68FB950F2BE6A691004EFA73 /* SDWebImageWebPCoder */,
+				686319922C0DFA5F007C95E7 /* FeedKit */,
 			);
 			productName = WidgetExtensionExtension;
 			productReference = 68CC011D2BDF0D9C00E723DC /* Den Widget Extension.appex */;
@@ -2692,6 +2695,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 681DE1052922CFD400D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
 			productName = SDWebImageSVGCoder;
+		};
+		686319922C0DFA5F007C95E7 /* FeedKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68FB95112BE7F47E004EFA73 /* XCRemoteSwiftPackageReference "FeedKit" */;
+			productName = FeedKit;
 		};
 		6871CFE92BE31FDE0039FD3E /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;

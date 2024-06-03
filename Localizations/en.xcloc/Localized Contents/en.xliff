@@ -30,6 +30,11 @@
         <target state="new">Den Item</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Inbox" xml:space="preserve">
+        <source>Inbox</source>
+        <target state="new">Inbox</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="NSDownloadsFolderUsageDescription" xml:space="preserve">
         <source>Completed file downloads will be moved here.</source>
         <target state="new">Completed file downloads will be moved here.</target>
@@ -48,6 +53,11 @@
       <trans-unit id="OPML Document" xml:space="preserve">
         <source>OPML Document</source>
         <target state="new">OPML Document</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Trending" xml:space="preserve">
+        <source>Trending</source>
+        <target state="new">Trending</target>
         <note/>
       </trans-unit>
     </body>
