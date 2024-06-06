@@ -1,19 +1,92 @@
 //
-//  Item+CoreDataClass.swift
+//  Item.swift
 //  Den
 //
-//  Created by Garrett Johnson on 7/30/20.
-//  Copyright © 2020 Garrett Johnson
+//  Created by Garrett Johnson on 6/5/24.
+//  Copyright © 2024 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
 //
+//
 
-import CoreData
+import Foundation
 import NaturalLanguage
+import SwiftData
 import SwiftUI
 
-@objc(Item)
-final public class Item: NSManagedObject {
+@Model 
+class Item {
+    var author: String?
+    var body: String?
+    var bookmarked: Bool?
+    var extra: Bool?
+    var id: UUID?
+    var image: URL?
+    var imageFile: String?
+    var imageHeight: Int32? = 0
+    var imagePreview: String?
+    var imageThumbnail: String?
+    var imageWidth: Int32? = 0
+    var ingested: Date?
+    var link: URL?
+    var profileId: UUID?
+    var published: Date?
+    var read: Bool? = false
+    var summary: String?
+    var tags: String?
+    var teaser: String?
+    var title: String?
+    var feedData: FeedData?
+    @Relationship(deleteRule: .cascade, inverse: \TrendItem.item) var trendItems: [TrendItem]?
+    
+    init(
+        author: String? = nil,
+        body: String? = nil,
+        bookmarked: Bool? = nil,
+        extra: Bool? = nil,
+        id: UUID? = nil,
+        image: URL? = nil,
+        imageFile: String? = nil,
+        imageHeight: Int32? = nil,
+        imagePreview: String? = nil,
+        imageThumbnail: String? = nil,
+        imageWidth: Int32? = nil,
+        ingested: Date? = nil,
+        link: URL? = nil,
+        profileId: UUID? = nil,
+        published: Date? = nil,
+        read: Bool? = nil,
+        summary: String? = nil,
+        tags: String? = nil,
+        teaser: String? = nil,
+        title: String? = nil,
+        feedData: FeedData? = nil,
+        trendItems: [TrendItem]? = nil
+    ) {
+        self.author = author
+        self.body = body
+        self.bookmarked = bookmarked
+        self.extra = extra
+        self.id = id
+        self.image = image
+        self.imageFile = imageFile
+        self.imageHeight = imageHeight
+        self.imagePreview = imagePreview
+        self.imageThumbnail = imageThumbnail
+        self.imageWidth = imageWidth
+        self.ingested = ingested
+        self.link = link
+        self.profileId = profileId
+        self.published = published
+        self.read = read
+        self.summary = summary
+        self.tags = tags
+        self.teaser = teaser
+        self.title = title
+        self.feedData = feedData
+        self.trendItems = trendItems
+    }
+    
     var titleText: Text {
         if let title = title, title != "" {
             return Text(title)
@@ -23,15 +96,21 @@ final public class Item: NSManagedObject {
     }
     
     var profile: Profile? {
-        (value(forKey: "profile") as? [Profile])?.first
+        nil
     }
 
     var history: [History] {
-        value(forKey: "history") as? [History] ?? []
+        var fetchDescriptor = FetchDescriptor<History>()
+        fetchDescriptor.predicate = #Predicate<History>{ $0.link == link }
+        
+        return (try? modelContext?.fetch(fetchDescriptor)) ?? []
     }
 
     var bookmarks: [Bookmark] {
-        value(forKey: "bookmarks") as? [Bookmark] ?? []
+        var fetchDescriptor = FetchDescriptor<Bookmark>()
+        fetchDescriptor.predicate = #Predicate<Bookmark>{ $0.link == link }
+        
+        return (try? modelContext?.fetch(fetchDescriptor)) ?? []
     }
 
     var bookmarkTags: [Tag] {
@@ -66,21 +145,23 @@ final public class Item: NSManagedObject {
     }
 
     var trendItemsArray: [TrendItem] {
-        get { trendItems?.allObjects as? [TrendItem] ?? [] }
-        set { trendItems = NSSet(array: newValue) }
+        get { trendItems ?? [] }
+        set { trendItems = newValue }
     }
     
     var trends: [Trend] {
         trendItemsArray.compactMap { $0.trend }
     }
 
-    static func create(moc managedObjectContext: NSManagedObjectContext, feedData: FeedData) -> Item {
-        let item = Item.init(context: managedObjectContext)
+    static func create(moc modelContext: ModelContext, feedData: FeedData) -> Item {
+        let item = Item()
         item.id = UUID()
         item.feedData = feedData
         item.profileId = feedData.feed?.page?.profile?.id
         item.read = false
         item.ingested = Date()
+        
+        modelContext.insert(item)
 
         return item
     }
