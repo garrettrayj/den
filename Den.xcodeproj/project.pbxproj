@@ -261,6 +261,8 @@
 		68BA200F2C107F01008E3808 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BA1FF52C107F01008E3808 /* Item.swift */; };
 		68BA20132C13415E008E3808 /* Den Widget Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 68CC011D2BDF0D9C00E723DC /* Den Widget Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		68BA20162C14AEDE008E3808 /* CompoundPredicate in Frameworks */ = {isa = PBXBuildFile; productRef = 68BA20152C14AEDE008E3808 /* CompoundPredicate */; };
+		68BA20172C159195008E3808 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F6FBA029AF5937001F74B9 /* DataController.swift */; };
+		68BA20192C159580008E3808 /* CompoundPredicate in Frameworks */ = {isa = PBXBuildFile; productRef = 68BA20182C159580008E3808 /* CompoundPredicate */; };
 		68BB25712A4A0B220082D890 /* FeedEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB25702A4A0B220082D890 /* FeedEmpty.swift */; };
 		68BE3B672C0D13FC0022629D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BE3B662C0D13FC0022629D /* SceneDelegate.swift */; };
 		68BE3B692C0D14150022629D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BE3B682C0D14150022629D /* AppDelegate.swift */; };
@@ -274,7 +276,6 @@
 		68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */; };
 		68C4DE912B361E2E0023E362 /* ItemToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4DE902B361E2E0023E362 /* ItemToolbar.swift */; };
 		68C4DE932B362ADB0023E362 /* BookmarkToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4DE922B362ADB0023E362 /* BookmarkToolbar.swift */; };
-		68C9FEBA2BFEF652006B8BD6 /* WidgetDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C9FEB92BFEF652006B8BD6 /* WidgetDataController.swift */; };
 		68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */ = {isa = PBXBuildFile; fileRef = 68CAC50B292954C7002D9EB9 /* Demo.opml */; };
 		68CC011F2BDF0D9C00E723DC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CC011E2BDF0D9C00E723DC /* WidgetKit.framework */; };
 		68CC01212BDF0D9C00E723DC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CC01202BDF0D9C00E723DC /* SwiftUI.framework */; };
@@ -641,7 +642,6 @@
 		68BA1FF32C107F01008E3808 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		68BA1FF42C107F01008E3808 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		68BA1FF52C107F01008E3808 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		68BA20102C109CA1008E3808 /* Den.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Den.xcdatamodel; sourceTree = "<group>"; };
 		68BB25702A4A0B220082D890 /* FeedEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedEmpty.swift; sourceTree = "<group>"; };
 		68BE3B662C0D13FC0022629D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		68BE3B682C0D14150022629D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -658,7 +658,6 @@
 		68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeedSheet.swift; sourceTree = "<group>"; };
 		68C4DE902B361E2E0023E362 /* ItemToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToolbar.swift; sourceTree = "<group>"; };
 		68C4DE922B362ADB0023E362 /* BookmarkToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkToolbar.swift; sourceTree = "<group>"; };
-		68C9FEB92BFEF652006B8BD6 /* WidgetDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataController.swift; sourceTree = "<group>"; };
 		68CAC50B292954C7002D9EB9 /* Demo.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Demo.opml; sourceTree = "<group>"; };
 		68CC011D2BDF0D9C00E723DC /* Den Widget Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Den Widget Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68CC011E2BDF0D9C00E723DC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = /System/Library/Frameworks/WidgetKit.framework; sourceTree = "<absolute>"; };
@@ -792,6 +791,7 @@
 				68FB95102BE6A691004EFA73 /* SDWebImageWebPCoder in Frameworks */,
 				68A5A1532BE194B000FEA8D3 /* SwiftSoup in Frameworks */,
 				686319932C0DFA5F007C95E7 /* FeedKit in Frameworks */,
+				68BA20192C159580008E3808 /* CompoundPredicate in Frameworks */,
 				68CC01212BDF0D9C00E723DC /* SwiftUI.framework in Frameworks */,
 				68CC011F2BDF0D9C00E723DC /* WidgetKit.framework in Frameworks */,
 			);
@@ -1092,7 +1092,6 @@
 				6856DAFA2AB587240094615E /* Transferable */,
 				684152112AD0036600ABE5E2 /* BlocklistManager.swift */,
 				6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */,
-				68F6FBA029AF5937001F74B9 /* DataController.swift */,
 				687F222B2A5B615100B76919 /* FeedURLResponse.swift */,
 				684DFA0224BAC7680023D6DB /* ImageMIMEType.swift */,
 				687FEEFA2A3EE4E10042977E /* OPMLFile.swift */,
@@ -1269,7 +1268,6 @@
 				68CC01292BDF0D9C00E723DC /* Assets.xcassets */,
 				68CC012B2BDF0D9C00E723DC /* Info.plist */,
 				68FB95232BE93BF2004EFA73 /* SDWebImageManager+Extensions.swift */,
-				68C9FEB92BFEF652006B8BD6 /* WidgetDataController.swift */,
 				68CC012C2BDF0D9C00E723DC /* WidgetExtension.entitlements */,
 				68CC01232BDF0D9C00E723DC /* WidgetExtensionBundle.swift */,
 			);
@@ -1279,10 +1277,10 @@
 		68CC01372BDFD6B900E723DC /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				68BA20102C109CA1008E3808 /* Den.xcdatamodel */,
 				68BA1FE82C107EE7008E3808 /* Models */,
 				68FB95162BE804DC004EFA73 /* Enumerations */,
 				68FB95152BE804A2004EFA73 /* Extensions */,
+				68F6FBA029AF5937001F74B9 /* DataController.swift */,
 				6880EBE027A8E61C00B479F4 /* PreliminaryImage.swift */,
 			);
 			path = Shared;
@@ -1582,6 +1580,7 @@
 				68FB950D2BE6A688004EFA73 /* SDWebImageSVGCoder */,
 				68FB950F2BE6A691004EFA73 /* SDWebImageWebPCoder */,
 				686319922C0DFA5F007C95E7 /* FeedKit */,
+				68BA20182C159580008E3808 /* CompoundPredicate */,
 			);
 			productName = WidgetExtensionExtension;
 			productReference = 68CC011D2BDF0D9C00E723DC /* Den Widget Extension.appex */;
@@ -2051,6 +2050,7 @@
 				68BA20042C107F01008E3808 /* TrendItem.swift in Sources */,
 				68BA20052C107F01008E3808 /* FeedData.swift in Sources */,
 				68BA20062C107F01008E3808 /* Trend.swift in Sources */,
+				68BA20172C159195008E3808 /* DataController.swift in Sources */,
 				68BA20072C107F01008E3808 /* Bookmark.swift in Sources */,
 				68BA20082C107F01008E3808 /* BlocklistStatus.swift in Sources */,
 				68BA20092C107F01008E3808 /* History.swift in Sources */,
@@ -2075,7 +2075,6 @@
 				6871CFF22BE341630039FD3E /* SourceQuery.swift in Sources */,
 				68A5A14D2BE1938400FEA8D3 /* String+Extensions.swift in Sources */,
 				68FB95082BE4ACEA004EFA73 /* UserDefaults+Extensions.swift in Sources */,
-				68C9FEBA2BFEF652006B8BD6 /* WidgetDataController.swift in Sources */,
 				68CC01242BDF0D9C00E723DC /* WidgetExtensionBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2740,6 +2739,11 @@
 			productName = AEXML;
 		};
 		68BA20152C14AEDE008E3808 /* CompoundPredicate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68BA20142C14AEDE008E3808 /* XCRemoteSwiftPackageReference "CompoundPredicate" */;
+			productName = CompoundPredicate;
+		};
+		68BA20182C159580008E3808 /* CompoundPredicate */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 68BA20142C14AEDE008E3808 /* XCRemoteSwiftPackageReference "CompoundPredicate" */;
 			productName = CompoundPredicate;

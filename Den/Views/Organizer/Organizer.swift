@@ -8,6 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import Foundation
 import SwiftData
 import SwiftUI
 import UniformTypeIdentifiers

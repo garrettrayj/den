@@ -9,10 +9,11 @@
 //
 
 import Foundation
-import CoreData
+import SwiftData
 import WidgetKit
 import SwiftUI
 
+import CompoundPredicate
 import SDWebImage
 import SDWebImageSVGCoder
 import SDWebImageWebPCoder
@@ -62,52 +63,59 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
         in context: Context
     ) async -> Timeline<LatestItemsEntry> {
         var entries: [LatestItemsEntry] = []
-        /*
-        let moc = WidgetDataController.getContainer().viewContext
+        
+        let moc = ModelContext(DataController.shared.container)
         
         var feed: Feed?
         var page: Page?
         
         // Fetch scope object
+        let sourceID = configuration.source.id as String?
         if configuration.source.entityType == Page.self {
-            let request = Page.fetchRequest()
-            request.predicate = NSPredicate(
-                format: "id = %@",
-                configuration.source.id
+            let request = FetchDescriptor<Page>(
+                predicate: #Predicate<Page> { $0.id?.uuidString == sourceID }
             )
             page = try? moc.fetch(request).first
         } else if configuration.source.entityType == Feed.self {
-            let request = Feed.fetchRequest()
-            request.predicate = NSPredicate(
-                format: "id = %@",
-                configuration.source.id
+            let request = FetchDescriptor<Feed>(
+                predicate: #Predicate<Feed> { $0.id?.uuidString == sourceID }
             )
             feed = try? moc.fetch(request).first
         }
         
         // Get items
         
-        var predicates: [NSPredicate] = [
-            NSPredicate(format: "read = %@", NSNumber(value: false)),
-            NSPredicate(format: "extra = %@", NSNumber(value: false))
-        ]
+        let readPredicate = #Predicate<Item> { $0.read == false }
+        let extraPredicate = #Predicate<Item> { $0.extra == false }
+        var predicates: [Predicate<Item>] = [readPredicate, extraPredicate]
         
         if let feed = feed {
-            if let feedData = feed.feedData {
-                predicates.append(
-                    NSPredicate(format: "feedData = %@", feedData)
-                )
+            if let feedDataID = feed.feedData?.persistentModelID {
+                let feedScopePredicate = #Predicate<Item> { $0.feedData?.persistentModelID == feedDataID }
+                predicates.append(feedScopePredicate)
             }
         } else if let page = page {
-            predicates.append(NSPredicate(
-                format: "feedData IN %@",
-                page.feedsArray.compactMap { $0.feedData }
-            ))
+            var pagePredicates: [Predicate<Item>] = []
+            let feedDataIDs = page.feedsArray.compactMap { $0.feedData?.persistentModelID }
+            
+            if feedDataIDs.isEmpty {
+                let fakeUUID = UUID()
+                let emptyPredicate = #Predicate<Item> { $0.id == fakeUUID }
+                predicates.append(emptyPredicate)
+            } else {
+                for feedDataID in feedDataIDs {
+                    let pagePredicate = #Predicate<Item> { $0.feedData?.persistentModelID == feedDataID }
+                    pagePredicates.append(pagePredicate)
+                }
+                let pagePredicate = pagePredicates.disjunction()
+                predicates.append(pagePredicate)
+            }
         }
         
-        let request = Item.fetchRequest()
-        request.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
+        let request = FetchDescriptor<Item>(
+            predicate: predicates.conjunction(),
+            sortBy: [SortDescriptor(\Item.published, order: .reverse)]
+        )
         
         var maxItems = 1
         if context.family == .systemLarge {
@@ -171,7 +179,6 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             )
             entries.append(entry)
         }
-         */
 
         return Timeline(entries: entries, policy: .never)
     }

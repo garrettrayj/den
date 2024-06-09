@@ -8,8 +8,9 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import Foundation
 import AppIntents
+import Foundation
+import SwiftData
 
 struct SourceQuery: EntityQuery {
     static var defaultSource = SourceDetail(
@@ -27,11 +28,10 @@ struct SourceQuery: EntityQuery {
     func suggestedEntities() async throws -> [SourceDetail] {
         var sources = [SourceQuery.defaultSource]
         
-        /*
-        let context = WidgetDataController.getContainer().viewContext
+        let context = ModelContext(DataController.shared.container)
         
-        let request = Page.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
+        var request = FetchDescriptor<Page>()
+        request.sortBy = [SortDescriptor(\Page.userOrder)]
         
         for page in try context.fetch(request) {
             guard let pageID = page.id else { continue }
@@ -52,7 +52,6 @@ struct SourceQuery: EntityQuery {
                 ))
             }
         }
-         */
         
         return sources
     }

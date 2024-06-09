@@ -8,7 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 import WidgetKit
 
@@ -24,7 +24,7 @@ struct LatestItemsEntry: TimelineEntry {
     let date: Date
     let items: [WidgetItem]
     let sourceID: UUID?
-    let sourceType: NSManagedObject.Type?
+    let sourceType: (any PersistentModel.Type)?
     let unread: Int
     let title: Text
     let favicon: Image?

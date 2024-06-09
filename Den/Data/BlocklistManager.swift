@@ -78,7 +78,7 @@ final class BlocklistManager {
                 Blocklist “\(blocklist.wrappedName, privacy: .public)” is missing content rules, \
                 refreshing now…
                 """)
-                await refreshContentRulesList(blocklist: blocklist, context: context)
+                await refreshContentRulesList(blocklist: blocklist)
             }
         }
         
@@ -98,10 +98,13 @@ final class BlocklistManager {
         }
     }
 
-    static func refreshContentRulesList(
-        blocklist: Blocklist,
-        context: ModelContext
-    ) async {
+    static func refreshContentRulesList(blocklist: Blocklist) async {
+        let context = ModelContext(DataController.shared.container)
+        
+        guard let blocklist = context.model(for: blocklist.persistentModelID) as? Blocklist else {
+            return
+        }
+        
         let blocklistStatus = blocklist.blocklistStatus ?? BlocklistStatus.create(
             in: context,
             blocklist: blocklist
@@ -134,7 +137,7 @@ final class BlocklistManager {
         else { return }
         
         for blocklist in blocklists {
-            await refreshContentRulesList(blocklist: blocklist, context: context)
+            await refreshContentRulesList(blocklist: blocklist)
         }
     }
 }

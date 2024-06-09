@@ -71,10 +71,7 @@ struct BlocklistSettings: View {
                     Button {
                         isRefreshing = true
                         Task {
-                            await BlocklistManager.refreshContentRulesList(
-                                blocklist: blocklist,
-                                context: modelContext
-                            )
+                            await BlocklistManager.refreshContentRulesList(blocklist: blocklist)
                             isRefreshing = false
                         }
                     } label: {
