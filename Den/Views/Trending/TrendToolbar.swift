@@ -14,7 +14,7 @@ struct TrendToolbar: ToolbarContent {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    @ObservedObject var trend: Trend
+    @Bindable var trend: Trend
 
     @Binding var hideRead: Bool
 

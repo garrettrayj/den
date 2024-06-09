@@ -8,20 +8,20 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 
 struct PageToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    @ObservedObject var page: Page
+    @Bindable var page: Page
 
     @Binding var hideRead: Bool
     @Binding var pageLayout: PageLayout
     @Binding var showingDeleteAlert: Bool
     @Binding var showingIconSelector: Bool
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some ToolbarContent {
         #if os(macOS)

@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct FeedNavLink: View {
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
 
     var body: some View {
         NavigationLink(value: SubDetailPanel.feed(feed)) {

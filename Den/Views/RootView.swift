@@ -8,12 +8,12 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import OSLog
 import SwiftUI
 
 struct RootView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
     
     @EnvironmentObject private var refreshManager: RefreshManager
@@ -44,11 +44,11 @@ struct RootView: View {
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .threeHours
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.userOrder, order: .forward),
-        SortDescriptor(\.name, order: .forward)
+    @Query(sort: [
+        SortDescriptor(\Page.userOrder, order: .forward),
+        SortDescriptor(\Page.name, order: .forward)
     ])
-    private var pages: FetchedResults<Page>
+    private var pages: [Page]
     
     @ScaledMetric var sidebarWidth = 264
 
@@ -119,7 +119,7 @@ struct RootView: View {
             
             await BlocklistManager.initializeMissingContentRulesLists()
 
-            CleanupUtility.upgradeBookmarks(context: viewContext)
+            CleanupUtility.upgradeBookmarks(context: modelContext)
             
             await performMaintenance()
             
@@ -215,12 +215,12 @@ struct RootView: View {
             
             // Restore item sub-detail view
             if let itemID = urlComponents.queryItems?.first(
-                where: {$0.name == "item"}
-            )?.value {
-                let request = Item.fetchRequest()
-                request.predicate = NSPredicate(format: "id = %@", itemID)
+                where: { $0.name == "item" }
+            )?.value as? PersistentIdentifier {
+                var request = FetchDescriptor<Item>()
+                request.predicate = #Predicate<Item> { $0.id == itemID }
                 
-                if let item = try? viewContext.fetch(request).first {
+                if let item = try? modelContext.fetch(request).first {
                     navigationStore.path.append(SubDetailPanel.item(item))
                 }
             }

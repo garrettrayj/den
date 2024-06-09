@@ -8,7 +8,7 @@
 //
 
 import BackgroundTasks
-import CoreData
+import SwiftData
 import OSLog
 import SwiftUI
 
@@ -24,7 +24,7 @@ struct DenApp: App {
     
     @Environment(\.scenePhase) private var scenePhase
 
-    let dataController = DataController.shared
+    let container = DataController.shared.container
     
     @StateObject private var downloadManager = DownloadManager()
     @StateObject private var networkMonitor = NetworkMonitor()
@@ -33,11 +33,11 @@ struct DenApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(downloadManager)
                 .environmentObject(networkMonitor)
                 .environmentObject(refreshManager)
         }
+        .modelContainer(container)
         .handlesExternalEvents(matching: ["*"])
         .commands { AppCommands(networkMonitor: networkMonitor, refreshManager: refreshManager) }
         .defaultSize(CGSize(width: 1280, height: 800))
@@ -59,11 +59,11 @@ struct DenApp: App {
         #if os(macOS)
         Settings {
             SettingsSheet()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(refreshManager)
                 .frame(width: 440)
                 .frame(minHeight: 560)
         }
+        .modelContainer(container)
         .windowToolbarStyle(.expanded)
         #endif
     }

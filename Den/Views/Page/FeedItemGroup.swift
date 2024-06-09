@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct FeedItemGroup: View {
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
 
     let hideRead: Bool
     let items: [Item]

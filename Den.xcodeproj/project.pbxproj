@@ -259,6 +259,8 @@
 		68BA200D2C107F01008E3808 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BA1FF32C107F01008E3808 /* Search.swift */; };
 		68BA200E2C107F01008E3808 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BA1FF42C107F01008E3808 /* Tag.swift */; };
 		68BA200F2C107F01008E3808 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BA1FF52C107F01008E3808 /* Item.swift */; };
+		68BA20132C13415E008E3808 /* Den Widget Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 68CC011D2BDF0D9C00E723DC /* Den Widget Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		68BA20162C14AEDE008E3808 /* CompoundPredicate in Frameworks */ = {isa = PBXBuildFile; productRef = 68BA20152C14AEDE008E3808 /* CompoundPredicate */; };
 		68BB25712A4A0B220082D890 /* FeedEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB25702A4A0B220082D890 /* FeedEmpty.swift */; };
 		68BE3B672C0D13FC0022629D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BE3B662C0D13FC0022629D /* SceneDelegate.swift */; };
 		68BE3B692C0D14150022629D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BE3B682C0D14150022629D /* AppDelegate.swift */; };
@@ -272,7 +274,6 @@
 		68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */; };
 		68C4DE912B361E2E0023E362 /* ItemToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4DE902B361E2E0023E362 /* ItemToolbar.swift */; };
 		68C4DE932B362ADB0023E362 /* BookmarkToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4DE922B362ADB0023E362 /* BookmarkToolbar.swift */; };
-		68C9FEB62BFD7173006B8BD6 /* Den Widget Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 68CC011D2BDF0D9C00E723DC /* Den Widget Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		68C9FEBA2BFEF652006B8BD6 /* WidgetDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C9FEB92BFEF652006B8BD6 /* WidgetDataController.swift */; };
 		68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */ = {isa = PBXBuildFile; fileRef = 68CAC50B292954C7002D9EB9 /* Demo.opml */; };
 		68CC011F2BDF0D9C00E723DC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CC011E2BDF0D9C00E723DC /* WidgetKit.framework */; };
@@ -400,8 +401,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				68BA20132C13415E008E3808 /* Den Widget Extension.appex in Embed Foundation Extensions */,
 				6860694C2831533E000068DE /* Den Web Extension.appex in Embed Foundation Extensions */,
-				68C9FEB62BFD7173006B8BD6 /* Den Widget Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -772,6 +773,7 @@
 				6845BD4E24F6824C0008B296 /* CloudKit.framework in Frameworks */,
 				68FB95132BE7F47E004EFA73 /* FeedKit in Frameworks */,
 				6897D52626B91C0100833DDA /* HTMLEntities in Frameworks */,
+				68BA20162C14AEDE008E3808 /* CompoundPredicate in Frameworks */,
 				681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */,
 				68EE91EB28D54C66000C00D2 /* SDWebImageSwiftUI in Frameworks */,
 				68EBB5912BC3BD1B0014305F /* SDWebImageWebPCoder in Frameworks */,
@@ -1554,6 +1556,7 @@
 				681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */,
 				68EBB5902BC3BD1B0014305F /* SDWebImageWebPCoder */,
 				68FB95122BE7F47E004EFA73 /* FeedKit */,
+				68BA20152C14AEDE008E3808 /* CompoundPredicate */,
 			);
 			productName = Den;
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
@@ -1647,6 +1650,7 @@
 				681DE1052922CFD400D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				68EBB58F2BC3BD1B0014305F /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */,
 				68FB95112BE7F47E004EFA73 /* XCRemoteSwiftPackageReference "FeedKit" */,
+				68BA20142C14AEDE008E3808 /* XCRemoteSwiftPackageReference "CompoundPredicate" */,
 			);
 			productRefGroup = 68C4130A247263C700D1DC7B /* Products */;
 			projectDirPath = "";
@@ -2660,6 +2664,14 @@
 				minimumVersion = 4.5.0;
 			};
 		};
+		68BA20142C14AEDE008E3808 /* XCRemoteSwiftPackageReference "CompoundPredicate" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NoahKamara/CompoundPredicate";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		68EBB58F2BC3BD1B0014305F /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageWebPCoder";
@@ -2726,6 +2738,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 68B34A6A24880ADE0066B215 /* XCRemoteSwiftPackageReference "AEXML" */;
 			productName = AEXML;
+		};
+		68BA20152C14AEDE008E3808 /* CompoundPredicate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68BA20142C14AEDE008E3808 /* XCRemoteSwiftPackageReference "CompoundPredicate" */;
+			productName = CompoundPredicate;
 		};
 		68EBB5902BC3BD1B0014305F /* SDWebImageWebPCoder */ = {
 			isa = XCSwiftPackageProductDependency;

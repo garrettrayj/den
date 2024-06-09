@@ -8,13 +8,12 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import OSLog
 
 struct MaintenanceTask {
     func execute() async {
-        let context = DataController.shared.container.newBackgroundContext()
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        let context = ModelContext(DataController.shared.container)
         
         trimHistory(context: context)
         trimSearches(context: context)
@@ -31,21 +30,25 @@ struct MaintenanceTask {
         }
     }
     
-    private func trimHistory(context: NSManagedObjectContext) {
+    private func trimHistory(context: ModelContext) {
+        /*
         DataController.truncate(
             History.self,
             context: context,
             sortDescriptors: [NSSortDescriptor(keyPath: \History.visited, ascending: false)],
             offset: 100000
         )
+         */
     }
     
-    private func trimSearches(context: NSManagedObjectContext) {
+    private func trimSearches(context: ModelContext) {
+        /*
         DataController.truncate(
             Search.self,
             context: context,
             sortDescriptors: [NSSortDescriptor(keyPath: \Search.submitted, ascending: false)],
             offset: 20
         )
+         */
     }
 }

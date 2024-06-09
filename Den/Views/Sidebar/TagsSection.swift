@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct TagsSection: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    let tags: FetchedResults<Tag>
+    let tags: [Tag]
     
     var body: some View {
         Section {
@@ -39,7 +39,7 @@ struct TagsSection: View {
         }
 
         do {
-            try viewContext.save()
+            try modelContext.save()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

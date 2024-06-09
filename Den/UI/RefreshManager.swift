@@ -9,7 +9,7 @@
 //
 
 import Combine
-import CoreData
+import SwiftData
 import OSLog
 import WidgetKit
 
@@ -47,27 +47,29 @@ final class RefreshManager: ObservableObject {
             await MainActor.run { refreshing = true }
         }
         
-        var feedUpdates: [FeedUpdateTask] = []
-        await DataController.shared.container.performBackgroundTask { context in
-            self.cleanupFeedData(context: context)
-            
-            let request = Page.fetchRequest()
-            request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
-            guard let pages = try? context.fetch(request) as [Page] else { return }
-            
-            feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
-                guard let url = feed.url else { return nil }
-                return FeedUpdateTask(
-                    feedObjectID: feed.objectID,
-                    url: url,
-                    updateMeta: feed.needsMetaUpdate
-                )
-            }
+        var feedUpdates: [FeedUpdateTask]
+        
+        let context = ModelContext(DataController.shared.container)
+        
+        self.cleanupFeedData(context: context)
+        
+        var request = FetchDescriptor<Page>()
+        request.sortBy = [
+            SortDescriptor(\Page.userOrder)
+        ]
+        guard let pages = try? context.fetch(request) as [Page] else { return }
+        
+        feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
+            return FeedUpdateTask(
+                feedObjectID: feed.persistentModelID,
+                url: feed.url!,
+                updateMeta: feed.needsMetaUpdate
+            )
         }
         
         progress.totalUnitCount = Int64(feedUpdates.count)
 
-        let maxConcurrency = min(3, ProcessInfo().activeProcessorCount)
+        let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
         
         await withTaskGroup(of: Void.self, returning: Void.self) { taskGroup in
             var working = 0
@@ -106,19 +108,16 @@ final class RefreshManager: ObservableObject {
     func refresh(feed: Feed) async {
         if let url = feed.url {
             let feedUpdateTask = FeedUpdateTask(
-                feedObjectID: feed.objectID,
+                feedObjectID: feed.persistentModelID,
                 url: url,
                 updateMeta: true
             )
             await feedUpdateTask.execute()
         }
-        
-        feed.objectWillChange.send()
-        feed.page?.objectWillChange.send()
     }
     
-    private func cleanupFeedData(context: NSManagedObjectContext) {
-        guard let feedDatas = try? context.fetch(FeedData.fetchRequest()) as [FeedData] else {
+    private func cleanupFeedData(context: ModelContext) {
+        guard let feedDatas = try? context.fetch(FetchDescriptor<FeedData>()) as [FeedData] else {
             Logger.main.error("Unable to fetch FeedData records for cleanup")
             return
         }

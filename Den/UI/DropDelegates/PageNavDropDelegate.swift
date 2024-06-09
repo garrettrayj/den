@@ -8,12 +8,12 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 import UniformTypeIdentifiers
 
 struct PageNavDropDelegate: DropDelegate {
-    let context: NSManagedObjectContext
+    let modelContext: ModelContext
     let page: Page
 
     @Binding var newFeedPageID: String?
@@ -50,19 +50,17 @@ struct PageNavDropDelegate: DropDelegate {
             Task {
                 await MainActor.run {
                     guard
-                        let objectID = context.persistentStoreCoordinator?.managedObjectID(
-                            forURIRepresentation: transferableFeed.objectURI
-                        ),
-                        let feed = try? context.existingObject(with: objectID) as? Feed,
+                        let feed = modelContext.model(
+                            for: transferableFeed.persistentModelID
+                        ) as? Feed,
                         feed.page != page
                     else { return }
-
+                    
                     feed.page = page
                     feed.userOrder = page.feedsUserOrderMax + 1
 
                     do {
-                        try context.save()
-                        page.objectWillChange.send()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }

@@ -16,7 +16,7 @@ struct ItemToolbar: ToolbarContent {
     
     @EnvironmentObject private var downloadManager: DownloadManager
 
-    @ObservedObject var item: Item
+    @Bindable var item: Item
     @ObservedObject var browserViewModel: BrowserViewModel
 
     var body: some ToolbarContent {

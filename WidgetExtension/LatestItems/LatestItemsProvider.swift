@@ -61,9 +61,9 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
         for configuration: LatestItemsConfigurationIntent,
         in context: Context
     ) async -> Timeline<LatestItemsEntry> {
-        let moc = WidgetDataController.getContainer().viewContext
-        
         var entries: [LatestItemsEntry] = []
+        /*
+        let moc = WidgetDataController.getContainer().viewContext
         
         var feed: Feed?
         var page: Page?
@@ -171,6 +171,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             )
             entries.append(entry)
         }
+         */
 
         return Timeline(entries: entries, policy: .never)
     }

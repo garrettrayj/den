@@ -8,13 +8,13 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import OSLog
 
 struct CleanupUtility {
-    static func upgradeBookmarks(context: NSManagedObjectContext) {
-        let request = Bookmark.fetchRequest()
-        request.predicate = NSPredicate(format: "created = nil")
+    static func upgradeBookmarks(context: ModelContext) {
+        var request = FetchDescriptor<Bookmark>()
+        request.predicate = #Predicate<Bookmark> { $0.created == nil }
         
         guard
             let bookmarks = try? context.fetch(request) as [Bookmark],

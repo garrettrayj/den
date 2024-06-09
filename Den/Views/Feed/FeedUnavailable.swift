@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct FeedUnavailable: View {
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
 
     var largeDisplay: Bool = false
 
@@ -50,12 +50,12 @@ struct FeedUnavailable: View {
             if feedData.wrappedError == .parsing {
                 Text("Parsing Error", comment: "Feed unavailable title.")
             } else if feedData.wrappedError == .request {
-                if feedData.httpStatus > 0 {
+                if feedData.httpStatus ?? 0 > 0 {
                     Text(verbatim: """
-                    \(feedData.httpStatus) \
+                    \(feedData.httpStatus ?? 0) \
                     \(
                         HTTPURLResponse.localizedString(
-                            forStatusCode: Int(feedData.httpStatus)
+                            forStatusCode: Int(feedData.httpStatus ?? 0)
                         )
                         .localizedCapitalized
                     )
@@ -77,7 +77,7 @@ struct FeedUnavailable: View {
             if feedData.wrappedError == .parsing {
                 Text("Unable to read feed content.", comment: "Feed unavailable message.")
             } else if feedData.wrappedError == .request {
-                if feedData.httpStatus > 0 {
+                if feedData.httpStatus ?? 0 > 0 {
                     Text("Feed unavailable.", comment: "Feed unavailable message.")
                 } else {
                     Text("Server unavailable.", comment: "Feed unavailable message.")

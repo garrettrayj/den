@@ -11,13 +11,13 @@
 import SwiftUI
 
 struct PagesSection: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
     @Binding var showingNewFeedSheet: Bool
     
-    let pages: FetchedResults<Page>
+    let pages: [Page]
 
     var body: some View {
         Section {
@@ -48,7 +48,7 @@ struct PagesSection: View {
         }
 
         do {
-            try viewContext.save()
+            try modelContext.save()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

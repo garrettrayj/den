@@ -8,15 +8,15 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import OSLog
 import WebKit
 
 final class BlocklistManager {
     static func getContentRuleLists() async -> [WKContentRuleList] {
-        let context = DataController.shared.container.newBackgroundContext()
+        let context = ModelContext(DataController.shared.container)
         
-        guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+        guard let blocklists = try? context.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
         else { return [] }
         
         var ruleLists: [WKContentRuleList] = []
@@ -47,8 +47,8 @@ final class BlocklistManager {
         return await WKContentRuleListStore.default().availableIdentifiers() ?? []
     }
     
-    static func cleanupContentRulesLists(context: NSManagedObjectContext) async {
-        guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+    static func cleanupContentRulesLists(context: ModelContext) async {
+        guard let blocklists = try? context.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
         else { return }
         
         let blocklistIdentifiers = blocklists.compactMap { $0.id?.uuidString }
@@ -65,9 +65,9 @@ final class BlocklistManager {
     }
     
     static func initializeMissingContentRulesLists() async {
-        let context = DataController.shared.container.newBackgroundContext()
+        let context = ModelContext(DataController.shared.container)
         
-        guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+        guard let blocklists = try? context.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
         else { return }
         
         for blocklist in blocklists {
@@ -100,7 +100,7 @@ final class BlocklistManager {
 
     static func refreshContentRulesList(
         blocklist: Blocklist,
-        context: NSManagedObjectContext
+        context: ModelContext
     ) async {
         let blocklistStatus = blocklist.blocklistStatus ?? BlocklistStatus.create(
             in: context,
@@ -126,13 +126,11 @@ final class BlocklistManager {
             json: String(decoding: data, as: UTF8.self)
         )
 
-        DispatchQueue.main.async { blocklist.objectWillChange.send() }
-
         Logger.main.info("Blocklist refreshed: \(blocklist.wrappedName, privacy: .public)")
     }
     
-    static func refreshAllContentRulesLists(context: NSManagedObjectContext) async {
-        guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+    static func refreshAllContentRulesLists(context: ModelContext) async {
+        guard let blocklists = try? context.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
         else { return }
         
         for blocklist in blocklists {

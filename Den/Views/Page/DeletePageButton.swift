@@ -11,17 +11,17 @@
 import SwiftUI
 
 struct DeletePageButton: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var page: Page
+    @Bindable var page: Page
 
     var body: some View {
         Button(role: .destructive) {
-            page.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
-            viewContext.delete(page)
+            page.feedsArray.compactMap { $0.feedData }.forEach { modelContext.delete($0) }
+            modelContext.delete(page)
 
             do {
-                try viewContext.save()
+                try modelContext.save()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }

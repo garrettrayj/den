@@ -8,21 +8,22 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 
 struct NewTagSheet: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
 
     @State private var name: String = ""
     
     @FocusState private var textFieldFocus: Bool
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.userOrder, order: .forward),
-        SortDescriptor(\.name, order: .forward)
+    @Query(sort: [
+        SortDescriptor(\Tag.userOrder, order: .forward),
+        SortDescriptor(\Tag.name, order: .forward)
     ])
-    private var tags: FetchedResults<Tag>
+    private var tags: [Tag]
 
     var body: some View {
         NavigationStack {
@@ -49,7 +50,7 @@ struct NewTagSheet: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
                         let newTag = Tag.create(
-                            in: viewContext,
+                            in: modelContext,
                             userOrder: tags.maxUserOrder + 1
                         )
                         newTag.wrappedName = name

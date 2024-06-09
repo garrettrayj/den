@@ -8,7 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import OSLog
 
 import FeedKit
@@ -18,7 +18,7 @@ struct RSSFeedUpdater {
         feed: Feed,
         feedData: FeedData,
         rssFeed: RSSFeed,
-        context: NSManagedObjectContext
+        context: ModelContext
     ) {
         if feed.title == nil, let feedTitle = rssFeed.title {
             feed.title = feedTitle.preparingTitle()
@@ -48,7 +48,6 @@ struct RSSFeedUpdater {
             RSSItemLoader.populateItem(item: item, itemLink: itemLink, rssFeedItem: rssFeedItem)
             
             item.anaylyzeTitleTags()
-            feedData.addToItems(item)
         }
     }
     

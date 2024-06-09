@@ -8,7 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import OSLog
 
 import FeedKit
@@ -18,7 +18,7 @@ struct JSONFeedUpdater {
         feed: Feed,
         feedData: FeedData,
         jsonFeed: JSONFeed,
-        context: NSManagedObjectContext
+        context: ModelContext
     ) {
         if feed.title == nil, let feedTitle = jsonFeed.title {
             feed.title = feedTitle.preparingTitle()

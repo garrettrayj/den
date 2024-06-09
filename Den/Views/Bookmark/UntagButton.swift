@@ -11,19 +11,18 @@
 import SwiftUI
 
 struct UntagButton: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var bookmark: Bookmark
+    @Bindable var bookmark: Bookmark
     
     var callback: (() -> Void)?
 
     var body: some View {
         Button(role: .destructive) {
             guard let tag = bookmark.tag else { return }
-            viewContext.delete(bookmark)
+            modelContext.delete(bookmark)
             do {
-                try viewContext.save()
-                tag.objectWillChange.send()
+                try modelContext.save()
                 callback?()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)

@@ -11,14 +11,14 @@
 import SwiftUI
 
 struct ItemView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var item: Item
+    @Bindable var item: Item
     
     @StateObject private var browserViewModel = BrowserViewModel()
 
     var body: some View {
-        if let url = item.link, item.managedObjectContext != nil && item.feedData?.feed != nil {
+        if let url = item.link, item.feedData?.feed != nil {
             BrowserView(
                 url: url,
                 useBlocklists: item.feedData?.feed?.useBlocklists,
@@ -30,7 +30,7 @@ struct ItemView: View {
                 ItemToolbar(item: item, browserViewModel: browserViewModel)
             }
             .onAppear {
-                HistoryUtility.markItemRead(context: viewContext, item: item)
+                HistoryUtility.markItemRead(context: modelContext, item: item)
             }
         } else {
             ContentUnavailable {

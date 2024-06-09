@@ -8,14 +8,14 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 
 struct WithTrends<Content: View>: View {
-    @ViewBuilder let content: (FetchedResults<Trend>) -> Content
+    @ViewBuilder let content: ([Trend]) -> Content
 
-    @FetchRequest(sortDescriptors: [])
-    private var trends: FetchedResults<Trend>
+    @Query()
+    private var trends: [Trend]
 
     var body: some View {
         content(trends)
@@ -23,10 +23,11 @@ struct WithTrends<Content: View>: View {
 
     init(
         readFilter: Bool? = nil,
-        @ViewBuilder content: @escaping (FetchedResults<Trend>) -> Content
+        @ViewBuilder content: @escaping ([Trend]) -> Content
     ) {
         self.content = content
 
+        /*
         var predicates: [NSPredicate] = []
         
         if readFilter != nil {
@@ -40,5 +41,6 @@ struct WithTrends<Content: View>: View {
         request.predicate = compoundPredicate
         
         _trends = FetchRequest(fetchRequest: request)
+         */
     }
 }

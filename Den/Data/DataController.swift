@@ -8,83 +8,89 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
 import OSLog
+import SwiftData
 
 struct DataController {
     static let shared = DataController(inMemory: CommandLine.arguments.contains("-in-memory"))
     
-    let container = NSPersistentCloudKitContainer(name: "Den")
+    let container: ModelContainer
     
     init(inMemory: Bool = false) {
-        let cloudStoreDescription: NSPersistentStoreDescription
-        let localStoreDescription: NSPersistentStoreDescription
-
+        let cloudStoreURL: URL
+        let localStoreURL: URL
+        
         if inMemory {
-            let cloudStoreURL = URL(fileURLWithPath: "/dev/null/Den.sqlite")
-            let localStoreURL = URL(fileURLWithPath: "/dev/null/Den-Local.sqlite")
-
-            // Create Cloud store description without `cloudKitContainerOptions`
-            cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
-            cloudStoreDescription.cloudKitContainerOptions = nil
-            
-            // Create local store description
-            localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
+            cloudStoreURL = URL(fileURLWithPath: "/dev/null/Den.sqlite")
+            localStoreURL = URL(fileURLWithPath: "/dev/null/Den-Local.sqlite")
         } else {
-            guard 
-                let appSupportDirectory = FileManager.default.appSupportDirectory,
-                let appGroupURL = AppGroup.den.containerURL?.appending(
-                    path: "Library/Application Support",
-                    directoryHint: .isDirectory
-                )
-            else {
-                preconditionFailure("Storage directory not available")
+            guard let appGroupURL = AppGroup.den.containerURL?.appending(
+                path: "Library/Application Support",
+                directoryHint: .isDirectory
+            ) else {
+                fatalError("Storage directory not available")
             }
-            
-            let cloudStoreURL = appSupportDirectory.appending(path: "Den.sqlite")
-            let cloudStoreAppGroupURL = appGroupURL.appending(path: "Den.sqlite")
-            
-            let localStoreURL = appSupportDirectory.appending(path: "Den-Local.sqlite")
-            let localStoreAppGroupURL = appGroupURL.appending(path: "Den-Local.sqlite")
-            
-            migrateDatabaseIfNeeded(source: cloudStoreURL, destination: cloudStoreAppGroupURL)
-            migrateDatabaseIfNeeded(source: localStoreURL, destination: localStoreAppGroupURL)
-            
-            // Create CloudKit-backed store description for syncing profile data
-            cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreAppGroupURL)
-            cloudStoreDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
-                containerIdentifier: "iCloud.net.devsci.den"
+            cloudStoreURL = appGroupURL.appending(path: "Den.sqlite")
+            localStoreURL = appGroupURL.appending(path: "Den-Local.sqlite")
+        }
+
+        do {
+            var cloudConfig = ModelConfiguration(
+                "Den",
+                schema: Schema([
+                    Blocklist.self,
+                    Bookmark.self,
+                    Feed.self,
+                    History.self,
+                    Page.self,
+                    Profile.self,
+                    Search.self,
+                    Tag.self
+                ]),
+                url: cloudStoreURL,
+                allowsSave: true,
+                cloudKitDatabase: .private("iCloud.net.devsci.den")
             )
             
-            // Create local store description for content and high churn data
-            localStoreDescription = NSPersistentStoreDescription(url: localStoreAppGroupURL)
+            let localConfig = ModelConfiguration(
+                "Den-Local",
+                schema: Schema([
+                    BlocklistStatus.self,
+                    FeedData.self,
+                    Item.self,
+                    Trend.self,
+                    TrendItem.self
+                ]),
+                url: localStoreURL,
+                allowsSave: true,
+                cloudKitDatabase: .none
+            )
+            
+            container = try ModelContainer(
+                for:
+                    // Cloud models
+                    Blocklist.self,
+                    Bookmark.self,
+                    Feed.self,
+                    History.self,
+                    Page.self,
+                    Profile.self,
+                    Search.self,
+                    Tag.self,
+                    // Local models
+                    BlocklistStatus.self,
+                    FeedData.self,
+                    Item.self,
+                    Trend.self,
+                    TrendItem.self,
+                configurations: cloudConfig, localConfig
+            )
+        } catch {
+            fatalError("Failed to configure SwiftData container.")
         }
-        
-        cloudStoreDescription.configuration = "Cloud"
-        localStoreDescription.configuration = "Local"
-
-        container.persistentStoreDescriptions = [cloudStoreDescription, localStoreDescription]
-        container.loadPersistentStores { _, error in
-            guard error == nil else {
-                /*
-                Typical reasons for an error here include:
-                 
-                - The parent directory does not exist, cannot be created, or disallows writing.
-                - The persistent store is not accessible, due to permissions or data protection
-                  when the device is locked.
-                - The device is out of space.
-                - The store could not be migrated to the current model version.
-                */
-                CrashUtility.handleCriticalError(error! as NSError)
-                return
-            }
-        }
-
-        // Configure view context
-        container.viewContext.automaticallyMergesChangesFromParent = true
-        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }
     
+    /*
     private func migrateDatabaseIfNeeded(source: URL, destination: URL) {
         guard 
             FileManager.default.fileExists(atPath: source.path),
@@ -146,7 +152,7 @@ struct DataController {
     /// More performant truncate function to use when the UI doesn't need to be updated.
     static func truncate(
         _ entityType: NSManagedObject.Type,
-        context: NSManagedObjectContext,
+        context: ModelContext,
         sortDescriptors: [NSSortDescriptor] = [],
         offset: Int = 0
     ) {
@@ -169,9 +175,10 @@ struct DataController {
             let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
 
             // Merge the delete changes into the managed object context
-            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: deletedObjects, into: [context])
+            ModelContext.mergeChanges(fromRemoteContextSave: deletedObjects, into: [context])
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }
     }
+     */
 }

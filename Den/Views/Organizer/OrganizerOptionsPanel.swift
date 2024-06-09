@@ -11,11 +11,11 @@
 import SwiftUI
 
 struct OrganizerOptionsPanel: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
     @Binding var selection: Set<Feed>
     
-    let pages: FetchedResults<Page>
+    let pages: [Page]
     
     @State private var itemLimitPickerID = UUID()
 
@@ -55,7 +55,7 @@ struct OrganizerOptionsPanel: View {
                 }
 
                 Section {
-                    Toggle(sources: sources, isOn: \.readerMode) {
+                    Toggle(sources: sources, isOn: \.wrappedReaderMode) {
                         Text("Use Reader Automatically", comment: "Toggle label.")
                     }
                     
@@ -89,13 +89,12 @@ struct OrganizerOptionsPanel: View {
                     
                     Button(role: .destructive) {
                         selection.forEach { feed in
-                            if let feedData = feed.feedData { viewContext.delete(feedData) }
-                            viewContext.delete(feed)
+                            if let feedData = feed.feedData { modelContext.delete(feedData) }
+                            modelContext.delete(feed)
                             selection.remove(feed)
                         }
                         do {
-                            try viewContext.save()
-                            pages.forEach { $0.objectWillChange.send() }
+                            try modelContext.save()
                         } catch {
                             CrashUtility.handleCriticalError(error as NSError)
                         }
@@ -114,11 +113,9 @@ struct OrganizerOptionsPanel: View {
         Binding(
             get: { selection.filter { _ in true } },
             set: {
-                for feed in $0 where feed.changedValues().keys.contains("page") {
+                for feed in $0 where feed.hasChanges {
                     feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
-                }
-                
-                for feed in $0 where feed.changedValues().keys.contains("itemLimit") {
+                    
                     if let feedData = feed.feedData {
                         for (idx, item) in feedData.itemsArray.enumerated() {
                             item.extra = idx + 1 > feed.wrappedItemLimit
@@ -126,9 +123,9 @@ struct OrganizerOptionsPanel: View {
                     }
                 }
                 
-                if viewContext.hasChanges {
+                if modelContext.hasChanges {
                     do {
-                        try viewContext.save()
+                        try modelContext.save()
                         itemLimitPickerID = UUID()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)

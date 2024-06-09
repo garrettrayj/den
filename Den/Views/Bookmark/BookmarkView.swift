@@ -11,14 +11,14 @@
 import SwiftUI
 
 struct BookmarkView: View {
-    @ObservedObject var bookmark: Bookmark
+    @Bindable var bookmark: Bookmark
     
     @StateObject private var browserViewModel = BrowserViewModel()
 
     var body: some View {
         if
             let url = bookmark.link,
-            !bookmark.isDeleted && bookmark.managedObjectContext != nil 
+            !bookmark.isDeleted
         {
             BrowserView(
                 url: url,

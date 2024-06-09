@@ -8,14 +8,14 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import OSLog
 import SwiftUI
 import WidgetKit
 
 struct HistoryUtility {
     static func markItemRead(
-        context: NSManagedObjectContext,
+        context: ModelContext,
         item: Item
     ) {
         guard item.read == false else { return }
@@ -36,7 +36,7 @@ struct HistoryUtility {
     }
 
     static func markItemUnread(
-        context: NSManagedObjectContext,
+        context: ModelContext,
         item: Item
     ) {
         guard item.read == true else { return }
@@ -65,50 +65,47 @@ struct HistoryUtility {
     }
 
     static func logHistory(items: [Item]) async {
-        let itemObjectIDs = items.map { $0.objectID }
+        let itemObjectIDs = items.map { $0.persistentModelID }
+        let context = ModelContext(DataController.shared.container)
 
-        await DataController.shared.container.performBackgroundTask { context in
-            for itemObjectID in itemObjectIDs {
-                guard let item = context.object(with: itemObjectID) as? Item else { continue }
-                let history = History.create(in: context)
-                history.link = item.link
-                history.visited = .now
-                
-                item.read = true
-                item.trends.forEach { $0.updateReadStatus() }
-            }
+        for itemObjectID in itemObjectIDs {
+            guard let item = context.model(for: itemObjectID) as? Item else { continue }
+            let history = History.create(in: context)
+            history.link = item.link
+            history.visited = .now
+            
+            item.read = true
+            item.trends.forEach { $0.updateReadStatus() }
+        }
 
-            do {
-                try context.save()
-                WidgetCenter.shared.reloadAllTimelines()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
+        do {
+            try context.save()
+            WidgetCenter.shared.reloadAllTimelines()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 
     static func clearHistory(items: [Item]) async {
-        let itemObjectIDs = items.map { $0.objectID }
-        let container = DataController.shared.container
+        let itemObjectIDs = items.map { $0.persistentModelID }
+        let context = ModelContext(DataController.shared.container)
 
-        await container.performBackgroundTask { context in
-            for itemObjectID in itemObjectIDs {
-                guard let item = context.object(with: itemObjectID) as? Item else { continue }
+        for itemObjectID in itemObjectIDs {
+            guard let item = context.model(for: itemObjectID) as? Item else { continue }
 
-                item.read = false
-                item.trends.forEach { $0.updateReadStatus() }
-                
-                for history in item.history {
-                    context.delete(history)
-                }
+            item.read = false
+            item.trends.forEach { $0.updateReadStatus() }
+            
+            for history in item.history {
+                context.delete(history)
             }
+        }
 
-            do {
-                try context.save()
-                WidgetCenter.shared.reloadAllTimelines()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
+        do {
+            try context.save()
+            WidgetCenter.shared.reloadAllTimelines()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 }

@@ -14,7 +14,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct TrendBlock: View {
-    @ObservedObject var trend: Trend
+    @Bindable var trend: Trend
     
     let items: [Item]
     let feeds: [Feed]
@@ -55,7 +55,7 @@ struct TrendBlock: View {
                             }
                         }
                     }
-                    .opacity(!trend.read ? 1.0 : 0.5)
+                    .opacity(!(trend.read ?? false) ? 1.0 : 0.5)
                 }
 
                 HStack {
@@ -73,7 +73,7 @@ struct TrendBlock: View {
                 .font(.footnote)
                 .foregroundStyle(.secondary)
             }
-            .foregroundStyle(trend.read ? .secondary : .primary)
+            .foregroundStyle((trend.read ?? false) ? .secondary : .primary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
         }

@@ -9,6 +9,7 @@
 //
 
 import Foundation
+import SwiftData
 
 enum SubDetailPanel: Hashable {
     case bookmark(Bookmark)
@@ -62,34 +63,37 @@ extension SubDetailPanel: Decodable {
             throw DecodeError.objectIDMissing
         }
 
-        let objectID = try values.decode(String.self, forKey: .objectID)
-        let predicate = NSPredicate(format: "id = %@", objectID)
-        let context = DataController.shared.container.viewContext
+        let objectID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
+        let context = ModelContext(DataController.shared.container)
 
         if panelID == "bookmark" {
-            let request = Bookmark.fetchRequest()
-            request.predicate = predicate
+            var request = FetchDescriptor<Bookmark>()
+            request.predicate = #Predicate<Bookmark> { $0.id == objectID }
+            
             if let bookmark = try? context.fetch(request).first {
                 self = .bookmark(bookmark)
                 return
             }
         } else if panelID == "feed" {
-            let request = Feed.fetchRequest()
-            request.predicate = predicate
+            var request = FetchDescriptor<Feed>()
+            request.predicate = #Predicate<Feed> { $0.id == objectID }
+            
             if let feed = try? context.fetch(request).first {
                 self = .feed(feed)
                 return
             }
         } else if panelID == "item" {
-            let request = Item.fetchRequest()
-            request.predicate = predicate
+            var request = FetchDescriptor<Item>()
+            request.predicate = #Predicate<Item> { $0.id == objectID }
+            
             if let item = try? context.fetch(request).first {
                 self = .item(item)
                 return
             }
         } else if panelID == "trend" {
-            let request = Trend.fetchRequest()
-            request.predicate = predicate
+            var request = FetchDescriptor<Trend>()
+            request.predicate = #Predicate<Trend> { $0.id == objectID }
+            
             if let trend = try? context.fetch(request).first {
                 self = .trend(trend)
                 return

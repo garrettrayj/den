@@ -8,67 +8,78 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 
-struct WithItems<Content: View>: View {
-    @ViewBuilder let content: (FetchedResults<Item>) -> Content
+import CompoundPredicate
 
-    @FetchRequest(sortDescriptors: [])
-    private var items: FetchedResults<Item>
+struct WithItems<Content: View>: View {
+    @ViewBuilder let content: ([Item]) -> Content
+
+    @Query()
+    private var items: [Item]
 
     var body: some View {
         content(items)
     }
 
     init(
-        scopeObject: NSManagedObject? = nil,
-        sortDescriptors: [NSSortDescriptor] = [
-            NSSortDescriptor(keyPath: \Item.published, ascending: false)
+        scopeObject: (any PersistentModel)? = nil,
+        sortDescriptors: [SortDescriptor<Item>] = [
+            SortDescriptor(\Item.published, order: .reverse)
         ],
         readFilter: Bool? = nil,
         includeExtras: Bool = false,
         searchQuery: String = "",
-        @ViewBuilder content: @escaping (FetchedResults<Item>) -> Content
+        @ViewBuilder content: @escaping ([Item]) -> Content
     ) {
         self.content = content
 
-        var predicates: [NSPredicate] = []
-
+        var request = FetchDescriptor<Item>()
+        request.sortBy = sortDescriptors
+        
+        var predicates: [Predicate<Item>] = []
+        
         if let feed = scopeObject as? Feed {
-            if let feedData = feed.feedData {
-                predicates.append(NSPredicate(format: "feedData = %@", feedData))
-            } else {
-                // Impossible query because there should be no items without FeedData
-                predicates.append(NSPredicate(format: "1 = 2"))
+            if let feedDataID = feed.feedData?.persistentModelID {
+                let feedScopePredicate = #Predicate<Item> { $0.feedData?.persistentModelID == feedDataID }
+                predicates.append(feedScopePredicate)
             }
         } else if let page = scopeObject as? Page {
-            predicates.append(NSPredicate(
-                format: "feedData IN %@",
-                page.feedsArray.compactMap { $0.feedData }
-            ))
+            var pagePredicates: [Predicate<Item>] = []
+            let feedDataIDs = page.feedsArray.compactMap { $0.feedData?.persistentModelID }
+            
+            if feedDataIDs.isEmpty {
+                let fakeUUID = UUID()
+                let emptyPredicate = #Predicate<Item> { $0.id == fakeUUID }
+                predicates.append(emptyPredicate)
+            } else {
+                for feedDataID in feedDataIDs {
+                    let pagePredicate = #Predicate<Item> { $0.feedData?.persistentModelID == feedDataID }
+                    pagePredicates.append(pagePredicate)
+                }
+                let pagePredicate = pagePredicates.disjunction()
+                predicates.append(pagePredicate)
+            }
         }
 
         if readFilter != nil {
-            predicates.append(NSPredicate(format: "read = %@", NSNumber(value: readFilter!)))
+            let readPredicate = #Predicate<Item> { $0.wrappedRead == readFilter! }
+            predicates.append(readPredicate)
         }
 
         if !includeExtras {
-            predicates.append(NSPredicate(format: "extra = %@", NSNumber(value: false)))
+            let extrasPredicate = #Predicate<Item> { $0.extra == false }
+            predicates.append(extrasPredicate)
         }
 
         if !searchQuery.isEmpty {
-            predicates.append(NSPredicate(
-                format: "title CONTAINS[c] %@",
-                "\(searchQuery)"
-            ))
+            let searchPredicate = #Predicate<Item> { $0.title?.contains(searchQuery) ?? false }
+            predicates.append(searchPredicate)
         }
 
-        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
-        let request = Item.fetchRequest()
-        request.predicate = compoundPredicate
-        request.sortDescriptors = sortDescriptors
+        request.predicate = predicates.conjunction()
 
-        _items = FetchRequest(fetchRequest: request)
+        _items = Query(request)
     }
 }

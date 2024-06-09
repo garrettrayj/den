@@ -8,11 +8,11 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 
 struct Start: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
     @Binding var showingImporter: Bool
     @Binding var showingNewPageSheet: Bool
@@ -44,7 +44,7 @@ struct Start: View {
 
         ImportExportUtility.importOPML(
             url: URL(fileURLWithPath: demoPath),
-            context: viewContext, 
+            context: modelContext, 
             pageUserOrderMax: 0
         )
     }

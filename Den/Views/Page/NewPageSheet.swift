@@ -8,10 +8,11 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 
 struct NewPageSheet: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
 
     @State private var name: String = ""
@@ -20,11 +21,11 @@ struct NewPageSheet: View {
     
     @FocusState private var textFieldFocus: Bool
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.userOrder, order: .forward),
-        SortDescriptor(\.name, order: .forward)
+    @Query(sort: [
+        SortDescriptor(\Page.userOrder, order: .forward),
+        SortDescriptor(\Page.name, order: .forward)
     ])
-    private var pages: FetchedResults<Page>
+    private var pages: [Page]
 
     var body: some View {
         NavigationStack {
@@ -59,7 +60,7 @@ struct NewPageSheet: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        let page = Page.create(in: viewContext, userOrder: pages.maxUserOrder + 1)
+                        let page = Page.create(in: modelContext, userOrder: pages.maxUserOrder + 1)
                         page.wrappedName = name
                         page.wrappedSymbol = symbol
                         dismiss()

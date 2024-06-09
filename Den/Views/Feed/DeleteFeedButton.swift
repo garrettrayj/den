@@ -11,17 +11,17 @@
 import SwiftUI
 
 struct DeleteFeedButton: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
 
     var body: some View {
         Button(role: .destructive) {
-            if let feedData = feed.feedData { viewContext.delete(feedData) }
-            viewContext.delete(feed)
+            if let feedData = feed.feedData { modelContext.delete(feedData) }
+            modelContext.delete(feed)
 
             do {
-                try viewContext.save()
+                try modelContext.save()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }

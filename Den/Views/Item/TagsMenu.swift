@@ -8,18 +8,19 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 
 struct TagsMenu: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var item: Item
+    @Bindable var item: Item
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.userOrder, order: .forward),
-        SortDescriptor(\.name, order: .forward)
+    @Query(sort: [
+        SortDescriptor(\Tag.userOrder, order: .forward),
+        SortDescriptor(\Tag.name, order: .forward)
     ])
-    private var tags: FetchedResults<Tag>
+    private var tags: [Tag]
 
     var body: some View {
         Menu {
@@ -28,11 +29,10 @@ struct TagsMenu: View {
                     if item.bookmarkTags.contains(tag) {
                         Button {
                             for bookmark in item.bookmarks where bookmark.tag == tag {
-                                viewContext.delete(bookmark)
+                                modelContext.delete(bookmark)
                             }
                             do {
-                                try viewContext.save()
-                                item.objectWillChange.send()
+                                try modelContext.save()
                             } catch {
                                 CrashUtility.handleCriticalError(error as NSError)
                             }
@@ -45,10 +45,9 @@ struct TagsMenu: View {
                         .accessibilityIdentifier("RemoveBookmark")
                     } else {
                         Button {
-                            _ = Bookmark.create(in: viewContext, item: item, tag: tag)
+                            _ = Bookmark.create(in: modelContext, item: item, tag: tag)
                             do {
-                                try viewContext.save()
-                                item.objectWillChange.send()
+                                try modelContext.save()
                             } catch {
                                 CrashUtility.handleCriticalError(error as NSError)
                             }

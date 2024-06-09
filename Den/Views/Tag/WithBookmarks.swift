@@ -8,30 +8,31 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 
 struct WithBookmarks<Content: View>: View {
-    @ViewBuilder let content: (FetchedResults<Bookmark>) -> Content
+    @ViewBuilder let content: ([Bookmark]) -> Content
 
-    @FetchRequest(sortDescriptors: [])
-    private var bookmarks: FetchedResults<Bookmark>
+    @Query()
+    private var bookmarks: [Bookmark]
 
     var body: some View {
         content(bookmarks)
     }
 
     init(
-        scopeObject: NSManagedObject? = nil,
-        sortDescriptors: [NSSortDescriptor] = [
-            NSSortDescriptor(keyPath: \Bookmark.created, ascending: false)
+        scopeObject: (any PersistentModel)? = nil,
+        sortDescriptors: [SortDescriptor<Bookmark>] = [
+            SortDescriptor(\Bookmark.created, order: .reverse)
         ],
         readFilter: Bool? = nil,
         searchQuery: String = "",
-        @ViewBuilder content: @escaping (FetchedResults<Bookmark>) -> Content
+        @ViewBuilder content: @escaping ([Bookmark]) -> Content
     ) {
         self.content = content
 
+        /*
         var predicates: [NSPredicate] = []
 
         if let tag = scopeObject as? Tag {
@@ -55,5 +56,6 @@ struct WithBookmarks<Content: View>: View {
         request.sortDescriptors = sortDescriptors
 
         _bookmarks = FetchRequest(fetchRequest: request)
+         */
     }
 }

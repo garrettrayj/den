@@ -8,12 +8,12 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 import UniformTypeIdentifiers
 
 struct TagNavDropDelegate: DropDelegate {
-    let context: NSManagedObjectContext
+    let modelContext: ModelContext
     let tag: Tag
 
     func performDrop(info: DropInfo) -> Bool {
@@ -39,17 +39,16 @@ struct TagNavDropDelegate: DropDelegate {
             Task {
                 await MainActor.run {
                     guard
-                        let objectID = context.persistentStoreCoordinator?.managedObjectID(
-                            forURIRepresentation: transferableBookmark.objectURI
-                        ),
-                        let bookmark = try? context.existingObject(with: objectID) as? Bookmark,
+                        let bookmark = modelContext.model(
+                            for: transferableBookmark.persistentModelID
+                        ) as? Bookmark,
                         bookmark.tag != tag
                     else { return }
 
                     bookmark.tag = tag
 
                     do {
-                        try context.save()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
@@ -65,19 +64,16 @@ struct TagNavDropDelegate: DropDelegate {
             Task {
                 await MainActor.run {
                     guard
-                        let objectID = context.persistentStoreCoordinator?.managedObjectID(
-                            forURIRepresentation: transferableItem.objectURI
-                        ),
-                        let item = try? context.existingObject(with: objectID) as? Item,
+                        let item = modelContext.model(
+                            for: transferableItem.persistentModelID
+                        ) as? Item,
                         !item.bookmarkTags.contains(tag)
                     else { return }
 
-                    _ = Bookmark.create(in: context, item: item, tag: tag)
+                    _ = Bookmark.create(in: modelContext, item: item, tag: tag)
 
                     do {
-                        try context.save()
-                        item.objectWillChange.send()
-                        tag.objectWillChange.send()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }

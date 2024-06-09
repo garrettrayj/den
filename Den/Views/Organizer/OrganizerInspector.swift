@@ -15,7 +15,7 @@ struct OrganizerInspector: View {
 
     @State private var panel: String = "info"
     
-    var pages: FetchedResults<Page>
+    var pages: [Page]
     
     @ScaledMetric(relativeTo: .largeTitle) var width = 300
 

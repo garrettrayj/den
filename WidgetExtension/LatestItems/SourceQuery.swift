@@ -27,6 +27,7 @@ struct SourceQuery: EntityQuery {
     func suggestedEntities() async throws -> [SourceDetail] {
         var sources = [SourceQuery.defaultSource]
         
+        /*
         let context = WidgetDataController.getContainer().viewContext
         
         let request = Page.fetchRequest()
@@ -51,6 +52,7 @@ struct SourceQuery: EntityQuery {
                 ))
             }
         }
+         */
         
         return sources
     }

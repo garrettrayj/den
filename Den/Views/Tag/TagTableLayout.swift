@@ -12,7 +12,7 @@ import SwiftUI
 
 struct TagTableLayout: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.openURL) private var openURL
     
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
@@ -26,7 +26,7 @@ struct TagTableLayout: View {
         var link: URL
     }
     
-    let bookmarks: FetchedResults<Bookmark>
+    let bookmarks: [Bookmark]
 
     @State private var selection = Set<Row.ID>()
     @State private var sortOrder = [KeyPathComparator(\Row.created)]
@@ -94,7 +94,7 @@ struct TagTableLayout: View {
                 TableRow(row)
                     .draggable(
                         TransferableBookmark(
-                            objectURI: row.bookmark.objectID.uriRepresentation(),
+                            persistentModelID: row.bookmark.persistentModelID,
                             linkURL: row.link
                         )
                     )
@@ -156,10 +156,10 @@ struct TagTableLayout: View {
     }
     
     private func deleteSelection(items: Set<Row.ID>) {
-        rows.filter { items.contains($0.id) }.forEach { viewContext.delete($0.bookmark) }
+        rows.filter { items.contains($0.id) }.forEach { modelContext.delete($0.bookmark) }
         
         do {
-            try viewContext.save()
+            try modelContext.save()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

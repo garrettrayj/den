@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct PageView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var page: Page
+    @Bindable var page: Page
     
     @Binding var hideRead: Bool
     
@@ -23,7 +23,7 @@ struct PageView: View {
     private var pageLayoutAppStorage: AppStorage<PageLayout>
 
     var body: some View {
-        if page.managedObjectContext == nil || page.isDeleted {
+        if page.isDeleted {
             ContentUnavailable {
                 Label {
                     Text("Folder Deleted", comment: "Object removed message.")
@@ -61,7 +61,7 @@ struct PageView: View {
                     guard !page.isDeleted else { return }
 
                     do {
-                        try viewContext.save()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
@@ -98,9 +98,9 @@ struct PageView: View {
                 .sheet(
                     isPresented: $showingIconSelector,
                     onDismiss: {
-                        if viewContext.hasChanges {
+                        if modelContext.hasChanges {
                             do {
-                                try viewContext.save()
+                                try modelContext.save()
                             } catch {
                                 CrashUtility.handleCriticalError(error as NSError)
                             }

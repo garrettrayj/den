@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct SidebarFeed: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
     
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
@@ -24,9 +24,9 @@ struct SidebarFeed: View {
                 feed.displayTitle
             }
             .onSubmit {
-                if viewContext.hasChanges {
+                if modelContext.hasChanges {
                     do {
-                        try viewContext.save()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }

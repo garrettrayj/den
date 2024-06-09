@@ -13,11 +13,11 @@ import SwiftUI
 struct DeckLayout: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    @ObservedObject var page: Page
+    @Bindable var page: Page
 
     @Binding var hideRead: Bool
 
-    let items: FetchedResults<Item>
+    let items: [Item]
     
     @ScaledMetric private var idealColumnWidth = Columnizer.idealColumnWidth
 

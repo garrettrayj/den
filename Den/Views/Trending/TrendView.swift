@@ -11,13 +11,13 @@
 import SwiftUI
 
 struct TrendView: View {
-    @ObservedObject var trend: Trend
+    @Bindable var trend: Trend
 
     @Binding var hideRead: Bool
 
     var body: some View {
         Group {
-            if trend.managedObjectContext == nil || trend.isDeleted {
+            if trend.isDeleted {
                 ContentUnavailable {
                     Label {
                         Text("Trend Removed", comment: "Object removed message.")
@@ -35,7 +35,7 @@ struct TrendView: View {
                                 Image(systemName: "questionmark.folder")
                             }
                         }
-                    } else if trend.read && hideRead {
+                    } else if trend.read == true && hideRead {
                         AllRead(largeDisplay: true)
                     } else {
                         TrendLayout(

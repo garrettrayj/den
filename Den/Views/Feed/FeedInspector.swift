@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct FeedInspector: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
     
     @ScaledMetric(relativeTo: .largeTitle) var width = 300
 
@@ -35,7 +35,7 @@ struct FeedInspector: View {
                     }
 
                     do {
-                        try viewContext.save()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
@@ -50,7 +50,7 @@ struct FeedInspector: View {
                 }
                 .onChange(of: feed.previewStyle) {
                     do {
-                        try viewContext.save()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
@@ -63,7 +63,7 @@ struct FeedInspector: View {
                     }
                     .onChange(of: feed.hideTeasers) {
                         do {
-                            try viewContext.save()
+                            try modelContext.save()
                         } catch {
                             CrashUtility.handleCriticalError(error as NSError)
                         }
@@ -75,7 +75,7 @@ struct FeedInspector: View {
                 }
                 .onChange(of: feed.hideBylines) {
                     do {
-                        try viewContext.save()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
@@ -86,7 +86,7 @@ struct FeedInspector: View {
                 }
                 .onChange(of: feed.hideImages) {
                     do {
-                        try viewContext.save()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
@@ -96,12 +96,12 @@ struct FeedInspector: View {
             }
 
             Section {
-                Toggle(isOn: $feed.readerMode) {
+                Toggle(isOn: $feed.wrappedReaderMode) {
                     Text("Use Reader Automatically", comment: "Toggle label.")
                 }
                 .onChange(of: feed.readerMode) {
                     do {
-                        try viewContext.save()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
@@ -112,7 +112,7 @@ struct FeedInspector: View {
                 }
                 .onChange(of: feed.disableBlocklists) {
                     do {
-                        try viewContext.save()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
@@ -123,7 +123,7 @@ struct FeedInspector: View {
                 }
                 .onChange(of: feed.disableJavaScript) {
                     do {
-                        try viewContext.save()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }

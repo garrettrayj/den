@@ -155,6 +155,11 @@ class Feed {
         get { PreviewStyle(rawValue: Int(previewStyle ?? 0)) ?? .compressed }
         set { previewStyle = Int16(newValue.rawValue) }
     }
+    
+    var wrappedReaderMode: Bool {
+        get { readerMode ?? false }
+        set { readerMode = newValue }
+    }
 
     var largePreviews: Bool {
         get { wrappedPreviewStyle == .expanded }

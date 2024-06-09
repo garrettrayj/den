@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct DraggableItemModifier: ViewModifier {
-    @ObservedObject var item: Item
+    @Bindable var item: Item
 
     func body(content: Content) -> some View {
         if let linkURL = item.link {
@@ -19,7 +19,7 @@ struct DraggableItemModifier: ViewModifier {
                 .contentShape(Rectangle())
                 .draggable(
                     TransferableItem(
-                        objectURI: item.objectID.uriRepresentation(),
+                        persistentModelID: item.persistentModelID,
                         linkURL: linkURL
                     )
                 )

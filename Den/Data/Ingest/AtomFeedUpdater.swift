@@ -8,7 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import OSLog
 
 import FeedKit
@@ -18,7 +18,7 @@ struct AtomFeedUpdater {
         feed: Feed,
         feedData: FeedData,
         atomFeed: AtomFeed,
-        context: NSManagedObjectContext
+        context: ModelContext
     ) {
         if feed.title == nil, let feedTitle = atomFeed.title {
             feed.title = feedTitle.preparingTitle()

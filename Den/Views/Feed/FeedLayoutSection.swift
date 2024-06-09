@@ -16,7 +16,7 @@ struct FeedLayoutSection<Header: View>: View {
     #endif
     @Environment(\.isEnabled) private var isEnabled
     
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
     
     @Binding var hideRead: Bool
     

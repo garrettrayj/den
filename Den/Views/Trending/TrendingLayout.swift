@@ -13,7 +13,7 @@ import SwiftUI
 struct TrendingLayout: View {
     @Binding var hideRead: Bool
     
-    let trends: FetchedResults<Trend>
+    let trends: [Trend]
     
     var body: some View {
         if trends.containingUnread.isEmpty && hideRead {

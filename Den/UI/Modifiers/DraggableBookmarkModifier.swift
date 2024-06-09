@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct DraggableBookmarkModifier: ViewModifier {
-    @ObservedObject var bookmark: Bookmark
+    @Bindable var bookmark: Bookmark
 
     func body(content: Content) -> some View {
         if let linkURL = bookmark.link {
@@ -19,7 +19,7 @@ struct DraggableBookmarkModifier: ViewModifier {
                 .contentShape(Rectangle())
                 .draggable(
                     TransferableBookmark(
-                        objectURI: bookmark.objectID.uriRepresentation(),
+                        persistentModelID: bookmark.persistentModelID,
                         linkURL: linkURL
                     )
                 )

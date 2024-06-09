@@ -11,12 +11,12 @@
 import SwiftUI
 
 struct TagView: View {
-    @ObservedObject var tag: Tag
+    @Bindable var tag: Tag
     
     @AppStorage("TagLayout") private var tagLayout: TagLayout = .previews
 
     var body: some View {
-        if tag.managedObjectContext == nil || tag.isDeleted {
+        if tag.isDeleted {
             ContentUnavailable {
                 Label {
                     Text("Tag Deleted", comment: "Object removed message.")

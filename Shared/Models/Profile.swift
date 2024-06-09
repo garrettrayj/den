@@ -20,7 +20,7 @@ class Profile {
     var name: String?
     var tint: String?
     @Relationship(deleteRule: .cascade) var history: [History]?
-    @Relationship(deleteRule: .cascade) var pages: [Page]?
+    @Relationship(deleteRule: .cascade, inverse: \Page.profile) var pages: [Page]?
     @Relationship(deleteRule: .cascade, inverse: \Search.profile) var searches: [Search]?
     @Relationship(deleteRule: .cascade, inverse: \Tag.profile) var tags: [Tag]?
     

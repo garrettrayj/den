@@ -11,8 +11,8 @@
 import SwiftUI
 
 struct FeedItemCompressed: View {
-    @ObservedObject var item: Item
-    @ObservedObject var feed: Feed
+    @Bindable var item: Item
+    @Bindable var feed: Feed
 
     var body: some View {
         ItemActionView(item: item, isLastInList: true, isStandalone: true) {
@@ -22,7 +22,7 @@ struct FeedItemCompressed: View {
                     
                     PreviewHeadline(title: item.titleText)
                     
-                    if !feed.hideBylines, let author = item.author {
+                    if feed.showBylines, let author = item.author {
                         PreviewAuthor(author: author)
                     }
                     if !item.bookmarks.isEmpty {
@@ -34,8 +34,8 @@ struct FeedItemCompressed: View {
                 
                 Spacer(minLength: 0)
 
-                if !feed.hideImages, let url = item.image {
-                    SmallThumbnail(url: url, isRead: item.read).padding(.leading, 12)
+                if feed.showImages, let url = item.image {
+                    SmallThumbnail(url: url, isRead: item.wrappedRead).padding(.leading, 12)
                 }
             }
             .padding(12)

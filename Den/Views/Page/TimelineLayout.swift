@@ -11,11 +11,11 @@
 import SwiftUI
 
 struct TimelineLayout: View {
-    @ObservedObject var page: Page
+    @Bindable var page: Page
 
     @Binding var hideRead: Bool
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some View {
         if items.isEmpty {

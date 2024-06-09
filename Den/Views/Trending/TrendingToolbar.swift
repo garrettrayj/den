@@ -15,7 +15,7 @@ struct TrendingToolbar: ToolbarContent {
 
     @Binding var hideRead: Bool
     
-    let trends: FetchedResults<Trend>
+    let trends: [Trend]
 
     var body: some ToolbarContent {
         #if os(macOS)

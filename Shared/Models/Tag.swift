@@ -59,3 +59,11 @@ class Tag {
         return tag
     }
 }
+
+extension Collection where Element == Tag {
+    var maxUserOrder: Int16 {
+        self.reduce(0) { partialResult, tag in
+            (tag.userOrder ?? 0) > partialResult ? (tag.userOrder ?? 0) : partialResult
+        }
+    }
+}

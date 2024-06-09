@@ -11,8 +11,8 @@
 import SwiftUI
 
 struct OrganizerRowStatus: View {
-    @ObservedObject var feed: Feed
-    @ObservedObject var feedData: FeedData
+    @Bindable var feed: Feed
+    @Bindable var feedData: FeedData
     
     var body: some View {
         if let error = feedData.wrappedError {
@@ -32,13 +32,13 @@ struct OrganizerRowStatus: View {
                 }
             }
         } else {
-            if feedData.responseTime > 5 {
+            if feedData.responseTime ?? 0 > 5 {
                 Image(systemName: "tortoise").foregroundStyle(.brown)
             } else if !feed.isSecure {
                 Image(systemName: "lock.slash").foregroundStyle(.yellow)
             }
             Text(
-                "\(Int(feedData.responseTime * 1000)) ms",
+                "\(Int(feedData.responseTime ?? 0 * 1000)) ms",
                 comment: "Milliseconds time display."
             )
         }

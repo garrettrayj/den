@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct SidebarPage: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var page: Page
+    @Bindable var page: Page
 
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
@@ -56,9 +56,9 @@ struct SidebarPage: View {
                         page.displayName
                     }
                     .onSubmit {
-                        if viewContext.hasChanges {
+                        if modelContext.hasChanges {
                             do {
-                                try viewContext.save()
+                                try modelContext.save()
                             } catch {
                                 CrashUtility.handleCriticalError(error as NSError)
                             }
@@ -75,7 +75,7 @@ struct SidebarPage: View {
                 .onDrop(
                     of: [.denFeed, .url, .text],
                     delegate: PageNavDropDelegate(
-                        context: viewContext,
+                        modelContext: modelContext,
                         page: page,
                         newFeedPageID: $newFeedPageID,
                         newFeedWebAddress: $newFeedWebAddress,
@@ -96,9 +96,9 @@ struct SidebarPage: View {
                 .sheet(
                     isPresented: $showingIconSelector,
                     onDismiss: {
-                        if viewContext.hasChanges {
+                        if modelContext.hasChanges {
                             do {
-                                try viewContext.save()
+                                try modelContext.save()
                             } catch {
                                 CrashUtility.handleCriticalError(error as NSError)
                             }
@@ -128,8 +128,7 @@ struct SidebarPage: View {
         }
 
         do {
-            try viewContext.save()
-            page.objectWillChange.send()
+            try modelContext.save()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

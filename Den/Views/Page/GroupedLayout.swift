@@ -13,13 +13,13 @@ import SwiftUI
 struct GroupedLayout: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    @ObservedObject var page: Page
+    @Bindable var page: Page
 
     @Binding var hideRead: Bool
     
     @ScaledMetric private var idealColumnWidth = Columnizer.idealColumnWidth
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some View {
         GeometryReader { geometry in

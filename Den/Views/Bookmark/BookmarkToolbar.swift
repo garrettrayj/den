@@ -17,7 +17,7 @@ struct BookmarkToolbar: ToolbarContent {
     
     @EnvironmentObject private var downloadManager: DownloadManager
 
-    @ObservedObject var bookmark: Bookmark
+    @Bindable var bookmark: Bookmark
     @ObservedObject var browserViewModel: BrowserViewModel
 
     var body: some ToolbarContent {

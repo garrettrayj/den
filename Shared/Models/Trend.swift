@@ -76,3 +76,13 @@ class Trend {
         return trend
     }
 }
+
+extension Collection where Element == Trend {
+    var containingUnread: [Trend] {
+        self.filter { !($0.read ?? false) }
+    }
+    
+    var items: [Item] {
+        return self.flatMap { $0.items }.uniqueElements()
+    }
+}

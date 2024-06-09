@@ -11,14 +11,14 @@
 import SwiftUI
 
 struct BlocklistSettings: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var blocklist: Blocklist
+    @Bindable var blocklist: Blocklist
     
     @State private var isRefreshing = false
 
     var body: some View {
-        if blocklist.isDeleted || blocklist.managedObjectContext == nil {
+        if blocklist.isDeleted {
             VStack {
                 Spacer()
                 ContentUnavailable {
@@ -73,7 +73,7 @@ struct BlocklistSettings: View {
                         Task {
                             await BlocklistManager.refreshContentRulesList(
                                 blocklist: blocklist,
-                                context: viewContext
+                                context: modelContext
                             )
                             isRefreshing = false
                         }
@@ -94,9 +94,9 @@ struct BlocklistSettings: View {
             .onDisappear {
                 guard !blocklist.isDeleted else { return }
 
-                if viewContext.hasChanges {
+                if modelContext.hasChanges {
                     do {
-                        try viewContext.save()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }

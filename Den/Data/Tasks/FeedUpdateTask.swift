@@ -8,13 +8,13 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import OSLog
 
 import FeedKit
 
 struct FeedUpdateTask {
-    let feedObjectID: NSManagedObjectID
+    let feedObjectID: PersistentIdentifier
     let url: URL
     let updateMeta: Bool
 
@@ -26,8 +26,7 @@ struct FeedUpdateTask {
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
         var webpage: URL?
 
-        let context = DataController.shared.container.newBackgroundContext()
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        let context = ModelContext(DataController.shared.container)
 
         let feedRequest = URLRequest(url: url)
 
@@ -45,7 +44,7 @@ struct FeedUpdateTask {
         }
 
         guard
-            let feed = context.object(with: self.feedObjectID) as? Feed,
+            let feed = context.model(for: self.feedObjectID) as? Feed,
             let feedId = feed.id
         else { return }
 
@@ -58,7 +57,7 @@ struct FeedUpdateTask {
         feedData.age = feedResponse.age
         feedData.eTag = feedResponse.eTag
         
-        guard (200...299).contains(feedData.httpStatus) else {
+        guard (200...299).contains(feedData.httpStatus ?? 0) else {
             feedData.wrappedError = .request
             feedData.itemsArray.forEach { context.delete($0) }
             self.save(context: context, feed: feed, start: start)
@@ -77,7 +76,6 @@ struct FeedUpdateTask {
         // Cleanup old items
         if feedData.itemsArray.count > Feed.totalItemLimit {
             feedData.itemsArray.suffix(from: Feed.totalItemLimit).forEach { item in
-                feedData.removeFromItems(item)
                 context.delete(item)
             }
         }
@@ -124,7 +122,7 @@ struct FeedUpdateTask {
         feed: Feed,
         feedData: FeedData,
         parserResult: Result<FeedKit.Feed, FeedKit.ParserError>,
-        context: NSManagedObjectContext
+        context: ModelContext
     ) -> (Bool, URL?) {
         switch parserResult {
         case .success(let parsedFeed):
@@ -197,7 +195,7 @@ struct FeedUpdateTask {
         }
     }
 
-    private func save(context: NSManagedObjectContext, feed: Feed, start: CFAbsoluteTime) {
+    private func save(context: ModelContext, feed: Feed, start: CFAbsoluteTime) {
         do {
             try context.save()
             Logger.main.info("""

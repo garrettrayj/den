@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct BlocklistStatusView: View {
-    @ObservedObject var blocklistStatus: BlocklistStatus
+    @Bindable var blocklistStatus: BlocklistStatus
     
     var body: some View {
         Section {
@@ -29,14 +29,14 @@ struct BlocklistStatusView: View {
                 if blocklistStatus.httpCode == 0 {
                     Text("Unavailable", comment: "Blocklist response code placeholder.")
                 } else {
-                    Text(verbatim: "\(blocklistStatus.httpCode)")
+                    Text(verbatim: "\(blocklistStatus.httpCode ?? 0)")
                 }
             } label: {
                 Text("Response Code", comment: "Blocklist status row label.")
             }
             
             LabeledContent {
-                if blocklistStatus.compiledSuccessfully {
+                if blocklistStatus.compiledSuccessfully ?? false {
                     Text("Yes", comment: "Blocklist compile/load status message.")
                 } else {
                     Text("No", comment: "Blocklist compile/load status message.")

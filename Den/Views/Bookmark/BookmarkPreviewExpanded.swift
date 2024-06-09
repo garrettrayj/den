@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct BookmarkPreviewExpanded: View {
-    @ObservedObject var bookmark: Bookmark
+    @Bindable var bookmark: Bookmark
 
     var body: some View {
         BookmarkActionView(bookmark: bookmark) {
@@ -39,12 +39,12 @@ struct BookmarkPreviewExpanded: View {
                     LargeThumbnail(
                         url: url,
                         isRead: false,
-                        sourceWidth: CGFloat(bookmark.imageWidth),
-                        sourceHeight: CGFloat(bookmark.imageHeight)
+                        sourceWidth: CGFloat(bookmark.imageWidth ?? 0),
+                        sourceHeight: CGFloat(bookmark.imageHeight ?? 0)
                     )
                 }
                 
-                if let teaser = bookmark.teaser, teaser != "" && !bookmark.hideTeaser {
+                if let teaser = bookmark.teaser, teaser != "" && !(bookmark.hideTeaser ?? false) {
                     PreviewTeaser(teaser: teaser)
                 }
             }

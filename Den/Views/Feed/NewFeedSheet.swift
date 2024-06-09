@@ -8,12 +8,12 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 
 struct NewFeedSheet: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
     @EnvironmentObject private var refreshManager: RefreshManager
 
@@ -27,11 +27,11 @@ struct NewFeedSheet: View {
     
     @FocusState private var textFieldFocus: Bool
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.userOrder, order: .forward),
-        SortDescriptor(\.name, order: .forward)
+    @Query(sort: [
+        SortDescriptor(\Page.userOrder, order: .forward),
+        SortDescriptor(\Page.name, order: .forward)
     ])
-    private var pages: FetchedResults<Page>
+    private var pages: [Page]
 
     var body: some View {
         NavigationStack {
@@ -102,10 +102,10 @@ struct NewFeedSheet: View {
                 let page = targetPage
             else { return }
 
-            let newFeed = Feed.create(in: viewContext, page: page, url: url, prepend: true)
+            let newFeed = Feed.create(in: modelContext, page: page, url: url, prepend: true)
 
             do {
-                try viewContext.save()
+                try modelContext.save()
                 Task {
                     await refreshManager.refresh(feed: newFeed)
                     dismiss()

@@ -13,13 +13,13 @@ import SwiftUI
 struct FeedToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
 
     @Binding var hideRead: Bool
     @Binding var showingDeleteAlert: Bool
     @Binding var showingInspector: Bool
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some ToolbarContent {
         #if os(macOS)

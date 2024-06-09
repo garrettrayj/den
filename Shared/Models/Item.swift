@@ -152,6 +152,11 @@ class Item {
     var trends: [Trend] {
         trendItemsArray.compactMap { $0.trend }
     }
+    
+    var wrappedRead: Bool {
+        get { read ?? false }
+        set { read = newValue }
+    }
 
     static func create(moc modelContext: ModelContext, feedData: FeedData) -> Item {
         let item = Item()

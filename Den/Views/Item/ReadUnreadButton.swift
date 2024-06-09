@@ -11,14 +11,14 @@
 import SwiftUI
 
 struct ReadUnreadButton: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var item: Item
+    @Bindable var item: Item
 
     var body: some View {
-        if item.read {
+        if item.wrappedRead {
             Button {
-                HistoryUtility.markItemUnread(context: viewContext, item: item)
+                HistoryUtility.markItemUnread(context: modelContext, item: item)
             } label: {
                 Label {
                     Text("Mark Unread", comment: "Button label.")
@@ -28,7 +28,7 @@ struct ReadUnreadButton: View {
             }
         } else {
             Button {
-                HistoryUtility.markItemRead(context: viewContext, item: item)
+                HistoryUtility.markItemRead(context: modelContext, item: item)
             } label: {
                 Label {
                     Text("Mark Read", comment: "Button label.")

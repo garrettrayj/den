@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct BookmarkPreviewCompressed: View {
-    @ObservedObject var bookmark: Bookmark
+    @Bindable var bookmark: Bookmark
 
     var body: some View {
         BookmarkActionView(bookmark: bookmark) {
@@ -29,7 +29,7 @@ struct BookmarkPreviewCompressed: View {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 4) {
                         PreviewHeadline(title: bookmark.titleText)
-                        if !bookmark.hideByline, let author = bookmark.author {
+                        if !(bookmark.hideByline ?? false), let author = bookmark.author {
                             PreviewAuthor(author: author)
                         }
                         if let date = bookmark.published {
@@ -37,7 +37,7 @@ struct BookmarkPreviewCompressed: View {
                         }
                     }
                     Spacer(minLength: 0)
-                    if !bookmark.hideImage, let url = bookmark.image {
+                    if !(bookmark.hideImage ?? false), let url = bookmark.image {
                         SmallThumbnail(url: url, isRead: false).padding(.leading, 12)
                     }
                 }

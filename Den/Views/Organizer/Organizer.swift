@@ -8,11 +8,12 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 import UniformTypeIdentifiers
 
 struct Organizer: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
     @State private var selection = Set<Feed>()
     
@@ -22,11 +23,11 @@ struct Organizer: View {
     @SceneStorage("ShowingOrganizerInspector") private var showingInspector = false
     #endif
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.userOrder, order: .forward),
-        SortDescriptor(\.name, order: .forward)
+    @Query(sort: [
+        SortDescriptor(\Page.userOrder, order: .forward),
+        SortDescriptor(\Page.name, order: .forward)
     ])
-    private var pages: FetchedResults<Page>
+    private var pages: [Page]
 
     var body: some View {
         Group {
@@ -91,9 +92,9 @@ struct Organizer: View {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
 
-        if viewContext.hasChanges {
+        if modelContext.hasChanges {
             do {
-                try viewContext.save()
+                try modelContext.save()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
