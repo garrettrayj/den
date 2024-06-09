@@ -20,9 +20,9 @@ struct FeedInspector: View {
     var body: some View {
         Form {
             Section {
-                Picker(selection: $feed.itemLimit) {
+                Picker(selection: $feed.wrappedItemLimit) {
                     ForEach(1...100, id: \.self) { choice in
-                        Text(verbatim: "\(choice)").tag(Int16(choice))
+                        Text(verbatim: "\(choice)").tag(choice)
                     }
                 } label: {
                     Text("Featured Items", comment: "Picker label.")

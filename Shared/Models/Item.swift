@@ -101,14 +101,14 @@ class Item {
 
     var history: [History] {
         var fetchDescriptor = FetchDescriptor<History>()
-        fetchDescriptor.predicate = #Predicate<History>{ $0.link == link }
+        fetchDescriptor.predicate = #Predicate<History> { $0.link == link }
         
         return (try? modelContext?.fetch(fetchDescriptor)) ?? []
     }
 
     var bookmarks: [Bookmark] {
         var fetchDescriptor = FetchDescriptor<Bookmark>()
-        fetchDescriptor.predicate = #Predicate<Bookmark>{ $0.link == link }
+        fetchDescriptor.predicate = #Predicate<Bookmark> { $0.link == link }
         
         return (try? modelContext?.fetch(fetchDescriptor)) ?? []
     }

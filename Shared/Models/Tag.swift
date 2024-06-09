@@ -55,6 +55,8 @@ class Tag {
         let tag = Tag()
         tag.id = UUID()
         tag.userOrder = userOrder
+        
+        modelContext.insert(tag)
 
         return tag
     }

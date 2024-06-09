@@ -27,20 +27,12 @@ struct WithTrends<Content: View>: View {
     ) {
         self.content = content
 
-        /*
-        var predicates: [NSPredicate] = []
+        var request = FetchDescriptor<Trend>(sortBy: [SortDescriptor(\Trend.title)])
         
         if readFilter != nil {
-            predicates.append(NSPredicate(format: "read = %@", NSNumber(value: readFilter!)))
+            request.predicate = #Predicate<Trend> { $0.read == readFilter! }
         }
         
-        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
-        
-        let request = Trend.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Trend.title, ascending: true)]
-        request.predicate = compoundPredicate
-        
-        _trends = FetchRequest(fetchRequest: request)
-         */
+        _trends = Query(request)
     }
 }

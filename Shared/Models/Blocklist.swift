@@ -49,7 +49,7 @@ class Blocklist {
 
     var blocklistStatus: BlocklistStatus? {
         var fetchDescriptor = FetchDescriptor<BlocklistStatus>()
-        fetchDescriptor.predicate = #Predicate<BlocklistStatus>{ $0.blocklistId == id }
+        fetchDescriptor.predicate = #Predicate<BlocklistStatus> { $0.blocklistId == id }
         
         return try? modelContext?.fetch(fetchDescriptor).first
     }
