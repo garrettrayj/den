@@ -18,11 +18,6 @@ struct DeleteTagButton: View {
     var body: some View {
         Button(role: .destructive) {
             modelContext.delete(tag)
-            do {
-                try modelContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
         } label: {
             DeleteLabel()
         }

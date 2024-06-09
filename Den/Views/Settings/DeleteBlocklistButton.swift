@@ -22,12 +22,6 @@ struct DeleteBlocklistButton: View {
                     identifier: blocklist.id?.uuidString
                 )
                 modelContext.delete(blocklist)
-                
-                do {
-                    try modelContext.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
             }
         } label: {
             DeleteLabel()

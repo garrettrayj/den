@@ -19,12 +19,6 @@ struct DeletePageButton: View {
         Button(role: .destructive) {
             page.feedsArray.compactMap { $0.feedData }.forEach { modelContext.delete($0) }
             modelContext.delete(page)
-
-            do {
-                try modelContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
         } label: {
             DeleteLabel()
         }

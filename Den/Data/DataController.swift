@@ -35,7 +35,7 @@ struct DataController {
         }
 
         do {
-            var cloudConfig = ModelConfiguration(
+            let cloudConfig = ModelConfiguration(
                 "Den",
                 schema: Schema([
                     Blocklist.self,

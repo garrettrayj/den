@@ -33,12 +33,6 @@ struct FeedInspector: View {
                             item.extra = idx + 1 > feed.wrappedItemLimit
                         }
                     }
-
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
                 }
             } header: {
                 Text("Limits", comment: "Feed inspector section header.")
@@ -48,48 +42,20 @@ struct FeedInspector: View {
                 Toggle(isOn: $feed.largePreviews) {
                     Text("Expanded Previews", comment: "Toggle label.")
                 }
-                .onChange(of: feed.previewStyle) {
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
                 .accessibilityIdentifier("LargePreviews")
 
                 if feed.largePreviews {
                     Toggle(isOn: $feed.showExcerpts) {
                         Text("Show Excerpts", comment: "Toggle label.")
                     }
-                    .onChange(of: feed.hideTeasers) {
-                        do {
-                            try modelContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
-                    }
                 }
 
                 Toggle(isOn: $feed.showBylines) {
                     Text("Show Bylines", comment: "Toggle label.")
                 }
-                .onChange(of: feed.hideBylines) {
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
 
                 Toggle(isOn: $feed.showImages) {
                     Text("Show Images", comment: "Toggle label.")
-                }
-                .onChange(of: feed.hideImages) {
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
                 }
             } header: {
                 Text("Previews", comment: "Feed inspector section header.")
@@ -99,34 +65,13 @@ struct FeedInspector: View {
                 Toggle(isOn: $feed.wrappedReaderMode) {
                     Text("Use Reader Automatically", comment: "Toggle label.")
                 }
-                .onChange(of: feed.readerMode) {
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
 
                 Toggle(isOn: $feed.useBlocklists) {
                     Text("Use Blocklists", comment: "Toggle label.")
                 }
-                .onChange(of: feed.disableBlocklists) {
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
                 
                 Toggle(isOn: $feed.allowJavaScript) {
                     Text("Allow JavaScript", comment: "Toggle label.")
-                }
-                .onChange(of: feed.disableJavaScript) {
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
                 }
             } header: {
                 Text("Viewing", comment: "Feed inspector section header.")

@@ -93,11 +93,6 @@ struct OrganizerOptionsPanel: View {
                             modelContext.delete(feed)
                             selection.remove(feed)
                         }
-                        do {
-                            try modelContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
                     } label: {
                         DeleteLabel()
                     }
@@ -123,14 +118,7 @@ struct OrganizerOptionsPanel: View {
                     }
                 }
                 
-                if modelContext.hasChanges {
-                    do {
-                        try modelContext.save()
-                        itemLimitPickerID = UUID()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
+                itemLimitPickerID = UUID()
             }
         )
     }

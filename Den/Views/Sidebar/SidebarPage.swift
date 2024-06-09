@@ -55,15 +55,6 @@ struct SidebarPage: View {
                     TextField(text: $page.wrappedName) {
                         page.displayName
                     }
-                    .onSubmit {
-                        if modelContext.hasChanges {
-                            do {
-                                try modelContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
-                        }
-                    }
                     #else
                     page.displayName
                     #endif
@@ -84,7 +75,7 @@ struct SidebarPage: View {
                 )
                 .contextMenu {
                     MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                        await HistoryUtility.toggleReadUnread(items: Array(items))
+                        HistoryUtility.toggleReadUnread(context: modelContext, items: items)
                     }
                     Divider()
                     IconSelectorButton(
@@ -95,15 +86,6 @@ struct SidebarPage: View {
                 }
                 .sheet(
                     isPresented: $showingIconSelector,
-                    onDismiss: {
-                        if modelContext.hasChanges {
-                            do {
-                                try modelContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
-                        }
-                    },
                     content: {
                         IconSelector(selection: $page.wrappedSymbol)
                     }
@@ -125,12 +107,6 @@ struct SidebarPage: View {
         // This is done in reverse to minimize changes to the indices.
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
-        }
-
-        do {
-            try modelContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 }

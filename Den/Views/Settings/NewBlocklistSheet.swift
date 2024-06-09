@@ -111,12 +111,6 @@ struct NewBlocklistSheet: View {
         
         await BlocklistManager.refreshContentRulesList(blocklist: blocklist, context: modelContext)
 
-        do {
-            try modelContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
-
         dismiss()
     }
 }

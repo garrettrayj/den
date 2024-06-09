@@ -57,15 +57,6 @@ struct PageView: View {
                         )
                     }
                 }
-                .onChange(of: page.name) {
-                    guard !page.isDeleted else { return }
-
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
                 .frame(minWidth: 320)
                 .navigationTitle(page.displayName)
                 .navigationTitle($page.wrappedName)
@@ -97,15 +88,6 @@ struct PageView: View {
                 )
                 .sheet(
                     isPresented: $showingIconSelector,
-                    onDismiss: {
-                        if modelContext.hasChanges {
-                            do {
-                                try modelContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
-                        }
-                    },
                     content: {
                         IconSelector(selection: $page.wrappedSymbol)
                     }

@@ -116,23 +116,18 @@ struct Sidebar: View {
         #endif
         .sheet(
             isPresented: $showingSettings,
-            onDismiss: {
-                saveChanges()
-            },
             content: {
                 SettingsSheet()
             }
         )
         .sheet(
             isPresented: $showingNewPageSheet,
-            onDismiss: saveChanges,
             content: {
                 NewPageSheet()
             }
         )
         .sheet(
             isPresented: $showingNewTagSheet,
-            onDismiss: saveChanges,
             content: {
                 NewTagSheet()
             }
@@ -175,16 +170,6 @@ struct Sidebar: View {
         .onChange(of: exporterIsPresented) {
             if !exporterIsPresented {
                 showingExporter = false
-            }
-        }
-    }
-
-    private func saveChanges() {
-        if modelContext.hasChanges {
-            do {
-                try modelContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
             }
         }
     }

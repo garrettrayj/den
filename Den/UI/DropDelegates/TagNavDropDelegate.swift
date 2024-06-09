@@ -71,12 +71,6 @@ struct TagNavDropDelegate: DropDelegate {
                     else { return }
 
                     _ = Bookmark.create(in: modelContext, item: item, tag: tag)
-
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
                 }
             }
         }

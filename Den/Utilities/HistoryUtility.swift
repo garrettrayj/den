@@ -14,10 +14,7 @@ import SwiftUI
 import WidgetKit
 
 struct HistoryUtility {
-    static func markItemRead(
-        context: ModelContext,
-        item: Item
-    ) {
+    static func markItemRead(context: ModelContext, item: Item) {
         guard item.read == false else { return }
 
         let history = History.create(in: context)
@@ -27,18 +24,10 @@ struct HistoryUtility {
         item.read = true
         item.trends.forEach { $0.updateReadStatus() }
 
-        do {
-            try context.save()
-            WidgetCenter.shared.reloadAllTimelines()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
-    static func markItemUnread(
-        context: ModelContext,
-        item: Item
-    ) {
+    static func markItemUnread(context: ModelContext, item: Item) {
         guard item.read == true else { return }
 
         for history in item.history {
@@ -48,28 +37,19 @@ struct HistoryUtility {
         item.read = false
         item.trends.forEach { $0.updateReadStatus() }
 
-        do {
-            try context.save()
-            WidgetCenter.shared.reloadAllTimelines()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
-    static func toggleReadUnread(items: [Item]) async {
+    static func toggleReadUnread(context: ModelContext, items: [Item]) {
         if items.unread.isEmpty == true {
-            await clearHistory(items: items)
+            clearHistory(context: context, items: items)
         } else {
-            await logHistory(items: items.unread)
+            logHistory(context: context, items: items.unread)
         }
     }
 
-    static func logHistory(items: [Item]) async {
-        let itemObjectIDs = items.map { $0.persistentModelID }
-        let context = ModelContext(DataController.shared.container)
-
-        for itemObjectID in itemObjectIDs {
-            guard let item = context.model(for: itemObjectID) as? Item else { continue }
+    static func logHistory(context: ModelContext, items: [Item]) {
+        for item in items {
             let history = History.create(in: context)
             history.link = item.link
             history.visited = .now
@@ -78,21 +58,12 @@ struct HistoryUtility {
             item.trends.forEach { $0.updateReadStatus() }
         }
 
-        do {
-            try context.save()
-            WidgetCenter.shared.reloadAllTimelines()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
-    static func clearHistory(items: [Item]) async {
-        let itemObjectIDs = items.map { $0.persistentModelID }
-        let context = ModelContext(DataController.shared.container)
+    static func clearHistory(context: ModelContext, items: [Item]) {
 
-        for itemObjectID in itemObjectIDs {
-            guard let item = context.model(for: itemObjectID) as? Item else { continue }
-
+        for item in items {
             item.read = false
             item.trends.forEach { $0.updateReadStatus() }
             
@@ -101,11 +72,6 @@ struct HistoryUtility {
             }
         }
 
-        do {
-            try context.save()
-            WidgetCenter.shared.reloadAllTimelines()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }

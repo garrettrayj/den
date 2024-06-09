@@ -19,14 +19,8 @@ struct UntagButton: View {
 
     var body: some View {
         Button(role: .destructive) {
-            guard let tag = bookmark.tag else { return }
             modelContext.delete(bookmark)
-            do {
-                try modelContext.save()
-                callback?()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
+            callback?()
         } label: {
             Label {
                 Text("Untag", comment: "Button label.")

@@ -72,11 +72,5 @@ struct SearchView: View {
         } else {
             _ = Search.create(in: modelContext, query: searchQuery)
         }
-
-        do {
-            try modelContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
     }
 }

@@ -12,17 +12,15 @@ import SwiftUI
 
 struct MarkAllReadUnreadButton: View {
     let allRead: Bool
-    let toggleAll: () async -> Void
+    let toggleAll: () -> Void
 
     @State private var toggling = false
 
     var body: some View {
         Button {
             toggling = true
-            Task {
-                await toggleAll()
-                toggling = false
-            }
+            toggleAll()
+            toggling = false
         } label: {
             Label {
                 if allRead {

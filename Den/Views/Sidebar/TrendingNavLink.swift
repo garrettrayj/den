@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct TrendingNavLink: View {
+    @Environment(\.modelContext) private var modelContext
+
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
     var body: some View {
@@ -25,7 +27,7 @@ struct TrendingNavLink: View {
             .accessibilityIdentifier("TrendingNavLink")
             .contextMenu {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                    await HistoryUtility.toggleReadUnread(items: trends.items)
+                    HistoryUtility.toggleReadUnread(context: modelContext, items: trends.items)
                 }
             }
         }

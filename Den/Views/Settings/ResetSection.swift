@@ -137,12 +137,6 @@ struct ResetSection: View {
         try? modelContext.delete(model: FeedData.self)
         try? modelContext.delete(model: Trend.self)
         
-        do {
-            try modelContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
-        
         refreshedTimestamp = nil
     }
     
@@ -155,12 +149,6 @@ struct ResetSection: View {
         
         if let trends = try? modelContext.fetch(FetchDescriptor<Trend>()) {
             trends.forEach { $0.read = false }
-        }
-
-        do {
-            try modelContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
         }
     }
     

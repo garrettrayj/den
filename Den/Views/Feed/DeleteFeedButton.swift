@@ -19,12 +19,6 @@ struct DeleteFeedButton: View {
         Button(role: .destructive) {
             if let feedData = feed.feedData { modelContext.delete(feedData) }
             modelContext.delete(feed)
-
-            do {
-                try modelContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
         } label: {
             DeleteLabel()
         }

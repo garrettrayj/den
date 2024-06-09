@@ -31,11 +31,6 @@ struct TagsMenu: View {
                             for bookmark in item.bookmarks where bookmark.tag == tag {
                                 modelContext.delete(bookmark)
                             }
-                            do {
-                                try modelContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
                         } label: {
                             Label { tag.displayName } icon: {
                                 Image(systemName: "tag.fill")
@@ -46,11 +41,6 @@ struct TagsMenu: View {
                     } else {
                         Button {
                             _ = Bookmark.create(in: modelContext, item: item, tag: tag)
-                            do {
-                                try modelContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
                         } label: {
                             Label { tag.displayName } icon: {
                                 Image(systemName: "tag")

@@ -91,17 +91,6 @@ struct BlocklistSettings: View {
             }
             .buttonStyle(.borderless)
             .formStyle(.grouped)
-            .onDisappear {
-                guard !blocklist.isDeleted else { return }
-
-                if modelContext.hasChanges {
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            }
         }
     }
 }

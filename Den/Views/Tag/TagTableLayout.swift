@@ -157,11 +157,5 @@ struct TagTableLayout: View {
     
     private func deleteSelection(items: Set<Row.ID>) {
         rows.filter { items.contains($0.id) }.forEach { modelContext.delete($0.bookmark) }
-        
-        do {
-            try modelContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
     }
 }

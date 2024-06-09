@@ -45,22 +45,7 @@ struct FeedView: View {
                     )
                     .onChange(of: feed.page) {
                         guard !feed.isDeleted else { return }
-
                         feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
-                        do {
-                            try modelContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
-                    }
-                    .onChange(of: feed.title) {
-                        guard !feed.isDeleted else { return }
-
-                        do {
-                            try modelContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
                     }
                     .frame(minWidth: 320)
                     .toolbar {

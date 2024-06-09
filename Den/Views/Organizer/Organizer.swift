@@ -91,13 +91,5 @@ struct Organizer: View {
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
-
-        if modelContext.hasChanges {
-            do {
-                try modelContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
-        }
     }
 }

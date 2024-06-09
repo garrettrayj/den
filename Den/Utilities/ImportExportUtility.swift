@@ -50,12 +50,6 @@ struct ImportExportUtility {
                 }
             }
         }
-
-        do {
-            try context.save()
-        } catch let error as NSError {
-            CrashUtility.handleCriticalError(error)
-        }
     }
 
     static func exportOPML(pages: [Page]) -> OPMLFile? {

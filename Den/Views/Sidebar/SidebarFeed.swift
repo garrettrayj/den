@@ -23,15 +23,6 @@ struct SidebarFeed: View {
             TextField(text: $feed.wrappedTitle) {
                 feed.displayTitle
             }
-            .onSubmit {
-                if modelContext.hasChanges {
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            }
             #else
             feed.displayTitle
             #endif
