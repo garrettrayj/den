@@ -41,12 +41,7 @@ struct WithBookmarks<Content: View>: View {
             let scopePredicate = #Predicate<Bookmark> { $0.tag?.persistentModelID == tagId }
             predicates.append(scopePredicate)
         }
-        
-        if !searchQuery.isEmpty {
-            let searchPredicate = #Predicate<Bookmark> { $0.title?.contains(searchQuery) ?? false }
-            predicates.append(searchPredicate)
-        }
-        
+
         request.predicate = predicates.conjunction()
 
         _bookmarks = Query(request)

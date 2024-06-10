@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/NoahKamara/CompoundPredicate",
       "state" : {
-        "branch" : "main",
-        "revision" : "6e996195ff12db90b00737060425dec5d43c1829"
+        "revision" : "adda76e5f797205259c7d918b7bd58040154356f",
+        "version" : "0.1.0"
       }
     },
     {

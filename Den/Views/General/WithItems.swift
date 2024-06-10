@@ -74,7 +74,9 @@ struct WithItems<Content: View>: View {
         }
 
         if !searchQuery.isEmpty {
-            let searchPredicate = #Predicate<Item> { $0.title?.contains(searchQuery) ?? false }
+            let searchPredicate = #Predicate<Item> {
+                $0.title?.localizedStandardContains(searchQuery) ?? false
+            }
             predicates.append(searchPredicate)
         }
 
