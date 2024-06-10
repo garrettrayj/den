@@ -54,14 +54,14 @@ enum DetailPanel: Hashable, Identifiable {
         }
     }
 
-    var objectID: String? {
+    var objectID: PersistentIdentifier? {
         switch self {
         case .feed(let feed):
-            return feed.id?.uuidString
+            return feed.persistentModelID
         case .page(let page):
-            return page.id?.uuidString
+            return page.persistentModelID
         case .tag(let tag):
-            return tag.id?.uuidString
+            return tag.persistentModelID
         default:
             return nil
         }
@@ -83,11 +83,7 @@ extension DetailPanel: Decodable {
 
         if panelID == "feed" && values.contains(.objectID) {
             let decodedFeedID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
-
-            var request = FetchDescriptor<Feed>()
-            request.predicate = #Predicate<Feed> { $0.id == decodedFeedID }
-
-            if let feed = try? context.fetch(request).first {
+            if let feed = context.model(for: decodedFeedID) as? Feed {
                 detailPanel = .feed(feed)
             }
         } else if panelID == "inbox" {
@@ -96,20 +92,12 @@ extension DetailPanel: Decodable {
             detailPanel = .organizer
         } else if panelID == "page" && values.contains(.objectID) {
             let decodedPageID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
-
-            var request = FetchDescriptor<Page>()
-            request.predicate = #Predicate<Page> { $0.id == decodedPageID }
-
-            if let page = try? context.fetch(request).first {
+            if let page = context.model(for: decodedPageID) as? Page {
                 detailPanel = .page(page)
             }
         } else if panelID == "tag" {
             let decodedTagID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
-
-            var request = FetchDescriptor<Tag>()
-            request.predicate = #Predicate<Tag> { $0.id == decodedTagID }
-
-            if let tag = try? context.fetch(request).first {
+            if let tag = context.model(for: decodedTagID) as? Tag {
                 detailPanel = .tag(tag)
             }
         } else if panelID == "trending" {

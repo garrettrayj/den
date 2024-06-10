@@ -2185,7 +2185,7 @@
       }
     },
     "Showing results for “%@”" : {
-      "comment" : "Navigation subtitle.",
+      "comment" : "Bottom bar status.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2455,7 +2455,7 @@
       }
     },
     "Unknown" : {
-      "comment" : "Download file name unavailable.",
+      "comment" : "Background refresh status.\nDownload file name unavailable.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

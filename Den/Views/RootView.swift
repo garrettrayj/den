@@ -29,8 +29,7 @@ struct RootView: View {
     @State private var showingAppErrorSheet = false
     @State private var clearPathOnDetailChange = true
     @State private var detailPanel: DetailPanel?
-    
-    @StateObject private var navigationStore = NavigationStore()
+    @State private var navigationStore = NavigationStore()
     
     @SceneStorage("DetailPanel") private var detailPanelData: Data?
     @SceneStorage("Navigation") private var navigationData: Data?
