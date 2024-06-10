@@ -16,8 +16,6 @@ struct OrganizerOptionsPanel: View {
     @Binding var selection: Set<Feed>
     
     let pages: [Page]
-    
-    @State private var itemLimitPickerID = UUID()
 
     var body: some View {
         if sources.isEmpty {
@@ -25,14 +23,13 @@ struct OrganizerOptionsPanel: View {
         } else {
             Form {
                 Section {
-                    Picker(sources: sources, selection: \.itemLimit) {
+                    Picker(sources: sources, selection: \.wrappedItemLimit) {
                         ForEach(1...100, id: \.self) { choice in
-                            Text(verbatim: "\(choice)").tag(Int16(choice))
+                            Text(verbatim: "\(choice)").tag(choice)
                         }
                     } label: {
                         Text("Featured Items", comment: "Picker label.")
                     }
-                    .id(itemLimitPickerID)
                 } header: {
                     Text("Limits", comment: "Organizer configuration panel section header.")
                 }
@@ -109,16 +106,12 @@ struct OrganizerOptionsPanel: View {
             get: { selection.filter { _ in true } },
             set: {
                 for feed in $0 where feed.hasChanges {
-                    feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
-                    
                     if let feedData = feed.feedData {
                         for (idx, item) in feedData.itemsArray.enumerated() {
                             item.extra = idx + 1 > feed.wrappedItemLimit
                         }
                     }
                 }
-                
-                itemLimitPickerID = UUID()
             }
         )
     }
