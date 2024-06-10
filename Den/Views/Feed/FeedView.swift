@@ -16,9 +16,9 @@ struct FeedView: View {
 
     @Bindable var feed: Feed
     
-    @Binding var hideRead: Bool
-    
     @State private var showingDeleteAlert = false
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
     
     @SceneStorage("ShowingFeedInspector") private var showingInspector = false
 

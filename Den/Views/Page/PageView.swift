@@ -14,11 +14,11 @@ struct PageView: View {
     @Environment(\.modelContext) private var modelContext
 
     @Bindable var page: Page
-    
-    @Binding var hideRead: Bool
-    
+
     @State private var showingDeleteAlert = false
     @State private var showingIconSelector = false
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     private var pageLayoutAppStorage: AppStorage<PageLayout>
 
@@ -97,10 +97,8 @@ struct PageView: View {
         }
     }
 
-    init(page: Page, hideRead: Binding<Bool>) {
+    init(page: Page) {
         self.page = page
-        
-        _hideRead = hideRead
 
         pageLayoutAppStorage = .init(
             wrappedValue: PageLayout.grouped,

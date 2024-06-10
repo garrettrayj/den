@@ -12,7 +12,7 @@ import SwiftData
 import SwiftUI
 
 struct Inbox: View {
-    @Binding var hideRead: Bool
+    @AppStorage("HideRead") private var hideRead: Bool = false
     
     @Query()
     private var feeds: [Feed]
