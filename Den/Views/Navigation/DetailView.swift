@@ -12,13 +12,14 @@ import SwiftUI
 
 struct DetailView: View {
     @Binding var detailPanel: DetailPanel?
-    @Binding var hideRead: Bool
     @Binding var path: NavigationPath
     @Binding var searchQuery: String
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         NavigationStack(path: $path) {
-            Group {
+            ZStack {
                 switch detailPanel ?? .welcome {
                 case .feed(let feed):
                     FeedView(feed: feed, hideRead: $hideRead).id(feed)

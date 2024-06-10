@@ -24,7 +24,7 @@ struct DenApp: App {
     
     @Environment(\.scenePhase) private var scenePhase
 
-    let container = DataController.shared.container
+    @State var container = DataController.shared.container
     
     @StateObject private var downloadManager = DownloadManager()
     @StateObject private var networkMonitor = NetworkMonitor()

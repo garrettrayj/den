@@ -38,7 +38,6 @@ struct RootView: View {
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("SearchQuery") private var searchQuery: String = ""
     
-    @AppStorage("HideRead") private var hideRead: Bool = false
     @AppStorage("Maintained") private var maintenanceTimestamp: Double?
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
@@ -78,7 +77,6 @@ struct RootView: View {
         } detail: {
             DetailView(
                 detailPanel: $detailPanel,
-                hideRead: $hideRead,
                 path: $navigationStore.path,
                 searchQuery: $searchQuery
             )
