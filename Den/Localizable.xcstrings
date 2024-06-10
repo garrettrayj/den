@@ -11,6 +11,12 @@
         }
       }
     },
+    "%@" : {
+
+    },
+    "%lf" : {
+
+    },
     "%lld Feeds" : {
       "comment" : "Feed count (plural).",
       "localizations" : {
