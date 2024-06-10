@@ -2207,7 +2207,7 @@
       }
     },
     "Status Unknown" : {
-      "comment" : "Background refresh status.\nBlocklist status message.",
+      "comment" : "Blocklist status message.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2464,6 +2464,9 @@
           }
         }
       }
+    },
+    "Unknown Background Refresh Status" : {
+      "comment" : "Background refresh status."
     },
     "Unknown Error" : {
       "comment" : "Feed unavailable title.",
