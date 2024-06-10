@@ -27,6 +27,14 @@ struct FeedUpdateTask {
         var webpage: URL?
 
         let context = ModelContext(DataController.shared.container)
+        
+        guard
+            let feed = context.model(for: self.feedObjectID) as? Feed,
+            let feedId = feed.id
+        else {
+            Logger.main.error("Unable to fetch feed in update context.")
+            return
+        }
 
         let feedRequest = URLRequest(url: url)
 
@@ -42,11 +50,6 @@ struct FeedUpdateTask {
             }
             parserResult = FeedParser(data: data).parse()
         }
-
-        guard
-            let feed = context.model(for: self.feedObjectID) as? Feed,
-            let feedId = feed.id
-        else { return }
 
         let feedData = feed.feedData ?? FeedData.create(in: context, feedId: feedId)
         feedData.refreshed = .now

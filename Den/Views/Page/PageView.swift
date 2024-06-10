@@ -23,7 +23,7 @@ struct PageView: View {
     private var pageLayoutAppStorage: AppStorage<PageLayout>
 
     var body: some View {
-        if page.isDeleted {
+        if page.isDeleted || page.modelContext == nil {
             ContentUnavailable {
                 Label {
                     Text("Folder Deleted", comment: "Object removed message.")

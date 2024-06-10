@@ -103,10 +103,8 @@ struct ResetSection: View {
                     .accessibilityIdentifier("CancelReset")
 
                     Button(role: .destructive) {
-                        Task {
-                            await resetEverything()
-                            cacheSize = 0
-                        }
+                        resetEverything()
+                        cacheSize = 0
                     } label: {
                         Text("Reset", comment: "Button label.")
                     }
@@ -135,6 +133,7 @@ struct ResetSection: View {
     
     private func clearData() {
         try? modelContext.delete(model: FeedData.self)
+        try? modelContext.delete(model: Item.self)
         try? modelContext.delete(model: Trend.self)
         
         refreshedTimestamp = nil
@@ -152,9 +151,7 @@ struct ResetSection: View {
         }
     }
     
-    private func resetEverything() async {
-        let context = ModelContext(DataController.shared.container)
-        
+    private func resetEverything() {
         let batchTruncateList: [any PersistentModel.Type] = [
             // Cloud models
             Blocklist.self,
@@ -174,20 +171,14 @@ struct ResetSection: View {
         ]
         
         batchTruncateList.forEach {
-            try? context.delete(model: $0)
+            try? modelContext.delete(model: $0)
         }
 
-        do {
-            try context.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-            return
+        Task {
+            await BlocklistManager.removeAllContentRulesLists()
+            await emptyCaches()
         }
         
-        await BlocklistManager.removeAllContentRulesLists()
-
-        await emptyCaches()
-
         UserDefaults.group.removePersistentDomain(forName: AppGroup.den.rawValue)
         if let domain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: domain)

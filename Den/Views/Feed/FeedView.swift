@@ -24,7 +24,7 @@ struct FeedView: View {
 
     var body: some View {
         Group {
-            if feed.isDeleted {
+            if feed.isDeleted || feed.modelContext == nil {
                 ContentUnavailable {
                     Label {
                         Text("Feed Deleted", comment: "Object removed message.")

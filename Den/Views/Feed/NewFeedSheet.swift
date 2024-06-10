@@ -76,7 +76,13 @@ struct NewFeedSheet: View {
             .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    submitButton
+                    Button {
+                        createFeed()
+                    } label: {
+                        Text("Save", comment: "Button label.")
+                    }
+                    .disabled(loading || !(webAddressIsValid ?? false))
+                    .accessibilityIdentifier("SubmitNewFeed")
                 }
 
                 ToolbarItem(placement: .cancellationAction) {
@@ -94,34 +100,6 @@ struct NewFeedSheet: View {
         #endif
     }
 
-    private var submitButton: some View {
-        Button {
-            loading = true
-            guard
-                let url = URL(string: webAddress.trimmingCharacters(in: .whitespacesAndNewlines)),
-                let page = targetPage
-            else { return }
-
-            let newFeed = Feed.create(in: modelContext, page: page, url: url, prepend: true)
-
-            do {
-                try modelContext.save()
-                Task {
-                    await refreshManager.refresh(feed: newFeed)
-                    dismiss()
-                    webAddress = ""
-                    loading = false
-                }
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
-        } label: {
-            Text("Save", comment: "Button label.")
-        }
-        .disabled(loading || !(webAddressIsValid ?? false))
-        .accessibilityIdentifier("SubmitNewFeed")
-    }
-
     private func checkTargetPage() {
         if let pageID = initialPageID, let destinationPage = pages.first(where: {
             $0.id?.uuidString == pageID
@@ -129,6 +107,39 @@ struct NewFeedSheet: View {
             targetPage = destinationPage
         } else {
             targetPage = pages.first
+        }
+    }
+    
+    private func createFeed() {
+        loading = true
+        
+        guard
+            let url = URL(string: webAddress.trimmingCharacters(in: .whitespacesAndNewlines)),
+            let page = targetPage
+        else { return }
+
+        var newFeed: Feed?
+        
+        try? modelContext.transaction {
+            newFeed = Feed.create(in: modelContext, page: page, url: url, prepend: true)
+        }
+        
+        if let url = newFeed?.url, let id = newFeed?.persistentModelID {
+            print(url)
+            print(id)
+            
+            let feedUpdateTask = FeedUpdateTask(
+                feedObjectID: id,
+                url: url,
+                updateMeta: true
+            )
+            
+            Task {
+                await feedUpdateTask.execute()
+                dismiss()
+                webAddress = ""
+                loading = false
+            }
         }
     }
 }
