@@ -103,12 +103,14 @@ struct OrganizerOptionsPanel: View {
 
     private var sources: Binding<[Feed]> {
         Binding(
-            get: { selection.filter { _ in true } },
-            set: {
-                for feed in $0 where feed.hasChanges {
-                    if let feedData = feed.feedData {
-                        for (idx, item) in feedData.itemsArray.enumerated() {
-                            item.extra = idx + 1 > feed.wrappedItemLimit
+            get: { Array(selection) },
+            set: { sources in
+                try? modelContext.transaction {
+                    for feed in sources where feed.hasChanges {
+                        if let feedData = feed.feedData {
+                            for (idx, item) in feedData.itemsArray.enumerated() {
+                                item.extra = idx + 1 > feed.wrappedItemLimit
+                            }
                         }
                     }
                 }
