@@ -211,12 +211,13 @@ struct RootView: View {
             }
             
             // Restore item sub-detail view
-            if let itemID = urlComponents.queryItems?.first(
+            if let itemUUIDString = urlComponents.queryItems?.first(
                 where: { $0.name == "item" }
-            )?.value as? PersistentIdentifier {
-                var request = FetchDescriptor<Item>()
-                request.predicate = #Predicate<Item> { $0.id == itemID }
-                
+            )?.value {
+                let uuid = UUID(uuidString: itemUUIDString)
+                let request = FetchDescriptor<Item>(
+                    predicate: #Predicate<Item> { $0.id == uuid }
+                )
                 if let item = try? modelContext.fetch(request).first {
                     navigationStore.path.append(SubDetailPanel.item(item))
                 }
