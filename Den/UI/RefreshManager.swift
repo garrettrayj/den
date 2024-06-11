@@ -8,14 +8,13 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import Combine
 import SwiftData
 import OSLog
 import WidgetKit
 
-final class RefreshManager: ObservableObject {
-    @Published var refreshing = false
-    @Published var autoRefreshActive = false
+@Observable final class RefreshManager {
+    var refreshing = false
+    var autoRefreshActive = false
     
     let progress = Progress()
     
@@ -42,24 +41,13 @@ final class RefreshManager: ObservableObject {
     
     func refresh(inBackground: Bool = false) async {
         guard progress.totalUnitCount == 0 else { return }
-
-        if !inBackground {
-            await MainActor.run { refreshing = true }
-        }
         
-        var feedUpdates: [FeedUpdateTask]
-        
+        let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
         let context = ModelContext(DataController.shared.container)
+        let request = FetchDescriptor<Page>(sortBy: [SortDescriptor(\Page.userOrder)])
         
-        self.cleanupFeedData(context: context)
-        
-        var request = FetchDescriptor<Page>()
-        request.sortBy = [
-            SortDescriptor(\Page.userOrder)
-        ]
         guard let pages = try? context.fetch(request) as [Page] else { return }
-        
-        feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
+        let feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
             return FeedUpdateTask(
                 feedObjectID: feed.persistentModelID,
                 url: feed.url!,
@@ -68,9 +56,13 @@ final class RefreshManager: ObservableObject {
         }
         
         progress.totalUnitCount = Int64(feedUpdates.count)
-
-        let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
         
+        if !inBackground {
+            await MainActor.run { refreshing = true }
+        }
+
+        self.cleanupFeedData(context: context)
+
         await withTaskGroup(of: Void.self, returning: Void.self) { taskGroup in
             var working = 0
             for feedUpdate in feedUpdates {

@@ -16,7 +16,7 @@ struct RootView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
     
-    @EnvironmentObject private var refreshManager: RefreshManager
+    @Environment(RefreshManager.self) private var refreshManager
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     @State private var preferredCompactColumn: NavigationSplitViewColumn = .sidebar

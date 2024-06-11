@@ -14,7 +14,7 @@ struct ItemToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.scenePhase) private var scenePhase
     
-    @EnvironmentObject private var downloadManager: DownloadManager
+    @Environment(DownloadManager.self) private var downloadManager
 
     @Bindable var item: Item
     @ObservedObject var browserViewModel: BrowserViewModel

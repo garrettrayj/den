@@ -15,7 +15,7 @@ struct NewFeedSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
 
-    @EnvironmentObject private var refreshManager: RefreshManager
+    @Environment(RefreshManager.self) private var refreshManager
 
     @Binding var webAddress: String
     @Binding var initialPageID: String?

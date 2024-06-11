@@ -11,8 +11,8 @@
 import SwiftUI
 
 struct RefreshButton: View {
-    @EnvironmentObject private var networkMonitor: NetworkMonitor
-    @EnvironmentObject private var refreshManager: RefreshManager
+    @Environment(NetworkMonitor.self) private var networkMonitor
+    @Environment(RefreshManager.self) private var refreshManager
     
     var body: some View {
         Button {

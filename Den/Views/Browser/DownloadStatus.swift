@@ -14,7 +14,7 @@ import WebKit
 struct DownloadStatus: View {
     @Environment(\.openURL) private var openURL
     
-    @EnvironmentObject private var downloadManager: DownloadManager
+    @Environment(DownloadManager.self) private var downloadManager
     
     var browserDownload: BrowserDownload
 

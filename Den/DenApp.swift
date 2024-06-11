@@ -24,18 +24,17 @@ struct DenApp: App {
     
     @Environment(\.scenePhase) private var scenePhase
 
-    @State var container = DataController.shared.container
-    
-    @StateObject private var downloadManager = DownloadManager()
-    @StateObject private var networkMonitor = NetworkMonitor()
-    @StateObject private var refreshManager = RefreshManager()
+    @State private var container = DataController.shared.container
+    @State private var downloadManager = DownloadManager()
+    @State private var networkMonitor = NetworkMonitor()
+    @State private var refreshManager = RefreshManager()
 
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environmentObject(downloadManager)
-                .environmentObject(networkMonitor)
-                .environmentObject(refreshManager)
+                .environment(downloadManager)
+                .environment(networkMonitor)
+                .environment(refreshManager)
         }
         .modelContainer(container)
         .handlesExternalEvents(matching: ["*"])
@@ -59,7 +58,7 @@ struct DenApp: App {
         #if os(macOS)
         Settings {
             SettingsSheet()
-                .environmentObject(refreshManager)
+                .environment(refreshManager)
                 .frame(width: 440)
                 .frame(minHeight: 560)
         }

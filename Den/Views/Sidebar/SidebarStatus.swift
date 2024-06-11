@@ -11,8 +11,8 @@
 import SwiftUI
 
 struct SidebarStatus: View {
-    @EnvironmentObject private var networkMonitor: NetworkMonitor
-    @EnvironmentObject private var refreshManager: RefreshManager
+    @Environment(NetworkMonitor.self) private var networkMonitor
+    @Environment(RefreshManager.self) private var refreshManager
     
     let feedCount: Int
     
