@@ -14,7 +14,7 @@ struct PagesSection: View {
     @Environment(\.modelContext) private var modelContext
 
     @Binding var newFeedPageID: String?
-    @Binding var newFeedWebAddress: String
+    @Binding var newFeedURLString: String
     @Binding var showingNewFeedSheet: Bool
     
     let pages: [Page]
@@ -25,7 +25,7 @@ struct PagesSection: View {
                 SidebarPage(
                     page: page,
                     newFeedPageID: $newFeedPageID,
-                    newFeedWebAddress: $newFeedWebAddress,
+                    newFeedURLString: $newFeedURLString,
                     showingNewFeedSheet: $showingNewFeedSheet
                 )
             }

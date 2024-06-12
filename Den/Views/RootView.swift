@@ -31,8 +31,9 @@ struct RootView: View {
     @State private var detailPanel: DetailPanel?
     @State private var navigationStore = NavigationStore()
     
+    @State private var newFeed: Feed?
     @State private var newFeedPageID: String?
-    @State private var newFeedWebAddress: String = ""
+    @State private var newFeedURLString: String = ""
     
     @SceneStorage("DetailPanel") private var detailPanelData: Data?
     @SceneStorage("Navigation") private var navigationData: Data?
@@ -59,7 +60,7 @@ struct RootView: View {
             Sidebar(
                 detailPanel: $detailPanel,
                 newFeedPageID: $newFeedPageID,
-                newFeedWebAddress: $newFeedWebAddress,
+                newFeedURLString: $newFeedURLString,
                 searchQuery: $searchQuery,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
@@ -103,7 +104,7 @@ struct RootView: View {
                 if case .page(let page) = detailPanel {
                     newFeedPageID = page.id?.uuidString
                 }
-                newFeedWebAddress = url.absoluteStringForNewFeed
+                newFeedURLString = url.absoluteStringForNewFeed
                 showingNewFeedSheet = true
             }
         }
@@ -158,17 +159,39 @@ struct RootView: View {
                     case .page(let page) = detailPanel
                 else { return }
                 newFeedPageID = page.id?.uuidString
-            } else {
-                newFeedPageID = nil
-                newFeedWebAddress = ""
             }
         }
-        .sheet(isPresented: $showingNewFeedSheet) {
-            NewFeedSheet(
-                webAddress: $newFeedWebAddress,
-                initialPageID: $newFeedPageID
-            )
-        }
+        .sheet(
+            isPresented: $showingNewFeedSheet,
+            onDismiss: {
+                try? modelContext.save()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                    if let url = newFeed?.url, let id = newFeed?.persistentModelID {
+                        let feedUpdateTask = FeedUpdateTask(
+                            feedObjectID: id,
+                            url: url,
+                            updateMeta: true
+                        )
+                        
+                        Task {
+                            await feedUpdateTask.execute()
+                        }
+                    }
+                    
+                    newFeed = nil
+                    newFeedPageID = nil
+                    newFeedURLString = ""
+                }
+            },
+            content: {
+                NewFeedSheet(
+                    newFeed: $newFeed,
+                    newFeedPageID: $newFeedPageID,
+                    newFeedURLString: $newFeedURLString
+                )
+            }
+        )
         .onReceive(NotificationCenter.default.publisher(for: .appErrored, object: nil)) { output in
             if let message = output.userInfo?["message"] as? String {
                 appErrorMessage = message

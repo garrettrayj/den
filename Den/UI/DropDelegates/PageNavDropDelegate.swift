@@ -17,7 +17,7 @@ struct PageNavDropDelegate: DropDelegate {
     let page: Page
 
     @Binding var newFeedPageID: String?
-    @Binding var newFeedWebAddress: String
+    @Binding var newFeedURLString: String
     @Binding var showingNewFeedSheet: Bool
 
     func performDrop(info: DropInfo) -> Bool {
@@ -74,7 +74,7 @@ struct PageNavDropDelegate: DropDelegate {
             _ = provider.loadObject(ofClass: URL.self, completionHandler: { url, _ in
                 if let url = url {
                     newFeedPageID = page.id?.uuidString
-                    newFeedWebAddress = url.absoluteStringForNewFeed
+                    newFeedURLString = url.absoluteStringForNewFeed
                     showingNewFeedSheet = true
                 }
             })
@@ -86,7 +86,7 @@ struct PageNavDropDelegate: DropDelegate {
             _ = provider.loadObject(ofClass: String.self, completionHandler: { droppedString, _ in
                 if let droppedString = droppedString {
                     newFeedPageID = page.id?.uuidString
-                    newFeedWebAddress = droppedString
+                    newFeedURLString = droppedString
                     showingNewFeedSheet = true
                 }
             })

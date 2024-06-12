@@ -17,13 +17,13 @@ struct NewFeedSheet: View {
 
     @Environment(RefreshManager.self) private var refreshManager
 
-    @Binding var webAddress: String
-    @Binding var initialPageID: String?
+    @Binding var newFeed: Feed?
+    @Binding var newFeedPageID: String?
+    @Binding var newFeedURLString: String
 
     @State private var targetPage: Page?
     @State private var webAddressIsValid: Bool?
     @State private var webAddressValidationMessage: WebAddressValidationMessage?
-    @State private var loading: Bool = false
     
     @FocusState private var textFieldFocus: Bool
     
@@ -39,7 +39,7 @@ struct NewFeedSheet: View {
                 if targetPage != nil {
                     Section {
                         WebAddressTextField(
-                            urlString: $webAddress,
+                            urlString: $newFeedURLString,
                             isValid: $webAddressIsValid,
                             validationMessage: $webAddressValidationMessage
                         )
@@ -65,10 +65,9 @@ struct NewFeedSheet: View {
             }
             .formStyle(.grouped)
             .onAppear {
-                webAddress = webAddress
                 checkTargetPage()
                 
-                if webAddress.isEmpty {
+                if newFeedURLString.isEmpty {
                     textFieldFocus = true
                 }
             }
@@ -81,7 +80,7 @@ struct NewFeedSheet: View {
                     } label: {
                         Text("Save", comment: "Button label.")
                     }
-                    .disabled(loading || !(webAddressIsValid ?? false))
+                    .disabled(!(webAddressIsValid ?? false))
                     .accessibilityIdentifier("SubmitNewFeed")
                 }
 
@@ -101,7 +100,7 @@ struct NewFeedSheet: View {
     }
 
     private func checkTargetPage() {
-        if let pageID = initialPageID, let destinationPage = pages.first(where: {
+        if let pageID = newFeedPageID, let destinationPage = pages.first(where: {
             $0.id?.uuidString == pageID
         }) {
             targetPage = destinationPage
@@ -111,35 +110,14 @@ struct NewFeedSheet: View {
     }
     
     private func createFeed() {
-        loading = true
-        
         guard
-            let url = URL(string: webAddress.trimmingCharacters(in: .whitespacesAndNewlines)),
+            let url = URL(string: newFeedURLString.trimmingCharacters(in: .whitespacesAndNewlines)),
             let page = targetPage
         else { return }
 
-        var newFeed: Feed?
+        newFeed = Feed.create(in: modelContext, page: page, url: url, prepend: true)
+        page.feeds?.append(newFeed!)
         
-        try? modelContext.transaction {
-            newFeed = Feed.create(in: modelContext, page: page, url: url, prepend: true)
-        }
-        
-        if let url = newFeed?.url, let id = newFeed?.persistentModelID {
-            print(url)
-            print(id)
-            
-            let feedUpdateTask = FeedUpdateTask(
-                feedObjectID: id,
-                url: url,
-                updateMeta: true
-            )
-            
-            Task {
-                await feedUpdateTask.execute()
-                dismiss()
-                webAddress = ""
-                loading = false
-            }
-        }
+        dismiss()
     }
 }

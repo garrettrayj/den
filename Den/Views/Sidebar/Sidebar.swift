@@ -19,7 +19,7 @@ struct Sidebar: View {
 
     @Binding var detailPanel: DetailPanel?
     @Binding var newFeedPageID: String?
-    @Binding var newFeedWebAddress: String
+    @Binding var newFeedURLString: String
     @Binding var searchQuery: String
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
@@ -57,7 +57,7 @@ struct Sidebar: View {
 
                 PagesSection(
                     newFeedPageID: $newFeedPageID,
-                    newFeedWebAddress: $newFeedWebAddress,
+                    newFeedURLString: $newFeedURLString,
                     showingNewFeedSheet: $showingNewFeedSheet,
                     pages: pages
                 )

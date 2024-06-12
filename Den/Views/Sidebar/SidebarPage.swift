@@ -16,7 +16,7 @@ struct SidebarPage: View {
     @Bindable var page: Page
 
     @Binding var newFeedPageID: String?
-    @Binding var newFeedWebAddress: String
+    @Binding var newFeedURLString: String
     @Binding var showingNewFeedSheet: Bool
     
     @State private var showingIconSelector = false
@@ -69,7 +69,7 @@ struct SidebarPage: View {
                         modelContext: modelContext,
                         page: page,
                         newFeedPageID: $newFeedPageID,
-                        newFeedWebAddress: $newFeedWebAddress,
+                        newFeedURLString: $newFeedURLString,
                         showingNewFeedSheet: $showingNewFeedSheet
                     )
                 )
