@@ -164,20 +164,9 @@ struct RootView: View {
         .sheet(
             isPresented: $showingNewFeedSheet,
             onDismiss: {
-                try? modelContext.save()
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                    if let url = newFeed?.url, let id = newFeed?.persistentModelID {
-                        let feedUpdateTask = FeedUpdateTask(
-                            feedObjectID: id,
-                            url: url,
-                            updateMeta: true
-                        )
-                        
-                        Task {
-                            await feedUpdateTask.execute()
-                        }
-                    }
+                Task {
+                    guard let feed = newFeed else { return }
+                    await refreshManager.refresh(feed: feed)
                     
                     newFeed = nil
                     newFeedPageID = nil

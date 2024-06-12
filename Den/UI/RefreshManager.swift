@@ -96,6 +96,17 @@ import WidgetKit
         progress.totalUnitCount = 0
     }
     
+    func refresh(feed: Feed) async {
+        if let url = feed.url {
+            let feedUpdateTask = FeedUpdateTask(
+                feedObjectID: feed.persistentModelID,
+                url: url,
+                updateMeta: true
+            )
+            await feedUpdateTask.execute()
+        }
+    }
+    
     private func cleanupFeedData(context: ModelContext) {
         guard let feedDatas = try? context.fetch(FetchDescriptor<FeedData>()) as [FeedData] else {
             Logger.main.error("Unable to fetch FeedData records for cleanup")
