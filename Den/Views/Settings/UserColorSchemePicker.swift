@@ -31,7 +31,7 @@ struct UserColorSchemePicker: View {
             Label {
                 Text("Theme", comment: "Picker label.")
             } icon: {
-                Image(systemName: "paintpalette")
+                Image(systemName: "paintbrush")
             }
         }
         #if os(iOS)
