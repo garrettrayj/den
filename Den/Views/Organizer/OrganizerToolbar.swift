@@ -8,6 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 
 struct OrganizerToolbar: ToolbarContent {

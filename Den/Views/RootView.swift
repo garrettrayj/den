@@ -31,10 +31,11 @@ struct RootView: View {
     @State private var detailPanel: DetailPanel?
     @State private var navigationStore = NavigationStore()
     
+    @State private var newFeedPageID: String?
+    @State private var newFeedWebAddress: String = ""
+    
     @SceneStorage("DetailPanel") private var detailPanelData: Data?
     @SceneStorage("Navigation") private var navigationData: Data?
-    @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
-    @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("SearchQuery") private var searchQuery: String = ""
     
     @AppStorage("Maintained") private var maintenanceTimestamp: Double?
