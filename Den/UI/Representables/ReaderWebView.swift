@@ -68,7 +68,6 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
             return
         }
     
-        
         // Open external links in system browser
         if navigationAction.targetFrame == nil {
             if let url = navigationAction.request.url {

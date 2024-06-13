@@ -12,8 +12,8 @@ import SwiftUI
 import StoreKit
 
 struct AboutSection: View {
-    //https://github.com/apple/swift/issues/72181
-    //@Environment(\.requestReview) private var requestReview
+    // https://github.com/apple/swift/issues/72181
+    // @Environment(\.requestReview) private var requestReview
     
     var body: some View {
         Section {
