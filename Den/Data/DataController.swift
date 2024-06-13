@@ -82,7 +82,9 @@ struct DataController {
 
         // Configure view context
         container.viewContext.automaticallyMergesChangesFromParent = true
-        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        container.viewContext.mergePolicy = NSMergePolicy(
+            merge: .mergeByPropertyObjectTrumpMergePolicyType
+        )
     }
     
     private func migrateDatabaseIfNeeded(source: URL, destination: URL) {

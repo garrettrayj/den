@@ -71,7 +71,9 @@ struct Sidebar: View {
         .badgeProminence(.decreased)
         .lineLimit(1)
         .refreshable {
-            await refreshManager.refresh()
+            Task {
+                await refreshManager.refresh()
+            }
         }
         .sensoryFeedback(trigger: refreshManager.refreshing) { _, newValue in
             if newValue == true {

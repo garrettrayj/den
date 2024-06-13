@@ -10,8 +10,9 @@
 
 import CoreData
 import OSLog
-import WebKit
+@preconcurrency import WebKit
 
+@MainActor
 final class BlocklistManager {
     static func getContentRuleLists() async -> [WKContentRuleList] {
         let context = DataController.shared.container.newBackgroundContext()
@@ -47,7 +48,9 @@ final class BlocklistManager {
         return await WKContentRuleListStore.default().availableIdentifiers() ?? []
     }
     
-    static func cleanupContentRulesLists(context: NSManagedObjectContext) async {
+    static func cleanupContentRulesLists() async {
+        let context = DataController.shared.container.newBackgroundContext()
+        
         guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
         else { return }
         
@@ -131,7 +134,9 @@ final class BlocklistManager {
         Logger.main.info("Blocklist refreshed: \(blocklist.wrappedName, privacy: .public)")
     }
     
-    static func refreshAllContentRulesLists(context: NSManagedObjectContext) async {
+    static func refreshAllContentRulesLists() async {
+        let context = DataController.shared.container.newBackgroundContext()
+        
         guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
         else { return }
         

@@ -12,7 +12,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct OPMLFile: FileDocument {
-    static var readableContentTypes = [UTType(importedAs: "public.opml"), .xml]
+    static let readableContentTypes = [UTType(importedAs: "public.opml"), .xml]
 
     var data: Data = Data()
 

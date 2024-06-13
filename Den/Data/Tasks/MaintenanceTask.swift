@@ -19,8 +19,8 @@ struct MaintenanceTask {
         trimHistory(context: context)
         trimSearches(context: context)
         
-        await BlocklistManager.cleanupContentRulesLists(context: context)
-        await BlocklistManager.refreshAllContentRulesLists(context: context)
+        await BlocklistManager.cleanupContentRulesLists()
+        await BlocklistManager.refreshAllContentRulesLists()
 
         do {
             try context.save()

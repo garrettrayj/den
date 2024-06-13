@@ -13,6 +13,7 @@ import CoreData
 import OSLog
 import WidgetKit
 
+@MainActor
 final class RefreshManager: ObservableObject {
     @Published var refreshing = false
     @Published var autoRefreshActive = false
@@ -48,21 +49,21 @@ final class RefreshManager: ObservableObject {
         }
         
         var feedUpdates: [FeedUpdateTask] = []
-        await DataController.shared.container.performBackgroundTask { context in
-            self.cleanupFeedData(context: context)
-            
-            let request = Page.fetchRequest()
-            request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
-            guard let pages = try? context.fetch(request) as [Page] else { return }
-            
-            feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
-                guard let url = feed.url else { return nil }
-                return FeedUpdateTask(
-                    feedObjectID: feed.objectID,
-                    url: url,
-                    updateMeta: feed.needsMetaUpdate
-                )
-            }
+        
+        let context = DataController.shared.container.newBackgroundContext()
+        self.cleanupFeedData(context: context)
+        
+        let request = Page.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
+        guard let pages = try? context.fetch(request) as [Page] else { return }
+        
+        feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
+            guard let url = feed.url else { return nil }
+            return FeedUpdateTask(
+                feedObjectID: feed.objectID,
+                url: url,
+                updateMeta: feed.needsMetaUpdate
+            )
         }
         
         progress.totalUnitCount = Int64(feedUpdates.count)
