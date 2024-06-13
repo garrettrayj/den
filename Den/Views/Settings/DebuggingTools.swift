@@ -8,7 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import BackgroundTasks
+@preconcurrency import BackgroundTasks
 import OSLog
 import SwiftUI
 

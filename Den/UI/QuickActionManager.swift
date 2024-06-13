@@ -11,6 +11,7 @@
 #if os(iOS)
 import UIKit
 
+@MainActor
 final class QuickActionManager {
     static let shared = QuickActionManager()
     
