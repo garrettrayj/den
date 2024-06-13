@@ -39,7 +39,7 @@ struct DownloadStatus: View {
                     if let fileName {
                         Text(fileName)
                     } else {
-                        Text("Unknown", comment: "Download file name unavailable.")
+                        Text("File Name Unknown", comment: "Download file name unavailable.")
                     }
                     
                     Text(DownloadStatus.filesSizeFormatter.string(

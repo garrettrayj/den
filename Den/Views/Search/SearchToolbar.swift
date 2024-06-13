@@ -34,7 +34,7 @@ struct SearchToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
-                Text("Showing results for “\(query)”", comment: "Bottom bar status.")
+                Text("Showing results for “\(query)”", comment: "Search status.")
                     .font(.caption)
             }
             ToolbarItem(placement: .bottomBar) {
@@ -52,7 +52,7 @@ struct SearchToolbar: ToolbarContent {
                 }
             }
             ToolbarItem(placement: .status) {
-                Text("Showing results for “\(query)”", comment: "Bottom bar status.")
+                Text("Showing results for “\(query)”", comment: "Search status.")
                     .font(.caption)
             }
         }

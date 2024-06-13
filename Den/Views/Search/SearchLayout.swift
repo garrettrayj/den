@@ -73,7 +73,7 @@ struct SearchLayout: View {
                     .edgesIgnoringSafeArea(.horizontal)
                     #if os(macOS)
                     .navigationSubtitle(
-                        Text("Showing results for “\(query)”", comment: "Navigation subtitle.")
+                        Text("Showing results for “\(query)”", comment: "Search status.")
                     )
                     #endif
                 }

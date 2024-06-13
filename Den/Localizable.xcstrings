@@ -841,6 +841,9 @@
         }
       }
     },
+    "File Name Unknown" : {
+      "comment" : "Download file name unavailable."
+    },
     "Filter Read" : {
       "comment" : "Button label.",
       "localizations" : {
@@ -2186,7 +2189,7 @@
       }
     },
     "Showing results for “%@”" : {
-      "comment" : "Bottom bar status.",
+      "comment" : "Search status.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2456,7 +2459,8 @@
       }
     },
     "Unknown" : {
-      "comment" : "Background refresh status.\nDownload file name unavailable.",
+      "comment" : "Download file name unavailable.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

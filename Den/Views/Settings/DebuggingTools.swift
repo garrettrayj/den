@@ -77,7 +77,7 @@ struct DebuggingTools: View {
                 case .available:
                     Text("Available", comment: "Background refresh status.")
                 @unknown default:
-                    Text("Unknown", comment: "Background refresh status.")
+                    EmptyView()
                 }
             } header: {
                 Text("Background Refresh Status", comment: "Debugging tools section header.")
