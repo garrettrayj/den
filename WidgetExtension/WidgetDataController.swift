@@ -57,7 +57,6 @@ struct WidgetDataController {
 
         // Configure view context
         container.viewContext.automaticallyMergesChangesFromParent = true
-        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         return container
     }

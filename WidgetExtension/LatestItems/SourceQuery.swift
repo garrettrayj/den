@@ -12,7 +12,7 @@ import Foundation
 import AppIntents
 
 struct SourceQuery: EntityQuery {
-    static var defaultSource = SourceDetail(
+    static let defaultSource = SourceDetail(
         id: "inbox",
         entityType: nil,
         title: "Inbox",

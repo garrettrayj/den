@@ -261,7 +261,7 @@
       }
     },
     "All Read" : {
-      "comment" : "Content unavailable title.",
+      "comment" : "Card note title.\nContent unavailable title.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1192,7 +1192,7 @@
       }
     },
     "Mark All Read" : {
-      "comment" : "Button help text.",
+      "comment" : "Button help text.\nButton label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1203,7 +1203,7 @@
       }
     },
     "Mark All Unread" : {
-      "comment" : "Button help text.",
+      "comment" : "Button help text.\nButton label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1800,7 +1800,7 @@
       }
     },
     "Reset" : {
-      "comment" : "Button label.",
+      "comment" : "Button label.\nSettings section header.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1921,7 +1921,7 @@
       }
     },
     "Select All" : {
-      "comment" : "Button help text.",
+      "comment" : "Button help text.\nButton label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1943,7 +1943,7 @@
       }
     },
     "Select None" : {
-      "comment" : "Button help text.",
+      "comment" : "Button help text.\nButton label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2499,7 +2499,7 @@
       }
     },
     "Untitled" : {
-      "comment" : "Default content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nFolder name placeholder.\nTag name placeholder.",
+      "comment" : "Bookmark site title placeholder.\nDefault content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nFolder name placeholder.\nTag name placeholder.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

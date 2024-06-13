@@ -27,7 +27,7 @@ struct FeedUpdateTask {
         var webpage: URL?
 
         let context = DataController.shared.container.newBackgroundContext()
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
 
         let feedRequest = URLRequest(url: url)
 

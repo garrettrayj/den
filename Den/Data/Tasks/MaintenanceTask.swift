@@ -14,7 +14,7 @@ import OSLog
 struct MaintenanceTask {
     func execute() async {
         let context = DataController.shared.container.newBackgroundContext()
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
         
         trimHistory(context: context)
         trimSearches(context: context)

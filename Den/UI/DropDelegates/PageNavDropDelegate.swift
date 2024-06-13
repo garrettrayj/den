@@ -74,10 +74,14 @@ struct PageNavDropDelegate: DropDelegate {
     private func handleNewFeed(_ provider: NSItemProvider) {
         if provider.canLoadObject(ofClass: URL.self) {
             _ = provider.loadObject(ofClass: URL.self, completionHandler: { url, _ in
-                if let url = url {
-                    newFeedPageID = page.id?.uuidString
-                    newFeedWebAddress = url.absoluteStringForNewFeed
-                    showingNewFeedSheet = true
+                Task {
+                    await MainActor.run {
+                        if let url = url {
+                            newFeedPageID = page.id?.uuidString
+                            newFeedWebAddress = url.absoluteStringForNewFeed
+                            showingNewFeedSheet = true
+                        }
+                    }
                 }
             })
 
@@ -86,10 +90,14 @@ struct PageNavDropDelegate: DropDelegate {
 
         if provider.canLoadObject(ofClass: String.self) {
             _ = provider.loadObject(ofClass: String.self, completionHandler: { droppedString, _ in
-                if let droppedString = droppedString {
-                    newFeedPageID = page.id?.uuidString
-                    newFeedWebAddress = droppedString
-                    showingNewFeedSheet = true
+                Task {
+                    await MainActor.run {
+                        if let droppedString = droppedString {
+                            newFeedPageID = page.id?.uuidString
+                            newFeedWebAddress = droppedString
+                            showingNewFeedSheet = true
+                        }
+                    }
                 }
             })
 
