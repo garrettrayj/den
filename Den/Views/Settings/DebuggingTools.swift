@@ -8,9 +8,12 @@
 //  SPDX-License-Identifier: MIT
 //
 
-@preconcurrency import BackgroundTasks
 import OSLog
 import SwiftUI
+
+#if os(iOS)
+@preconcurrency import BackgroundTasks
+#endif
 
 struct DebuggingTools: View {
     @Environment(\.displayScale) private var displayScale

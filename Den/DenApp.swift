@@ -7,10 +7,13 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import BackgroundTasks
 import CoreData
 import OSLog
 import SwiftUI
+
+#if os(iOS)
+@preconcurrency import BackgroundTasks
+#endif
 
 import SDWebImage
 import SDWebImageSVGCoder
