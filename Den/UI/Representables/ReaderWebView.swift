@@ -11,9 +11,8 @@
 import SwiftUI
 import WebKit
 
+@MainActor
 struct ReaderWebView {
-    @Environment(\.openURL) private var openURL
-    
     @EnvironmentObject private var downloadManager: DownloadManager
 
     @ObservedObject var browserViewModel: BrowserViewModel
@@ -33,7 +32,6 @@ struct ReaderWebView {
     func makeCoordinator() -> ReaderWebViewCoordinator {
         ReaderWebViewCoordinator(
             browserViewModel: browserViewModel,
-            openURL: openURL,
             downloadManager: downloadManager
         )
     }
@@ -41,16 +39,13 @@ struct ReaderWebView {
 
 final class ReaderWebViewCoordinator: NSObject {
     let browserViewModel: BrowserViewModel
-    let openURL: OpenURLAction
     let downloadManager: DownloadManager
 
     init(
         browserViewModel: BrowserViewModel,
-        openURL: OpenURLAction,
         downloadManager: DownloadManager
     ) {
         self.browserViewModel = browserViewModel
-        self.openURL = openURL
         self.downloadManager = downloadManager
     }
 }
@@ -69,7 +64,11 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
         // Open external links in system browser
         if navigationAction.targetFrame == nil {
             if let url = navigationAction.request.url {
-                openURL(url)
+                #if os(macOS)
+                NSWorkspace.shared.open(url)
+                #else
+                UIApplication.shared.open(url)
+                #endif
             }
             decisionHandler(.cancel)
             return
@@ -129,7 +128,11 @@ extension ReaderWebViewCoordinator: WKUIDelegate {
         windowFeatures: WKWindowFeatures
     ) -> WKWebView? {
         if !(navigationAction.targetFrame?.isMainFrame ?? false), let url = navigationAction.request.url {
-            openURL(url)
+            #if os(macOS)
+            NSWorkspace.shared.open(url)
+            #else
+            UIApplication.shared.open(url)
+            #endif
         }
 
         return nil

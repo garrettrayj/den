@@ -50,7 +50,7 @@ struct BrowserView: View {
                     browserViewModel.userTintHex = accentColor?.color.hexString(environment: environment)
                     browserViewModel.setBrowserZoom(browserZoom)
                     
-                    await browserViewModel.loadURL(url: url)
+                    browserViewModel.loadURL(url: url)
                 }
                 .onDisappear {
                     // Fix for videos continuing to play after view is dismissed
@@ -64,12 +64,10 @@ struct BrowserView: View {
                 ReaderWebView(browserViewModel: browserViewModel)
                     .task {
                         browserViewModel.setReaderZoom(readerZoom)
-                        await browserViewModel.loadReader(initialZoom: readerZoom)
+                        browserViewModel.loadReader(initialZoom: readerZoom)
                     }
                     .onChange(of: browserViewModel.mercuryObject) {
-                        Task {
-                            await browserViewModel.loadReader(initialZoom: readerZoom)
-                        }
+                        browserViewModel.loadReader(initialZoom: readerZoom)
                     }
                     .onDisappear {
                         // Fix for videos continuing to play after view is dismissed

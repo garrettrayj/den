@@ -11,6 +11,7 @@
 import WebKit
 import SwiftUI
 
+@MainActor
 struct HTMLWebView {
     let htmlContent: String
 

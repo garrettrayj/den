@@ -11,6 +11,7 @@
 import SwiftUI
 import WebKit
 
+@MainActor
 final class BrowserViewModel: NSObject, ObservableObject {
     weak var browserWebView: WKWebView? {
         didSet {
@@ -47,8 +48,7 @@ final class BrowserViewModel: NSObject, ObservableObject {
     
     var contentRuleLists: [WKContentRuleList]?
 
-    @MainActor
-    func loadURL(url: URL?) async {
+    func loadURL(url: URL?) {
         guard let url = url else { return }
         
         if useBlocklists && !browserRulesListsLoaded, let contentRuleLists = contentRuleLists {
@@ -90,16 +90,14 @@ final class BrowserViewModel: NSObject, ObservableObject {
         browserWebView?.reload()
     }
     
-    @MainActor
     func toggleBlocklists() async {
         useBlocklists.toggle()
-        await loadURL(url: url)
+        loadURL(url: url)
     }
     
-    @MainActor
     func toggleJavaScript() async {
         allowJavaScript.toggle()
-        await loadURL(url: url)
+        loadURL(url: url)
     }
 
     func showReader() {
@@ -136,8 +134,7 @@ final class BrowserViewModel: NSObject, ObservableObject {
         #endif
     }
 
-    @MainActor
-    func loadReader(initialZoom: PageZoomLevel) async {
+    func loadReader(initialZoom: PageZoomLevel) {
         var baseURL: URL?
 
         if
