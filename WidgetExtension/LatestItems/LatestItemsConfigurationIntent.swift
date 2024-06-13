@@ -12,7 +12,7 @@ import WidgetKit
 import AppIntents
 
 struct LatestItemsConfigurationIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "Configuration"
+    static let title: LocalizedStringResource = "Configuration"
 
     @Parameter(title: "Source")
     var source: SourceDetail

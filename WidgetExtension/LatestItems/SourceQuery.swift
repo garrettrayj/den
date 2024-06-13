@@ -13,7 +13,7 @@ import Foundation
 import SwiftData
 
 struct SourceQuery: EntityQuery {
-    static var defaultSource = SourceDetail(
+    static let defaultSource = SourceDetail(
         id: "inbox",
         entityType: nil,
         title: "Inbox",

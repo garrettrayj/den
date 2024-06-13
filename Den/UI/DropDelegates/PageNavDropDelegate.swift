@@ -73,9 +73,13 @@ struct PageNavDropDelegate: DropDelegate {
         if provider.canLoadObject(ofClass: URL.self) {
             _ = provider.loadObject(ofClass: URL.self, completionHandler: { url, _ in
                 if let url = url {
-                    newFeedPageID = page.id?.uuidString
-                    newFeedURLString = url.absoluteStringForNewFeed
-                    showingNewFeedSheet = true
+                    Task {
+                        await MainActor.run {
+                            newFeedPageID = page.id?.uuidString
+                            newFeedURLString = url.absoluteStringForNewFeed
+                            showingNewFeedSheet = true
+                        }
+                    }
                 }
             })
 
@@ -85,9 +89,13 @@ struct PageNavDropDelegate: DropDelegate {
         if provider.canLoadObject(ofClass: String.self) {
             _ = provider.loadObject(ofClass: String.self, completionHandler: { droppedString, _ in
                 if let droppedString = droppedString {
-                    newFeedPageID = page.id?.uuidString
-                    newFeedURLString = droppedString
-                    showingNewFeedSheet = true
+                    Task {
+                        await MainActor.run {
+                            newFeedPageID = page.id?.uuidString
+                            newFeedURLString = droppedString
+                            showingNewFeedSheet = true
+                        }
+                    }
                 }
             })
 

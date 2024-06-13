@@ -10,6 +10,7 @@
 
 import SwiftUI
 
+/*
 struct AppCommands: Commands {
     @Environment(\.openURL) private var openURL
 
@@ -48,3 +49,4 @@ struct AppCommands: Commands {
         }
     }
 }
+*/

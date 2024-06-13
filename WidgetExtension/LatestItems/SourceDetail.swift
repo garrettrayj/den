@@ -19,8 +19,8 @@ struct SourceDetail: AppEntity {
     let title: String
     let symbol: String?
 
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Source"
-    static var defaultQuery = SourceQuery()
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "Source"
+    static let defaultQuery = SourceQuery()
             
     var displayRepresentation: DisplayRepresentation {
         if entityType == Page.self {

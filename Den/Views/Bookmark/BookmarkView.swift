@@ -13,7 +13,7 @@ import SwiftUI
 struct BookmarkView: View {
     @Bindable var bookmark: Bookmark
     
-    @StateObject private var browserViewModel = BrowserViewModel()
+    @State private var browserViewModel = BrowserViewModel()
 
     var body: some View {
         if

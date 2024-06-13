@@ -11,7 +11,7 @@
 import OSLog
 
 extension Logger {
-    private static var subsystem = Bundle.main.bundleIdentifier!
+    private static let subsystem = Bundle.main.bundleIdentifier!
 
     static let main = Logger(subsystem: subsystem, category: "Main")
     static let widgets = Logger(subsystem: subsystem, category: "Widgets")

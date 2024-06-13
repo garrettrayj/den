@@ -24,5 +24,5 @@ struct TransferableItem: Codable, Transferable {
 }
 
 extension UTType {
-    static var denItem = UTType(exportedAs: "net.devsci.den.transferable.item")
+    static let denItem = UTType(exportedAs: "net.devsci.den.transferable.item")
 }

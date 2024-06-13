@@ -12,7 +12,8 @@ import SwiftUI
 import StoreKit
 
 struct AboutSection: View {
-    @Environment(\.requestReview) private var requestReview
+    // https://github.com/apple/swift/issues/72181
+    // @Environment(\.requestReview) private var requestReview
     
     var body: some View {
         Section {
@@ -38,7 +39,7 @@ struct AboutSection: View {
             }
             
             Button {
-                requestReview()
+                // requestReview()
             } label: {
                 Label {
                     Text("Leave a Review", comment: "Button label.")

@@ -21,5 +21,5 @@ struct TransferableFeed: Codable, Transferable {
 }
 
 extension UTType {
-    static var denFeed = UTType(exportedAs: "net.devsci.den.transferable.feed")
+    static let denFeed = UTType(exportedAs: "net.devsci.den.transferable.feed")
 }

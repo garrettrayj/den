@@ -51,7 +51,7 @@ struct AnalyzeTask {
             context.delete(trend)
         }
 
-        try? context.save()
+        //try? context.save()
     }
     
     private func analyzeTrends(context: ModelContext) -> [WorkingTrend] {

@@ -15,7 +15,7 @@ struct ItemView: View {
 
     @Bindable var item: Item
     
-    @StateObject private var browserViewModel = BrowserViewModel()
+    @State private var browserViewModel = BrowserViewModel()
 
     var body: some View {
         if let url = item.link, item.feedData?.feed != nil {

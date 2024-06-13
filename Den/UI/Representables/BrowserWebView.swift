@@ -12,12 +12,11 @@ import SwiftUI
 import WebKit
 
 struct BrowserWebView {
-    @Environment(\.openURL) private var openURL
-    
     @Environment(DownloadManager.self) private var downloadManager
     
-    @ObservedObject var browserViewModel: BrowserViewModel
+    @Bindable var browserViewModel: BrowserViewModel
     
+    @MainActor 
     func makeWebView(context: Context) -> WKWebView {
         let wkWebView = DenWebView()
         wkWebView.isInspectable = true
@@ -37,7 +36,6 @@ struct BrowserWebView {
     func makeCoordinator() -> BrowserWebViewCoordinator {
         BrowserWebViewCoordinator(
             browserViewModel: browserViewModel,
-            openURL: openURL,
             downloadManager: downloadManager
         )
     }
@@ -62,7 +60,7 @@ struct BrowserWebView {
     private func addParseForReaderScript(_ contentController: WKUserContentController) {
         guard
             let path = Bundle.main.path(forResource: "ParseForReader", ofType: "js"),
-            let script = try? String(contentsOfFile: path)
+            let script = try? String(contentsOfFile: path, encoding: .utf8)
         else {
             return
         }
@@ -79,16 +77,13 @@ struct BrowserWebView {
 
 final class BrowserWebViewCoordinator: NSObject {
     let browserViewModel: BrowserViewModel
-    let openURL: OpenURLAction
     let downloadManager: DownloadManager
 
     init(
         browserViewModel: BrowserViewModel,
-        openURL: OpenURLAction,
         downloadManager: DownloadManager
     ) {
         self.browserViewModel = browserViewModel
-        self.openURL = openURL
         self.downloadManager = downloadManager
     }
 }
@@ -99,14 +94,17 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         didFailProvisionalNavigation navigation: WKNavigation!,
         withError error: Error
     ) {
-        if let urlError = error as? URLError {
-            guard let failingURL = urlError.failingURL else { return }
-            let errorHTML = WebViewError(error: error).html
-            
-            webView.loadSimulatedRequest(
-                URLRequest(url: failingURL),
-                responseHTML: errorHTML
-            )
+        Task {
+            await MainActor.run {
+                if let urlError = error as? URLError {
+                    guard let failingURL = urlError.failingURL else { return }
+                    let errorHTML = WebViewError(error: error).html
+                    webView.loadSimulatedRequest(
+                        URLRequest(url: failingURL),
+                        responseHTML: errorHTML
+                    )
+                }
+            }
         }
     }
     
@@ -123,7 +121,11 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         // Open external links in system browser
         if navigationAction.targetFrame == nil {
             if let url = navigationAction.request.url {
-                openURL(url)
+                #if os(macOS)
+                NSWorkspace.shared.open(url)
+                #else
+                UIApplication.shared.open(url)
+                #endif
             }
             decisionHandler(.cancel)
             return
@@ -174,13 +176,14 @@ extension BrowserWebViewCoordinator: WKScriptMessageHandler {
         let jsonData = Data(jsonString.utf8)
         let decoder = JSONDecoder()
 
-        let standardFormatter = ISO8601DateFormatter()
-        standardFormatter.formatOptions = [.withInternetDateTime]
-        
-        let fractionalSecondsFormatter = ISO8601DateFormatter()
-        standardFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-
         decoder.dateDecodingStrategy = .custom({ decoder in
+            let standardFormatter = ISO8601DateFormatter()
+            standardFormatter.formatOptions = [.withInternetDateTime]
+            
+            let fractionalSecondsFormatter = ISO8601DateFormatter()
+            standardFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            
+            
             let container = try decoder.singleValueContainer()
             let dateString = try container.decode(String.self)
 
@@ -196,6 +199,7 @@ extension BrowserWebViewCoordinator: WKScriptMessageHandler {
             )
         })
 
+        /*
         if
             let mercuryObject = try? decoder.decode(MercuryObject.self, from: jsonData),
             mercuryObject.title != nil && mercuryObject.title != "",
@@ -212,6 +216,7 @@ extension BrowserWebViewCoordinator: WKScriptMessageHandler {
             browserViewModel.isReaderable = false
             browserViewModel.showingReader = false
         }
+        */
     }
 }
 
@@ -224,7 +229,11 @@ extension BrowserWebViewCoordinator: WKUIDelegate {
         windowFeatures: WKWindowFeatures
     ) -> WKWebView? {
         if !(navigationAction.targetFrame?.isMainFrame ?? false), let url = navigationAction.request.url {
-            openURL(url)
+            #if os(macOS)
+            NSWorkspace.shared.open(url)
+            #else
+            UIApplication.shared.open(url)
+            #endif
         }
 
         return nil

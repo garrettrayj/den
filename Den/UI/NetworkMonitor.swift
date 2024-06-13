@@ -11,6 +11,7 @@
 import Foundation
 import Network
 
+@MainActor
 @Observable final class NetworkMonitor {
     private(set) var isConnected: Bool = false
     
@@ -19,8 +20,10 @@ import Network
 
     init() {
         networkMonitor.pathUpdateHandler = { path in
-            DispatchQueue.main.async {
-                self.isConnected = path.status == .satisfied
+            Task {
+                await MainActor.run {
+                    self.isConnected = path.status == .satisfied
+                }
             }
         }
         networkMonitor.start(queue: workerQueue)

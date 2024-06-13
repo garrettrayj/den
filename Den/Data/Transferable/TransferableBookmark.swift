@@ -24,5 +24,5 @@ struct TransferableBookmark: Codable, Transferable {
 }
 
 extension UTType {
-    static var denBookmark = UTType(exportedAs: "net.devsci.den.transferable.bookmark")
+    static let denBookmark = UTType(exportedAs: "net.devsci.den.transferable.bookmark")
 }

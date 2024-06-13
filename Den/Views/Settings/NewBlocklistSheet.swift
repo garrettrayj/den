@@ -109,7 +109,7 @@ struct NewBlocklistSheet: View {
         blocklist.name = name
         blocklist.url = url
         
-        await BlocklistManager.refreshContentRulesList(blocklist: blocklist)
+        // await BlocklistManager.refreshContentRulesList(blocklist: blocklist)
 
         dismiss()
     }

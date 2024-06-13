@@ -17,7 +17,7 @@ struct ItemToolbar: ToolbarContent {
     @Environment(DownloadManager.self) private var downloadManager
 
     @Bindable var item: Item
-    @ObservedObject var browserViewModel: BrowserViewModel
+    @Bindable var browserViewModel: BrowserViewModel
 
     var body: some ToolbarContent {
         #if os(macOS)

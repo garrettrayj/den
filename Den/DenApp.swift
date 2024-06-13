@@ -22,6 +22,7 @@ struct DenApp: App {
     @UIApplicationDelegateAdaptor var delegate: AppDelegate
     #endif
     
+    @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
 
     @State private var container = DataController.shared.container
@@ -38,7 +39,37 @@ struct DenApp: App {
         }
         .modelContainer(container)
         .handlesExternalEvents(matching: ["*"])
-        .commands { AppCommands(networkMonitor: networkMonitor, refreshManager: refreshManager) }
+        .commands {
+            ToolbarCommands()
+            SidebarCommands()
+            InspectorCommands()
+            CommandGroup(after: .toolbar) {
+                RefreshButton()
+                    .environment(networkMonitor)
+                    .environment(refreshManager)
+            }
+            CommandGroup(replacing: .help) {
+                Button {
+                    openURL(URL(string: "https://den.io/help/")!)
+                } label: {
+                    Text("Den Help", comment: "Button label.")
+                }
+                Divider()
+                
+                #if os(macOS)
+                Button {
+                    if let url = Bundle.main.url(
+                        forResource: "Acknowledgements",
+                        withExtension: "html"
+                    ) {
+                        NSWorkspace.shared.open(url)
+                    }
+                } label: {
+                    Text("Acknowledgements", comment: "Button label.")
+                }
+                #endif
+            }
+        }
         .defaultSize(CGSize(width: 1280, height: 800))
         #if os(iOS)
         .onChange(of: scenePhase) {
