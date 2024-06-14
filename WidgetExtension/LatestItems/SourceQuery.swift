@@ -27,7 +27,7 @@ struct SourceQuery: EntityQuery {
     func suggestedEntities() async throws -> [SourceDetail] {
         var sources = [SourceQuery.defaultSource]
         
-        let context = WidgetDataController.getContainer().viewContext
+        let context = WidgetDataController.getContainer().newBackgroundContext()
         
         let request = Page.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]

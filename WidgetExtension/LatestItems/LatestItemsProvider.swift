@@ -61,7 +61,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
         for configuration: LatestItemsConfigurationIntent,
         in context: Context
     ) async -> Timeline<LatestItemsEntry> {
-        let moc = WidgetDataController.getContainer().viewContext
+        let moc = WidgetDataController.getContainer().newBackgroundContext()
         
         var entries: [LatestItemsEntry] = []
         

@@ -51,7 +51,6 @@ final class RefreshManager: ObservableObject {
         var feedUpdates: [FeedUpdateTask] = []
         
         let context = DataController.shared.container.newBackgroundContext()
-        self.cleanupFeedData(context: context)
         
         let request = Page.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
@@ -90,6 +89,7 @@ final class RefreshManager: ObservableObject {
         
         progress.completedUnitCount += 1
 
+        await CleanupTask().execute()
         await AnalyzeTask().execute()
 
         UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
@@ -103,7 +103,6 @@ final class RefreshManager: ObservableObject {
         progress.totalUnitCount = 0
     }
 
-    @MainActor
     func refresh(feed: Feed) async {
         if let url = feed.url {
             let feedUpdateTask = FeedUpdateTask(
@@ -116,27 +115,5 @@ final class RefreshManager: ObservableObject {
         
         feed.objectWillChange.send()
         feed.page?.objectWillChange.send()
-    }
-    
-    private func cleanupFeedData(context: NSManagedObjectContext) {
-        guard let feedDatas = try? context.fetch(FeedData.fetchRequest()) as [FeedData] else {
-            Logger.main.error("Unable to fetch FeedData records for cleanup")
-            return
-        }
-        
-        var orphansPurged = 0
-        for feedData in feedDatas where feedData.feed == nil {
-            context.delete(feedData)
-            orphansPurged += 1
-        }
-        
-        if orphansPurged > 0 {
-            do {
-                try context.save()
-                Logger.main.info("Purged \(orphansPurged) orphaned feed data records.")
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
-        }
     }
 }

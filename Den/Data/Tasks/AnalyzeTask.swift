@@ -9,49 +9,54 @@
 //
 
 import CoreData
+import OSLog
 
 struct AnalyzeTask {
     func execute() async {
         let context = DataController.shared.container.newBackgroundContext()
+
+        guard let existingTrends = try? context.fetch(Trend.fetchRequest()) as [Trend] else {
+            return
+        }
         
-        await context.perform {
-            guard let existingTrends = try? context.fetch(Trend.fetchRequest()) as [Trend] else {
-                return
+        let workingTrends = self.analyzeTrends(context: context)
+        
+        for workingTrend in workingTrends {
+            var trend: Trend
+
+            if let existingTrend = existingTrends.first(where: { $0.slug == workingTrend.slug }) {
+                trend = existingTrend
+            } else {
+                trend = Trend.create(in: context)
+                trend.title = workingTrend.title
+                trend.slug = workingTrend.slug
+                trend.tag = workingTrend.tag.rawValue
+            }
+
+            for item in workingTrend.items {
+                _ = trend.trendItemsArray.first { trendItem in
+                    trendItem.item == item
+                } ?? TrendItem.create(in: context, trend: trend, item: item)
+            }
+
+            for trendItem in trend.trendItemsArray
+            where !workingTrend.items.contains(where: { $0 == trendItem.item }) {
+                context.delete(trendItem)
             }
             
-            let workingTrends = self.analyzeTrends(context: context)
-            for workingTrend in workingTrends {
-                var trend: Trend
+            trend.updateReadStatus()
+        }
 
-                if let existingTrend = existingTrends.first(where: {$0.slug == workingTrend.slug}) {
-                    trend = existingTrend
-                } else {
-                    trend = Trend.create(in: context)
-                    trend.title = workingTrend.title
-                    trend.slug = workingTrend.slug
-                    trend.tag = workingTrend.tag.rawValue
-                }
+        // Delete trends not present in current analysis
+        for trend in existingTrends where !workingTrends.contains(where: { $0.slug == trend.slug }) {
+            context.delete(trend)
+        }
 
-                for item in workingTrend.items {
-                    _ = trend.trendItemsArray.first { trendItem in
-                        trendItem.item == item
-                    } ?? TrendItem.create(in: context, trend: trend, item: item)
-                }
-
-                for trendItem in trend.trendItemsArray
-                where !workingTrend.items.contains(where: { $0 == trendItem.item }) {
-                    context.delete(trendItem)
-                }
-                
-                trend.updateReadStatus()
-            }
-
-            // Delete trends not present in current analysis
-            for trend in existingTrends where !workingTrends.contains(where: { $0.slug == trend.slug }) {
-                context.delete(trend)
-            }
-
-            try? context.save()
+        do {
+            try context.save()
+            Logger.main.info("Trend analysis complete")
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
     
