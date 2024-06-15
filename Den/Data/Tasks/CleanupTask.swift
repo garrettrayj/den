@@ -24,16 +24,10 @@ struct CleanupTask {
         var orphansPurged = 0
         for feedData in feedDatas where feedData.feed == nil {
             context.delete(feedData)
+            try? context.save()
             orphansPurged += 1
         }
         
-        if orphansPurged > 0 {
-            do {
-                try context.save()
-                Logger.main.info("Purged \(orphansPurged) orphaned feed data records.")
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
-        }
+        Logger.main.info("Purged \(orphansPurged) orphaned feed data records.")
     }
 }

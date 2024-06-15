@@ -13,6 +13,8 @@ import WebKit
 
 @MainActor
 struct ReaderWebView {
+    @Environment(\.openURL) private var openURL
+    
     @Environment(DownloadManager.self) private var downloadManager
 
     @Bindable var browserViewModel: BrowserViewModel
@@ -32,7 +34,8 @@ struct ReaderWebView {
     func makeCoordinator() -> ReaderWebViewCoordinator {
         ReaderWebViewCoordinator(
             browserViewModel: browserViewModel,
-            downloadManager: downloadManager
+            downloadManager: downloadManager,
+            openURL: openURL
         )
     }
 }
@@ -40,13 +43,17 @@ struct ReaderWebView {
 final class ReaderWebViewCoordinator: NSObject {
     let browserViewModel: BrowserViewModel
     let downloadManager: DownloadManager
+    
+    @MainActor let openURL: OpenURLAction
 
     init(
         browserViewModel: BrowserViewModel,
-        downloadManager: DownloadManager
+        downloadManager: DownloadManager,
+        openURL: OpenURLAction
     ) {
         self.browserViewModel = browserViewModel
         self.downloadManager = downloadManager
+        self.openURL = openURL
     }
 }
 
@@ -64,25 +71,24 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
         // Open external links in system browser
         if navigationAction.targetFrame == nil {
             if let url = navigationAction.request.url {
-                #if os(macOS)
-                NSWorkspace.shared.open(url)
-                #else
-                UIApplication.shared.open(url)
-                #endif
+                let openURL = openURL
+                Task {
+                    await openURL(url)
+                }
             }
             decisionHandler(.cancel)
             return
         }
 
         // Open links for same frame in browser view
+        let browserViewModel = browserViewModel
         let browserActions: Set<WKNavigationType> = [.linkActivated]
-        
         if
             let url = navigationAction.request.url,
             browserActions.contains(navigationAction.navigationType)
         {
             Task {
-                //await browserViewModel.loadURL(url: url)
+                await browserViewModel.loadURL(url: url)
             }
             decisionHandler(.cancel)
             return
@@ -129,11 +135,10 @@ extension ReaderWebViewCoordinator: WKUIDelegate {
         windowFeatures: WKWindowFeatures
     ) -> WKWebView? {
         if !(navigationAction.targetFrame?.isMainFrame ?? false), let url = navigationAction.request.url {
-            #if os(macOS)
-            NSWorkspace.shared.open(url)
-            #else
-            UIApplication.shared.open(url)
-            #endif
+            let openURL = openURL
+            Task {
+                await openURL(url)
+            }
         }
 
         return nil

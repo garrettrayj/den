@@ -47,5 +47,7 @@ struct Start: View {
             context: modelContext, 
             pageUserOrderMax: 0
         )
+        
+        try? modelContext.save()
     }
 }

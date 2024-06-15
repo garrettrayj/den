@@ -11,12 +11,14 @@
 import SwiftUI
 import WebKit
 
+@MainActor
 struct BrowserWebView {
+    @Environment(\.openURL) private var openURL
+    
     @Environment(DownloadManager.self) private var downloadManager
     
     @Bindable var browserViewModel: BrowserViewModel
     
-    @MainActor 
     func makeWebView(context: Context) -> WKWebView {
         let wkWebView = DenWebView()
         wkWebView.isInspectable = true
@@ -36,7 +38,8 @@ struct BrowserWebView {
     func makeCoordinator() -> BrowserWebViewCoordinator {
         BrowserWebViewCoordinator(
             browserViewModel: browserViewModel,
-            downloadManager: downloadManager
+            downloadManager: downloadManager,
+            openURL: openURL
         )
     }
 
@@ -78,13 +81,16 @@ struct BrowserWebView {
 final class BrowserWebViewCoordinator: NSObject {
     let browserViewModel: BrowserViewModel
     let downloadManager: DownloadManager
+    let openURL: OpenURLAction
 
     init(
         browserViewModel: BrowserViewModel,
-        downloadManager: DownloadManager
+        downloadManager: DownloadManager,
+        openURL: OpenURLAction
     ) {
         self.browserViewModel = browserViewModel
         self.downloadManager = downloadManager
+        self.openURL = openURL
     }
 }
 
@@ -99,6 +105,7 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
                 if let urlError = error as? URLError {
                     guard let failingURL = urlError.failingURL else { return }
                     let errorHTML = WebViewError(error: error).html
+                    
                     webView.loadSimulatedRequest(
                         URLRequest(url: failingURL),
                         responseHTML: errorHTML
@@ -121,11 +128,10 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         // Open external links in system browser
         if navigationAction.targetFrame == nil {
             if let url = navigationAction.request.url {
-                #if os(macOS)
-                NSWorkspace.shared.open(url)
-                #else
-                UIApplication.shared.open(url)
-                #endif
+                let openURL = openURL
+                Task {
+                    await openURL(url)
+                }
             }
             decisionHandler(.cancel)
             return
@@ -172,51 +178,54 @@ extension BrowserWebViewCoordinator: WKScriptMessageHandler {
             message.name == "reader",
             let jsonString = message.body as? String
         else { return }
+        
+        let browserViewModel = browserViewModel
+        
+        Task {
+            await MainActor.run {
+                let jsonData = Data(jsonString.utf8)
+                let decoder = JSONDecoder()
 
-        let jsonData = Data(jsonString.utf8)
-        let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .custom({ decoder in
+                    let standardFormatter = ISO8601DateFormatter()
+                    standardFormatter.formatOptions = [.withInternetDateTime]
+                    
+                    let fractionalSecondsFormatter = ISO8601DateFormatter()
+                    standardFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+                    
+                    let container = try decoder.singleValueContainer()
+                    let dateString = try container.decode(String.self)
 
-        decoder.dateDecodingStrategy = .custom({ decoder in
-            let standardFormatter = ISO8601DateFormatter()
-            standardFormatter.formatOptions = [.withInternetDateTime]
-            
-            let fractionalSecondsFormatter = ISO8601DateFormatter()
-            standardFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-            
-            
-            let container = try decoder.singleValueContainer()
-            let dateString = try container.decode(String.self)
+                    if let date = standardFormatter.date(from: dateString) {
+                        return date
+                    } else if let date = fractionalSecondsFormatter.date(from: dateString) {
+                        return date
+                    }
 
-            if let date = standardFormatter.date(from: dateString) {
-                return date
-            } else if let date = fractionalSecondsFormatter.date(from: dateString) {
-                return date
+                    throw DecodingError.dataCorruptedError(
+                        in: container,
+                        debugDescription: "Cannot decode date string \(dateString)"
+                    )
+                })
+
+                if
+                    let mercuryObject = try? decoder.decode(MercuryObject.self, from: jsonData),
+                    mercuryObject.title != nil && mercuryObject.title != "",
+                    mercuryObject.content != nil && mercuryObject.content != ""
+                {
+                    browserViewModel.mercuryObject = mercuryObject
+                    browserViewModel.isReaderable = true
+
+                    if browserViewModel.useReaderAutomatically {
+                        browserViewModel.showReader()
+                    }
+                } else {
+                    browserViewModel.mercuryObject = nil
+                    browserViewModel.isReaderable = false
+                    browserViewModel.showingReader = false
+                }
             }
-
-            throw DecodingError.dataCorruptedError(
-                in: container,
-                debugDescription: "Cannot decode date string \(dateString)"
-            )
-        })
-
-        /*
-        if
-            let mercuryObject = try? decoder.decode(MercuryObject.self, from: jsonData),
-            mercuryObject.title != nil && mercuryObject.title != "",
-            mercuryObject.content != nil && mercuryObject.content != ""
-        {
-            browserViewModel.mercuryObject = mercuryObject
-            browserViewModel.isReaderable = true
-
-            if browserViewModel.useReaderAutomatically {
-                browserViewModel.showReader()
-            }
-        } else {
-            browserViewModel.mercuryObject = nil
-            browserViewModel.isReaderable = false
-            browserViewModel.showingReader = false
         }
-        */
     }
 }
 
@@ -229,11 +238,10 @@ extension BrowserWebViewCoordinator: WKUIDelegate {
         windowFeatures: WKWindowFeatures
     ) -> WKWebView? {
         if !(navigationAction.targetFrame?.isMainFrame ?? false), let url = navigationAction.request.url {
-            #if os(macOS)
-            NSWorkspace.shared.open(url)
-            #else
-            UIApplication.shared.open(url)
-            #endif
+            let openURL = openURL
+            Task {
+                await openURL(url)
+            }
         }
 
         return nil
