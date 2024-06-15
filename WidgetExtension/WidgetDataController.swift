@@ -54,9 +54,6 @@ struct WidgetDataController {
                 return
             }
         }
-
-        // Configure view context
-        container.viewContext.automaticallyMergesChangesFromParent = true
         
         return container
     }

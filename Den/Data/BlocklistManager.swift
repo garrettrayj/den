@@ -15,17 +15,24 @@ import OSLog
 @MainActor
 final class BlocklistManager {
     static func getContentRuleLists() async -> [WKContentRuleList] {
+        var blocklistIDs: [String] = []
         let context = DataController.shared.container.newBackgroundContext()
-        
-        guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
-        else { return [] }
+        context.performAndWait {
+            guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+            else { return }
+            
+            for blocklist in blocklists {
+                guard let id = blocklist.id?.uuidString else { continue }
+                blocklistIDs.append(id)
+            }
+        }
         
         var ruleLists: [WKContentRuleList] = []
-        for blocklist in blocklists {
-            guard let id = blocklist.id?.uuidString else { continue }
-            if let ruleList = try? await WKContentRuleListStore.default().contentRuleList(
-                forIdentifier: id
-            ) {
+        for blocklistID in blocklistIDs {
+            var ruleList = try? await WKContentRuleListStore.default().contentRuleList(
+                forIdentifier: blocklistID
+            )
+            if let ruleList {
                 ruleLists.append(ruleList)
             }
         }
@@ -51,13 +58,18 @@ final class BlocklistManager {
     static func cleanupContentRulesLists() async {
         let context = DataController.shared.container.newBackgroundContext()
         
-        guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
-        else { return }
-        
-        let blocklistIdentifiers = blocklists.compactMap { $0.id?.uuidString }
-        let ruleLists = await getCompiledRulesListIdentifiers()
-        for ruleList in ruleLists where !blocklistIdentifiers.contains(ruleList) {
-            await removeContentRulesList(identifier: ruleList)
+        context.performAndWait {
+            guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+            else { return }
+            
+            let blocklistIdentifiers = blocklists.compactMap { $0.id?.uuidString }
+            
+            Task {
+                let ruleLists = await getCompiledRulesListIdentifiers()
+                for ruleList in ruleLists where !blocklistIdentifiers.contains(ruleList) {
+                    await removeContentRulesList(identifier: ruleList)
+                }
+            }
         }
     }
     
@@ -70,22 +82,27 @@ final class BlocklistManager {
     static func initializeMissingContentRulesLists() async {
         let context = DataController.shared.container.newBackgroundContext()
         
-        guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
-        else { return }
-        
-        for blocklist in blocklists {
-            guard let identifier = blocklist.id?.uuidString else { continue }
-            let ruleLists = await getCompiledRulesListIdentifiers()
-            if !ruleLists.contains(identifier) {
-                Logger.main.info("""
-                Blocklist “\(blocklist.wrappedName, privacy: .public)” is missing content rules, \
-                refreshing now…
-                """)
-                await refreshContentRulesList(blocklist: blocklist, context: context)
+        context.performAndWait {
+            guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+            else { return }
+            
+            for blocklist in blocklists {
+                guard let identifier = blocklist.id?.uuidString else { continue }
+                let blocklistObjectID = blocklist.objectID
+                
+                Task {
+                    let ruleLists = await getCompiledRulesListIdentifiers()
+                    if !ruleLists.contains(identifier) {
+                        Logger.main.info("""
+                        Blocklistis missing content rules, refreshing now…
+                        """)
+                        await refreshContentRulesList(blocklistObjectID: blocklistObjectID)
+                    }
+                }
             }
+            
+            try? context.save()
         }
-        
-        try? context.save()
     }
 
     @MainActor
@@ -102,46 +119,65 @@ final class BlocklistManager {
     }
 
     static func refreshContentRulesList(
-        blocklist: Blocklist,
-        context: NSManagedObjectContext
+        blocklistObjectID: NSManagedObjectID
     ) async {
-        let blocklistStatus = blocklist.blocklistStatus ?? BlocklistStatus.create(
-            in: context,
-            blocklist: blocklist
-        )
+        var url: URL?
+        var blocklistUUIDString: String?
+        
+        let context = DataController.shared.container.newBackgroundContext()
+        context.performAndWait {
+            guard let blocklist = context.object(with: blocklistObjectID) as? Blocklist else { return }
+            
+            url = blocklist.url
+            blocklistUUIDString = blocklist.id?.uuidString
+        }
         
         guard
-            let identifier = blocklist.id?.uuidString,
-            let url = blocklist.url,
+            let url,
+            let blocklistUUIDString,
             let (data, urlResponse) = try? await URLSession.shared.data(from: url),
             let httpResponse = urlResponse as? HTTPURLResponse
         else {
-            blocklistStatus.compiledSuccessfully = false
-            blocklistStatus.refreshed = .now
-            blocklistStatus.httpCode = 0
             return
         }
-
-        blocklistStatus.refreshed = .now
-        blocklistStatus.httpCode = Int16(httpResponse.statusCode)
-        blocklistStatus.compiledSuccessfully = await compileContentRulesList(
-            identifier: identifier,
+        
+        let compiledSuccessfully = await compileContentRulesList(
+            identifier: blocklistUUIDString,
             json: String(decoding: data, as: UTF8.self)
         )
+        
+        context.performAndWait {
+            guard let blocklist = context.object(with: blocklistObjectID) as? Blocklist else { return }
+            
+            let blocklistStatus = blocklist.blocklistStatus ?? BlocklistStatus.create(
+                in: context,
+                blocklist: blocklist
+            )
 
-        DispatchQueue.main.async { blocklist.objectWillChange.send() }
-
-        Logger.main.info("Blocklist refreshed: \(blocklist.wrappedName, privacy: .public)")
+            blocklistStatus.refreshed = .now
+            blocklistStatus.httpCode = Int16(httpResponse.statusCode)
+            blocklistStatus.compiledSuccessfully = compiledSuccessfully
+            
+            try? context.save()
+            
+            Logger.main.info("Blocklist refreshed: \(blocklist.wrappedName, privacy: .public)")
+        }
     }
     
     static func refreshAllContentRulesLists() async {
         let context = DataController.shared.container.newBackgroundContext()
         
-        guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
-        else { return }
-        
-        for blocklist in blocklists {
-            await refreshContentRulesList(blocklist: blocklist, context: context)
+        context.performAndWait {
+            guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
+            else { return }
+            
+            let blocklistObjectIDs = blocklists.map { $0.objectID }
+            
+            Task {
+                for blocklistObjectID in blocklistObjectIDs {
+                    await refreshContentRulesList(blocklistObjectID: blocklistObjectID)
+                }
+            }
         }
     }
 }

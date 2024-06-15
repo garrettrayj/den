@@ -109,13 +109,13 @@ struct NewBlocklistSheet: View {
         blocklist.name = name
         blocklist.url = url
         
-        await BlocklistManager.refreshContentRulesList(blocklist: blocklist, context: viewContext)
-
         do {
             try viewContext.save()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }
+        
+        await BlocklistManager.refreshContentRulesList(blocklistObjectID: blocklist.objectID)
 
         dismiss()
     }

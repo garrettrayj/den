@@ -24,7 +24,7 @@ struct TrendingToolbar: ToolbarContent {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                await HistoryUtility.toggleReadUnread(items: trends.items)
+                HistoryUtility.toggleReadUnread(items: trends.items)
             }
         }
         #else
@@ -37,7 +37,7 @@ struct TrendingToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                    await HistoryUtility.toggleReadUnread(items: trends.items)
+                    HistoryUtility.toggleReadUnread(items: trends.items)
                 }
             }
         } else {
@@ -46,7 +46,7 @@ struct TrendingToolbar: ToolbarContent {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                    await HistoryUtility.toggleReadUnread(items: trends.items)
+                    HistoryUtility.toggleReadUnread(items: trends.items)
                 }
             }
         }

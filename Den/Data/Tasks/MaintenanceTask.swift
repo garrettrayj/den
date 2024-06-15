@@ -16,19 +16,21 @@ struct MaintenanceTask {
         let context = DataController.shared.container.newBackgroundContext()
         context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
         
-        trimHistory(context: context)
-        trimSearches(context: context)
+        context.performAndWait {
+            trimHistory(context: context)
+            trimSearches(context: context)
+
+            do {
+                try context.save()
+                UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Maintained")
+                Logger.main.info("Maintenance operations completed")
+            } catch {
+                Logger.main.error("Saving maintenance task context failed with error: \(error)")
+            }
+        }
         
         await BlocklistManager.cleanupContentRulesLists()
         await BlocklistManager.refreshAllContentRulesLists()
-
-        do {
-            try context.save()
-            UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Maintained")
-            Logger.main.info("Maintenance operations completed")
-        } catch {
-            Logger.main.error("Saving maintenance task context failed with error: \(error)")
-        }
     }
     
     private func trimHistory(context: NSManagedObjectContext) {

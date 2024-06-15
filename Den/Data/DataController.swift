@@ -162,18 +162,21 @@ struct DataController {
         // should be the NSManagedObject IDs for the deleted objects
         deleteRequest.resultType = .resultTypeObjectIDs
 
-        do {
-            // Perform the batch delete
-            let batchDelete = try context.execute(deleteRequest) as? NSBatchDeleteResult
+        
+        context.performAndWait {
+            do {
+                // Perform the batch delete
+                let batchDelete = try context.execute(deleteRequest) as? NSBatchDeleteResult
 
-            guard let deleteResult = batchDelete?.result as? [NSManagedObjectID] else { return }
+                guard let deleteResult = batchDelete?.result as? [NSManagedObjectID] else { return }
 
-            let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
+                let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
 
-            // Merge the delete changes into the managed object context
-            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: deletedObjects, into: [context])
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
+                // Merge the delete changes into the managed object context
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: deletedObjects, into: [context])
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
+            }
         }
     }
 }

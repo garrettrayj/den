@@ -72,8 +72,7 @@ struct BlocklistSettings: View {
                         isRefreshing = true
                         Task {
                             await BlocklistManager.refreshContentRulesList(
-                                blocklist: blocklist,
-                                context: viewContext
+                                blocklistObjectID: blocklist.objectID
                             )
                             isRefreshing = false
                         }

@@ -26,29 +26,31 @@ struct SourceQuery: EntityQuery {
     
     func suggestedEntities() async throws -> [SourceDetail] {
         var sources = [SourceQuery.defaultSource]
-        
+
         let context = WidgetDataController.getContainer().newBackgroundContext()
-        
-        let request = Page.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
-        
-        for page in try context.fetch(request) {
-            guard let pageID = page.id else { continue }
-            sources.append(SourceDetail(
-                id: pageID.uuidString,
-                entityType: Page.self,
-                title: page.wrappedName,
-                symbol: page.wrappedSymbol
-            ))
+
+        try context.performAndWait {
+            let request = Page.fetchRequest()
+            request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
             
-            for feed in page.feedsArray {
-                guard let feedID = feed.id else { continue }
+            for page in try context.fetch(request) {
+                guard let pageID = page.id else { continue }
                 sources.append(SourceDetail(
-                    id: feedID.uuidString,
-                    entityType: Feed.self,
-                    title: feed.wrappedTitle,
-                    symbol: nil
+                    id: pageID.uuidString,
+                    entityType: Page.self,
+                    title: page.wrappedName,
+                    symbol: page.wrappedSymbol
                 ))
+                
+                for feed in page.feedsArray {
+                    guard let feedID = feed.id else { continue }
+                    sources.append(SourceDetail(
+                        id: feedID.uuidString,
+                        entityType: Feed.self,
+                        title: feed.wrappedTitle,
+                        symbol: nil
+                    ))
+                }
             }
         }
         

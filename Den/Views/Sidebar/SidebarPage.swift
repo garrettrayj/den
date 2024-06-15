@@ -84,7 +84,7 @@ struct SidebarPage: View {
                 )
                 .contextMenu {
                     MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                        await HistoryUtility.toggleReadUnread(items: Array(items))
+                        HistoryUtility.toggleReadUnread(items: Array(items))
                     }
                     Divider()
                     IconSelectorButton(

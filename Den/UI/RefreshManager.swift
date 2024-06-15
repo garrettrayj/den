@@ -52,17 +52,19 @@ final class RefreshManager: ObservableObject {
         
         let context = DataController.shared.container.newBackgroundContext()
         
-        let request = Page.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
-        guard let pages = try? context.fetch(request) as [Page] else { return }
-        
-        feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
-            guard let url = feed.url else { return nil }
-            return FeedUpdateTask(
-                feedObjectID: feed.objectID,
-                url: url,
-                updateMeta: feed.needsMetaUpdate
-            )
+        context.performAndWait {
+            let request = Page.fetchRequest()
+            request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
+            guard let pages = try? context.fetch(request) as [Page] else { return }
+            
+            feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
+                guard let url = feed.url else { return nil }
+                return FeedUpdateTask(
+                    feedObjectID: feed.objectID,
+                    url: url,
+                    updateMeta: feed.needsMetaUpdate
+                )
+            }
         }
         
         progress.totalUnitCount = Int64(feedUpdates.count)
