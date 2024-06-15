@@ -42,7 +42,7 @@ struct RootView: View {
     @AppStorage("Maintained") private var maintenanceTimestamp: Double?
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
-    @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .threeHours
+    @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
     
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.userOrder, order: .forward),
