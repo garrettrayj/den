@@ -62,8 +62,6 @@ import WidgetKit
             await MainActor.run { refreshing = true }
         }
 
-        self.cleanupFeedData(context: context)
-
         await withTaskGroup(of: Void.self, returning: Void.self) { taskGroup in
             var working = 0
             for feedUpdate in feedUpdates {
@@ -84,6 +82,7 @@ import WidgetKit
         
         progress.completedUnitCount += 1
 
+        await CleanupTask().execute()
         await AnalyzeTask().execute()
 
         UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
@@ -105,28 +104,6 @@ import WidgetKit
                 updateMeta: true
             )
             await feedUpdateTask.execute()
-        }
-    }
-    
-    private func cleanupFeedData(context: ModelContext) {
-        guard let feedDatas = try? context.fetch(FetchDescriptor<FeedData>()) as [FeedData] else {
-            Logger.main.error("Unable to fetch FeedData records for cleanup")
-            return
-        }
-        
-        var orphansPurged = 0
-        for feedData in feedDatas where feedData.feed == nil {
-            context.delete(feedData)
-            orphansPurged += 1
-        }
-        
-        if orphansPurged > 0 {
-            do {
-                try context.save()
-                Logger.main.info("Purged \(orphansPurged) orphaned feed data records.")
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
         }
     }
 }
