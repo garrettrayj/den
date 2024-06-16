@@ -30,7 +30,7 @@ struct LargeThumbnail: View {
 
     var body: some View {
         if let aspectRatio = aspectRatio {
-            if aspectRatio < 1/2 || sourceWidth! < thumbnailWidth {
+            if aspectRatio < 1/3 || sourceWidth! < thumbnailWidth {
                 ImageDepression(padding: 8) {
                     webImage
                         .scaledToFit()
@@ -45,12 +45,14 @@ struct LargeThumbnail: View {
                     .modifier(ImageBorderModifier(cornerRadius: 6))
             }
         } else {
-            ImageDepression(padding: 8) {
-                webImage
-                    .scaledToFit()
-                    .modifier(ImageBorderModifier(cornerRadius: 4))
+            ZStack {
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .aspectRatio(16/9, contentMode: .fit)
+            .background(alignment: .center) {
+                webImage.scaledToFill()
+            }
+            .modifier(ImageBorderModifier(cornerRadius: 6))
         }
     }
     
