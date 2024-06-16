@@ -161,7 +161,6 @@ struct DataController {
         // Specify the result of the NSBatchDeleteRequest
         // should be the NSManagedObject IDs for the deleted objects
         deleteRequest.resultType = .resultTypeObjectIDs
-
         
         context.performAndWait {
             do {

@@ -128,7 +128,7 @@ struct LatestItemsView: View {
     @ViewBuilder
     private var sourceIcon: some View {
         if entry.sourceType == Feed.self {
-            if let favicon = entry.favicon {
+            if let favicon = entry.faviconImage {
                 favicon.resizable().clipShape(RoundedRectangle(
                     cornerRadius: widgetFamily == .systemSmall ? 4 : 2
                 ))
@@ -187,7 +187,7 @@ struct LatestItemsView: View {
                         Label {
                             Text(item.feedTitle)
                         } icon: {
-                            if let favicon = item.favicon {
+                            if let favicon = item.faviconImage {
                                 favicon
                                     .resizable()
                                     .scaledToFit()
@@ -216,7 +216,7 @@ struct LatestItemsView: View {
                 
                 Spacer(minLength: 0)
                 
-                if let image = item.thumbnail {
+                if let image = item.thumbnailImage {
                     image
                         .resizable()
                         .scaledToFill()

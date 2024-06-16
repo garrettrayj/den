@@ -31,7 +31,8 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             sourceType: nil,
             unread: 10,
             title: Text("Inbox", comment: "Widget placeholder title."),
-            favicon: nil,
+            faviconURL: nil,
+            faviconImage: nil,
             symbol: "tray",
             configuration: LatestItemsConfigurationIntent(
                 source: SourceQuery.defaultSource
@@ -50,7 +51,8 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             sourceType: nil,
             unread: 10,
             title: Text("Inbox", comment: "Widget snapshot title."),
-            favicon: nil,
+            faviconURL: nil,
+            faviconImage: nil,
             symbol: "tray",
             configuration: configuration
         )
@@ -61,118 +63,127 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
         for configuration: LatestItemsConfigurationIntent,
         in context: Context
     ) async -> Timeline<LatestItemsEntry> {
-        let moc = WidgetDataController.getContainer().newBackgroundContext()
-        
         var entries: [LatestItemsEntry] = []
         
-        var feed: Feed?
-        var page: Page?
+        let moc = WidgetDataController.getContainer().newBackgroundContext()
         
-        // Fetch scope object
-        if configuration.source.entityType == Page.self {
-            let request = Page.fetchRequest()
-            request.predicate = NSPredicate(
-                format: "id = %@",
-                configuration.source.id
-            )
-            page = try? moc.fetch(request).first
-        } else if configuration.source.entityType == Feed.self {
-            let request = Feed.fetchRequest()
-            request.predicate = NSPredicate(
-                format: "id = %@",
-                configuration.source.id
-            )
-            feed = try? moc.fetch(request).first
-        }
-        
-        // Get items
-        
-        var predicates: [NSPredicate] = [
-            NSPredicate(format: "read = %@", NSNumber(value: false)),
-            NSPredicate(format: "extra = %@", NSNumber(value: false))
-        ]
-        
-        if let feed = feed {
-            if let feedData = feed.feedData {
-                predicates.append(
-                    NSPredicate(format: "feedData = %@", feedData)
+        moc.performAndWait {
+            var feed: Feed?
+            var page: Page?
+            
+            // Fetch scope object
+            if configuration.source.entityType == Page.self {
+                let request = Page.fetchRequest()
+                request.predicate = NSPredicate(
+                    format: "id = %@",
+                    configuration.source.id
                 )
+                page = try? moc.fetch(request).first
+            } else if configuration.source.entityType == Feed.self {
+                let request = Feed.fetchRequest()
+                request.predicate = NSPredicate(
+                    format: "id = %@",
+                    configuration.source.id
+                )
+                feed = try? moc.fetch(request).first
             }
-        } else if let page = page {
-            predicates.append(NSPredicate(
-                format: "feedData IN %@",
-                page.feedsArray.compactMap { $0.feedData }
-            ))
-        }
-        
-        let request = Item.fetchRequest()
-        request.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
-        
-        var maxItems = 1
-        if context.family == .systemLarge {
-            maxItems = 3
-        } else if context.family == .systemExtraLarge {
-            maxItems = 6
-        }
-        
-        let (feedFaviconImage, _) = await SDWebImageManager.shared.loadImage(
-            with: feed?.feedData?.favicon,
-            context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
-        )
-        
-        if let items = try? moc.fetch(request) {
-            var entryItems: [Entry.WidgetItem] = []
-
-            for item in items.prefix(maxItems) {
-                guard let id = item.id else { continue }
-                
-                let (faviconImage, _) = await SDWebImageManager.shared.loadImage(
-                    with: item.feedData?.favicon,
-                    context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
-                )
-                
-                let (thumbnailImage, _) = await SDWebImageManager.shared.loadImage(
-                    with: item.image,
-                    context: [
-                        .imageThumbnailPixelSize: CGSize(width: 240, height: 240)
-                    ]
-                )
-                
-                entryItems.append(.init(
-                    id: id,
-                    itemTitle: item.title ?? "Untitled",
-                    feedTitle: item.feedData?.feed?.wrappedTitle ?? "Untitled",
-                    favicon: faviconImage,
-                    thumbnail: thumbnailImage
+            
+            // Get items
+            var predicates: [NSPredicate] = [
+                NSPredicate(format: "read = %@", NSNumber(value: false)),
+                NSPredicate(format: "extra = %@", NSNumber(value: false))
+            ]
+            
+            if let feed = feed {
+                if let feedData = feed.feedData {
+                    predicates.append(
+                        NSPredicate(format: "feedData = %@", feedData)
+                    )
+                }
+            } else if let page = page {
+                predicates.append(NSPredicate(
+                    format: "feedData IN %@",
+                    page.feedsArray.compactMap { $0.feedData }
                 ))
             }
             
-            let entry = LatestItemsEntry(
-                date: .now,
-                items: entryItems,
-                sourceID: page?.id ?? feed?.id,
-                sourceType: {
-                    if page != nil {
-                        return Page.self
-                    } else if feed != nil {
-                        return Feed.self
-                    } else {
-                        return nil
-                    }
-                }(),
-                unread: items.count,
-                title: feed?.displayTitle
-                    ?? page?.displayName
-                    ?? Text("Inbox", comment: "Widget title."),
-                favicon: feedFaviconImage,
-                symbol: page?.wrappedSymbol,
-                configuration: configuration
-            )
-            entries.append(entry)
+            let request = Item.fetchRequest()
+            request.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
+            request.sortDescriptors = [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
+            
+            var maxItems = 1
+            if context.family == .systemLarge {
+                maxItems = 3
+            } else if context.family == .systemExtraLarge {
+                maxItems = 6
+            }
+
+            if let items = try? moc.fetch(request) {
+                var entryItems: [Entry.WidgetItem] = []
+
+                for item in items.prefix(maxItems) {
+                    guard let id = item.id else { continue }
+                    
+                    entryItems.append(.init(
+                        id: id,
+                        itemTitle: item.title ?? "Untitled",
+                        feedTitle: item.feedData?.feed?.wrappedTitle ?? "Untitled",
+                        faviconURL: nil,
+                        faviconImage: nil,
+                        thumbnailURL: nil,
+                        thumbnailImage: nil
+                    ))
+                }
+                
+                let entry = LatestItemsEntry(
+                    date: .now,
+                    items: entryItems,
+                    sourceID: page?.id ?? feed?.id,
+                    sourceType: {
+                        if page != nil {
+                            return Page.self
+                        } else if feed != nil {
+                            return Feed.self
+                        } else {
+                            return nil
+                        }
+                    }(),
+                    unread: items.count,
+                    title: feed?.displayTitle ?? page?.displayName ?? Text(
+                        "Inbox",
+                        comment: "Widget title."
+                    ),
+                    faviconURL: nil,
+                    faviconImage: nil,
+                    symbol: page?.wrappedSymbol,
+                    configuration: configuration
+                )
+                entries.append(entry)
+            }
         }
 
         return Timeline(entries: entries, policy: .never)
     }
     // swiftlint:enable cyclomatic_complexity function_body_length
+    
+    private func populateEntryImages(_ entry: inout LatestItemsEntry) {
+        /*
+        let (feedFaviconImage, _) = await SDWebImageManager.shared.loadImage(
+            with: feed?.feedData?.favicon,
+            context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
+        )
+        
+        let (faviconImage, _) = await SDWebImageManager.shared.loadImage(
+            with: item.feedData?.favicon,
+            context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
+        )
+        
+        let (thumbnailImage, _) = await SDWebImageManager.shared.loadImage(
+            with: item.image,
+            context: [
+                .imageThumbnailPixelSize: CGSize(width: 240, height: 240)
+            ]
+        )
+         */
+    }
 }

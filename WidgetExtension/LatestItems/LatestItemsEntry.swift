@@ -17,8 +17,10 @@ struct LatestItemsEntry: TimelineEntry {
         var id: UUID
         var itemTitle: String
         var feedTitle: String
-        var favicon: Image?
-        var thumbnail: Image?
+        var faviconURL: URL?
+        var faviconImage: Image?
+        var thumbnailURL: URL?
+        var thumbnailImage: Image?
     }
     
     let date: Date
@@ -27,7 +29,8 @@ struct LatestItemsEntry: TimelineEntry {
     let sourceType: NSManagedObject.Type?
     let unread: Int
     let title: Text
-    let favicon: Image?
+    let faviconURL: URL?
+    let faviconImage: Image?
     let symbol: String?
     let configuration: LatestItemsConfigurationIntent
     

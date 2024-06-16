@@ -29,10 +29,9 @@ final class BlocklistManager {
         
         var ruleLists: [WKContentRuleList] = []
         for blocklistID in blocklistIDs {
-            var ruleList = try? await WKContentRuleListStore.default().contentRuleList(
+            if let ruleList = try? await WKContentRuleListStore.default().contentRuleList(
                 forIdentifier: blocklistID
-            )
-            if let ruleList {
+            ) {
                 ruleLists.append(ruleList)
             }
         }

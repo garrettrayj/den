@@ -50,7 +50,8 @@ struct LatestItemsWidget: Widget {
         sourceType: nil,
         unread: 10,
         title: Text("Inbox", comment: "Widget title."),
-        favicon: nil,
+        faviconURL: nil,
+        faviconImage: nil,
         symbol: nil,
         configuration: .init(source: SourceQuery.defaultSource)
     )
