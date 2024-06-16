@@ -44,9 +44,6 @@ struct BrowserView: View {
             BrowserWebView(browserViewModel: browserViewModel)
                 .task {
                     browserViewModel.contentRuleLists = await BlocklistManager.getContentRuleLists()
-                    print("HEY")
-                    print(browserViewModel.contentRuleLists?.count)
-                    
                     browserViewModel.useBlocklists = useBlocklists ?? true
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
                     browserViewModel.allowJavaScript = allowJavaScript ?? true
