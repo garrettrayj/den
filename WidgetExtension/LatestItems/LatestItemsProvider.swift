@@ -128,9 +128,9 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
                         id: id,
                         itemTitle: item.title ?? "Untitled",
                         feedTitle: item.feedData?.feed?.wrappedTitle ?? "Untitled",
-                        faviconURL: nil,
+                        faviconURL: item.feedData?.favicon,
                         faviconImage: nil,
-                        thumbnailURL: nil,
+                        thumbnailURL: item.image,
                         thumbnailImage: nil
                     ))
                 }
@@ -153,7 +153,13 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
                         "Inbox",
                         comment: "Widget title."
                     ),
-                    faviconURL: nil,
+                    faviconURL: {
+                        if feed != nil {
+                            return feed?.feedData?.favicon
+                        } else {
+                            return nil
+                        }
+                    }(),
                     faviconImage: nil,
                     symbol: page?.wrappedSymbol,
                     configuration: configuration
@@ -161,29 +167,39 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
                 entries.append(entry)
             }
         }
+        
+        await populateEntryImages(&entries[0])
 
         return Timeline(entries: entries, policy: .never)
     }
     // swiftlint:enable cyclomatic_complexity function_body_length
     
-    private func populateEntryImages(_ entry: inout LatestItemsEntry) {
-        /*
-        let (feedFaviconImage, _) = await SDWebImageManager.shared.loadImage(
-            with: feed?.feedData?.favicon,
-            context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
-        )
+    private func populateEntryImages(_ entry: inout LatestItemsEntry) async {
         
-        let (faviconImage, _) = await SDWebImageManager.shared.loadImage(
-            with: item.feedData?.favicon,
-            context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
-        )
+        if let faviconURL = entry.faviconURL {
+            let (faviconImage, _) = await SDWebImageManager.shared.loadImage(
+                with: faviconURL,
+                context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
+            )
+            entry.faviconImage = faviconImage
+        }
         
-        let (thumbnailImage, _) = await SDWebImageManager.shared.loadImage(
-            with: item.image,
-            context: [
-                .imageThumbnailPixelSize: CGSize(width: 240, height: 240)
-            ]
-        )
-         */
+        for (idx, item) in entry.items.enumerated() {
+            if let faviconURL = item.faviconURL {
+                let (faviconImage, _) = await SDWebImageManager.shared.loadImage(
+                    with: faviconURL,
+                    context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
+                )
+                entry.items[idx].faviconImage = faviconImage
+            }
+            
+            if let thumbnailURL = item.thumbnailURL {
+                let (thumbnailImage, _) = await SDWebImageManager.shared.loadImage(
+                    with: thumbnailURL,
+                    context: [.imageThumbnailPixelSize: CGSize(width: 240, height: 240)]
+                )
+                entry.items[idx].thumbnailImage = thumbnailImage
+            }
+        }
     }
 }

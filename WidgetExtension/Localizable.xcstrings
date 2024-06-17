@@ -35,7 +35,7 @@
 
     },
     "Inbox" : {
-      "comment" : "Widget placeholder title.\nWidget title.",
+      "comment" : "Widget placeholder title.\nWidget snapshot title.\nWidget title.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -78,7 +78,7 @@
       }
     },
     "Untitled" : {
-      "comment" : "Default content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.",
+      "comment" : "Bookmark site title placeholder.\nDefault content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
