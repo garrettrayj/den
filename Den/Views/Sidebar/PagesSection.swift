@@ -30,6 +30,7 @@ struct PagesSection: View {
                 )
             }
             .onMove(perform: movePages)
+            .onDelete(perform: deletePages)
         } header: {
             Text("Folders", comment: "Sidebar section header.")
         }
@@ -45,6 +46,20 @@ struct PagesSection: View {
         // This is done in reverse order to minimize changes to the indices.
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
+        }
+
+        do {
+            try viewContext.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
+    }
+
+    private func deletePages(at offsets: IndexSet) {
+        for index in offsets {
+            let page = pages[index]
+            page.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
+            viewContext.delete(page)
         }
 
         do {

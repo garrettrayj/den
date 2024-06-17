@@ -47,7 +47,8 @@ struct SidebarPage: View {
             ForEach(page.feedsArray, id: \.self) { feed in
                 SidebarFeed(feed: feed)
             }
-            .onMove(perform: moveFeed)
+            .onMove(perform: moveFeeds)
+            .onDelete(perform: deleteFeeds)
         } label: {
             WithItems(scopeObject: page) { items in
                 Label {
@@ -114,7 +115,7 @@ struct SidebarPage: View {
         .tag(DetailPanel.page(page))
     }
     
-    private func moveFeed( from source: IndexSet, to destination: Int) {
+    private func moveFeeds( from source: IndexSet, to destination: Int) {
         // Make an array of items from fetched results
         var revisedItems: [Feed] = page.feedsArray.map { $0 }
 
@@ -130,6 +131,22 @@ struct SidebarPage: View {
         do {
             try viewContext.save()
             page.objectWillChange.send()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
+    }
+    
+    private func deleteFeeds(at offsets: IndexSet) {
+        for index in offsets {
+            let feed = page.feedsArray[index]
+            if let feedData = feed.feedData {
+                viewContext.delete(feedData)
+            }
+            viewContext.delete(feed)
+        }
+
+        do {
+            try viewContext.save()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }
