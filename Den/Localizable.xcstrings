@@ -486,6 +486,9 @@
         }
       }
     },
+    "Clear Search Suggestions" : {
+      "comment" : "Button label."
+    },
     "Close" : {
       "comment" : "Button label.",
       "localizations" : {

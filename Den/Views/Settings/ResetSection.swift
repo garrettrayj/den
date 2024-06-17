@@ -23,6 +23,9 @@ struct ResetSection: View {
     @FetchRequest(sortDescriptors: [])
     private var history: FetchedResults<History>
     
+    @FetchRequest(sortDescriptors: [])
+    private var searches: FetchedResults<Search>
+    
     static let cacheSizeFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()
         formatter.allowedUnits = .useAll
@@ -80,6 +83,18 @@ struct ResetSection: View {
             }
             .disabled(history.isEmpty)
             .accessibilityIdentifier("ClearHistory")
+            
+            Button {
+                clearSearches()
+            } label: {
+                Label {
+                    Text("Clear Search Suggestions", comment: "Button label.")
+                } icon: {
+                    Image(systemName: "clear")
+                }
+            }
+            .disabled(searches.isEmpty)
+            .accessibilityIdentifier("ClearSearches")
             
             Button(role: .destructive) {
                 showingResetAlert = true
@@ -156,6 +171,16 @@ struct ResetSection: View {
             trends.forEach { $0.read = false }
         }
 
+        do {
+            try viewContext.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
+    }
+    
+    private func clearSearches() {
+        DataController.truncate(Search.self, context: viewContext)
+        
         do {
             try viewContext.save()
         } catch {
