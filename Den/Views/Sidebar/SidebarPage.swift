@@ -43,14 +43,14 @@ struct SidebarPage: View {
     }
 
     var body: some View {
-        DisclosureGroup(isExpanded: isExpandedBinding) {
-            ForEach(page.feedsArray, id: \.self) { feed in
-                SidebarFeed(feed: feed)
-            }
-            .onMove(perform: moveFeeds)
-            .onDelete(perform: deleteFeeds)
-        } label: {
-            WithItems(scopeObject: page) { items in
+        WithItems(scopeObject: page) { items in
+            DisclosureGroup(isExpanded: isExpandedBinding) {
+                ForEach(page.feedsArray, id: \.self) { feed in
+                    SidebarFeed(feed: feed, unreadCount: items.forFeed(feed).featured.unread.count)
+                }
+                .onMove(perform: moveFeeds)
+                .onDelete(perform: deleteFeeds)
+            } label: {
                 Label {
                     #if os(macOS)
                     TextField(text: $page.wrappedName) {
@@ -109,10 +109,10 @@ struct SidebarPage: View {
                         IconSelector(selection: $page.wrappedSymbol)
                     }
                 )
-                .accessibilityIdentifier("SidebarPage")
             }
+            .accessibilityIdentifier("SidebarPage")
+            .tag(DetailPanel.page(page))
         }
-        .tag(DetailPanel.page(page))
     }
     
     private func moveFeeds( from source: IndexSet, to destination: Int) {
