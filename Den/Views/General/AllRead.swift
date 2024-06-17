@@ -24,7 +24,7 @@ struct AllRead: View {
             } description: {
                 Text(
                     """
-                    Turn off filter \(Image(systemName: "line.3.horizontal.decrease.circle.fill")) \
+                    Turn off filter \(Image(systemName: "line.3.horizontal.decrease.circle")) \
                     to show hidden items.
                     """,
                     comment: "All read guidance."

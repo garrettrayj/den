@@ -21,13 +21,8 @@ struct LargeThumbnail: View {
     let sourceWidth: CGFloat?
     let sourceHeight: CGFloat?
     
-    @ScaledMetric private var thumbnailWidth = 384
-    @ScaledMetric private var thumbnailHeight = 768
+    @ScaledMetric private var thumbnailWidth = 300
     
-    private var thumbnailPixelSize: CGSize {
-        CGSize(width: thumbnailWidth * displayScale, height: thumbnailHeight * displayScale)
-    }
-
     var body: some View {
         if let aspectRatio = aspectRatio {
             if aspectRatio < 1/3 || sourceWidth! < thumbnailWidth {
@@ -70,7 +65,7 @@ struct LargeThumbnail: View {
     private var webImage: some View {
         WebImage(
             url: url,
-            context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+            context: [.imageThumbnailPixelSize: thumbnailWidth * displayScale]
         ) { image in
             image
         } placeholder: {
