@@ -43,7 +43,9 @@ final class RefreshManager: ObservableObject {
     func refresh(inBackground: Bool = false) async {
         guard progress.totalUnitCount == 0 else { return }
 
-        await MainActor.run { refreshing = true }
+        if !inBackground {
+            await MainActor.run { refreshing = true }
+        }
         
         var feedUpdates: [FeedUpdateTask] = []
         
@@ -94,7 +96,9 @@ final class RefreshManager: ObservableObject {
         UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
         WidgetCenter.shared.reloadAllTimelines()
         
-        await MainActor.run { refreshing = false }
+        if !inBackground {
+            await MainActor.run { refreshing = false }
+        }
         
         progress.completedUnitCount = 0
         progress.totalUnitCount = 0
