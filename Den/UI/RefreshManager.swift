@@ -13,7 +13,6 @@ import CoreData
 import OSLog
 import WidgetKit
 
-@MainActor
 final class RefreshManager: ObservableObject {
     @Published var refreshing = false
     @Published var autoRefreshActive = false
@@ -44,9 +43,7 @@ final class RefreshManager: ObservableObject {
     func refresh(inBackground: Bool = false) async {
         guard progress.totalUnitCount == 0 else { return }
 
-        if !inBackground {
-            await MainActor.run { refreshing = true }
-        }
+        await MainActor.run { refreshing = true }
         
         var feedUpdates: [FeedUpdateTask] = []
         
@@ -97,9 +94,7 @@ final class RefreshManager: ObservableObject {
         UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
         WidgetCenter.shared.reloadAllTimelines()
         
-        if !inBackground {
-            await MainActor.run { refreshing = false }
-        }
+        await MainActor.run { refreshing = false }
         
         progress.completedUnitCount = 0
         progress.totalUnitCount = 0

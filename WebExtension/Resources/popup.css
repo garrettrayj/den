@@ -23,7 +23,7 @@ body {
     -webkit-user-select: none; /* Safari */
     cursor: default;
     margin: 0;
-    padding: 12px;
+    padding: 8px 16px;
 }
 
 @supports (-webkit-touch-callout: none) { /* iOS */
@@ -49,7 +49,7 @@ body {
     display: flex;
     flex-flow: column;
     font: -apple-system-title3;
-    padding: 8px;
+    padding: 8px 0;
     text-align: center;
 }
 
@@ -75,7 +75,6 @@ body {
 /* Results List */
 
 #results {
-    background: -apple-system-secondary-grouped-background;
     border-radius: 8px;
     border-width: 0;
     border-spacing: 0;
@@ -84,7 +83,7 @@ body {
 .result {
     border-top: 1px solid -apple-system-separator;
     display: flex;
-    padding: 0 8px;
+    padding: 8px 0;
 }
 
 .result:first-child {
@@ -94,7 +93,6 @@ body {
 .result-description {
     flex-grow: 1;
     overflow: hidden;
-    padding: 8px 4px 8px 4px;
 }
 
 .result-description-title,
@@ -121,13 +119,14 @@ body {
 /** Status messages */
 
 .status {
-    color:  -apple-system-secondary-label;
+    border-top: 1px solid -apple-system-separator;
+    color:  -apple-system-control-accent;
     font: -apple-system-caption2;
-    margin: 8px 0 0;
-    white-space: nowrap;
+    overflow: hidden;
+    padding: 8px 0 4px;
     text-align: left;
     text-overflow: ellipsis;
-    overflow: hidden;
+    white-space: nowrap;
 }
 
 /** Icons */
