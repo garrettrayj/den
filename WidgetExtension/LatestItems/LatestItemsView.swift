@@ -16,21 +16,28 @@ struct LatestItemsView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
+    @AppStorage("AccentColor") private var accentColor: AccentColor?
     
-    @ScaledMetric(relativeTo: .largeTitle) var smallIconSize = 20
+    @ScaledMetric(relativeTo: .largeTitle) var smallIconSize = 16
     @ScaledMetric(relativeTo: .largeTitle) var largeIconSize = 32
-    @ScaledMetric(relativeTo: .largeTitle) var thumbnailSize = 80
+    @ScaledMetric(relativeTo: .largeTitle) var thumbnailSize = 64
+    
+    @ScaledMetric(relativeTo: .title) var widgetTitleFontSize = 16
+    @ScaledMetric(relativeTo: .headline) var itemTitleFontSize = 13.5
+    @ScaledMetric(relativeTo: .caption) var itemSourceFontSize = 10
     
     var entry: LatestItemsProvider.Entry
     
     var maxColumnItems: Int {
         if widgetFamily == .systemLarge || widgetFamily == .systemExtraLarge {
-            if dynamicTypeSize > .xxxLarge {
+            if dynamicTypeSize > .accessibility1 {
                 return 1
-            } else if dynamicTypeSize > .large {
+            } else if dynamicTypeSize > .xxxLarge {
                 return 2
-            } else {
+            } else if dynamicTypeSize > .large {
                 return 3
+            } else {
+                return 4
             }
         }
         
@@ -74,13 +81,13 @@ struct LatestItemsView: View {
         VStack(spacing: 8) {
             HStack {
                 Label {
-                    entry.title
+                    entry.title.font(.system(size: widgetTitleFontSize, weight: .bold))
                 } icon: {
                     sourceIcon
                         .scaledToFit()
                         .frame(width: smallIconSize, height: smallIconSize)
+                        .foregroundStyle(accentColor?.color ?? .accentColor)
                 }
-                .font(.title3)
                 .lineLimit(1)
                 
                 Spacer()
@@ -118,11 +125,8 @@ struct LatestItemsView: View {
     
     private var unreadCount: some View {
         Text(verbatim: "\(entry.unread)")
-            .font(.footnote.weight(.medium).monospacedDigit())
+            .font(.footnote.weight(.medium))
             .foregroundStyle(.secondary)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 2)
-            .background { Capsule().fill(.fill.secondary) }
     }
     
     @ViewBuilder
@@ -147,32 +151,44 @@ struct LatestItemsView: View {
     }
     
     private var singleColumnView: some View {
-        ForEach(entry.items.prefix(maxColumnItems)) { item in
-            Divider()
-            itemView(item: item)
+        VStack(spacing: 12) {
+            ForEach(entry.items.prefix(maxColumnItems)) { item in
+                itemView(item: item)
+            }
         }
     }
     
     private var doubleColumnView: some View {
-        HStack(alignment: .top, spacing: 16) {
-            VStack(spacing: 8) {
-                ForEach(
-                    entry.items.enumerated().filter { $0.offset.isMultiple(of: 2) }.prefix(maxColumnItems),
-                    id: \.element.id
-                ) { _, item in
-                    Divider()
-                    itemView(item: item)
+        var firstColumnItems: [LatestItemsEntry.WidgetItem] = []
+        var secondColumnItems: [LatestItemsEntry.WidgetItem] = []
+        
+        for (offset, item) in entry.items.enumerated() {
+            if offset.isMultiple(of: 2) {
+                secondColumnItems.append(item)
+            } else {
+                firstColumnItems.append(item)
+            }
+        }
+        
+        return HStack(alignment: .top, spacing: 16) {
+            VStack(spacing: 12) {
+                ForEach(0..<maxColumnItems, id: \.self) { idx in
+                    if firstColumnItems.indices.contains(idx) {
+                        itemView(item: firstColumnItems[idx])
+                    } else {
+                        ZStack {}.frame(maxHeight: .infinity)
+                    }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
             
-            VStack(spacing: 8) {
-                ForEach(
-                    entry.items.enumerated().filter { !$0.offset.isMultiple(of: 2) }.prefix(maxColumnItems),
-                    id: \.element.id
-                ) { _, item in
-                    Divider()
-                    itemView(item: item)
+            VStack(spacing: 12) {
+                ForEach(0..<maxColumnItems, id: \.self) { idx in
+                    if secondColumnItems.indices.contains(idx) {
+                        itemView(item: secondColumnItems[idx])
+                    } else {
+                        ZStack {}.frame(maxHeight: .infinity)
+                    }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -182,53 +198,65 @@ struct LatestItemsView: View {
     private func itemView(item: LatestItemsEntry.WidgetItem) -> some View {
         Link(destination: entry.url(item: item)) {
             HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 0) {
                     if entry.configuration.source.entityType != Feed.self {
-                        Label {
-                            Text(item.feedTitle)
-                        } icon: {
+                        HStack(spacing: 4) {
                             if let favicon = item.faviconImage {
                                 favicon
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 12, height: 12)
+                                    .grayscale(1)
+                                    .opacity(0.5)
+                                    .frame(width: itemSourceFontSize, height: itemSourceFontSize)
                             } else {
                                 Image(systemName: "dot.radiowaves.up.forward").imageScale(.small)
                             }
+                            Text(item.feedTitle)
                         }
-                        #if os(macOS)
-                        .font(.callout)
-                        #else
-                        .font(.footnote)
-                        #endif
+                        .font(.system(size: itemSourceFontSize, weight: .medium))
                         .imageScale(.small)
                         .lineLimit(1)
+                        .foregroundStyle(.secondary)
                     }
                     Text(item.itemTitle)
-                        .lineLimit(entry.configuration.source.entityType == Feed.self ? 4 : 3)
-                        .fixedSize(horizontal: false, vertical: true)
-                        #if os(macOS)
-                        .font(.headline)
-                        #else
-                        .font(.body.weight(.semibold))
-                        #endif
+                        .lineLimit(widgetFamily == .systemMedium ? 6 : 3)
+                        .font(
+                            .system(size: itemTitleFontSize, weight: .bold)
+                            .leading(.tight)
+                        )
                 }
                 
                 Spacer(minLength: 0)
                 
                 if let image = item.thumbnailImage {
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: thumbnailSize, height: thumbnailSize)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 8).strokeBorder(.separator, lineWidth: 1)
-                        }
+                    itemThumbnail(image: image)
+                } else {
+                    ZStack {}
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .aspectRatio(1, contentMode: .fit)
                         .padding(.leading, 8)
                 }
             }
-            .frame(height: thumbnailSize, alignment: .top)
+            .frame(maxHeight: .infinity, alignment: .top)
         }
+    }
+    
+    private func itemThumbnail(image: Image) -> some View {
+        ZStack {
+            GeometryReader { geometry in
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8)
+                            .strokeBorder(.separator.secondary, lineWidth: 1)
+                    }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .aspectRatio(1, contentMode: .fit)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .padding(.leading, 8)
     }
 }

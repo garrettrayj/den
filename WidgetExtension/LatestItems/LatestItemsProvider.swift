@@ -113,9 +113,9 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             
             var maxItems = 1
             if context.family == .systemLarge {
-                maxItems = 3
+                maxItems = 4
             } else if context.family == .systemExtraLarge {
-                maxItems = 6
+                maxItems = 8
             }
 
             if let items = try? moc.fetch(request) {

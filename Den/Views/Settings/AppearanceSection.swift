@@ -9,6 +9,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct AppearanceSection: View {
     @AppStorage("AccentColor") private var accentColor: AccentColor?
@@ -20,6 +21,10 @@ struct AppearanceSection: View {
             AccentColorSelector(selection: $accentColor)
         } header: {
             Text("Appearance", comment: "Settings section header.")
+        }
+        .onChange(of: accentColor) {
+            UserDefaults.group.set(accentColor?.rawValue, forKey: "AccentColor")
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 }

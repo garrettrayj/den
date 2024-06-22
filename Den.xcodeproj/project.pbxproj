@@ -170,6 +170,7 @@
 		687925AA2A60C1DB00188A83 /* SearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687925A22A60C1DB00188A83 /* SearchUITests.swift */; };
 		687925AB2A60C1DB00188A83 /* FeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687925A32A60C1DB00188A83 /* FeedUITests.swift */; };
 		6879B3DD2BD23B5D00659FE8 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 68F0FB732B891BFC00B64B78 /* PrivacyInfo.xcprivacy */; };
+		687AA0ED2C254A690060A93E /* AccentColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1729B187180073CEFD /* AccentColor.swift */; };
 		687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687C27782631F6A000099FCA /* FileManager+Extensions.swift */; };
 		687D9CB024A8CABD00EB7F46 /* OPMLGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CAF24A8CABD00EB7F46 /* OPMLGenerator.swift */; };
 		687D9CB824A9CA2A00EB7F46 /* ItemPreviewCompressed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CB724A9CA2A00EB7F46 /* ItemPreviewCompressed.swift */; };
@@ -1045,7 +1046,6 @@
 		687FEF0E2A40A6050042977E /* Enumerations */ = {
 			isa = PBXGroup;
 			children = (
-				68352D1729B187180073CEFD /* AccentColor.swift */,
 				6835738D29614C5600843A8E /* DetailPanel.swift */,
 				68CE43442B54409200C69B7B /* PageIcon.swift */,
 				68F6FB9E29ADE0E2001F74B9 /* PageLayout.swift */,
@@ -1282,6 +1282,7 @@
 				68915AEE2618CD9C00E4C0CB /* Entities */,
 				68FB95162BE804DC004EFA73 /* Enumerations */,
 				68FB95152BE804A2004EFA73 /* Extensions */,
+				68352D1729B187180073CEFD /* AccentColor.swift */,
 				68F56B74288BFCCC006EC915 /* Den.xcdatamodel */,
 				6880EBE027A8E61C00B479F4 /* PreliminaryImage.swift */,
 			);
@@ -2044,6 +2045,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68CC01392BDFD6EC00E723DC /* AppGroup.swift in Sources */,
+				687AA0ED2C254A690060A93E /* AccentColor.swift in Sources */,
 				68FB950C2BE605D3004EFA73 /* Array+Extensions.swift in Sources */,
 				68A5A13E2BE192B900FEA8D3 /* Blocklist+CoreDataClass.swift in Sources */,
 				68A5A1422BE192B900FEA8D3 /* BlocklistStatus+CoreDataClass.swift in Sources */,

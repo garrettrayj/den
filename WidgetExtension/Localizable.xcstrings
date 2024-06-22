@@ -21,6 +21,12 @@
         }
       }
     },
+    "Blue" : {
+      "comment" : "Accent color option."
+    },
+    "Brown" : {
+      "comment" : "Accent color option."
+    },
     "Configuration" : {
       "localizations" : {
         "en-AU" : {
@@ -31,8 +37,14 @@
         }
       }
     },
+    "Cyan" : {
+      "comment" : "Accent color option."
+    },
     "Folder" : {
 
+    },
+    "Green" : {
+      "comment" : "Accent color option."
     },
     "Inbox" : {
       "comment" : "Widget placeholder title.\nWidget snapshot title.\nWidget title.",
@@ -45,6 +57,9 @@
         }
       }
     },
+    "Indigo" : {
+      "comment" : "Accent color option."
+    },
     "Latest Items" : {
       "comment" : "Widget display name.",
       "localizations" : {
@@ -55,6 +70,9 @@
           }
         }
       }
+    },
+    "Mint" : {
+      "comment" : "Accent color option."
     },
     "No Unread Items" : {
       "comment" : "Widget empty message.",
@@ -67,6 +85,18 @@
         }
       }
     },
+    "Orange" : {
+      "comment" : "Accent color option."
+    },
+    "Pink" : {
+      "comment" : "Accent color option."
+    },
+    "Purple" : {
+      "comment" : "Accent color option."
+    },
+    "Red" : {
+      "comment" : "Accent color option."
+    },
     "Source" : {
       "localizations" : {
         "en-AU" : {
@@ -76,6 +106,9 @@
           }
         }
       }
+    },
+    "Teal" : {
+      "comment" : "Accent color option."
     },
     "Untitled" : {
       "comment" : "Bookmark site title placeholder.\nDefault content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.",
@@ -87,6 +120,9 @@
           }
         }
       }
+    },
+    "Yellow" : {
+      "comment" : "Accent color option."
     }
   },
   "version" : "1.0"
