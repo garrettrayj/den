@@ -250,7 +250,7 @@ struct LatestItemsView: View {
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .overlay {
                         RoundedRectangle(cornerRadius: 8)
-                            .strokeBorder(.separator.secondary, lineWidth: 1)
+                            .strokeBorder(.separator.quinary, lineWidth: 1)
                     }
             }
         }
