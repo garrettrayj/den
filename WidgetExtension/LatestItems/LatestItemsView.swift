@@ -23,7 +23,7 @@ struct LatestItemsView: View {
     @ScaledMetric(relativeTo: .largeTitle) var thumbnailSize = 64
     
     @ScaledMetric(relativeTo: .title) var widgetTitleFontSize = 16
-    @ScaledMetric(relativeTo: .headline) var itemTitleFontSize = 13.5
+    @ScaledMetric(relativeTo: .headline) var itemTitleFontSize = 14
     @ScaledMetric(relativeTo: .caption) var itemSourceFontSize = 10
     
     var entry: LatestItemsProvider.Entry
@@ -198,7 +198,7 @@ struct LatestItemsView: View {
     private func itemView(item: LatestItemsEntry.WidgetItem) -> some View {
         Link(destination: entry.url(item: item)) {
             HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading, spacing: 1) {
                     if entry.configuration.source.entityType != Feed.self {
                         HStack(spacing: 4) {
                             if let favicon = item.faviconImage {
@@ -224,6 +224,7 @@ struct LatestItemsView: View {
                             .system(size: itemTitleFontSize, weight: .bold)
                             .leading(.tight)
                         )
+                        .padding(.bottom, -4)
                 }
                 
                 Spacer(minLength: 0)
