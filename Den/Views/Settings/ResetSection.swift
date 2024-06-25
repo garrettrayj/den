@@ -171,27 +171,8 @@ struct ResetSection: View {
     }
 
     private func resetEverything() {
-        let batchTruncateList: [any PersistentModel.Type] = [
-            // Cloud models
-            Blocklist.self,
-            Bookmark.self,
-            Feed.self,
-            History.self,
-            Page.self,
-            Profile.self,
-            Search.self,
-            Tag.self,
-            // Local models
-            BlocklistStatus.self,
-            FeedData.self,
-            Item.self,
-            Trend.self,
-            TrendItem.self
-        ]
-        
-        batchTruncateList.forEach {
-            try? modelContext.delete(model: $0)
-        }
+        DataController.shared.localModels.forEach { try? modelContext.delete(model: $0) }
+        DataController.shared.cloudModels.forEach { try? modelContext.delete(model: $0) }
 
         Task {
             await BlocklistManager.removeAllContentRulesLists()
