@@ -47,7 +47,9 @@ final class BlocklistManager {
         return await WKContentRuleListStore.default().availableIdentifiers() ?? []
     }
     
-    static func cleanupContentRulesLists(context: ModelContext) async {
+    static func cleanupContentRulesLists() async {
+        let context = ModelContext(DataController.shared.container)
+        
         guard let blocklists = try? context.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
         else { return }
         
@@ -88,12 +90,10 @@ final class BlocklistManager {
     @MainActor
     static func compileContentRulesList(identifier: String, json: String) async -> Bool {
         do {
-            /*
             _ = try await WKContentRuleListStore.default().compileContentRuleList(
                 forIdentifier: identifier,
                 encodedContentRuleList: json
             )
-             */
             return true
         } catch {
             return false
@@ -134,7 +134,9 @@ final class BlocklistManager {
         Logger.main.info("Blocklist refreshed: \(blocklist.wrappedName, privacy: .public)")
     }
     
-    static func refreshAllContentRulesLists(context: ModelContext) async {
+    static func refreshAllContentRulesLists() async {
+        let context = ModelContext(DataController.shared.container)
+        
         guard let blocklists = try? context.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
         else { return }
         

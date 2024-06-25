@@ -43,7 +43,7 @@ struct BrowserView: View {
         ZStack {
             BrowserWebView(browserViewModel: browserViewModel)
                 .task {
-                    //browserViewModel.contentRuleLists = await BlocklistManager.getContentRuleLists()
+                    browserViewModel.contentRuleLists = await BlocklistManager.getContentRuleLists()
                     browserViewModel.useBlocklists = useBlocklists ?? true
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
                     browserViewModel.allowJavaScript = allowJavaScript ?? true
