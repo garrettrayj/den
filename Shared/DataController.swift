@@ -16,7 +16,7 @@ struct DataController {
     
     let container: ModelContainer
     
-    let cloudTypes: [any PersistentModel.Type] = [
+    let cloudSchema = Schema([
         Blocklist.self,
         Bookmark.self,
         Feed.self,
@@ -25,15 +25,15 @@ struct DataController {
         Profile.self,
         Search.self,
         Tag.self
-    ]
+    ])
     
-    let localTypes: [any PersistentModel.Type] = [
+    let localSchema = Schema([
         BlocklistStatus.self,
         FeedData.self,
         Item.self,
         Trend.self,
         TrendItem.self
-    ]
+    ])
     
     init(inMemory: Bool = false) {
         let cloudStoreURL: URL
@@ -56,7 +56,7 @@ struct DataController {
         do {
             let cloudConfig = ModelConfiguration(
                 "Den",
-                schema: Schema(cloudTypes),
+                schema: cloudSchema,
                 url: cloudStoreURL,
                 allowsSave: true,
                 cloudKitDatabase: .private("iCloud.net.devsci.den")
@@ -64,7 +64,7 @@ struct DataController {
             
             let localConfig = ModelConfiguration(
                 "Den-Local",
-                schema: Schema(localTypes),
+                schema: localSchema,
                 url: localStoreURL,
                 allowsSave: true,
                 cloudKitDatabase: .none
