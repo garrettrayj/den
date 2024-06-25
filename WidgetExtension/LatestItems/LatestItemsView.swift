@@ -164,9 +164,9 @@ struct LatestItemsView: View {
         
         for (offset, item) in entry.items.enumerated() {
             if offset.isMultiple(of: 2) {
-                secondColumnItems.append(item)
-            } else {
                 firstColumnItems.append(item)
+            } else {
+                secondColumnItems.append(item)
             }
         }
         
