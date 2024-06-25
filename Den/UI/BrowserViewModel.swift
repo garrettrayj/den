@@ -62,7 +62,7 @@ import WebKit
     var readerZoom: PageZoomLevel = .oneHundredPercent
     var contentRuleLists: [WKContentRuleList]?
 
-    func loadURL(url: URL?) async {
+    func loadURL(url: URL?) {
         guard let url = url else { return }
         
         if useBlocklists && !browserRulesListsLoaded, let contentRuleLists = contentRuleLists {
@@ -107,13 +107,13 @@ import WebKit
     @MainActor
     func toggleBlocklists() async {
         useBlocklists.toggle()
-        await loadURL(url: url)
+        loadURL(url: url)
     }
     
     @MainActor
     func toggleJavaScript() async {
         allowJavaScript.toggle()
-        await loadURL(url: url)
+        loadURL(url: url)
     }
 
     func showReader() {
@@ -151,7 +151,7 @@ import WebKit
     }
 
     @MainActor
-    func loadReader(initialZoom: PageZoomLevel) async {
+    func loadReader(initialZoom: PageZoomLevel) {
         var baseURL: URL?
 
         if

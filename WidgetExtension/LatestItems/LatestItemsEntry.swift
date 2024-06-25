@@ -24,7 +24,7 @@ struct LatestItemsEntry: TimelineEntry {
     }
     
     let date: Date
-    let items: [WidgetItem]
+    var items: [WidgetItem]
     let sourceID: UUID?
     let sourceType: (any PersistentModel.Type)?
     let unread: Int

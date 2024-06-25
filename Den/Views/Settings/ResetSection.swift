@@ -24,8 +24,8 @@ struct ResetSection: View {
     @Query()
     private var history: [History]
     
-    @FetchRequest(sortDescriptors: [])
-    private var searches: FetchedResults<Search>
+    @Query()
+    private var searches: [Search]
 
     static let cacheSizeFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()
@@ -167,13 +167,7 @@ struct ResetSection: View {
     }
 
     private func clearSearches() {
-        DataController.truncate(Search.self, context: viewContext)
-
-        do {
-            try viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
+        try? modelContext.delete(model: Search.self)
     }
 
     private func resetEverything() {

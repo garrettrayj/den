@@ -52,14 +52,8 @@ struct PagesSection: View {
     private func deletePages(at offsets: IndexSet) {
         for index in offsets {
             let page = pages[index]
-            page.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
-            viewContext.delete(page)
-        }
-
-        do {
-            try viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
+            page.feedsArray.compactMap { $0.feedData }.forEach { modelContext.delete($0) }
+            modelContext.delete(page)
         }
     }
 }

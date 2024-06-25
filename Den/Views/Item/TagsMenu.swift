@@ -55,17 +55,10 @@ struct TagsMenu: View {
     private func toggleTag(tag: Tag) {
         if item.bookmarkTags.contains(tag) {
             for bookmark in item.bookmarks where bookmark.tag == tag {
-                viewContext.delete(bookmark)
+                modelContext.delete(bookmark)
             }
         } else {
-            _ = Bookmark.create(in: viewContext, item: item, tag: tag)
-        }
-
-        do {
-            try viewContext.save()
-            item.objectWillChange.send()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
+            _ = Bookmark.create(in: modelContext, item: item, tag: tag)
         }
     }
 }

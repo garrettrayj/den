@@ -2479,9 +2479,6 @@
         }
       }
     },
-    "Unknown Background Refresh Status" : {
-      "comment" : "Background refresh status."
-    },
     "Unknown Error" : {
       "comment" : "Feed unavailable title.",
       "localizations" : {

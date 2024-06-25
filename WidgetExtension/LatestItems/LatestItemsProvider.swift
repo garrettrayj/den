@@ -121,64 +121,58 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
         
         var maxItems = 1
         if context.family == .systemLarge {
-            maxItems = 3
+            maxItems = 4
         } else if context.family == .systemExtraLarge {
-            maxItems = 6
+            maxItems = 8
         }
-        
-        let (feedFaviconImage, _) = await SDWebImageManager.shared.loadImage(
-            with: feed?.feedData?.favicon,
-            context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
-        )
         
         if let items = try? moc.fetch(request) {
             var entryItems: [Entry.WidgetItem] = []
 
-                for item in items.prefix(maxItems) {
-                    guard let id = item.id else { continue }
+            for item in items.prefix(maxItems) {
+                guard let id = item.id else { continue }
 
-                    entryItems.append(.init(
-                        id: id,
-                        itemTitle: item.title ?? "Untitled",
-                        feedTitle: item.feedData?.feed?.wrappedTitle ?? "Untitled",
-                        faviconURL: item.feedData?.favicon,
-                        faviconImage: nil,
-                        thumbnailURL: item.image,
-                        thumbnailImage: nil
-                    ))
-                }
-
-                let entry = LatestItemsEntry(
-                    date: .now,
-                    items: entryItems,
-                    sourceID: page?.id ?? feed?.id,
-                    sourceType: {
-                        if page != nil {
-                            return Page.self
-                        } else if feed != nil {
-                            return Feed.self
-                        } else {
-                            return nil
-                        }
-                    }(),
-                    unread: items.count,
-                    title: feed?.displayTitle ?? page?.displayName ?? Text(
-                        "Inbox",
-                        comment: "Widget title."
-                    ),
-                    faviconURL: {
-                        if feed != nil {
-                            return feed?.feedData?.favicon
-                        } else {
-                            return nil
-                        }
-                    }(),
+                entryItems.append(.init(
+                    id: id,
+                    itemTitle: item.title ?? "Untitled",
+                    feedTitle: item.feedData?.feed?.wrappedTitle ?? "Untitled",
+                    faviconURL: item.feedData?.favicon,
                     faviconImage: nil,
-                    symbol: page?.wrappedSymbol,
-                    configuration: configuration
-                )
-                entries.append(entry)
+                    thumbnailURL: item.image,
+                    thumbnailImage: nil
+                ))
             }
+
+            let entry = LatestItemsEntry(
+                date: .now,
+                items: entryItems,
+                sourceID: page?.id ?? feed?.id,
+                sourceType: {
+                    if page != nil {
+                        return Page.self
+                    } else if feed != nil {
+                        return Feed.self
+                    } else {
+                        return nil
+                    }
+                }(),
+                unread: items.count,
+                title: feed?.displayTitle ?? page?.displayName ?? Text(
+                    "Inbox",
+                    comment: "Widget title."
+                ),
+                faviconURL: {
+                    if feed != nil {
+                        return feed?.feedData?.favicon
+                    } else {
+                        return nil
+                    }
+                }(),
+                faviconImage: nil,
+                symbol: page?.wrappedSymbol,
+                configuration: configuration
+            )
+            entries.append(entry)
         }
 
         await populateEntryImages(&entries[0])
