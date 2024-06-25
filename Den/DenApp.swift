@@ -24,8 +24,7 @@ struct DenApp: App {
     
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
-
-    @State private var container = DataController.shared.container
+    
     @State private var downloadManager = DownloadManager()
     @State private var networkMonitor = NetworkMonitor()
     @State private var refreshManager = RefreshManager()
@@ -37,8 +36,6 @@ struct DenApp: App {
                 .environment(networkMonitor)
                 .environment(refreshManager)
         }
-        .modelContainer(container)
-        .handlesExternalEvents(matching: ["*"])
         .commands {
             ToolbarCommands()
             SidebarCommands()
@@ -70,6 +67,8 @@ struct DenApp: App {
                 #endif
             }
         }
+        .modelContainer(DataController.shared.container)
+        .handlesExternalEvents(matching: ["*"])
         .defaultSize(CGSize(width: 1280, height: 800))
         #if os(iOS)
         .onChange(of: scenePhase) {
@@ -93,7 +92,7 @@ struct DenApp: App {
                 .frame(width: 440)
                 .frame(minHeight: 560)
         }
-        .modelContainer(container)
+        .modelContainer(DataController.shared.container)
         .windowToolbarStyle(.expanded)
         #endif
     }

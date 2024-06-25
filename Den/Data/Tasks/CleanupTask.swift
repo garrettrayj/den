@@ -15,7 +15,7 @@ import SwiftData
 struct CleanupTask {
     func execute() async {
         let context = ModelContext(DataController.shared.container)
-        
+
         guard let feedDatas = try? context.fetch(FetchDescriptor<FeedData>()) as [FeedData] else {
             Logger.main.error("Unable to fetch FeedData records for cleanup")
             return
@@ -23,10 +23,12 @@ struct CleanupTask {
         
         var orphansPurged = 0
         for feedData in feedDatas where feedData.feed == nil {
-            context.delete(feedData)
-            try? context.save()
+            //Fatal error: Never access a full future backing data
+            //context.delete(feedData)
             orphansPurged += 1
         }
+        
+        try? context.save()
         
         Logger.main.info("Purged \(orphansPurged) orphaned feed data records.")
     }

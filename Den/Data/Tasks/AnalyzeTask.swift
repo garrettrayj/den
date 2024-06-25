@@ -47,10 +47,13 @@ struct AnalyzeTask {
         }
 
         // Delete trends not present in current analysis
+        //Fatal error: Never access a full future backing data
+        /*
         for trend in existingTrends where !workingTrends.contains(where: { $0.slug == trend.slug }) {
             context.delete(trend)
         }
-
+         */
+        
         try? context.save()
     }
     

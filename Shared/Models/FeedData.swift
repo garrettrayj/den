@@ -27,7 +27,7 @@ class FeedData {
     var format: String?
     var httpStatus: Int16? = 0
     var icon: URL?
-    //var id: UUID?
+    var id: UUID?
     var image: URL?
     var link: URL?
     var metaDescription: String?
@@ -51,7 +51,7 @@ class FeedData {
         format: String? = nil,
         httpStatus: Int16? = nil,
         icon: URL? = nil,
-        //id: UUID? = nil,
+        id: UUID? = nil,
         image: URL? = nil,
         link: URL? = nil,
         metaDescription: String? = nil,
@@ -74,7 +74,7 @@ class FeedData {
         self.format = format
         self.httpStatus = httpStatus
         self.icon = icon
-        //self.id = id
+        self.id = id
         self.image = image
         self.link = link
         self.metaDescription = metaDescription
@@ -116,7 +116,7 @@ class FeedData {
 
     static func create(in modelContext: ModelContext, feedId: UUID) -> FeedData {
         let feedData = FeedData()
-        //feedData.id = UUID()
+        feedData.id = UUID()
         feedData.feedId = feedId
         
         modelContext.insert(feedData)
