@@ -13,7 +13,7 @@ import SwiftUI
 struct OpenValidatorButton: View {
     @Environment(\.openURL) private var openURL
     
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
     
     var body: some View {
         Button {

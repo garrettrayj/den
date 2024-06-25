@@ -9,10 +9,11 @@
 //
 
 import Foundation
-import CoreData
+import SwiftData
 import WidgetKit
 import SwiftUI
 
+import CompoundPredicate
 import SDWebImage
 import SDWebImageSVGCoder
 import SDWebImageWebPCoder
@@ -65,65 +66,77 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
     ) async -> Timeline<LatestItemsEntry> {
         var entries: [LatestItemsEntry] = []
         
-        let moc = WidgetDataController.getContainer().newBackgroundContext()
-        
-        moc.performAndWait {
-            var feed: Feed?
-            var page: Page?
-            
-            // Fetch scope object
-            if configuration.source.entityType == Page.self {
-                let request = Page.fetchRequest()
-                request.predicate = NSPredicate(
-                    format: "id = %@",
-                    configuration.source.id
-                )
-                page = try? moc.fetch(request).first
-            } else if configuration.source.entityType == Feed.self {
-                let request = Feed.fetchRequest()
-                request.predicate = NSPredicate(
-                    format: "id = %@",
-                    configuration.source.id
-                )
-                feed = try? moc.fetch(request).first
-            }
-            
-            // Get items
-            var predicates: [NSPredicate] = [
-                NSPredicate(format: "read = %@", NSNumber(value: false)),
-                NSPredicate(format: "extra = %@", NSNumber(value: false))
-            ]
-            
-            if let feed = feed {
-                if let feedData = feed.feedData {
-                    predicates.append(
-                        NSPredicate(format: "feedData = %@", feedData)
-                    )
-                }
-            } else if let page = page {
-                predicates.append(NSPredicate(
-                    format: "feedData IN %@",
-                    page.feedsArray.compactMap { $0.feedData }
-                ))
-            }
-            
-            let request = Item.fetchRequest()
-            request.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
-            request.sortDescriptors = [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
-            
-            var maxItems = 1
-            if context.family == .systemLarge {
-                maxItems = 4
-            } else if context.family == .systemExtraLarge {
-                maxItems = 8
-            }
+        let moc = ModelContext(DataController.shared.container)
 
-            if let items = try? moc.fetch(request) {
-                var entryItems: [Entry.WidgetItem] = []
+        var feed: Feed?
+        var page: Page?
+
+        // Fetch scope object
+        let sourceID = configuration.source.id as String?
+        if configuration.source.entityType == Page.self {
+            let request = FetchDescriptor<Page>(
+                predicate: #Predicate<Page> { $0.id?.uuidString == sourceID }
+            )
+            page = try? moc.fetch(request).first
+        } else if configuration.source.entityType == Feed.self {
+            let request = FetchDescriptor<Feed>(
+                predicate: #Predicate<Feed> { $0.id?.uuidString == sourceID }
+            )
+            feed = try? moc.fetch(request).first
+        }
+
+        // Get items
+
+        let readPredicate = #Predicate<Item> { $0.read == false }
+        let extraPredicate = #Predicate<Item> { $0.extra == false }
+        var predicates: [Predicate<Item>] = [readPredicate, extraPredicate]
+
+        if let feed = feed {
+            if let feedDataID = feed.feedData?.persistentModelID {
+                let feedScopePredicate = #Predicate<Item> { $0.feedData?.persistentModelID == feedDataID }
+                predicates.append(feedScopePredicate)
+            }
+        } else if let page = page {
+            var pagePredicates: [Predicate<Item>] = []
+            let feedDataIDs = page.feedsArray.compactMap { $0.feedData?.persistentModelID }
+
+            if feedDataIDs.isEmpty {
+                let fakeUUID = UUID()
+                let emptyPredicate = #Predicate<Item> { $0.id == fakeUUID }
+                predicates.append(emptyPredicate)
+            } else {
+                for feedDataID in feedDataIDs {
+                    let pagePredicate = #Predicate<Item> { $0.feedData?.persistentModelID == feedDataID }
+                    pagePredicates.append(pagePredicate)
+                }
+                let pagePredicate = pagePredicates.disjunction()
+                predicates.append(pagePredicate)
+            }
+        }
+
+        let request = FetchDescriptor<Item>(
+            predicate: predicates.conjunction(),
+            sortBy: [SortDescriptor(\Item.published, order: .reverse)]
+        )
+        
+        var maxItems = 1
+        if context.family == .systemLarge {
+            maxItems = 3
+        } else if context.family == .systemExtraLarge {
+            maxItems = 6
+        }
+        
+        let (feedFaviconImage, _) = await SDWebImageManager.shared.loadImage(
+            with: feed?.feedData?.favicon,
+            context: [.imageThumbnailPixelSize: CGSize(width: 96, height: 96)]
+        )
+        
+        if let items = try? moc.fetch(request) {
+            var entryItems: [Entry.WidgetItem] = []
 
                 for item in items.prefix(maxItems) {
                     guard let id = item.id else { continue }
-                    
+
                     entryItems.append(.init(
                         id: id,
                         itemTitle: item.title ?? "Untitled",
@@ -134,7 +147,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
                         thumbnailImage: nil
                     ))
                 }
-                
+
                 let entry = LatestItemsEntry(
                     date: .now,
                     items: entryItems,
@@ -167,15 +180,15 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
                 entries.append(entry)
             }
         }
-        
+
         await populateEntryImages(&entries[0])
 
         return Timeline(entries: entries, policy: .never)
     }
     // swiftlint:enable cyclomatic_complexity function_body_length
-    
+
     private func populateEntryImages(_ entry: inout LatestItemsEntry) async {
-        
+
         if let faviconURL = entry.faviconURL {
             let (faviconImage, _) = await SDWebImageManager.shared.loadImage(
                 with: faviconURL,
@@ -183,7 +196,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             )
             entry.faviconImage = faviconImage
         }
-        
+
         for (idx, item) in entry.items.enumerated() {
             if let faviconURL = item.faviconURL {
                 let (faviconImage, _) = await SDWebImageManager.shared.loadImage(
@@ -192,7 +205,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
                 )
                 entry.items[idx].faviconImage = faviconImage
             }
-            
+
             if let thumbnailURL = item.thumbnailURL {
                 let (thumbnailImage, _) = await SDWebImageManager.shared.loadImage(
                     with: thumbnailURL,

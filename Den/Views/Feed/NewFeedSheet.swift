@@ -8,30 +8,30 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 
 struct NewFeedSheet: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @EnvironmentObject private var refreshManager: RefreshManager
+    @Environment(RefreshManager.self) private var refreshManager
 
-    @Binding var webAddress: String
-    @Binding var initialPageID: String?
+    @Binding var newFeed: Feed?
+    @Binding var newFeedPageID: String?
+    @Binding var newFeedURLString: String
 
     @State private var targetPage: Page?
     @State private var webAddressIsValid: Bool?
     @State private var webAddressValidationMessage: WebAddressValidationMessage?
-    @State private var loading: Bool = false
     
     @FocusState private var textFieldFocus: Bool
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.userOrder, order: .forward),
-        SortDescriptor(\.name, order: .forward)
+    @Query(sort: [
+        SortDescriptor(\Page.userOrder, order: .forward),
+        SortDescriptor(\Page.name, order: .forward)
     ])
-    private var pages: FetchedResults<Page>
+    private var pages: [Page]
 
     var body: some View {
         NavigationStack {
@@ -39,7 +39,7 @@ struct NewFeedSheet: View {
                 if targetPage != nil {
                     Section {
                         WebAddressTextField(
-                            urlString: $webAddress,
+                            urlString: $newFeedURLString,
                             isValid: $webAddressIsValid,
                             validationMessage: $webAddressValidationMessage
                         )
@@ -65,10 +65,9 @@ struct NewFeedSheet: View {
             }
             .formStyle(.grouped)
             .onAppear {
-                webAddress = webAddress
                 checkTargetPage()
                 
-                if webAddress.isEmpty {
+                if newFeedURLString.isEmpty {
                     textFieldFocus = true
                 }
             }
@@ -76,7 +75,13 @@ struct NewFeedSheet: View {
             .toolbarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    submitButton
+                    Button {
+                        createFeed()
+                    } label: {
+                        Text("Save", comment: "Button label.")
+                    }
+                    .disabled(!(webAddressIsValid ?? false))
+                    .accessibilityIdentifier("SubmitNewFeed")
                 }
 
                 ToolbarItem(placement: .cancellationAction) {
@@ -94,41 +99,25 @@ struct NewFeedSheet: View {
         #endif
     }
 
-    private var submitButton: some View {
-        Button {
-            loading = true
-            guard
-                let url = URL(string: webAddress.trimmingCharacters(in: .whitespacesAndNewlines)),
-                let page = targetPage
-            else { return }
-
-            let newFeed = Feed.create(in: viewContext, page: page, url: url, prepend: true)
-
-            do {
-                try viewContext.save()
-                Task {
-                    await refreshManager.refresh(feed: newFeed)
-                    dismiss()
-                    webAddress = ""
-                    loading = false
-                }
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
-        } label: {
-            Text("Save", comment: "Button label.")
-        }
-        .disabled(loading || !(webAddressIsValid ?? false))
-        .accessibilityIdentifier("SubmitNewFeed")
-    }
-
     private func checkTargetPage() {
-        if let pageID = initialPageID, let destinationPage = pages.first(where: {
+        if let pageID = newFeedPageID, let destinationPage = pages.first(where: {
             $0.id?.uuidString == pageID
         }) {
             targetPage = destinationPage
         } else {
             targetPage = pages.first
         }
+    }
+    
+    private func createFeed() {
+        guard
+            let url = URL(string: newFeedURLString.trimmingCharacters(in: .whitespacesAndNewlines)),
+            let page = targetPage
+        else { return }
+
+        newFeed = Feed.create(in: modelContext, page: page, url: url, prepend: true)
+        page.feeds?.append(newFeed!)
+        
+        dismiss()
     }
 }

@@ -8,10 +8,11 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import Foundation
+import SwiftData
 
 struct ImportExportUtility {
-    static func importOPML(url: URL, context: NSManagedObjectContext, pageUserOrderMax: Int16) {
+    static func importOPML(url: URL, context: ModelContext, pageUserOrderMax: Int16) {
         let opmlFolders = OPMLReader(xmlURL: url).outlineFolders
 
         opmlFolders.enumerated().forEach { idx, opmlFolder in
@@ -48,12 +49,6 @@ struct ImportExportUtility {
                     feed.allowJavaScript = allowJavaScript
                 }
             }
-        }
-
-        do {
-            try context.save()
-        } catch let error as NSError {
-            CrashUtility.handleCriticalError(error)
         }
     }
 

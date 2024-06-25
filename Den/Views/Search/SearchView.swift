@@ -8,18 +8,20 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 
 struct SearchView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
     
-    @Binding var hideRead: Bool
     @Binding var searchQuery: String
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.submitted, order: .reverse)
+    @AppStorage("HideRead") private var hideRead: Bool = false
+
+    @Query(sort: [
+        SortDescriptor(\Search.submitted, order: .reverse)
     ])
-    private var searches: FetchedResults<Search>
+    private var searches: [Search]
     
     var body: some View {
         Group {
@@ -69,13 +71,7 @@ struct SearchView: View {
             search.query = searchQuery
             search.submitted = Date()
         } else {
-            _ = Search.create(in: viewContext, query: searchQuery)
-        }
-
-        do {
-            try viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
+            _ = Search.create(in: modelContext, query: searchQuery)
         }
     }
 }

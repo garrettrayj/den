@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct SidebarTag: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var tag: Tag
+    @Bindable var tag: Tag
 
     var body: some View {
         Label {
@@ -29,7 +29,7 @@ struct SidebarTag: View {
         .contentShape(Rectangle())
         .onDrop(
             of: [.denBookmark, .denItem],
-            delegate: TagNavDropDelegate(context: viewContext, tag: tag)
+            delegate: TagNavDropDelegate(modelContext: modelContext, tag: tag)
         )
         .accessibilityIdentifier("SidebarTag")
         .contextMenu {

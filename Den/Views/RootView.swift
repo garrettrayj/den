@@ -8,15 +8,15 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import OSLog
 import SwiftUI
 
 struct RootView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
     
-    @EnvironmentObject private var refreshManager: RefreshManager
+    @Environment(RefreshManager.self) private var refreshManager
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     @State private var preferredCompactColumn: NavigationSplitViewColumn = .sidebar
@@ -29,26 +29,26 @@ struct RootView: View {
     @State private var showingAppErrorSheet = false
     @State private var clearPathOnDetailChange = true
     @State private var detailPanel: DetailPanel?
+    @State private var navigationStore = NavigationStore()
     
-    @StateObject private var navigationStore = NavigationStore()
+    @State private var newFeed: Feed?
+    @State private var newFeedPageID: String?
+    @State private var newFeedURLString: String = ""
     
     @SceneStorage("DetailPanel") private var detailPanelData: Data?
     @SceneStorage("Navigation") private var navigationData: Data?
-    @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
-    @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("SearchQuery") private var searchQuery: String = ""
     
-    @AppStorage("HideRead") private var hideRead: Bool = false
     @AppStorage("Maintained") private var maintenanceTimestamp: Double?
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.userOrder, order: .forward),
-        SortDescriptor(\.name, order: .forward)
+    @Query(sort: [
+        SortDescriptor(\Page.userOrder, order: .forward),
+        SortDescriptor(\Page.name, order: .forward)
     ])
-    private var pages: FetchedResults<Page>
+    private var pages: [Page]
     
     @ScaledMetric var sidebarWidth = 264
 
@@ -60,7 +60,7 @@ struct RootView: View {
             Sidebar(
                 detailPanel: $detailPanel,
                 newFeedPageID: $newFeedPageID,
-                newFeedWebAddress: $newFeedWebAddress,
+                newFeedURLString: $newFeedURLString,
                 searchQuery: $searchQuery,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
@@ -78,7 +78,6 @@ struct RootView: View {
         } detail: {
             DetailView(
                 detailPanel: $detailPanel,
-                hideRead: $hideRead,
                 path: $navigationStore.path,
                 searchQuery: $searchQuery
             )
@@ -105,7 +104,7 @@ struct RootView: View {
                 if case .page(let page) = detailPanel {
                     newFeedPageID = page.id?.uuidString
                 }
-                newFeedWebAddress = url.absoluteStringForNewFeed
+                newFeedURLString = url.absoluteStringForNewFeed
                 showingNewFeedSheet = true
             }
         }
@@ -119,7 +118,7 @@ struct RootView: View {
             
             await BlocklistManager.initializeMissingContentRulesLists()
 
-            CleanupUtility.upgradeBookmarks(context: viewContext)
+            CleanupUtility.upgradeBookmarks(context: modelContext)
             
             await performMaintenance()
             
@@ -160,17 +159,28 @@ struct RootView: View {
                     case .page(let page) = detailPanel
                 else { return }
                 newFeedPageID = page.id?.uuidString
-            } else {
-                newFeedPageID = nil
-                newFeedWebAddress = ""
             }
         }
-        .sheet(isPresented: $showingNewFeedSheet) {
-            NewFeedSheet(
-                webAddress: $newFeedWebAddress,
-                initialPageID: $newFeedPageID
-            )
-        }
+        .sheet(
+            isPresented: $showingNewFeedSheet,
+            onDismiss: {
+                Task {
+                    guard let feed = newFeed else { return }
+                    await refreshManager.refresh(feed: feed)
+                    
+                    newFeed = nil
+                    newFeedPageID = nil
+                    newFeedURLString = ""
+                }
+            },
+            content: {
+                NewFeedSheet(
+                    newFeed: $newFeed,
+                    newFeedPageID: $newFeedPageID,
+                    newFeedURLString: $newFeedURLString
+                )
+            }
+        )
         .onReceive(NotificationCenter.default.publisher(for: .appErrored, object: nil)) { output in
             if let message = output.userInfo?["message"] as? String {
                 appErrorMessage = message
@@ -214,13 +224,14 @@ struct RootView: View {
             }
             
             // Restore item sub-detail view
-            if let itemID = urlComponents.queryItems?.first(
-                where: {$0.name == "item"}
+            if let itemUUIDString = urlComponents.queryItems?.first(
+                where: { $0.name == "item" }
             )?.value {
-                let request = Item.fetchRequest()
-                request.predicate = NSPredicate(format: "id = %@", itemID)
-                
-                if let item = try? viewContext.fetch(request).first {
+                let uuid = UUID(uuidString: itemUUIDString)
+                let request = FetchDescriptor<Item>(
+                    predicate: #Predicate<Item> { $0.id == uuid }
+                )
+                if let item = try? modelContext.fetch(request).first {
                     navigationStore.path.append(SubDetailPanel.item(item))
                 }
             }

@@ -8,24 +8,25 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 
 import SDWebImage
 
 struct ResetSection: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
     
     @State private var cacheSize: Int64 = 0
     @State private var showingResetAlert = false
     
     @AppStorage("Refreshed") private var refreshedTimestamp: Double?
     
-    @FetchRequest(sortDescriptors: [])
-    private var history: FetchedResults<History>
+    @Query()
+    private var history: [History]
     
     @FetchRequest(sortDescriptors: [])
     private var searches: FetchedResults<Search>
-    
+
     static let cacheSizeFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()
         formatter.allowedUnits = .useAll
@@ -95,7 +96,7 @@ struct ResetSection: View {
             }
             .disabled(searches.isEmpty)
             .accessibilityIdentifier("ClearSearches")
-            
+
             Button(role: .destructive) {
                 showingResetAlert = true
             } label: {
@@ -117,10 +118,8 @@ struct ResetSection: View {
                     .accessibilityIdentifier("CancelReset")
 
                     Button(role: .destructive) {
-                        Task {
-                            await resetEverything()
-                            cacheSize = 0
-                        }
+                        resetEverything()
+                        cacheSize = 0
                     } label: {
                         Text("Reset", comment: "Button label.")
                     }
@@ -148,28 +147,27 @@ struct ResetSection: View {
     }
     
     private func clearData() {
-        DataController.truncate(FeedData.self, context: viewContext)
-        DataController.truncate(Trend.self, context: viewContext)
-        
-        do {
-            try viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
+        try? modelContext.delete(model: FeedData.self)
+        try? modelContext.delete(model: Item.self)
+        try? modelContext.delete(model: Trend.self)
         
         refreshedTimestamp = nil
     }
     
     private func clearHistory() {
-        DataController.truncate(History.self, context: viewContext)
+        try? modelContext.delete(model: History.self)
 
-        if let items = try? viewContext.fetch(Item.fetchRequest()) {
+        if let items = try? modelContext.fetch(FetchDescriptor<Item>()) {
             items.forEach { $0.read = false }
         }
         
-        if let trends = try? viewContext.fetch(Trend.fetchRequest()) {
+        if let trends = try? modelContext.fetch(FetchDescriptor<Trend>()) {
             trends.forEach { $0.read = false }
         }
+    }
+
+    private func clearSearches() {
+        DataController.truncate(Search.self, context: viewContext)
 
         do {
             try viewContext.save()
@@ -177,43 +175,34 @@ struct ResetSection: View {
             CrashUtility.handleCriticalError(error as NSError)
         }
     }
-    
-    private func clearSearches() {
-        DataController.truncate(Search.self, context: viewContext)
-        
-        do {
-            try viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
-    }
-    
-    private func resetEverything() async {
-        let batchTruncateList = [
+
+    private func resetEverything() {
+        let batchTruncateList: [any PersistentModel.Type] = [
+            // Cloud models
             Blocklist.self,
+            Bookmark.self,
+            Feed.self,
+            History.self,
             Page.self,
+            Profile.self,
+            Search.self,
             Tag.self,
-            Trend.self,
+            // Local models
             BlocklistStatus.self,
             FeedData.self,
-            History.self,
-            Search.self
+            Item.self,
+            Trend.self,
+            TrendItem.self
         ]
         
         batchTruncateList.forEach {
-            DataController.truncate($0, context: viewContext)
+            try? modelContext.delete(model: $0)
         }
 
-        do {
-            try viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-            return
+        Task {
+            await BlocklistManager.removeAllContentRulesLists()
+            await emptyCaches()
         }
-        
-        await BlocklistManager.removeAllContentRulesLists()
-
-        await emptyCaches()
 
         UserDefaults.group.removePersistentDomain(forName: AppGroup.den.rawValue)
         if let domain = Bundle.main.bundleIdentifier {

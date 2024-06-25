@@ -9,6 +9,7 @@
 //
 
 import CoreData
+import SwiftData
 import OSLog
 import SwiftUI
 
@@ -37,8 +38,8 @@ struct CrashUtility {
         var errors = [AnyObject]()
 
         if anError.code == NSValidationMultipleErrorsError {
-            if let multipleErros = anError.userInfo[NSDetailedErrorsKey] as? [AnyObject] {
-                errors = multipleErros
+            if let multipleErrors = anError.userInfo[NSDetailedErrorsKey] as? [AnyObject] {
+                errors = multipleErrors
             }
         } else {
             errors = [AnyObject]()

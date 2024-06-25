@@ -12,28 +12,27 @@ import SwiftUI
 
 struct DetailView: View {
     @Binding var detailPanel: DetailPanel?
-    @Binding var hideRead: Bool
     @Binding var path: NavigationPath
     @Binding var searchQuery: String
 
     var body: some View {
         NavigationStack(path: $path) {
-            Group {
+            ZStack {
                 switch detailPanel ?? .welcome {
                 case .feed(let feed):
-                    FeedView(feed: feed, hideRead: $hideRead).id(feed)
+                    FeedView(feed: feed).id(feed)
                 case .inbox:
-                    Inbox(hideRead: $hideRead)
+                    Inbox()
                 case .organizer:
                     Organizer()
                 case .page(let page):
-                    PageView(page: page, hideRead: $hideRead).id(page)
+                    PageView(page: page).id(page)
                 case .search:
-                    SearchView(hideRead: $hideRead, searchQuery: $searchQuery)
+                    SearchView(searchQuery: $searchQuery)
                 case .tag(let tag):
                     TagView(tag: tag).id(tag)
                 case .trending:
-                    Trending(hideRead: $hideRead)
+                    Trending()
                 case .welcome:
                     Welcome()
                 }
@@ -43,11 +42,11 @@ struct DetailView: View {
                 case .bookmark(let bookmark):
                     BookmarkView(bookmark: bookmark).id(bookmark)
                 case .feed(let feed):
-                    FeedView(feed: feed, hideRead: $hideRead).id(feed)
+                    FeedView(feed: feed).id(feed)
                 case .item(let item):
                     ItemView(item: item).id(item)
                 case .trend(let trend):
-                    TrendView(trend: trend, hideRead: $hideRead).id(trend)
+                    TrendView(trend: trend).id(trend)
                 }
             }
         }

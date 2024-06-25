@@ -19,7 +19,7 @@ struct BrowserView: View {
     var useReaderAutomatically: Bool?
     var allowJavaScript: Bool?
 
-    @ObservedObject var browserViewModel: BrowserViewModel
+    @Bindable var browserViewModel: BrowserViewModel
 
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("BrowserZoom") private var browserZoom: PageZoomLevel = .oneHundredPercent
@@ -43,7 +43,7 @@ struct BrowserView: View {
         ZStack {
             BrowserWebView(browserViewModel: browserViewModel)
                 .task {
-                    browserViewModel.contentRuleLists = await BlocklistManager.getContentRuleLists()
+                    //browserViewModel.contentRuleLists = await BlocklistManager.getContentRuleLists()
                     browserViewModel.useBlocklists = useBlocklists ?? true
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
                     browserViewModel.allowJavaScript = allowJavaScript ?? true

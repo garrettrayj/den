@@ -9,6 +9,7 @@
 //
 
 import Foundation
+import SwiftData
 
 enum SubDetailPanel: Hashable {
     case bookmark(Bookmark)
@@ -29,16 +30,16 @@ enum SubDetailPanel: Hashable {
         }
     }
 
-    var objectID: String? {
+    var objectID: PersistentIdentifier? {
         switch self {
         case .bookmark(let bookmark):
-            return bookmark.id?.uuidString
+            return bookmark.persistentModelID
         case .feed(let feed):
-            return feed.id?.uuidString
+            return feed.persistentModelID
         case .item(let item):
-            return item.id?.uuidString
+            return item.persistentModelID
         case .trend(let trend):
-            return trend.id?.uuidString
+            return trend.persistentModelID
         }
     }
 
@@ -62,35 +63,26 @@ extension SubDetailPanel: Decodable {
             throw DecodeError.objectIDMissing
         }
 
-        let objectID = try values.decode(String.self, forKey: .objectID)
-        let predicate = NSPredicate(format: "id = %@", objectID)
-        let context = DataController.shared.container.viewContext
+        let objectID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
+        let context = ModelContext(DataController.shared.container)
 
         if panelID == "bookmark" {
-            let request = Bookmark.fetchRequest()
-            request.predicate = predicate
-            if let bookmark = try? context.fetch(request).first {
+            if let bookmark = context.model(for: objectID) as? Bookmark {
                 self = .bookmark(bookmark)
                 return
             }
         } else if panelID == "feed" {
-            let request = Feed.fetchRequest()
-            request.predicate = predicate
-            if let feed = try? context.fetch(request).first {
+            if let feed = context.model(for: objectID) as? Feed {
                 self = .feed(feed)
                 return
             }
         } else if panelID == "item" {
-            let request = Item.fetchRequest()
-            request.predicate = predicate
-            if let item = try? context.fetch(request).first {
+            if let item = context.model(for: objectID) as? Item {
                 self = .item(item)
                 return
             }
         } else if panelID == "trend" {
-            let request = Trend.fetchRequest()
-            request.predicate = predicate
-            if let trend = try? context.fetch(request).first {
+            if let trend = context.model(for: objectID) as? Trend {
                 self = .trend(trend)
                 return
             }

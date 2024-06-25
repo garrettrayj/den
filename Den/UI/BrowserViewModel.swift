@@ -8,20 +8,35 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import Combine
 import SwiftUI
 import WebKit
 
 @MainActor
-final class BrowserViewModel: NSObject, ObservableObject {
+@Observable final class BrowserViewModel {
+    private var cancellables: [AnyCancellable?] = []
+    
     weak var browserWebView: WKWebView? {
         didSet {
             Task {
                 await MainActor.run {
-                    browserWebView?.publisher(for: \.canGoBack).assign(to: &$canGoBack)
-                    browserWebView?.publisher(for: \.canGoForward).assign(to: &$canGoForward)
-                    browserWebView?.publisher(for: \.estimatedProgress).assign(to: &$estimatedProgress)
-                    browserWebView?.publisher(for: \.url).assign(to: &$url)
-                    browserWebView?.publisher(for: \.isLoading).assign(to: &$isLoading)
+                    cancellables.append(
+                        browserWebView?.publisher(for: \.canGoBack).assign(to: \.canGoBack, on: self)
+                    )
+                    cancellables.append(
+                        browserWebView?.publisher(for: \.canGoForward).assign(to: \.canGoForward, on: self)
+                    )
+                    cancellables.append(
+                        browserWebView?
+                            .publisher(for: \.estimatedProgress)
+                            .assign(to: \.estimatedProgress, on: self)
+                    )
+                    cancellables.append(
+                        browserWebView?.publisher(for: \.url).assign(to: \.url, on: self)
+                    )
+                    cancellables.append(
+                        browserWebView?.publisher(for: \.isLoading).assign(to: \.isLoading, on: self)
+                    )
                 }
             }
         }
@@ -29,26 +44,25 @@ final class BrowserViewModel: NSObject, ObservableObject {
 
     weak var readerWebView: WKWebView?
 
-    @Published var url: URL?
-    @Published var estimatedProgress: Double = 0
-    @Published var canGoBack = false
-    @Published var canGoForward = false
-    @Published var isLoading = true
-    @Published var isReaderable = false
-    @Published var showingReader = false
-    @Published var mercuryObject: MercuryObject?
-    @Published var useBlocklists = true
-    @Published var browserRulesListsLoaded = false
-    @Published var readerRulesListsLoaded = false
-    @Published var useReaderAutomatically = false
-    @Published var userTintHex: String?
-    @Published var allowJavaScript = true
-    @Published var browserZoom: PageZoomLevel = .oneHundredPercent
-    @Published var readerZoom: PageZoomLevel = .oneHundredPercent
-    
+    var url: URL?
+    var estimatedProgress: Double = 0
+    var canGoBack = false
+    var canGoForward = false
+    var isLoading = true
+    var isReaderable = false
+    var showingReader = false
+    var mercuryObject: MercuryObject?
+    var useBlocklists = true
+    var browserRulesListsLoaded = false
+    var readerRulesListsLoaded = false
+    var useReaderAutomatically = false
+    var userTintHex: String?
+    var allowJavaScript = true
+    var browserZoom: PageZoomLevel = .oneHundredPercent
+    var readerZoom: PageZoomLevel = .oneHundredPercent
     var contentRuleLists: [WKContentRuleList]?
 
-    func loadURL(url: URL?) {
+    func loadURL(url: URL?) async {
         guard let url = url else { return }
         
         if useBlocklists && !browserRulesListsLoaded, let contentRuleLists = contentRuleLists {
@@ -90,14 +104,16 @@ final class BrowserViewModel: NSObject, ObservableObject {
         browserWebView?.reload()
     }
     
+    @MainActor
     func toggleBlocklists() async {
         useBlocklists.toggle()
-        loadURL(url: url)
+        await loadURL(url: url)
     }
     
+    @MainActor
     func toggleJavaScript() async {
         allowJavaScript.toggle()
-        loadURL(url: url)
+        await loadURL(url: url)
     }
 
     func showReader() {
@@ -134,7 +150,8 @@ final class BrowserViewModel: NSObject, ObservableObject {
         #endif
     }
 
-    func loadReader(initialZoom: PageZoomLevel) {
+    @MainActor
+    func loadReader(initialZoom: PageZoomLevel) async {
         var baseURL: URL?
 
         if
@@ -271,7 +288,7 @@ final class BrowserViewModel: NSObject, ObservableObject {
     private var readerStyles: String {
         guard
             let path = Bundle.main.path(forResource: "Reader", ofType: "css"),
-            let styles = try? String(contentsOfFile: path)
+            let styles = try? String(contentsOfFile: path, encoding: .utf8)
         else {
             return ""
         }

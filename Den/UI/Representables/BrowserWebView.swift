@@ -15,9 +15,9 @@ import WebKit
 struct BrowserWebView {
     @Environment(\.openURL) private var openURL
     
-    @EnvironmentObject private var downloadManager: DownloadManager
+    @Environment(DownloadManager.self) private var downloadManager
     
-    @ObservedObject var browserViewModel: BrowserViewModel
+    @Bindable var browserViewModel: BrowserViewModel
     
     func makeWebView(context: Context) -> WKWebView {
         let wkWebView = DenWebView()
@@ -63,7 +63,7 @@ struct BrowserWebView {
     private func addParseForReaderScript(_ contentController: WKUserContentController) {
         guard
             let path = Bundle.main.path(forResource: "ParseForReader", ofType: "js"),
-            let script = try? String(contentsOfFile: path)
+            let script = try? String(contentsOfFile: path, encoding: .utf8)
         else {
             return
         }

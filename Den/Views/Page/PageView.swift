@@ -11,19 +11,19 @@
 import SwiftUI
 
 struct PageView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var page: Page
-    
-    @Binding var hideRead: Bool
-    
+    @Bindable var page: Page
+
     @State private var showingDeleteAlert = false
     @State private var showingIconSelector = false
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     private var pageLayoutAppStorage: AppStorage<PageLayout>
 
     var body: some View {
-        if page.managedObjectContext == nil || page.isDeleted {
+        if page.isDeleted || page.modelContext == nil {
             ContentUnavailable {
                 Label {
                     Text("Folder Deleted", comment: "Object removed message.")
@@ -57,15 +57,6 @@ struct PageView: View {
                         )
                     }
                 }
-                .onChange(of: page.name) {
-                    guard !page.isDeleted else { return }
-
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
                 .frame(minWidth: 320)
                 .navigationTitle(page.displayName)
                 .navigationTitle($page.wrappedName)
@@ -97,15 +88,6 @@ struct PageView: View {
                 )
                 .sheet(
                     isPresented: $showingIconSelector,
-                    onDismiss: {
-                        if viewContext.hasChanges {
-                            do {
-                                try viewContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
-                        }
-                    },
                     content: {
                         IconSelector(selection: $page.wrappedSymbol)
                     }
@@ -115,10 +97,8 @@ struct PageView: View {
         }
     }
 
-    init(page: Page, hideRead: Binding<Bool>) {
+    init(page: Page) {
         self.page = page
-        
-        _hideRead = hideRead
 
         pageLayoutAppStorage = .init(
             wrappedValue: PageLayout.grouped,

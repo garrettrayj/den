@@ -8,16 +8,13 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import OSLog
 import SwiftUI
 import WidgetKit
 
 struct HistoryUtility {
-    static func markItemRead(
-        context: NSManagedObjectContext,
-        item: Item
-    ) {
+    static func markItemRead(context: ModelContext, item: Item) {
         guard item.read == false else { return }
 
         let history = History.create(in: context)
@@ -27,18 +24,10 @@ struct HistoryUtility {
         item.read = true
         item.trends.forEach { $0.updateReadStatus() }
 
-        do {
-            try context.save()
-            WidgetCenter.shared.reloadAllTimelines()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
-    static func markItemUnread(
-        context: NSManagedObjectContext,
-        item: Item
-    ) {
+    static func markItemUnread(context: ModelContext, item: Item) {
         guard item.read == true else { return }
 
         for history in item.history {
@@ -48,68 +37,41 @@ struct HistoryUtility {
         item.read = false
         item.trends.forEach { $0.updateReadStatus() }
 
-        do {
-            try context.save()
-            WidgetCenter.shared.reloadAllTimelines()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
-    static func toggleReadUnread(items: [Item]) {
+    static func toggleReadUnread(context: ModelContext, items: [Item]) {
         if items.unread.isEmpty == true {
-            clearHistory(items: items)
+            clearHistory(context: context, items: items)
         } else {
-            logHistory(items: items.unread)
+            logHistory(context: context, items: items.unread)
         }
     }
 
-    static func logHistory(items: [Item]) {
-        let itemObjectIDs = items.map { $0.objectID }
-        
-        let context = DataController.shared.container.newBackgroundContext()
-        context.performAndWait {
-            for itemObjectID in itemObjectIDs {
-                guard let item = context.object(with: itemObjectID) as? Item else { continue }
-                let history = History.create(in: context)
-                history.link = item.link
-                history.visited = .now
-                
-                item.read = true
-                item.trends.forEach { $0.updateReadStatus() }
-            }
-
-            do {
-                try context.save()
-                WidgetCenter.shared.reloadAllTimelines()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
+    static func logHistory(context: ModelContext, items: [Item]) {
+        for item in items {
+            let history = History.create(in: context)
+            history.link = item.link
+            history.visited = .now
+            
+            item.read = true
+            item.trends.forEach { $0.updateReadStatus() }
         }
+
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
-    static func clearHistory(items: [Item]) {
-        let itemObjectIDs = items.map { $0.objectID }
-        
-        let context = DataController.shared.container.newBackgroundContext()
-        context.performAndWait {
-            for itemObjectID in itemObjectIDs {
-                guard let item = context.object(with: itemObjectID) as? Item else { continue }
+    static func clearHistory(context: ModelContext, items: [Item]) {
 
-                item.read = false
-                item.trends.forEach { $0.updateReadStatus() }
-                
-                for history in item.history {
-                    context.delete(history)
-                }
-            }
-
-            do {
-                try context.save()
-                WidgetCenter.shared.reloadAllTimelines()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
+        for item in items {
+            item.read = false
+            item.trends.forEach { $0.updateReadStatus() }
+            
+            for history in item.history {
+                context.delete(history)
             }
         }
+
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }

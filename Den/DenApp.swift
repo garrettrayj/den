@@ -7,13 +7,10 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import BackgroundTasks
+import SwiftData
 import OSLog
 import SwiftUI
-
-#if os(iOS)
-@preconcurrency import BackgroundTasks
-#endif
 
 import SDWebImage
 import SDWebImageSVGCoder
@@ -28,27 +25,28 @@ struct DenApp: App {
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
 
-    let dataController = DataController.shared
-    
-    @StateObject private var downloadManager = DownloadManager()
-    @StateObject private var networkMonitor = NetworkMonitor()
-    @StateObject private var refreshManager = RefreshManager()
+    @State private var container = DataController.shared.container
+    @State private var downloadManager = DownloadManager()
+    @State private var networkMonitor = NetworkMonitor()
+    @State private var refreshManager = RefreshManager()
 
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
-                .environmentObject(downloadManager)
-                .environmentObject(networkMonitor)
-                .environmentObject(refreshManager)
+                .environment(downloadManager)
+                .environment(networkMonitor)
+                .environment(refreshManager)
         }
+        .modelContainer(container)
         .handlesExternalEvents(matching: ["*"])
         .commands {
             ToolbarCommands()
             SidebarCommands()
             InspectorCommands()
             CommandGroup(after: .toolbar) {
-                RefreshButton().environmentObject(networkMonitor).environmentObject(refreshManager)
+                RefreshButton()
+                    .environment(networkMonitor)
+                    .environment(refreshManager)
             }
             CommandGroup(replacing: .help) {
                 Button {
@@ -91,11 +89,11 @@ struct DenApp: App {
         #if os(macOS)
         Settings {
             SettingsSheet()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
-                .environmentObject(refreshManager)
+                .environment(refreshManager)
                 .frame(width: 440)
                 .frame(minHeight: 560)
         }
+        .modelContainer(container)
         .windowToolbarStyle(.expanded)
         #endif
     }

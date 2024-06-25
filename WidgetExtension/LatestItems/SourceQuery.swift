@@ -8,8 +8,9 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import Foundation
 import AppIntents
+import Foundation
+import SwiftData
 
 struct SourceQuery: EntityQuery {
     static let defaultSource = SourceDetail(
@@ -26,31 +27,29 @@ struct SourceQuery: EntityQuery {
     
     func suggestedEntities() async throws -> [SourceDetail] {
         var sources = [SourceQuery.defaultSource]
-
-        let context = WidgetDataController.getContainer().newBackgroundContext()
-
-        try context.performAndWait {
-            let request = Page.fetchRequest()
-            request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
+        
+        let context = ModelContext(DataController.shared.container)
+        
+        var request = FetchDescriptor<Page>()
+        request.sortBy = [SortDescriptor(\Page.userOrder)]
+        
+        for page in try context.fetch(request) {
+            guard let pageID = page.id else { continue }
+            sources.append(SourceDetail(
+                id: pageID.uuidString,
+                entityType: Page.self,
+                title: page.wrappedName,
+                symbol: page.wrappedSymbol
+            ))
             
-            for page in try context.fetch(request) {
-                guard let pageID = page.id else { continue }
+            for feed in page.feedsArray {
+                guard let feedID = feed.id else { continue }
                 sources.append(SourceDetail(
-                    id: pageID.uuidString,
-                    entityType: Page.self,
-                    title: page.wrappedName,
-                    symbol: page.wrappedSymbol
+                    id: feedID.uuidString,
+                    entityType: Feed.self,
+                    title: feed.wrappedTitle,
+                    symbol: nil
                 ))
-                
-                for feed in page.feedsArray {
-                    guard let feedID = feed.id else { continue }
-                    sources.append(SourceDetail(
-                        id: feedID.uuidString,
-                        entityType: Feed.self,
-                        title: feed.wrappedTitle,
-                        symbol: nil
-                    ))
-                }
             }
         }
         

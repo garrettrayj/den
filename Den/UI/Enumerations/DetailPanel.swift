@@ -9,6 +9,7 @@
 //
 
 import Foundation
+import SwiftData
 
 enum DetailPanel: Hashable, Identifiable {
     case feed(Feed)
@@ -53,14 +54,14 @@ enum DetailPanel: Hashable, Identifiable {
         }
     }
 
-    var objectID: String? {
+    var objectID: PersistentIdentifier? {
         switch self {
         case .feed(let feed):
-            return feed.id?.uuidString
+            return feed.persistentModelID
         case .page(let page):
-            return page.id?.uuidString
+            return page.persistentModelID
         case .tag(let tag):
-            return tag.id?.uuidString
+            return tag.persistentModelID
         default:
             return nil
         }
@@ -77,15 +78,12 @@ extension DetailPanel: Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let panelID = try values.decode(String.self, forKey: .panelID)
         var detailPanel: DetailPanel = .welcome
+        
+        let context = ModelContext(DataController.shared.container)
 
         if panelID == "feed" && values.contains(.objectID) {
-            let decodedFeedID = try values.decode(String.self, forKey: .objectID)
-
-            let request = Feed.fetchRequest()
-            request.predicate = NSPredicate(format: "id = %@", decodedFeedID)
-
-            let context = DataController.shared.container.viewContext
-            if let feed = try? context.fetch(request).first {
+            let decodedFeedID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
+            if let feed = context.model(for: decodedFeedID) as? Feed {
                 detailPanel = .feed(feed)
             }
         } else if panelID == "inbox" {
@@ -93,23 +91,13 @@ extension DetailPanel: Decodable {
         } else if panelID == "organizer" {
             detailPanel = .organizer
         } else if panelID == "page" && values.contains(.objectID) {
-            let decodedPageID = try values.decode(String.self, forKey: .objectID)
-
-            let request = Page.fetchRequest()
-            request.predicate = NSPredicate(format: "id = %@", decodedPageID)
-
-            let context = DataController.shared.container.viewContext
-            if let page = try? context.fetch(request).first {
+            let decodedPageID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
+            if let page = context.model(for: decodedPageID) as? Page {
                 detailPanel = .page(page)
             }
         } else if panelID == "tag" {
-            let decodedTagID = try values.decode(String.self, forKey: .objectID)
-
-            let request = Tag.fetchRequest()
-            request.predicate = NSPredicate(format: "id = %@", decodedTagID)
-
-            let context = DataController.shared.container.viewContext
-            if let tag = try? context.fetch(request).first {
+            let decodedTagID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
+            if let tag = context.model(for: decodedTagID) as? Tag {
                 detailPanel = .tag(tag)
             }
         } else if panelID == "trending" {

@@ -12,11 +12,12 @@ import SwiftUI
 
 struct SearchToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.modelContext) private var modelContext
 
     @Binding var hideRead: Bool
 
     let query: String
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some ToolbarContent {
         #if os(macOS)
@@ -25,7 +26,7 @@ struct SearchToolbar: ToolbarContent {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleReadUnread(items: Array(items))
+                HistoryUtility.toggleReadUnread(context: modelContext, items: items)
             }
         }
         #else
@@ -39,7 +40,7 @@ struct SearchToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(items: Array(items))
+                    HistoryUtility.toggleReadUnread(context: modelContext, items: items)
                 }
             }
         } else {
@@ -48,7 +49,7 @@ struct SearchToolbar: ToolbarContent {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(items: Array(items))
+                    HistoryUtility.toggleReadUnread(context: modelContext, items: items)
                 }
             }
             ToolbarItem(placement: .status) {

@@ -11,13 +11,13 @@
 import SwiftUI
 
 struct PagesSection: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
     @Binding var newFeedPageID: String?
-    @Binding var newFeedWebAddress: String
+    @Binding var newFeedURLString: String
     @Binding var showingNewFeedSheet: Bool
     
-    let pages: FetchedResults<Page>
+    let pages: [Page]
 
     var body: some View {
         Section {
@@ -25,7 +25,7 @@ struct PagesSection: View {
                 SidebarPage(
                     page: page,
                     newFeedPageID: $newFeedPageID,
-                    newFeedWebAddress: $newFeedWebAddress,
+                    newFeedURLString: $newFeedURLString,
                     showingNewFeedSheet: $showingNewFeedSheet
                 )
             }
@@ -46,12 +46,6 @@ struct PagesSection: View {
         // This is done in reverse order to minimize changes to the indices.
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
-        }
-
-        do {
-            try viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 

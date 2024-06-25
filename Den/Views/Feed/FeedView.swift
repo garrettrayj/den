@@ -8,23 +8,23 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 
 struct FeedView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var feed: Feed
-    
-    @Binding var hideRead: Bool
+    @Bindable var feed: Feed
     
     @State private var showingDeleteAlert = false
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
     
     @SceneStorage("ShowingFeedInspector") private var showingInspector = false
 
     var body: some View {
         Group {
-            if feed.managedObjectContext == nil || feed.isDeleted {
+            if feed.isDeleted || feed.modelContext == nil {
                 ContentUnavailable {
                     Label {
                         Text("Feed Deleted", comment: "Object removed message.")
@@ -45,23 +45,7 @@ struct FeedView: View {
                     )
                     .onChange(of: feed.page) {
                         guard !feed.isDeleted else { return }
-
                         feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
-                        do {
-                            try viewContext.save()
-                            feed.page?.objectWillChange.send()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
-                    }
-                    .onChange(of: feed.title) {
-                        guard !feed.isDeleted else { return }
-
-                        do {
-                            try viewContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
                     }
                     .frame(minWidth: 320)
                     .toolbar {

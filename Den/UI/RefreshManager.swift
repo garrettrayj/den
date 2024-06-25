@@ -8,14 +8,14 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import Combine
-import CoreData
+import SwiftData
 import OSLog
 import WidgetKit
 
-final class RefreshManager: ObservableObject {
-    @Published var refreshing = false
-    @Published var autoRefreshActive = false
+@MainActor
+@Observable final class RefreshManager {
+    var refreshing = false
+    var autoRefreshActive = false
     
     let progress = Progress()
     
@@ -42,34 +42,26 @@ final class RefreshManager: ObservableObject {
     
     func refresh(inBackground: Bool = false) async {
         guard progress.totalUnitCount == 0 else { return }
-
-        if !inBackground {
-            await MainActor.run { refreshing = true }
-        }
         
-        var feedUpdates: [FeedUpdateTask] = []
+        let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
+        let context = ModelContext(DataController.shared.container)
+        let request = FetchDescriptor<Page>(sortBy: [SortDescriptor(\Page.userOrder)])
         
-        let context = DataController.shared.container.newBackgroundContext()
-        
-        context.performAndWait {
-            let request = Page.fetchRequest()
-            request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
-            guard let pages = try? context.fetch(request) as [Page] else { return }
-            
-            feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
-                guard let url = feed.url else { return nil }
-                return FeedUpdateTask(
-                    feedObjectID: feed.objectID,
-                    url: url,
-                    updateMeta: feed.needsMetaUpdate
-                )
-            }
+        guard let pages = try? context.fetch(request) as [Page] else { return }
+        let feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
+            return FeedUpdateTask(
+                feedObjectID: feed.persistentModelID,
+                url: feed.url!,
+                updateMeta: feed.needsMetaUpdate
+            )
         }
         
         progress.totalUnitCount = Int64(feedUpdates.count)
-
-        let maxConcurrency = min(3, ProcessInfo().activeProcessorCount)
         
+        if !inBackground {
+            await MainActor.run { refreshing = true }
+        }
+
         await withTaskGroup(of: Void.self, returning: Void.self) { taskGroup in
             var working = 0
             for feedUpdate in feedUpdates {
@@ -103,18 +95,15 @@ final class RefreshManager: ObservableObject {
         progress.completedUnitCount = 0
         progress.totalUnitCount = 0
     }
-
+    
     func refresh(feed: Feed) async {
         if let url = feed.url {
             let feedUpdateTask = FeedUpdateTask(
-                feedObjectID: feed.objectID,
+                feedObjectID: feed.persistentModelID,
                 url: url,
                 updateMeta: true
             )
             await feedUpdateTask.execute()
         }
-        
-        feed.objectWillChange.send()
-        feed.page?.objectWillChange.send()
     }
 }

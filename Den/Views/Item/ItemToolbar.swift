@@ -14,10 +14,10 @@ struct ItemToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.scenePhase) private var scenePhase
     
-    @EnvironmentObject private var downloadManager: DownloadManager
+    @Environment(DownloadManager.self) private var downloadManager
 
-    @ObservedObject var item: Item
-    @ObservedObject var browserViewModel: BrowserViewModel
+    @Bindable var item: Item
+    @Bindable var browserViewModel: BrowserViewModel
 
     var body: some ToolbarContent {
         #if os(macOS)

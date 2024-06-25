@@ -12,7 +12,7 @@ import SwiftUI
 
 struct NewBlocklistSheet: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
     @State private var name: String = ""
     @State private var urlString: String = ""
@@ -105,17 +105,11 @@ struct NewBlocklistSheet: View {
     private func addBlocklist() async {
         guard let url = URL(string: urlString) else { return }
 
-        let blocklist = Blocklist.create(in: viewContext)
+        let blocklist = Blocklist.create(in: modelContext)
         blocklist.name = name
         blocklist.url = url
         
-        do {
-            try viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
-        
-        await BlocklistManager.refreshContentRulesList(blocklistObjectID: blocklist.objectID)
+        // await BlocklistManager.refreshContentRulesList(blocklist: blocklist)
 
         dismiss()
     }

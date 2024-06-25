@@ -8,20 +8,21 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 
 struct PageToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var page: Page
+    @Bindable var page: Page
 
     @Binding var hideRead: Bool
     @Binding var pageLayout: PageLayout
     @Binding var showingDeleteAlert: Bool
     @Binding var showingIconSelector: Bool
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some ToolbarContent {
         #if os(macOS)
@@ -33,7 +34,7 @@ struct PageToolbar: ToolbarContent {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleReadUnread(items: Array(items))
+                HistoryUtility.toggleReadUnread(context: modelContext, items: items)
             }
         }
         #else
@@ -62,7 +63,7 @@ struct PageToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(items: Array(items))
+                    HistoryUtility.toggleReadUnread(context: modelContext, items: items)
                 }
             }
         } else {
@@ -74,7 +75,7 @@ struct PageToolbar: ToolbarContent {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(items: Array(items))
+                    HistoryUtility.toggleReadUnread(context: modelContext, items: items)
                 }
             }
         }

@@ -15,7 +15,7 @@ import WidgetKit
 struct GeneralSection: View {
     @Environment(\.colorScheme) private var colorScheme
     
-    @EnvironmentObject private var refreshManager: RefreshManager
+    @Environment(RefreshManager.self) private var refreshManager
     
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true

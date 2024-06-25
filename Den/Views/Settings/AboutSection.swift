@@ -40,7 +40,7 @@ struct AboutSection: View {
             
             /*
             Button {
-                requestReview()
+                // requestReview()
             } label: {
                 Label {
                     Text("Leave a Review", comment: "Button label.")

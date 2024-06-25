@@ -13,13 +13,13 @@ import SwiftUI
 struct FeedLayout: View {
     @Environment(\.openURL) private var openURL
 
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
 
     @Binding var hideRead: Bool
 
     @State private var feedAddressCopied: Bool = false
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some View {
         GeometryReader { geometry in

@@ -11,13 +11,11 @@
 import SwiftUI
 
 struct OrganizerOptionsPanel: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
     @Binding var selection: Set<Feed>
     
-    let pages: FetchedResults<Page>
-    
-    @State private var itemLimitPickerID = UUID()
+    let pages: [Page]
 
     var body: some View {
         if sources.isEmpty {
@@ -25,14 +23,13 @@ struct OrganizerOptionsPanel: View {
         } else {
             Form {
                 Section {
-                    Picker(sources: sources, selection: \.itemLimit) {
+                    Picker(sources: sources, selection: \.wrappedItemLimit) {
                         ForEach(1...100, id: \.self) { choice in
-                            Text(verbatim: "\(choice)").tag(Int16(choice))
+                            Text(verbatim: "\(choice)").tag(choice)
                         }
                     } label: {
                         Text("Featured Items", comment: "Picker label.")
                     }
-                    .id(itemLimitPickerID)
                 } header: {
                     Text("Limits", comment: "Organizer configuration panel section header.")
                 }
@@ -55,7 +52,7 @@ struct OrganizerOptionsPanel: View {
                 }
 
                 Section {
-                    Toggle(sources: sources, isOn: \.readerMode) {
+                    Toggle(sources: sources, isOn: \.wrappedReaderMode) {
                         Text("Use Reader Automatically", comment: "Toggle label.")
                     }
                     
@@ -89,15 +86,9 @@ struct OrganizerOptionsPanel: View {
                     
                     Button(role: .destructive) {
                         selection.forEach { feed in
-                            if let feedData = feed.feedData { viewContext.delete(feedData) }
-                            viewContext.delete(feed)
+                            if let feedData = feed.feedData { modelContext.delete(feedData) }
+                            modelContext.delete(feed)
                             selection.remove(feed)
-                        }
-                        do {
-                            try viewContext.save()
-                            pages.forEach { $0.objectWillChange.send() }
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
                         }
                     } label: {
                         DeleteLabel()
@@ -112,26 +103,15 @@ struct OrganizerOptionsPanel: View {
 
     private var sources: Binding<[Feed]> {
         Binding(
-            get: { selection.filter { _ in true } },
-            set: {
-                for feed in $0 where feed.changedValues().keys.contains("page") {
-                    feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
-                }
-                
-                for feed in $0 where feed.changedValues().keys.contains("itemLimit") {
-                    if let feedData = feed.feedData {
-                        for (idx, item) in feedData.itemsArray.enumerated() {
-                            item.extra = idx + 1 > feed.wrappedItemLimit
+            get: { Array(selection) },
+            set: { sources in
+                try? modelContext.transaction {
+                    for feed in sources where feed.hasChanges {
+                        if let feedData = feed.feedData {
+                            for (idx, item) in feedData.itemsArray.enumerated() {
+                                item.extra = idx + 1 > feed.wrappedItemLimit
+                            }
                         }
-                    }
-                }
-                
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                        itemLimitPickerID = UUID()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
             }

@@ -1,5 +1,5 @@
 {
-  "originHash" : "45d4bc95899baf553e1551edb9f27181282340d3099868012b55c262ee4031c4",
+  "originHash" : "a28cf1d7fc8543a0b9bca284fe52edb07a71ab00d8487673b807d810354d1b15",
   "pins" : [
     {
       "identity" : "aexml",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "db806756c989760b35108146381535aec231092b",
         "version" : "4.7.0"
+      }
+    },
+    {
+      "identity" : "compoundpredicate",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/NoahKamara/CompoundPredicate",
+      "state" : {
+        "revision" : "adda76e5f797205259c7d918b7bd58040154356f",
+        "version" : "0.1.0"
       }
     },
     {
@@ -80,6 +89,15 @@
       "state" : {
         "revision" : "028487d4a8a291b2fe1b4392b5425b6172056148",
         "version" : "2.7.2"
+      }
+    },
+    {
+      "identity" : "xctest-dynamic-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
+      "state" : {
+        "revision" : "6f30bdba373bbd7fbfe241dddd732651f2fbd1e2",
+        "version" : "1.1.2"
       }
     }
   ],

@@ -11,6 +11,12 @@
         }
       }
     },
+    "%@" : {
+
+    },
+    "%lf" : {
+
+    },
     "%lld Feeds" : {
       "comment" : "Feed count (plural).",
       "localizations" : {
@@ -2472,6 +2478,9 @@
           }
         }
       }
+    },
+    "Unknown Background Refresh Status" : {
+      "comment" : "Background refresh status."
     },
     "Unknown Error" : {
       "comment" : "Feed unavailable title.",

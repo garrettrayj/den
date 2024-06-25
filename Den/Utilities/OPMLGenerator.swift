@@ -48,7 +48,7 @@ struct OPMLGenerator {
                     "den:showTeasers": String(feed.showExcerpts),
                     "den:showBylines": String(feed.showBylines),
                     "den:showImages": String(feed.showImages),
-                    "den:useReaderAutomatically": String(feed.readerMode),
+                    "den:useReaderAutomatically": String(feed.readerMode ?? false),
                     "den:useBlocklists": String(feed.useBlocklists),
                     "den:allowJavaScript": String(feed.allowJavaScript)
                 ]

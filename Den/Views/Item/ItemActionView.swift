@@ -11,10 +11,10 @@
 import SwiftUI
 
 struct ItemActionView<Content: View>: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.openURL) private var openURL
 
-    @ObservedObject var item: Item
+    @Bindable var item: Item
 
     var isLastInList: Bool = false
     var isStandalone: Bool = false
@@ -29,7 +29,7 @@ struct ItemActionView<Content: View>: View {
                 Button {
                     guard let url = item.link else { return }
                     openURL(url)
-                    HistoryUtility.markItemRead(context: viewContext, item: item)
+                    HistoryUtility.markItemRead(context: modelContext, item: item)
                 } label: {
                     content.modifier(DraggableItemModifier(item: item))
                 }
@@ -41,7 +41,7 @@ struct ItemActionView<Content: View>: View {
         }
         .buttonStyle(
             PreviewButtonStyle(
-                read: $item.read,
+                read: $item.wrappedRead,
                 roundedBottom: isLastInList || isStandalone,
                 roundedTop: isStandalone,
                 showDivider: !isLastInList && !isStandalone

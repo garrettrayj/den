@@ -11,18 +11,18 @@
 import SwiftUI
 
 struct FeedInspector: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
     
     @ScaledMetric(relativeTo: .largeTitle) var width = 300
 
     var body: some View {
         Form {
             Section {
-                Picker(selection: $feed.itemLimit) {
+                Picker(selection: $feed.wrappedItemLimit) {
                     ForEach(1...100, id: \.self) { choice in
-                        Text(verbatim: "\(choice)").tag(Int16(choice))
+                        Text(verbatim: "\(choice)").tag(choice)
                     }
                 } label: {
                     Text("Featured Items", comment: "Picker label.")
@@ -33,12 +33,6 @@ struct FeedInspector: View {
                             item.extra = idx + 1 > feed.wrappedItemLimit
                         }
                     }
-
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
                 }
             } header: {
                 Text("Limits", comment: "Feed inspector section header.")
@@ -48,85 +42,36 @@ struct FeedInspector: View {
                 Toggle(isOn: $feed.largePreviews) {
                     Text("Expanded Previews", comment: "Toggle label.")
                 }
-                .onChange(of: feed.previewStyle) {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
                 .accessibilityIdentifier("LargePreviews")
 
                 if feed.largePreviews {
                     Toggle(isOn: $feed.showExcerpts) {
                         Text("Show Excerpts", comment: "Toggle label.")
                     }
-                    .onChange(of: feed.hideTeasers) {
-                        do {
-                            try viewContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
-                    }
                 }
 
                 Toggle(isOn: $feed.showBylines) {
                     Text("Show Bylines", comment: "Toggle label.")
                 }
-                .onChange(of: feed.hideBylines) {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
 
                 Toggle(isOn: $feed.showImages) {
                     Text("Show Images", comment: "Toggle label.")
-                }
-                .onChange(of: feed.hideImages) {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
                 }
             } header: {
                 Text("Previews", comment: "Feed inspector section header.")
             }
 
             Section {
-                Toggle(isOn: $feed.readerMode) {
+                Toggle(isOn: $feed.wrappedReaderMode) {
                     Text("Use Reader Automatically", comment: "Toggle label.")
-                }
-                .onChange(of: feed.readerMode) {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
                 }
 
                 Toggle(isOn: $feed.useBlocklists) {
                     Text("Use Blocklists", comment: "Toggle label.")
                 }
-                .onChange(of: feed.disableBlocklists) {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
                 
                 Toggle(isOn: $feed.allowJavaScript) {
                     Text("Allow JavaScript", comment: "Toggle label.")
-                }
-                .onChange(of: feed.disableJavaScript) {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
                 }
             } header: {
                 Text("Viewing", comment: "Feed inspector section header.")

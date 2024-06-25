@@ -11,14 +11,14 @@
 import SwiftUI
 
 struct BlocklistSettings: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var blocklist: Blocklist
+    @Bindable var blocklist: Blocklist
     
     @State private var isRefreshing = false
 
     var body: some View {
-        if blocklist.isDeleted || blocklist.managedObjectContext == nil {
+        if blocklist.isDeleted {
             VStack {
                 Spacer()
                 ContentUnavailable {
@@ -71,9 +71,7 @@ struct BlocklistSettings: View {
                     Button {
                         isRefreshing = true
                         Task {
-                            await BlocklistManager.refreshContentRulesList(
-                                blocklistObjectID: blocklist.objectID
-                            )
+                            // await BlocklistManager.refreshContentRulesList(blocklist: blocklist)
                             isRefreshing = false
                         }
                     } label: {
@@ -90,17 +88,6 @@ struct BlocklistSettings: View {
             }
             .buttonStyle(.borderless)
             .formStyle(.grouped)
-            .onDisappear {
-                guard !blocklist.isDeleted else { return }
-
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            }
         }
     }
 }

@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct SidebarFeed: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
     
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
     
     var unreadCount: Int
     
@@ -24,15 +24,6 @@ struct SidebarFeed: View {
             #if os(macOS)
             TextField(text: $feed.wrappedTitle) {
                 feed.displayTitle
-            }
-            .onSubmit {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
             }
             #else
             feed.displayTitle

@@ -8,17 +8,18 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 import UniformTypeIdentifiers
 
 struct Sidebar: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
     
-    @EnvironmentObject private var refreshManager: RefreshManager
+    @Environment(RefreshManager.self) private var refreshManager
 
     @Binding var detailPanel: DetailPanel?
     @Binding var newFeedPageID: String?
-    @Binding var newFeedWebAddress: String
+    @Binding var newFeedURLString: String
     @Binding var searchQuery: String
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
@@ -31,18 +32,18 @@ struct Sidebar: View {
     @State private var searchInput = ""
     @State private var showingSettings = false
     
-    let pages: FetchedResults<Page>
+    let pages: [Page]
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.userOrder, order: .forward),
-        SortDescriptor(\.name, order: .forward)
+    @Query(sort: [
+        SortDescriptor(\Tag.userOrder, order: .forward),
+        SortDescriptor(\Tag.name, order: .forward)
     ])
-    private var tags: FetchedResults<Tag>
+    private var tags: [Tag]
 
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.submitted, order: .reverse)
+    @Query(sort: [
+        SortDescriptor(\Search.submitted, order: .reverse)
     ])
-    private var searches: FetchedResults<Search>
+    private var searches: [Search]
     
     var body: some View {
         List(selection: $detailPanel) {
@@ -56,7 +57,7 @@ struct Sidebar: View {
 
                 PagesSection(
                     newFeedPageID: $newFeedPageID,
-                    newFeedWebAddress: $newFeedWebAddress,
+                    newFeedURLString: $newFeedURLString,
                     showingNewFeedSheet: $showingNewFeedSheet,
                     pages: pages
                 )
@@ -115,23 +116,18 @@ struct Sidebar: View {
         #endif
         .sheet(
             isPresented: $showingSettings,
-            onDismiss: {
-                saveChanges()
-            },
             content: {
                 SettingsSheet()
             }
         )
         .sheet(
             isPresented: $showingNewPageSheet,
-            onDismiss: saveChanges,
             content: {
                 NewPageSheet()
             }
         )
         .sheet(
             isPresented: $showingNewTagSheet,
-            onDismiss: saveChanges,
             content: {
                 NewTagSheet()
             }
@@ -146,7 +142,7 @@ struct Sidebar: View {
                 defer { selectedFile.stopAccessingSecurityScopedResource() }
                 ImportExportUtility.importOPML(
                     url: selectedFile,
-                    context: viewContext,
+                    context: modelContext,
                     pageUserOrderMax: pages.maxUserOrder
                 )
             } else {
@@ -174,16 +170,6 @@ struct Sidebar: View {
         .onChange(of: exporterIsPresented) {
             if !exporterIsPresented {
                 showingExporter = false
-            }
-        }
-    }
-
-    private func saveChanges() {
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
             }
         }
     }

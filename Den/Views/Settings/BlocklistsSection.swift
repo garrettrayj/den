@@ -8,11 +8,12 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 
 struct BlocklistsSection: View {
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
-    private var blocklists: FetchedResults<Blocklist>
+    @Query(sort: [SortDescriptor(\Blocklist.name, order: .forward)])
+    private var blocklists: [Blocklist]
 
     var body: some View {
         Section {

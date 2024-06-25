@@ -13,8 +13,9 @@ import SwiftUI
 struct TrendToolbar: ToolbarContent {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var trend: Trend
+    @Bindable var trend: Trend
 
     @Binding var hideRead: Bool
 
@@ -27,7 +28,7 @@ struct TrendToolbar: ToolbarContent {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleReadUnread(items: Array(items))
+                HistoryUtility.toggleReadUnread(context: modelContext, items: items)
                 if hideRead { dismiss() }
             }
         }
@@ -41,7 +42,7 @@ struct TrendToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(items: Array(items))
+                    HistoryUtility.toggleReadUnread(context: modelContext, items: items)
                     if hideRead { dismiss() }
                 }
             }
@@ -51,7 +52,7 @@ struct TrendToolbar: ToolbarContent {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(items: Array(items))
+                    HistoryUtility.toggleReadUnread(context: modelContext, items: items)
                     if hideRead { dismiss() }
                 }
             }

@@ -14,7 +14,7 @@ struct SearchLayout: View {
     @Binding var hideRead: Bool
 
     let query: String
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var visibilityFilteredItems: [Item] {
         items.visibilityFiltered(hideRead ? false : nil)

@@ -8,13 +8,14 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 
 struct Inbox: View {
-    @Binding var hideRead: Bool
+    @AppStorage("HideRead") private var hideRead: Bool = false
     
-    @FetchRequest(sortDescriptors: [])
-    private var feeds: FetchedResults<Feed>
+    @Query()
+    private var feeds: [Feed]
 
     var body: some View {
         WithItems { items in

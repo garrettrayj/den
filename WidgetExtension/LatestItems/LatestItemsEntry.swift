@@ -8,7 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 import WidgetKit
 
@@ -23,16 +23,16 @@ struct LatestItemsEntry: TimelineEntry {
         var thumbnailImage: Image?
     }
     
-    var date: Date
-    var items: [WidgetItem]
-    var sourceID: UUID?
-    var sourceType: NSManagedObject.Type?
-    var unread: Int
-    var title: Text
+    let date: Date
+    let items: [WidgetItem]
+    let sourceID: UUID?
+    let sourceType: (any PersistentModel.Type)?
+    let unread: Int
+    let title: Text
     var faviconURL: URL?
     var faviconImage: Image?
-    var symbol: String?
-    var configuration: LatestItemsConfigurationIntent
+    let symbol: String?
+    let configuration: LatestItemsConfigurationIntent
     
     func url(item: WidgetItem? = nil) -> URL {
         var source = "inbox"

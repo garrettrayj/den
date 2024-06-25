@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct TagsSection: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    let tags: FetchedResults<Tag>
+    let tags: [Tag]
     
     var body: some View {
         Section {
@@ -36,12 +36,6 @@ struct TagsSection: View {
         // This is done in reverse order to minimize changes to the indices.
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
-        }
-
-        do {
-            try viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 }

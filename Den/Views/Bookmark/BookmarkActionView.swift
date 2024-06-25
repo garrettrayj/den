@@ -13,7 +13,7 @@ import SwiftUI
 struct BookmarkActionView<Content: View>: View {
     @Environment(\.openURL) private var openURL
 
-    @ObservedObject var bookmark: Bookmark
+    @Bindable var bookmark: Bookmark
 
     @ViewBuilder var content: Content
     

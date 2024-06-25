@@ -15,9 +15,9 @@ import WebKit
 struct ReaderWebView {
     @Environment(\.openURL) private var openURL
     
-    @EnvironmentObject private var downloadManager: DownloadManager
+    @Environment(DownloadManager.self) private var downloadManager
 
-    @ObservedObject var browserViewModel: BrowserViewModel
+    @Bindable var browserViewModel: BrowserViewModel
 
     func makeWebView(context: Context) -> WKWebView {
         let wkWebView = DenWebView()

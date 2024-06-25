@@ -82,7 +82,7 @@ struct AccentColorSelector: View {
         Label {
             Text("Accent Color", comment: "Picker label.")
         } icon: {
-            Image(systemName: "paintbrush")
+            Image(systemName: "paintbrush.pointed")
         }
     }
 }

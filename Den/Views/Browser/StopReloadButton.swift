@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct StopReloadButton: View {
-    @ObservedObject var browserViewModel: BrowserViewModel
+    @Bindable var browserViewModel: BrowserViewModel
     
     var body: some View {
         if browserViewModel.isLoading {

@@ -8,6 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 
 struct PagePicker: View {
@@ -15,11 +16,11 @@ struct PagePicker: View {
     
     var labelText: Text = Text("Folder", comment: "Picker label.")
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.userOrder, order: .forward),
-        SortDescriptor(\.name, order: .forward)
+    @Query(sort: [
+        SortDescriptor(\Page.userOrder, order: .forward),
+        SortDescriptor(\Page.name, order: .forward)
     ])
-    private var pages: FetchedResults<Page>
+    private var pages: [Page]
 
     var body: some View {
         Picker(selection: $selection) {

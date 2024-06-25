@@ -11,18 +11,13 @@
 import SwiftUI
 
 struct DeleteTagButton: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var tag: Tag
+    @Bindable var tag: Tag
 
     var body: some View {
         Button(role: .destructive) {
-            viewContext.delete(tag)
-            do {
-                try viewContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
+            modelContext.delete(tag)
         } label: {
             DeleteLabel()
         }

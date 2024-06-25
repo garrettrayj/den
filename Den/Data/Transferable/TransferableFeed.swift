@@ -8,11 +8,12 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 import UniformTypeIdentifiers
 
 struct TransferableFeed: Codable, Transferable {
-    var objectURI: URL
+    var persistentModelID: PersistentIdentifier
 
     static var transferRepresentation: some TransferRepresentation {
         CodableRepresentation(contentType: .denFeed)

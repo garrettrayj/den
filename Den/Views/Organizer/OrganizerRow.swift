@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct OrganizerRow: View {
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
     
     var body: some View {
         HStack {

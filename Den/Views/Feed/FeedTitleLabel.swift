@@ -13,7 +13,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedTitleLabel: View {
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
     
     var body: some View {
         Label {

@@ -15,10 +15,10 @@ struct BookmarkToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.scenePhase) private var scenePhase
     
-    @EnvironmentObject private var downloadManager: DownloadManager
+    @Environment(DownloadManager.self) private var downloadManager
 
-    @ObservedObject var bookmark: Bookmark
-    @ObservedObject var browserViewModel: BrowserViewModel
+    @Bindable var bookmark: Bookmark
+    @Bindable var browserViewModel: BrowserViewModel
 
     var body: some ToolbarContent {
         #if os(macOS)

@@ -12,7 +12,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct OrganizerInfoPanel: View {
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
 
     var body: some View {
         List {
@@ -35,20 +35,23 @@ struct OrganizerInfoPanel: View {
                 }
                 
                 LabeledContent {
-                    if feedData.responseTime > 5 {
+                    if feedData.responseTime ?? 0 > 5 {
                         Image(systemName: "tortoise")
                     }
-                    Text("\(Int(feedData.responseTime * 1000)) ms", comment: "Milliseconds time display.")
+                    Text(
+                        "\(Int(feedData.responseTime ?? 0 * 1000)) ms",
+                        comment: "Milliseconds time display."
+                    )
                 } label: {
                     Text("Response Time", comment: "Organizer info panel row label.")
                 }
                 
                 LabeledContent {
                     Text(verbatim: """
-                    \(feedData.httpStatus) \
+                    \(feedData.httpStatus ?? 0) \
                     \(
                         HTTPURLResponse.localizedString(
-                            forStatusCode: Int(feedData.httpStatus)
+                            forStatusCode: Int(feedData.httpStatus ?? 0)
                         ).localizedCapitalized
                     )
                     """)

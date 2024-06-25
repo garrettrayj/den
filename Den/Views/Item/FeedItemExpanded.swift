@@ -11,8 +11,8 @@
 import SwiftUI
 
 struct FeedItemExpanded: View {
-    @ObservedObject var item: Item
-    @ObservedObject var feed: Feed
+    @Bindable var item: Item
+    @Bindable var feed: Feed
 
     var body: some View {
         ItemActionView(item: item, isLastInList: true, isStandalone: true) {
@@ -21,7 +21,7 @@ struct FeedItemExpanded: View {
                 
                 VStack(alignment: .leading, spacing: 4) {
                     PreviewHeadline(title: item.titleText)
-                    if !feed.hideBylines, let author = item.author {
+                    if feed.showBylines, let author = item.author {
                         PreviewAuthor(author: author)
                     }
                     if !item.bookmarks.isEmpty {
@@ -32,16 +32,16 @@ struct FeedItemExpanded: View {
                     }
                 }
                 
-                if !feed.hideImages, let url = item.image {
+                if feed.showImages, let url = item.image {
                     LargeThumbnail(
                         url: url,
-                        isRead: item.read,
-                        sourceWidth: CGFloat(item.imageWidth),
-                        sourceHeight: CGFloat(item.imageHeight)
+                        isRead: item.wrappedRead,
+                        sourceWidth: CGFloat(item.imageWidth ?? 0),
+                        sourceHeight: CGFloat(item.imageHeight ?? 0)
                     )
                 }
                 
-                if let teaser = item.teaser, teaser != "" && !feed.hideTeasers {
+                if let teaser = item.teaser, teaser != "" && feed.showExcerpts {
                     PreviewTeaser(teaser: teaser)
                 }
             }

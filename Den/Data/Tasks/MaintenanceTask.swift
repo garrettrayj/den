@@ -8,46 +8,47 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import OSLog
 
 struct MaintenanceTask {
     func execute() async {
-        let context = DataController.shared.container.newBackgroundContext()
-        context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
+        let context = ModelContext(DataController.shared.container)
         
-        context.performAndWait {
-            trimHistory(context: context)
-            trimSearches(context: context)
+        trimHistory(context: context)
+        trimSearches(context: context)
+        
+        await BlocklistManager.cleanupContentRulesLists(context: context)
+        await BlocklistManager.refreshAllContentRulesLists(context: context)
 
-            do {
-                try context.save()
-                UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Maintained")
-                Logger.main.info("Maintenance operations completed")
-            } catch {
-                Logger.main.error("Saving maintenance task context failed with error: \(error)")
-            }
+        do {
+            try context.save()
+            UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Maintained")
+            Logger.main.info("Maintenance operations completed")
+        } catch {
+            Logger.main.error("Saving maintenance task context failed with error: \(error)")
         }
-        
-        await BlocklistManager.cleanupContentRulesLists()
-        await BlocklistManager.refreshAllContentRulesLists()
     }
     
-    private func trimHistory(context: NSManagedObjectContext) {
+    private func trimHistory(context: ModelContext) {
+        /*
         DataController.truncate(
             History.self,
             context: context,
             sortDescriptors: [NSSortDescriptor(keyPath: \History.visited, ascending: false)],
             offset: 100000
         )
+         */
     }
     
-    private func trimSearches(context: NSManagedObjectContext) {
+    private func trimSearches(context: ModelContext) {
+        /*
         DataController.truncate(
             Search.self,
             context: context,
             sortDescriptors: [NSSortDescriptor(keyPath: \Search.submitted, ascending: false)],
             offset: 20
         )
+         */
     }
 }

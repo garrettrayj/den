@@ -11,11 +11,11 @@
 import SwiftUI
 
 struct DraggableFeedModifier: ViewModifier {
-    @ObservedObject var feed: Feed
+    @Bindable var feed: Feed
 
     func body(content: Content) -> some View {
         content
             .contentShape(Rectangle())
-            .draggable(TransferableFeed(objectURI: feed.objectID.uriRepresentation()))
+            .draggable(TransferableFeed(persistentModelID: feed.persistentModelID))
     }
 }

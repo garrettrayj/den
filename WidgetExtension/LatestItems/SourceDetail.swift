@@ -10,12 +10,12 @@
 
 import Foundation
 import AppIntents
-import CoreData
+import SwiftData
 import SwiftUI
 
 struct SourceDetail: AppEntity {
     let id: String
-    let entityType: NSManagedObject.Type?
+    let entityType: (any PersistentModel.Type)?
     let title: String
     let symbol: String?
 

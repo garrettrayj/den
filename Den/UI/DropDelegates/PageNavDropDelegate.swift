@@ -8,16 +8,16 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
+import SwiftData
 import SwiftUI
 import UniformTypeIdentifiers
 
 struct PageNavDropDelegate: DropDelegate {
-    let context: NSManagedObjectContext
+    let modelContext: ModelContext
     let page: Page
 
     @Binding var newFeedPageID: String?
-    @Binding var newFeedWebAddress: String
+    @Binding var newFeedURLString: String
     @Binding var showingNewFeedSheet: Bool
 
     func performDrop(info: DropInfo) -> Bool {
@@ -50,19 +50,17 @@ struct PageNavDropDelegate: DropDelegate {
             Task {
                 await MainActor.run {
                     guard
-                        let objectID = context.persistentStoreCoordinator?.managedObjectID(
-                            forURIRepresentation: transferableFeed.objectURI
-                        ),
-                        let feed = try? context.existingObject(with: objectID) as? Feed,
+                        let feed = modelContext.model(
+                            for: transferableFeed.persistentModelID
+                        ) as? Feed,
                         feed.page != page
                     else { return }
-
+                    
                     feed.page = page
                     feed.userOrder = page.feedsUserOrderMax + 1
 
                     do {
-                        try context.save()
-                        page.objectWillChange.send()
+                        try modelContext.save()
                     } catch {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
@@ -74,11 +72,11 @@ struct PageNavDropDelegate: DropDelegate {
     private func handleNewFeed(_ provider: NSItemProvider) {
         if provider.canLoadObject(ofClass: URL.self) {
             _ = provider.loadObject(ofClass: URL.self, completionHandler: { url, _ in
-                Task {
-                    await MainActor.run {
-                        if let url = url {
+                if let url = url {
+                    Task {
+                        await MainActor.run {
                             newFeedPageID = page.id?.uuidString
-                            newFeedWebAddress = url.absoluteStringForNewFeed
+                            newFeedURLString = url.absoluteStringForNewFeed
                             showingNewFeedSheet = true
                         }
                     }
@@ -90,11 +88,11 @@ struct PageNavDropDelegate: DropDelegate {
 
         if provider.canLoadObject(ofClass: String.self) {
             _ = provider.loadObject(ofClass: String.self, completionHandler: { droppedString, _ in
-                Task {
-                    await MainActor.run {
-                        if let droppedString = droppedString {
+                if let droppedString = droppedString {
+                    Task {
+                        await MainActor.run {
                             newFeedPageID = page.id?.uuidString
-                            newFeedWebAddress = droppedString
+                            newFeedURLString = droppedString
                             showingNewFeedSheet = true
                         }
                     }

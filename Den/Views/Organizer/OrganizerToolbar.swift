@@ -8,13 +8,14 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 
 struct OrganizerToolbar: ToolbarContent {
     @Binding var selection: Set<Feed>
     @Binding var showingInspector: Bool
     
-    let pages: FetchedResults<Page>
+    let pages: [Page]
 
     var body: some ToolbarContent {
         ToolbarItem {

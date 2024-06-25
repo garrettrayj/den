@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct DeleteBlocklistButton: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.modelContext) private var modelContext
 
-    @ObservedObject var blocklist: Blocklist
+    @Bindable var blocklist: Blocklist
     
     var body: some View {
         Button(role: .destructive) {
@@ -21,13 +21,7 @@ struct DeleteBlocklistButton: View {
                 await BlocklistManager.removeContentRulesList(
                     identifier: blocklist.id?.uuidString
                 )
-                viewContext.delete(blocklist)
-                
-                do {
-                    try viewContext.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
+                modelContext.delete(blocklist)
             }
         } label: {
             DeleteLabel()

@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct ItemTags: View {
-    @ObservedObject var item: Item
+    @Bindable var item: Item
     
     static let separator = NSLocale.autoupdatingCurrent.groupingSeparator ?? ","
 

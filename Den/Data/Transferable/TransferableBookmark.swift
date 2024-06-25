@@ -8,11 +8,12 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 import UniformTypeIdentifiers
 
 struct TransferableBookmark: Codable, Transferable {
-    var objectURI: URL
+    var persistentModelID: PersistentIdentifier
     var linkURL: URL
 
     static var transferRepresentation: some TransferRepresentation {

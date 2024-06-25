@@ -8,11 +8,12 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 
 struct Welcome: View {
-    @FetchRequest(sortDescriptors: [])
-    private var feeds: FetchedResults<Feed>
+    @Query()
+    private var feeds: [Feed]
     
     var body: some View {
         ContentUnavailable {

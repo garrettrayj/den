@@ -13,7 +13,7 @@ import SwiftUI
 struct MacSidebarBottomBar: View {
     @Environment(\.displayScale) private var displayScale
 
-    @EnvironmentObject private var refreshManager: RefreshManager
+    @Environment(RefreshManager.self) private var refreshManager
     
     let feedCount: Int
     
