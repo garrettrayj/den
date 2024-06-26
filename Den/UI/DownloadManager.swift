@@ -20,18 +20,18 @@ import OSLog
     }
     
     func clear() {
-        browserDownloads.forEach { $0.wkDownload.cancel() }
+        browserDownloads.forEach { $0.cancel() }
         browserDownloads.removeAll()
     }
     
     func remove(_ browserDownload: BrowserDownload) {
-        browserDownload.wkDownload.cancel()
+        browserDownload.cancel()
         browserDownloads.removeAll(where: { $0 == browserDownload })
     }
     
     func remove(_ selection: Set<BrowserDownload>) {
         selection.forEach {
-            $0.wkDownload.cancel()
+            $0.cancel()
         }
         browserDownloads.removeAll(where: { selection.contains($0) })
     }
@@ -42,7 +42,7 @@ extension DownloadManager: WKDownloadDelegate {
         _ download: WKDownload,
         willPerformHTTPRedirection response: HTTPURLResponse,
         newRequest request: URLRequest,
-        decisionHandler: @escaping (WKDownload.RedirectPolicy) -> Void
+        decisionHandler: @escaping @MainActor (WKDownload.RedirectPolicy) -> Void
     ) {
         decisionHandler(.allow)
     }
@@ -51,7 +51,7 @@ extension DownloadManager: WKDownloadDelegate {
         _ download: WKDownload,
         decideDestinationUsing response: URLResponse,
         suggestedFilename: String,
-        completionHandler: @escaping (URL?) -> Void
+        completionHandler: @escaping @MainActor (URL?) -> Void
     ) {
         let fileManager = FileManager.default
         

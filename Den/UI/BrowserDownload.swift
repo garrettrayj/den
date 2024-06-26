@@ -23,6 +23,16 @@ import WebKit
         self.fileURL = fileURL
     }
     
+    func cancel() {
+        let wkDownload = wkDownload
+        Task {
+            await MainActor.run {
+                wkDownload.cancel()
+            }
+        }
+        
+    }
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(wkDownload)
     }

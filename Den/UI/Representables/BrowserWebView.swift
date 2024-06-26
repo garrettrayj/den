@@ -78,6 +78,7 @@ struct BrowserWebView {
     }
 }
 
+@MainActor
 final class BrowserWebViewCoordinator: NSObject {
     let browserViewModel: BrowserViewModel
     let downloadManager: DownloadManager
@@ -118,7 +119,7 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction,
-        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+        decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void
     ) {
         if navigationAction.shouldPerformDownload {
             decisionHandler(.download)
@@ -128,10 +129,7 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         // Open external links in system browser
         if navigationAction.targetFrame == nil {
             if let url = navigationAction.request.url {
-                let openURL = openURL
-                Task {
-                    await openURL(url)
-                }
+                openURL(url)
             }
             decisionHandler(.cancel)
             return
@@ -143,7 +141,7 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationResponse: WKNavigationResponse,
-        decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
+        decisionHandler: @escaping @MainActor (WKNavigationResponsePolicy) -> Void
     ) {
         if navigationResponse.canShowMIMEType {
             decisionHandler(.allow)
@@ -238,10 +236,7 @@ extension BrowserWebViewCoordinator: WKUIDelegate {
         windowFeatures: WKWindowFeatures
     ) -> WKWebView? {
         if !(navigationAction.targetFrame?.isMainFrame ?? false), let url = navigationAction.request.url {
-            let openURL = openURL
-            Task {
-                await openURL(url)
-            }
+            openURL(url)
         }
 
         return nil

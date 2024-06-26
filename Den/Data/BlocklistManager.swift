@@ -12,6 +12,7 @@ import SwiftData
 import OSLog
 import WebKit
 
+@MainActor
 final class BlocklistManager {
     static func getContentRuleLists() async -> [WKContentRuleList] {
         let context = ModelContext(DataController.shared.container)
@@ -32,7 +33,6 @@ final class BlocklistManager {
         return ruleLists
     }
     
-    @MainActor
     static func removeContentRulesList(identifier: String?) async {
         guard let identifier = identifier else { return }
 
@@ -42,7 +42,6 @@ final class BlocklistManager {
         Logger.main.info("Content rules list removed: \(identifier, privacy: .public)")
     }
     
-    @MainActor
     static func getCompiledRulesListIdentifiers() async -> [String] {
         return await WKContentRuleListStore.default().availableIdentifiers() ?? []
     }
@@ -87,7 +86,6 @@ final class BlocklistManager {
         try? context.save()
     }
 
-    @MainActor
     static func compileContentRulesList(identifier: String, json: String) async -> Bool {
         do {
             _ = try await WKContentRuleListStore.default().compileContentRuleList(

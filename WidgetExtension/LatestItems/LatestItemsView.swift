@@ -22,8 +22,8 @@ struct LatestItemsView: View {
     @ScaledMetric(relativeTo: .largeTitle) var largeIconSize = 32
     @ScaledMetric(relativeTo: .largeTitle) var thumbnailSize = 64
     
-    @ScaledMetric(relativeTo: .title) var widgetTitleFontSize = 16
-    @ScaledMetric(relativeTo: .headline) var itemTitleFontSize = 14
+    @ScaledMetric(relativeTo: .title) var widgetTitleFontSize = 15
+    @ScaledMetric(relativeTo: .headline) var itemTitleFontSize = 13
     @ScaledMetric(relativeTo: .caption) var itemSourceFontSize = 10
     
     var entry: LatestItemsProvider.Entry
@@ -81,7 +81,7 @@ struct LatestItemsView: View {
         VStack(spacing: 8) {
             HStack {
                 Label {
-                    entry.title.font(.system(size: widgetTitleFontSize, weight: .bold))
+                    entry.title.font(.system(size: widgetTitleFontSize, weight: .semibold))
                 } icon: {
                     sourceIcon
                         .scaledToFit()
