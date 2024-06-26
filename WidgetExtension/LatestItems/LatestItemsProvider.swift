@@ -66,23 +66,23 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
     ) async -> Timeline<LatestItemsEntry> {
         var entries: [LatestItemsEntry] = []
         
-        let moc = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
 
         var feed: Feed?
         var page: Page?
 
         // Fetch scope object
-        let sourceID = configuration.source.id as String?
+        let sourceID = configuration.source.id
         if configuration.source.entityType == Page.self {
             let request = FetchDescriptor<Page>(
-                predicate: #Predicate<Page> { $0.id?.uuidString == sourceID }
+                predicate: #Predicate<Page> { $0.id == sourceID }
             )
-            page = try? moc.fetch(request).first
+            page = try? modelContext.fetch(request).first
         } else if configuration.source.entityType == Feed.self {
             let request = FetchDescriptor<Feed>(
-                predicate: #Predicate<Feed> { $0.id?.uuidString == sourceID }
+                predicate: #Predicate<Feed> { $0.id == sourceID }
             )
-            feed = try? moc.fetch(request).first
+            feed = try? modelContext.fetch(request).first
         }
 
         // Get items
@@ -126,7 +126,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             maxItems = 8
         }
         
-        if let items = try? moc.fetch(request) {
+        if let items = try? modelContext.fetch(request) {
             var entryItems: [Entry.WidgetItem] = []
 
             for item in items.prefix(maxItems) {

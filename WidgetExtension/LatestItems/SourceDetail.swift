@@ -14,7 +14,7 @@ import SwiftData
 import SwiftUI
 
 struct SourceDetail: AppEntity {
-    let id: String
+    let id: UUID
     let entityType: (any PersistentModel.Type)?
     let title: String
     let symbol: String?

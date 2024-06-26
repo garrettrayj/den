@@ -14,7 +14,7 @@ import SwiftData
 
 struct SourceQuery: EntityQuery {
     static let defaultSource = SourceDetail(
-        id: "inbox",
+        id: UUID(),
         entityType: nil,
         title: "Inbox",
         symbol: "tray"
@@ -36,7 +36,7 @@ struct SourceQuery: EntityQuery {
         for page in try context.fetch(request) {
             guard let pageID = page.id else { continue }
             sources.append(SourceDetail(
-                id: pageID.uuidString,
+                id: pageID,
                 entityType: Page.self,
                 title: page.wrappedName,
                 symbol: page.wrappedSymbol
@@ -45,7 +45,7 @@ struct SourceQuery: EntityQuery {
             for feed in page.feedsArray {
                 guard let feedID = feed.id else { continue }
                 sources.append(SourceDetail(
-                    id: feedID.uuidString,
+                    id: feedID,
                     entityType: Feed.self,
                     title: feed.wrappedTitle,
                     symbol: nil

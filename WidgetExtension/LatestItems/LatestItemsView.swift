@@ -222,7 +222,6 @@ struct LatestItemsView: View {
                         .lineLimit(widgetFamily == .systemMedium ? 6 : 3)
                         .font(
                             .system(size: itemTitleFontSize, weight: .semibold)
-                            .width(.condensed)
                             .leading(.tight)
                         )
                         .padding(.bottom, -4)
