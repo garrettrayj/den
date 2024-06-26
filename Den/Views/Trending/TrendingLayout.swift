@@ -24,7 +24,7 @@ struct TrendingLayout: View {
                     BoardView(width: geometry.size.width, list: visibleTrends) { trend in
                         TrendBlock(
                             trend: trend,
-                            items: trend.items,
+                            items: trend.items ?? [],
                             feeds: trend.feeds
                         )
                     }
@@ -37,7 +37,7 @@ struct TrendingLayout: View {
         let visibleTrends = hideRead ? trends.containingUnread : Array(trends)
 
         return visibleTrends.sorted {
-            ($0.feeds.count, $0.items.count) > ($1.feeds.count, $1.items.count)
+            ($0.feeds.count, $0.items?.count ?? 0) > ($1.feeds.count, $1.items?.count ?? 0)
         }
     }
 }

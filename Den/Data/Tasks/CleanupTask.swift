@@ -23,8 +23,7 @@ struct CleanupTask {
         
         var orphansPurged = 0
         for feedData in feedDatas where feedData.feed == nil {
-            //Fatal error: Never access a full future backing data
-            //context.delete(feedData)
+            context.delete(feedData)
             orphansPurged += 1
         }
         

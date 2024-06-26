@@ -37,7 +37,7 @@ class Item {
     var teaser: String?
     var title: String?
     var feedData: FeedData?
-    @Relationship(deleteRule: .cascade, inverse: \TrendItem.item) var trendItems: [TrendItem]?
+    @Relationship(inverse: \Trend.items) var trends: [Trend]?
     
     init(
         author: String? = nil,
@@ -61,7 +61,7 @@ class Item {
         teaser: String? = nil,
         title: String? = nil,
         feedData: FeedData? = nil,
-        trendItems: [TrendItem]? = nil
+        trends: [Trend]? = nil
     ) {
         self.author = author
         self.body = body
@@ -84,7 +84,7 @@ class Item {
         self.teaser = teaser
         self.title = title
         self.feedData = feedData
-        self.trendItems = trendItems
+        self.trends = trends
     }
     
     var titleText: Text {
@@ -142,15 +142,6 @@ class Item {
                 tags = String(data: data, encoding: String.Encoding.utf8)
             }
         }
-    }
-
-    var trendItemsArray: [TrendItem] {
-        get { trendItems ?? [] }
-        set { trendItems = newValue }
-    }
-    
-    var trends: [Trend] {
-        trendItemsArray.compactMap { $0.trend }
     }
     
     var wrappedRead: Bool {

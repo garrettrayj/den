@@ -21,7 +21,7 @@ class Trend {
     var slug: String?
     var tag: String?
     var title: String?
-    @Relationship(deleteRule: .cascade, inverse: \TrendItem.trend) var trendItems: [TrendItem]?
+    var items: [Item]?
     
     init(
         id: UUID? = nil,
@@ -30,7 +30,7 @@ class Trend {
         slug: String? = nil,
         tag: String? = nil,
         title: String? = nil,
-        trendItems: [TrendItem]? = nil
+        items: [Item]? = nil
     ) {
         self.id = id
         self.profileId = profileId
@@ -38,7 +38,7 @@ class Trend {
         self.slug = slug
         self.tag = tag
         self.title = title
-        self.trendItems = trendItems
+        self.items = items
     }
     
     var titleText: Text {
@@ -48,31 +48,22 @@ class Trend {
             return Text("Untitled", comment: "Default trend title.")
         }
     }
-
-    var trendItemsArray: [TrendItem] {
-        trendItems ?? []
-    }
-
-    var items: [Item] {
-        trendItemsArray
-            .compactMap { $0.item }
-            .sorted(using: SortDescriptor(\.published, order: .reverse))
-    }
-
+    
     var feeds: [Feed] {
-        Set(items.compactMap { $0.feedData?.feed }).sorted { $0.wrappedTitle < $1.wrappedTitle }
+        Set(items?.compactMap { $0.feedData?.feed } ?? []).sorted { $0.wrappedTitle < $1.wrappedTitle }
     }
     
     func updateReadStatus() {
-        read = items.unread.isEmpty
+        read = items?.unread.isEmpty
     }
 
     static func create(in modelContext: ModelContext) -> Trend {
         let trend = Trend()
         trend.id = UUID()
-        
+        trend.items = []
+
         modelContext.insert(trend)
-        
+
         return trend
     }
 }
@@ -83,6 +74,6 @@ extension Collection where Element == Trend {
     }
     
     var items: [Item] {
-        return self.flatMap { $0.items }.uniqueElements()
+        return self.flatMap { $0.items ?? [] }.uniqueElements()
     }
 }

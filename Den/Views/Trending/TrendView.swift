@@ -27,7 +27,7 @@ struct TrendView: View {
                 }
             } else {
                 Group {
-                    if trend.items.isEmpty {
+                    if let items = trend.items, items.isEmpty {
                         ContentUnavailable {
                             Label {
                                 Text("No Items", comment: "Content unavailable title.")
@@ -41,7 +41,7 @@ struct TrendView: View {
                         TrendLayout(
                             trend: trend,
                             hideRead: $hideRead,
-                            items: trend.items.visibilityFiltered(hideRead ? false : nil)
+                            items: trend.items?.visibilityFiltered(hideRead ? false : nil) ?? []
                         )
                     }
                 }
@@ -49,7 +49,7 @@ struct TrendView: View {
                     TrendToolbar(
                         trend: trend,
                         hideRead: $hideRead,
-                        items: trend.items
+                        items: trend.items ?? []
                     )
                 }
                 .navigationTitle(trend.titleText)

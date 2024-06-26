@@ -33,26 +33,23 @@ struct AnalyzeTask {
             }
 
             for item in workingTrend.items {
-                _ = trend.trendItemsArray.first { trendItem in
-                    trendItem.item == item
-                } ?? TrendItem.create(in: context, trend: trend, item: item)
+                if let trendItems = trend.items, !trendItems.contains(item) {
+                    trend.items?.append(item)
+                }
             }
 
-            for trendItem in trend.trendItemsArray
-            where !workingTrend.items.contains(where: { $0 == trendItem.item }) {
-                context.delete(trendItem)
+            for trendItem in trend.items ?? []
+            where !workingTrend.items.contains(where: { $0 == trendItem }) {
+                trend.items?.removeAll(where: { $0 == trendItem })
             }
             
             trend.updateReadStatus()
         }
 
         // Delete trends not present in current analysis
-        //Fatal error: Never access a full future backing data
-        /*
         for trend in existingTrends where !workingTrends.contains(where: { $0.slug == trend.slug }) {
             context.delete(trend)
         }
-         */
         
         try? context.save()
     }

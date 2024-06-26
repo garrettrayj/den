@@ -31,8 +31,7 @@ struct DataController {
         BlocklistStatus.self,
         FeedData.self,
         Item.self,
-        Trend.self,
-        TrendItem.self
+        Trend.self
     ]
     
     init(inMemory: Bool = false) {
@@ -86,7 +85,6 @@ struct DataController {
                     FeedData.self,
                     Item.self,
                     Trend.self,
-                    TrendItem.self,
                 configurations: cloudConfig, localConfig
             )
         } catch {

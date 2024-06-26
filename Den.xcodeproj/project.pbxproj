@@ -40,7 +40,6 @@
 		6828E4C22C2A883300696FB4 /* BlocklistStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E4AA2C2A883300696FB4 /* BlocklistStatus.swift */; };
 		6828E4C32C2A883300696FB4 /* Trend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E4B42C2A883300696FB4 /* Trend.swift */; };
 		6828E4C42C2A883300696FB4 /* AccentColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E49D2C2A883300696FB4 /* AccentColor.swift */; };
-		6828E4C52C2A883300696FB4 /* TrendItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E4B52C2A883300696FB4 /* TrendItem.swift */; };
 		6828E4C82C2A883300696FB4 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E4B22C2A883300696FB4 /* Search.swift */; };
 		6828E4C92C2A883300696FB4 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E49C2C2A883300696FB4 /* DataController.swift */; };
 		6828E4CA2C2A883300696FB4 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E49E2C2A883300696FB4 /* AppGroup.swift */; };
@@ -57,7 +56,6 @@
 		6828E4DA2C2A883300696FB4 /* BlocklistStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E4AA2C2A883300696FB4 /* BlocklistStatus.swift */; };
 		6828E4DB2C2A883300696FB4 /* Trend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E4B42C2A883300696FB4 /* Trend.swift */; };
 		6828E4DC2C2A883300696FB4 /* AccentColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E49D2C2A883300696FB4 /* AccentColor.swift */; };
-		6828E4DD2C2A883300696FB4 /* TrendItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E4B52C2A883300696FB4 /* TrendItem.swift */; };
 		6828E4E02C2A883300696FB4 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E4B22C2A883300696FB4 /* Search.swift */; };
 		6828E4E12C2A883300696FB4 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E49C2C2A883300696FB4 /* DataController.swift */; };
 		6828E4E22C2A883300696FB4 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828E49E2C2A883300696FB4 /* AppGroup.swift */; };
@@ -452,7 +450,6 @@
 		6828E4B22C2A883300696FB4 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		6828E4B32C2A883300696FB4 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		6828E4B42C2A883300696FB4 /* Trend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trend.swift; sourceTree = "<group>"; };
-		6828E4B52C2A883300696FB4 /* TrendItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendItem.swift; sourceTree = "<group>"; };
 		6829A4FB28C2744900F75C5A /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		6829A50B28C6479900F75C5A /* AllRead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRead.swift; sourceTree = "<group>"; };
 		6829A9092C1C8C0C002A3D1B /* CleanupTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanupTask.swift; sourceTree = "<group>"; };
@@ -881,7 +878,6 @@
 				6828E4B22C2A883300696FB4 /* Search.swift */,
 				6828E4B32C2A883300696FB4 /* Tag.swift */,
 				6828E4B42C2A883300696FB4 /* Trend.swift */,
-				6828E4B52C2A883300696FB4 /* TrendItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2016,7 +2012,6 @@
 				686F6B082B38B5210099EB49 /* TrendingLayout.swift in Sources */,
 				6868A3162895D20D0051D43E /* TrendingNavLink.swift in Sources */,
 				68FF63F82921DCE00012A275 /* TrendingToolbar.swift in Sources */,
-				6828E4DD2C2A883300696FB4 /* TrendItem.swift in Sources */,
 				6870EBDF29C95F6700E15154 /* TrendLayout.swift in Sources */,
 				68FF63FA2921DCF20012A275 /* TrendToolbar.swift in Sources */,
 				68F56B472870C123006EC915 /* TrendView.swift in Sources */,
@@ -2075,7 +2070,6 @@
 				68A5A14D2BE1938400FEA8D3 /* String+Extensions.swift in Sources */,
 				6828E4CC2C2A883300696FB4 /* Tag.swift in Sources */,
 				6828E4C32C2A883300696FB4 /* Trend.swift in Sources */,
-				6828E4C52C2A883300696FB4 /* TrendItem.swift in Sources */,
 				68FB95082BE4ACEA004EFA73 /* UserDefaults+Extensions.swift in Sources */,
 				68CC01242BDF0D9C00E723DC /* WidgetExtensionBundle.swift in Sources */,
 			);
@@ -2258,9 +2252,9 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2020-2024 Garrett Johnson";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.25.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -2323,9 +2317,9 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2020-2024 Garrett Johnson";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.25.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

@@ -22,7 +22,7 @@ struct HistoryUtility {
         history.visited = .now
 
         item.read = true
-        item.trends.forEach { $0.updateReadStatus() }
+        item.trends?.forEach { $0.updateReadStatus() }
 
         WidgetCenter.shared.reloadAllTimelines()
     }
@@ -35,7 +35,7 @@ struct HistoryUtility {
         }
 
         item.read = false
-        item.trends.forEach { $0.updateReadStatus() }
+        item.trends?.forEach { $0.updateReadStatus() }
 
         WidgetCenter.shared.reloadAllTimelines()
     }
@@ -55,17 +55,16 @@ struct HistoryUtility {
             history.visited = .now
             
             item.read = true
-            item.trends.forEach { $0.updateReadStatus() }
+            item.trends?.forEach { $0.updateReadStatus() }
         }
 
         WidgetCenter.shared.reloadAllTimelines()
     }
 
     static func clearHistory(context: ModelContext, items: [Item]) {
-
         for item in items {
             item.read = false
-            item.trends.forEach { $0.updateReadStatus() }
+            item.trends?.forEach { $0.updateReadStatus() }
             
             for history in item.history {
                 context.delete(history)
