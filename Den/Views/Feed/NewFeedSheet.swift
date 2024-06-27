@@ -118,6 +118,8 @@ struct NewFeedSheet: View {
         newFeed = Feed.create(in: modelContext, page: page, url: url, prepend: true)
         page.feeds?.append(newFeed!)
         
+        try? modelContext.save()
+        
         dismiss()
     }
 }
