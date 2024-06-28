@@ -15,8 +15,6 @@ struct SidebarFeed: View {
     
     @Bindable var feed: Feed
     
-    var unreadCount: Int
-    
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
     var body: some View {
@@ -33,7 +31,7 @@ struct SidebarFeed: View {
                 FeedFaviconPlaceholder()
             }
         }
-        .badge(showUnreadCounts ? unreadCount : 0)
+        .badge(showUnreadCounts ? feed.feedData?.items?.featured.unread.count ?? 0 : 0)
         .tag(DetailPanel.feed(feed))
         .modifier(DraggableFeedModifier(feed: feed))
         .contextMenu {

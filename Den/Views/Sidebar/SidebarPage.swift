@@ -45,7 +45,7 @@ struct SidebarPage: View {
     var body: some View {
         DisclosureGroup(isExpanded: isExpandedBinding) {
             ForEach(page.sortedFeeds, id: \.self) { feed in
-                SidebarFeed(feed: feed, unreadCount: feed.feedData?.items?.unread.count ?? 0)
+                SidebarFeed(feed: feed)
             }
             .onMove(perform: moveFeed)
         } label: {
