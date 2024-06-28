@@ -214,7 +214,7 @@ struct RootView: View {
                     detailPanel = .page(page)
                 }
             } else if sourceType == "feed" {
-                if let feed = pages.flatMap({ $0.feedsArray }).first(where: { $0.id == sourceID }) {
+                if let feed = pages.feeds.first(where: { $0.id == sourceID }) {
                     detailPanel = .feed(feed)
                 }
             }

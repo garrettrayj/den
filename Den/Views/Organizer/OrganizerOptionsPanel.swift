@@ -108,7 +108,7 @@ struct OrganizerOptionsPanel: View {
                 try? modelContext.transaction {
                     for feed in sources where feed.hasChanges {
                         if let feedData = feed.feedData {
-                            for (idx, item) in feedData.itemsArray.enumerated() {
+                            for (idx, item) in feedData.wrappedItems.enumerated() {
                                 item.extra = idx + 1 > feed.wrappedItemLimit
                             }
                         }

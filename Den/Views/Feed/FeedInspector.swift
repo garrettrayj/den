@@ -29,7 +29,7 @@ struct FeedInspector: View {
                 }
                 .onChange(of: feed.itemLimit) {
                     if let feedData = feed.feedData {
-                        for (idx, item) in feedData.itemsArray.enumerated() {
+                        for (idx, item) in feedData.sortedItems.enumerated() {
                             item.extra = idx + 1 > feed.wrappedItemLimit
                         }
                     }

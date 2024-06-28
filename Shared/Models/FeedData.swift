@@ -99,19 +99,23 @@ class FeedData {
             error = newValue?.rawValue
         }
     }
+    
+    var wrappedItems: [Item] {
+        items ?? []
+    }
+
+    var sortedItems: [Item] {
+        items?.sorted(using: [
+            SortDescriptor(\.published, order: .reverse),
+            SortDescriptor(\.title, order: .forward)
+        ]) as? [Item] ?? []
+    }
 
     var feed: Feed? {
         var fetchDescriptor = FetchDescriptor<Feed>()
         fetchDescriptor.predicate = #Predicate<Feed> { $0.id == feedId }
         
         return try? modelContext?.fetch(fetchDescriptor).first
-    }
-
-    var itemsArray: [Item] {
-        items?.sorted(using: [
-            SortDescriptor(\.published, order: .reverse),
-            SortDescriptor(\.title, order: .forward)
-        ]) as? [Item] ?? []
     }
 
     static func create(in modelContext: ModelContext, feedId: UUID) -> FeedData {

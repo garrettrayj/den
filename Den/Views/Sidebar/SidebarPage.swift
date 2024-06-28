@@ -44,8 +44,8 @@ struct SidebarPage: View {
 
     var body: some View {
         DisclosureGroup(isExpanded: isExpandedBinding) {
-            ForEach(page.feedsArray, id: \.self) { feed in
-                SidebarFeed(feed: feed, unreadCount: feed.feedData?.itemsArray.count ?? 0)
+            ForEach(page.sortedFeeds, id: \.self) { feed in
+                SidebarFeed(feed: feed, unreadCount: feed.feedData?.items?.unread.count ?? 0)
             }
             .onMove(perform: moveFeed)
         } label: {
@@ -98,7 +98,7 @@ struct SidebarPage: View {
     
     private func moveFeed( from source: IndexSet, to destination: Int) {
         // Make an array of items from fetched results
-        var revisedItems: [Feed] = page.feedsArray.map { $0 }
+        var revisedItems: [Feed] = page.sortedFeeds
 
         // Change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)

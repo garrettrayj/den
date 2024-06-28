@@ -61,31 +61,33 @@ class Page {
         get { symbol ?? "folder" }
         set { symbol = newValue }
     }
+    
+    var wrappedFeeds: [Feed] {
+        feeds ?? []
+    }
 
-    var feedsArray: [Feed] {
-        feeds?.sorted(
-            using: [SortDescriptor(\.userOrder)]
-        ) as? [Feed] ?? []
+    var sortedFeeds: [Feed] {
+        wrappedFeeds.sorted(using: [SortDescriptor(\.userOrder)])
     }
 
     var feedsUserOrderMin: Int16 {
-        feedsArray.reduce(0) { (result, feed) -> Int16 in
+        feeds?.reduce(0) { (result, feed) -> Int16 in
             if (feed.userOrder ?? 0) < result {
                 return feed.userOrder ?? 0
             }
 
             return result
-        }
+        } ?? 0
     }
 
     var feedsUserOrderMax: Int16 {
-        feedsArray.reduce(0) { (result, feed) -> Int16 in
+        feeds?.reduce(0) { (result, feed) -> Int16 in
             if (feed.userOrder ?? 0) > result {
                 return feed.userOrder ?? 0
             }
 
             return result
-        }
+        } ?? 0
     }
 
     static func create(
@@ -106,7 +108,7 @@ class Page {
 extension Collection where Element == Page {
     var feeds: [Feed] {
         self.reduce([]) { partialResult, page in
-            partialResult + page.feedsArray
+            partialResult + page.sortedFeeds
         }
     }
     

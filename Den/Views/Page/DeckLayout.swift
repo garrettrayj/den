@@ -25,7 +25,7 @@ struct DeckLayout: View {
         GeometryReader { geometry in
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 8) {
-                    ForEach(page.feedsArray) { feed in
+                    ForEach(page.sortedFeeds) { feed in
                         ScrollView(.vertical, showsIndicators: false) {
                             DeckColumn(
                                 feed: feed,

@@ -47,7 +47,7 @@ struct WithItems<Content: View>: View {
             }
         } else if let page = scopeObject as? Page {
             var pagePredicates: [Predicate<Item>] = []
-            let feedDataIDs = page.feedsArray.compactMap { $0.feedData?.persistentModelID }
+            let feedDataIDs = page.wrappedFeeds.compactMap { $0.feedData?.persistentModelID }
             
             if feedDataIDs.isEmpty {
                 let fakeUUID = UUID()

@@ -98,7 +98,7 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             }
         } else if let page = page {
             var pagePredicates: [Predicate<Item>] = []
-            let feedDataIDs = page.feedsArray.compactMap { $0.feedData?.persistentModelID }
+            let feedDataIDs = page.sortedFeeds.compactMap { $0.feedData?.persistentModelID }
 
             if feedDataIDs.isEmpty {
                 let fakeUUID = UUID()

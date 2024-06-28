@@ -5,6 +5,7 @@
 	</head>
 	<body>
 		<outline den:icon="globe" text="World" title="World">
+			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Le Monde" title="Le Monde" type="rss" xmlUrl="https://www.lemonde.fr/en/rss/une.xml" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="TIME" title="TIME" type="rss" xmlUrl="https://api.time.com/world/feed/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Radio Free Europe / Radio Liberty" title="Radio Free Europe / Radio Liberty" type="rss" xmlUrl="https://www.rferl.org/api/" />
 			<outline den:allowJavaScript="true" den:previewLimit="6" den:previewStyle="compressed" den:showBylines="true" den:showImages="true" den:showTeasers="true" den:useBlocklists="true" den:useReaderAutomatically="false" text="Semafor" title="Semafor" type="rss" xmlUrl="https://semafor.com/rss.xml" />

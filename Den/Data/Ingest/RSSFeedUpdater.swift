@@ -28,7 +28,7 @@ struct RSSFeedUpdater {
         
         guard let rssFeedItems = rssFeed.itemsSortedByDateAndTitle else { return }
 
-        var existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
+        var existingItemLinks = feedData.wrappedItems.compactMap({ $0.link })
         for rssFeedItem in rssFeedItems.prefix(Feed.totalItemLimit) {
             // Continue if link is missing
             guard let itemLink = rssFeedItem.linkURL else {

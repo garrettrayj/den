@@ -42,7 +42,7 @@ struct SourceQuery: EntityQuery {
                 symbol: page.wrappedSymbol
             ))
             
-            for feed in page.feedsArray {
+            for feed in page.sortedFeeds {
                 guard let feedID = feed.id else { continue }
                 sources.append(SourceDetail(
                     id: feedID,

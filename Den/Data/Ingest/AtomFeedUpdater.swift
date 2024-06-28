@@ -29,7 +29,7 @@ struct AtomFeedUpdater {
         
         guard let atomFeedEntries = atomFeed.entriesSortedByDateAndTitle else { return }
 
-        var existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
+        var existingItemLinks = feedData.wrappedItems.compactMap({ $0.link })
         for atomFeedEntry in atomFeedEntries.prefix(Feed.totalItemLimit) {
             // Continue if link is missing
             guard let itemLink = atomFeedEntry.linkURL else {

@@ -28,7 +28,7 @@ struct GroupedLayout: View {
                     ForEach(
                         Columnizer.columnize(
                             columnCount: Int(geometry.size.width / idealColumnWidth),
-                            list: page.feedsArray
+                            list: page.sortedFeeds
                         ),
                         id: \.0
                     ) { _, feeds in

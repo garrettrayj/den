@@ -37,7 +37,7 @@ struct OPMLGenerator {
                     "den:icon": page.wrappedSymbol
                 ]
             )
-            page.feedsArray.forEach { feed in
+            page.sortedFeeds.forEach { feed in
                 let attributes = [
                     "text": feed.wrappedTitle,
                     "title": feed.wrappedTitle,

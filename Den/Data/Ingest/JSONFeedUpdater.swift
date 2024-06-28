@@ -28,7 +28,7 @@ struct JSONFeedUpdater {
 
         guard let jsonFeedItems = jsonFeed.itemsSortedByDateAndTitle else { return }
         
-        var existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
+        var existingItemLinks = feedData.wrappedItems.compactMap({ $0.link })
         
         for jsonFeedItem in jsonFeedItems.prefix(Feed.totalItemLimit) {
             // Continue if link is missing

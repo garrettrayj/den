@@ -44,7 +44,7 @@ struct Organizer: View {
                 List(selection: $selection) {
                     ForEach(pages) { page in
                         Section {
-                            ForEach(page.feedsArray) { feed in
+                            ForEach(page.sortedFeeds) { feed in
                                 OrganizerRow(feed: feed)
                             }
                             .onMove { indices, newOffset in
@@ -82,7 +82,7 @@ struct Organizer: View {
 
     private func moveFeeds(page: Page, indices: IndexSet, newOffset: Int) {
         // Make an array of items from fetched results
-        var revisedItems: [Feed] = page.feedsArray.map { $0 }
+        var revisedItems: [Feed] = page.sortedFeeds
 
         // Change the order of the items in the array
         revisedItems.move(fromOffsets: indices, toOffset: newOffset)

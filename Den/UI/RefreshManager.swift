@@ -48,7 +48,7 @@ import WidgetKit
         let request = FetchDescriptor<Page>(sortBy: [SortDescriptor(\Page.userOrder)])
         
         guard let pages = try? context.fetch(request) as [Page] else { return }
-        let feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
+        let feedUpdates = pages.feeds.map { feed in
             return FeedUpdateTask(
                 feedObjectID: feed.persistentModelID,
                 url: feed.url!,

@@ -35,7 +35,7 @@ struct PageView: View {
         } else {
             WithItems(scopeObject: page) { items in
                 Group {
-                    if page.feedsArray.isEmpty {
+                    if page.wrappedFeeds.isEmpty {
                         NoFeeds()
                     } else if pageLayoutAppStorage.wrappedValue == .grouped {
                         GroupedLayout(

@@ -62,7 +62,7 @@ struct FeedUpdateTask {
         
         guard (200...299).contains(feedData.httpStatus ?? 0) else {
             feedData.wrappedError = .request
-            feedData.itemsArray.forEach { context.delete($0) }
+            feedData.wrappedItems.forEach { context.delete($0) }
             self.save(context: context, feed: feed, start: start)
             return
         }
@@ -77,14 +77,14 @@ struct FeedUpdateTask {
         }
 
         // Cleanup old items
-        if feedData.itemsArray.count > Feed.totalItemLimit {
-            feedData.itemsArray.suffix(from: Feed.totalItemLimit).forEach { item in
+        if feedData.wrappedItems.count > Feed.totalItemLimit {
+            feedData.sortedItems.suffix(from: Feed.totalItemLimit).forEach { item in
                 context.delete(item)
             }
         }
 
         // Update read and extra status of items
-        for (idx, item) in feedData.itemsArray.enumerated() {
+        for (idx, item) in feedData.sortedItems.enumerated() {
             item.read = !item.history.isEmpty
 
             if idx + 1 > feed.wrappedItemLimit {
@@ -157,7 +157,7 @@ struct FeedUpdateTask {
             
             return (true, parsedFeed.webpage)
         case .failure:
-            feedData.itemsArray.forEach { context.delete($0) }
+            feedData.wrappedItems.forEach { context.delete($0) }
             feedData.wrappedError = .parsing
             
             return (false, nil)

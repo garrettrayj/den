@@ -27,7 +27,7 @@ struct TagsSection: View {
     }
 
     private func moveTags(from source: IndexSet, to destination: Int) {
-        var revisedItems = Array(tags)
+        var revisedItems = tags
 
         // Change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)

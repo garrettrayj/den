@@ -37,7 +37,7 @@ struct PagesSection: View {
     }
 
     private func movePages(from source: IndexSet, to destination: Int) {
-        var revisedItems = Array(pages)
+        var revisedItems = pages
 
         // Change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)
@@ -52,7 +52,7 @@ struct PagesSection: View {
     private func deletePages(at offsets: IndexSet) {
         for index in offsets {
             let page = pages[index]
-            page.feedsArray.compactMap { $0.feedData }.forEach { modelContext.delete($0) }
+            page.wrappedFeeds.compactMap { $0.feedData }.forEach { modelContext.delete($0) }
             modelContext.delete(page)
         }
     }
