@@ -39,7 +39,7 @@ struct OrganizerInfoPanel: View {
                         Image(systemName: "tortoise")
                     }
                     Text(
-                        "\(Int(feedData.responseTime ?? 0 * 1000)) ms",
+                        "\(Int((feedData.responseTime ?? 0) * 1000)) ms",
                         comment: "Milliseconds time display."
                     )
                 } label: {
