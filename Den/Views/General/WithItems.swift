@@ -40,6 +40,16 @@ struct WithItems<Content: View>: View {
         
         var predicates: [Predicate<Item>] = []
         
+        if let readFilter {
+            let readPredicate = #Predicate<Item> { $0.read == readFilter }
+            predicates.append(readPredicate)
+        }
+
+        if !includeExtras {
+            let extrasPredicate = #Predicate<Item> { $0.extra == false }
+            predicates.append(extrasPredicate)
+        }
+        
         if let feed = scopeObject as? Feed {
             var feedDataIDs: [PersistentIdentifier] = []
             if let feedDataID = feed.feedData?.persistentModelID {
@@ -63,16 +73,6 @@ struct WithItems<Content: View>: View {
                 }
             }
             predicates.append(pageScopePredicate)
-        }
-
-        if readFilter != nil {
-            let readPredicate = #Predicate<Item> { $0.wrappedRead == readFilter! }
-            predicates.append(readPredicate)
-        }
-
-        if !includeExtras {
-            let extrasPredicate = #Predicate<Item> { $0.extra == false }
-            predicates.append(extrasPredicate)
         }
 
         if !searchQuery.isEmpty {

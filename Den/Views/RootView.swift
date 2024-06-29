@@ -34,8 +34,7 @@ struct RootView: View {
     @State private var newFeed: Feed?
     @State private var newFeedPageID: String?
     @State private var newFeedURLString: String = ""
-    @State private var sidebarViewID = UUID()
-    @State private var detailViewID = UUID()
+    @State private var refreshViewID = 0 // Encremented on refresh to re-render views
     
     @SceneStorage("DetailPanel") private var detailPanelData: Data?
     @SceneStorage("Navigation") private var navigationData: Data?
@@ -70,7 +69,7 @@ struct RootView: View {
                 showingNewTagSheet: $showingNewTagSheet,
                 pages: pages
             )
-            .id(sidebarViewID)
+            .id(refreshViewID)
             #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 300)
             #else
@@ -83,7 +82,7 @@ struct RootView: View {
                 path: $navigationStore.path,
                 searchQuery: $searchQuery
             )
-            .id(detailViewID)
+            .id(refreshViewID)
             #if os(iOS)
             .toolbarTitleDisplayMode(.inline)
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
@@ -197,8 +196,7 @@ struct RootView: View {
         .tint(accentColor?.color)
         .onChange(of: refreshManager.refreshing) { oldValue, newValue in
             if oldValue == true && newValue == false {
-                sidebarViewID = UUID()
-                detailViewID = UUID()
+                refreshViewID += 1
             }
         }
     }

@@ -210,9 +210,9 @@ extension Collection where Element == Item {
                 return item.read == false
             } else if readFilter == true {
                 return item.read == true
+            } else {
+                return true
             }
-
-            return true
         }
     }
 
