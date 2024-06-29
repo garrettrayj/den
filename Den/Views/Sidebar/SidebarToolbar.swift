@@ -53,7 +53,7 @@ struct SidebarToolbar: ToolbarContent {
         }
         #if os(iOS)
         ToolbarItem(placement: .status) {
-            SidebarStatus(feedCount: feedCount).layoutPriority(0)
+            SidebarStatus(feedCount: feedCount)
         }
         ToolbarItem(placement: .bottomBar) {
             RefreshButton().disabled(feedCount == 0)
