@@ -14,12 +14,13 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(\.modelContext) private var modelContext
+    #if os(iOS)
     @Environment(\.scenePhase) private var scenePhase
+    #endif
     
     @Environment(RefreshManager.self) private var refreshManager
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    @State private var preferredCompactColumn: NavigationSplitViewColumn = .sidebar
     @State private var showingExporter = false
     @State private var showingImporter = false
     @State private var showingNewFeedSheet = false
@@ -30,7 +31,6 @@ struct RootView: View {
     @State private var clearPathOnDetailChange = true
     @State private var detailPanel: DetailPanel?
     @State private var navigationStore = NavigationStore()
-    
     @State private var newFeed: Feed?
     @State private var newFeedPageID: String?
     @State private var newFeedURLString: String = ""
@@ -50,13 +50,12 @@ struct RootView: View {
     ])
     private var pages: [Page]
     
+    #if os(iOS)
     @ScaledMetric var sidebarWidth = 264
-
+    #endif
+    
     var body: some View {
-        NavigationSplitView(
-            columnVisibility: $columnVisibility,
-            preferredCompactColumn: $preferredCompactColumn
-        ) {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             Sidebar(
                 detailPanel: $detailPanel,
                 newFeedPageID: $newFeedPageID,

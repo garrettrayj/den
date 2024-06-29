@@ -7,10 +7,13 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import BackgroundTasks
 import SwiftData
 import OSLog
 import SwiftUI
+
+#if os(iOS)
+@preconcurrency import BackgroundTasks
+#endif
 
 import SDWebImage
 import SDWebImageSVGCoder
@@ -20,10 +23,9 @@ import SDWebImageWebPCoder
 struct DenApp: App {
     #if os(iOS)
     @UIApplicationDelegateAdaptor var delegate: AppDelegate
-    #endif
-    
-    @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
+    #endif
+    @Environment(\.openURL) private var openURL
     
     @State private var downloadManager = DownloadManager()
     @State private var networkMonitor = NetworkMonitor()
@@ -32,9 +34,6 @@ struct DenApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environment(downloadManager)
-                .environment(networkMonitor)
-                .environment(refreshManager)
         }
         .commands {
             ToolbarCommands()
@@ -52,7 +51,6 @@ struct DenApp: App {
                     Text("Den Help", comment: "Button label.")
                 }
                 Divider()
-                
                 #if os(macOS)
                 Button {
                     if let url = Bundle.main.url(
@@ -84,16 +82,17 @@ struct DenApp: App {
             await scheduleRefresh()
         }
         #endif
+        .environment(downloadManager)
+        .environment(networkMonitor)
+        .environment(refreshManager)
         
         #if os(macOS)
         Settings {
-            SettingsSheet()
-                .environment(refreshManager)
-                .frame(width: 440)
-                .frame(minHeight: 560)
+            SettingsSheet().frame(width: 440).frame(minHeight: 560)
         }
         .modelContainer(DataController.shared.container)
         .windowToolbarStyle(.expanded)
+        .environment(refreshManager)
         #endif
     }
     
