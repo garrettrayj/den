@@ -34,6 +34,8 @@ struct RootView: View {
     @State private var newFeed: Feed?
     @State private var newFeedPageID: String?
     @State private var newFeedURLString: String = ""
+    @State private var sidebarViewID = UUID()
+    @State private var detailViewID = UUID()
     
     @SceneStorage("DetailPanel") private var detailPanelData: Data?
     @SceneStorage("Navigation") private var navigationData: Data?
@@ -68,6 +70,7 @@ struct RootView: View {
                 showingNewTagSheet: $showingNewTagSheet,
                 pages: pages
             )
+            .id(sidebarViewID)
             #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 300)
             #else
@@ -80,6 +83,7 @@ struct RootView: View {
                 path: $navigationStore.path,
                 searchQuery: $searchQuery
             )
+            .id(detailViewID)
             #if os(iOS)
             .toolbarTitleDisplayMode(.inline)
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
@@ -191,6 +195,12 @@ struct RootView: View {
         }
         .preferredColorScheme(userColorScheme.colorScheme)
         .tint(accentColor?.color)
+        .onChange(of: refreshManager.refreshing) { oldValue, newValue in
+            if oldValue == true && newValue == false {
+                sidebarViewID = UUID()
+                detailViewID = UUID()
+            }
+        }
     }
     
     private func openWidgetURL(url: URL) {
