@@ -41,26 +41,28 @@ struct WithItems<Content: View>: View {
         var predicates: [Predicate<Item>] = []
         
         if let feed = scopeObject as? Feed {
+            var feedDataIDs: [PersistentIdentifier] = []
             if let feedDataID = feed.feedData?.persistentModelID {
-                let feedScopePredicate = #Predicate<Item> { $0.feedData?.persistentModelID == feedDataID }
-                predicates.append(feedScopePredicate)
+                feedDataIDs.append(feedDataID)
             }
-        } else if let page = scopeObject as? Page {
-            var pagePredicates: [Predicate<Item>] = []
-            let feedDataIDs = page.wrappedFeeds.compactMap { $0.feedData?.persistentModelID }
-            
-            if feedDataIDs.isEmpty {
-                let fakeUUID = UUID()
-                let emptyPredicate = #Predicate<Item> { $0.id == fakeUUID }
-                predicates.append(emptyPredicate)
-            } else {
-                for feedDataID in feedDataIDs {
-                    let pagePredicate = #Predicate<Item> { $0.feedData?.persistentModelID == feedDataID }
-                    pagePredicates.append(pagePredicate)
+            let feedScopePredicate = #Predicate<Item> { item in
+                if let feedData = item.feedData {
+                    return feedDataIDs.contains(feedData.persistentModelID)
+                } else {
+                    return false
                 }
-                let pagePredicate = pagePredicates.disjunction()
-                predicates.append(pagePredicate)
             }
+            predicates.append(feedScopePredicate)
+        } else if let page = scopeObject as? Page {
+            let feedDataIDs = page.wrappedFeeds.compactMap { $0.feedData?.persistentModelID }
+            let pageScopePredicate = #Predicate<Item> { item in
+                if let feedData = item.feedData {
+                    return feedDataIDs.contains(feedData.persistentModelID)
+                } else {
+                    return false
+                }
+            }
+            predicates.append(pageScopePredicate)
         }
 
         if readFilter != nil {
