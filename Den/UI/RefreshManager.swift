@@ -44,10 +44,10 @@ import WidgetKit
         guard progress.totalUnitCount == 0 else { return }
         
         let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
-        let context = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
         let request = FetchDescriptor<Page>(sortBy: [SortDescriptor(\Page.userOrder)])
         
-        guard let pages = try? context.fetch(request) as [Page] else { return }
+        guard let pages = try? modelContext.fetch(request) as [Page] else { return }
         let feedUpdates = pages.feeds.map { feed in
             return FeedUpdateTask(
                 feedObjectID: feed.persistentModelID,

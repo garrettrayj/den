@@ -18,7 +18,7 @@ struct AtomFeedUpdater {
         feed: Feed,
         feedData: FeedData,
         atomFeed: AtomFeed,
-        context: ModelContext
+        modelContext: ModelContext
     ) {
         if feed.title == nil, let feedTitle = atomFeed.title {
             feed.title = feedTitle.preparingTitle()
@@ -44,7 +44,7 @@ struct AtomFeedUpdater {
                 existingItemLinks.append(itemLink)
             }
 
-            let item = Item.create(moc: context, feedData: feedData)
+            let item = Item.create(moc: modelContext, feedData: feedData)
             
             AtomItemLoader.populateItem(item: item, itemLink: itemLink, atomFeedEntry: atomFeedEntry)
 

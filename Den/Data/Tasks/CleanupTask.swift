@@ -14,20 +14,20 @@ import SwiftData
 
 struct CleanupTask {
     func execute() async {
-        let context = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
 
-        guard let feedDatas = try? context.fetch(FetchDescriptor<FeedData>()) as [FeedData] else {
+        guard let feedDatas = try? modelContext.fetch(FetchDescriptor<FeedData>()) as [FeedData] else {
             Logger.main.error("Unable to fetch FeedData records for cleanup")
             return
         }
         
         var orphansPurged = 0
         for feedData in feedDatas where feedData.feed == nil {
-            context.delete(feedData)
+            modelContext.delete(feedData)
             orphansPurged += 1
         }
         
-        try? context.save()
+        try? modelContext.save()
         
         Logger.main.info("Purged \(orphansPurged) orphaned feed data records.")
     }

@@ -14,10 +14,10 @@ import SwiftUI
 import WidgetKit
 
 struct HistoryUtility {
-    static func markItemRead(context: ModelContext, item: Item) {
+    static func markItemRead(modelContext: ModelContext, item: Item) {
         guard item.read == false else { return }
 
-        let history = History.create(in: context)
+        let history = History.create(in: modelContext)
         history.link = item.link
         history.visited = .now
 
@@ -27,11 +27,11 @@ struct HistoryUtility {
         WidgetCenter.shared.reloadAllTimelines()
     }
 
-    static func markItemUnread(context: ModelContext, item: Item) {
+    static func markItemUnread(modelContext: ModelContext, item: Item) {
         guard item.read == true else { return }
 
         for history in item.history {
-            context.delete(history)
+            modelContext.delete(history)
         }
 
         item.read = false
@@ -40,17 +40,17 @@ struct HistoryUtility {
         WidgetCenter.shared.reloadAllTimelines()
     }
 
-    static func toggleReadUnread(context: ModelContext, items: [Item]) {
+    static func toggleReadUnread(modelContext: ModelContext, items: [Item]) {
         if items.unread.isEmpty == true {
-            clearHistory(context: context, items: items)
+            clearHistory(modelContext: modelContext, items: items)
         } else {
-            logHistory(context: context, items: items.unread)
+            logHistory(modelContext: modelContext, items: items.unread)
         }
     }
 
-    static func logHistory(context: ModelContext, items: [Item]) {
+    static func logHistory(modelContext: ModelContext, items: [Item]) {
         for item in items {
-            let history = History.create(in: context)
+            let history = History.create(in: modelContext)
             history.link = item.link
             history.visited = .now
             
@@ -61,13 +61,13 @@ struct HistoryUtility {
         WidgetCenter.shared.reloadAllTimelines()
     }
 
-    static func clearHistory(context: ModelContext, items: [Item]) {
+    static func clearHistory(modelContext: ModelContext, items: [Item]) {
         for item in items {
             item.read = false
             item.trends?.forEach { $0.updateReadStatus() }
             
             for history in item.history {
-                context.delete(history)
+                modelContext.delete(history)
             }
         }
 

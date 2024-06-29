@@ -64,25 +64,25 @@ extension SubDetailPanel: Decodable {
         }
 
         let objectID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
-        let context = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
 
         if panelID == "bookmark" {
-            if let bookmark = context.model(for: objectID) as? Bookmark {
+            if let bookmark = modelContext.model(for: objectID) as? Bookmark {
                 self = .bookmark(bookmark)
                 return
             }
         } else if panelID == "feed" {
-            if let feed = context.model(for: objectID) as? Feed {
+            if let feed = modelContext.model(for: objectID) as? Feed {
                 self = .feed(feed)
                 return
             }
         } else if panelID == "item" {
-            if let item = context.model(for: objectID) as? Item {
+            if let item = modelContext.model(for: objectID) as? Item {
                 self = .item(item)
                 return
             }
         } else if panelID == "trend" {
-            if let trend = context.model(for: objectID) as? Trend {
+            if let trend = modelContext.model(for: objectID) as? Trend {
                 self = .trend(trend)
                 return
             }

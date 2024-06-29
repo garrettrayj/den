@@ -28,12 +28,12 @@ struct SourceQuery: EntityQuery {
     func suggestedEntities() async throws -> [SourceDetail] {
         var sources = [SourceQuery.defaultSource]
         
-        let context = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
         
         var request = FetchDescriptor<Page>()
         request.sortBy = [SortDescriptor(\Page.userOrder)]
         
-        for page in try context.fetch(request) {
+        for page in try modelContext.fetch(request) {
             guard let pageID = page.id else { continue }
             sources.append(SourceDetail(
                 id: pageID,

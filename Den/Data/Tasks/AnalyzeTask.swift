@@ -13,20 +13,20 @@ import SwiftData
 
 struct AnalyzeTask {
     func execute() async {
-        let context = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
         
-        guard let existingTrends = try? context.fetch(FetchDescriptor<Trend>()) as [Trend] else {
+        guard let existingTrends = try? modelContext.fetch(FetchDescriptor<Trend>()) as [Trend] else {
             return
         }
         
-        let workingTrends = self.analyzeTrends(context: context)
+        let workingTrends = self.analyzeTrends(modelContext: modelContext)
         for workingTrend in workingTrends {
             var trend: Trend
 
             if let existingTrend = existingTrends.first(where: {$0.slug == workingTrend.slug}) {
                 trend = existingTrend
             } else {
-                trend = Trend.create(in: context)
+                trend = Trend.create(in: modelContext)
                 trend.title = workingTrend.title
                 trend.slug = workingTrend.slug
                 trend.tag = workingTrend.tag.rawValue
@@ -48,19 +48,19 @@ struct AnalyzeTask {
 
         // Delete trends not present in current analysis
         for trend in existingTrends where !workingTrends.contains(where: { $0.slug == trend.slug }) {
-            context.delete(trend)
+            modelContext.delete(trend)
         }
         
-        try? context.save()
+        try? modelContext.save()
     }
     
-    private func analyzeTrends(context: ModelContext) -> [WorkingTrend] {
+    private func analyzeTrends(modelContext: ModelContext) -> [WorkingTrend] {
         var workingTrends: [WorkingTrend] = []
 
         var request = FetchDescriptor<Item>()
         request.predicate = #Predicate<Item> { $0.extra == false }
 
-        guard let items = try? context.fetch(request) else { return [] }
+        guard let items = try? modelContext.fetch(request) else { return [] }
 
         for item in items {
             for (tokenText, tag) in item.wrappedTags {

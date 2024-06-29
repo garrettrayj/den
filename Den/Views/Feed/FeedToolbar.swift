@@ -32,7 +32,7 @@ struct FeedToolbar: ToolbarContent {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleReadUnread(context: modelContext, items: items)
+                HistoryUtility.toggleReadUnread(modelContext: modelContext, items: items)
             }
         }
         #else
@@ -61,7 +61,7 @@ struct FeedToolbar: ToolbarContent {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(context: modelContext, items: items)
+                    HistoryUtility.toggleReadUnread(modelContext: modelContext, items: items)
                 }
             }
         } else {
@@ -73,7 +73,7 @@ struct FeedToolbar: ToolbarContent {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(context: modelContext, items: items)
+                    HistoryUtility.toggleReadUnread(modelContext: modelContext, items: items)
                 }
             }
         }

@@ -26,10 +26,10 @@ struct FeedUpdateTask {
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
         var webpage: URL?
 
-        let context = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
         
         guard
-            let feed = context.model(for: self.feedObjectID) as? Feed,
+            let feed = modelContext.model(for: self.feedObjectID) as? Feed,
             let feedId = feed.id
         else {
             Logger.main.error("Unable to fetch feed in update context.")
@@ -51,7 +51,7 @@ struct FeedUpdateTask {
             parserResult = FeedParser(data: data).parse()
         }
 
-        let feedData = feed.feedData ?? FeedData.create(in: context, feedId: feedId)
+        let feedData = feed.feedData ?? FeedData.create(in: modelContext, feedId: feedId)
         feedData.refreshed = .now
         feedData.responseTime = feedResponse.responseTime
         feedData.httpStatus = feedResponse.statusCode
@@ -62,8 +62,8 @@ struct FeedUpdateTask {
         
         guard (200...299).contains(feedData.httpStatus ?? 0) else {
             feedData.wrappedError = .request
-            feedData.wrappedItems.forEach { context.delete($0) }
-            self.save(context: context, feed: feed, start: start)
+            feedData.wrappedItems.forEach { modelContext.delete($0) }
+            self.save(modelContext: modelContext, feed: feed, start: start)
             return
         }
         
@@ -72,14 +72,14 @@ struct FeedUpdateTask {
                 feed: feed,
                 feedData: feedData,
                 parserResult: parserResult,
-                context: context
+                modelContext: modelContext
             )
         }
 
         // Cleanup old items
         if feedData.wrappedItems.count > Feed.totalItemLimit {
             feedData.sortedItems.suffix(from: Feed.totalItemLimit).forEach { item in
-                context.delete(item)
+                modelContext.delete(item)
             }
         }
 
@@ -95,7 +95,7 @@ struct FeedUpdateTask {
         }
 
         if !self.updateMeta || !parsedSuccessfully {
-            self.save(context: context, feed: feed, start: start)
+            self.save(modelContext: modelContext, feed: feed, start: start)
         }
 
         if updateMeta && parsedSuccessfully {
@@ -116,7 +116,7 @@ struct FeedUpdateTask {
                 webpageMetadata: webpageMetadata
             )
 
-            self.save(context: context, feed: feed, start: start)
+            self.save(modelContext: modelContext, feed: feed, start: start)
         }
     }
     // swiftlint:enable cyclomatic_complexity function_body_length
@@ -125,7 +125,7 @@ struct FeedUpdateTask {
         feed: Feed,
         feedData: FeedData,
         parserResult: Result<FeedKit.Feed, FeedKit.ParserError>,
-        context: ModelContext
+        modelContext: ModelContext
     ) -> (Bool, URL?) {
         switch parserResult {
         case .success(let parsedFeed):
@@ -137,27 +137,27 @@ struct FeedUpdateTask {
                     feed: feed,
                     feedData: feedData,
                     atomFeed: atomFeed,
-                    context: context
+                    modelContext: modelContext
                 )
             case let .rss(rssFeed):
                 RSSFeedUpdater.updateFeed(
                     feed: feed,
                     feedData: feedData,
                     rssFeed: rssFeed,
-                    context: context
+                    modelContext: modelContext
                 )
             case let .json(jsonFeed):
                 JSONFeedUpdater.updateFeed(
                     feed: feed,
                     feedData: feedData,
                     jsonFeed: jsonFeed,
-                    context: context
+                    modelContext: modelContext
                 )
             }
             
             return (true, parsedFeed.webpage)
         case .failure:
-            feedData.wrappedItems.forEach { context.delete($0) }
+            feedData.wrappedItems.forEach { modelContext.delete($0) }
             feedData.wrappedError = .parsing
             
             return (false, nil)
@@ -198,9 +198,9 @@ struct FeedUpdateTask {
         }
     }
 
-    private func save(context: ModelContext, feed: Feed, start: CFAbsoluteTime) {
+    private func save(modelContext: ModelContext, feed: Feed, start: CFAbsoluteTime) {
         do {
-            try context.save()
+            try modelContext.save()
             Logger.main.info("""
             Feed updated in \(CFAbsoluteTimeGetCurrent() - start) seconds: \
             \(feed.wrappedTitle, privacy: .public)

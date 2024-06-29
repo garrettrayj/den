@@ -12,12 +12,12 @@ import SwiftData
 import OSLog
 
 struct CleanupUtility {
-    static func upgradeBookmarks(context: ModelContext) {
+    static func upgradeBookmarks(modelContext: ModelContext) {
         var request = FetchDescriptor<Bookmark>()
         request.predicate = #Predicate<Bookmark> { $0.created == nil }
         
         guard
-            let bookmarks = try? context.fetch(request) as [Bookmark],
+            let bookmarks = try? modelContext.fetch(request) as [Bookmark],
             !bookmarks.isEmpty
         else {
             return
@@ -34,6 +34,6 @@ struct CleanupUtility {
             bookmark.largePreview = bookmark.feed?.largePreviews ?? false
         }
         
-        try? context.save()
+        try? modelContext.save()
     }
 }

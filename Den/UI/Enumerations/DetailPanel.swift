@@ -79,11 +79,11 @@ extension DetailPanel: Decodable {
         let panelID = try values.decode(String.self, forKey: .panelID)
         var detailPanel: DetailPanel = .welcome
         
-        let context = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
 
         if panelID == "feed" && values.contains(.objectID) {
             let decodedFeedID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
-            if let feed = context.model(for: decodedFeedID) as? Feed {
+            if let feed = modelContext.model(for: decodedFeedID) as? Feed {
                 detailPanel = .feed(feed)
             }
         } else if panelID == "inbox" {
@@ -92,12 +92,12 @@ extension DetailPanel: Decodable {
             detailPanel = .organizer
         } else if panelID == "page" && values.contains(.objectID) {
             let decodedPageID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
-            if let page = context.model(for: decodedPageID) as? Page {
+            if let page = modelContext.model(for: decodedPageID) as? Page {
                 detailPanel = .page(page)
             }
         } else if panelID == "tag" {
             let decodedTagID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
-            if let tag = context.model(for: decodedTagID) as? Tag {
+            if let tag = modelContext.model(for: decodedTagID) as? Tag {
                 detailPanel = .tag(tag)
             }
         } else if panelID == "trending" {

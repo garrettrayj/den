@@ -30,7 +30,7 @@ struct ItemView: View {
                 ItemToolbar(item: item, browserViewModel: browserViewModel)
             }
             .onAppear {
-                HistoryUtility.markItemRead(context: modelContext, item: item)
+                HistoryUtility.markItemRead(modelContext: modelContext, item: item)
             }
         } else {
             ContentUnavailable {

@@ -27,7 +27,7 @@ struct TrendingNavLink: View {
             .accessibilityIdentifier("TrendingNavLink")
             .contextMenu {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(context: modelContext, items: trends.items)
+                    HistoryUtility.toggleReadUnread(modelContext: modelContext, items: trends.items)
                 }
             }
         }

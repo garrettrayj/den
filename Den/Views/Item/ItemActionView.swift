@@ -29,7 +29,7 @@ struct ItemActionView<Content: View>: View {
                 Button {
                     guard let url = item.link else { return }
                     openURL(url)
-                    HistoryUtility.markItemRead(context: modelContext, item: item)
+                    HistoryUtility.markItemRead(modelContext: modelContext, item: item)
                 } label: {
                     content.modifier(DraggableItemModifier(item: item))
                 }

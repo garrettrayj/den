@@ -18,7 +18,7 @@ struct RSSFeedUpdater {
         feed: Feed,
         feedData: FeedData,
         rssFeed: RSSFeed,
-        context: ModelContext
+        modelContext: ModelContext
     ) {
         if feed.title == nil, let feedTitle = rssFeed.title {
             feed.title = feedTitle.preparingTitle()
@@ -43,7 +43,7 @@ struct RSSFeedUpdater {
                 existingItemLinks.append(itemLink)
             }
 
-            let item = Item.create(moc: context, feedData: feedData)
+            let item = Item.create(moc: modelContext, feedData: feedData)
             
             RSSItemLoader.populateItem(item: item, itemLink: itemLink, rssFeedItem: rssFeedItem)
             

@@ -28,7 +28,7 @@ struct InboxNavLink: View {
             .accessibilityIdentifier("InboxNavLink")
             .contextMenu {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(context: modelContext, items: items)
+                    HistoryUtility.toggleReadUnread(modelContext: modelContext, items: items)
                 }
             }
         }

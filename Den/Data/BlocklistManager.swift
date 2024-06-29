@@ -15,9 +15,9 @@ import WebKit
 @MainActor
 final class BlocklistManager {
     static func getContentRuleLists() async -> [WKContentRuleList] {
-        let context = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
         
-        guard let blocklists = try? context.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
+        guard let blocklists = try? modelContext.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
         else { return [] }
         
         var ruleLists: [WKContentRuleList] = []
@@ -47,9 +47,9 @@ final class BlocklistManager {
     }
     
     static func cleanupContentRulesLists() async {
-        let context = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
         
-        guard let blocklists = try? context.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
+        guard let blocklists = try? modelContext.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
         else { return }
         
         let blocklistIdentifiers = blocklists.compactMap { $0.id?.uuidString }
@@ -66,9 +66,9 @@ final class BlocklistManager {
     }
     
     static func initializeMissingContentRulesLists() async {
-        let context = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
         
-        guard let blocklists = try? context.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
+        guard let blocklists = try? modelContext.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
         else { return }
         
         for blocklist in blocklists {
@@ -83,7 +83,7 @@ final class BlocklistManager {
             }
         }
         
-        try? context.save()
+        try? modelContext.save()
     }
 
     static func compileContentRulesList(identifier: String, json: String) async -> Bool {
@@ -99,14 +99,14 @@ final class BlocklistManager {
     }
 
     static func refreshContentRulesList(blocklist: Blocklist) async {
-        let context = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
         
-        guard let blocklist = context.model(for: blocklist.persistentModelID) as? Blocklist else {
+        guard let blocklist = modelContext.model(for: blocklist.persistentModelID) as? Blocklist else {
             return
         }
         
         let blocklistStatus = blocklist.blocklistStatus ?? BlocklistStatus.create(
-            in: context,
+            in: modelContext,
             blocklist: blocklist
         )
         
@@ -133,9 +133,9 @@ final class BlocklistManager {
     }
     
     static func refreshAllContentRulesLists() async {
-        let context = ModelContext(DataController.shared.container)
+        let modelContext = ModelContext(DataController.shared.container)
         
-        guard let blocklists = try? context.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
+        guard let blocklists = try? modelContext.fetch(FetchDescriptor<Blocklist>()) as [Blocklist]
         else { return }
         
         for blocklist in blocklists {

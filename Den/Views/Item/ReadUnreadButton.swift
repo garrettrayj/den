@@ -18,7 +18,7 @@ struct ReadUnreadButton: View {
     var body: some View {
         if item.wrappedRead {
             Button {
-                HistoryUtility.markItemUnread(context: modelContext, item: item)
+                HistoryUtility.markItemUnread(modelContext: modelContext, item: item)
             } label: {
                 Label {
                     Text("Mark Unread", comment: "Button label.")
@@ -28,7 +28,7 @@ struct ReadUnreadButton: View {
             }
         } else {
             Button {
-                HistoryUtility.markItemRead(context: modelContext, item: item)
+                HistoryUtility.markItemRead(modelContext: modelContext, item: item)
             } label: {
                 Label {
                     Text("Mark Read", comment: "Button label.")

@@ -142,7 +142,7 @@ struct Sidebar: View {
                 defer { selectedFile.stopAccessingSecurityScopedResource() }
                 ImportExportUtility.importOPML(
                     url: selectedFile,
-                    context: modelContext,
+                    modelContext: modelContext,
                     pageUserOrderMax: pages.maxUserOrder
                 )
             } else {

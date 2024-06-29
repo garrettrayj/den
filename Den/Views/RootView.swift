@@ -117,7 +117,7 @@ struct RootView: View {
             
             await BlocklistManager.initializeMissingContentRulesLists()
 
-            CleanupUtility.upgradeBookmarks(context: modelContext)
+            CleanupUtility.upgradeBookmarks(modelContext: modelContext)
             
             await performMaintenance()
             
