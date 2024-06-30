@@ -18,6 +18,7 @@ struct WebViewError {
         <html>
         <head>
         <title>Error</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no" />
         <style>
         :root {
             color-scheme: light dark;

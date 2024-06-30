@@ -101,18 +101,14 @@ extension BrowserWebViewCoordinator: WKNavigationDelegate {
         didFailProvisionalNavigation navigation: WKNavigation!,
         withError error: Error
     ) {
-        Task {
-            await MainActor.run {
-                if let urlError = error as? URLError {
-                    guard let failingURL = urlError.failingURL else { return }
-                    let errorHTML = WebViewError(error: error).html
-                    
-                    webView.loadSimulatedRequest(
-                        URLRequest(url: failingURL),
-                        responseHTML: errorHTML
-                    )
-                }
-            }
+        if let urlError = error as? URLError {
+            guard let failingURL = urlError.failingURL else { return }
+            let errorHTML = WebViewError(error: error).html
+            
+            webView.loadSimulatedRequest(
+                URLRequest(url: failingURL),
+                responseHTML: errorHTML
+            )
         }
     }
     
@@ -179,50 +175,46 @@ extension BrowserWebViewCoordinator: WKScriptMessageHandler {
         
         let browserViewModel = browserViewModel
         
-        Task {
-            await MainActor.run {
-                let jsonData = Data(jsonString.utf8)
-                let decoder = JSONDecoder()
+        let jsonData = Data(jsonString.utf8)
+        let decoder = JSONDecoder()
 
-                decoder.dateDecodingStrategy = .custom({ decoder in
-                    let standardFormatter = ISO8601DateFormatter()
-                    standardFormatter.formatOptions = [.withInternetDateTime]
-                    
-                    let fractionalSecondsFormatter = ISO8601DateFormatter()
-                    standardFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-                    
-                    let container = try decoder.singleValueContainer()
-                    let dateString = try container.decode(String.self)
+        decoder.dateDecodingStrategy = .custom({ decoder in
+            let standardFormatter = ISO8601DateFormatter()
+            standardFormatter.formatOptions = [.withInternetDateTime]
+            
+            let fractionalSecondsFormatter = ISO8601DateFormatter()
+            standardFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            
+            let container = try decoder.singleValueContainer()
+            let dateString = try container.decode(String.self)
 
-                    if let date = standardFormatter.date(from: dateString) {
-                        return date
-                    } else if let date = fractionalSecondsFormatter.date(from: dateString) {
-                        return date
-                    }
-
-                    throw DecodingError.dataCorruptedError(
-                        in: container,
-                        debugDescription: "Cannot decode date string \(dateString)"
-                    )
-                })
-
-                if
-                    let mercuryObject = try? decoder.decode(MercuryObject.self, from: jsonData),
-                    mercuryObject.title != nil && mercuryObject.title != "",
-                    mercuryObject.content != nil && mercuryObject.content != ""
-                {
-                    browserViewModel.mercuryObject = mercuryObject
-                    browserViewModel.isReaderable = true
-
-                    if browserViewModel.useReaderAutomatically {
-                        browserViewModel.showReader()
-                    }
-                } else {
-                    browserViewModel.mercuryObject = nil
-                    browserViewModel.isReaderable = false
-                    browserViewModel.showingReader = false
-                }
+            if let date = standardFormatter.date(from: dateString) {
+                return date
+            } else if let date = fractionalSecondsFormatter.date(from: dateString) {
+                return date
             }
+
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Cannot decode date string \(dateString)"
+            )
+        })
+
+        if
+            let mercuryObject = try? decoder.decode(MercuryObject.self, from: jsonData),
+            mercuryObject.title != nil && mercuryObject.title != "",
+            mercuryObject.content != nil && mercuryObject.content != ""
+        {
+            browserViewModel.mercuryObject = mercuryObject
+            browserViewModel.isReaderable = true
+
+            if browserViewModel.useReaderAutomatically {
+                browserViewModel.showReader()
+            }
+        } else {
+            browserViewModel.mercuryObject = nil
+            browserViewModel.isReaderable = false
+            browserViewModel.showingReader = false
         }
     }
 }
