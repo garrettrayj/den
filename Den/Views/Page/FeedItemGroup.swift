@@ -13,15 +13,12 @@ import SwiftUI
 struct FeedItemGroup: View {
     @Bindable var feed: Feed
 
-    let hideRead: Bool
+    @Binding var hideRead: Bool
+    
     let items: [Item]
-    let filteredItems: [Item]
 
-    init(feed: Feed, hideRead: Bool, items: [Item]) {
-        self.feed = feed
-        self.hideRead = hideRead
-        self.items = items
-        self.filteredItems = items.visibilityFiltered(hideRead ? false : nil)
+    private var filteredItems: [Item] {
+        items.visibilityFiltered(hideRead ? false : nil)
     }
 
     var body: some View {

@@ -94,6 +94,7 @@ class Feed {
     var feedData: FeedData? {
         var fetchDescriptor = FetchDescriptor<FeedData>()
         fetchDescriptor.predicate = #Predicate<FeedData> { $0.feedId == id }
+        fetchDescriptor.fetchLimit = 1
         
         return try? modelContext?.fetch(fetchDescriptor).first
     }

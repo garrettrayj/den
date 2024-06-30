@@ -201,7 +201,7 @@ class Item {
 
 extension Collection where Element == Item {
     func forFeed(_ feed: Feed) -> [Item] {
-        self.filter { $0.feedData?.id == feed.feedData?.id }
+        self.filter { $0.feedData == feed.feedData }
     }
 
     func visibilityFiltered(_ readFilter: Bool?) -> [Item] {

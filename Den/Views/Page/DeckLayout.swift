@@ -29,7 +29,7 @@ struct DeckLayout: View {
                         ScrollView(.vertical, showsIndicators: false) {
                             DeckColumn(
                                 feed: feed,
-                                hideRead: hideRead,
+                                hideRead: $hideRead,
                                 items: items.forFeed(feed)
                             )
                             .padding(.vertical)

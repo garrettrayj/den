@@ -36,7 +36,7 @@ struct GroupedLayout: View {
                             ForEach(feeds) { feed in
                                 FeedItemGroup(
                                     feed: feed,
-                                    hideRead: hideRead,
+                                    hideRead: $hideRead,
                                     items: items.forFeed(feed)
                                 )
                             }
