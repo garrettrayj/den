@@ -12,7 +12,7 @@ import SwiftData
 import OSLog
 import WidgetKit
 
-@Observable final class RefreshManager {
+@MainActor @Observable final class RefreshManager {
     var refreshing = false
     var autoRefreshActive = false
     

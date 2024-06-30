@@ -12,33 +12,28 @@ import Combine
 import SwiftUI
 import WebKit
 
-@MainActor
-@Observable final class BrowserViewModel {
+@MainActor @Observable final class BrowserViewModel {
     private var cancellables: [AnyCancellable?] = []
     
     weak var browserWebView: WKWebView? {
         didSet {
-            Task {
-                await MainActor.run {
-                    cancellables.append(
-                        browserWebView?.publisher(for: \.canGoBack).assign(to: \.canGoBack, on: self)
-                    )
-                    cancellables.append(
-                        browserWebView?.publisher(for: \.canGoForward).assign(to: \.canGoForward, on: self)
-                    )
-                    cancellables.append(
-                        browserWebView?
-                            .publisher(for: \.estimatedProgress)
-                            .assign(to: \.estimatedProgress, on: self)
-                    )
-                    cancellables.append(
-                        browserWebView?.publisher(for: \.url).assign(to: \.url, on: self)
-                    )
-                    cancellables.append(
-                        browserWebView?.publisher(for: \.isLoading).assign(to: \.isLoading, on: self)
-                    )
-                }
-            }
+            cancellables = [
+                browserWebView?
+                    .publisher(for: \.canGoBack)
+                    .assign(to: \.canGoBack, on: self),
+                browserWebView?
+                    .publisher(for: \.canGoForward)
+                    .assign(to: \.canGoForward, on: self),
+                browserWebView?
+                    .publisher(for: \.estimatedProgress)
+                    .assign(to: \.estimatedProgress, on: self),
+                browserWebView?
+                    .publisher(for: \.url)
+                    .assign(to: \.url, on: self),
+                browserWebView?
+                    .publisher(for: \.isLoading)
+                    .assign(to: \.isLoading, on: self)
+            ]
         }
     }
 
@@ -104,13 +99,11 @@ import WebKit
         browserWebView?.reload()
     }
     
-    @MainActor
     func toggleBlocklists() async {
         useBlocklists.toggle()
         loadURL(url: url)
     }
     
-    @MainActor
     func toggleJavaScript() async {
         allowJavaScript.toggle()
         loadURL(url: url)
@@ -150,7 +143,6 @@ import WebKit
         #endif
     }
 
-    @MainActor
     func loadReader(initialZoom: PageZoomLevel) {
         var baseURL: URL?
 
