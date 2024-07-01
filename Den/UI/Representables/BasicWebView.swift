@@ -1,5 +1,5 @@
 //
-//  HTMLWebView.swift
+//  BasicWebView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/2/24.
@@ -12,7 +12,7 @@ import WebKit
 import SwiftUI
 
 @MainActor
-struct HTMLWebView {
+struct BasicWebView {
     let htmlContent: String
 
     func makeWebView(context: Context) -> WKWebView {
@@ -21,7 +21,7 @@ struct HTMLWebView {
 }
 
 #if os(macOS)
-extension HTMLWebView: NSViewRepresentable {
+extension BasicWebView: NSViewRepresentable {
     func makeNSView(context: Context) -> WKWebView {
         makeWebView(context: context)
     }
@@ -31,7 +31,7 @@ extension HTMLWebView: NSViewRepresentable {
     }
 }
 #else
-extension HTMLWebView: UIViewRepresentable {
+extension BasicWebView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         makeWebView(context: context)
     }

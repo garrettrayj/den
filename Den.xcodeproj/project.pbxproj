@@ -311,7 +311,7 @@
 		68E5B4F12C0A171400641CC7 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 68E5B4F02C0A171400641CC7 /* InfoPlist.xcstrings */; };
 		68E5B4F32C0A171400641CC7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 68E5B4F22C0A171400641CC7 /* Localizable.xcstrings */; };
 		68E5B4F92C0C47FB00641CC7 /* Acknowledgements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E5B4F82C0C47FB00641CC7 /* Acknowledgements.swift */; };
-		68E5B4FF2C0C4FF400641CC7 /* HTMLWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E5B4FE2C0C4FF400641CC7 /* HTMLWebView.swift */; };
+		68E5B4FF2C0C4FF400641CC7 /* BasicWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E5B4FE2C0C4FF400641CC7 /* BasicWebView.swift */; };
 		68E5B5012C0C5F4800641CC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E5B5002C0C5F4800641CC7 /* LaunchScreen.storyboard */; platformFilter = ios; };
 		68E5B5032C0CF86E00641CC7 /* AppearanceSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E5B5022C0CF86E00641CC7 /* AppearanceSection.swift */; };
 		68E6C5452A69127C00CA46B2 /* Acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5442A69127C00CA46B2 /* Acknowledgements.html */; };
@@ -700,7 +700,7 @@
 		68E5B4F02C0A171400641CC7 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		68E5B4F22C0A171400641CC7 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		68E5B4F82C0C47FB00641CC7 /* Acknowledgements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Acknowledgements.swift; sourceTree = "<group>"; };
-		68E5B4FE2C0C4FF400641CC7 /* HTMLWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLWebView.swift; sourceTree = "<group>"; };
+		68E5B4FE2C0C4FF400641CC7 /* BasicWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicWebView.swift; sourceTree = "<group>"; };
 		68E5B5002C0C5F4800641CC7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68E5B5022C0CF86E00641CC7 /* AppearanceSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSection.swift; sourceTree = "<group>"; };
 		68E6C5422A68EF2E00CA46B2 /* license_plist.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = license_plist.yml; sourceTree = "<group>"; };
@@ -1158,8 +1158,8 @@
 		68B34A5C2486D2710066B215 /* Representables */ = {
 			isa = PBXGroup;
 			children = (
+				68E5B4FE2C0C4FF400641CC7 /* BasicWebView.swift */,
 				682050782ACB504A00C937BE /* BrowserWebView.swift */,
-				68E5B4FE2C0C4FF400641CC7 /* HTMLWebView.swift */,
 				684152212AD2763400ABE5E2 /* ReaderWebView.swift */,
 			);
 			path = Representables;
@@ -1873,7 +1873,7 @@
 				68701DFB273E57DB00C6BB69 /* HistoryUtility.swift in Sources */,
 				6895C98C2A87085100BD4C21 /* HoverHighlightModifier.swift in Sources */,
 				68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */,
-				68E5B4FF2C0C4FF400641CC7 /* HTMLWebView.swift in Sources */,
+				68E5B4FF2C0C4FF400641CC7 /* BasicWebView.swift in Sources */,
 				68D486BE26C9896300AF5B59 /* IconSelector.swift in Sources */,
 				6856DB3C2AB7FB510094615E /* IconSelectorButton.swift in Sources */,
 				68B8E79829CABD5100E9AF42 /* ImageBorderModifier.swift in Sources */,
@@ -2264,7 +2264,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -2329,7 +2329,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

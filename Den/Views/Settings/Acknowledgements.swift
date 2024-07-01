@@ -16,7 +16,7 @@ struct Acknowledgements: View {
     var body: some View {
         VStack {
             if let html {
-                HTMLWebView(htmlContent: html)
+                BasicWebView(htmlContent: html)
             }
         }
         .task {
