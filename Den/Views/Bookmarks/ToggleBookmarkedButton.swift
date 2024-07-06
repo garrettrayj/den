@@ -17,7 +17,9 @@ struct ToggleBookmarkedButton: View {
     
     var body: some View {
         Button {
-            toggleBookmarked()
+            withAnimation {
+                toggleBookmarked()
+            }
         } label: {
             Label {
                 if item.wrappedBookmarked {
@@ -30,6 +32,7 @@ struct ToggleBookmarkedButton: View {
                     .symbolVariant(item.wrappedBookmarked ? .slash : .none)
             }
         }
+        .contentTransition(.symbolEffect(.replace))
     }
     
     private func toggleBookmarked() {
