@@ -16,7 +16,6 @@ struct FeedToolbar: ToolbarContent {
 
     @Bindable var feed: Feed
 
-    @Binding var hideRead: Bool
     @Binding var showingDeleteAlert: Bool
     @Binding var showingInspector: Bool
 
@@ -28,7 +27,7 @@ struct FeedToolbar: ToolbarContent {
             InspectorToggleButton(showingInspector: $showingInspector)
         }
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead)
+            FilterReadButton()
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
@@ -54,7 +53,7 @@ struct FeedToolbar: ToolbarContent {
                 InspectorToggleButton(showingInspector: $showingInspector)
             }
             ToolbarItem(placement: .bottomBar) {
-                FilterReadButton(hideRead: $hideRead)
+                FilterReadButton()
             }
             ToolbarItem(placement: .status) {
                 CommonStatus()
@@ -69,7 +68,7 @@ struct FeedToolbar: ToolbarContent {
                 InspectorToggleButton(showingInspector: $showingInspector)
             }
             ToolbarItem {
-                FilterReadButton(hideRead: $hideRead)
+                FilterReadButton()
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {

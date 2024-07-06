@@ -18,9 +18,7 @@ struct PageView: View {
     @State private var showingDeleteAlert = false
     @State private var showingIconSelector = false
     
-    @AppStorage("HideRead") private var hideRead: Bool = false
-
-    private var pageLayoutAppStorage: AppStorage<PageLayout>
+    @AppStorage("PageLayout") private var pageLayout: PageLayout = .grouped
 
     var body: some View {
         if page.isDeleted || page.modelContext == nil {
@@ -37,22 +35,19 @@ struct PageView: View {
                 Group {
                     if page.wrappedFeeds.isEmpty {
                         NoFeeds()
-                    } else if pageLayoutAppStorage.wrappedValue == .grouped {
+                    } else if pageLayout == .grouped {
                         GroupedLayout(
                             page: page,
-                            hideRead: $hideRead,
                             items: items
                         )
-                    } else if pageLayoutAppStorage.wrappedValue == .deck {
+                    } else if pageLayout == .deck {
                         DeckLayout(
                             page: page,
-                            hideRead: $hideRead,
                             items: items
                         )
-                    } else if pageLayoutAppStorage.wrappedValue == .timeline {
+                    } else if pageLayout == .timeline {
                         TimelineLayout(
                             page: page,
-                            hideRead: $hideRead,
                             items: items
                         )
                     }
@@ -63,8 +58,7 @@ struct PageView: View {
                 .toolbar {
                     PageToolbar(
                         page: page,
-                        hideRead: $hideRead,
-                        pageLayout: pageLayoutAppStorage.projectedValue,
+                        pageLayout: $pageLayout,
                         showingDeleteAlert: $showingDeleteAlert,
                         showingIconSelector: $showingIconSelector,
                         items: items
@@ -100,7 +94,7 @@ struct PageView: View {
     init(page: Page) {
         self.page = page
 
-        pageLayoutAppStorage = .init(
+        _pageLayout = .init(
             wrappedValue: PageLayout.grouped,
             "PageLayout_\(page.id?.uuidString ?? "NoID")"
         )

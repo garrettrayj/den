@@ -15,8 +15,6 @@ struct DeckLayout: View {
 
     @Bindable var page: Page
 
-    @Binding var hideRead: Bool
-
     let items: [Item]
     
     @ScaledMetric private var idealColumnWidth = Columnizer.idealColumnWidth
@@ -29,7 +27,6 @@ struct DeckLayout: View {
                         ScrollView(.vertical, showsIndicators: false) {
                             DeckColumn(
                                 feed: feed,
-                                hideRead: $hideRead,
                                 items: items.forFeed(feed)
                             )
                             .padding(.vertical)

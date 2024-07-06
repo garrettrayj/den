@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct InboxLayout: View {
-    @Binding var hideRead: Bool
-    
     let items: [Item]
     
     var body: some View {
@@ -20,7 +18,7 @@ struct InboxLayout: View {
             ScrollView(.vertical) {
                 BoardView(
                     width: geometry.size.width,
-                    list: items.visibilityFiltered(hideRead ? false : nil)
+                    list: items
                 ) { item in
                     if let feed = item.feedData?.feed {
                         if feed.wrappedPreviewStyle == .expanded {

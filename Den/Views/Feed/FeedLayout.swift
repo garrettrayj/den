@@ -15,11 +15,11 @@ struct FeedLayout: View {
 
     @Bindable var feed: Feed
 
-    @Binding var hideRead: Bool
-
     @State private var feedAddressCopied: Bool = false
 
     let items: [Item]
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -39,7 +39,6 @@ struct FeedLayout: View {
                         if !items.featured.isEmpty {
                             FeedLayoutSection(
                                 feed: feed,
-                                hideRead: $hideRead,
                                 geometry: geometry,
                                 items: items.featured
                             ) {
@@ -54,7 +53,6 @@ struct FeedLayout: View {
                         if !items.extra.isEmpty {
                             FeedLayoutSection(
                                 feed: feed,
-                                hideRead: $hideRead,
                                 geometry: geometry,
                                 items: items.extra
                             ) {

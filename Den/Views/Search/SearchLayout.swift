@@ -11,10 +11,10 @@
 import SwiftUI
 
 struct SearchLayout: View {
-    @Binding var hideRead: Bool
-
     let query: String
     let items: [Item]
+    
+    @AppStorage("SearchHideRead") private var hideRead: Bool = false
 
     var visibilityFilteredItems: [Item] {
         items.visibilityFiltered(hideRead ? false : nil)

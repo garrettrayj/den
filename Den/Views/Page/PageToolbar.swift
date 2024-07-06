@@ -17,7 +17,6 @@ struct PageToolbar: ToolbarContent {
 
     @Bindable var page: Page
 
-    @Binding var hideRead: Bool
     @Binding var pageLayout: PageLayout
     @Binding var showingDeleteAlert: Bool
     @Binding var showingIconSelector: Bool
@@ -30,7 +29,7 @@ struct PageToolbar: ToolbarContent {
             PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.menu).labelStyle(.iconOnly)
         }
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead)
+            FilterReadButton()
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
@@ -56,7 +55,7 @@ struct PageToolbar: ToolbarContent {
                     .padding(.trailing, -12)
             }
             ToolbarItem(placement: .bottomBar) {
-                FilterReadButton(hideRead: $hideRead)
+                FilterReadButton()
             }
             ToolbarItem(placement: .status) {
                 CommonStatus()
@@ -71,7 +70,7 @@ struct PageToolbar: ToolbarContent {
                 PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.menu).labelStyle(.iconOnly)
             }
             ToolbarItem {
-                FilterReadButton(hideRead: $hideRead)
+                FilterReadButton()
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {

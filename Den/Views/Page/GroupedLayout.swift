@@ -15,8 +15,6 @@ struct GroupedLayout: View {
 
     @Bindable var page: Page
 
-    @Binding var hideRead: Bool
-    
     @ScaledMetric private var idealColumnWidth = Columnizer.idealColumnWidth
 
     let items: [Item]
@@ -36,7 +34,6 @@ struct GroupedLayout: View {
                             ForEach(feeds) { feed in
                                 FeedItemGroup(
                                     feed: feed,
-                                    hideRead: $hideRead,
                                     items: items.forFeed(feed)
                                 )
                             }

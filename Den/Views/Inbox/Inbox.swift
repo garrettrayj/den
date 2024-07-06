@@ -38,12 +38,11 @@ struct Inbox: View {
                 } else if items.unread.isEmpty && hideRead {
                     AllRead(largeDisplay: true)
                 } else {
-                    InboxLayout(hideRead: $hideRead, items: items)
+                    InboxLayout(items: items.visibilityFiltered(hideRead ? false : nil))
                 }
             }
             .toolbar {
                 InboxToolbar(
-                    hideRead: $hideRead,
                     items: items
                 )
             }

@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct TrendingLayout: View {
-    @Binding var hideRead: Bool
-    
     let trends: [Trend]
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
     
     var body: some View {
         if trends.containingUnread.isEmpty && hideRead {
@@ -22,11 +22,7 @@ struct TrendingLayout: View {
             GeometryReader { geometry in
                 ScrollView(.vertical) {
                     BoardView(width: geometry.size.width, list: visibleTrends) { trend in
-                        TrendBlock(
-                            trend: trend,
-                            items: trend.items ?? [],
-                            feeds: trend.feeds
-                        )
+                        TrendBlock(trend: trend)
                     }
                 }
             }

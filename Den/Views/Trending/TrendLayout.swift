@@ -13,8 +13,6 @@ import SwiftUI
 struct TrendLayout: View {
     @Bindable var trend: Trend
 
-    @Binding var hideRead: Bool
-
     let items: [Item]
 
     var body: some View {

@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct FilterReadButton: View {
-    @Binding var hideRead: Bool
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         Button {
@@ -29,5 +29,11 @@ struct FilterReadButton: View {
                 Text("Hide Read Items", comment: "Button help text.")
         )
         .accessibilityIdentifier("FilterRead")
+    }
+    
+    init(storageKey: String? = nil) {
+        if let storageKey {
+            _hideRead = .init(wrappedValue: false, storageKey)
+        }
     }
 }

@@ -12,10 +12,10 @@ import SwiftUI
 
 struct DeckColumn: View {
     @Bindable var feed: Feed
-
-    @Binding var hideRead: Bool
     
     let items: [Item]
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     private var filteredItems: [Item] {
         items.visibilityFiltered(hideRead ? false : nil)

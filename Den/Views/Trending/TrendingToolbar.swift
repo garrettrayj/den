@@ -13,15 +13,13 @@ import SwiftUI
 struct TrendingToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.modelContext) private var modelContext
-
-    @Binding var hideRead: Bool
     
     let trends: [Trend]
 
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead)
+            FilterReadButton()
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
@@ -31,7 +29,7 @@ struct TrendingToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem(placement: .bottomBar) {
-                FilterReadButton(hideRead: $hideRead)
+                FilterReadButton()
             }
             ToolbarItem(placement: .status) {
                 CommonStatus()
@@ -43,7 +41,7 @@ struct TrendingToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem {
-                FilterReadButton(hideRead: $hideRead)
+                FilterReadButton()
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {

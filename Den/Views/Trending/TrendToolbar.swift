@@ -17,14 +17,14 @@ struct TrendToolbar: ToolbarContent {
 
     @Bindable var trend: Trend
 
-    @Binding var hideRead: Bool
-
     let items: [Item]
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead)
+            FilterReadButton()
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
@@ -35,7 +35,7 @@ struct TrendToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem(placement: .bottomBar) {
-                FilterReadButton(hideRead: $hideRead)
+                FilterReadButton()
             }
             ToolbarItem(placement: .status) {
                 CommonStatus()
@@ -48,7 +48,7 @@ struct TrendToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem {
-                FilterReadButton(hideRead: $hideRead)
+                FilterReadButton()
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {

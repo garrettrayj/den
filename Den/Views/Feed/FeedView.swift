@@ -18,8 +18,6 @@ struct FeedView: View {
     
     @State private var showingDeleteAlert = false
     
-    @AppStorage("HideRead") private var hideRead: Bool = false
-    
     @SceneStorage("ShowingFeedInspector") private var showingInspector = false
 
     var body: some View {
@@ -40,7 +38,6 @@ struct FeedView: View {
                 ) { items in
                     FeedLayout(
                         feed: feed,
-                        hideRead: $hideRead,
                         items: items
                     )
                     .onChange(of: feed.page) {
@@ -51,7 +48,6 @@ struct FeedView: View {
                     .toolbar {
                         FeedToolbar(
                             feed: feed,
-                            hideRead: $hideRead,
                             showingDeleteAlert: $showingDeleteAlert,
                             showingInspector: $showingInspector,
                             items: items

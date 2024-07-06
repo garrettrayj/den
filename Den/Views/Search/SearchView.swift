@@ -15,8 +15,6 @@ struct SearchView: View {
     @Environment(\.modelContext) private var modelContext
     
     @Binding var searchQuery: String
-    
-    @AppStorage("HideRead") private var hideRead: Bool = false
 
     @Query(sort: [
         SortDescriptor(\Search.submitted, order: .reverse)
@@ -45,7 +43,6 @@ struct SearchView: View {
                     searchQuery: searchQuery
                 ) { items in
                     SearchLayout(
-                        hideRead: $hideRead,
                         query: searchQuery,
                         items: items
                     )
@@ -53,7 +50,7 @@ struct SearchView: View {
                         Text("Search", comment: "Navigation title.")
                     )
                     .toolbar {
-                        SearchToolbar(hideRead: $hideRead, query: searchQuery, items: items)
+                        SearchToolbar(query: searchQuery, items: items)
                     }
                 }
             }

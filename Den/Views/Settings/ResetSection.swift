@@ -178,8 +178,20 @@ struct ResetSection: View {
     }
 
     private func resetEverything() {
-        for model in DataController.shared.cloudModels + DataController.shared.localModels {
-            try? modelContext.delete(model: model)
+        for model in DataController.shared.cloudModels {
+            do {
+                try modelContext.delete(model: model)
+            } catch {
+                print(error)
+            }
+        }
+        
+        for model in DataController.shared.localModels {
+            do {
+                try modelContext.delete(model: model)
+            } catch {
+                print(error)
+            }
         }
 
         Task {

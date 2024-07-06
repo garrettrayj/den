@@ -18,12 +18,12 @@ struct FeedLayoutSection<Header: View>: View {
     
     @Bindable var feed: Feed
     
-    @Binding var hideRead: Bool
-    
     let geometry: GeometryProxy
     let items: [Item]
     
     @ViewBuilder var header: Header
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
     
     var body: some View {
         Section {

@@ -16,9 +16,6 @@ import SDWebImageSwiftUI
 struct TrendBlock: View {
     @Bindable var trend: Trend
     
-    let items: [Item]
-    let feeds: [Feed]
-    
     @ScaledMetric var gridSize = 20
 
     private var symbol: String? {
@@ -33,7 +30,7 @@ struct TrendBlock: View {
     }
     
     private var favicons: [URL] {
-        feeds.compactMap { $0.feedData?.favicon }.uniqueElements()
+        trend.feeds.compactMap { $0.feedData?.favicon }.uniqueElements()
     }
 
     var body: some View {
@@ -64,8 +61,8 @@ struct TrendBlock: View {
                     }
                     Text(
                         """
-                        \(items.count) items in \(trend.feeds.count) feeds. \
-                        \(items.unread.count) unread
+                        \(trend.items?.count ?? 0) items in \(trend.feeds.count) feeds. \
+                        \(trend.items?.unread.count ?? 0) unread
                         """,
                         comment: "Trend status line."
                     )
