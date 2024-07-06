@@ -142,7 +142,7 @@
          <EnvironmentVariable
             key = "IDEPreferLogStreaming"
             value = "YES"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "IDELogRedirectionPolicy"

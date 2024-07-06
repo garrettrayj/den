@@ -186,16 +186,19 @@ struct RootView: View {
             }
             showingAppErrorSheet = true
         }
+        .onReceive(NotificationCenter.default.publisher(for: .rerender, object: nil)) { _ in
+            refreshViewID += 1
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .reset, object: nil)) { _ in
+            navigationStore.path.removeLast(navigationStore.path.count)
+            detailPanel = nil
+            refreshViewID += 1
+        }
         .sheet(isPresented: $showingAppErrorSheet) {
             AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
         }
         .preferredColorScheme(userColorScheme.colorScheme)
         .tint(accentColor?.color)
-        .onChange(of: refreshManager.refreshing) { oldValue, newValue in
-            if oldValue == true && newValue == false {
-                refreshViewID += 1
-            }
-        }
     }
     
     private func openWidgetURL(url: URL) {

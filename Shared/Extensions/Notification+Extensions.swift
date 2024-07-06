@@ -12,4 +12,6 @@ import Foundation
 
 extension Notification.Name {
     static let appErrored = Notification.Name("app-errored")
+    static let rerender = Notification.Name("rerender")
+    static let reset = Notification.Name("reset")
 }

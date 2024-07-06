@@ -93,6 +93,8 @@ import WidgetKit
         
         progress.completedUnitCount = 0
         progress.totalUnitCount = 0
+        
+        NotificationCenter.default.post(name: .rerender, object: nil)
     }
     
     func refresh(feed: Feed) async {

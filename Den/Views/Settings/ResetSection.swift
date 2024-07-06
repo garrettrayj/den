@@ -40,8 +40,9 @@ struct ResetSection: View {
     var body: some View {
         Section {
             Button {
+                clearData()
+                
                 Task {
-                    clearData()
                     await emptyCaches()
                     cacheSize = 0
                 }
@@ -147,11 +148,13 @@ struct ResetSection: View {
     }
     
     private func clearData() {
-        try? modelContext.delete(model: FeedData.self)
         try? modelContext.delete(model: Item.self)
+        try? modelContext.delete(model: FeedData.self)
         try? modelContext.delete(model: Trend.self)
         
         refreshedTimestamp = nil
+        
+        NotificationCenter.default.post(name: .rerender, object: nil)
     }
     
     private func clearHistory() {
@@ -164,19 +167,19 @@ struct ResetSection: View {
         if let trends = try? modelContext.fetch(FetchDescriptor<Trend>()) {
             trends.forEach { $0.read = false }
         }
+        
+        NotificationCenter.default.post(name: .rerender, object: nil)
     }
 
     private func clearSearches() {
         try? modelContext.delete(model: Search.self)
+        
+        NotificationCenter.default.post(name: .rerender, object: nil)
     }
 
     private func resetEverything() {
-        for model in DataController.shared.localModels + DataController.shared.cloudModels {
-            do {
-                try modelContext.delete(model: model)
-            } catch {
-                print(error)
-            }
+        for model in DataController.shared.cloudModels + DataController.shared.localModels {
+            try? modelContext.delete(model: model)
         }
 
         Task {
@@ -188,6 +191,8 @@ struct ResetSection: View {
         if let domain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: domain)
         }
+        
+        NotificationCenter.default.post(name: .reset, object: nil)
     }
 
     private func calculateCacheSize() async {
