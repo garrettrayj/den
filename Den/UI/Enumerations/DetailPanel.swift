@@ -12,12 +12,12 @@ import Foundation
 import SwiftData
 
 enum DetailPanel: Hashable, Identifiable {
+    case bookmarks
     case feed(Feed)
     case inbox
     case organizer
     case page(Page)
     case search
-    case tag(Tag)
     case trending
     case welcome
     
@@ -35,6 +35,8 @@ enum DetailPanel: Hashable, Identifiable {
 
     var panelID: String {
         switch self {
+        case .bookmarks:
+            return "bookmarks"
         case .feed:
             return "feed"
         case .inbox:
@@ -45,8 +47,6 @@ enum DetailPanel: Hashable, Identifiable {
             return "page"
         case .search:
             return "search"
-        case .tag:
-            return "tag"
         case .trending:
             return "trending"
         case .welcome:
@@ -60,8 +60,6 @@ enum DetailPanel: Hashable, Identifiable {
             return feed.persistentModelID
         case .page(let page):
             return page.persistentModelID
-        case .tag(let tag):
-            return tag.persistentModelID
         default:
             return nil
         }
@@ -81,7 +79,9 @@ extension DetailPanel: Decodable {
         
         let modelContext = ModelContext(DataController.shared.container)
 
-        if panelID == "feed" && values.contains(.objectID) {
+        if panelID == "bookmarks" {
+            detailPanel = .bookmarks
+        } else if panelID == "feed" && values.contains(.objectID) {
             let decodedFeedID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
             if let feed = modelContext.model(for: decodedFeedID) as? Feed {
                 detailPanel = .feed(feed)
@@ -94,11 +94,6 @@ extension DetailPanel: Decodable {
             let decodedPageID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
             if let page = modelContext.model(for: decodedPageID) as? Page {
                 detailPanel = .page(page)
-            }
-        } else if panelID == "tag" {
-            let decodedTagID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
-            if let tag = modelContext.model(for: decodedTagID) as? Tag {
-                detailPanel = .tag(tag)
             }
         } else if panelID == "trending" {
             detailPanel = .trending

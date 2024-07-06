@@ -15,6 +15,7 @@ struct ApexSection: View {
         Section {
             InboxNavLink()
             TrendingNavLink()
+            BookmarksNavLink()
         }
     }
 }

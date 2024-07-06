@@ -29,7 +29,7 @@ struct ItemView: View {
             .toolbar {
                 ItemToolbar(item: item, browserViewModel: browserViewModel)
             }
-            .onAppear {
+            .task {
                 HistoryUtility.markItemRead(modelContext: modelContext, item: item)
             }
         } else {

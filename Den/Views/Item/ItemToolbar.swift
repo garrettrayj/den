@@ -27,12 +27,8 @@ struct ItemToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            TagsMenu(item: item)
-        }
-        ToolbarItem {
             formatMenu
         }
-        
         ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)
         }
@@ -41,6 +37,9 @@ struct ItemToolbar: ToolbarContent {
         }
         ToolbarItem {
             StopReloadButton(browserViewModel: browserViewModel)
+        }
+        ToolbarItem {
+            ToggleBookmarkedButton(item: item)
         }
         if let url = browserViewModel.url {
             ToolbarItem {
@@ -53,7 +52,7 @@ struct ItemToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem {
-                TagsMenu(item: item)
+                BookmarkButton(item: item)
             }
             ToolbarItem {
                 formatMenu
@@ -99,7 +98,7 @@ struct ItemToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem(placement: .topBarLeading) {
-                TagsMenu(item: item)
+                BookmarkButton(item: item)
             }
             ToolbarItem(placement: .topBarLeading) {
                 formatMenu

@@ -28,7 +28,7 @@ struct BookmarkToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            UntagButton(bookmark: bookmark) {
+            DeleteBookmarkButton(bookmark: bookmark) {
                 dismiss()
             }
         }

@@ -112,7 +112,7 @@ class Bookmark {
     static func create(
         in modelContext: ModelContext,
         item: Item,
-        tag: Tag
+        tag: Tag? = nil
     ) -> Bookmark {
         let bookmark = Bookmark()
         bookmark.id = UUID()

@@ -171,8 +171,13 @@ struct ResetSection: View {
     }
 
     private func resetEverything() {
-        DataController.shared.localModels.forEach { try? modelContext.delete(model: $0) }
-        DataController.shared.cloudModels.forEach { try? modelContext.delete(model: $0) }
+        for model in DataController.shared.localModels + DataController.shared.cloudModels {
+            do {
+                try modelContext.delete(model: model)
+            } catch {
+                print(error)
+            }
+        }
 
         Task {
             await BlocklistManager.removeAllContentRulesLists()

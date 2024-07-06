@@ -1,5 +1,5 @@
 //
-//  TagTableLayout.swift
+//  BookmarksTableLayout.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/19/24.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct TagTableLayout: View {
+struct BookmarksTableLayout: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.modelContext) private var modelContext
     @Environment(\.openURL) private var openURL
@@ -142,7 +142,7 @@ struct TagTableLayout: View {
     @ViewBuilder
     private func contextMenu(items: Set<Row.ID>) -> some View {
         if items.count == 1, let row = rows.filter({ $0.id == items.first }).first {
-            UntagButton(bookmark: row.bookmark)
+            DeleteBookmarkButton(bookmark: row.bookmark)
             SystemBrowserButton(url: row.link)
             CopyAddressButton(url: row.link)
             ShareButton(item: row.link)

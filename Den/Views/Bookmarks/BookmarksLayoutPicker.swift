@@ -1,5 +1,5 @@
 //
-//  TagLayoutPicker.swift
+//  BookmarksLayoutPicker.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/20/24.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct TagLayoutPicker: View {
+struct BookmarksLayoutPicker: View {
     @Binding var tagLayout: TagLayout
     
     var body: some View {

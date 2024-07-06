@@ -71,7 +71,7 @@ import WidgetKit
                 
                 taskGroup.addTask {
                     await feedUpdate.execute()
-                    self.progress.completedUnitCount += 1
+                    await self.progress.completedUnitCount += 1
                 }
                 working += 1
             }

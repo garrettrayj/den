@@ -25,7 +25,6 @@ struct Sidebar: View {
     @Binding var showingImporter: Bool
     @Binding var showingNewFeedSheet: Bool
     @Binding var showingNewPageSheet: Bool
-    @Binding var showingNewTagSheet: Bool
     
     @State private var exporterIsPresented: Bool = false
     @State private var opmlFile: OPMLFile?
@@ -33,12 +32,6 @@ struct Sidebar: View {
     @State private var showingSettings = false
     
     let pages: [Page]
-    
-    @Query(sort: [
-        SortDescriptor(\Tag.userOrder, order: .forward),
-        SortDescriptor(\Tag.name, order: .forward)
-    ])
-    private var tags: [Tag]
 
     @Query(sort: [
         SortDescriptor(\Search.submitted, order: .reverse)
@@ -61,10 +54,6 @@ struct Sidebar: View {
                     showingNewFeedSheet: $showingNewFeedSheet,
                     pages: pages
                 )
-                
-                if !tags.isEmpty {
-                    TagsSection(tags: tags)
-                }
             }
         }
         .listStyle(.sidebar)
@@ -104,7 +93,6 @@ struct Sidebar: View {
                 showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
                 showingNewPageSheet: $showingNewPageSheet,
-                showingNewTagSheet: $showingNewTagSheet,
                 showingSettings: $showingSettings, 
                 feedCount: pages.feeds.count
             )
@@ -124,12 +112,6 @@ struct Sidebar: View {
             isPresented: $showingNewPageSheet,
             content: {
                 NewPageSheet()
-            }
-        )
-        .sheet(
-            isPresented: $showingNewTagSheet,
-            content: {
-                NewTagSheet()
             }
         )
         .fileImporter(

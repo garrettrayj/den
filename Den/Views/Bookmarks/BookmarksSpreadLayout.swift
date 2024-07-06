@@ -1,5 +1,5 @@
 //
-//  TagSpreadLayout.swift
+//  BookmarksSpreadLayout.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/19/24.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct TagSpreadLayout: View {
+struct BookmarksSpreadLayout: View {
     let bookmarks: [Bookmark]
     
     var body: some View {

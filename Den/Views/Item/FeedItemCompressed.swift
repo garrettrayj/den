@@ -25,12 +25,9 @@ struct FeedItemCompressed: View {
                     if feed.showBylines, let author = item.author {
                         PreviewAuthor(author: author)
                     }
-                    if !item.bookmarks.isEmpty {
-                        ItemTags(item: item)
-                    }
-                    if let date = item.published {
-                        PreviewDateline(date: date)
-                    }                    }
+                    
+                    ItemPreviewMeta(item: item)
+                }
                 
                 Spacer(minLength: 0)
 

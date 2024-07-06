@@ -192,6 +192,9 @@
         }
       }
     },
+    "Add Bookmark" : {
+
+    },
     "Address cannot be blank." : {
       "comment" : "URL field validation message.",
       "localizations" : {
@@ -418,6 +421,9 @@
         }
       }
     },
+    "Bookmarks" : {
+      "comment" : "Button label.\nNavigation title."
+    },
     "Brown" : {
       "comment" : "Accent color option.",
       "localizations" : {
@@ -607,6 +613,9 @@
           }
         }
       }
+    },
+    "Delete Bookmark" : {
+      "comment" : "Button help text.\nButton label."
     },
     "Delete Feed?" : {
       "comment" : "Alert title.",
@@ -1262,6 +1271,9 @@
         }
       }
     },
+    "Missing Date" : {
+      "comment" : "Missing date label."
+    },
     "Move" : {
       "comment" : "Picker label.",
       "localizations" : {
@@ -1355,6 +1367,7 @@
     },
     "New Tag" : {
       "comment" : "Button label.\nNavigation title.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1374,6 +1387,9 @@
           }
         }
       }
+    },
+    "No Bookmarks" : {
+      "comment" : "Content unavailable title."
     },
     "No common subjects were found in titles." : {
       "comment" : "Trending empty message.",
@@ -1476,6 +1492,7 @@
     },
     "No Tags" : {
       "comment" : "Menu options unavailable message.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1795,6 +1812,7 @@
     },
     "Remove Bookmark" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1982,6 +2000,7 @@
     },
     "Select Tags" : {
       "comment" : "Menu help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2282,6 +2301,7 @@
     },
     "Tag Deleted" : {
       "comment" : "Object removed message.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2315,6 +2335,7 @@
     },
     "Tags" : {
       "comment" : "Menu label.\nSidebar section header.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2516,7 +2537,7 @@
       }
     },
     "Untitled" : {
-      "comment" : "Bookmark site title placeholder.\nDefault content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nFolder name placeholder.\nTag name placeholder.",
+      "comment" : "Bookmark site title placeholder.\nDefault content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nFolder name placeholder.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

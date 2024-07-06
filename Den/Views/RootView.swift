@@ -25,7 +25,6 @@ struct RootView: View {
     @State private var showingImporter = false
     @State private var showingNewFeedSheet = false
     @State private var showingNewPageSheet = false
-    @State private var showingNewTagSheet = false
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
     @State private var clearPathOnDetailChange = true
@@ -66,7 +65,6 @@ struct RootView: View {
                 showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
                 showingNewPageSheet: $showingNewPageSheet,
-                showingNewTagSheet: $showingNewTagSheet,
                 pages: pages
             )
             .id(refreshViewID)
@@ -93,7 +91,6 @@ struct RootView: View {
             Group {
                 NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
                 NewPageButton(showingNewPageSheet: $showingNewPageSheet)
-                NewTagButton(showingNewTagSheet: $showingNewTagSheet)
             }
             .disabled(pages.isEmpty)
             .opacity(0)

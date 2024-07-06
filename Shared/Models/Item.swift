@@ -148,6 +148,11 @@ class Item {
         get { read ?? false }
         set { read = newValue }
     }
+    
+    var wrappedBookmarked: Bool {
+        get { bookmarked ?? false }
+        set { bookmarked = newValue }
+    }
 
     static func create(moc modelContext: ModelContext, feedData: FeedData) -> Item {
         let item = Item()

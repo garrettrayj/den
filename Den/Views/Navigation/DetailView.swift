@@ -19,6 +19,8 @@ struct DetailView: View {
         NavigationStack(path: $path) {
             ZStack {
                 switch detailPanel ?? .welcome {
+                case .bookmarks:
+                    Bookmarks()
                 case .feed(let feed):
                     FeedView(feed: feed).id(feed)
                 case .inbox:
@@ -29,8 +31,6 @@ struct DetailView: View {
                     PageView(page: page).id(page)
                 case .search:
                     SearchView(searchQuery: $searchQuery)
-                case .tag(let tag):
-                    TagView(tag: tag).id(tag)
                 case .trending:
                     Trending()
                 case .welcome:
