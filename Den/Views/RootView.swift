@@ -21,11 +21,8 @@ struct RootView: View {
     @Environment(RefreshManager.self) private var refreshManager
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    @State private var showingExporter = false
-    @State private var showingImporter = false
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
-    @State private var clearPathOnDetailChange = true
     @State private var detailPanel: DetailPanel?
     @State private var navigationStore = NavigationStore()
     @State private var newFeed: Feed?
@@ -166,12 +163,10 @@ struct RootView: View {
                 NewFeedSheet(newFeed: $newFeed)
             }
         )
-        .sheet(
-            isPresented: $showingNewPageSheet,
-            content: {
-                NewPageSheet()
-            }
-        )
+        .sheet(isPresented: $showingNewPageSheet) { NewPageSheet() }
+        .sheet(isPresented: $showingAppErrorSheet) {
+            AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
+        }
         .onReceive(NotificationCenter.default.publisher(for: .appErrored, object: nil)) { output in
             if let message = output.userInfo?["message"] as? String {
                 appErrorMessage = message
@@ -185,9 +180,6 @@ struct RootView: View {
             navigationStore.path.removeLast(navigationStore.path.count)
             detailPanel = nil
             refreshViewID += 1
-        }
-        .sheet(isPresented: $showingAppErrorSheet) {
-            AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
         }
         .preferredColorScheme(userColorScheme.colorScheme)
         .tint(accentColor?.color)
