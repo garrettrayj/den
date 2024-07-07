@@ -49,7 +49,6 @@ struct FeedView: View {
                         FeedToolbar(
                             feed: feed,
                             showingDeleteAlert: $showingDeleteAlert,
-                            showingInspector: $showingInspector,
                             items: items
                         )
                     }

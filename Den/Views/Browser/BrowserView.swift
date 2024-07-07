@@ -40,7 +40,7 @@ struct BrowserView: View {
     }
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             BrowserWebView(browserViewModel: browserViewModel)
                 .task {
                     browserViewModel.contentRuleLists = await BlocklistManager.getContentRuleLists()
@@ -56,7 +56,6 @@ struct BrowserView: View {
                     // Fix for videos continuing to play after view is dismissed
                     browserViewModel.loadBlank()
                 }
-                .frame(height: browserViewModel.showingReader ? 0 : nil)
                 .opacity(browserViewModel.showingReader ? 0 : 1)
                 .ignoresSafeArea()
             

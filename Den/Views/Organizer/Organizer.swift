@@ -72,11 +72,7 @@ struct Organizer: View {
             OrganizerInspector(selection: $selection, pages: pages)
         }
         .toolbar {
-            OrganizerToolbar(
-                selection: $selection,
-                showingInspector: $showingInspector, 
-                pages: pages
-            )
+            OrganizerToolbar(selection: $selection, pages: pages)
         }
     }
 

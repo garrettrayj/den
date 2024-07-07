@@ -13,7 +13,11 @@ import SwiftUI
 struct InspectorToggleButton: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    @Binding var showingInspector: Bool
+    @SceneStorage("ShowingInspector") private var showingInspector = false
+    
+    init(initialValue: Bool, storageKey: String) {
+        _showingInspector = .init(wrappedValue: false, storageKey)
+    }
 
     var body: some View {
         Button {

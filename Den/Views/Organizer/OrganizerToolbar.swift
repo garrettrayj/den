@@ -13,7 +13,6 @@ import SwiftUI
 
 struct OrganizerToolbar: ToolbarContent {
     @Binding var selection: Set<Feed>
-    @Binding var showingInspector: Bool
     
     let pages: [Page]
 
@@ -47,7 +46,11 @@ struct OrganizerToolbar: ToolbarContent {
         }
 
         ToolbarItem {
-            InspectorToggleButton(showingInspector: $showingInspector)
+            #if os(macOS)
+            InspectorToggleButton(initialValue: true, storageKey: "ShowingOrganizerInspector")
+            #else
+            InspectorToggleButton(initialValue: false, storageKey: "ShowingOrganizerInspector")
+            #endif
         }
     }
 }

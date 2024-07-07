@@ -18,21 +18,30 @@ struct BrowserFormatMenu: View {
             if browserViewModel.isReaderable {
                 Menu {
                     ToggleReaderButton(browserViewModel: browserViewModel)
-                    ToggleBlocklistsButton(browserViewModel: browserViewModel)
-                    ToggleJavaScriptButton(browserViewModel: browserViewModel)
-                    #if os(macOS)
-                    BrowserZoom(browserViewModel: browserViewModel)
-                    #endif
+
+                    if browserViewModel.showingReader {
+                        ReaderZoom(browserViewModel: browserViewModel)
+                    } else {
+                        ToggleBlocklistsButton(browserViewModel: browserViewModel)
+                        ToggleJavaScriptButton(browserViewModel: browserViewModel)
+                        #if os(macOS)
+                        BrowserZoom(browserViewModel: browserViewModel)
+                        #endif
+                    }
                 } label: {
                     Label {
                         Text("Formatting", comment: "Button label.")
                     } icon: {
                         Image(systemName: "doc.plaintext")
+                            .symbolVariant(browserViewModel.showingReader ? .fill : .none)
                     }
                 } primaryAction: {
-                    browserViewModel.toggleReader()
+                    withAnimation {
+                        browserViewModel.toggleReader()
+                    }
                 }
-                .help(Text("Show Reader / Show Format Menu", comment: "Menu help text."))
+                .contentTransition(.symbolEffect(.replace))
+                .help(Text("Show Reader/Show Format Menu", comment: "Menu help text."))
             } else {
                 Menu {
                     ToggleBlocklistsButton(browserViewModel: browserViewModel)

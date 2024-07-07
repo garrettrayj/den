@@ -15,7 +15,9 @@ struct ToggleReaderButton: View {
 
     var body: some View {
         Button {
-            browserViewModel.toggleReader()
+            withAnimation {
+                browserViewModel.toggleReader()
+            }
         } label: {
             Label {
                 if browserViewModel.showingReader {

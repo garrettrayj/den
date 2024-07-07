@@ -27,7 +27,7 @@ struct ItemToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            formatMenu
+            BrowserFormatMenu(browserViewModel: browserViewModel)
         }
         ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)
@@ -52,10 +52,10 @@ struct ItemToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem {
-                BookmarkButton(item: item)
+                ToggleBookmarkedButton(item: item)
             }
             ToolbarItem {
-                formatMenu
+                BrowserFormatMenu(browserViewModel: browserViewModel)
             }
             ToolbarItem(placement: .bottomBar) {
                 GoBackButton(browserViewModel: browserViewModel)
@@ -98,10 +98,10 @@ struct ItemToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem(placement: .topBarLeading) {
-                BookmarkButton(item: item)
+                ToggleBookmarkedButton(item: item)
             }
             ToolbarItem(placement: .topBarLeading) {
-                formatMenu
+                BrowserFormatMenu(browserViewModel: browserViewModel)
             }
             if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
                 ToolbarItem {
@@ -130,14 +130,5 @@ struct ItemToolbar: ToolbarContent {
             }
         }
         #endif
-    }
-    
-    @ViewBuilder
-    private var formatMenu: some View {
-        if browserViewModel.showingReader {
-            ReaderFormatMenu(browserViewModel: browserViewModel)
-        } else {
-            BrowserFormatMenu(browserViewModel: browserViewModel)
-        }
     }
 }

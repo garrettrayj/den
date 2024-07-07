@@ -52,7 +52,7 @@ struct ItemActionView<Content: View>: View {
             #if os(iOS)
             ControlGroup {
                 ReadUnreadButton(item: item)
-                BookmarkButton(item: item)
+                ToggleBookmarkedButton(item: item)
             }
             #else
             ReadUnreadButton(item: item)

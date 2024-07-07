@@ -14,30 +14,24 @@ struct StopReloadButton: View {
     @Bindable var browserViewModel: BrowserViewModel
     
     var body: some View {
-        if browserViewModel.isLoading {
-            Button {
+        Button {
+            if browserViewModel.isLoading {
                 browserViewModel.stop()
-            } label: {
-                Label {
-                    Text("Stop", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "xmark")
-                }
-            }
-            .help(Text("Stop Loading Page", comment: "Button help text."))
-            .accessibilityIdentifier("BrowserStop")
-        } else {
-            Button {
+            } else {
                 browserViewModel.reload()
-            } label: {
-                Label {
-                    Text("Reload", comment: "Button label.")
-                } icon: {
+            }
+        } label: {
+            Label {
+                Text("Stop/Reload", comment: "Button label.")
+            } icon: {
+                if browserViewModel.isLoading {
+                    Image(systemName: "xmark")
+                } else {
                     Image(systemName: "arrow.clockwise")
                 }
             }
-            .help(Text("Reload Page", comment: "Button help text."))
-            .accessibilityIdentifier("BrowserReload")
         }
+        .help(Text("Stop/Reload", comment: "Button help text."))
+        .accessibilityIdentifier("StopReloadButton")
     }
 }

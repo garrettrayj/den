@@ -17,14 +17,15 @@ struct FeedToolbar: ToolbarContent {
     @Bindable var feed: Feed
 
     @Binding var showingDeleteAlert: Bool
-    @Binding var showingInspector: Bool
+    
+    @SceneStorage("ShowingFeedInspector") private var showingInspector = false
 
     let items: [Item]
 
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            InspectorToggleButton(showingInspector: $showingInspector)
+            InspectorToggleButton(initialValue: false, storageKey: "ShowingFeedInspector")
         }
         ToolbarItem {
             FilterReadButton()
@@ -50,7 +51,7 @@ struct FeedToolbar: ToolbarContent {
         
         if horizontalSizeClass == .compact {
             ToolbarItem {
-                InspectorToggleButton(showingInspector: $showingInspector)
+                InspectorToggleButton(initialValue: false, storageKey: "ShowingFeedInspector")
             }
             ToolbarItem(placement: .bottomBar) {
                 FilterReadButton()
@@ -65,7 +66,7 @@ struct FeedToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem {
-                InspectorToggleButton(showingInspector: $showingInspector)
+                InspectorToggleButton(initialValue: false, storageKey: "ShowingFeedInspector")
             }
             ToolbarItem {
                 FilterReadButton()

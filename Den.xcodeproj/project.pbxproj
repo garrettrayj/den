@@ -217,7 +217,6 @@
 		6880EBE127A8E61C00B479F4 /* PreliminaryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBE027A8E61C00B479F4 /* PreliminaryImage.swift */; };
 		6880EBE327A8F63E00B479F4 /* WebFeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBE227A8F63E00B479F4 /* WebFeedItem.swift */; };
 		6880EBEB27AEF12000B479F4 /* ButtonChevron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBEA27AEF12000B479F4 /* ButtonChevron.swift */; };
-		688466F42AE264340071B86A /* ReaderFormatMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688466F32AE264340071B86A /* ReaderFormatMenu.swift */; };
 		6885C42226D37259002C41B0 /* FeedTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885C42126D37259002C41B0 /* FeedTitleLabel.swift */; };
 		6885FD0E24819446007A3D5B /* PreviewButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885FD0D24819446007A3D5B /* PreviewButtonStyle.swift */; };
 		6889E8872BF3F0E400E700E6 /* MaintenanceTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889E8862BF3F0E400E700E6 /* MaintenanceTask.swift */; };
@@ -600,7 +599,6 @@
 		6880EBE027A8E61C00B479F4 /* PreliminaryImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreliminaryImage.swift; sourceTree = "<group>"; };
 		6880EBE227A8F63E00B479F4 /* WebFeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebFeedItem.swift; sourceTree = "<group>"; };
 		6880EBEA27AEF12000B479F4 /* ButtonChevron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonChevron.swift; sourceTree = "<group>"; };
-		688466F32AE264340071B86A /* ReaderFormatMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderFormatMenu.swift; sourceTree = "<group>"; };
 		6885C42126D37259002C41B0 /* FeedTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTitleLabel.swift; sourceTree = "<group>"; };
 		6885FD0D24819446007A3D5B /* PreviewButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewButtonStyle.swift; sourceTree = "<group>"; };
 		68895CFA2A62A0B700E25385 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
@@ -1331,7 +1329,6 @@
 				68A104532BA96C0A008BF8E6 /* DownloadStatus.swift */,
 				68E9F6462AE1825D00A27E19 /* GoBackButton.swift */,
 				68E9F6482AE1826A00A27E19 /* GoForwardButton.swift */,
-				688466F32AE264340071B86A /* ReaderFormatMenu.swift */,
 				686F6B0B2B38D3CC0099EB49 /* ReaderZoom.swift */,
 				687F73EE2BCDFA8F00FD8EBF /* ShowInFinderButton.swift */,
 				68E9F64D2AE1837900A27E19 /* StopReloadButton.swift */,
@@ -1938,7 +1935,6 @@
 				68599B7B2AB27D3C0057FEA8 /* PreviewTeaser.swift in Sources */,
 				6828E4D82C2A883300696FB4 /* Profile.swift in Sources */,
 				68BE3B6B2C0D18F90022629D /* QuickActionManager.swift in Sources */,
-				688466F42AE264340071B86A /* ReaderFormatMenu.swift in Sources */,
 				684152222AD2763400ABE5E2 /* ReaderWebView.swift in Sources */,
 				686F6B0C2B38D3CC0099EB49 /* ReaderZoom.swift in Sources */,
 				6856DB4E2ABA29B80094615E /* ReadUnreadButton.swift in Sources */,

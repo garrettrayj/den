@@ -37,11 +37,11 @@ struct ToggleBookmarkedButton: View {
     
     private func toggleBookmarked() {
         if item.bookmarked == true {
-            item.bookmarks.forEach { modelContext.delete($0) }
             item.bookmarked = false
+            item.bookmarks.forEach { modelContext.delete($0) }
         } else {
-            _ = Bookmark.create(in: modelContext, item: item)
             item.bookmarked = true
+            _ = Bookmark.create(in: modelContext, item: item)
         }
     }
 }

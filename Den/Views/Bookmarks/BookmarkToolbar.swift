@@ -33,7 +33,7 @@ struct BookmarkToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            formatMenu
+            BrowserFormatMenu(browserViewModel: browserViewModel)
         }
         ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)
@@ -55,12 +55,12 @@ struct BookmarkToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem {
-                UntagButton(bookmark: bookmark) {
+                DeleteBookmarkButton(bookmark: bookmark) {
                     dismiss()
                 }
             }
             ToolbarItem {
-                formatMenu
+                BrowserFormatMenu(browserViewModel: browserViewModel)
             }
             ToolbarItem(placement: .bottomBar) {
                 GoBackButton(browserViewModel: browserViewModel)
@@ -103,12 +103,12 @@ struct BookmarkToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem(placement: .topBarLeading) {
-                UntagButton(bookmark: bookmark) {
+                DeleteBookmarkButton(bookmark: bookmark) {
                     dismiss()
                 }
             }
             ToolbarItem(placement: .topBarLeading) {
-                formatMenu
+                BrowserFormatMenu(browserViewModel: browserViewModel)
             }
             if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
                 ToolbarItem {
@@ -136,14 +136,5 @@ struct BookmarkToolbar: ToolbarContent {
             }
         }
         #endif
-    }
-    
-    @ViewBuilder
-    private var formatMenu: some View {
-        if browserViewModel.showingReader {
-            ReaderFormatMenu(browserViewModel: browserViewModel)
-        } else {
-            BrowserFormatMenu(browserViewModel: browserViewModel)
-        }
     }
 }

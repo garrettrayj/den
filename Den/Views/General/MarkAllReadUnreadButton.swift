@@ -18,9 +18,11 @@ struct MarkAllReadUnreadButton: View {
 
     var body: some View {
         Button {
-            toggling = true
-            toggleAll()
-            toggling = false
+            withAnimation {
+                toggling = true
+                toggleAll()
+                toggling = false
+            }
         } label: {
             Label {
                 if allRead {
@@ -33,6 +35,7 @@ struct MarkAllReadUnreadButton: View {
             }
         }
         .disabled(toggling)
+        .contentTransition(.symbolEffect(.replace))
         .help(
             allRead ? Text("Mark All Unread", comment: "Button help text.") :
                 Text("Mark All Read", comment: "Button help text.")

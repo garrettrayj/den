@@ -15,7 +15,9 @@ struct FilterReadButton: View {
 
     var body: some View {
         Button {
-            hideRead.toggle()
+            withAnimation {
+                hideRead.toggle()
+            }
         } label: {
             Label {
                 Text("Filter Read", comment: "Button label.")
@@ -24,6 +26,7 @@ struct FilterReadButton: View {
                     .symbolVariant(hideRead ? .circle.fill : .circle)
             }
         }
+        .contentTransition(.symbolEffect(.replace))
         .help(
             hideRead ? Text("Show Read Items", comment: "Button help text.") :
                 Text("Hide Read Items", comment: "Button help text.")
