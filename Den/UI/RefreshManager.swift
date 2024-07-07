@@ -71,7 +71,7 @@ import WidgetKit
                 
                 taskGroup.addTask {
                     await feedUpdate.execute()
-                    await self.progress.completedUnitCount += 1
+                    self.progress.completedUnitCount += 1
                 }
                 working += 1
             }
@@ -81,7 +81,7 @@ import WidgetKit
         
         progress.completedUnitCount += 1
 
-        await CleanupTask().execute()
+        //await CleanupTask().execute()
         await AnalyzeTask().execute()
 
         UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")

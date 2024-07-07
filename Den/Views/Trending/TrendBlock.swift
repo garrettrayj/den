@@ -34,7 +34,7 @@ struct TrendBlock: View {
     }
 
     var body: some View {
-        NavigationLink(value: SubDetailPanel.trend(trend)) {
+        NavigationLink(value: SubDetailPanel.trend(trend.persistentModelID)) {
             VStack(alignment: .leading, spacing: 8) {
                 trend.titleText.font(.title2)
 

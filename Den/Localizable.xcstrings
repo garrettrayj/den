@@ -421,6 +421,9 @@
         }
       }
     },
+    "Bookmark Deleted" : {
+      "comment" : "Object removed message."
+    },
     "Bookmarks" : {
       "comment" : "Button label.\nNavigation title."
     },
@@ -2539,6 +2542,7 @@
     },
     "Untagged" : {
       "comment" : "Object removed message.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

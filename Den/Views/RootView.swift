@@ -30,7 +30,7 @@ struct RootView: View {
     
     @SceneStorage("DetailPanel") private var detailPanelData: Data?
     @SceneStorage("Navigation") private var navigationData: Data?
-    @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
+    @SceneStorage("NewFeedPageID") private var newFeedPageID: PersistentIdentifier?
     @SceneStorage("NewFeedURLString") private var newFeedURLString: String = ""
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet = false
     @SceneStorage("ShowingNewPageSheet") private var showingNewPageSheet = false
@@ -88,8 +88,8 @@ struct RootView: View {
             if url.scheme == "den+widget" {
                 openWidgetURL(url: url)
             } else {
-                if case .page(let page) = detailPanel {
-                    newFeedPageID = page.id?.uuidString
+                if case .page(let persistentModelID) = detailPanel {
+                    newFeedPageID = persistentModelID
                 }
                 newFeedURLString = url.absoluteStringForNewFeed
                 showingNewFeedSheet = true
@@ -143,9 +143,9 @@ struct RootView: View {
             if showingNewFeedSheet {
                 guard
                     newFeedPageID == nil,
-                    case .page(let page) = detailPanel
+                    case .page(let persistentModelID) = detailPanel
                 else { return }
-                newFeedPageID = page.id?.uuidString
+                newFeedPageID = persistentModelID
             }
         }
         .sheet(
@@ -202,11 +202,11 @@ struct RootView: View {
                 detailPanel = .inbox
             } else if sourceType == "page" {
                 if let page = pages.first(where: { $0.id == sourceID }) {
-                    detailPanel = .page(page)
+                    detailPanel = .page(page.persistentModelID)
                 }
             } else if sourceType == "feed" {
                 if let feed = pages.feeds.first(where: { $0.id == sourceID }) {
-                    detailPanel = .feed(feed)
+                    detailPanel = .feed(feed.persistentModelID)
                 }
             }
         } completion: {
@@ -223,7 +223,7 @@ struct RootView: View {
                     predicate: #Predicate<Item> { $0.id == uuid }
                 )
                 if let item = try? modelContext.fetch(request).first {
-                    navigationStore.path.append(SubDetailPanel.item(item))
+                    navigationStore.path.append(SubDetailPanel.item(item.persistentModelID))
                 }
             }
         }

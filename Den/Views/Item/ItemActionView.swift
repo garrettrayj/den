@@ -34,7 +34,7 @@ struct ItemActionView<Content: View>: View {
                     content.modifier(DraggableItemModifier(item: item))
                 }
             } else {
-                NavigationLink(value: SubDetailPanel.item(item)) {
+                NavigationLink(value: SubDetailPanel.item(item.persistentModelID)) {
                     content.modifier(DraggableItemModifier(item: item))
                 }
             }

@@ -64,9 +64,13 @@ struct AnalyzeTask {
 
         for item in items {
             for (tokenText, tag) in item.wrappedTags {
-                if let workingTrendIndex = workingTrends.firstIndex(where: { $0.slug == tokenText }) {
-                    workingTrends[workingTrendIndex].items.insert(item)
-                    workingTrends[workingTrendIndex].feeds.insert(item.feedData!.feed!)
+                if let workingTrendIndex = workingTrends.firstIndex(
+                    where: { $0.slug == tokenText }
+                ) {
+                    if let feed = item.feedData?.feed {
+                        workingTrends[workingTrendIndex].items.insert(item)
+                        workingTrends[workingTrendIndex].feeds.insert(feed)
+                    }
                 } else {
                     if let feed = item.feedData?.feed {
                         workingTrends.append(

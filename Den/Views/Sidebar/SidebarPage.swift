@@ -8,6 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SwiftData
 import SwiftUI
 
 struct SidebarPage: View {
@@ -18,7 +19,7 @@ struct SidebarPage: View {
     @State private var showingIconSelector = false
     
     @SceneStorage("ExpandedPages") var expandedPages: Set<UUID> = []
-    @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
+    @SceneStorage("NewFeedPageID") private var newFeedPageID: PersistentIdentifier?
     @SceneStorage("NewFeedURLString") private var newFeedURLString: String = ""
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     
@@ -92,7 +93,7 @@ struct SidebarPage: View {
                 .accessibilityIdentifier("SidebarPage")
             }
         }
-        .tag(DetailPanel.page(page))
+        .tag(DetailPanel.page(page.persistentModelID))
     }
     
     private func moveFeed( from source: IndexSet, to destination: Int) {

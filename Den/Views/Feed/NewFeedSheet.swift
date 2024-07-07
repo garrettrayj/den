@@ -23,7 +23,7 @@ struct NewFeedSheet: View {
     @State private var webAddressIsValid: Bool?
     @State private var webAddressValidationMessage: WebAddressValidationMessage?
     
-    @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
+    @SceneStorage("NewFeedPageID") private var newFeedPageID: PersistentIdentifier?
     @SceneStorage("NewFeedURLString") private var newFeedURLString: String = ""
     
     @FocusState private var textFieldFocus: Bool
@@ -101,8 +101,8 @@ struct NewFeedSheet: View {
     }
 
     private func checkTargetPage() {
-        if let pageID = newFeedPageID, let destinationPage = pages.first(where: {
-            $0.id?.uuidString == pageID
+        if let persistentModelID = newFeedPageID, let destinationPage = pages.first(where: {
+            $0.persistentModelID == persistentModelID
         }) {
             targetPage = destinationPage
         } else {

@@ -32,7 +32,7 @@ struct SidebarFeed: View {
             }
         }
         .badge(showUnreadCounts ? feed.feedData?.items?.featured.unread.count ?? 0 : 0)
-        .tag(DetailPanel.feed(feed))
+        .tag(DetailPanel.feed(feed.persistentModelID))
         .modifier(DraggableFeedModifier(feed: feed))
         .contextMenu {
             DeleteFeedButton(feed: feed)

@@ -12,10 +12,10 @@ import Foundation
 import SwiftData
 
 enum SubDetailPanel: Hashable {
-    case bookmark(Bookmark)
-    case feed(Feed)
-    case item(Item)
-    case trend(Trend)
+    case bookmark(PersistentIdentifier)
+    case feed(PersistentIdentifier)
+    case item(PersistentIdentifier)
+    case trend(PersistentIdentifier)
 
     var panelID: String {
         switch self {
@@ -30,22 +30,22 @@ enum SubDetailPanel: Hashable {
         }
     }
 
-    var objectID: PersistentIdentifier? {
+    var persistentModelID: PersistentIdentifier? {
         switch self {
-        case .bookmark(let bookmark):
-            return bookmark.persistentModelID
-        case .feed(let feed):
-            return feed.persistentModelID
-        case .item(let item):
-            return item.persistentModelID
-        case .trend(let trend):
-            return trend.persistentModelID
+        case .bookmark(let persistentModelID):
+            return persistentModelID
+        case .feed(let persistentModelID):
+            return persistentModelID
+        case .item(let persistentModelID):
+            return persistentModelID
+        case .trend(let persistentModelID):
+            return persistentModelID
         }
     }
 
     enum CodingKeys: String, CodingKey {
         case panelID
-        case objectID
+        case persistentModelID
     }
 }
 
@@ -59,33 +59,27 @@ extension SubDetailPanel: Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let panelID = try values.decode(String.self, forKey: .panelID)
 
-        guard values.contains(.objectID) else {
+        guard values.contains(.persistentModelID) else {
             throw DecodeError.objectIDMissing
         }
 
-        let objectID = try values.decode(PersistentIdentifier.self, forKey: .objectID)
-        let modelContext = ModelContext(DataController.shared.container)
+        let persistentModelID = try values.decode(
+            PersistentIdentifier.self,
+            forKey: .persistentModelID
+        )
 
         if panelID == "bookmark" {
-            if let bookmark = modelContext.model(for: objectID) as? Bookmark {
-                self = .bookmark(bookmark)
-                return
-            }
+            self = .bookmark(persistentModelID)
+            return
         } else if panelID == "feed" {
-            if let feed = modelContext.model(for: objectID) as? Feed {
-                self = .feed(feed)
-                return
-            }
+            self = .feed(persistentModelID)
+            return
         } else if panelID == "item" {
-            if let item = modelContext.model(for: objectID) as? Item {
-                self = .item(item)
-                return
-            }
+            self = .item(persistentModelID)
+            return
         } else if panelID == "trend" {
-            if let trend = modelContext.model(for: objectID) as? Trend {
-                self = .trend(trend)
-                return
-            }
+            self = .trend(persistentModelID)
+            return
         }
 
         throw DecodeError.decodeFailed
@@ -96,7 +90,7 @@ extension SubDetailPanel: Encodable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(panelID, forKey: .panelID)
-        try container.encode(objectID, forKey: .objectID)
+        try container.encode(persistentModelID, forKey: .persistentModelID)
     }
 }
 

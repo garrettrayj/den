@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct BookmarkToolbar: ToolbarContent {
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.scenePhase) private var scenePhase
     
@@ -28,11 +27,6 @@ struct BookmarkToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            DeleteBookmarkButton(bookmark: bookmark) {
-                dismiss()
-            }
-        }
-        ToolbarItem {
             BrowserFormatMenu(browserViewModel: browserViewModel)
         }
         ToolbarItem {
@@ -43,6 +37,9 @@ struct BookmarkToolbar: ToolbarContent {
         }
         ToolbarItem {
             StopReloadButton(browserViewModel: browserViewModel)
+        }
+        ToolbarItem {
+            DeleteBookmarkButton(bookmark: bookmark)
         }
         if let url = browserViewModel.url {
             ToolbarItem {

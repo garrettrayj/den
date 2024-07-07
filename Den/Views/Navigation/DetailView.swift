@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct DetailView: View {
+    @Environment(\.modelContext) private var modelContext
+    
     @Binding var detailPanel: DetailPanel?
     @Binding var path: NavigationPath
 
@@ -20,14 +22,18 @@ struct DetailView: View {
                 switch detailPanel ?? .welcome {
                 case .bookmarks:
                     Bookmarks()
-                case .feed(let feed):
-                    FeedView(feed: feed).id(feed)
+                case .feed(let persistentModelID):
+                    if let feed = modelContext.model(for: persistentModelID) as? Feed {
+                        FeedView(feed: feed).id(feed)
+                    }
                 case .inbox:
                     Inbox()
                 case .organizer:
                     Organizer()
-                case .page(let page):
-                    PageView(page: page).id(page)
+                case .page(let persistentModelID):
+                    if let page = modelContext.model(for: persistentModelID) as? Page {
+                        PageView(page: page).id(page)
+                    }
                 case .search:
                     SearchView()
                 case .trending:
@@ -38,14 +44,22 @@ struct DetailView: View {
             }
             .navigationDestination(for: SubDetailPanel.self) { panel in
                 switch panel {
-                case .bookmark(let bookmark):
-                    BookmarkView(bookmark: bookmark).id(bookmark)
-                case .feed(let feed):
-                    FeedView(feed: feed).id(feed)
-                case .item(let item):
-                    ItemView(item: item).id(item)
-                case .trend(let trend):
-                    TrendView(trend: trend).id(trend)
+                case .bookmark(let persistentModelID):
+                    if let bookmark = modelContext.model(for: persistentModelID) as? Bookmark {
+                        BookmarkView(bookmark: bookmark).id(bookmark)
+                    }
+                case .feed(let persistentModelID):
+                    if let feed = modelContext.model(for: persistentModelID) as? Feed {
+                        FeedView(feed: feed).id(feed)
+                    }
+                case .item(let persistentModelID):
+                    if let item = modelContext.model(for: persistentModelID) as? Item {
+                        ItemView(item: item).id(item)
+                    }
+                case .trend(let persistentModelID):
+                    if let trend = modelContext.model(for: persistentModelID) as? Trend {
+                        TrendView(trend: trend).id(trend)
+                    }
                 }
             }
         }

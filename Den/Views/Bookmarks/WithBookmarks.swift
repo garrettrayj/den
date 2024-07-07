@@ -22,7 +22,6 @@ struct WithBookmarks<Content: View>: View {
     }
 
     init(
-        scopeObject: (any PersistentModel)? = nil,
         sortDescriptors: [SortDescriptor<Bookmark>] = [
             SortDescriptor(\Bookmark.created, order: .reverse)
         ],
@@ -33,16 +32,6 @@ struct WithBookmarks<Content: View>: View {
         
         var request = FetchDescriptor<Bookmark>()
         request.sortBy = sortDescriptors
-
-        var predicates: [Predicate<Bookmark>] = []
-        
-        if let tag = scopeObject as? Tag {
-            let tagId = tag.persistentModelID
-            let scopePredicate = #Predicate<Bookmark> { $0.tag?.persistentModelID == tagId }
-            predicates.append(scopePredicate)
-        }
-
-        request.predicate = predicates.conjunction()
 
         _bookmarks = Query(request)
     }

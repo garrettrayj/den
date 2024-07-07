@@ -11,16 +11,16 @@
 import SwiftUI
 
 struct DeleteBookmarkButton: View {
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
 
     @Bindable var bookmark: Bookmark
-    
-    var callback: (() -> Void)?
 
     var body: some View {
         Button(role: .destructive) {
+            bookmark.item?.bookmarked = false
             modelContext.delete(bookmark)
-            callback?()
+            try? modelContext.save()
         } label: {
             Label {
                 Text("Delete Bookmark", comment: "Button label.")

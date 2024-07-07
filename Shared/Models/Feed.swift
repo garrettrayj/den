@@ -30,7 +30,7 @@ class Feed {
     var title: String?
     var url: URL?
     var userOrder: Int16? = 0
-    var bookmarks: [Bookmark]?
+    @Relationship(deleteRule: .nullify) var bookmarks: [Bookmark]?
     var page: Page?
     
     init(

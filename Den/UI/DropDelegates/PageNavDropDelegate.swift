@@ -16,7 +16,7 @@ struct PageNavDropDelegate: DropDelegate {
     let modelContext: ModelContext
     let page: Page
 
-    @Binding var newFeedPageID: String?
+    @Binding var newFeedPageID: PersistentIdentifier?
     @Binding var newFeedURLString: String
     @Binding var showingNewFeedSheet: Bool
 
@@ -75,7 +75,7 @@ struct PageNavDropDelegate: DropDelegate {
                 if let url = url {
                     Task {
                         await MainActor.run {
-                            newFeedPageID = page.id?.uuidString
+                            newFeedPageID = page.persistentModelID
                             newFeedURLString = url.absoluteStringForNewFeed
                             showingNewFeedSheet = true
                         }
@@ -91,7 +91,7 @@ struct PageNavDropDelegate: DropDelegate {
                 if let droppedString = droppedString {
                     Task {
                         await MainActor.run {
-                            newFeedPageID = page.id?.uuidString
+                            newFeedPageID = page.persistentModelID
                             newFeedURLString = droppedString
                             showingNewFeedSheet = true
                         }

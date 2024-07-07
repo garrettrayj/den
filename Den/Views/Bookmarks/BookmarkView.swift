@@ -18,7 +18,7 @@ struct BookmarkView: View {
     var body: some View {
         if
             let url = bookmark.link,
-            !bookmark.isDeleted
+            !bookmark.isDeleted && bookmark.id != nil
         {
             BrowserView(
                 url: url,
@@ -32,9 +32,9 @@ struct BookmarkView: View {
         } else {
             ContentUnavailable {
                 Label {
-                    Text("Untagged", comment: "Object removed message.")
+                    Text("Bookmark Deleted", comment: "Object removed message.")
                 } icon: {
-                    Image(systemName: "trash")
+                    Image(systemName: "bookmark").symbolVariant(.slash)
                 }
             }
         }

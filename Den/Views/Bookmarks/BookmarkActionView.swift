@@ -29,7 +29,7 @@ struct BookmarkActionView<Content: View>: View {
                     content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
                 }
             } else {
-                NavigationLink(value: SubDetailPanel.bookmark(bookmark)) {
+                NavigationLink(value: SubDetailPanel.bookmark(bookmark.persistentModelID)) {
                     content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
                 }
             }

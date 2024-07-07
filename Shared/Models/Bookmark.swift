@@ -27,6 +27,7 @@ class Bookmark {
     var imageHeight: Int32? = 0
     var imageWidth: Int32? = 0
     var ingested: Date?
+    var itemId: UUID?
     var largePreview: Bool?
     var link: URL?
     var published: Date?
@@ -50,6 +51,7 @@ class Bookmark {
         imageHeight: Int32? = nil,
         imageWidth: Int32? = nil,
         ingested: Date? = nil,
+        itemId: UUID? = nil,
         largePreview: Bool? = nil,
         link: URL? = nil,
         published: Date? = nil,
@@ -72,6 +74,7 @@ class Bookmark {
         self.imageHeight = imageHeight
         self.imageWidth = imageWidth
         self.ingested = ingested
+        self.itemId = itemId
         self.largePreview = largePreview
         self.link = link
         self.published = published
@@ -108,6 +111,14 @@ class Bookmark {
         get { site?.trimmingCharacters(in: .whitespaces) ?? "" }
         set { site = newValue }
     }
+    
+    var item: Item? {
+        var fetchDescriptor = FetchDescriptor<Item>()
+        fetchDescriptor.predicate = #Predicate<Item> { $0.id == itemId }
+        fetchDescriptor.fetchLimit = 1
+        
+        return try? modelContext?.fetch(fetchDescriptor).first
+    }
 
     static func create(
         in modelContext: ModelContext,
@@ -130,6 +141,7 @@ class Bookmark {
         bookmark.image = item.image
         bookmark.imageHeight = item.imageHeight
         bookmark.imageWidth = item.imageWidth
+        bookmark.itemId = item.id
         bookmark.link = item.link
         bookmark.published = item.published
         bookmark.ingested = item.ingested
