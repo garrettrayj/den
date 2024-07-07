@@ -14,12 +14,10 @@ import SwiftUI
 struct Start: View {
     @Environment(\.modelContext) private var modelContext
 
-    @Binding var showingImporter: Bool
-
     var body: some View {
         Section {
             NewPageButton()
-            ImportButton(showingImporter: $showingImporter)
+            ImportButton()
             Button {
                 loadDemo()
             } label: {

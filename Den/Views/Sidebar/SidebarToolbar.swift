@@ -14,9 +14,6 @@ struct SidebarToolbar: ToolbarContent {
     @Environment(RefreshManager.self) private var refreshManager
     
     @Binding var detailPanel: DetailPanel?
-    @Binding var showingExporter: Bool
-    @Binding var showingImporter: Bool
-    @Binding var showingSettings: Bool
     
     let feedCount: Int
 
@@ -26,14 +23,14 @@ struct SidebarToolbar: ToolbarContent {
                 NewFeedButton()
                 NewPageButton()
                 Divider()
-                ImportButton(showingImporter: $showingImporter)
-                ExportButton(showingExporter: $showingExporter)
+                ImportButton()
+                ExportButton()
                 Divider()
                 OrganizerButton(detailPanel: $detailPanel)
                 #if os(macOS)
                 SettingsLink()
                 #else
-                SettingsButton(showingSettings: $showingSettings)
+                SettingsButton()
                 #endif
             } label: {
                 Label {

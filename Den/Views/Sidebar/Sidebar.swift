@@ -14,20 +14,19 @@ import UniformTypeIdentifiers
 
 struct Sidebar: View {
     @Environment(\.modelContext) private var modelContext
-    
+
     @Environment(RefreshManager.self) private var refreshManager
 
     @Binding var detailPanel: DetailPanel?
-    @Binding var newFeedPageID: String?
-    @Binding var newFeedURLString: String
-    @Binding var searchQuery: String
-    @Binding var showingExporter: Bool
-    @Binding var showingImporter: Bool
     
     @State private var exporterIsPresented: Bool = false
     @State private var opmlFile: OPMLFile?
     @State private var searchInput = ""
-    @State private var showingSettings = false
+    
+    @SceneStorage("SearchQuery") private var searchQuery: String = ""
+    @SceneStorage("ShowingExporter") private var showingExporter = false
+    @SceneStorage("ShowingImporter") private var showingImporter = false
+    @SceneStorage("ShowingSettings") private var showingSettings = false
     
     let pages: [Page]
 
@@ -39,17 +38,10 @@ struct Sidebar: View {
     var body: some View {
         List(selection: $detailPanel) {
             if pages.isEmpty {
-                Start(
-                    showingImporter: $showingImporter
-                )
+                Start()
             } else {
                 ApexSection()
-
-                PagesSection(
-                    newFeedPageID: $newFeedPageID,
-                    newFeedURLString: $newFeedURLString,
-                    pages: pages
-                )
+                PagesSection(pages: pages)
             }
         }
         .listStyle(.sidebar)
@@ -85,9 +77,6 @@ struct Sidebar: View {
         .toolbar {
             SidebarToolbar(
                 detailPanel: $detailPanel,
-                showingExporter: $showingExporter,
-                showingImporter: $showingImporter,
-                showingSettings: $showingSettings, 
                 feedCount: pages.feeds.count
             )
         }

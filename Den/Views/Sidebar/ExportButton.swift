@@ -12,7 +12,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct ExportButton: View {
-    @Binding var showingExporter: Bool
+    @SceneStorage("ShowingExporter") private var showingExporter = false
 
     var body: some View {
         Button {

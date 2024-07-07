@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct SettingsButton: View {
-    @Binding var showingSettings: Bool
+    @SceneStorage("ShowingSettings") private var showingSettings = false
 
     var body: some View {        
         Button {

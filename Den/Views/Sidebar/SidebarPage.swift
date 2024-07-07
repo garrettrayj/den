@@ -14,13 +14,12 @@ struct SidebarPage: View {
     @Environment(\.modelContext) private var modelContext
 
     @Bindable var page: Page
-
-    @Binding var newFeedPageID: String?
-    @Binding var newFeedURLString: String
     
     @State private var showingIconSelector = false
     
     @SceneStorage("ExpandedPages") var expandedPages: Set<UUID> = []
+    @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
+    @SceneStorage("NewFeedURLString") private var newFeedURLString: String = ""
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true

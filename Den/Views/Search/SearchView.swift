@@ -14,7 +14,7 @@ import SwiftUI
 struct SearchView: View {
     @Environment(\.modelContext) private var modelContext
     
-    @Binding var searchQuery: String
+    @SceneStorage("SearchQuery") private var searchQuery: String = ""
 
     @Query(sort: [
         SortDescriptor(\Search.submitted, order: .reverse)

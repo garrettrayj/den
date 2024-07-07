@@ -12,20 +12,13 @@ import SwiftUI
 
 struct PagesSection: View {
     @Environment(\.modelContext) private var modelContext
-
-    @Binding var newFeedPageID: String?
-    @Binding var newFeedURLString: String
     
     let pages: [Page]
 
     var body: some View {
         Section {
             ForEach(pages) { page in
-                SidebarPage(
-                    page: page,
-                    newFeedPageID: $newFeedPageID,
-                    newFeedURLString: $newFeedURLString
-                )
+                SidebarPage(page: page)
             }
             .onMove(perform: movePages)
             .onDelete(perform: deletePages)

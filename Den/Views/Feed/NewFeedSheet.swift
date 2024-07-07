@@ -18,12 +18,13 @@ struct NewFeedSheet: View {
     @Environment(RefreshManager.self) private var refreshManager
 
     @Binding var newFeed: Feed?
-    @Binding var newFeedPageID: String?
-    @Binding var newFeedURLString: String
 
     @State private var targetPage: Page?
     @State private var webAddressIsValid: Bool?
     @State private var webAddressValidationMessage: WebAddressValidationMessage?
+    
+    @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
+    @SceneStorage("NewFeedURLString") private var newFeedURLString: String = ""
     
     @FocusState private var textFieldFocus: Bool
     

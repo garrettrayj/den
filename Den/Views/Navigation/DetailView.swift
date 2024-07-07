@@ -13,7 +13,6 @@ import SwiftUI
 struct DetailView: View {
     @Binding var detailPanel: DetailPanel?
     @Binding var path: NavigationPath
-    @Binding var searchQuery: String
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -30,7 +29,7 @@ struct DetailView: View {
                 case .page(let page):
                     PageView(page: page).id(page)
                 case .search:
-                    SearchView(searchQuery: $searchQuery)
+                    SearchView()
                 case .trending:
                     Trending()
                 case .welcome:

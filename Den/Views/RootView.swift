@@ -29,13 +29,12 @@ struct RootView: View {
     @State private var detailPanel: DetailPanel?
     @State private var navigationStore = NavigationStore()
     @State private var newFeed: Feed?
-    @State private var newFeedPageID: String?
-    @State private var newFeedURLString: String = ""
     @State private var refreshViewID = 0 // Encremented on refresh to re-render views
     
     @SceneStorage("DetailPanel") private var detailPanelData: Data?
     @SceneStorage("Navigation") private var navigationData: Data?
-    @SceneStorage("SearchQuery") private var searchQuery: String = ""
+    @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
+    @SceneStorage("NewFeedURLString") private var newFeedURLString: String = ""
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet = false
     @SceneStorage("ShowingNewPageSheet") private var showingNewPageSheet = false
     
@@ -58,11 +57,6 @@ struct RootView: View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Sidebar(
                 detailPanel: $detailPanel,
-                newFeedPageID: $newFeedPageID,
-                newFeedURLString: $newFeedURLString,
-                searchQuery: $searchQuery,
-                showingExporter: $showingExporter,
-                showingImporter: $showingImporter,
                 pages: pages
             )
             .id(refreshViewID)
@@ -75,8 +69,7 @@ struct RootView: View {
         } detail: {
             DetailView(
                 detailPanel: $detailPanel,
-                path: $navigationStore.path,
-                searchQuery: $searchQuery
+                path: $navigationStore.path
             )
             .id(refreshViewID)
             #if os(iOS)
@@ -164,18 +157,13 @@ struct RootView: View {
                 Task {
                     guard let feed = newFeed else { return }
                     await refreshManager.refresh(feed: feed)
-                    
-                    newFeed = nil
-                    newFeedPageID = nil
-                    newFeedURLString = ""
                 }
+                newFeed = nil
+                newFeedPageID = nil
+                newFeedURLString = ""
             },
             content: {
-                NewFeedSheet(
-                    newFeed: $newFeed,
-                    newFeedPageID: $newFeedPageID,
-                    newFeedURLString: $newFeedURLString
-                )
+                NewFeedSheet(newFeed: $newFeed)
             }
         )
         .sheet(

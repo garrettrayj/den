@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct ImportButton: View {
-    @Binding var showingImporter: Bool
+    @SceneStorage("ShowingImporter") private var showingImporter = false
 
     var body: some View {
         Button {
