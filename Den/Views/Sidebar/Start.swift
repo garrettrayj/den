@@ -15,11 +15,10 @@ struct Start: View {
     @Environment(\.modelContext) private var modelContext
 
     @Binding var showingImporter: Bool
-    @Binding var showingNewPageSheet: Bool
 
     var body: some View {
         Section {
-            NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+            NewPageButton()
             ImportButton(showingImporter: $showingImporter)
             Button {
                 loadDemo()

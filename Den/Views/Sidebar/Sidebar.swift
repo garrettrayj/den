@@ -23,8 +23,6 @@ struct Sidebar: View {
     @Binding var searchQuery: String
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
-    @Binding var showingNewFeedSheet: Bool
-    @Binding var showingNewPageSheet: Bool
     
     @State private var exporterIsPresented: Bool = false
     @State private var opmlFile: OPMLFile?
@@ -42,8 +40,7 @@ struct Sidebar: View {
         List(selection: $detailPanel) {
             if pages.isEmpty {
                 Start(
-                    showingImporter: $showingImporter,
-                    showingNewPageSheet: $showingNewPageSheet
+                    showingImporter: $showingImporter
                 )
             } else {
                 ApexSection()
@@ -51,7 +48,6 @@ struct Sidebar: View {
                 PagesSection(
                     newFeedPageID: $newFeedPageID,
                     newFeedURLString: $newFeedURLString,
-                    showingNewFeedSheet: $showingNewFeedSheet,
                     pages: pages
                 )
             }
@@ -91,8 +87,6 @@ struct Sidebar: View {
                 detailPanel: $detailPanel,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
-                showingNewFeedSheet: $showingNewFeedSheet,
-                showingNewPageSheet: $showingNewPageSheet,
                 showingSettings: $showingSettings, 
                 feedCount: pages.feeds.count
             )
@@ -106,12 +100,6 @@ struct Sidebar: View {
             isPresented: $showingSettings,
             content: {
                 SettingsSheet()
-            }
-        )
-        .sheet(
-            isPresented: $showingNewPageSheet,
-            content: {
-                NewPageSheet()
             }
         )
         .fileImporter(

@@ -23,8 +23,6 @@ struct RootView: View {
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     @State private var showingExporter = false
     @State private var showingImporter = false
-    @State private var showingNewFeedSheet = false
-    @State private var showingNewPageSheet = false
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
     @State private var clearPathOnDetailChange = true
@@ -38,6 +36,8 @@ struct RootView: View {
     @SceneStorage("DetailPanel") private var detailPanelData: Data?
     @SceneStorage("Navigation") private var navigationData: Data?
     @SceneStorage("SearchQuery") private var searchQuery: String = ""
+    @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet = false
+    @SceneStorage("ShowingNewPageSheet") private var showingNewPageSheet = false
     
     @AppStorage("Maintained") private var maintenanceTimestamp: Double?
     @AppStorage("AccentColor") private var accentColor: AccentColor?
@@ -63,8 +63,6 @@ struct RootView: View {
                 searchQuery: $searchQuery,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
-                showingNewFeedSheet: $showingNewFeedSheet,
-                showingNewPageSheet: $showingNewPageSheet,
                 pages: pages
             )
             .id(refreshViewID)
@@ -89,8 +87,8 @@ struct RootView: View {
         .background {
             // Buttons in background for keyboard shortcuts
             Group {
-                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+                NewFeedButton()
+                NewPageButton()
             }
             .disabled(pages.isEmpty)
             .opacity(0)
@@ -178,6 +176,12 @@ struct RootView: View {
                     newFeedPageID: $newFeedPageID,
                     newFeedURLString: $newFeedURLString
                 )
+            }
+        )
+        .sheet(
+            isPresented: $showingNewPageSheet,
+            content: {
+                NewPageSheet()
             }
         )
         .onReceive(NotificationCenter.default.publisher(for: .appErrored, object: nil)) { output in

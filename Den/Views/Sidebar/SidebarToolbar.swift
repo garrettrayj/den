@@ -16,8 +16,6 @@ struct SidebarToolbar: ToolbarContent {
     @Binding var detailPanel: DetailPanel?
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
-    @Binding var showingNewFeedSheet: Bool
-    @Binding var showingNewPageSheet: Bool
     @Binding var showingSettings: Bool
     
     let feedCount: Int
@@ -25,8 +23,8 @@ struct SidebarToolbar: ToolbarContent {
     var body: some ToolbarContent {
         ToolbarItem(placement: .primaryAction) {
             Menu {
-                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+                NewFeedButton()
+                NewPageButton()
                 Divider()
                 ImportButton(showingImporter: $showingImporter)
                 ExportButton(showingExporter: $showingExporter)

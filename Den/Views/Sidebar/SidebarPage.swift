@@ -17,11 +17,11 @@ struct SidebarPage: View {
 
     @Binding var newFeedPageID: String?
     @Binding var newFeedURLString: String
-    @Binding var showingNewFeedSheet: Bool
     
     @State private var showingIconSelector = false
     
     @SceneStorage("ExpandedPages") var expandedPages: Set<UUID> = []
+    @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     

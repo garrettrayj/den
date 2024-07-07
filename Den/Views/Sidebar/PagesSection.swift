@@ -15,7 +15,6 @@ struct PagesSection: View {
 
     @Binding var newFeedPageID: String?
     @Binding var newFeedURLString: String
-    @Binding var showingNewFeedSheet: Bool
     
     let pages: [Page]
 
@@ -25,8 +24,7 @@ struct PagesSection: View {
                 SidebarPage(
                     page: page,
                     newFeedPageID: $newFeedPageID,
-                    newFeedURLString: $newFeedURLString,
-                    showingNewFeedSheet: $showingNewFeedSheet
+                    newFeedURLString: $newFeedURLString
                 )
             }
             .onMove(perform: movePages)
