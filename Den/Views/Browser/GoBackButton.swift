@@ -24,7 +24,7 @@ struct GoBackButton: View {
             }
         }
         .disabled(!browserViewModel.canGoBack)
-        .help(Text("Show Previous Page", comment: "Button help text."))
+        .help(Text("Show previous page", comment: "Button help text."))
         .accessibilityIdentifier("BrowserGoBack")
     }
 }

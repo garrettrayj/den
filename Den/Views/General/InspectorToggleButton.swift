@@ -30,8 +30,8 @@ struct InspectorToggleButton: View {
             }
         }
         .help(
-            showingInspector ? Text("Hide Inspector", comment: "Button help text.") :
-                Text("Show Inspector", comment: "Button help text.")
+            showingInspector ? Text("Hide inspector", comment: "Button help text.") :
+                Text("Show inspector", comment: "Button help text.")
         )
         .accessibilityIdentifier("ToggleInspector")
     }

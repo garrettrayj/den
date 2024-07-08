@@ -25,7 +25,7 @@ struct SystemBrowserButton: View {
                 Image(systemName: "link.circle")
             }
         }
-        .help(Text("Open in System Browser", comment: "Button help text."))
+        .help(Text("Open in system browser", comment: "Button help text."))
         .accessibilityIdentifier("OpenInBrowser")
     }
 }

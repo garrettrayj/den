@@ -39,7 +39,7 @@ struct BrowserFormatMenu: View {
             }
         }
         .contentTransition(.symbolEffect(.replace))
-        .help(Text("Show Format Menu", comment: "Menu help text."))
+        .help(Text("Show format menu", comment: "Menu help text."))
         .accessibilityIdentifier("FormatMenu")
     }
 }

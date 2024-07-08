@@ -620,8 +620,11 @@
         }
       }
     },
+    "Delete bookmark" : {
+      "comment" : "Button help text."
+    },
     "Delete Bookmark" : {
-      "comment" : "Button help text.\nButton label."
+      "comment" : "Button label."
     },
     "Delete Feed?" : {
       "comment" : "Alert title.",
@@ -1007,8 +1010,12 @@
         }
       }
     },
+    "Hide inspector" : {
+      "comment" : "Button help text."
+    },
     "Hide Inspector" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1018,8 +1025,12 @@
         }
       }
     },
+    "Hide read items" : {
+      "comment" : "Button help text."
+    },
     "Hide Read Items" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1234,8 +1245,12 @@
     "Mark All" : {
       "comment" : "Button label."
     },
+    "Mark all read" : {
+      "comment" : "Button help text."
+    },
     "Mark All Read" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1245,8 +1260,12 @@
         }
       }
     },
+    "Mark all unread" : {
+      "comment" : "Button help text."
+    },
     "Mark All Unread" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1612,8 +1631,12 @@
         }
       }
     },
+    "Open in system browser" : {
+      "comment" : "Button help text."
+    },
     "Open in System Browser" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1770,8 +1793,12 @@
         }
       }
     },
+    "Refresh feeds" : {
+      "comment" : "Button help text."
+    },
     "Refresh Feeds" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1997,7 +2024,7 @@
         }
       }
     },
-    "Select All/None" : {
+    "Select all/none" : {
       "comment" : "Button help text."
     },
     "Select Icon" : {
@@ -2010,6 +2037,9 @@
           }
         }
       }
+    },
+    "Select layout" : {
+      "comment" : "Button help text."
     },
     "Select None" : {
       "comment" : "Button help text.\nButton label.",
@@ -2101,8 +2131,12 @@
         }
       }
     },
+    "Show downloads" : {
+      "comment" : "Button help text."
+    },
     "Show Downloads" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2122,6 +2156,9 @@
           }
         }
       }
+    },
+    "Show format menu" : {
+      "comment" : "Menu help text."
     },
     "Show Format Menu" : {
       "comment" : "Menu help text.",
@@ -2157,8 +2194,12 @@
         }
       }
     },
+    "Show inspector" : {
+      "comment" : "Button help text."
+    },
     "Show Inspector" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2168,8 +2209,12 @@
         }
       }
     },
+    "Show menu" : {
+      "comment" : "Menu help text."
+    },
     "Show Menu" : {
       "comment" : "Menu help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2179,8 +2224,12 @@
         }
       }
     },
+    "Show next page" : {
+      "comment" : "Button help text."
+    },
     "Show Next Page" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2190,8 +2239,12 @@
         }
       }
     },
+    "Show previous page" : {
+      "comment" : "Button help text."
+    },
     "Show Previous Page" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2201,8 +2254,12 @@
         }
       }
     },
+    "Show read items" : {
+      "comment" : "Button help text."
+    },
     "Show Read Items" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2246,9 +2303,6 @@
           }
         }
       }
-    },
-    "Show Reader/Show Format Menu" : {
-      "comment" : "Menu help text."
     },
     "Show Unread Counts" : {
       "comment" : "Toggle label.",
@@ -2320,9 +2374,6 @@
     },
     "Stop/Reload" : {
       "comment" : "Button help text.\nButton label."
-    },
-    "Switch Layout" : {
-      "comment" : "Button help text."
     },
     "Symbol" : {
       "comment" : "Text field label.",

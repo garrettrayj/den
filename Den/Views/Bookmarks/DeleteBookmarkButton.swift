@@ -27,7 +27,7 @@ struct DeleteBookmarkButton: View {
                 Image(systemName: "bookmark").symbolVariant(.slash)
             }
         }
-        .help(Text("Delete Bookmark", comment: "Button help text."))
+        .help(Text("Delete bookmark", comment: "Button help text."))
         .accessibilityIdentifier("Untag")
     }
 }

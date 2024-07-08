@@ -33,8 +33,8 @@ struct MarkAllReadUnreadButton: View {
         .disabled(toggling)
         .contentTransition(.symbolEffect(.replace))
         .help(
-            allRead ? Text("Mark All Unread", comment: "Button help text.") :
-                Text("Mark All Read", comment: "Button help text.")
+            allRead ? Text("Mark all unread", comment: "Button help text.") :
+                Text("Mark all read", comment: "Button help text.")
         )
         .accessibilityIdentifier("ToggleRead")
     }

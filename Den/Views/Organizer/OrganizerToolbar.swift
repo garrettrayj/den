@@ -38,7 +38,7 @@ struct OrganizerToolbar: ToolbarContent {
                 }
             }
             .contentTransition(.symbolEffect(.replace))
-            .help(Text("Select All/None", comment: "Button help text."))
+            .help(Text("Select all/none", comment: "Button help text."))
             .accessibilityIdentifier("SelectAllNone")
         }
 

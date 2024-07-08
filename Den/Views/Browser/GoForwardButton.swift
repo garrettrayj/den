@@ -24,7 +24,7 @@ struct GoForwardButton: View {
             }
         }
         .disabled(!browserViewModel.canGoForward)
-        .help(Text("Show Next Page", comment: "Button help text."))
+        .help(Text("Show next page", comment: "Button help text."))
         .accessibilityIdentifier("BrowserGoForward")
     }
 }

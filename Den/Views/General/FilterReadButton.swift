@@ -28,8 +28,8 @@ struct FilterReadButton: View {
         }
         .contentTransition(.symbolEffect(.replace))
         .help(
-            hideRead ? Text("Show Read Items", comment: "Button help text.") :
-                Text("Hide Read Items", comment: "Button help text.")
+            hideRead ? Text("Show read items", comment: "Button help text.") :
+                Text("Hide read items", comment: "Button help text.")
         )
         .accessibilityIdentifier("FilterRead")
     }
