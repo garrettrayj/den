@@ -23,7 +23,7 @@ struct BlocklistSettings: View {
                 Spacer()
                 ContentUnavailable {
                     Label {
-                        Text("Blocklist Deleted", comment: "Content unavailable title.")
+                        Text("Blocklist Removed", comment: "Content unavailable title.")
                     } icon: {
                         Image(systemName: "trash")
                     }

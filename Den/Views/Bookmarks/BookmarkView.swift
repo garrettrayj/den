@@ -19,7 +19,7 @@ struct BookmarkView: View {
         if bookmark.isDeleted || bookmark.id == nil {
             ContentUnavailable {
                 Label {
-                    Text("Bookmark Deleted", comment: "Object removed message.")
+                    Text("Bookmark Removed", comment: "Object removed message.")
                 } icon: {
                     Image(systemName: "bookmark").symbolVariant(.slash)
                 }

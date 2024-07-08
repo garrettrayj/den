@@ -17,7 +17,7 @@ struct TrendView: View {
 
     var body: some View {
         Group {
-            if trend.isDeleted {
+            if trend.isDeleted || trend.id == nil {
                 ContentUnavailable {
                     Label {
                         Text("Trend Removed", comment: "Object removed message.")

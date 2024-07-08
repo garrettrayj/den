@@ -25,7 +25,7 @@ struct FeedView: View {
             if feed.isDeleted || feed.modelContext == nil {
                 ContentUnavailable {
                     Label {
-                        Text("Feed Deleted", comment: "Object removed message.")
+                        Text("Feed Removed", comment: "Object removed message.")
                     } icon: {
                         Image(systemName: "trash")
                     }

@@ -21,7 +21,7 @@ struct ItemView: View {
         if item.isDeleted || item.id == nil {
             ContentUnavailable {
                 Label {
-                    Text("Item Deleted", comment: "Object removed message.")
+                    Text("Item Removed", comment: "Object removed message.")
                 } icon: {
                     Image(systemName: "trash")
                 }

@@ -24,7 +24,7 @@ struct PageView: View {
         if page.isDeleted || page.modelContext == nil {
             ContentUnavailable {
                 Label {
-                    Text("Folder Deleted", comment: "Object removed message.")
+                    Text("Folder Removed", comment: "Object removed message.")
                 } icon: {
                     Image(systemName: "trash")
                 }
