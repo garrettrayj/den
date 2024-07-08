@@ -27,7 +27,7 @@ struct BookmarkToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            BrowserFormatMenu(browserViewModel: browserViewModel)
+            BrowserViewMenu(browserViewModel: browserViewModel)
         }
         ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)

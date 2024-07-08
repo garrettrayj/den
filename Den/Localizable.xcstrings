@@ -906,7 +906,7 @@
       "comment" : "Sidebar section header."
     },
     "Format" : {
-      "comment" : "Button label.\nOrganizer info panel row label.",
+      "comment" : "Organizer info panel row label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2124,6 +2124,9 @@
         }
       }
     },
+    "Show browser view settings" : {
+      "comment" : "Menu help text."
+    },
     "Show Bylines" : {
       "comment" : "Toggle label.",
       "localizations" : {
@@ -2160,9 +2163,6 @@
           }
         }
       }
-    },
-    "Show format menu" : {
-      "comment" : "Menu help text."
     },
     "Show Format Menu" : {
       "comment" : "Menu help text.",
@@ -2740,7 +2740,7 @@
       }
     },
     "View" : {
-      "comment" : "Picker label.",
+      "comment" : "Button label.\nPicker label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
