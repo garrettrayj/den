@@ -20,7 +20,7 @@ struct SystemBrowserButton: View {
             openURL(url)
         } label: {
             Label {
-                Text("Open in Browser", comment: "Button label.")
+                Text("Open Link", comment: "Button label.")
             } icon: {
                 Image(systemName: "link.circle")
             }

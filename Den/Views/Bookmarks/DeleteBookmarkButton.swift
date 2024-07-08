@@ -20,7 +20,6 @@ struct DeleteBookmarkButton: View {
         Button(role: .destructive) {
             bookmark.item?.bookmarked = false
             modelContext.delete(bookmark)
-            try? modelContext.save()
         } label: {
             Label {
                 Text("Delete Bookmark", comment: "Button label.")

@@ -22,11 +22,7 @@ struct ToggleBookmarkedButton: View {
             }
         } label: {
             Label {
-                if item.wrappedBookmarked {
-                    Text("Delete Bookmark")
-                } else {
-                    Text("Add Bookmark")
-                }
+                Text("Bookmark")
             } icon: {
                 Image(systemName: "bookmark")
                     .symbolVariant(item.wrappedBookmarked ? .slash : .none)

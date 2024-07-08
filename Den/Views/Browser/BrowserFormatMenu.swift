@@ -14,51 +14,32 @@ struct BrowserFormatMenu: View {
     @Bindable var browserViewModel: BrowserViewModel
     
     var body: some View {
-        Group {
-            if browserViewModel.isReaderable {
-                Menu {
-                    ToggleReaderButton(browserViewModel: browserViewModel)
+        Menu {
+            ToggleReaderButton(browserViewModel: browserViewModel)
 
-                    if browserViewModel.showingReader {
-                        ReaderZoom(browserViewModel: browserViewModel)
-                    } else {
-                        ToggleBlocklistsButton(browserViewModel: browserViewModel)
-                        ToggleJavaScriptButton(browserViewModel: browserViewModel)
-                        #if os(macOS)
-                        BrowserZoom(browserViewModel: browserViewModel)
-                        #endif
-                    }
-                } label: {
-                    Label {
-                        Text("Formatting", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "doc.plaintext")
-                            .symbolVariant(browserViewModel.showingReader ? .fill : .none)
-                    }
-                } primaryAction: {
-                    withAnimation {
-                        browserViewModel.toggleReader()
-                    }
-                }
-                .contentTransition(.symbolEffect(.replace))
-                .help(Text("Show Reader/Show Format Menu", comment: "Menu help text."))
+            if browserViewModel.showingReader {
+                ReaderZoom(browserViewModel: browserViewModel)
             } else {
-                Menu {
-                    ToggleBlocklistsButton(browserViewModel: browserViewModel)
-                    ToggleJavaScriptButton(browserViewModel: browserViewModel)
-                    #if os(macOS)
-                    BrowserZoom(browserViewModel: browserViewModel)
-                    #endif
-                } label: {
-                    Label {
-                        Text("Formatting", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "textformat.size")
-                    }
-                }
-                .help(Text("Show Format Menu", comment: "Menu help text."))
+                ToggleBlocklistsButton(browserViewModel: browserViewModel)
+                ToggleJavaScriptButton(browserViewModel: browserViewModel)
+                #if os(macOS)
+                BrowserZoom(browserViewModel: browserViewModel)
+                #endif
+            }
+        } label: {
+            Label {
+                Text("Format", comment: "Button label.")
+            } icon: {
+                Image(systemName: "doc.plaintext")
+                    .symbolVariant(browserViewModel.showingReader ? .fill : .none)
+            }
+        } primaryAction: {
+            withAnimation {
+                browserViewModel.toggleReader()
             }
         }
+        .contentTransition(.symbolEffect(.replace))
+        .help(Text("Show Format Menu", comment: "Menu help text."))
         .accessibilityIdentifier("FormatMenu")
     }
 }

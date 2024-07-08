@@ -34,7 +34,7 @@ struct SidebarToolbar: ToolbarContent {
                 #endif
             } label: {
                 Label {
-                    Text("Preferences", comment: "Menu label.")
+                    Text("Menu", comment: "Menu label.")
                 } icon: {
                     Image(systemName: "ellipsis.circle")
                 }

@@ -24,7 +24,7 @@ struct InspectorToggleButton: View {
             showingInspector.toggle()
         } label: {
             Label {
-                Text("Toggle Inspector", comment: "Button label.")
+                Text("Inspector", comment: "Button label.")
             } icon: {
                 Image(systemName: symbol)
             }
