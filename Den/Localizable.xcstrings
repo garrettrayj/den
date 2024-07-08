@@ -1131,8 +1131,12 @@
     "Inspector" : {
       "comment" : "Button label."
     },
+    "Item Deleted" : {
+      "comment" : "Object removed message."
+    },
     "Item Removed" : {
       "comment" : "Object removed message.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

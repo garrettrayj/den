@@ -14,22 +14,9 @@ struct BookmarkView: View {
     @Bindable var bookmark: Bookmark
     
     @State private var browserViewModel = BrowserViewModel()
-
+    
     var body: some View {
-        if
-            let url = bookmark.link,
-            !bookmark.isDeleted && bookmark.id != nil
-        {
-            BrowserView(
-                url: url,
-                useBlocklists: bookmark.feed?.useBlocklists,
-                useReaderAutomatically: bookmark.feed?.readerMode,
-                browserViewModel: browserViewModel
-            )
-            .toolbar {
-                BookmarkToolbar(bookmark: bookmark, browserViewModel: browserViewModel)
-            }
-        } else {
+        if bookmark.isDeleted || bookmark.id == nil {
             ContentUnavailable {
                 Label {
                     Text("Bookmark Deleted", comment: "Object removed message.")
@@ -37,6 +24,19 @@ struct BookmarkView: View {
                     Image(systemName: "bookmark").symbolVariant(.slash)
                 }
             }
+        } else {
+            BrowserView(browserViewModel: browserViewModel)
+                .task {
+                    browserViewModel.contentRuleLists = await BlocklistManager.getContentRuleLists()
+                    browserViewModel.useBlocklists = bookmark.feed?.useBlocklists ?? true
+                    browserViewModel.useReaderAutomatically = bookmark.feed?.readerMode ?? false
+                    browserViewModel.allowJavaScript = bookmark.feed?.allowJavaScript ?? true
+
+                    browserViewModel.loadURL(url: bookmark.link)
+                }
+                .toolbar {
+                    BookmarkToolbar(bookmark: bookmark, browserViewModel: browserViewModel)
+                }
         }
     }
 }

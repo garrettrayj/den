@@ -18,28 +18,29 @@ struct ItemView: View {
     @State private var browserViewModel = BrowserViewModel()
 
     var body: some View {
-        if let url = item.link, item.feedData?.feed != nil {
-            BrowserView(
-                url: url,
-                useBlocklists: item.feedData?.feed?.useBlocklists,
-                useReaderAutomatically: item.feedData?.feed?.readerMode,
-                allowJavaScript: item.feedData?.feed?.allowJavaScript,
-                browserViewModel: browserViewModel
-            )
-            .toolbar {
-                ItemToolbar(item: item, browserViewModel: browserViewModel)
-            }
-            .task {
-                HistoryUtility.markItemRead(modelContext: modelContext, item: item)
-            }
-        } else {
+        if item.isDeleted || item.id == nil {
             ContentUnavailable {
                 Label {
-                    Text("Item Removed", comment: "Object removed message.")
+                    Text("Item Deleted", comment: "Object removed message.")
                 } icon: {
                     Image(systemName: "trash")
                 }
             }
+        } else {
+            BrowserView(browserViewModel: browserViewModel)
+                .toolbar {
+                    ItemToolbar(item: item, browserViewModel: browserViewModel)
+                }
+                .task {
+                    browserViewModel.contentRuleLists = await BlocklistManager.getContentRuleLists()
+                    browserViewModel.useBlocklists = item.feedData?.feed?.useBlocklists ?? true
+                    browserViewModel.useReaderAutomatically = item.feedData?.feed?.readerMode ?? false
+                    browserViewModel.allowJavaScript = item.feedData?.feed?.allowJavaScript ?? true
+
+                    browserViewModel.loadURL(url: item.link)
+                    
+                    HistoryUtility.markItemRead(modelContext: modelContext, item: item)
+                }
         }
     }
 }

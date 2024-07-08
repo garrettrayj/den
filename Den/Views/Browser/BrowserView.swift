@@ -13,11 +13,6 @@ import WebKit
 
 struct BrowserView: View {
     @Environment(\.self) private var environment
-    
-    var url: URL
-    var useBlocklists: Bool?
-    var useReaderAutomatically: Bool?
-    var allowJavaScript: Bool?
 
     @Bindable var browserViewModel: BrowserViewModel
 
@@ -25,32 +20,12 @@ struct BrowserView: View {
     @AppStorage("BrowserZoom") private var browserZoom: PageZoomLevel = .oneHundredPercent
     @AppStorage("ReaderZoom") private var readerZoom: PageZoomLevel = .oneHundredPercent
 
-    init(
-        url: URL,
-        useBlocklists: Bool? = nil,
-        useReaderAutomatically: Bool? = nil,
-        allowJavaScript: Bool? = nil,
-        browserViewModel: BrowserViewModel
-    ) {
-        self.url = url
-        self.useBlocklists = useBlocklists
-        self.useReaderAutomatically = useReaderAutomatically
-        self.allowJavaScript = allowJavaScript
-        self.browserViewModel = browserViewModel
-    }
-
     var body: some View {
         ZStack(alignment: .top) {
             BrowserWebView(browserViewModel: browserViewModel)
                 .task {
-                    browserViewModel.contentRuleLists = await BlocklistManager.getContentRuleLists()
-                    browserViewModel.useBlocklists = useBlocklists ?? true
-                    browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
-                    browserViewModel.allowJavaScript = allowJavaScript ?? true
                     browserViewModel.userTintHex = accentColor?.color.hexString(environment: environment)
                     browserViewModel.setBrowserZoom(browserZoom)
-                    
-                    browserViewModel.loadURL(url: url)
                 }
                 .onDisappear {
                     // Fix for videos continuing to play after view is dismissed
