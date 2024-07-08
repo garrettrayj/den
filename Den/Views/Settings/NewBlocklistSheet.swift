@@ -108,8 +108,10 @@ struct NewBlocklistSheet: View {
         let blocklist = Blocklist.create(in: modelContext)
         blocklist.name = name
         blocklist.url = url
+
+        try? modelContext.save()
         
-        // await BlocklistManager.refreshContentRulesList(blocklist: blocklist)
+        await BlocklistManager.refreshContentRulesList(blocklist: blocklist)
 
         dismiss()
     }

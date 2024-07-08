@@ -22,7 +22,12 @@ struct StopReloadButton: View {
             }
         } label: {
             Label {
-                Text("Stop/Reload", comment: "Button label.")
+                if browserViewModel.isLoading {
+                    Text("Stop", comment: "Button label.")
+                } else {
+                    Text("Reload", comment: "Button label.")
+                }
+                
             } icon: {
                 if browserViewModel.isLoading {
                     Image(systemName: "xmark")

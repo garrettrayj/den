@@ -20,17 +20,24 @@ struct FilterReadButton: View {
             }
         } label: {
             Label {
-                Text("Filter Read", comment: "Button label.")
+                if hideRead {
+                    Text("Show Read", comment: "Button label.")
+                } else {
+                    Text("Hide Read", comment: "Button label.")
+                }
             } icon: {
                 Image(systemName: "line.3.horizontal.decrease")
                     .symbolVariant(hideRead ? .circle.fill : .circle)
             }
         }
         .contentTransition(.symbolEffect(.replace))
-        .help(
-            hideRead ? Text("Show read items", comment: "Button help text.") :
+        .help({
+            if hideRead {
+                Text("Show read items", comment: "Button help text.")
+            } else {
                 Text("Hide read items", comment: "Button help text.")
-        )
+            }
+        }())
         .accessibilityIdentifier("FilterRead")
     }
     

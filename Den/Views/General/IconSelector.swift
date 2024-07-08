@@ -21,6 +21,7 @@ struct IconSelector: View {
     @FocusState private var textFieldFocus: Bool
     
     @ScaledMetric var gridSize = 40
+    @ScaledMetric var selectedPreviewSize = 24
 
     var body: some View {
         NavigationStack {
@@ -58,9 +59,9 @@ struct IconSelector: View {
                     Image(systemName: selection)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: gridSize, height: gridSize)
+                        .frame(width: selectedPreviewSize, height: selectedPreviewSize)
                         .foregroundStyle(.tint)
-                        .padding(.trailing)
+                        .padding(.trailing, 4)
 
                     if showingManualEntry {
                         TextField(text: $selection) {
@@ -89,9 +90,9 @@ struct IconSelector: View {
                     Spacer()
                 }
                 .padding()
-                .background(.thinMaterial)
+                .background(.ultraThinMaterial)
                 .overlay(alignment: .bottom) {
-                    Divider().opacity(0.75)
+                    Divider().opacity(0.5)
                 }
                 .lineLimit(1)
             }
