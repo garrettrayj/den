@@ -15,13 +15,21 @@ struct SidebarFeed: View {
     
     @Bindable var feed: Feed
     
+    @State var title: String
+    
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
+    
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         Label {
             #if os(macOS)
-            TextField(text: $feed.wrappedTitle) {
+            TextField(text: $title) {
                 feed.displayTitle
+            }
+            .focused($isFocused)
+            .onChange(of: isFocused) {
+                feed.wrappedTitle = title
             }
             #else
             feed.displayTitle

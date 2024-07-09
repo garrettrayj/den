@@ -16,6 +16,8 @@ struct SidebarPage: View {
 
     @Bindable var page: Page
     
+    @State var name: String
+    
     @State private var showingIconSelector = false
     
     @SceneStorage("ExpandedPages") var expandedPages: Set<UUID> = []
@@ -24,6 +26,8 @@ struct SidebarPage: View {
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
+    
+    @FocusState private var isFocused: Bool
     
     var isExpandedBinding: Binding<Bool> {
         Binding<Bool> {
@@ -45,15 +49,19 @@ struct SidebarPage: View {
     var body: some View {
         DisclosureGroup(isExpanded: isExpandedBinding) {
             ForEach(page.sortedFeeds, id: \.self) { feed in
-                SidebarFeed(feed: feed)
+                SidebarFeed(feed: feed, title: feed.wrappedTitle)
             }
             .onMove(perform: moveFeed)
         } label: {
             WithItems(scopeObject: page) { items in
                 Label {
                     #if os(macOS)
-                    TextField(text: $page.wrappedName) {
+                    TextField(text: $name) {
                         page.displayName
+                    }
+                    .focused($isFocused)
+                    .onChange(of: isFocused) {
+                        page.wrappedName = name
                     }
                     #else
                     page.displayName

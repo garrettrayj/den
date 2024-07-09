@@ -18,7 +18,7 @@ struct PagesSection: View {
     var body: some View {
         Section {
             ForEach(pages) { page in
-                SidebarPage(page: page)
+                SidebarPage(page: page, name: page.wrappedName)
             }
             .onMove(perform: movePages)
             .onDelete(perform: deletePages)
