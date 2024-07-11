@@ -178,21 +178,23 @@ struct ResetSection: View {
     }
 
     private func resetEverything() {
-        for model in DataController.shared.cloudModels {
-            do {
-                try modelContext.delete(model: model)
-            } catch {
-                print(error)
-            }
+        // Workaround for items and trends not being removed by .delete(model:)
+        if let items = try? modelContext.fetch(FetchDescriptor<Item>()) {
+            items.forEach { modelContext.delete($0) }
         }
+        if let trends = try? modelContext.fetch(FetchDescriptor<Trend>()) {
+            trends.forEach { modelContext.delete($0) }
+        }
+        try? modelContext.save()
         
-        for model in DataController.shared.localModels {
+        for model in DataController.shared.localModels + DataController.shared.cloudModels {
             do {
                 try modelContext.delete(model: model)
             } catch {
-                print(error)
+                print(error.localizedDescription)
             }
         }
+        try? modelContext.save()
 
         Task {
             await BlocklistManager.removeAllContentRulesLists()
