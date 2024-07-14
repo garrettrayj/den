@@ -79,10 +79,10 @@ struct HTMLContent {
         }
 
         var images: [PreliminaryImage] = []
-        for el in elements {
+        for element in elements {
             // Required image atrributes
             guard
-                let src = try? el.attr("src"),
+                let src = try? element.attr("src"),
                 let url = URL(string: src, relativeTo: itemLink)
             else {
                 continue
@@ -95,7 +95,7 @@ struct HTMLContent {
 
             // Exclude based on MIME type (if attribute is available)
             if
-                let mimeType = try? el.attr("type"),
+                let mimeType = try? element.attr("type"),
                 mimeType != "",
                 ImageMIMEType(rawValue: mimeType) == nil
             {
@@ -103,8 +103,8 @@ struct HTMLContent {
             }
 
             if
-                let width = try? Int(el.attr("width")),
-                let height = try? Int(el.attr("height"))
+                let width = try? Int(element.attr("width")),
+                let height = try? Int(element.attr("height"))
             {
                 // Width and height must be greater than thumbnail size if specified
                 // to help filter hidden images

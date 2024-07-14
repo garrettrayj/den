@@ -16,8 +16,7 @@ struct WebpageScraper {
     static func extractMetadata(webpage: URL, data: Data?) -> WebpageMetadata? {
         guard
             let data = data,
-            let htmlString = String(data: data, encoding: .utf8),
-            let document = try? SwiftSoup.parse(htmlString)
+            let document = try? SwiftSoup.parse(String(decoding: data, as: UTF8.self))
         else { return nil }
 
         let metadata = WebpageMetadata()
@@ -63,8 +62,8 @@ struct WebpageScraper {
 
     static private func getAppleTouchIcon(document: Document, relativeTo: URL) -> URL? {
         guard
-            let el = try? document.select("link[rel='apple-touch-icon']"),
-            let href = try? el.attr("href"),
+            let element = try? document.select("link[rel='apple-touch-icon']"),
+            let href = try? element.attr("href"),
             let url = URL(string: href, relativeTo: relativeTo)
         else {
             return nil
@@ -75,8 +74,8 @@ struct WebpageScraper {
 
     static private func getMetaImage(document: Document, relativeTo: URL, property: String) -> URL? {
         guard
-            let el = try? document.select("meta[property='\(property)']"),
-            let href = try? el.attr("content"),
+            let element = try? document.select("meta[property='\(property)']"),
+            let href = try? element.attr("content"),
             let url = URL(string: href, relativeTo: relativeTo)
         else {
             return nil
@@ -98,8 +97,8 @@ struct WebpageScraper {
 
     static private func getMetaContent(document: Document, property: String) -> String? {
         guard
-            let el = try? document.select("meta[name='\(property)']"),
-            let content = try? el.attr("content"),
+            let element = try? document.select("meta[name='\(property)']"),
+            let content = try? element.attr("content"),
             content != ""
         else {
             return nil

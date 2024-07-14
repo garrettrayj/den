@@ -139,7 +139,7 @@ class Item {
                 encodableValue.append([title, tag.rawValue])
             }
             if let data = try? JSONSerialization.data(withJSONObject: encodableValue) {
-                tags = String(data: data, encoding: String.Encoding.utf8)
+                tags = String(decoding: data, as: UTF8.self)
             }
         }
     }
