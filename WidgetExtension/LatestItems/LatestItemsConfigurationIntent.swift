@@ -15,7 +15,7 @@ struct LatestItemsConfigurationIntent: WidgetConfigurationIntent {
     static let title: LocalizedStringResource = "Configuration"
 
     @Parameter(title: "Source")
-    var source: SourceDetail
+    var source: SourceDetail?
 
     init(source: SourceDetail) {
         self.source = source

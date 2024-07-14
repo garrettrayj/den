@@ -72,21 +72,21 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
         var page: Page?
 
         // Fetch scope object
-        let sourceID = configuration.source.id
-        if configuration.source.entityType == Page.self {
-            let request = FetchDescriptor<Page>(
-                predicate: #Predicate<Page> { $0.id == sourceID }
-            )
-            page = try? modelContext.fetch(request).first
-        } else if configuration.source.entityType == Feed.self {
-            let request = FetchDescriptor<Feed>(
-                predicate: #Predicate<Feed> { $0.id == sourceID }
-            )
-            feed = try? modelContext.fetch(request).first
+        if let sourceID = configuration.source?.id {
+            if configuration.source?.entityType == Page.self {
+                let request = FetchDescriptor<Page>(
+                    predicate: #Predicate<Page> { $0.id == sourceID }
+                )
+                page = try? modelContext.fetch(request).first
+            } else if configuration.source?.entityType == Feed.self {
+                let request = FetchDescriptor<Feed>(
+                    predicate: #Predicate<Feed> { $0.id == sourceID }
+                )
+                feed = try? modelContext.fetch(request).first
+            }
         }
 
         // Get items
-
         let readPredicate = #Predicate<Item> { $0.read == false }
         let extraPredicate = #Predicate<Item> { $0.extra == false }
         var predicates: [Predicate<Item>] = [readPredicate, extraPredicate]
