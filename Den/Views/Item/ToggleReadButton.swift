@@ -1,5 +1,5 @@
 //
-//  ReadUnreadButton.swift
+//  ToggleReadButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/19/23.
@@ -10,29 +10,29 @@
 
 import SwiftUI
 
-struct ReadUnreadButton: View {
+struct ToggleReadButton: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var item: Item
 
     var body: some View {
-        if item.read {
-            Button {
+        Button {
+            if item.read {
                 HistoryUtility.markItemUnread(context: viewContext, item: item)
-            } label: {
-                Label {
-                    Text("Mark Unread", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "checkmark.circle.badge.xmark")
-                }
-            }
-        } else {
-            Button {
+            } else {
                 HistoryUtility.markItemRead(context: viewContext, item: item)
-            } label: {
-                Label {
+            }
+        } label: {
+            Label {
+                if item.read {
+                    Text("Mark Unread", comment: "Button label.")
+                } else {
                     Text("Mark Read", comment: "Button label.")
-                } icon: {
+                }
+            } icon: {
+                if item.read {
+                    Image(systemName: "checkmark.circle.badge.xmark")
+                } else {
                     Image(systemName: "checkmark.circle")
                 }
             }
