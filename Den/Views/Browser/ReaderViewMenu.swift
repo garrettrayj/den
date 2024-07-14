@@ -1,5 +1,5 @@
 //
-//  ReaderFormatMenu.swift
+//  ReaderViewMenu.swift
 //  Den
 //
 //  Created by Garrett Johnson on 10/20/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ReaderFormatMenu: View {
+struct ReaderViewMenu: View {
     @ObservedObject var browserViewModel: BrowserViewModel
     
     var body: some View {
@@ -19,14 +19,14 @@ struct ReaderFormatMenu: View {
             ReaderZoom(browserViewModel: browserViewModel)
         } label: {
             Label {
-                Text("Formatting", comment: "Button label.")
+                Text("View", comment: "Button label.")
             } icon: {
                 Image(systemName: "doc.plaintext.fill")
             }
         } primaryAction: {
             browserViewModel.toggleReader()
         }
-        .help(Text("Show Reader Formatting", comment: "Menu help text."))
-        .accessibilityIdentifier("ReaderFormat")
+        .help(Text("Show reader view options", comment: "Menu help text."))
+        .accessibilityIdentifier("ReaderViewMenu")
     }
 }

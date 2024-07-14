@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct BrowserFormatMenu: View {
+struct BrowserViewMenu: View {
     @ObservedObject var browserViewModel: BrowserViewModel
     
     var body: some View {
@@ -25,14 +25,14 @@ struct BrowserFormatMenu: View {
                     #endif
                 } label: {
                     Label {
-                        Text("Formatting", comment: "Button label.")
+                        Text("View", comment: "Button label.")
                     } icon: {
                         Image(systemName: "doc.plaintext")
                     }
                 } primaryAction: {
                     browserViewModel.toggleReader()
                 }
-                .help(Text("Show Reader / Show Format Menu", comment: "Menu help text."))
+                .help(Text("Show browser view options", comment: "Menu help text."))
             } else {
                 Menu {
                     ToggleBlocklistsButton(browserViewModel: browserViewModel)
@@ -42,14 +42,14 @@ struct BrowserFormatMenu: View {
                     #endif
                 } label: {
                     Label {
-                        Text("Formatting", comment: "Button label.")
+                        Text("View", comment: "Button label.")
                     } icon: {
                         Image(systemName: "textformat.size")
                     }
                 }
-                .help(Text("Show Format Menu", comment: "Menu help text."))
+                .help(Text("Show browser view options", comment: "Menu help text."))
             }
         }
-        .accessibilityIdentifier("FormatMenu")
+        .accessibilityIdentifier("BrowserViewMenu")
     }
 }

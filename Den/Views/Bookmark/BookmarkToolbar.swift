@@ -141,9 +141,9 @@ struct BookmarkToolbar: ToolbarContent {
     @ViewBuilder
     private var formatMenu: some View {
         if browserViewModel.showingReader {
-            ReaderFormatMenu(browserViewModel: browserViewModel)
+            ReaderViewMenu(browserViewModel: browserViewModel)
         } else {
-            BrowserFormatMenu(browserViewModel: browserViewModel)
+            BrowserViewMenu(browserViewModel: browserViewModel)
         }
     }
 }

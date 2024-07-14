@@ -20,14 +20,14 @@ struct InspectorToggleButton: View {
             showingInspector.toggle()
         } label: {
             Label {
-                Text("Toggle Inspector", comment: "Button label.")
+                Text("Inspector", comment: "Button label.")
             } icon: {
                 Image(systemName: symbol)
             }
         }
         .help(
-            showingInspector ? Text("Hide Inspector", comment: "Button help text.") :
-                Text("Show Inspector", comment: "Button help text.")
+            showingInspector ? Text("Hide inspector", comment: "Button help text.") :
+                Text("Show inspector", comment: "Button help text.")
         )
         .accessibilityIdentifier("ToggleInspector")
     }

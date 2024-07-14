@@ -36,8 +36,8 @@ struct MarkAllReadUnreadButton: View {
         }
         .disabled(toggling)
         .help(
-            allRead ? Text("Mark All Unread", comment: "Button help text.") :
-                Text("Mark All Read", comment: "Button help text.")
+            allRead ? Text("Mark all items unread", comment: "Button help text.") :
+                Text("Mark all items read", comment: "Button help text.")
         )
         .accessibilityIdentifier("ToggleRead")
     }

@@ -18,13 +18,13 @@ struct GoForwardButton: View {
             browserViewModel.goForward()
         } label: {
             Label {
-                Text("Go Forward", comment: "Button label.")
+                Text("Forward", comment: "Button label.")
             } icon: {
                 Image(systemName: "chevron.forward")
             }
         }
         .disabled(!browserViewModel.canGoForward)
-        .help(Text("Show Next Page", comment: "Button help text."))
+        .help(Text("Show next page", comment: "Button help text."))
         .accessibilityIdentifier("BrowserGoForward")
     }
 }

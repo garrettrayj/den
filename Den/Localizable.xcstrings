@@ -332,6 +332,9 @@
         }
       }
     },
+    "Back" : {
+      "comment" : "Button label."
+    },
     "Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable." : {
       "comment" : "Background refresh status guidance.",
       "localizations" : {
@@ -425,6 +428,9 @@
           }
         }
       }
+    },
+    "Browser view options" : {
+      "comment" : "Menu help text."
     },
     "Cache Control" : {
       "comment" : "Organizer info panel row label.",
@@ -605,6 +611,9 @@
         }
       }
     },
+    "Delete bookmark" : {
+      "comment" : "Button help text."
+    },
     "Delete Feed?" : {
       "comment" : "Alert title.",
       "localizations" : {
@@ -640,6 +649,12 @@
           }
         }
       }
+    },
+    "Deselect All" : {
+      "comment" : "Button label."
+    },
+    "Deselect all feeds" : {
+      "comment" : "Button help text."
     },
     "Disable JavaScript" : {
       "comment" : "Button label.",
@@ -897,6 +912,7 @@
     },
     "Formatting" : {
       "comment" : "Button label.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -905,6 +921,9 @@
           }
         }
       }
+    },
+    "Forward" : {
+      "comment" : "Button label."
     },
     "General" : {
       "comment" : "Settings section header.",
@@ -930,6 +949,7 @@
     },
     "Go Back" : {
       "comment" : "Button label.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -941,6 +961,7 @@
     },
     "Go Forward" : {
       "comment" : "Button label.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -983,8 +1004,12 @@
         }
       }
     },
+    "Hide inspector" : {
+      "comment" : "Button help text."
+    },
     "Hide Inspector" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -994,8 +1019,12 @@
         }
       }
     },
+    "Hide read items" : {
+      "comment" : "Button help text."
+    },
     "Hide Read Items" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1092,6 +1121,9 @@
           }
         }
       }
+    },
+    "Inspector" : {
+      "comment" : "Button label."
     },
     "Item Removed" : {
       "comment" : "Object removed message.",
@@ -1204,8 +1236,14 @@
         }
       }
     },
+    "Mark all items read" : {
+      "comment" : "Button help text."
+    },
+    "Mark all items unread" : {
+      "comment" : "Button help text."
+    },
     "Mark All Read" : {
-      "comment" : "Button help text.\nButton label.",
+      "comment" : "Button label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1216,7 +1254,7 @@
       }
     },
     "Mark All Unread" : {
-      "comment" : "Button help text.\nButton label.",
+      "comment" : "Button label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1247,6 +1285,9 @@
           }
         }
       }
+    },
+    "Menu" : {
+      "comment" : "Menu label."
     },
     "Mint" : {
       "comment" : "Accent color option.",
@@ -1575,8 +1616,12 @@
         }
       }
     },
+    "Open in system browser" : {
+      "comment" : "Button help text."
+    },
     "Open in System Browser" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1654,6 +1699,7 @@
     },
     "Preferences" : {
       "comment" : "Menu label.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1707,6 +1753,9 @@
         }
       }
     },
+    "Reader view options" : {
+      "comment" : "Menu help text."
+    },
     "Red" : {
       "comment" : "Accent color option.",
       "localizations" : {
@@ -1729,8 +1778,12 @@
         }
       }
     },
+    "Refresh feeds" : {
+      "comment" : "Button help text."
+    },
     "Refresh Feeds" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1784,8 +1837,12 @@
         }
       }
     },
+    "Reload page" : {
+      "comment" : "Button help text."
+    },
     "Reload Page" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1797,6 +1854,7 @@
     },
     "Remove Bookmark" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1939,7 +1997,7 @@
       }
     },
     "Select All" : {
-      "comment" : "Button help text.\nButton label.",
+      "comment" : "Button label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1948,6 +2006,9 @@
           }
         }
       }
+    },
+    "Select all feeds" : {
+      "comment" : "Button help text."
     },
     "Select Icon" : {
       "comment" : "Navigation title.",
@@ -2049,8 +2110,12 @@
         }
       }
     },
+    "Show downloads" : {
+      "comment" : "Button help text."
+    },
     "Show Downloads" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2073,6 +2138,7 @@
     },
     "Show Format Menu" : {
       "comment" : "Menu help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2104,8 +2170,12 @@
         }
       }
     },
+    "Show inspector" : {
+      "comment" : "Button help text."
+    },
     "Show Inspector" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2115,8 +2185,12 @@
         }
       }
     },
+    "Show menu" : {
+      "comment" : "Menu help text."
+    },
     "Show Menu" : {
       "comment" : "Menu help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2126,8 +2200,12 @@
         }
       }
     },
+    "Show next page" : {
+      "comment" : "Button help text."
+    },
     "Show Next Page" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2137,8 +2215,12 @@
         }
       }
     },
+    "Show previous page" : {
+      "comment" : "Button help text."
+    },
     "Show Previous Page" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2148,8 +2230,12 @@
         }
       }
     },
+    "Show read items" : {
+      "comment" : "Button help text."
+    },
     "Show Read Items" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2172,6 +2258,7 @@
     },
     "Show Reader / Show Format Menu" : {
       "comment" : "Menu help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2183,6 +2270,7 @@
     },
     "Show Reader Formatting" : {
       "comment" : "Menu help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2247,8 +2335,12 @@
         }
       }
     },
+    "Stop loading page" : {
+      "comment" : "Button help text."
+    },
     "Stop Loading Page" : {
       "comment" : "Button help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2258,7 +2350,7 @@
         }
       }
     },
-    "Switch Layout" : {
+    "Switch page layout" : {
       "comment" : "Button help text."
     },
     "Symbol" : {
@@ -2389,6 +2481,7 @@
     },
     "Toggle Inspector" : {
       "comment" : "Button label.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2623,7 +2716,7 @@
       }
     },
     "View" : {
-      "comment" : "Picker label.",
+      "comment" : "Button label.\nPicker label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

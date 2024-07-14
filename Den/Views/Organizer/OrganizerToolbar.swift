@@ -23,12 +23,12 @@ struct OrganizerToolbar: ToolbarContent {
                     selection.removeAll()
                 } label: {
                     Label {
-                        Text("Select None", comment: "Button label.")
+                        Text("Deselect All", comment: "Button label.")
                     } icon: {
                         Image(systemName: "checklist.unchecked")
                     }
                 }
-                .help(Text("Select None", comment: "Button help text."))
+                .help(Text("Deselect all feeds", comment: "Button help text."))
                 .accessibilityIdentifier("Select None")
             } else {
                 Button {
@@ -40,7 +40,7 @@ struct OrganizerToolbar: ToolbarContent {
                         Image(systemName: "checklist.checked")
                     }
                 }
-                .help(Text("Select All", comment: "Button help text."))
+                .help(Text("Select all feeds", comment: "Button help text."))
                 .accessibilityIdentifier("SelectAll")
             }
         }

@@ -33,7 +33,7 @@ struct UnbookmarkButton: View {
                 Image(systemName: "bookmark").symbolVariant(.slash)
             }
         }
-        .help(Text("Remove Bookmark", comment: "Button help text."))
+        .help(Text("Delete bookmark", comment: "Button help text."))
         .accessibilityIdentifier("Unbookmark")
     }
 }

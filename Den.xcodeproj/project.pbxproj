@@ -190,7 +190,7 @@
 		6880EBE127A8E61C00B479F4 /* PreliminaryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBE027A8E61C00B479F4 /* PreliminaryImage.swift */; };
 		6880EBE327A8F63E00B479F4 /* WebFeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBE227A8F63E00B479F4 /* WebFeedItem.swift */; };
 		6880EBEB27AEF12000B479F4 /* ButtonChevron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBEA27AEF12000B479F4 /* ButtonChevron.swift */; };
-		688466F42AE264340071B86A /* ReaderFormatMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688466F32AE264340071B86A /* ReaderFormatMenu.swift */; };
+		688466F42AE264340071B86A /* ReaderViewMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688466F32AE264340071B86A /* ReaderViewMenu.swift */; };
 		6885C42226D37259002C41B0 /* FeedTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885C42126D37259002C41B0 /* FeedTitleLabel.swift */; };
 		6885FD0E24819446007A3D5B /* PreviewButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885FD0D24819446007A3D5B /* PreviewButtonStyle.swift */; };
 		6887D40925B35B83004A170D /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6887D40825B35B83004A170D /* History+CoreDataClass.swift */; };
@@ -311,7 +311,7 @@
 		68E83BFE2A6004590014DC64 /* AppLaunchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */; };
 		68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */; };
 		68E9F6422AE1528800A27E19 /* ToggleBlocklistsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9F6412AE1528800A27E19 /* ToggleBlocklistsButton.swift */; };
-		68E9F6452AE178E500A27E19 /* BrowserFormatMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9F6442AE178E500A27E19 /* BrowserFormatMenu.swift */; };
+		68E9F6452AE178E500A27E19 /* BrowserViewMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9F6442AE178E500A27E19 /* BrowserViewMenu.swift */; };
 		68E9F6472AE1825D00A27E19 /* GoBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9F6462AE1825D00A27E19 /* GoBackButton.swift */; };
 		68E9F6492AE1826A00A27E19 /* GoForwardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9F6482AE1826A00A27E19 /* GoForwardButton.swift */; };
 		68E9F64E2AE1837900A27E19 /* StopReloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9F64D2AE1837900A27E19 /* StopReloadButton.swift */; };
@@ -590,7 +590,7 @@
 		6880EBE027A8E61C00B479F4 /* PreliminaryImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreliminaryImage.swift; sourceTree = "<group>"; };
 		6880EBE227A8F63E00B479F4 /* WebFeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebFeedItem.swift; sourceTree = "<group>"; };
 		6880EBEA27AEF12000B479F4 /* ButtonChevron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonChevron.swift; sourceTree = "<group>"; };
-		688466F32AE264340071B86A /* ReaderFormatMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderFormatMenu.swift; sourceTree = "<group>"; };
+		688466F32AE264340071B86A /* ReaderViewMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewMenu.swift; sourceTree = "<group>"; };
 		6885C42126D37259002C41B0 /* FeedTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTitleLabel.swift; sourceTree = "<group>"; };
 		6885FD0D24819446007A3D5B /* PreviewButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewButtonStyle.swift; sourceTree = "<group>"; };
 		6887D40825B35B83004A170D /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -700,7 +700,7 @@
 		68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLaunchUITests.swift; sourceTree = "<group>"; };
 		68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLContent.swift; sourceTree = "<group>"; };
 		68E9F6412AE1528800A27E19 /* ToggleBlocklistsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBlocklistsButton.swift; sourceTree = "<group>"; };
-		68E9F6442AE178E500A27E19 /* BrowserFormatMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserFormatMenu.swift; sourceTree = "<group>"; };
+		68E9F6442AE178E500A27E19 /* BrowserViewMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewMenu.swift; sourceTree = "<group>"; };
 		68E9F6462AE1825D00A27E19 /* GoBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoBackButton.swift; sourceTree = "<group>"; };
 		68E9F6482AE1826A00A27E19 /* GoForwardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoForwardButton.swift; sourceTree = "<group>"; };
 		68E9F64D2AE1837900A27E19 /* StopReloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopReloadButton.swift; sourceTree = "<group>"; };
@@ -1313,7 +1313,7 @@
 		68E558372ACC069E0010E424 /* Browser */ = {
 			isa = PBXGroup;
 			children = (
-				68E9F6442AE178E500A27E19 /* BrowserFormatMenu.swift */,
+				68E9F6442AE178E500A27E19 /* BrowserViewMenu.swift */,
 				68E558352ACC02EC0010E424 /* BrowserView.swift */,
 				684152412AD7B4DB00ABE5E2 /* BrowserZoom.swift */,
 				68A104592BAD64DB008BF8E6 /* DownloadsButton.swift */,
@@ -1321,7 +1321,7 @@
 				68A104532BA96C0A008BF8E6 /* DownloadStatus.swift */,
 				68E9F6462AE1825D00A27E19 /* GoBackButton.swift */,
 				68E9F6482AE1826A00A27E19 /* GoForwardButton.swift */,
-				688466F32AE264340071B86A /* ReaderFormatMenu.swift */,
+				688466F32AE264340071B86A /* ReaderViewMenu.swift */,
 				686F6B0B2B38D3CC0099EB49 /* ReaderZoom.swift */,
 				687F73EE2BCDFA8F00FD8EBF /* ShowInFinderButton.swift */,
 				68E9F64D2AE1837900A27E19 /* StopReloadButton.swift */,
@@ -1787,7 +1787,7 @@
 				68C4DE932B362ADB0023E362 /* BookmarkToolbar.swift in Sources */,
 				68599B722AB18BA80057FEA8 /* BookmarkView.swift in Sources */,
 				68EBB50C2BB315220014305F /* BrowserDownload.swift in Sources */,
-				68E9F6452AE178E500A27E19 /* BrowserFormatMenu.swift in Sources */,
+				68E9F6452AE178E500A27E19 /* BrowserViewMenu.swift in Sources */,
 				68E558362ACC02EC0010E424 /* BrowserView.swift in Sources */,
 				6820507E2ACB530600C937BE /* BrowserViewModel.swift in Sources */,
 				682050792ACB504A00C937BE /* BrowserWebView.swift in Sources */,
@@ -1935,7 +1935,7 @@
 				68599B7B2AB27D3C0057FEA8 /* PreviewTeaser.swift in Sources */,
 				68EA52442688528E00B7C8E5 /* Profile+CoreDataClass.swift in Sources */,
 				68BE3B6B2C0D18F90022629D /* QuickActionManager.swift in Sources */,
-				688466F42AE264340071B86A /* ReaderFormatMenu.swift in Sources */,
+				688466F42AE264340071B86A /* ReaderViewMenu.swift in Sources */,
 				684152222AD2763400ABE5E2 /* ReaderWebView.swift in Sources */,
 				686F6B0C2B38D3CC0099EB49 /* ReaderZoom.swift in Sources */,
 				6856DB4E2ABA29B80094615E /* ToggleReadButton.swift in Sources */,

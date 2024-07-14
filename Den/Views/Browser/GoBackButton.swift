@@ -18,13 +18,13 @@ struct GoBackButton: View {
             browserViewModel.goBack()
         } label: {
             Label {
-                Text("Go Back", comment: "Button label.")
+                Text("Back", comment: "Button label.")
             } icon: {
                 Image(systemName: "chevron.backward")
             }
         }
         .disabled(!browserViewModel.canGoBack)
-        .help(Text("Show Previous Page", comment: "Button help text."))
+        .help(Text("Show previous page", comment: "Button help text."))
         .accessibilityIdentifier("BrowserGoBack")
     }
 }

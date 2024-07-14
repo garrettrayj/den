@@ -40,14 +40,14 @@ struct SidebarToolbar: ToolbarContent {
                 #endif
             } label: {
                 Label {
-                    Text("Preferences", comment: "Menu label.")
+                    Text("Menu", comment: "Menu label.")
                 } icon: {
                     Image(systemName: "ellipsis.circle")
                 }
             }
             .disabled(refreshManager.refreshing)
             .menuIndicator(.hidden)
-            .help(Text("Show Menu", comment: "Menu help text."))
+            .help(Text("Show menu", comment: "Menu help text."))
             .accessibilityIdentifier("SidebarMenu")
         }
         #if os(iOS)

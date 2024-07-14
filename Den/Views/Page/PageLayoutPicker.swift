@@ -41,8 +41,7 @@ struct PageLayoutPicker: View {
         } label: {
             Text("Layout", comment: "Picker label.")
         }
-        .labelsHidden()
-        .help(Text("Switch Layout", comment: "Button help text."))
+        .help(Text("Switch page layout", comment: "Button help text."))
         .accessibilityIdentifier("PageLayoutPicker")
     }
 }

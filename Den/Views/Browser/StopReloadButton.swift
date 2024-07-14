@@ -24,7 +24,7 @@ struct StopReloadButton: View {
                     Image(systemName: "xmark")
                 }
             }
-            .help(Text("Stop Loading Page", comment: "Button help text."))
+            .help(Text("Stop loading page", comment: "Button help text."))
             .accessibilityIdentifier("BrowserStop")
         } else {
             Button {
@@ -36,7 +36,7 @@ struct StopReloadButton: View {
                     Image(systemName: "arrow.clockwise")
                 }
             }
-            .help(Text("Reload Page", comment: "Button help text."))
+            .help(Text("Reload page", comment: "Button help text."))
             .accessibilityIdentifier("BrowserReload")
         }
     }
