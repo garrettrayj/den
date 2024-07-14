@@ -27,9 +27,6 @@ struct ItemToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            ToggleBookmarkedButton(item: item)
-        }
-        ToolbarItem {
             formatMenu
         }
         ToolbarItem {
@@ -40,6 +37,9 @@ struct ItemToolbar: ToolbarContent {
         }
         ToolbarItem {
             StopReloadButton(browserViewModel: browserViewModel)
+        }
+        ToolbarItem {
+            ToggleBookmarkedButton(item: item)
         }
         if let url = browserViewModel.url {
             ToolbarItem {

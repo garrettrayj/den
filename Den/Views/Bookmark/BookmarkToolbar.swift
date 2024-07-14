@@ -28,11 +28,6 @@ struct BookmarkToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            UnbookmarkButton(bookmark: bookmark) {
-                dismiss()
-            }
-        }
-        ToolbarItem {
             formatMenu
         }
         ToolbarItem {
@@ -43,6 +38,11 @@ struct BookmarkToolbar: ToolbarContent {
         }
         ToolbarItem {
             StopReloadButton(browserViewModel: browserViewModel)
+        }
+        ToolbarItem {
+            UnbookmarkButton(bookmark: bookmark) {
+                dismiss()
+            }
         }
         if let url = browserViewModel.url {
             ToolbarItem {
