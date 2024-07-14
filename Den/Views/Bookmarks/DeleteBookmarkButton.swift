@@ -22,12 +22,12 @@ struct DeleteBookmarkButton: View {
             modelContext.delete(bookmark)
         } label: {
             Label {
-                Text("Delete Bookmark", comment: "Button label.")
+                Text("Unbookmark", comment: "Button label.")
             } icon: {
                 Image(systemName: "bookmark").symbolVariant(.slash)
             }
         }
-        .help(Text("Delete bookmark", comment: "Button help text."))
-        .accessibilityIdentifier("Untag")
+        .help(Text("Unbookmark", comment: "Button help text."))
+        .accessibilityIdentifier("Unbookmark")
     }
 }

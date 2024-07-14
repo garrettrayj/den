@@ -123,7 +123,7 @@
 		6856DB3F2AB8DC3D0094615E /* DeletePageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB3E2AB8DC3D0094615E /* DeletePageButton.swift */; };
 		6856DB422AB8EA090094615E /* InspectorToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB412AB8EA090094615E /* InspectorToggleButton.swift */; };
 		6856DB452AB8EE7F0094615E /* DeleteFeedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB442AB8EE7F0094615E /* DeleteFeedButton.swift */; };
-		6856DB4E2ABA29B80094615E /* ReadUnreadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB4D2ABA29B80094615E /* ReadUnreadButton.swift */; };
+		6856DB4E2ABA29B80094615E /* ToggleReadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB4D2ABA29B80094615E /* ToggleReadButton.swift */; };
 		68599B5D2AB087990057FEA8 /* BookmarkActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68599B5C2AB087990057FEA8 /* BookmarkActionView.swift */; };
 		68599B5F2AB087C00057FEA8 /* BookmarkPreviewCompressed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68599B5E2AB087C00057FEA8 /* BookmarkPreviewCompressed.swift */; };
 		68599B6E2AB1892E0057FEA8 /* BookmarkPreviewExpanded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68599B6D2AB1892E0057FEA8 /* BookmarkPreviewExpanded.swift */; };
@@ -506,7 +506,7 @@
 		6856DB3E2AB8DC3D0094615E /* DeletePageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePageButton.swift; sourceTree = "<group>"; };
 		6856DB412AB8EA090094615E /* InspectorToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorToggleButton.swift; sourceTree = "<group>"; };
 		6856DB442AB8EE7F0094615E /* DeleteFeedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFeedButton.swift; sourceTree = "<group>"; };
-		6856DB4D2ABA29B80094615E /* ReadUnreadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadUnreadButton.swift; sourceTree = "<group>"; };
+		6856DB4D2ABA29B80094615E /* ToggleReadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleReadButton.swift; sourceTree = "<group>"; };
 		68599B5C2AB087990057FEA8 /* BookmarkActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkActionView.swift; sourceTree = "<group>"; };
 		68599B5E2AB087C00057FEA8 /* BookmarkPreviewCompressed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkPreviewCompressed.swift; sourceTree = "<group>"; };
 		68599B6D2AB1892E0057FEA8 /* BookmarkPreviewExpanded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkPreviewExpanded.swift; sourceTree = "<group>"; };
@@ -1286,7 +1286,7 @@
 				68599B732AB275AE0057FEA8 /* ItemTags.swift */,
 				68C4DE902B361E2E0023E362 /* ItemToolbar.swift */,
 				68F56B6628782886006EC915 /* ItemView.swift */,
-				6856DB4D2ABA29B80094615E /* ReadUnreadButton.swift */,
+				6856DB4D2ABA29B80094615E /* ToggleReadButton.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -1937,7 +1937,7 @@
 				68BE3B6B2C0D18F90022629D /* QuickActionManager.swift in Sources */,
 				684152222AD2763400ABE5E2 /* ReaderWebView.swift in Sources */,
 				686F6B0C2B38D3CC0099EB49 /* ReaderZoom.swift in Sources */,
-				6856DB4E2ABA29B80094615E /* ReadUnreadButton.swift in Sources */,
+				6856DB4E2ABA29B80094615E /* ToggleReadButton.swift in Sources */,
 				683E3F49293BC19800B16814 /* RefreshButton.swift in Sources */,
 				68FB95282BEAB479004EFA73 /* RefreshInterval.swift in Sources */,
 				682591FE29D81E3000E5EF3B /* RefreshManager.swift in Sources */,

@@ -626,12 +626,6 @@
         }
       }
     },
-    "Delete bookmark" : {
-      "comment" : "Button help text."
-    },
-    "Delete Bookmark" : {
-      "comment" : "Button label."
-    },
     "Delete Feed?" : {
       "comment" : "Alert title.",
       "localizations" : {
@@ -2604,6 +2598,9 @@
           }
         }
       }
+    },
+    "Unbookmark" : {
+      "comment" : "Button help text.\nButton label."
     },
     "Unknown" : {
       "comment" : "Download file name unavailable.",

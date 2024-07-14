@@ -18,26 +18,27 @@ struct ToggleBookmarkedButton: View {
     var body: some View {
         Button {
             withAnimation {
-                toggleBookmarked()
+                if item.bookmarked == true {
+                    item.bookmarked = false
+                    item.bookmarks.forEach { modelContext.delete($0) }
+                } else {
+                    item.bookmarked = true
+                    _ = Bookmark.create(in: modelContext, item: item)
+                }
             }
         } label: {
             Label {
-                Text("Bookmark")
+                if item.wrappedBookmarked {
+                    Text("Unbookmark")
+                } else {
+                    Text("Bookmark")
+                }
             } icon: {
                 Image(systemName: "bookmark")
                     .symbolVariant(item.wrappedBookmarked ? .slash : .none)
             }
         }
         .contentTransition(.symbolEffect(.replace))
-    }
-    
-    private func toggleBookmarked() {
-        if item.bookmarked == true {
-            item.bookmarked = false
-            item.bookmarks.forEach { modelContext.delete($0) }
-        } else {
-            item.bookmarked = true
-            _ = Bookmark.create(in: modelContext, item: item)
-        }
+        .accessibilityIdentifier("ToggleBookmarked")
     }
 }
