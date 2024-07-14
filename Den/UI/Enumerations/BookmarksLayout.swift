@@ -1,5 +1,5 @@
 //
-//  TagLayout.swift
+//  BookmarksLayout.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/20/24.
@@ -10,7 +10,7 @@
 
 import Foundation
 
-enum TagLayout: Int, CaseIterable {
+enum BookmarksLayout: Int {
     case previews = 0
     case list     = 1
 }

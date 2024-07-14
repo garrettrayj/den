@@ -37,7 +37,7 @@ struct BookmarkActionView<Content: View>: View {
         .buttonStyle(PreviewButtonStyle(read: .constant(false), roundedBottom: true, roundedTop: true))
         .accessibilityIdentifier("BookmarkAction")
         .contextMenu {
-            UntagButton(bookmark: bookmark)
+            UnbookmarkButton(bookmark: bookmark)
             if let url = bookmark.link {
                 SystemBrowserButton(url: url)
                 CopyAddressButton(url: url)

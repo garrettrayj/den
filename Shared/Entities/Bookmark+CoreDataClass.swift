@@ -42,7 +42,7 @@ final public class Bookmark: NSManagedObject {
     static func create(
         in managedObjectContext: NSManagedObjectContext,
         item: Item,
-        tag: Tag
+        tag: Tag? = nil
     ) -> Bookmark {
         let bookmark = self.init(context: managedObjectContext)
         bookmark.id = UUID()

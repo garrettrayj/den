@@ -1,5 +1,5 @@
 //
-//  TagLayoutPicker.swift
+//  BookmarksLayoutPicker.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/20/24.
@@ -10,24 +10,24 @@
 
 import SwiftUI
 
-struct TagLayoutPicker: View {
-    @Binding var tagLayout: TagLayout
+struct BookmarksLayoutPicker: View {
+    @Binding var layout: BookmarksLayout
     
     var body: some View {
-        Picker(selection: $tagLayout) {
+        Picker(selection: $layout) {
             Label {
-                Text("Previews", comment: "Tag layout option.")
+                Text("Previews", comment: "Bookmarks layout option.")
             } icon: {
                 Image(systemName: "square.grid.2x2")
             }
-            .tag(TagLayout.previews)
+            .tag(BookmarksLayout.previews)
             
             Label {
-                Text("List", comment: "Tag layout option.")
+                Text("List", comment: "Bookmarks layout option.")
             } icon: {
                 Image(systemName: "list.dash")
             }
-            .tag(TagLayout.list)
+            .tag(BookmarksLayout.list)
         } label: {
             Text("Layout", comment: "Picker label.")
         }

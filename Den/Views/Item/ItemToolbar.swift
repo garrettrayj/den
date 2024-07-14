@@ -27,12 +27,11 @@ struct ItemToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            TagsMenu(item: item)
+            ToggleBookmarkedButton(item: item)
         }
         ToolbarItem {
             formatMenu
         }
-        
         ToolbarItem {
             GoBackButton(browserViewModel: browserViewModel)
         }
@@ -53,7 +52,7 @@ struct ItemToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem {
-                TagsMenu(item: item)
+                ToggleBookmarkedButton(item: item)
             }
             ToolbarItem {
                 formatMenu
@@ -99,7 +98,7 @@ struct ItemToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem(placement: .topBarLeading) {
-                TagsMenu(item: item)
+                ToggleBookmarkedButton(item: item)
             }
             ToolbarItem(placement: .topBarLeading) {
                 formatMenu

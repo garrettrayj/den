@@ -92,7 +92,6 @@ struct RootView: View {
             Group {
                 NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
                 NewPageButton(showingNewPageSheet: $showingNewPageSheet)
-                NewTagButton(showingNewTagSheet: $showingNewTagSheet)
             }
             .disabled(pages.isEmpty)
             .opacity(0)

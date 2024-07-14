@@ -22,16 +22,6 @@ struct PreviewDateline: View {
 
         return formatter
     }()
-    
-    static let helpDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        formatter.dateStyle = .full
-        formatter.locale = .current
-        formatter.doesRelativeDateFormatting = false
-
-        return formatter
-    }()
 
     var body: some View {
         TimelineView(.everyMinute) { _ in

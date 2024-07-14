@@ -24,12 +24,7 @@ struct FeedItemExpanded: View {
                     if !feed.hideBylines, let author = item.author {
                         PreviewAuthor(author: author)
                     }
-                    if !item.bookmarks.isEmpty {
-                        ItemTags(item: item)
-                    }
-                    if let date = item.published {
-                        PreviewDateline(date: date)
-                    }
+                    ItemMeta(item: item)
                 }
                 
                 if !feed.hideImages, let url = item.image {

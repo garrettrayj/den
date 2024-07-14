@@ -18,16 +18,10 @@ struct ItemPreviewExpanded: View {
         VStack(alignment: .leading, spacing: 8) {
             VStack(alignment: .leading, spacing: 4) {
                 PreviewHeadline(title: item.titleText)
-                
                 if !feed.hideBylines, let author = item.author {
                     PreviewAuthor(author: author)
                 }
-                if !item.bookmarks.isEmpty {
-                    ItemTags(item: item)
-                }
-                if let date = item.published {
-                    PreviewDateline(date: date)
-                }
+                ItemMeta(item: item)
             }
             
             if !feed.hideImages, let url = item.image {

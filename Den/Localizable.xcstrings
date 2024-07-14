@@ -409,6 +409,12 @@
         }
       }
     },
+    "Bookmark" : {
+      "comment" : "Button label."
+    },
+    "Bookmarks" : {
+      "comment" : "Button label.\nNavigation title."
+    },
     "Brown" : {
       "comment" : "Accent color option.",
       "localizations" : {
@@ -1155,7 +1161,7 @@
       }
     },
     "List" : {
-      "comment" : "Tag layout option.",
+      "comment" : "Bookmarks layout option.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1346,6 +1352,7 @@
     },
     "New Tag" : {
       "comment" : "Button label.\nNavigation title.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1365,6 +1372,9 @@
           }
         }
       }
+    },
+    "No Bookmarks" : {
+      "comment" : "Content unavailable title."
     },
     "No common subjects were found in titles." : {
       "comment" : "Trending empty message.",
@@ -1467,6 +1477,7 @@
     },
     "No Tags" : {
       "comment" : "Menu options unavailable message.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1664,7 +1675,7 @@
       }
     },
     "Previews" : {
-      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header.\nTag layout option.",
+      "comment" : "Bookmarks layout option.\nFeed inspector section header.\nOrganizer configuration panel section header.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1973,6 +1984,7 @@
     },
     "Select Tags" : {
       "comment" : "Menu help text.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2273,6 +2285,7 @@
     },
     "Tag Deleted" : {
       "comment" : "Object removed message.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2305,7 +2318,8 @@
       }
     },
     "Tags" : {
-      "comment" : "Menu label.\nSidebar section header.",
+      "comment" : "Menu label.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2461,6 +2475,9 @@
         }
       }
     },
+    "Unbookmark" : {
+      "comment" : "Button label."
+    },
     "Unknown" : {
       "comment" : "Download file name unavailable.",
       "extractionState" : "stale",
@@ -2507,7 +2524,7 @@
       }
     },
     "Untitled" : {
-      "comment" : "Bookmark site title placeholder.\nDefault content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nFolder name placeholder.\nTag name placeholder.",
+      "comment" : "Bookmark site title placeholder.\nDefault content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nFolder name placeholder.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

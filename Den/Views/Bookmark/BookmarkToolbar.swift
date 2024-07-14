@@ -28,7 +28,7 @@ struct BookmarkToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            UntagButton(bookmark: bookmark) {
+            UnbookmarkButton(bookmark: bookmark) {
                 dismiss()
             }
         }
@@ -55,7 +55,7 @@ struct BookmarkToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem {
-                UntagButton(bookmark: bookmark) {
+                UnbookmarkButton(bookmark: bookmark) {
                     dismiss()
                 }
             }
@@ -103,7 +103,7 @@ struct BookmarkToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem(placement: .topBarLeading) {
-                UntagButton(bookmark: bookmark) {
+                UnbookmarkButton(bookmark: bookmark) {
                     dismiss()
                 }
             }

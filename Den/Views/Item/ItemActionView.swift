@@ -52,11 +52,11 @@ struct ItemActionView<Content: View>: View {
             #if os(iOS)
             ControlGroup {
                 ReadUnreadButton(item: item)
-                TagsMenu(item: item)
+                ToggleBookmarkedButton(item: item)
             }
             #else
             ReadUnreadButton(item: item)
-            TagsMenu(item: item)
+            ToggleBookmarkedButton(item: item)
             #endif
             if let url = item.link {
                 SystemBrowserButton(url: url)

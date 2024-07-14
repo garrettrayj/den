@@ -19,18 +19,12 @@ struct FeedItemCompressed: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
                     FeedTitleLabel(feed: feed).font(.callout).imageScale(.small)
-                    
                     PreviewHeadline(title: item.titleText)
-                    
                     if !feed.hideBylines, let author = item.author {
                         PreviewAuthor(author: author)
                     }
-                    if !item.bookmarks.isEmpty {
-                        ItemTags(item: item)
-                    }
-                    if let date = item.published {
-                        PreviewDateline(date: date)
-                    }                    }
+                    ItemMeta(item: item)
+                }
                 
                 Spacer(minLength: 0)
 

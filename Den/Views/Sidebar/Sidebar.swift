@@ -32,12 +32,6 @@ struct Sidebar: View {
     @State private var showingSettings = false
     
     let pages: FetchedResults<Page>
-    
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.userOrder, order: .forward),
-        SortDescriptor(\.name, order: .forward)
-    ])
-    private var tags: FetchedResults<Tag>
 
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.submitted, order: .reverse)
@@ -60,10 +54,6 @@ struct Sidebar: View {
                     showingNewFeedSheet: $showingNewFeedSheet,
                     pages: pages
                 )
-                
-                if !tags.isEmpty {
-                    TagsSection(tags: tags)
-                }
             }
         }
         .listStyle(.sidebar)
@@ -127,13 +117,6 @@ struct Sidebar: View {
             onDismiss: saveChanges,
             content: {
                 NewPageSheet()
-            }
-        )
-        .sheet(
-            isPresented: $showingNewTagSheet,
-            onDismiss: saveChanges,
-            content: {
-                NewTagSheet()
             }
         )
         .fileImporter(
