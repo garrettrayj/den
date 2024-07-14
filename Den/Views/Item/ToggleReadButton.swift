@@ -17,12 +17,10 @@ struct ToggleReadButton: View {
 
     var body: some View {
         Button {
-            withAnimation {
-                if item.wrappedRead {
-                    HistoryUtility.markItemUnread(modelContext: modelContext, item: item)
-                } else {
-                    HistoryUtility.markItemRead(modelContext: modelContext, item: item)
-                }
+            if item.wrappedRead {
+                HistoryUtility.markItemUnread(modelContext: modelContext, item: item)
+            } else {
+                HistoryUtility.markItemRead(modelContext: modelContext, item: item)
             }
         } label: {
             Label {
@@ -40,7 +38,6 @@ struct ToggleReadButton: View {
             }
             .symbolRenderingMode(.multicolor)
         }
-        .contentTransition(.symbolEffect(.replace))
         .accessibilityIdentifier("ToggleRead")
     }
 }
