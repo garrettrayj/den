@@ -78,6 +78,7 @@
     },
     "%lld Records" : {
       "comment" : "History count (zero/plural).",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -122,6 +123,7 @@
     },
     "1 Record" : {
       "comment" : "History count (singular).",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

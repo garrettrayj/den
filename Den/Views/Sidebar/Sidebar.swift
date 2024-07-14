@@ -30,9 +30,7 @@ struct Sidebar: View {
     
     let pages: [Page]
 
-    @Query(sort: [
-        SortDescriptor(\Search.submitted, order: .reverse)
-    ])
+    @Query(sort: [SortDescriptor(\Search.submitted, order: .reverse)])
     private var searches: [Search]
     
     var body: some View {

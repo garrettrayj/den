@@ -20,12 +20,6 @@ struct ResetSection: View {
     @State private var showingResetAlert = false
     
     @AppStorage("Refreshed") private var refreshedTimestamp: Double?
-    
-    @Query()
-    private var history: [History]
-    
-    @Query()
-    private var searches: [Search]
 
     static let cacheSizeFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()
@@ -40,9 +34,8 @@ struct ResetSection: View {
     var body: some View {
         Section {
             Button {
-                clearData()
-                
                 Task {
+                    await clearData()
                     await emptyCaches()
                     cacheSize = 0
                 }
@@ -63,31 +56,22 @@ struct ResetSection: View {
             .accessibilityIdentifier("EmptyCaches")
             
             Button {
-                clearHistory()
+                Task {
+                    await clearHistory()
+                }
             } label: {
-                HStack {
-                    Label {
-                        Text("Clear History", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "clear")
-                    }
-                    Spacer()
-                    Group {
-                        if history.count == 1 {
-                            Text("1 Record", comment: "History count (singular).")
-                        } else {
-                            Text("\(history.count) Records", comment: "History count (zero/plural).")
-                        }
-                    }
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
+                Label {
+                    Text("Clear History", comment: "Button label.")
+                } icon: {
+                    Image(systemName: "clear")
                 }
             }
-            .disabled(history.isEmpty)
             .accessibilityIdentifier("ClearHistory")
             
             Button {
-                clearSearches()
+                Task {
+                    await clearSearches()
+                }
             } label: {
                 Label {
                     Text("Clear Search Suggestions", comment: "Button label.")
@@ -95,7 +79,6 @@ struct ResetSection: View {
                     Image(systemName: "clear")
                 }
             }
-            .disabled(searches.isEmpty)
             .accessibilityIdentifier("ClearSearches")
 
             Button(role: .destructive) {
@@ -119,8 +102,10 @@ struct ResetSection: View {
                     .accessibilityIdentifier("CancelReset")
 
                     Button(role: .destructive) {
-                        resetEverything()
-                        cacheSize = 0
+                        Task {
+                            await resetEverything()
+                            cacheSize = 0
+                        }
                     } label: {
                         Text("Reset", comment: "Button label.")
                     }
@@ -147,59 +132,53 @@ struct ResetSection: View {
         URLCache.shared.removeAllCachedResponses()
     }
     
-    private func clearData() {
-        try? modelContext.delete(model: Item.self)
-        try? modelContext.delete(model: FeedData.self)
-        try? modelContext.delete(model: Trend.self)
+    private func clearData() async {
+        let context = ModelContext(DataController.shared.container)
+        
+        try? context.fetch(FetchDescriptor<FeedData>()).forEach { context.delete($0) }
+        try? context.fetch(FetchDescriptor<Trend>()).forEach { context.delete($0) }
+        try? context.save()
         
         refreshedTimestamp = nil
         
         NotificationCenter.default.post(name: .rerender, object: nil)
     }
     
-    private func clearHistory() {
-        try? modelContext.delete(model: History.self)
-
-        if let items = try? modelContext.fetch(FetchDescriptor<Item>()) {
-            items.forEach { $0.read = false }
-        }
+    private func clearHistory() async {
+        let context = ModelContext(DataController.shared.container)
         
-        if let trends = try? modelContext.fetch(FetchDescriptor<Trend>()) {
-            trends.forEach { $0.read = false }
-        }
+        try? context.fetch(FetchDescriptor<History>()).forEach { context.delete($0) }
+        try? context.fetch(FetchDescriptor<Item>()).forEach { $0.read = false }
+        try? context.fetch(FetchDescriptor<Trend>()).forEach { $0.read = false }
+        try? context.save()
         
         NotificationCenter.default.post(name: .rerender, object: nil)
     }
 
-    private func clearSearches() {
-        try? modelContext.delete(model: Search.self)
+    private func clearSearches() async {
+        let context = ModelContext(DataController.shared.container)
+        
+        try? context.fetch(FetchDescriptor<History>()).forEach { context.delete($0) }
+        try? context.save()
         
         NotificationCenter.default.post(name: .rerender, object: nil)
     }
 
-    private func resetEverything() {
-        // Workaround for items and trends not being removed by .delete(model:)
-        if let items = try? modelContext.fetch(FetchDescriptor<Item>()) {
-            items.forEach { modelContext.delete($0) }
-        }
-        if let trends = try? modelContext.fetch(FetchDescriptor<Trend>()) {
-            trends.forEach { modelContext.delete($0) }
-        }
-        try? modelContext.save()
+    private func resetEverything() async {
+        let context = ModelContext(DataController.shared.container)
         
-        for model in DataController.shared.localModels + DataController.shared.cloudModels {
-            do {
-                try modelContext.delete(model: model)
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-        try? modelContext.save()
+        try? context.fetch(FetchDescriptor<Page>()).forEach { context.delete($0) }
+        try? context.fetch(FetchDescriptor<FeedData>()).forEach { context.delete($0) }
+        try? context.fetch(FetchDescriptor<Trend>()).forEach { context.delete($0) }
+        try? context.fetch(FetchDescriptor<Bookmark>()).forEach { context.delete($0) }
+        try? context.fetch(FetchDescriptor<History>()).forEach { context.delete($0) }
+        try? context.fetch(FetchDescriptor<Search>()).forEach { context.delete($0) }
+        try? context.fetch(FetchDescriptor<Blocklist>()).forEach { context.delete($0) }
+        try? context.fetch(FetchDescriptor<BlocklistStatus>()).forEach { context.delete($0) }
+        try? context.save()
 
-        Task {
-            await BlocklistManager.removeAllContentRulesLists()
-            await emptyCaches()
-        }
+        await BlocklistManager.removeAllContentRulesLists()
+        await emptyCaches()
 
         UserDefaults.group.removePersistentDomain(forName: AppGroup.den.rawValue)
         if let domain = Bundle.main.bundleIdentifier {

@@ -55,7 +55,7 @@ struct ItemToolbar: ToolbarContent {
                 ToggleBookmarkedButton(item: item)
             }
             ToolbarItem {
-                BrowserViewOptionsMenu(browserViewModel: browserViewModel)
+                BrowserViewMenu(browserViewModel: browserViewModel)
             }
             ToolbarItem(placement: .bottomBar) {
                 GoBackButton(browserViewModel: browserViewModel)
@@ -101,7 +101,7 @@ struct ItemToolbar: ToolbarContent {
                 ToggleBookmarkedButton(item: item)
             }
             ToolbarItem(placement: .topBarLeading) {
-                BrowserViewOptionsMenu(browserViewModel: browserViewModel)
+                BrowserViewMenu(browserViewModel: browserViewModel)
             }
             if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
                 ToolbarItem {

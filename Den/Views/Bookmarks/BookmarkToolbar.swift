@@ -52,12 +52,10 @@ struct BookmarkToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem {
-                DeleteBookmarkButton(bookmark: bookmark) {
-                    dismiss()
-                }
+                DeleteBookmarkButton(bookmark: bookmark)
             }
             ToolbarItem {
-                BrowserFormatMenu(browserViewModel: browserViewModel)
+                BrowserViewMenu(browserViewModel: browserViewModel)
             }
             ToolbarItem(placement: .bottomBar) {
                 GoBackButton(browserViewModel: browserViewModel)
@@ -100,12 +98,10 @@ struct BookmarkToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem(placement: .topBarLeading) {
-                DeleteBookmarkButton(bookmark: bookmark) {
-                    dismiss()
-                }
+                DeleteBookmarkButton(bookmark: bookmark)
             }
             ToolbarItem(placement: .topBarLeading) {
-                BrowserFormatMenu(browserViewModel: browserViewModel)
+                BrowserViewMenu(browserViewModel: browserViewModel)
             }
             if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
                 ToolbarItem {
