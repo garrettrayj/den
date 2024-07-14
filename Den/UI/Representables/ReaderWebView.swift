@@ -43,8 +43,7 @@ struct ReaderWebView {
 final class ReaderWebViewCoordinator: NSObject {
     let browserViewModel: BrowserViewModel
     let downloadManager: DownloadManager
-    
-    @MainActor let openURL: OpenURLAction
+    let openURL: OpenURLAction
 
     init(
         browserViewModel: BrowserViewModel,
@@ -61,7 +60,7 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction,
-        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+        decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void
     ) {
         if navigationAction.shouldPerformDownload {
             decisionHandler(.download)
@@ -71,10 +70,7 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
         // Open external links in system browser
         if navigationAction.targetFrame == nil {
             if let url = navigationAction.request.url {
-                let openURL = openURL
-                Task {
-                    await openURL(url)
-                }
+                openURL(url)
             }
             decisionHandler(.cancel)
             return
@@ -87,9 +83,7 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
             let url = navigationAction.request.url,
             browserActions.contains(navigationAction.navigationType)
         {
-            Task {
-                await browserViewModel.loadURL(url: url)
-            }
+            browserViewModel.loadURL(url: url)
             decisionHandler(.cancel)
             return
         }
@@ -100,7 +94,7 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationResponse: WKNavigationResponse,
-        decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
+        decisionHandler: @escaping @MainActor (WKNavigationResponsePolicy) -> Void
     ) {
         if navigationResponse.canShowMIMEType {
             decisionHandler(.allow)
@@ -135,10 +129,7 @@ extension ReaderWebViewCoordinator: WKUIDelegate {
         windowFeatures: WKWindowFeatures
     ) -> WKWebView? {
         if !(navigationAction.targetFrame?.isMainFrame ?? false), let url = navigationAction.request.url {
-            let openURL = openURL
-            Task {
-                await openURL(url)
-            }
+            openURL(url)
         }
 
         return nil

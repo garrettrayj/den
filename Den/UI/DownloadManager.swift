@@ -12,6 +12,7 @@ import Foundation
 import WebKit
 import OSLog
 
+@MainActor
 final class DownloadManager: NSObject, ObservableObject {
     @Published var browserDownloads: [BrowserDownload] = []
     
@@ -42,7 +43,7 @@ extension DownloadManager: WKDownloadDelegate {
         _ download: WKDownload,
         willPerformHTTPRedirection response: HTTPURLResponse,
         newRequest request: URLRequest,
-        decisionHandler: @escaping (WKDownload.RedirectPolicy) -> Void
+        decisionHandler: @escaping @MainActor (WKDownload.RedirectPolicy) -> Void
     ) {
         decisionHandler(.allow)
     }
@@ -51,7 +52,7 @@ extension DownloadManager: WKDownloadDelegate {
         _ download: WKDownload,
         decideDestinationUsing response: URLResponse,
         suggestedFilename: String,
-        completionHandler: @escaping (URL?) -> Void
+        completionHandler: @escaping @MainActor (URL?) -> Void
     ) {
         let fileManager = FileManager.default
         

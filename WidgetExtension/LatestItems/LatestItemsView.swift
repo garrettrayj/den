@@ -199,7 +199,7 @@ struct LatestItemsView: View {
         Link(destination: entry.url(item: item)) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 1) {
-                    if entry.configuration.source.entityType != Feed.self {
+                    if entry.configuration.source?.entityType != Feed.self {
                         HStack(spacing: 4) {
                             if let favicon = item.faviconImage {
                                 favicon

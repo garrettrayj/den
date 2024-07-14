@@ -13,6 +13,7 @@ import CoreData
 import OSLog
 import WidgetKit
 
+@MainActor
 final class RefreshManager: ObservableObject {
     @Published var refreshing = false
     @Published var autoRefreshActive = false

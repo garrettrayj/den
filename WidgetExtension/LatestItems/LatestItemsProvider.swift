@@ -72,20 +72,16 @@ struct LatestItemsProvider: AppIntentTimelineProvider {
             var page: Page?
             
             // Fetch scope object
-            if configuration.source.entityType == Page.self {
-                let request = Page.fetchRequest()
-                request.predicate = NSPredicate(
-                    format: "id = %@",
-                    configuration.source.id
-                )
-                page = try? moc.fetch(request).first
-            } else if configuration.source.entityType == Feed.self {
-                let request = Feed.fetchRequest()
-                request.predicate = NSPredicate(
-                    format: "id = %@",
-                    configuration.source.id
-                )
-                feed = try? moc.fetch(request).first
+            if let sourceID = configuration.source?.id {
+                if configuration.source?.entityType == Page.self {
+                    let request = Page.fetchRequest()
+                    request.predicate = NSPredicate(format: "id = %@", sourceID)
+                    page = try? moc.fetch(request).first
+                } else if configuration.source?.entityType == Feed.self {
+                    let request = Feed.fetchRequest()
+                    request.predicate = NSPredicate(format: "id = %@", sourceID)
+                    feed = try? moc.fetch(request).first
+                }
             }
             
             // Get items

@@ -1,10 +1,4 @@
-identifier_name:
-  excluded:
-    - id
-    - a
-    - b
-    - el
-    - op
 disabled_rules:
    - inclusive_language
    - trailing_whitespace
+   - opening_brace

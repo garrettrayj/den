@@ -10,7 +10,7 @@
 
 import CoreData
 import OSLog
-@preconcurrency import WebKit
+import WebKit
 
 @MainActor
 final class BlocklistManager {
