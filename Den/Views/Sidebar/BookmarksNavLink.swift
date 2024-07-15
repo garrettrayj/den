@@ -12,6 +12,8 @@ import CoreData
 import SwiftUI
 
 struct BookmarksNavLink: View {
+    @Environment(\.managedObjectContext) private var viewContext
+
     var body: some View {
         Label {
             Text("Bookmarks", comment: "Button label.")
@@ -19,6 +21,10 @@ struct BookmarksNavLink: View {
             Image(systemName: "bookmark")
         }
         .tag(DetailPanel.bookmarks)
+        .onDrop(
+            of: [.denBookmark, .denItem],
+            delegate: BookmarksNavDropDelegate(context: viewContext)
+        )
         .accessibilityIdentifier("BookmarksNavLink")
     }
 }
