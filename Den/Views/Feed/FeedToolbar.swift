@@ -27,7 +27,7 @@ struct FeedToolbar: ToolbarContent {
             InspectorToggleButton(showingInspector: $showingInspector)
         }
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead)
+            ToggleReadFilterButton(hideRead: $hideRead)
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
@@ -53,7 +53,7 @@ struct FeedToolbar: ToolbarContent {
                 InspectorToggleButton(showingInspector: $showingInspector)
             }
             ToolbarItem(placement: .bottomBar) {
-                FilterReadButton(hideRead: $hideRead)
+                ToggleReadFilterButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
                 CommonStatus()
@@ -68,7 +68,7 @@ struct FeedToolbar: ToolbarContent {
                 InspectorToggleButton(showingInspector: $showingInspector)
             }
             ToolbarItem {
-                FilterReadButton(hideRead: $hideRead)
+                ToggleReadFilterButton(hideRead: $hideRead)
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {

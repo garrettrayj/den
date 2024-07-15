@@ -18,31 +18,29 @@ struct OrganizerToolbar: ToolbarContent {
 
     var body: some ToolbarContent {
         ToolbarItem {
-            if selection.count == pages.feeds.count {
-                Button {
+            Button {
+                if selection.count == pages.feeds.count {
                     selection.removeAll()
-                } label: {
-                    Label {
-                        Text("Deselect All", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "checklist.unchecked")
-                    }
-                }
-                .help(Text("Deselect all feeds", comment: "Button help text."))
-                .accessibilityIdentifier("Select None")
-            } else {
-                Button {
+                } else {
                     selection = selection.union(pages.feeds)
-                } label: {
-                    Label {
+                }
+            } label: {
+                Label {
+                    if selection.count == pages.feeds.count {
+                        Text("Deselect All", comment: "Button label.")
+                    } else {
                         Text("Select All", comment: "Button label.")
-                    } icon: {
+                    }
+                } icon: {
+                    if selection.count == pages.feeds.count {
+                        Image(systemName: "checklist.unchecked")
+                    } else {
                         Image(systemName: "checklist.checked")
                     }
                 }
-                .help(Text("Select all feeds", comment: "Button help text."))
-                .accessibilityIdentifier("SelectAll")
             }
+            .help(Text("Select all/none", comment: "Button help text."))
+            .accessibilityIdentifier("SelectAllNone")
         }
 
         ToolbarItem {

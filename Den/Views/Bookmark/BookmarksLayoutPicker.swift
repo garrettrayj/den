@@ -29,7 +29,7 @@ struct BookmarksLayoutPicker: View {
             }
             .tag(BookmarksLayout.list)
         } label: {
-            Text("Layout", comment: "Picker label.")
+            Text("View", comment: "Picker label.")
         }
     }
 }

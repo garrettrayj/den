@@ -18,7 +18,7 @@ struct GoBackButton: View {
             browserViewModel.goBack()
         } label: {
             Label {
-                Text("Back", comment: "Button label.")
+                Text("Go Back", comment: "Button label.")
             } icon: {
                 Image(systemName: "chevron.backward")
             }

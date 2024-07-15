@@ -20,7 +20,7 @@ struct TrendingToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead)
+            ToggleReadFilterButton(hideRead: $hideRead)
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
@@ -30,7 +30,7 @@ struct TrendingToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem(placement: .bottomBar) {
-                FilterReadButton(hideRead: $hideRead)
+                ToggleReadFilterButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
                 CommonStatus()
@@ -42,7 +42,7 @@ struct TrendingToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem {
-                FilterReadButton(hideRead: $hideRead)
+                ToggleReadFilterButton(hideRead: $hideRead)
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {

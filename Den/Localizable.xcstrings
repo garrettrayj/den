@@ -332,8 +332,8 @@
         }
       }
     },
-    "Back" : {
-      "comment" : "Button label."
+    "Back/Forward" : {
+
     },
     "Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable." : {
       "comment" : "Background refresh status guidance.",
@@ -428,9 +428,6 @@
           }
         }
       }
-    },
-    "Browser view options" : {
-      "comment" : "Menu help text."
     },
     "Cache Control" : {
       "comment" : "Organizer info panel row label.",
@@ -653,9 +650,6 @@
     "Deselect All" : {
       "comment" : "Button label."
     },
-    "Deselect all feeds" : {
-      "comment" : "Button help text."
-    },
     "Disable JavaScript" : {
       "comment" : "Button label.",
       "localizations" : {
@@ -870,6 +864,7 @@
     },
     "Filter Read" : {
       "comment" : "Button label.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -922,9 +917,6 @@
         }
       }
     },
-    "Forward" : {
-      "comment" : "Button label."
-    },
     "General" : {
       "comment" : "Settings section header.",
       "localizations" : {
@@ -949,7 +941,6 @@
     },
     "Go Back" : {
       "comment" : "Button label.",
-      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -961,7 +952,6 @@
     },
     "Go Forward" : {
       "comment" : "Button label.",
-      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1004,12 +994,8 @@
         }
       }
     },
-    "Hide inspector" : {
-      "comment" : "Button help text."
-    },
     "Hide Inspector" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
+      "comment" : "Button help text.\nButton label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1018,6 +1004,9 @@
           }
         }
       }
+    },
+    "Hide Read" : {
+      "comment" : "Button label."
     },
     "Hide read items" : {
       "comment" : "Button help text."
@@ -1122,9 +1111,6 @@
         }
       }
     },
-    "Inspector" : {
-      "comment" : "Button label."
-    },
     "Item Removed" : {
       "comment" : "Object removed message.",
       "localizations" : {
@@ -1149,6 +1135,7 @@
     },
     "Layout" : {
       "comment" : "Picker label.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1607,6 +1594,7 @@
     },
     "Open in Browser" : {
       "comment" : "Button label.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -1615,9 +1603,6 @@
           }
         }
       }
-    },
-    "Open in system browser" : {
-      "comment" : "Button help text."
     },
     "Open in System Browser" : {
       "comment" : "Button help text.",
@@ -1630,6 +1615,12 @@
           }
         }
       }
+    },
+    "Open Link" : {
+      "comment" : "Button label."
+    },
+    "Open link in system browser" : {
+      "comment" : "Button help text."
     },
     "Open Validator" : {
       "comment" : "Button label.",
@@ -1752,9 +1743,6 @@
           }
         }
       }
-    },
-    "Reader view options" : {
-      "comment" : "Menu help text."
     },
     "Red" : {
       "comment" : "Accent color option.",
@@ -2007,7 +1995,7 @@
         }
       }
     },
-    "Select all feeds" : {
+    "Select all/none" : {
       "comment" : "Button help text."
     },
     "Select Icon" : {
@@ -2023,6 +2011,7 @@
     },
     "Select None" : {
       "comment" : "Button help text.\nButton label.",
+      "extractionState" : "stale",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2054,6 +2043,9 @@
           }
         }
       }
+    },
+    "Select view layout" : {
+      "comment" : "Button help text."
     },
     "Server" : {
       "comment" : "Organizer info panel row label.",
@@ -2098,6 +2090,9 @@
           }
         }
       }
+    },
+    "Show browser view options" : {
+      "comment" : "Menu help text."
     },
     "Show Bylines" : {
       "comment" : "Toggle label.",
@@ -2170,12 +2165,8 @@
         }
       }
     },
-    "Show inspector" : {
-      "comment" : "Button help text."
-    },
     "Show Inspector" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
+      "comment" : "Button help text.\nButton label.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {
@@ -2230,6 +2221,9 @@
         }
       }
     },
+    "Show Read" : {
+      "comment" : "Button label."
+    },
     "Show read items" : {
       "comment" : "Button help text."
     },
@@ -2279,6 +2273,9 @@
           }
         }
       }
+    },
+    "Show reader view options" : {
+      "comment" : "Menu help text."
     },
     "Show Unread Counts" : {
       "comment" : "Toggle label.",
@@ -2349,9 +2346,6 @@
           }
         }
       }
-    },
-    "Switch page layout" : {
-      "comment" : "Button help text."
     },
     "Symbol" : {
       "comment" : "Text field label.",

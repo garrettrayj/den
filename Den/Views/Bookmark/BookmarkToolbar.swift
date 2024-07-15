@@ -31,10 +31,7 @@ struct BookmarkToolbar: ToolbarContent {
             formatMenu
         }
         ToolbarItem {
-            GoBackButton(browserViewModel: browserViewModel)
-        }
-        ToolbarItem {
-            GoForwardButton(browserViewModel: browserViewModel)
+            BrowserNavControlGroup(browserViewModel: browserViewModel)
         }
         ToolbarItem {
             StopReloadButton(browserViewModel: browserViewModel)

@@ -21,7 +21,7 @@ struct SearchToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead)
+            ToggleReadFilterButton(hideRead: $hideRead)
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
@@ -31,7 +31,7 @@ struct SearchToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem(placement: .bottomBar) {
-                FilterReadButton(hideRead: $hideRead)
+                ToggleReadFilterButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .status) {
                 Text("Showing results for “\(query)”", comment: "Search status.")
@@ -44,7 +44,7 @@ struct SearchToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem {
-                FilterReadButton(hideRead: $hideRead)
+                ToggleReadFilterButton(hideRead: $hideRead)
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {

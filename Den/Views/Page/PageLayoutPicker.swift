@@ -39,9 +39,9 @@ struct PageLayoutPicker: View {
             .tag(PageLayout.timeline)
             .accessibilityIdentifier("TimelineLayout")
         } label: {
-            Text("Layout", comment: "Picker label.")
+            Text("View", comment: "Picker label.")
         }
-        .help(Text("Switch page layout", comment: "Button help text."))
+        .help(Text("Select view layout", comment: "Button help text."))
         .accessibilityIdentifier("PageLayoutPicker")
     }
 }

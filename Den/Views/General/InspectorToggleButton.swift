@@ -20,23 +20,23 @@ struct InspectorToggleButton: View {
             showingInspector.toggle()
         } label: {
             Label {
-                Text("Inspector", comment: "Button label.")
+                if showingInspector {
+                    Text("Hide Inspector", comment: "Button label.")
+                } else {
+                    Text("Show Inspector", comment: "Button label.")
+                }
             } icon: {
-                Image(systemName: symbol)
+                if horizontalSizeClass == .compact {
+                    Image(systemName: "rectangle.portrait.bottomhalf.inset.filled")
+                } else {
+                    Image(systemName: "sidebar.trailing")
+                }
             }
         }
         .help(
-            showingInspector ? Text("Hide inspector", comment: "Button help text.") :
-                Text("Show inspector", comment: "Button help text.")
+            showingInspector ? Text("Hide Inspector", comment: "Button help text.") :
+                Text("Show Inspector", comment: "Button help text.")
         )
         .accessibilityIdentifier("ToggleInspector")
-    }
-    
-    private var symbol: String {
-        if horizontalSizeClass == .compact {
-            "rectangle.portrait.bottomhalf.inset.filled"
-        } else {
-            "sidebar.trailing"
-        }
     }
 }

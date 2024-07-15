@@ -18,7 +18,7 @@ struct GoForwardButton: View {
             browserViewModel.goForward()
         } label: {
             Label {
-                Text("Forward", comment: "Button label.")
+                Text("Go Forward", comment: "Button label.")
             } icon: {
                 Image(systemName: "chevron.forward")
             }

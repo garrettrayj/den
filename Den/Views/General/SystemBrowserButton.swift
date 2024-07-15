@@ -20,12 +20,12 @@ struct SystemBrowserButton: View {
             openURL(url)
         } label: {
             Label {
-                Text("Open in Browser", comment: "Button label.")
+                Text("Open Link", comment: "Button label.")
             } icon: {
                 Image(systemName: "link.circle")
             }
         }
-        .help(Text("Open in system browser", comment: "Button help text."))
+        .help(Text("Open link in system browser", comment: "Button help text."))
         .accessibilityIdentifier("OpenInBrowser")
     }
 }

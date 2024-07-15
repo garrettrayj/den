@@ -39,6 +39,6 @@ struct MarkAllReadUnreadButton: View {
             allRead ? Text("Mark all items unread", comment: "Button help text.") :
                 Text("Mark all items read", comment: "Button help text.")
         )
-        .accessibilityIdentifier("ToggleRead")
+        .accessibilityIdentifier("MarkAllReadUnread")
     }
 }

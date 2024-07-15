@@ -1,5 +1,5 @@
 //
-//  FilterReadButton.swift
+//  ToggleReadFilterButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/13/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FilterReadButton: View {
+struct ToggleReadFilterButton: View {
     @Binding var hideRead: Bool
 
     var body: some View {
@@ -18,7 +18,11 @@ struct FilterReadButton: View {
             hideRead.toggle()
         } label: {
             Label {
-                Text("Filter Read", comment: "Button label.")
+                if hideRead {
+                    Text("Show Read", comment: "Button label.")
+                } else {
+                    Text("Hide Read", comment: "Button label.")
+                }
             } icon: {
                 Image(systemName: "line.3.horizontal.decrease")
                     .symbolVariant(hideRead ? .circle.fill : .circle)
@@ -28,6 +32,6 @@ struct FilterReadButton: View {
             hideRead ? Text("Show read items", comment: "Button help text.") :
                 Text("Hide read items", comment: "Button help text.")
         )
-        .accessibilityIdentifier("FilterRead")
+        .accessibilityIdentifier("ToggleReadFilter")
     }
 }
