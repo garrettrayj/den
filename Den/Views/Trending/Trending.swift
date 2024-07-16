@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct Trending: View {
-    @Binding var hideRead: Bool
-
     var body: some View {
         WithTrends { trends in
             if trends.isEmpty {
@@ -29,9 +27,9 @@ struct Trending: View {
                     )
                 }
             } else {
-                TrendingLayout(hideRead: $hideRead, trends: trends)
+                TrendingLayout(trends: trends)
                     .toolbar {
-                        TrendingToolbar(hideRead: $hideRead, trends: trends)
+                        TrendingToolbar(trends: trends)
                     }
             }
         }

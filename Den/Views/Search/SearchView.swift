@@ -12,9 +12,8 @@ import SwiftUI
 
 struct SearchView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
-    @Binding var hideRead: Bool
-    @Binding var searchQuery: String
+
+    @SceneStorage("SearchQuery") private var searchQuery: String = ""
     
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.submitted, order: .reverse)
@@ -43,7 +42,6 @@ struct SearchView: View {
                     searchQuery: searchQuery
                 ) { items in
                     SearchLayout(
-                        hideRead: $hideRead,
                         query: searchQuery,
                         items: items
                     )
@@ -51,7 +49,7 @@ struct SearchView: View {
                         Text("Search", comment: "Navigation title.")
                     )
                     .toolbar {
-                        SearchToolbar(hideRead: $hideRead, query: searchQuery, items: items)
+                        SearchToolbar(query: searchQuery, items: items)
                     }
                 }
             }

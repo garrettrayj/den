@@ -11,17 +11,12 @@
 import SwiftUI
 
 struct InboxLayout: View {
-    @Binding var hideRead: Bool
-    
-    let items: FetchedResults<Item>
+    let items: [Item]
     
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
-                BoardView(
-                    width: geometry.size.width,
-                    list: items.visibilityFiltered(hideRead ? false : nil)
-                ) { item in
+                BoardView(width: geometry.size.width, list: items) { item in
                     if let feed = item.feedData?.feed {
                         if feed.wrappedPreviewStyle == .expanded {
                             FeedItemExpanded(item: item, feed: feed)

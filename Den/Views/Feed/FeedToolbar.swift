@@ -15,7 +15,6 @@ struct FeedToolbar: ToolbarContent {
 
     @ObservedObject var feed: Feed
 
-    @Binding var hideRead: Bool
     @Binding var showingDeleteAlert: Bool
     @Binding var showingInspector: Bool
 
@@ -27,7 +26,7 @@ struct FeedToolbar: ToolbarContent {
             InspectorToggleButton(showingInspector: $showingInspector)
         }
         ToolbarItem {
-            ToggleReadFilterButton(hideRead: $hideRead)
+            ToggleReadFilterButton()
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {

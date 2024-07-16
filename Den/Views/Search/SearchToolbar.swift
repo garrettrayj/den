@@ -13,15 +13,13 @@ import SwiftUI
 struct SearchToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    @Binding var hideRead: Bool
-
     let query: String
     let items: FetchedResults<Item>
 
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            ToggleReadFilterButton(hideRead: $hideRead)
+            ToggleReadFilterButton()
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {

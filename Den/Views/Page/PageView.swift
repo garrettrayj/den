@@ -15,8 +15,6 @@ struct PageView: View {
 
     @ObservedObject var page: Page
     
-    @Binding var hideRead: Bool
-    
     @State private var showingDeleteAlert = false
     @State private var showingIconSelector = false
 
@@ -38,23 +36,11 @@ struct PageView: View {
                     if page.feedsArray.isEmpty {
                         NoFeeds()
                     } else if pageLayoutAppStorage.wrappedValue == .grouped {
-                        GroupedLayout(
-                            page: page,
-                            hideRead: $hideRead,
-                            items: items
-                        )
+                        GroupedLayout(page: page, items: items)
                     } else if pageLayoutAppStorage.wrappedValue == .deck {
-                        DeckLayout(
-                            page: page,
-                            hideRead: $hideRead,
-                            items: items
-                        )
+                        DeckLayout(page: page, items: items)
                     } else if pageLayoutAppStorage.wrappedValue == .timeline {
-                        TimelineLayout(
-                            page: page,
-                            hideRead: $hideRead,
-                            items: items
-                        )
+                        TimelineLayout(page: page, items: items)
                     }
                 }
                 .onChange(of: page.name) {
@@ -72,7 +58,6 @@ struct PageView: View {
                 .toolbar {
                     PageToolbar(
                         page: page,
-                        hideRead: $hideRead,
                         pageLayout: pageLayoutAppStorage.projectedValue,
                         showingDeleteAlert: $showingDeleteAlert,
                         showingIconSelector: $showingIconSelector,
@@ -115,10 +100,8 @@ struct PageView: View {
         }
     }
 
-    init(page: Page, hideRead: Binding<Bool>) {
+    init(page: Page) {
         self.page = page
-        
-        _hideRead = hideRead
 
         pageLayoutAppStorage = .init(
             wrappedValue: PageLayout.grouped,

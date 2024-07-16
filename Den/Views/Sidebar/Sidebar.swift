@@ -19,7 +19,6 @@ struct Sidebar: View {
     @Binding var detailPanel: DetailPanel?
     @Binding var newFeedPageObjectURL: URL?
     @Binding var newFeedWebAddress: String
-    @Binding var searchQuery: String
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
     @Binding var showingNewFeedSheet: Bool
@@ -32,6 +31,8 @@ struct Sidebar: View {
     @State private var showingSettings = false
     
     let pages: FetchedResults<Page>
+    
+    @SceneStorage("SearchQuery") private var searchQuery: String = ""
 
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.submitted, order: .reverse)

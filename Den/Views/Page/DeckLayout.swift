@@ -15,9 +15,9 @@ struct DeckLayout: View {
 
     @ObservedObject var page: Page
 
-    @Binding var hideRead: Bool
-
     let items: FetchedResults<Item>
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
     
     @ScaledMetric private var idealColumnWidth = Columnizer.idealColumnWidth
 

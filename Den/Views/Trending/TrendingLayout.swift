@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct TrendingLayout: View {
-    @Binding var hideRead: Bool
-    
     let trends: FetchedResults<Trend>
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
     
     var body: some View {
         if trends.containingUnread.isEmpty && hideRead {

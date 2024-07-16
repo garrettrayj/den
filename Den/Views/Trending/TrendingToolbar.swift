@@ -12,15 +12,13 @@ import SwiftUI
 
 struct TrendingToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
-    @Binding var hideRead: Bool
     
     let trends: FetchedResults<Trend>
 
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            ToggleReadFilterButton(hideRead: $hideRead)
+            ToggleReadFilterButton()
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {

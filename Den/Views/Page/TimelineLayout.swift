@@ -13,9 +13,9 @@ import SwiftUI
 struct TimelineLayout: View {
     @ObservedObject var page: Page
 
-    @Binding var hideRead: Bool
-
     let items: FetchedResults<Item>
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         if items.isEmpty {

@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct Inbox: View {
-    @Binding var hideRead: Bool
+    @AppStorage("HideRead") private var hideRead: Bool = false
     
     @FetchRequest(sortDescriptors: [])
     private var feeds: FetchedResults<Feed>
@@ -37,14 +37,11 @@ struct Inbox: View {
                 } else if items.unread.isEmpty && hideRead {
                     AllRead(largeDisplay: true)
                 } else {
-                    InboxLayout(hideRead: $hideRead, items: items)
+                    InboxLayout(items: items.visibilityFiltered(hideRead ? false : nil))
                 }
             }
             .toolbar {
-                InboxToolbar(
-                    hideRead: $hideRead,
-                    items: items
-                )
+                InboxToolbar(items: items)
             }
             .navigationTitle(Text("Inbox", comment: "Navigation title."))
         }

@@ -14,9 +14,7 @@ struct DetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @Binding var detailPanel: DetailPanel?
-    @Binding var hideRead: Bool
     @Binding var path: NavigationPath
-    @Binding var searchQuery: String
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -26,20 +24,20 @@ struct DetailView: View {
                     Bookmarks()
                 case .feed(let objectURL):
                     if let feed = getObjectFromURL(url: objectURL) as? Feed {
-                        FeedView(feed: feed, hideRead: $hideRead).id(objectURL)
+                        FeedView(feed: feed).id(objectURL)
                     }
                 case .inbox:
-                    Inbox(hideRead: $hideRead)
+                    Inbox()
                 case .organizer:
                     Organizer()
                 case .page(let objectURL):
                     if let page = getObjectFromURL(url: objectURL) as? Page {
-                        PageView(page: page, hideRead: $hideRead).id(objectURL)
+                        PageView(page: page).id(objectURL)
                     }
                 case .search:
-                    SearchView(hideRead: $hideRead, searchQuery: $searchQuery)
+                    SearchView()
                 case .trending:
-                    Trending(hideRead: $hideRead)
+                    Trending()
                 case .welcome:
                     Welcome()
                 }
@@ -52,7 +50,7 @@ struct DetailView: View {
                     }
                 case .feed(let objectURL):
                     if let feed = getObjectFromURL(url: objectURL) as? Feed {
-                        FeedView(feed: feed, hideRead: $hideRead).id(objectURL)
+                        FeedView(feed: feed).id(objectURL)
                     }
                 case .item(let objectURL):
                     if let item = getObjectFromURL(url: objectURL) as? Item {
@@ -60,7 +58,7 @@ struct DetailView: View {
                     }
                 case .trend(let objectURL):
                     if let trend = getObjectFromURL(url: objectURL) as? Trend {
-                        TrendView(trend: trend, hideRead: $hideRead).id(objectURL)
+                        TrendView(trend: trend).id(objectURL)
                     }
                 }
             }

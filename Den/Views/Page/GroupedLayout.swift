@@ -14,12 +14,12 @@ struct GroupedLayout: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var page: Page
-
-    @Binding var hideRead: Bool
     
     @ScaledMetric private var idealColumnWidth = Columnizer.idealColumnWidth
 
     let items: FetchedResults<Item>
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         GeometryReader { geometry in

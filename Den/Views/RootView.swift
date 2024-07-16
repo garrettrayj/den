@@ -36,9 +36,7 @@ struct RootView: View {
     @SceneStorage("Navigation") private var navigationData: Data?
     @SceneStorage("NewFeedPageID") private var newFeedPageObjectURL: URL?
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
-    @SceneStorage("SearchQuery") private var searchQuery: String = ""
     
-    @AppStorage("HideRead") private var hideRead: Bool = false
     @AppStorage("Maintained") private var maintenanceTimestamp: Double?
     @AppStorage("AccentColor") private var accentColor: AccentColor?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
@@ -61,7 +59,6 @@ struct RootView: View {
                 detailPanel: $detailPanel,
                 newFeedPageObjectURL: $newFeedPageObjectURL,
                 newFeedWebAddress: $newFeedWebAddress,
-                searchQuery: $searchQuery,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
@@ -78,9 +75,7 @@ struct RootView: View {
         } detail: {
             DetailView(
                 detailPanel: $detailPanel,
-                hideRead: $hideRead,
-                path: $navigationStore.path,
-                searchQuery: $searchQuery
+                path: $navigationStore.path
             )
             #if os(iOS)
             .toolbarTitleDisplayMode(.inline)

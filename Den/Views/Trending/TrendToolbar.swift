@@ -23,7 +23,7 @@ struct TrendToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            ToggleReadFilterButton(hideRead: $hideRead)
+            ToggleReadFilterButton()
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {

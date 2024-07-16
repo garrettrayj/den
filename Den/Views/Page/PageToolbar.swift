@@ -16,7 +16,6 @@ struct PageToolbar: ToolbarContent {
 
     @ObservedObject var page: Page
 
-    @Binding var hideRead: Bool
     @Binding var pageLayout: PageLayout
     @Binding var showingDeleteAlert: Bool
     @Binding var showingIconSelector: Bool
@@ -29,7 +28,7 @@ struct PageToolbar: ToolbarContent {
             PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
         }
         ToolbarItem {
-            ToggleReadFilterButton(hideRead: $hideRead)
+            ToggleReadFilterButton()
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {

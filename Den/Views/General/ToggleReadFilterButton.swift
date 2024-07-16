@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct ToggleReadFilterButton: View {
-    @Binding var hideRead: Bool
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         Button {

@@ -15,9 +15,9 @@ struct FeedLayout: View {
 
     @ObservedObject var feed: Feed
 
-    @Binding var hideRead: Bool
-
     @State private var feedAddressCopied: Bool = false
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     let items: FetchedResults<Item>
 
