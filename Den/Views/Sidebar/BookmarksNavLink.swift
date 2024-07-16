@@ -22,7 +22,7 @@ struct BookmarksNavLink: View {
         }
         .tag(DetailPanel.bookmarks)
         .onDrop(
-            of: [.denBookmark, .denItem],
+            of: [.denItem],
             delegate: BookmarksNavDropDelegate(context: viewContext)
         )
         .accessibilityIdentifier("BookmarksNavLink")
