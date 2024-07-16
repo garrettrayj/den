@@ -23,7 +23,6 @@ struct Sidebar: View {
     @Binding var showingImporter: Bool
     @Binding var showingNewFeedSheet: Bool
     @Binding var showingNewPageSheet: Bool
-    @Binding var showingNewTagSheet: Bool
     
     @State private var exporterIsPresented: Bool = false
     @State private var opmlFile: OPMLFile?
@@ -34,9 +33,7 @@ struct Sidebar: View {
     
     @SceneStorage("SearchQuery") private var searchQuery: String = ""
 
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.submitted, order: .reverse)
-    ])
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.submitted, order: .reverse)])
     private var searches: FetchedResults<Search>
     
     var body: some View {
@@ -94,7 +91,6 @@ struct Sidebar: View {
                 showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
                 showingNewPageSheet: $showingNewPageSheet,
-                showingNewTagSheet: $showingNewTagSheet,
                 showingSettings: $showingSettings, 
                 feedCount: pages.feeds.count
             )

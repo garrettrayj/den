@@ -24,17 +24,15 @@ struct RootView: View {
     @State private var showingImporter = false
     @State private var showingNewFeedSheet = false
     @State private var showingNewPageSheet = false
-    @State private var showingNewTagSheet = false
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
-    @State private var clearPathOnDetailChange = true
     @State private var detailPanel: DetailPanel?
     
     @StateObject private var navigationStore = NavigationStore()
     
     @SceneStorage("DetailPanel") private var detailPanelData: Data?
     @SceneStorage("Navigation") private var navigationData: Data?
-    @SceneStorage("NewFeedPageID") private var newFeedPageObjectURL: URL?
+    @SceneStorage("NewFeedPageObjectURL") private var newFeedPageObjectURL: URL?
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     
     @AppStorage("Maintained") private var maintenanceTimestamp: Double?
@@ -63,7 +61,6 @@ struct RootView: View {
                 showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
                 showingNewPageSheet: $showingNewPageSheet,
-                showingNewTagSheet: $showingNewTagSheet,
                 pages: pages
             )
             #if os(macOS)
