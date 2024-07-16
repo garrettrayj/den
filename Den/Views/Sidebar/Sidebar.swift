@@ -17,21 +17,18 @@ struct Sidebar: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @Binding var detailPanel: DetailPanel?
-    @Binding var newFeedPageObjectURL: URL?
-    @Binding var newFeedWebAddress: String
-    @Binding var showingExporter: Bool
-    @Binding var showingImporter: Bool
-    @Binding var showingNewFeedSheet: Bool
-    @Binding var showingNewPageSheet: Bool
     
     @State private var exporterIsPresented: Bool = false
     @State private var opmlFile: OPMLFile?
     @State private var searchInput = ""
-    @State private var showingSettings = false
     
     let pages: FetchedResults<Page>
     
     @SceneStorage("SearchQuery") private var searchQuery: String = ""
+    @SceneStorage("ShowingNewPageSheet") private var showingNewPageSheet = false
+    @SceneStorage("ShowingImporter") private var showingImporter: Bool = false
+    @SceneStorage("ShowingExporter") private var showingExporter: Bool = false
+    @SceneStorage("ShowingSettings") private var showingSettings: Bool = false
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.submitted, order: .reverse)])
     private var searches: FetchedResults<Search>
@@ -39,19 +36,10 @@ struct Sidebar: View {
     var body: some View {
         List(selection: $detailPanel) {
             if pages.isEmpty {
-                Start(
-                    showingImporter: $showingImporter,
-                    showingNewPageSheet: $showingNewPageSheet
-                )
+                Start()
             } else {
                 ApexSection()
-
-                PagesSection(
-                    newFeedPageObjectURL: $newFeedPageObjectURL,
-                    newFeedWebAddress: $newFeedWebAddress,
-                    showingNewFeedSheet: $showingNewFeedSheet,
-                    pages: pages
-                )
+                PagesSection(pages: pages)
             }
         }
         .listStyle(.sidebar)
@@ -85,15 +73,7 @@ struct Sidebar: View {
             detailPanel = .search
         }
         .toolbar {
-            SidebarToolbar(
-                detailPanel: $detailPanel,
-                showingExporter: $showingExporter,
-                showingImporter: $showingImporter,
-                showingNewFeedSheet: $showingNewFeedSheet,
-                showingNewPageSheet: $showingNewPageSheet,
-                showingSettings: $showingSettings, 
-                feedCount: pages.feeds.count
-            )
+            SidebarToolbar(detailPanel: $detailPanel, feedCount: pages.feeds.count)
         }
         #if os(macOS)
         .safeAreaInset(edge: .bottom, spacing: 0) {

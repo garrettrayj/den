@@ -14,13 +14,10 @@ import SwiftUI
 struct Start: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @Binding var showingImporter: Bool
-    @Binding var showingNewPageSheet: Bool
-
     var body: some View {
         Section {
-            NewPageButton(showingNewPageSheet: $showingNewPageSheet)
-            ImportButton(showingImporter: $showingImporter)
+            NewPageButton()
+            ImportButton()
             Button {
                 loadDemo()
             } label: {

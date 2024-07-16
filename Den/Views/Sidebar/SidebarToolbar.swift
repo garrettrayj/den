@@ -14,28 +14,23 @@ struct SidebarToolbar: ToolbarContent {
     @EnvironmentObject private var refreshManager: RefreshManager
     
     @Binding var detailPanel: DetailPanel?
-    @Binding var showingExporter: Bool
-    @Binding var showingImporter: Bool
-    @Binding var showingNewFeedSheet: Bool
-    @Binding var showingNewPageSheet: Bool
-    @Binding var showingSettings: Bool
     
     let feedCount: Int
 
     var body: some ToolbarContent {
         ToolbarItem(placement: .primaryAction) {
             Menu {
-                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+                NewFeedButton()
+                NewPageButton()
                 Divider()
-                ImportButton(showingImporter: $showingImporter)
-                ExportButton(showingExporter: $showingExporter)
+                ImportButton()
+                ExportButton()
                 Divider()
                 OrganizerButton(detailPanel: $detailPanel)
                 #if os(macOS)
                 SettingsLink()
                 #else
-                SettingsButton(showingSettings: $showingSettings)
+                SettingsButton()
                 #endif
             } label: {
                 Label {

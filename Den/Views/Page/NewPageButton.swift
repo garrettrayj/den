@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct NewPageButton: View {
-    @Binding var showingNewPageSheet: Bool
+    @SceneStorage("ShowingNewPageSheet") private var showingNewPageSheet = false
 
     var body: some View {
         Button {

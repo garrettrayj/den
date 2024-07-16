@@ -19,11 +19,6 @@ struct RootView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    @State private var preferredCompactColumn: NavigationSplitViewColumn = .sidebar
-    @State private var showingExporter = false
-    @State private var showingImporter = false
-    @State private var showingNewFeedSheet = false
-    @State private var showingNewPageSheet = false
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
     @State private var detailPanel: DetailPanel?
@@ -34,6 +29,7 @@ struct RootView: View {
     @SceneStorage("Navigation") private var navigationData: Data?
     @SceneStorage("NewFeedPageObjectURL") private var newFeedPageObjectURL: URL?
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
+    @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet = false
     
     @AppStorage("Maintained") private var maintenanceTimestamp: Double?
     @AppStorage("AccentColor") private var accentColor: AccentColor?
@@ -49,20 +45,8 @@ struct RootView: View {
     @ScaledMetric var sidebarWidth = 264
 
     var body: some View {
-        NavigationSplitView(
-            columnVisibility: $columnVisibility,
-            preferredCompactColumn: $preferredCompactColumn
-        ) {
-            Sidebar(
-                detailPanel: $detailPanel,
-                newFeedPageObjectURL: $newFeedPageObjectURL,
-                newFeedWebAddress: $newFeedWebAddress,
-                showingExporter: $showingExporter,
-                showingImporter: $showingImporter,
-                showingNewFeedSheet: $showingNewFeedSheet,
-                showingNewPageSheet: $showingNewPageSheet,
-                pages: pages
-            )
+        NavigationSplitView(columnVisibility: $columnVisibility) {
+            Sidebar(detailPanel: $detailPanel, pages: pages)
             #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 300)
             #else
@@ -82,8 +66,8 @@ struct RootView: View {
         .background {
             // Buttons in background for keyboard shortcuts
             Group {
-                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+                NewFeedButton()
+                NewPageButton()
             }
             .disabled(pages.isEmpty)
             .opacity(0)

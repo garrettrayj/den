@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct NewFeedButton: View {
-    @Binding var showingNewFeedSheet: Bool
+    @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
 
     var body: some View {
         Button {
