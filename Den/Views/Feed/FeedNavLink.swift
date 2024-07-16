@@ -14,7 +14,7 @@ struct FeedNavLink: View {
     @ObservedObject var feed: Feed
 
     var body: some View {
-        NavigationLink(value: SubDetailPanel.feed(feed)) {
+        NavigationLink(value: SubDetailPanel.feed(feed.objectID.uriRepresentation())) {
             HStack {
                 FeedTitleLabel(feed: feed)
                     .modifier(DraggableFeedModifier(feed: feed))

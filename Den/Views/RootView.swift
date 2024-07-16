@@ -220,7 +220,7 @@ struct RootView: View {
                 request.predicate = NSPredicate(format: "id = %@", itemID)
                 
                 if let item = try? viewContext.fetch(request).first {
-                    navigationStore.path.append(SubDetailPanel.item(item))
+                    navigationStore.path.append(SubDetailPanel.item(item.objectID.uriRepresentation()))
                 }
             }
         }
