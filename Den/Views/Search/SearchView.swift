@@ -15,9 +15,7 @@ struct SearchView: View {
 
     @SceneStorage("SearchQuery") private var searchQuery: String = ""
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.submitted, order: .reverse)
-    ])
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.submitted, order: .reverse)])
     private var searches: FetchedResults<Search>
     
     var body: some View {
@@ -41,16 +39,11 @@ struct SearchView: View {
                     includeExtras: true,
                     searchQuery: searchQuery
                 ) { items in
-                    SearchLayout(
-                        query: searchQuery,
-                        items: items
-                    )
-                    .navigationTitle(
-                        Text("Search", comment: "Navigation title.")
-                    )
-                    .toolbar {
-                        SearchToolbar(query: searchQuery, items: items)
-                    }
+                    SearchLayout(query: searchQuery, items: items)
+                        .navigationTitle(Text("Search", comment: "Navigation title."))
+                        .toolbar {
+                            SearchToolbar(query: searchQuery, items: items)
+                        }
                 }
             }
         }
