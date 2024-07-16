@@ -17,7 +17,7 @@ struct Sidebar: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @Binding var detailPanel: DetailPanel?
-    @Binding var newFeedPageID: String?
+    @Binding var newFeedPageObjectURL: URL?
     @Binding var newFeedWebAddress: String
     @Binding var searchQuery: String
     @Binding var showingExporter: Bool
@@ -49,7 +49,7 @@ struct Sidebar: View {
                 ApexSection()
 
                 PagesSection(
-                    newFeedPageID: $newFeedPageID,
+                    newFeedPageObjectURL: $newFeedPageObjectURL,
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet,
                     pages: pages

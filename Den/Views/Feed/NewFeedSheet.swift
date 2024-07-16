@@ -18,7 +18,7 @@ struct NewFeedSheet: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @Binding var webAddress: String
-    @Binding var initialPageID: String?
+    @Binding var initialPageObjectURL: URL?
 
     @State private var targetPage: Page?
     @State private var webAddressIsValid: Bool?
@@ -123,10 +123,14 @@ struct NewFeedSheet: View {
     }
 
     private func checkTargetPage() {
-        if let pageID = initialPageID, let destinationPage = pages.first(where: {
-            $0.id?.uuidString == pageID
-        }) {
-            targetPage = destinationPage
+        if
+            let objectURL = initialPageObjectURL,
+            let objectID = viewContext.persistentStoreCoordinator?.managedObjectID(
+                forURIRepresentation: objectURL
+            ),
+            let page = viewContext.object(with: objectID) as? Page
+        {
+            targetPage = page
         } else {
             targetPage = pages.first
         }

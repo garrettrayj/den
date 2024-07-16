@@ -15,7 +15,7 @@ struct SidebarPage: View {
 
     @ObservedObject var page: Page
 
-    @Binding var newFeedPageID: String?
+    @Binding var newFeedPageObjectURL: URL?
     @Binding var newFeedWebAddress: String
     @Binding var showingNewFeedSheet: Bool
     
@@ -78,7 +78,7 @@ struct SidebarPage: View {
                     delegate: PageNavDropDelegate(
                         context: viewContext,
                         page: page,
-                        newFeedPageID: $newFeedPageID,
+                        newFeedPageObjectURL: $newFeedPageObjectURL,
                         newFeedWebAddress: $newFeedWebAddress,
                         showingNewFeedSheet: $showingNewFeedSheet
                     )
@@ -111,7 +111,7 @@ struct SidebarPage: View {
                 )
             }
             .accessibilityIdentifier("SidebarPage")
-            .tag(DetailPanel.page(page))
+            .tag(DetailPanel.page(page.objectID.uriRepresentation()))
         }
     }
     

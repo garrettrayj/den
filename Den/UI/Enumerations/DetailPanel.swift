@@ -9,22 +9,34 @@
 //
 
 import Foundation
+import CoreData
 
 enum DetailPanel: Hashable, Identifiable {
+    enum PanelType: String {
+        case bookmarks
+        case feed
+        case inbox
+        case organizer
+        case page
+        case search
+        case trending
+        case welcome
+    }
+    
     case bookmarks
-    case feed(Feed)
+    case feed(URL)
     case inbox
     case organizer
-    case page(Page)
+    case page(URL)
     case search
     case trending
     case welcome
     
     var id: String {
-        if let objectID = objectID {
-            return "\(panelID)-\(objectID)"
+        if let objectURL = objectURL {
+            return "\(panelType)-\(objectURL)"
         } else {
-            return panelID
+            return panelType.rawValue
         }
     }
     
@@ -32,88 +44,78 @@ enum DetailPanel: Hashable, Identifiable {
         hasher.combine(id)
     }
 
-    var panelID: String {
+    var panelType: PanelType {
         switch self {
         case .bookmarks:
-            return "bookmarks"
+            return .bookmarks
         case .feed:
-            return "feed"
+            return .feed
         case .inbox:
-            return "inbox"
+            return .inbox
         case .organizer:
-            return "organizer"
+            return .organizer
         case .page:
-            return "page"
+            return .page
         case .search:
-            return "search"
+            return .search
         case .trending:
-            return "trending"
+            return .trending
         case .welcome:
-            return "welcome"
+            return .welcome
         }
     }
 
-    var objectID: String? {
+    var objectURL: URL? {
         switch self {
-        case .feed(let feed):
-            return feed.id?.uuidString
-        case .page(let page):
-            return page.id?.uuidString
+        case .feed(let feedObjectURL):
+            return feedObjectURL
+        case .page(let pageObjectURL):
+            return pageObjectURL
         default:
             return nil
         }
     }
 
     enum CodingKeys: String, CodingKey {
-        case panelID
-        case objectID
+        case panelType
+        case objectURL
     }
 }
 
 extension DetailPanel: Decodable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let panelID = try values.decode(String.self, forKey: .panelID)
-        var detailPanel: DetailPanel = .welcome
-
-        if panelID == "bookmarks" {
-            detailPanel = .bookmarks
-        } else if panelID == "feed" && values.contains(.objectID) {
-            let decodedFeedID = try values.decode(String.self, forKey: .objectID)
-
-            let request = Feed.fetchRequest()
-            request.predicate = NSPredicate(format: "id = %@", decodedFeedID)
-
-            let context = DataController.shared.container.viewContext
-            if let feed = try? context.fetch(request).first {
-                detailPanel = .feed(feed)
-            }
-        } else if panelID == "inbox" {
-            detailPanel = .inbox
-        } else if panelID == "organizer" {
-            detailPanel = .organizer
-        } else if panelID == "page" && values.contains(.objectID) {
-            let decodedPageID = try values.decode(String.self, forKey: .objectID)
-
-            let request = Page.fetchRequest()
-            request.predicate = NSPredicate(format: "id = %@", decodedPageID)
-
-            let context = DataController.shared.container.viewContext
-            if let page = try? context.fetch(request).first {
-                detailPanel = .page(page)
-            }
-        } else if panelID == "trending" {
-            detailPanel = .trending
+        let panelType = try PanelType(rawValue: values.decode(String.self, forKey: .panelType))
+        
+        switch panelType {
+        case .bookmarks:
+            self = .bookmarks
+        case .feed:
+            let objectURL = try values.decode(URL.self, forKey: .objectURL)
+            self = .feed(objectURL)
+        case .inbox:
+            self = .inbox
+        case .organizer:
+            self = .organizer
+        case .page:
+            let objectURL = try values.decode(URL.self, forKey: .objectURL)
+            self = .page(objectURL)
+        case .search:
+            self = .search
+        case .trending:
+            self = .trending
+        case .welcome:
+            self = .welcome
+        case .none:
+            self = .welcome
         }
-
-        self = detailPanel
     }
 }
 
 extension DetailPanel: Encodable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(panelID, forKey: .panelID)
-        try container.encode(objectID, forKey: .objectID)
+        try container.encode(panelType.rawValue, forKey: .panelType)
+        try container.encode(objectURL, forKey: .objectURL)
     }
 }

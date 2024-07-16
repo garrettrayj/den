@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct DetailView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @Binding var detailPanel: DetailPanel?
     @Binding var hideRead: Bool
     @Binding var path: NavigationPath
@@ -22,14 +24,28 @@ struct DetailView: View {
                 switch detailPanel ?? .welcome {
                 case .bookmarks:
                     Bookmarks()
-                case .feed(let feed):
-                    FeedView(feed: feed, hideRead: $hideRead).id(feed)
+                case .feed(let objectURL):
+                    if
+                        let objectID = viewContext.persistentStoreCoordinator?.managedObjectID(
+                            forURIRepresentation: objectURL
+                        ),
+                        let feed = viewContext.object(with: objectID) as? Feed
+                    {
+                        FeedView(feed: feed, hideRead: $hideRead).id(objectURL)
+                    }
                 case .inbox:
                     Inbox(hideRead: $hideRead)
                 case .organizer:
                     Organizer()
-                case .page(let page):
-                    PageView(page: page, hideRead: $hideRead).id(page)
+                case .page(let objectURL):
+                    if
+                        let objectID = viewContext.persistentStoreCoordinator?.managedObjectID(
+                            forURIRepresentation: objectURL
+                        ),
+                        let page = viewContext.object(with: objectID) as? Page
+                    {
+                        PageView(page: page, hideRead: $hideRead).id(objectURL)
+                    }
                 case .search:
                     SearchView(hideRead: $hideRead, searchQuery: $searchQuery)
                 case .trending:

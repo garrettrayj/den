@@ -13,7 +13,7 @@ import SwiftUI
 struct PagesSection: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @Binding var newFeedPageID: String?
+    @Binding var newFeedPageObjectURL: URL?
     @Binding var newFeedWebAddress: String
     @Binding var showingNewFeedSheet: Bool
     
@@ -24,7 +24,7 @@ struct PagesSection: View {
             ForEach(pages) { page in
                 SidebarPage(
                     page: page,
-                    newFeedPageID: $newFeedPageID,
+                    newFeedPageObjectURL: $newFeedPageObjectURL,
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet
                 )

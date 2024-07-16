@@ -43,7 +43,7 @@ struct SidebarFeed: View {
             }
         }
         .badge(showUnreadCounts ? unreadCount : 0)
-        .tag(DetailPanel.feed(feed))
+        .tag(DetailPanel.feed(feed.objectID.uriRepresentation()))
         .modifier(DraggableFeedModifier(feed: feed))
         .contextMenu {
             DeleteFeedButton(feed: feed)

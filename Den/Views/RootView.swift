@@ -34,7 +34,7 @@ struct RootView: View {
     
     @SceneStorage("DetailPanel") private var detailPanelData: Data?
     @SceneStorage("Navigation") private var navigationData: Data?
-    @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
+    @SceneStorage("NewFeedPageID") private var newFeedPageObjectURL: URL?
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("SearchQuery") private var searchQuery: String = ""
     
@@ -59,7 +59,7 @@ struct RootView: View {
         ) {
             Sidebar(
                 detailPanel: $detailPanel,
-                newFeedPageID: $newFeedPageID,
+                newFeedPageObjectURL: $newFeedPageObjectURL,
                 newFeedWebAddress: $newFeedWebAddress,
                 searchQuery: $searchQuery,
                 showingExporter: $showingExporter,
@@ -101,8 +101,8 @@ struct RootView: View {
             if url.scheme == "den+widget" {
                 openWidgetURL(url: url)
             } else {
-                if case .page(let page) = detailPanel {
-                    newFeedPageID = page.id?.uuidString
+                if case .page(let objectURL) = detailPanel {
+                    newFeedPageObjectURL = objectURL
                 }
                 newFeedWebAddress = url.absoluteStringForNewFeed
                 showingNewFeedSheet = true
@@ -155,19 +155,19 @@ struct RootView: View {
         .onChange(of: showingNewFeedSheet) {
             if showingNewFeedSheet {
                 guard
-                    newFeedPageID == nil,
-                    case .page(let page) = detailPanel
+                    newFeedPageObjectURL == nil,
+                    case .page(let objectURL) = detailPanel
                 else { return }
-                newFeedPageID = page.id?.uuidString
+                newFeedPageObjectURL = objectURL
             } else {
-                newFeedPageID = nil
+                newFeedPageObjectURL = nil
                 newFeedWebAddress = ""
             }
         }
         .sheet(isPresented: $showingNewFeedSheet) {
             NewFeedSheet(
                 webAddress: $newFeedWebAddress,
-                initialPageID: $newFeedPageID
+                initialPageObjectURL: $newFeedPageObjectURL
             )
         }
         .onReceive(NotificationCenter.default.publisher(for: .appErrored, object: nil)) { output in
@@ -200,11 +200,11 @@ struct RootView: View {
                 detailPanel = .inbox
             } else if sourceType == "page" {
                 if let page = pages.first(where: { $0.id == sourceID }) {
-                    detailPanel = .page(page)
+                    detailPanel = .page(page.objectID.uriRepresentation())
                 }
             } else if sourceType == "feed" {
                 if let feed = pages.flatMap({ $0.feedsArray }).first(where: { $0.id == sourceID }) {
-                    detailPanel = .feed(feed)
+                    detailPanel = .feed(feed.objectID.uriRepresentation())
                 }
             }
         } completion: {

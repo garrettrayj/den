@@ -16,7 +16,7 @@ struct PageNavDropDelegate: DropDelegate {
     let context: NSManagedObjectContext
     let page: Page
 
-    @Binding var newFeedPageID: String?
+    @Binding var newFeedPageObjectURL: URL?
     @Binding var newFeedWebAddress: String
     @Binding var showingNewFeedSheet: Bool
 
@@ -77,7 +77,7 @@ struct PageNavDropDelegate: DropDelegate {
                 Task {
                     await MainActor.run {
                         if let url = url {
-                            newFeedPageID = page.id?.uuidString
+                            newFeedPageObjectURL = page.objectID.uriRepresentation()
                             newFeedWebAddress = url.absoluteStringForNewFeed
                             showingNewFeedSheet = true
                         }
@@ -93,7 +93,7 @@ struct PageNavDropDelegate: DropDelegate {
                 Task {
                     await MainActor.run {
                         if let droppedString = droppedString {
-                            newFeedPageID = page.id?.uuidString
+                            newFeedPageObjectURL = page.objectID.uriRepresentation()
                             newFeedWebAddress = droppedString
                             showingNewFeedSheet = true
                         }
