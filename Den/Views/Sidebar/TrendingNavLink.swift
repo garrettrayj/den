@@ -13,6 +13,8 @@ import SwiftUI
 struct TrendingNavLink: View {
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
+    @EnvironmentObject private var dataController: DataController
+    
     var body: some View {
         WithTrends { trends in
             Label {
@@ -25,7 +27,10 @@ struct TrendingNavLink: View {
             .accessibilityIdentifier("TrendingNavLink")
             .contextMenu {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(items: trends.items)
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: trends.items
+                    )
                 }
             }
         }

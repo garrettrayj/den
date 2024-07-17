@@ -12,6 +12,8 @@ import SwiftUI
 
 struct SearchToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
+    @EnvironmentObject private var dataController: DataController
 
     let query: String
     let items: FetchedResults<Item>
@@ -23,7 +25,10 @@ struct SearchToolbar: ToolbarContent {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleReadUnread(items: Array(items))
+                HistoryUtility.toggleReadUnread(
+                    container: dataController.container,
+                    items: Array(items)
+                )
             }
         }
         #else

@@ -15,6 +15,7 @@ import WidgetKit
 struct GeneralSection: View {
     @Environment(\.colorScheme) private var colorScheme
     
+    @EnvironmentObject private var dataController: DataController
     @EnvironmentObject private var refreshManager: RefreshManager
     
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
@@ -73,7 +74,10 @@ struct GeneralSection: View {
                 if refreshInterval == .zero {
                     refreshManager.stopAutoRefresh()
                 } else {
-                    refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
+                    refreshManager.startAutoRefresh(
+                        container: dataController.container,
+                        interval: TimeInterval(refreshInterval.rawValue)
+                    )
                 }
                 #else
                 BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: "net.devsci.den.refresh")

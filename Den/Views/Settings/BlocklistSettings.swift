@@ -12,6 +12,8 @@ import SwiftUI
 
 struct BlocklistSettings: View {
     @Environment(\.managedObjectContext) private var viewContext
+    
+    @EnvironmentObject private var dataController: DataController
 
     @ObservedObject var blocklist: Blocklist
     
@@ -72,6 +74,7 @@ struct BlocklistSettings: View {
                         isRefreshing = true
                         Task {
                             await BlocklistManager.refreshContentRulesList(
+                                container: dataController.container,
                                 blocklistObjectID: blocklist.objectID
                             )
                             isRefreshing = false

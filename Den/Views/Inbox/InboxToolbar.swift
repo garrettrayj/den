@@ -12,6 +12,8 @@ import SwiftUI
 
 struct InboxToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
+    @EnvironmentObject private var dataController: DataController
 
     let items: FetchedResults<Item>
 
@@ -22,7 +24,10 @@ struct InboxToolbar: ToolbarContent {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty && !items.isEmpty) {
-                HistoryUtility.toggleReadUnread(items: Array(items))
+                HistoryUtility.toggleReadUnread(
+                    container: dataController.container,
+                    items: Array(items)
+                )
             }
         }
         #else

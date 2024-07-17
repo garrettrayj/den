@@ -28,8 +28,7 @@ struct DenApp: App {
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
 
-    let dataController = DataController.shared
-    
+    @StateObject private var dataController = DataController()
     @StateObject private var downloadManager = DownloadManager()
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var refreshManager = RefreshManager()
@@ -38,6 +37,7 @@ struct DenApp: App {
         WindowGroup {
             RootView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
+                .environmentObject(dataController)
                 .environmentObject(downloadManager)
                 .environmentObject(networkMonitor)
                 .environmentObject(refreshManager)

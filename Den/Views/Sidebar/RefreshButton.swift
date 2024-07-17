@@ -14,10 +14,12 @@ struct RefreshButton: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var refreshManager: RefreshManager
     
+    @EnvironmentObject private var dataController: DataController
+    
     var body: some View {
         Button {
             Task {
-                await refreshManager.refresh()
+                await refreshManager.refresh(container: dataController.container)
             }
         } label: {
             Label {

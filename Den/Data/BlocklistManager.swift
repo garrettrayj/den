@@ -14,9 +14,9 @@ import WebKit
 
 @MainActor
 final class BlocklistManager {
-    static func getContentRuleLists() async -> [WKContentRuleList] {
+    static func getContentRuleLists(container: NSPersistentContainer) async -> [WKContentRuleList] {
         var blocklistIDs: [String] = []
-        let context = DataController.shared.container.newBackgroundContext()
+        let context = container.newBackgroundContext()
         context.performAndWait {
             guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
             else { return }
@@ -54,8 +54,8 @@ final class BlocklistManager {
         return await WKContentRuleListStore.default().availableIdentifiers() ?? []
     }
     
-    static func cleanupContentRulesLists() async {
-        let context = DataController.shared.container.newBackgroundContext()
+    static func cleanupContentRulesLists(container: NSPersistentContainer) async {
+        let context = container.newBackgroundContext()
         
         context.performAndWait {
             guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
@@ -78,8 +78,8 @@ final class BlocklistManager {
         }
     }
     
-    static func initializeMissingContentRulesLists() async {
-        let context = DataController.shared.container.newBackgroundContext()
+    static func initializeMissingContentRulesLists(container: NSPersistentContainer) async {
+        let context = container.newBackgroundContext()
         
         context.performAndWait {
             guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
@@ -95,7 +95,10 @@ final class BlocklistManager {
                         Logger.main.info("""
                         Blocklistis missing content rules, refreshing now…
                         """)
-                        await refreshContentRulesList(blocklistObjectID: blocklistObjectID)
+                        await refreshContentRulesList(
+                            container: container,
+                            blocklistObjectID: blocklistObjectID
+                        )
                     }
                 }
             }
@@ -118,12 +121,13 @@ final class BlocklistManager {
     }
 
     static func refreshContentRulesList(
+        container: NSPersistentContainer,
         blocklistObjectID: NSManagedObjectID
     ) async {
         var url: URL?
         var blocklistUUIDString: String?
         
-        let context = DataController.shared.container.newBackgroundContext()
+        let context = container.newBackgroundContext()
         context.performAndWait {
             guard let blocklist = context.object(with: blocklistObjectID) as? Blocklist else { return }
             
@@ -163,8 +167,8 @@ final class BlocklistManager {
         }
     }
     
-    static func refreshAllContentRulesLists() async {
-        let context = DataController.shared.container.newBackgroundContext()
+    static func refreshAllContentRulesLists(container: NSPersistentContainer) async {
+        let context = container.newBackgroundContext()
         
         context.performAndWait {
             guard let blocklists = try? context.fetch(Blocklist.fetchRequest()) as [Blocklist]
@@ -174,7 +178,10 @@ final class BlocklistManager {
             
             Task {
                 for blocklistObjectID in blocklistObjectIDs {
-                    await refreshContentRulesList(blocklistObjectID: blocklistObjectID)
+                    await refreshContentRulesList(
+                        container: container,
+                        blocklistObjectID: blocklistObjectID
+                    )
                 }
             }
         }

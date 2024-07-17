@@ -13,6 +13,8 @@ import SwiftUI
 struct TrendingToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
+    @EnvironmentObject private var dataController: DataController
+    
     let trends: FetchedResults<Trend>
 
     var body: some ToolbarContent {
@@ -22,7 +24,10 @@ struct TrendingToolbar: ToolbarContent {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                HistoryUtility.toggleReadUnread(items: trends.items)
+                HistoryUtility.toggleReadUnread(
+                    container: dataController.container,
+                    items: trends.items
+                )
             }
         }
         #else

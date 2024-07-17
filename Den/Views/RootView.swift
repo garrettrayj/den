@@ -16,6 +16,7 @@ struct RootView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.scenePhase) private var scenePhase
     
+    @EnvironmentObject private var dataController: DataController
     @EnvironmentObject private var refreshManager: RefreshManager
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
@@ -91,8 +92,9 @@ struct RootView: View {
             if let navigationData {
                 navigationStore.restore(from: navigationData)
             }
-            
-            await BlocklistManager.initializeMissingContentRulesLists()
+            await BlocklistManager.initializeMissingContentRulesLists(
+                container: dataController.container
+            )
 
             CleanupUtility.upgradeBookmarks(context: viewContext)
             
@@ -100,7 +102,10 @@ struct RootView: View {
             
             #if os(macOS)
             if !refreshManager.autoRefreshActive && refreshInterval.rawValue > 0 {
-                refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
+                refreshManager.startAutoRefresh(
+                    container: dataController.container,
+                    interval: TimeInterval(refreshInterval.rawValue)
+                )
             }
             #endif
         }
@@ -215,6 +220,6 @@ struct RootView: View {
             }
         }
         
-        await MaintenanceTask().execute()
+        await MaintenanceTask().execute(container: dataController.container)
     }
 }

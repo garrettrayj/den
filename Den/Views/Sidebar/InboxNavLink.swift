@@ -13,6 +13,8 @@ import SwiftUI
 struct InboxNavLink: View {
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
+    @EnvironmentObject private var dataController: DataController
+    
     var body: some View {
         WithItems { items in
             Label {
@@ -25,7 +27,10 @@ struct InboxNavLink: View {
             .accessibilityIdentifier("InboxNavLink")
             .contextMenu {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(items: Array(items))
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: Array(items)
+                    )
                 }
             }
         }

@@ -13,6 +13,8 @@ import SwiftUI
 
 struct PageToolbar: ToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
+    @EnvironmentObject private var dataController: DataController
 
     @ObservedObject var page: Page
 
@@ -32,7 +34,10 @@ struct PageToolbar: ToolbarContent {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleReadUnread(items: Array(items))
+                HistoryUtility.toggleReadUnread(
+                    container: dataController.container,
+                    items: Array(items)
+                )
             }
         }
         #else

@@ -15,6 +15,7 @@ struct NewFeedSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
+    @EnvironmentObject private var dataController: DataController
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @Binding var webAddress: String
@@ -107,7 +108,10 @@ struct NewFeedSheet: View {
             do {
                 try viewContext.save()
                 Task {
-                    await refreshManager.refresh(feed: newFeed)
+                    await refreshManager.refresh(
+                        container: dataController.container,
+                        feed: newFeed
+                    )
                     dismiss()
                     webAddress = ""
                     loading = false

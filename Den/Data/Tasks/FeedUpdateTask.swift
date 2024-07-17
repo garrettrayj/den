@@ -19,7 +19,7 @@ struct FeedUpdateTask {
     let updateMeta: Bool
 
     // swiftlint:disable cyclomatic_complexity function_body_length
-    func execute() async {
+    func execute(container: NSPersistentContainer) async {
         let start = CFAbsoluteTimeGetCurrent()
         
         var parsedSuccessfully: Bool = false
@@ -57,7 +57,7 @@ struct FeedUpdateTask {
             break
         }
 
-        let context = DataController.shared.container.newBackgroundContext()
+        let context = container.newBackgroundContext()
         context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
         
         context.performAndWait {
