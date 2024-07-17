@@ -51,7 +51,7 @@ struct DebuggingTools: View {
                 Button {
                     maintenanceInProgress = true
                     Task {
-                        await MaintenanceTask().execute(container: dataController.container)
+                        await MaintenanceTask.execute(container: dataController.container)
                         maintenanceInProgress = false
                     }
                 } label: {

@@ -48,7 +48,7 @@ final class RefreshManager: ObservableObject {
             await MainActor.run { refreshing = true }
         }
         
-        var feedUpdates: [FeedUpdateTask] = []
+        var feedUpdates: [(NSManagedObjectID, URL, Bool)] = []
         
         let context = container.newBackgroundContext()
         
@@ -59,11 +59,7 @@ final class RefreshManager: ObservableObject {
             
             feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
                 guard let url = feed.url else { return nil }
-                return FeedUpdateTask(
-                    feedObjectID: feed.objectID,
-                    url: url,
-                    updateMeta: feed.needsMetaUpdate
-                )
+                return (feed.objectID, url, feed.needsMetaUpdate)
             }
         }
         
@@ -73,14 +69,19 @@ final class RefreshManager: ObservableObject {
         
         await withTaskGroup(of: Void.self, returning: Void.self) { taskGroup in
             var working = 0
-            for feedUpdate in feedUpdates {
+            for (feedObjectID, url, needsMetaUpdate) in feedUpdates {
                 if working >= maxConcurrency {
                     await taskGroup.next()
                     working = 0
                 }
                 
                 taskGroup.addTask {
-                    await feedUpdate.execute(container: container)
+                    await FeedUpdateTask.execute(
+                        container: container,
+                        feedObjectID: feedObjectID,
+                        url: url,
+                        updateMeta: needsMetaUpdate
+                    )
                     self.progress.completedUnitCount += 1
                 }
                 working += 1
@@ -91,8 +92,8 @@ final class RefreshManager: ObservableObject {
         
         progress.completedUnitCount += 1
 
-        await CleanupTask().execute(container: container)
-        await AnalyzeTask().execute(container: container)
+        await CleanupTask.execute(container: container)
+        await AnalyzeTask.execute(container: container)
 
         UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
         WidgetCenter.shared.reloadAllTimelines()
@@ -107,12 +108,12 @@ final class RefreshManager: ObservableObject {
 
     func refresh(container: NSPersistentContainer, feed: Feed) async {
         if let url = feed.url {
-            let feedUpdateTask = FeedUpdateTask(
+            await FeedUpdateTask.execute(
+                container: container,
                 feedObjectID: feed.objectID,
                 url: url,
                 updateMeta: true
             )
-            await feedUpdateTask.execute(container: container)
         }
         
         feed.objectWillChange.send()

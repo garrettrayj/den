@@ -48,7 +48,10 @@ struct DenApp: App {
             SidebarCommands()
             InspectorCommands()
             CommandGroup(after: .toolbar) {
-                RefreshButton().environmentObject(networkMonitor).environmentObject(refreshManager)
+                RefreshButton()
+                    .environmentObject(dataController)
+                    .environmentObject(networkMonitor)
+                    .environmentObject(refreshManager)
             }
             CommandGroup(replacing: .help) {
                 Button {

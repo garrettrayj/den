@@ -12,7 +12,7 @@ import CoreData
 import OSLog
 
 struct MaintenanceTask {
-    func execute(container: NSPersistentContainer) async {
+    static func execute(container: NSPersistentContainer) async {
         let context = container.newBackgroundContext()
         context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
         
@@ -33,7 +33,7 @@ struct MaintenanceTask {
         await BlocklistManager.refreshAllContentRulesLists(container: container)
     }
     
-    private func trimHistory(context: NSManagedObjectContext) {
+    private static func trimHistory(context: NSManagedObjectContext) {
         DataController.truncate(
             History.self,
             context: context,
@@ -42,7 +42,7 @@ struct MaintenanceTask {
         )
     }
     
-    private func trimSearches(context: NSManagedObjectContext) {
+    private static func trimSearches(context: NSManagedObjectContext) {
         DataController.truncate(
             Search.self,
             context: context,

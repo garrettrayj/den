@@ -220,6 +220,6 @@ struct RootView: View {
             }
         }
         
-        await MaintenanceTask().execute(container: dataController.container)
+        await MaintenanceTask.execute(container: dataController.container)
     }
 }

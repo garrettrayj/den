@@ -14,12 +14,13 @@ import OSLog
 import FeedKit
 
 struct FeedUpdateTask {
-    let feedObjectID: NSManagedObjectID
-    let url: URL
-    let updateMeta: Bool
-
     // swiftlint:disable cyclomatic_complexity function_body_length
-    func execute(container: NSPersistentContainer) async {
+    static func execute(
+        container: NSPersistentContainer,
+        feedObjectID: NSManagedObjectID,
+        url: URL,
+        updateMeta: Bool
+    ) async {
         let start = CFAbsoluteTimeGetCurrent()
         
         var parsedSuccessfully: Bool = false
@@ -62,7 +63,7 @@ struct FeedUpdateTask {
         
         context.performAndWait {
             guard
-                let feed = context.object(with: self.feedObjectID) as? Feed,
+                let feed = context.object(with: feedObjectID) as? Feed,
                 let feedId = feed.id
             else { return }
 
@@ -83,7 +84,7 @@ struct FeedUpdateTask {
             }
             
             if let parserResult = parserResult {
-                parsedSuccessfully = self.updateFeed(
+                parsedSuccessfully = updateFeed(
                     feed: feed,
                     feedData: feedData,
                     parserResult: parserResult,
@@ -110,7 +111,7 @@ struct FeedUpdateTask {
                 }
             }
 
-            if !self.updateMeta || !parsedSuccessfully {
+            if !updateMeta || !parsedSuccessfully {
                 self.save(context: context, feed: feed, start: start)
             }
 
@@ -127,7 +128,7 @@ struct FeedUpdateTask {
     }
     // swiftlint:enable cyclomatic_complexity function_body_length
 
-    private func updateFeed(
+    static private func updateFeed(
         feed: Feed,
         feedData: FeedData,
         parserResult: Result<FeedKit.Feed, FeedKit.ParserError>,
@@ -170,7 +171,7 @@ struct FeedUpdateTask {
         }
     }
 
-    private func updateFeedMeta(
+    static private func updateFeedMeta(
         feedData: FeedData,
         parserResult: Result<FeedKit.Feed, FeedKit.ParserError>,
         webpageMetadata: WebpageMetadata? = nil
@@ -204,7 +205,7 @@ struct FeedUpdateTask {
         }
     }
 
-    private func save(context: NSManagedObjectContext, feed: Feed, start: CFAbsoluteTime) {
+    static private func save(context: NSManagedObjectContext, feed: Feed, start: CFAbsoluteTime) {
         do {
             try context.save()
             Logger.main.info("""

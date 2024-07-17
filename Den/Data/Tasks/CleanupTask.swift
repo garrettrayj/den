@@ -12,7 +12,7 @@ import CoreData
 import OSLog
 
 struct CleanupTask {
-    func execute(container: NSPersistentContainer) async {
+    static func execute(container: NSPersistentContainer) async {
         let context = container.newBackgroundContext()
         
         context.performAndWait {

@@ -12,7 +12,7 @@ import CoreData
 import OSLog
 
 struct AnalyzeTask {
-    func execute(container: NSPersistentContainer) async {
+    static func execute(container: NSPersistentContainer) async {
         let context = container.newBackgroundContext()
 
         context.performAndWait {
@@ -20,7 +20,7 @@ struct AnalyzeTask {
                 return
             }
             
-            let workingTrends = self.analyzeTrends(context: context)
+            let workingTrends = analyzeTrends(context: context)
             
             for workingTrend in workingTrends {
                 var trend: Trend
@@ -62,7 +62,7 @@ struct AnalyzeTask {
         }
     }
     
-    private func analyzeTrends(context: NSManagedObjectContext) -> [WorkingTrend] {
+    static private func analyzeTrends(context: NSManagedObjectContext) -> [WorkingTrend] {
         var workingTrends: [WorkingTrend] = []
 
         let request = Item.fetchRequest()
