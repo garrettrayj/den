@@ -29,7 +29,7 @@ struct BookmarksTableLayout: View {
     let bookmarks: FetchedResults<Bookmark>
 
     @State private var selection = Set<Row.ID>()
-    @State private var sortOrder = [KeyPathComparator(\Row.created)]
+    @State private var sortOrder = [KeyPathComparator(\Row.created, order: .reverse)]
     @State private var bookmarkToShow: Bookmark?
     @State private var showingBookmark = false
     
