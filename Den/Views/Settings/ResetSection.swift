@@ -189,7 +189,8 @@ struct ResetSection: View {
     }
     
     private func resetEverything() async {
-        let batchTruncateList = [
+        let entitiesToDelete = [
+            Bookmark.self,
             Blocklist.self,
             Page.self,
             Tag.self,
@@ -200,8 +201,15 @@ struct ResetSection: View {
             Search.self
         ]
         
-        batchTruncateList.forEach {
-            DataController.truncate($0, context: viewContext)
+        for entity in entitiesToDelete {
+            if let objects = try? viewContext.fetch(entity.fetchRequest()) {
+                for object in objects {
+                    guard let object = object as? NSManagedObject else {
+                        continue
+                    }
+                    viewContext.delete(object)
+                }
+            }
         }
 
         do {
