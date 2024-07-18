@@ -59,14 +59,17 @@ struct PageToolbar: ToolbarContent {
                     .padding(.trailing, -12)
             }
             ToolbarItem(placement: .bottomBar) {
-                ToggleReadFilterButton(hideRead: $hideRead)
+                ToggleReadFilterButton()
             }
             ToolbarItem(placement: .status) {
                 CommonStatus()
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(items: Array(items))
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: Array(items)
+                    )
                 }
             }
         } else {
@@ -74,11 +77,14 @@ struct PageToolbar: ToolbarContent {
                 PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.menu).labelStyle(.iconOnly)
             }
             ToolbarItem {
-                ToggleReadFilterButton(hideRead: $hideRead)
+                ToggleReadFilterButton()
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(items: Array(items))
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: Array(items)
+                    )
                 }
             }
         }

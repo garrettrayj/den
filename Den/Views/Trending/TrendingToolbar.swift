@@ -33,23 +33,29 @@ struct TrendingToolbar: ToolbarContent {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem(placement: .bottomBar) {
-                ToggleReadFilterButton(hideRead: $hideRead)
+                ToggleReadFilterButton()
             }
             ToolbarItem(placement: .status) {
                 CommonStatus()
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(items: trends.items)
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: trends.items
+                    )
                 }
             }
         } else {
             ToolbarItem {
-                ToggleReadFilterButton(hideRead: $hideRead)
+                ToggleReadFilterButton()
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(items: trends.items)
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: trends.items
+                    )
                 }
             }
         }

@@ -85,9 +85,7 @@ struct DenApp: App {
             }
         }
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
-            Logger.main.debug("Performing background refresh task...")
-            await refreshManager.refresh(inBackground: true)
-            await scheduleRefresh()
+            await handleAppRefresh()
         }
         #endif
         
@@ -122,7 +120,13 @@ struct DenApp: App {
     }
     
     #if os(iOS)
-    func scheduleRefresh() async {
+    private func handleAppRefresh() async {
+        Logger.main.debug("Performing background refresh task...")
+        await refreshManager.refresh(container: dataController.container, inBackground: true)
+        await scheduleRefresh()
+    }
+    
+    private func scheduleRefresh() async {
         let interval = UserDefaults.standard.integer(forKey: "RefreshInterval")
         guard interval > 0 else {
             Logger.main.debug("Background refresh is disabled. Scheduling skipped.")
