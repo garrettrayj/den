@@ -31,10 +31,6 @@ final public class Trend: NSManagedObject {
             .sorted(using: SortDescriptor(\.published, order: .reverse))
     }
 
-    var profile: Profile? {
-        (value(forKey: "profile") as? [Profile])?.first
-    }
-
     var feeds: [Feed] {
         Set(items.compactMap { $0.feedData?.feed }).sorted { $0.wrappedTitle < $1.wrappedTitle }
     }

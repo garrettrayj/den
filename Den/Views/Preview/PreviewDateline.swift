@@ -13,7 +13,7 @@ import SwiftUI
 struct PreviewDateline: View {
     let date: Date
 
-    static let dateFormatter: DateFormatter = {
+    let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         formatter.dateStyle = .medium
@@ -25,7 +25,7 @@ struct PreviewDateline: View {
 
     var body: some View {
         TimelineView(.everyMinute) { _ in
-            Text(PreviewDateline.dateFormatter.string(from: date))
+            Text(dateFormatter.string(from: date))
                 .font(.caption2)
                 .lineLimit(1)
                 .help(Text(

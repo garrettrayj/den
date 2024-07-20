@@ -32,7 +32,13 @@ final public class Blocklist: NSManagedObject {
     }
 
     var blocklistStatus: BlocklistStatus? {
-        (value(forKey: "blocklistStatus") as? [BlocklistStatus])?.first
+        guard let id = self.id else { return nil }
+        
+        let request = BlocklistStatus.fetchRequest()
+        request.predicate = NSPredicate(format: "blocklistId == %@", id.uuidString)
+        request.fetchLimit = 1
+        
+        return try? self.managedObjectContext?.fetch(request).first
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext) -> Blocklist {

@@ -21,21 +21,27 @@ final public class Item: NSManagedObject {
 
         return Text("Untitled", comment: "Default item title.")
     }
-    
-    var profile: Profile? {
-        (value(forKey: "profile") as? [Profile])?.first
-    }
 
     var history: [History] {
-        value(forKey: "history") as? [History] ?? []
+        guard let link = link else { return [] }
+        
+        let request = History.fetchRequest()
+        request.predicate = NSPredicate(format: "link == %@", link as CVarArg)
+        
+        let history = try? self.managedObjectContext?.fetch(request) as? [History]
+        
+        return history ?? []
     }
 
     var bookmarks: [Bookmark] {
-        value(forKey: "bookmarks") as? [Bookmark] ?? []
-    }
-
-    var bookmarkTags: [Tag] {
-        Array(Set(bookmarks.compactMap { $0.tag }).sorted(using: SortDescriptor(\.userOrder)))
+        guard let link = link else { return [] }
+        
+        let request = Bookmark.fetchRequest()
+        request.predicate = NSPredicate(format: "link == %@", link as CVarArg)
+        
+        let bookmarks = try? self.managedObjectContext?.fetch(request) as? [Bookmark]
+        
+        return bookmarks ?? []
     }
 
     var wrappedTags: [(String, NLTag)] {

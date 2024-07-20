@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23201.3" systemVersion="24A5289h" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Blocklist" representedClassName="Blocklist" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="URI"/>
-        <fetchedProperty name="blocklistStatus" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="BlocklistStatus" predicateString="blocklistId = $FETCH_SOURCE.id"/>
-        </fetchedProperty>
     </entity>
     <entity name="BlocklistStatus" representedClassName="BlocklistStatus" syncable="YES" codeGenerationType="category">
         <attribute name="blocklistId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -17,9 +14,6 @@
         <attribute name="overLimit" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="refreshed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="totalConvertedCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <fetchedProperty name="blocklist" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Blocklist" predicateString="id = $FETCH_SOURCE.blocklistId"/>
-        </fetchedProperty>
     </entity>
     <entity name="Bookmark" representedClassName="Bookmark" syncable="YES" codeGenerationType="category">
         <attribute name="author" optional="YES" attributeType="String"/>
@@ -66,9 +60,6 @@
         <attribute name="userOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="bookmarks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bookmark" inverseName="feed" inverseEntity="Bookmark"/>
         <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="feeds" inverseEntity="Page"/>
-        <fetchedProperty name="feedData" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="FeedData" predicateString="feedId = $FETCH_SOURCE.id"/>
-        </fetchedProperty>
     </entity>
     <entity name="FeedData" representedClassName="FeedData" syncable="YES" codeGenerationType="category">
         <attribute name="age" optional="YES" attributeType="String"/>
@@ -93,9 +84,6 @@
         <attribute name="responseTime" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="server" optional="YES" attributeType="String"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="feedData" inverseEntity="Item"/>
-        <fetchedProperty name="feed" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Feed" predicateString="id = $FETCH_SOURCE.feedId"/>
-        </fetchedProperty>
     </entity>
     <entity name="History" representedClassName="History" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -103,9 +91,6 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="visited" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="history" inverseEntity="Profile"/>
-        <fetchedProperty name="items" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Item" predicateString="link = $FETCH_SOURCE.link AND profileId = $FETCH_SOURCE.profile.id"/>
-        </fetchedProperty>
         <fetchIndex name="byProfileLinkIndex">
             <fetchIndexElement property="profile" type="Binary" order="ascending"/>
             <fetchIndexElement property="link" type="Binary" order="ascending"/>
@@ -134,15 +119,6 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="feedData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedData" inverseName="items" inverseEntity="FeedData"/>
         <relationship name="trendItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TrendItem" inverseName="item" inverseEntity="TrendItem"/>
-        <fetchedProperty name="bookmarks" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Bookmark" predicateString="link = $FETCH_SOURCE.link AND tag.profile.id = $FETCH_SOURCE.profileId"/>
-        </fetchedProperty>
-        <fetchedProperty name="history" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="History" predicateString="link = $FETCH_SOURCE.link AND profile.id = $FETCH_SOURCE.profileId"/>
-        </fetchedProperty>
-        <fetchedProperty name="profile" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Profile" predicateString="id = $FETCH_SOURCE.profileId"/>
-        </fetchedProperty>
         <fetchIndex name="byReadIndex">
             <fetchIndexElement property="read" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -177,9 +153,6 @@
         <relationship name="pages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Page" inverseName="profile" inverseEntity="Page"/>
         <relationship name="searches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Search" inverseName="profile" inverseEntity="Search"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tag" inverseName="profile" inverseEntity="Tag"/>
-        <fetchedProperty name="trends" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Trend" predicateString="profileId = $FETCH_SOURCE.id"/>
-        </fetchedProperty>
     </entity>
     <entity name="Search" representedClassName="Search" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -202,9 +175,6 @@
         <attribute name="tag" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="trendItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TrendItem" inverseName="trend" inverseEntity="TrendItem"/>
-        <fetchedProperty name="profile" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Profile" predicateString="id = $FETCH_SOURCE.profileId"/>
-        </fetchedProperty>
         <fetchIndex name="byProfileIdIndex">
             <fetchIndexElement property="profileId" type="Binary" order="ascending"/>
         </fetchIndex>

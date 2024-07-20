@@ -34,7 +34,13 @@ final public class Feed: NSManagedObject {
     }
 
     var feedData: FeedData? {
-        (value(forKey: "feedData") as? [FeedData])?.first
+        guard let id = self.id else { return nil }
+        
+        let request = FeedData.fetchRequest()
+        request.predicate = NSPredicate(format: "feedId == %@", id.uuidString)
+        request.fetchLimit = 1
+        
+        return try? self.managedObjectContext?.fetch(request).first
     }
 
     var urlString: String {
