@@ -15,6 +15,12 @@ import WidgetKit
 
 @MainActor
 final class RefreshManager: ObservableObject {
+    struct FeedUpdateInfo {
+        let objectID: NSManagedObjectID
+        let url: URL
+        let updateMeta: Bool
+    }
+    
     @Published var refreshing = false
     @Published var autoRefreshActive = false
     
@@ -48,20 +54,7 @@ final class RefreshManager: ObservableObject {
             await MainActor.run { refreshing = true }
         }
         
-        var feedUpdates: [(NSManagedObjectID, URL, Bool)] = []
-        
-        let context = container.newBackgroundContext()
-        
-        context.performAndWait {
-            let request = Page.fetchRequest()
-            request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
-            guard let pages = try? context.fetch(request) as [Page] else { return }
-            
-            feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
-                guard let url = feed.url else { return nil }
-                return (feed.objectID, url, feed.needsMetaUpdate)
-            }
-        }
+        let feedUpdates = updateInfoForAllFeeds(container: container)
         
         progress.totalUnitCount = Int64(feedUpdates.count)
 
@@ -69,7 +62,7 @@ final class RefreshManager: ObservableObject {
         
         await withTaskGroup(of: Void.self, returning: Void.self) { taskGroup in
             var working = 0
-            for (feedObjectID, url, needsMetaUpdate) in feedUpdates {
+            for feedUpdate in feedUpdates {
                 if working >= maxConcurrency {
                     await taskGroup.next()
                     working = 0
@@ -78,9 +71,9 @@ final class RefreshManager: ObservableObject {
                 taskGroup.addTask {
                     await FeedUpdateTask.execute(
                         container: container,
-                        feedObjectID: feedObjectID,
-                        url: url,
-                        updateMeta: needsMetaUpdate
+                        feedObjectID: feedUpdate.objectID,
+                        url: feedUpdate.url,
+                        updateMeta: feedUpdate.updateMeta
                     )
                     self.progress.completedUnitCount += 1
                 }
@@ -118,5 +111,29 @@ final class RefreshManager: ObservableObject {
         
         feed.objectWillChange.send()
         feed.page?.objectWillChange.send()
+    }
+    
+    private func updateInfoForAllFeeds(container: NSPersistentContainer) -> [FeedUpdateInfo] {
+        var feedUpdates: [FeedUpdateInfo] = []
+        
+        let context = container.newBackgroundContext()
+        
+        context.performAndWait {
+            let request = Page.fetchRequest()
+            request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
+            guard let pages = try? context.fetch(request) as [Page] else { return }
+            
+            feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
+                guard let url = feed.url else { return nil }
+                
+                return FeedUpdateInfo(
+                    objectID: feed.objectID,
+                    url: url,
+                    updateMeta: feed.needsMetaUpdate
+                )
+            }
+        }
+        
+        return feedUpdates
     }
 }
