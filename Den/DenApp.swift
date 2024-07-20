@@ -93,6 +93,7 @@ struct DenApp: App {
         Settings {
             SettingsSheet()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
+                .environmentObject(dataController)
                 .environmentObject(refreshManager)
                 .frame(width: 440)
                 .frame(minHeight: 560)
