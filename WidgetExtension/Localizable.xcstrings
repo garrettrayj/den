@@ -40,6 +40,9 @@
     "Cyan" : {
       "comment" : "Accent color option."
     },
+    "Default" : {
+      "comment" : "Accent color option."
+    },
     "Folder" : {
 
     },
@@ -95,6 +98,9 @@
       "comment" : "Accent color option."
     },
     "Red" : {
+      "comment" : "Accent color option."
+    },
+    "Red Orange" : {
       "comment" : "Accent color option."
     },
     "Source" : {

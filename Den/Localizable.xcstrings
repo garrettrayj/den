@@ -1755,6 +1755,9 @@
         }
       }
     },
+    "Red Orange" : {
+      "comment" : "Accent color option."
+    },
     "Refresh" : {
       "comment" : "Button label.",
       "localizations" : {

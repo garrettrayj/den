@@ -11,7 +11,9 @@
 import SwiftUI
 
 enum AccentColor: String, CaseIterable {
+    case system
     case red
+    case redOrange
     case orange
     case yellow
     case green
@@ -24,10 +26,14 @@ enum AccentColor: String, CaseIterable {
     case pink
     case brown
 
-    var color: Color {
+    var color: Color? {
         switch self {
+        case .system:
+            return nil
         case .red:
             return .red
+        case .redOrange:
+            return .init(red: 1, green: 127 / 255, blue: 80 / 255)
         case .orange:
             return .orange
         case .yellow:
@@ -55,8 +61,12 @@ enum AccentColor: String, CaseIterable {
     
     var labelText: Text {
         switch self {
+        case .system:
+            Text("Default", comment: "Accent color option.")
         case .red:
             Text("Red", comment: "Accent color option.")
+        case .redOrange:
+            Text("Red Orange", comment: "Accent color option.")
         case .orange:
             Text("Orange", comment: "Accent color option.")
         case .yellow:

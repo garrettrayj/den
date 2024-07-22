@@ -33,7 +33,7 @@ struct RootView: View {
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet = false
     
     @AppStorage("Maintained") private var maintenanceTimestamp: Double?
-    @AppStorage("AccentColor") private var accentColor: AccentColor?
+    @AppStorage("AccentColor") private var accentColor: AccentColor = .redOrange
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
     
@@ -161,7 +161,7 @@ struct RootView: View {
             AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
         }
         .preferredColorScheme(userColorScheme.colorScheme)
-        .tint(accentColor?.color)
+        .tint(accentColor.color)
     }
     
     private func openWidgetURL(url: URL) {

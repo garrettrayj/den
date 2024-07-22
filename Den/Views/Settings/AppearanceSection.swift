@@ -12,7 +12,7 @@ import SwiftUI
 import WidgetKit
 
 struct AppearanceSection: View {
-    @AppStorage("AccentColor") private var accentColor: AccentColor?
+    @AppStorage("AccentColor") private var accentColor: AccentColor = .redOrange
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     
     var body: some View {
@@ -23,7 +23,7 @@ struct AppearanceSection: View {
             Text("Appearance", comment: "Settings section header.")
         }
         .onChange(of: accentColor) {
-            UserDefaults.group.set(accentColor?.rawValue, forKey: "AccentColor")
+            UserDefaults.group.set(accentColor.rawValue, forKey: "AccentColor")
             WidgetCenter.shared.reloadAllTimelines()
         }
     }

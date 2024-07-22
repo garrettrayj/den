@@ -16,7 +16,7 @@ struct LatestItemsView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
-    @AppStorage("AccentColor") private var accentColor: AccentColor?
+    @AppStorage("AccentColor") private var accentColor: AccentColor = .redOrange
     
     @ScaledMetric(relativeTo: .largeTitle) var smallIconSize = 16
     @ScaledMetric(relativeTo: .largeTitle) var largeIconSize = 32
@@ -86,7 +86,7 @@ struct LatestItemsView: View {
                     sourceIcon
                         .scaledToFit()
                         .frame(width: smallIconSize, height: smallIconSize)
-                        .foregroundStyle(accentColor?.color ?? .accentColor)
+                        .foregroundStyle(accentColor.color ?? .accentColor)
                 }
                 .lineLimit(1)
                 

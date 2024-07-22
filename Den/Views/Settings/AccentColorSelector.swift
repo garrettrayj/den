@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct AccentColorSelector: View {
-    @Binding var selection: AccentColor?
+    @Binding var selection: AccentColor
     
     var body: some View {
         #if os(macOS)
@@ -21,30 +21,26 @@ struct AccentColorSelector: View {
                 alignment: .center,
                 spacing: 4
             ) {
-                Button {
-                    selection = nil
-                } label: {
-                    Group {
-                        if selection == nil {
-                            Image(systemName: "checkmark.square")
-                        } else {
-                            Image(systemName: "square")
-                        }
-                    }
-                }
-                
                 ForEach(AccentColor.allCases, id: \.self) { option in
                     Button {
                         selection = option
                     } label: {
-                        Group {
-                            if selection == option {
-                                Image(systemName: "checkmark.square.fill")
+                        if option == .system {
+                            if selection == .system {
+                                Image(systemName: "checkmark.square")
                             } else {
-                                Image(systemName: "square.fill")
+                                Image(systemName: "square")
                             }
+                        } else if let color = option.color {
+                            Group {
+                                if selection == option {
+                                    Image(systemName: "checkmark.square.fill")
+                                } else {
+                                    Image(systemName: "square.fill")
+                                }
+                            }
+                            .foregroundStyle(color)
                         }
-                        .foregroundStyle(option.color)
                     }
                 }
             }
@@ -56,20 +52,25 @@ struct AccentColorSelector: View {
         .buttonStyle(.plain)
         #else
         Picker(selection: $selection) {
-            Label {
-                Text("Default", comment: "Accent color option.").foregroundStyle(.gray)
-            } icon: {
-                Image(systemName: "square").foregroundStyle(.gray).imageScale(.large)
-            }
-            .tag(nil as AccentColor?)
-            
             ForEach(AccentColor.allCases, id: \.self) { option in
-                Label {
-                    option.labelText.foregroundStyle(option.color)
-                } icon: {
-                    Image(systemName: "square.fill").foregroundStyle(option.color).imageScale(.large)
+                Group {
+                    if option == .system {
+                        Label {
+                            option.labelText
+                        } icon: {
+                            Image(systemName: "square").imageScale(.large)
+                        }
+                        .foregroundStyle(.gray)
+                    } else if let color = option.color {
+                        Label {
+                            option.labelText
+                        } icon: {
+                            Image(systemName: "square.fill").imageScale(.large)
+                        }
+                        .foregroundStyle(color)
+                    }
                 }
-                .tag(option as AccentColor?)
+                .tag(option)
             }
         } label: {
             label
