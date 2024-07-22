@@ -35,7 +35,7 @@ final public class Blocklist: NSManagedObject {
         guard let id = self.id else { return nil }
         
         let request = BlocklistStatus.fetchRequest()
-        request.predicate = NSPredicate(format: "blocklistId == %@", id.uuidString)
+        request.predicate = NSPredicate(format: "blocklistId == %@", id as CVarArg)
         request.fetchLimit = 1
         
         return try? self.managedObjectContext?.fetch(request).first

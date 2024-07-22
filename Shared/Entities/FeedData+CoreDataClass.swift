@@ -34,7 +34,7 @@ final public class FeedData: NSManagedObject {
         guard let feedID = self.feedId else { return nil }
         
         let request = Feed.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", feedID.uuidString)
+        request.predicate = NSPredicate(format: "id == %@", feedID as CVarArg)
         request.fetchLimit = 1
         
         return try? self.managedObjectContext?.fetch(request).first
