@@ -13,6 +13,7 @@ import WebKit
 
 struct BrowserView: View {
     @Environment(\.self) private var environment
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     @EnvironmentObject private var dataController: DataController
     
@@ -89,7 +90,7 @@ struct BrowserView: View {
         .navigationTitle(browserViewModel.url?.host() ?? "")
         .toolbarBackground(.visible)
         #if os(iOS)
-        .toolbarBackground(.visible, for: .bottomBar)
+        .toolbarBackground(horizontalSizeClass == .compact ? .visible : .hidden, for: .bottomBar)
         #endif
         .onChange(of: browserViewModel.browserZoom) {
             browserZoom = browserViewModel.browserZoom
