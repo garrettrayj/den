@@ -61,7 +61,6 @@ struct BrowserView: View {
                     // Fix for videos continuing to play after view is dismissed
                     browserViewModel.loadBlank()
                 }
-                .frame(height: browserViewModel.showingReader ? 0 : nil)
                 .opacity(browserViewModel.showingReader ? 0 : 1)
                 .ignoresSafeArea()
             
