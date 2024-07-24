@@ -31,7 +31,7 @@ struct TrendToolbar: ToolbarContent {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
                 HistoryUtility.toggleReadUnread(
                     container: dataController.container,
-                    items: Array(items)
+                    items: items
                 )
                 if hideRead { dismiss() }
             }
@@ -48,7 +48,7 @@ struct TrendToolbar: ToolbarContent {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
                     HistoryUtility.toggleReadUnread(
                         container: dataController.container,
-                        items: Array(items)
+                        items: items
                     )
                     if hideRead { dismiss() }
                 }
@@ -61,7 +61,7 @@ struct TrendToolbar: ToolbarContent {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
                     HistoryUtility.toggleReadUnread(
                         container: dataController.container,
-                        items: Array(items)
+                        items: items
                     )
                     if hideRead { dismiss() }
                 }

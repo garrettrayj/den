@@ -97,7 +97,7 @@ struct DebuggingTools: View {
                     Text(
                         """
                         Background behavior has been explicitly disabled for this app \
-                        or the whole system. Refresh task is unavailable.
+                        or the whole system.
                         """,
                         comment: "Background refresh status guidance."
                     )

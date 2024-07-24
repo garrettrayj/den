@@ -335,17 +335,6 @@
     "Back/Forward" : {
 
     },
-    "Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable." : {
-      "comment" : "Background refresh status guidance.",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable."
-          }
-        }
-      }
-    },
     "Background Refresh Status" : {
       "comment" : "Debugging tools section header.",
       "localizations" : {
@@ -862,18 +851,6 @@
     "File Name Unknown" : {
       "comment" : "Download file name unavailable."
     },
-    "Filter Read" : {
-      "comment" : "Button label.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filter Read"
-          }
-        }
-      }
-    },
     "Filter rules must be in content blocker JSON format." : {
       "comment" : "New blocklist guidance.",
       "localizations" : {
@@ -901,18 +878,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Format"
-          }
-        }
-      }
-    },
-    "Formatting" : {
-      "comment" : "Button label.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Formatting"
           }
         }
       }
@@ -1010,18 +975,6 @@
     },
     "Hide read items" : {
       "comment" : "Button help text."
-    },
-    "Hide Read Items" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hide Read Items"
-          }
-        }
-      }
     },
     "Hide Reader" : {
       "comment" : "Button label.",
@@ -1129,30 +1082,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Last Run"
-          }
-        }
-      }
-    },
-    "Layout" : {
-      "comment" : "Picker label.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Layout"
-          }
-        }
-      }
-    },
-    "Leave a Review" : {
-      "comment" : "Button label.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Leave a Review"
           }
         }
       }
@@ -1378,18 +1307,6 @@
     "New Folder" : {
       "comment" : "Button label.\nNavigation title."
     },
-    "New Tag" : {
-      "comment" : "Button label.\nNavigation title.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "New Tag"
-          }
-        }
-      }
-    },
     "No" : {
       "comment" : "Blocklist compile/load status message.\nBoolean value.",
       "localizations" : {
@@ -1503,18 +1420,6 @@
         }
       }
     },
-    "No Tags" : {
-      "comment" : "Menu options unavailable message.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No Tags"
-          }
-        }
-      }
-    },
     "No Trends" : {
       "comment" : "Content unavailable title.",
       "localizations" : {
@@ -1592,30 +1497,6 @@
         }
       }
     },
-    "Open in Browser" : {
-      "comment" : "Button label.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Open in Browser"
-          }
-        }
-      }
-    },
-    "Open in System Browser" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Open in System Browser"
-          }
-        }
-      }
-    },
     "Open Link" : {
       "comment" : "Button label."
     },
@@ -1684,18 +1565,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pink"
-          }
-        }
-      }
-    },
-    "Preferences" : {
-      "comment" : "Menu label.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Preferences"
           }
         }
       }
@@ -1772,18 +1641,6 @@
     "Refresh feeds" : {
       "comment" : "Button help text."
     },
-    "Refresh Feeds" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Refresh Feeds"
-          }
-        }
-      }
-    },
     "Refresh Interval" : {
       "comment" : "Picker label.",
       "localizations" : {
@@ -1830,30 +1687,6 @@
     },
     "Reload page" : {
       "comment" : "Button help text."
-    },
-    "Reload Page" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reload Page"
-          }
-        }
-      }
-    },
-    "Remove Bookmark" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Remove Bookmark"
-          }
-        }
-      }
     },
     "Remove from List" : {
       "comment" : "Button label.",
@@ -2012,18 +1845,6 @@
         }
       }
     },
-    "Select None" : {
-      "comment" : "Button help text.\nButton label.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Select None"
-          }
-        }
-      }
-    },
     "Select Preset…" : {
       "comment" : "Button label.",
       "localizations" : {
@@ -2031,18 +1852,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select Preset…"
-          }
-        }
-      }
-    },
-    "Select Tags" : {
-      "comment" : "Menu help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Select Tags"
           }
         }
       }
@@ -2111,18 +1920,6 @@
     "Show downloads" : {
       "comment" : "Button help text."
     },
-    "Show Downloads" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show Downloads"
-          }
-        }
-      }
-    },
     "Show Excerpts" : {
       "comment" : "Toggle label.",
       "localizations" : {
@@ -2130,18 +1927,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show Excerpts"
-          }
-        }
-      }
-    },
-    "Show Format Menu" : {
-      "comment" : "Menu help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show Format Menu"
           }
         }
       }
@@ -2182,65 +1967,17 @@
     "Show menu" : {
       "comment" : "Menu help text."
     },
-    "Show Menu" : {
-      "comment" : "Menu help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show Menu"
-          }
-        }
-      }
-    },
     "Show next page" : {
       "comment" : "Button help text."
     },
-    "Show Next Page" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show Next Page"
-          }
-        }
-      }
-    },
     "Show previous page" : {
       "comment" : "Button help text."
-    },
-    "Show Previous Page" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show Previous Page"
-          }
-        }
-      }
     },
     "Show Read" : {
       "comment" : "Button label."
     },
     "Show read items" : {
       "comment" : "Button help text."
-    },
-    "Show Read Items" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show Read Items"
-          }
-        }
-      }
     },
     "Show Reader" : {
       "comment" : "Button label.",
@@ -2249,30 +1986,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show Reader"
-          }
-        }
-      }
-    },
-    "Show Reader / Show Format Menu" : {
-      "comment" : "Menu help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show Reader / Show Format Menu"
-          }
-        }
-      }
-    },
-    "Show Reader Formatting" : {
-      "comment" : "Menu help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show Reader Formatting"
           }
         }
       }
@@ -2338,18 +2051,6 @@
     "Stop loading page" : {
       "comment" : "Button help text."
     },
-    "Stop Loading Page" : {
-      "comment" : "Button help text.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Stop Loading Page"
-          }
-        }
-      }
-    },
     "Symbol" : {
       "comment" : "Text field label.",
       "localizations" : {
@@ -2372,18 +2073,6 @@
         }
       }
     },
-    "Tag Deleted" : {
-      "comment" : "Object removed message.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tag Deleted"
-          }
-        }
-      }
-    },
     "Tagged" : {
       "comment" : "Tagged items table header.",
       "localizations" : {
@@ -2402,18 +2091,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tagged: %@"
-          }
-        }
-      }
-    },
-    "Tags" : {
-      "comment" : "Menu label.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tags"
           }
         }
       }
@@ -2472,18 +2149,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Title"
-          }
-        }
-      }
-    },
-    "Toggle Inspector" : {
-      "comment" : "Button label.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toggle Inspector"
           }
         }
       }
@@ -2567,18 +2232,6 @@
     },
     "Unbookmark" : {
       "comment" : "Button label."
-    },
-    "Unknown" : {
-      "comment" : "Download file name unavailable.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unknown"
-          }
-        }
-      }
     },
     "Unknown Error" : {
       "comment" : "Feed unavailable title.",

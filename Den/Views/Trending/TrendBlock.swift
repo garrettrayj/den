@@ -14,6 +14,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct TrendBlock: View {
+    @EnvironmentObject private var dataController: DataController
+    
     @ObservedObject var trend: Trend
     
     let items: [Item]
@@ -78,5 +80,13 @@ struct TrendBlock: View {
             .padding(12)
         }
         .buttonStyle(BasicHoverButtonStyle())
+        .contextMenu {
+            MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                HistoryUtility.toggleReadUnread(
+                    container: dataController.container,
+                    items: items
+                )
+            }
+        }
     }
 }

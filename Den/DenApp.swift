@@ -98,7 +98,6 @@ struct DenApp: App {
                 .frame(width: 440)
                 .frame(minHeight: 560)
         }
-        .windowToolbarStyle(.expanded)
         #endif
     }
     
