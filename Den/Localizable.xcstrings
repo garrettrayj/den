@@ -335,6 +335,9 @@
     "Back/Forward" : {
 
     },
+    "Background behavior has been explicitly disabled for this app or the whole system." : {
+      "comment" : "Background refresh status guidance."
+    },
     "Background Refresh Status" : {
       "comment" : "Debugging tools section header.",
       "localizations" : {

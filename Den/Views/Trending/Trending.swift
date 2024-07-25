@@ -28,9 +28,6 @@ struct Trending: View {
                 }
             } else {
                 TrendingLayout(trends: trends)
-                    .toolbar {
-                        TrendingToolbar(trends: trends)
-                    }
             }
         }
         .navigationTitle(Text("Trending", comment: "Navigation title."))

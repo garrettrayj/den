@@ -73,9 +73,7 @@ struct Sidebar: View {
             searchQuery = searchInput.trimmingCharacters(in: .whitespacesAndNewlines)
             detailPanel = .search
         }
-        .toolbar {
-            SidebarToolbar(detailPanel: $detailPanel, feedCount: pages.feeds.count)
-        }
+        .toolbar { toolbarContent }
         #if os(macOS)
         .safeAreaInset(edge: .bottom, spacing: 0) {
             MacSidebarBottomBar(feedCount: pages.feeds.count)
@@ -147,5 +145,43 @@ struct Sidebar: View {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         }
+    }
+    
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .primaryAction) {
+            Menu {
+                NewFeedButton()
+                NewPageButton()
+                Divider()
+                ImportButton()
+                ExportButton()
+                Divider()
+                OrganizerButton(detailPanel: $detailPanel)
+                #if os(macOS)
+                SettingsLink()
+                #else
+                SettingsButton()
+                #endif
+            } label: {
+                Label {
+                    Text("Menu", comment: "Menu label.")
+                } icon: {
+                    Image(systemName: "ellipsis.circle")
+                }
+            }
+            .disabled(refreshManager.refreshing)
+            .menuIndicator(.hidden)
+            .help(Text("Show menu", comment: "Menu help text."))
+            .accessibilityIdentifier("SidebarMenu")
+        }
+        #if os(iOS)
+        ToolbarItem(placement: .status) {
+            SidebarStatus(feedCount: pages.feeds.count).layoutPriority(0)
+        }
+        ToolbarItem(placement: .bottomBar) {
+            RefreshButton().disabled(pages.feeds.count == 0)
+        }
+        #endif
     }
 }

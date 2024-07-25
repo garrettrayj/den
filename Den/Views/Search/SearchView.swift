@@ -41,9 +41,6 @@ struct SearchView: View {
                 ) { items in
                     SearchLayout(query: searchQuery, items: items)
                         .navigationTitle(Text("Search", comment: "Navigation title."))
-                        .toolbar {
-                            SearchToolbar(query: searchQuery, items: items)
-                        }
                 }
             }
         }

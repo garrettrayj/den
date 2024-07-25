@@ -12,7 +12,10 @@ import CoreData
 import SwiftUI
 
 struct FeedView: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.managedObjectContext) private var viewContext
+    
+    @EnvironmentObject private var dataController: DataController
 
     @ObservedObject var feed: Feed
     
@@ -61,14 +64,7 @@ struct FeedView: View {
                         }
                     }
                     .frame(minWidth: 320)
-                    .toolbar {
-                        FeedToolbar(
-                            feed: feed,
-                            showingDeleteAlert: $showingDeleteAlert,
-                            showingInspector: $showingInspector,
-                            items: items
-                        )
-                    }
+                    .toolbar { toolbarContent(items: items) }
                     .navigationTitle(feed.displayTitle)
                     .navigationTitle($feed.wrappedTitle)
                     .inspector(isPresented: $showingInspector) {
@@ -100,6 +96,74 @@ struct FeedView: View {
         }
         #if os(iOS)
         .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
+        #endif
+    }
+    
+    @ToolbarContentBuilder
+    private func toolbarContent(items: FetchedResults<Item>) -> some ToolbarContent {
+        #if os(macOS)
+        ToolbarItem {
+            InspectorToggleButton(showingInspector: $showingInspector)
+        }
+        ToolbarItem {
+            ToggleReadFilterButton()
+        }
+        ToolbarItem {
+            MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                HistoryUtility.toggleReadUnread(
+                    container: dataController.container,
+                    items: Array(items)
+                )
+            }
+        }
+        #else
+        ToolbarTitleMenu {
+            RenameButton()
+            PagePicker(
+                selection: $feed.page,
+                labelText: Text("Move", comment: "Picker label.")
+            ).pickerStyle(.menu)
+            Button(role: .destructive) {
+                showingDeleteAlert = true
+            } label: {
+                DeleteLabel()
+            }
+        }
+
+        if horizontalSizeClass == .compact {
+            ToolbarItem {
+                InspectorToggleButton(showingInspector: $showingInspector)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                ToggleReadFilterButton()
+            }
+            ToolbarItem(placement: .status) {
+                CommonStatus()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: Array(items)
+                    )
+                }
+            }
+        } else {
+            ToolbarItem {
+                InspectorToggleButton(showingInspector: $showingInspector)
+            }
+            ToolbarItem {
+                ToggleReadFilterButton()
+            }
+            ToolbarItem {
+                MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: Array(items)
+                    )
+                }
+            }
+        }
         #endif
     }
 }

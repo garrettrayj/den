@@ -11,6 +11,10 @@
 import SwiftUI
 
 struct Inbox: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
+    @EnvironmentObject private var dataController: DataController
+    
     @AppStorage("HideRead") private var hideRead: Bool = false
     
     @FetchRequest(sortDescriptors: [])
@@ -40,10 +44,54 @@ struct Inbox: View {
                     InboxLayout(items: items.visibilityFiltered(hideRead ? false : nil))
                 }
             }
-            .toolbar {
-                InboxToolbar(items: items)
-            }
+            .toolbar { toolbarContent(items: items) }
             .navigationTitle(Text("Inbox", comment: "Navigation title."))
         }
+    }
+    
+    @ToolbarContentBuilder
+    private func toolbarContent(items: FetchedResults<Item>) -> some ToolbarContent {
+        #if os(macOS)
+        ToolbarItem {
+            ToggleReadFilterButton()
+        }
+        ToolbarItem {
+            MarkAllReadUnreadButton(allRead: items.unread.isEmpty && !items.isEmpty) {
+                HistoryUtility.toggleReadUnread(
+                    container: dataController.container,
+                    items: Array(items)
+                )
+            }
+        }
+        #else
+        if horizontalSizeClass == .compact {
+            ToolbarItem(placement: .bottomBar) {
+                ToggleReadFilterButton()
+            }
+            ToolbarItem(placement: .status) {
+                CommonStatus()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: Array(items)
+                    )
+                }
+            }
+        } else {
+            ToolbarItem {
+                ToggleReadFilterButton()
+            }
+            ToolbarItem {
+                MarkAllReadUnreadButton(allRead: items.unread.isEmpty && !items.isEmpty) {
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: Array(items)
+                    )
+                }
+            }
+        }
+        #endif
     }
 }

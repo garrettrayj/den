@@ -69,12 +69,39 @@ struct Organizer: View {
         .inspector(isPresented: $showingInspector) {
             OrganizerInspector(selection: $selection, pages: pages)
         }
-        .toolbar {
-            OrganizerToolbar(
-                selection: $selection,
-                showingInspector: $showingInspector, 
-                pages: pages
-            )
+        .toolbar { toolbarContent }
+    }
+    
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem {
+            Button {
+                if selection.count == pages.feeds.count {
+                    selection.removeAll()
+                } else {
+                    selection = selection.union(pages.feeds)
+                }
+            } label: {
+                Label {
+                    if selection.count == pages.feeds.count {
+                        Text("Deselect All", comment: "Button label.")
+                    } else {
+                        Text("Select All", comment: "Button label.")
+                    }
+                } icon: {
+                    if selection.count == pages.feeds.count {
+                        Image(systemName: "checklist.unchecked")
+                    } else {
+                        Image(systemName: "checklist.checked")
+                    }
+                }
+            }
+            .help(Text("Select all/none", comment: "Button help text."))
+            .accessibilityIdentifier("SelectAllNone")
+        }
+
+        ToolbarItem {
+            InspectorToggleButton(showingInspector: $showingInspector)
         }
     }
 

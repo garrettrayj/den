@@ -11,6 +11,10 @@
 import SwiftUI
 
 struct SearchLayout: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
+    @EnvironmentObject private var dataController: DataController
+    
     let query: String
     let items: FetchedResults<Item>
     
@@ -79,5 +83,57 @@ struct SearchLayout: View {
                 }
             }
         }
+        .toolbar { toolbarContent }
+    }
+    
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        #if os(macOS)
+        ToolbarItem {
+            ToggleReadFilterButton()
+        }
+        ToolbarItem {
+            MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                HistoryUtility.toggleReadUnread(
+                    container: dataController.container,
+                    items: Array(items)
+                )
+            }
+        }
+        #else
+        if horizontalSizeClass == .compact {
+            ToolbarItem(placement: .bottomBar) {
+                ToggleReadFilterButton()
+            }
+            ToolbarItem(placement: .status) {
+                Text("Showing results for “\(query)”", comment: "Search status.")
+                    .font(.caption)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: Array(items)
+                    )
+                }
+            }
+        } else {
+            ToolbarItem {
+                ToggleReadFilterButton()
+            }
+            ToolbarItem {
+                MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: Array(items)
+                    )
+                }
+            }
+            ToolbarItem(placement: .status) {
+                Text("Showing results for “\(query)”", comment: "Search status.")
+                    .font(.caption)
+            }
+        }
+        #endif
     }
 }

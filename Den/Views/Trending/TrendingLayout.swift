@@ -11,26 +11,33 @@
 import SwiftUI
 
 struct TrendingLayout: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
+    @EnvironmentObject private var dataController: DataController
+    
     let trends: FetchedResults<Trend>
     
     @AppStorage("HideRead") private var hideRead: Bool = false
     
     var body: some View {
-        if trends.containingUnread.isEmpty && hideRead {
-            AllRead(largeDisplay: true)
-        } else {
-            GeometryReader { geometry in
-                ScrollView(.vertical) {
-                    BoardView(width: geometry.size.width, list: visibleTrends) { trend in
-                        TrendBlock(
-                            trend: trend,
-                            items: trend.items,
-                            feeds: trend.feeds
-                        )
+        Group {
+            if trends.containingUnread.isEmpty && hideRead {
+                AllRead(largeDisplay: true)
+            } else {
+                GeometryReader { geometry in
+                    ScrollView(.vertical) {
+                        BoardView(width: geometry.size.width, list: visibleTrends) { trend in
+                            TrendBlock(
+                                trend: trend,
+                                items: trend.items,
+                                feeds: trend.feeds
+                            )
+                        }
                     }
                 }
             }
         }
+        .toolbar { toolbarContent }
     }
     
     private var visibleTrends: [Trend] {
@@ -39,5 +46,51 @@ struct TrendingLayout: View {
         return visibleTrends.sorted {
             ($0.feeds.count, $0.items.count) > ($1.feeds.count, $1.items.count)
         }
+    }
+    
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        #if os(macOS)
+        ToolbarItem {
+            ToggleReadFilterButton()
+        }
+        ToolbarItem {
+            MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
+                HistoryUtility.toggleReadUnread(
+                    container: dataController.container,
+                    items: trends.items
+                )
+            }
+        }
+        #else
+        if horizontalSizeClass == .compact {
+            ToolbarItem(placement: .bottomBar) {
+                ToggleReadFilterButton()
+            }
+            ToolbarItem(placement: .status) {
+                CommonStatus()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: trends.items
+                    )
+                }
+            }
+        } else {
+            ToolbarItem {
+                ToggleReadFilterButton()
+            }
+            ToolbarItem {
+                MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: trends.items
+                    )
+                }
+            }
+        }
+        #endif
     }
 }

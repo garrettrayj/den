@@ -11,6 +11,11 @@
 import SwiftUI
 
 struct TrendView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
+    @EnvironmentObject private var dataController: DataController
+    
     @ObservedObject var trend: Trend
     
     @AppStorage("HideRead") private var hideRead: Bool = false
@@ -45,18 +50,61 @@ struct TrendView: View {
                         )
                     }
                 }
-                .toolbar {
-                    TrendToolbar(
-                        trend: trend,
-                        hideRead: $hideRead,
-                        items: trend.items
-                    )
-                }
+                .toolbar { toolbarContent }
                 .navigationTitle(trend.titleText)
             }
         }
         #if os(iOS)
         .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
+        #endif
+    }
+    
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        #if os(macOS)
+        ToolbarItem {
+            ToggleReadFilterButton()
+        }
+        ToolbarItem {
+            MarkAllReadUnreadButton(allRead: trend.items.unread.isEmpty) {
+                HistoryUtility.toggleReadUnread(
+                    container: dataController.container,
+                    items: trend.items
+                )
+                if hideRead { dismiss() }
+            }
+        }
+        #else
+        if horizontalSizeClass == .compact {
+            ToolbarItem(placement: .bottomBar) {
+                ToggleReadFilterButton()
+            }
+            ToolbarItem(placement: .status) {
+                CommonStatus()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: trend.items.unread.isEmpty) {
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: trend.items
+                    )
+                    if hideRead { dismiss() }
+                }
+            }
+        } else {
+            ToolbarItem {
+                ToggleReadFilterButton()
+            }
+            ToolbarItem {
+                MarkAllReadUnreadButton(allRead: trend.items.unread.isEmpty) {
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: trend.items
+                    )
+                    if hideRead { dismiss() }
+                }
+            }
+        }
         #endif
     }
 }

@@ -11,7 +11,10 @@
 import SwiftUI
 
 struct PageView: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.managedObjectContext) private var viewContext
+    
+    @EnvironmentObject private var dataController: DataController
 
     @ObservedObject var page: Page
     
@@ -56,13 +59,7 @@ struct PageView: View {
                 .navigationTitle(page.displayName)
                 .navigationTitle($page.wrappedName)
                 .toolbar {
-                    PageToolbar(
-                        page: page,
-                        pageLayout: pageLayoutAppStorage.projectedValue,
-                        showingDeleteAlert: $showingDeleteAlert,
-                        showingIconSelector: $showingIconSelector,
-                        items: items
-                    )
+                    toolbarContent(items: items)
                 }
                 #if os(iOS)
                 .alert(
@@ -107,5 +104,75 @@ struct PageView: View {
             wrappedValue: PageLayout.grouped,
             "PageLayout_\(page.id?.uuidString ?? "NoID")"
         )
+    }
+    
+    @ToolbarContentBuilder
+    private func toolbarContent(items: FetchedResults<Item>) -> some ToolbarContent {
+        #if os(macOS)
+        ToolbarItem {
+            PageLayoutPicker(pageLayout: pageLayoutAppStorage.projectedValue).pickerStyle(.segmented)
+        }
+        ToolbarItem {
+            ToggleReadFilterButton()
+        }
+        ToolbarItem {
+            MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                HistoryUtility.toggleReadUnread(
+                    container: dataController.container,
+                    items: Array(items)
+                )
+            }
+        }
+        #else
+        ToolbarTitleMenu {
+            RenameButton()
+            IconSelectorButton(showingIconSelector: $showingIconSelector, symbol: $page.wrappedSymbol)
+            Button(role: .destructive) {
+                showingDeleteAlert = true
+            } label: {
+                DeleteLabel()
+            }
+        }
+
+        if horizontalSizeClass == .compact {
+            ToolbarItem {
+                PageLayoutPicker(pageLayout: pageLayoutAppStorage.projectedValue)
+                    .pickerStyle(.menu)
+                    .labelStyle(.iconOnly)
+                    .padding(.trailing, -12)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                ToggleReadFilterButton()
+            }
+            ToolbarItem(placement: .status) {
+                CommonStatus()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: Array(items)
+                    )
+                }
+            }
+        } else {
+            ToolbarItem {
+                PageLayoutPicker(pageLayout: pageLayoutAppStorage.projectedValue)
+                    .pickerStyle(.menu)
+                    .labelStyle(.iconOnly)
+            }
+            ToolbarItem {
+                ToggleReadFilterButton()
+            }
+            ToolbarItem {
+                MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                    HistoryUtility.toggleReadUnread(
+                        container: dataController.container,
+                        items: Array(items)
+                    )
+                }
+            }
+        }
+        #endif
     }
 }
