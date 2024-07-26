@@ -24,7 +24,7 @@ struct BrowserView: View {
 
     @ObservedObject var browserViewModel: BrowserViewModel
 
-    @AppStorage("AccentColor") private var accentColor: AccentColor = .redOrange
+    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
     @AppStorage("BrowserZoom") private var browserZoom: PageZoomLevel = .oneHundredPercent
     @AppStorage("ReaderZoom") private var readerZoom: PageZoomLevel = .oneHundredPercent
 

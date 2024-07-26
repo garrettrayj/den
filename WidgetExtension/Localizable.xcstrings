@@ -37,10 +37,10 @@
         }
       }
     },
-    "Cyan" : {
+    "Coral" : {
       "comment" : "Accent color option."
     },
-    "Default" : {
+    "Cyan" : {
       "comment" : "Accent color option."
     },
     "Folder" : {
@@ -100,9 +100,6 @@
     "Red" : {
       "comment" : "Accent color option."
     },
-    "Red Orange" : {
-      "comment" : "Accent color option."
-    },
     "Source" : {
       "localizations" : {
         "en-AU" : {
@@ -112,6 +109,9 @@
           }
         }
       }
+    },
+    "System" : {
+      "comment" : "Accent color option."
     },
     "Teal" : {
       "comment" : "Accent color option."

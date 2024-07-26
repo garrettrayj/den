@@ -33,7 +33,7 @@ struct RootView: View {
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet = false
     
     @AppStorage("Maintained") private var maintenanceTimestamp: Double?
-    @AppStorage("AccentColor") private var accentColor: AccentColor = .redOrange
+    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
     

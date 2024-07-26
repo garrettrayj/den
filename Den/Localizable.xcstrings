@@ -534,6 +534,9 @@
         }
       }
     },
+    "Coral" : {
+      "comment" : "Accent color option."
+    },
     "Cyan" : {
       "comment" : "Accent color option.",
       "localizations" : {
@@ -928,6 +931,9 @@
           }
         }
       }
+    },
+    "Go to Feed" : {
+      "comment" : "Button label."
     },
     "Green" : {
       "comment" : "Accent color option.",
@@ -1627,9 +1633,6 @@
         }
       }
     },
-    "Red Orange" : {
-      "comment" : "Accent color option."
-    },
     "Refresh" : {
       "comment" : "Button label.",
       "localizations" : {
@@ -2066,7 +2069,7 @@
       }
     },
     "System" : {
-      "comment" : "User color scheme picker option.",
+      "comment" : "Accent color option.\nUser color scheme picker option.",
       "localizations" : {
         "en-AU" : {
           "stringUnit" : {

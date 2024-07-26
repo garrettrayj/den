@@ -43,6 +43,10 @@ struct BookmarkActionView<Content: View>: View {
                 CopyAddressButton(url: url)
                 ShareButton(item: url)
             }
+            if let feedObjectURL = bookmark.feed?.objectID.uriRepresentation() {
+                Divider()
+                GoToFeedNavLink(feedObjectURL: feedObjectURL)
+            }
         }
     }
 }

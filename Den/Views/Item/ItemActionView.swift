@@ -18,6 +18,7 @@ struct ItemActionView<Content: View>: View {
 
     var isLastInList: Bool = false
     var isStandalone: Bool = false
+    var showGoToFeed: Bool = true
 
     @ViewBuilder var content: Content
     
@@ -62,6 +63,10 @@ struct ItemActionView<Content: View>: View {
                 SystemBrowserButton(url: url)
                 CopyAddressButton(url: url)
                 ShareButton(item: url)
+            }
+            if showGoToFeed, let feedObjectURL = item.feedData?.feed?.objectID.uriRepresentation() {
+                Divider()
+                GoToFeedNavLink(feedObjectURL: feedObjectURL)
             }
         }
     }

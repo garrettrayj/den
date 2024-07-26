@@ -12,7 +12,7 @@ import SwiftUI
 import WidgetKit
 
 struct AppearanceSection: View {
-    @AppStorage("AccentColor") private var accentColor: AccentColor = .redOrange
+    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     
     var body: some View {

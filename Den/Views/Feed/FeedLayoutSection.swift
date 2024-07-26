@@ -34,7 +34,7 @@ struct FeedLayoutSection<Header: View>: View {
                     width: geometry.size.width,
                     list: items.visibilityFiltered(hideRead ? false : nil)
                 ) { item in
-                    ItemActionView(item: item, isStandalone: true) {
+                    ItemActionView(item: item, isStandalone: true, showGoToFeed: false) {
                         if feed.wrappedPreviewStyle == .expanded {
                             ItemPreviewExpanded(item: item, feed: feed)
                         } else {

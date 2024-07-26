@@ -13,7 +13,7 @@ import SwiftUI
 struct SettingsSheet: View {
     @Environment(\.dismiss) private var dismiss
     
-    @AppStorage("AccentColor") private var accentColor: AccentColor = .redOrange
+    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
 
     var body: some View {
