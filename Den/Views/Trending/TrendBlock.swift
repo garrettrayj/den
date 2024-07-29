@@ -82,7 +82,7 @@ struct TrendBlock: View {
         .buttonStyle(BasicHoverButtonStyle())
         .contextMenu {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleReadUnread(
+                HistoryUtility.toggleRead(
                     container: dataController.container,
                     items: items
                 )

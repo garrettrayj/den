@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct TrendLayout: View {
-    
-    
     @ObservedObject var trend: Trend
 
     @Binding var hideRead: Bool

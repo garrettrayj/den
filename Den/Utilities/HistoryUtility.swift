@@ -56,7 +56,7 @@ struct HistoryUtility {
         }
     }
 
-    static func toggleReadUnread(container: NSPersistentContainer, items: [Item]) {
+    static func toggleRead(container: NSPersistentContainer, items: any Collection<Item>) {
         if items.unread.isEmpty == true {
             clearHistory(container: container, items: items)
         } else {
@@ -64,7 +64,7 @@ struct HistoryUtility {
         }
     }
 
-    static func logHistory(container: NSPersistentContainer, items: [Item]) {
+    static func logHistory(container: NSPersistentContainer, items: any Collection<Item>) {
         let itemObjectIDs = items.map { $0.objectID }
         
         let context = container.newBackgroundContext()
@@ -88,7 +88,7 @@ struct HistoryUtility {
         }
     }
 
-    static func clearHistory(container: NSPersistentContainer, items: [Item]) {
+    static func clearHistory(container: NSPersistentContainer, items: any Collection<Item>) {
         let itemObjectIDs = items.map { $0.objectID }
         
         let context = container.newBackgroundContext()

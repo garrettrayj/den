@@ -94,10 +94,7 @@ struct SearchLayout: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleReadUnread(
-                    container: dataController.container,
-                    items: Array(items)
-                )
+                HistoryUtility.toggleRead(container: dataController.container, items: items)
             }
         }
         #else
@@ -111,10 +108,7 @@ struct SearchLayout: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(
-                        container: dataController.container,
-                        items: Array(items)
-                    )
+                    HistoryUtility.toggleReadUnread(container: dataController.container, items: items)
                 }
             }
         } else {
@@ -123,10 +117,7 @@ struct SearchLayout: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(
-                        container: dataController.container,
-                        items: Array(items)
-                    )
+                    HistoryUtility.toggleReadUnread(container: dataController.container, items: items)
                 }
             }
             ToolbarItem(placement: .status) {

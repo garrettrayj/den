@@ -98,10 +98,10 @@ struct FeedView: View {
         .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
         #endif
     }
-    
+
+    #if os(macOS)
     @ToolbarContentBuilder
     private func toolbarContent(items: FetchedResults<Item>) -> some ToolbarContent {
-        #if os(macOS)
         ToolbarItem {
             InspectorToggleButton(showingInspector: $showingInspector)
         }
@@ -110,13 +110,13 @@ struct FeedView: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleReadUnread(
-                    container: dataController.container,
-                    items: Array(items)
-                )
+                HistoryUtility.toggleRead(container: dataController.container, items: items)
             }
         }
-        #else
+    }
+    #else
+    @ToolbarContentBuilder
+    private func toolbarContent(items: FetchedResults<Item>) -> some ToolbarContent {
         ToolbarTitleMenu {
             RenameButton()
             PagePicker(
@@ -142,10 +142,7 @@ struct FeedView: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(
-                        container: dataController.container,
-                        items: Array(items)
-                    )
+                    HistoryUtility.toggleReadUnread(container: dataController.container, items: items)
                 }
             }
         } else {
@@ -157,13 +154,10 @@ struct FeedView: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(
-                        container: dataController.container,
-                        items: Array(items)
-                    )
+                    HistoryUtility.toggleReadUnread(container: dataController.container, items: items)
                 }
             }
         }
-        #endif
     }
+    #endif
 }

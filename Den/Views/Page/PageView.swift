@@ -106,9 +106,9 @@ struct PageView: View {
         )
     }
     
+    #if os(macOS)
     @ToolbarContentBuilder
     private func toolbarContent(items: FetchedResults<Item>) -> some ToolbarContent {
-        #if os(macOS)
         ToolbarItem {
             PageLayoutPicker(pageLayout: pageLayoutAppStorage.projectedValue).pickerStyle(.segmented)
         }
@@ -117,13 +117,13 @@ struct PageView: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleReadUnread(
-                    container: dataController.container,
-                    items: Array(items)
-                )
+                HistoryUtility.toggleRead(container: dataController.container, items: items)
             }
         }
-        #else
+    }
+    #else
+    @ToolbarContentBuilder
+    private func toolbarContent(items: FetchedResults<Item>) -> some ToolbarContent {
         ToolbarTitleMenu {
             RenameButton()
             IconSelectorButton(showingIconSelector: $showingIconSelector, symbol: $page.wrappedSymbol)
@@ -149,10 +149,7 @@ struct PageView: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(
-                        container: dataController.container,
-                        items: Array(items)
-                    )
+                    HistoryUtility.toggleReadUnread(container: dataController.container, items: items)
                 }
             }
         } else {
@@ -166,13 +163,10 @@ struct PageView: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(
-                        container: dataController.container,
-                        items: Array(items)
-                    )
+                    HistoryUtility.toggleReadUnread(container: dataController.container, items: items)
                 }
             }
         }
-        #endif
     }
+    #endif
 }
