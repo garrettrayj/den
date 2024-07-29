@@ -60,11 +60,10 @@ function createResultRow(result) {
     openAction.classList.add('result-action')
     resultRow.appendChild(openAction);
     
-    let openButton = document.createElement("button");
+    let openButton = document.createElement("a");
+    openButton.classList = "button"
     openButton.innerHTML = '<i id="open-icon"></i>'
-    openButton.onclick = function() {
-        window.open("den:" + result.url);
-    }
+    openButton.href = "den:" + result.url
     openAction.appendChild(openButton)
     
     let copyAction = document.createElement("div");

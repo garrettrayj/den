@@ -84,7 +84,7 @@ struct TrendView: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: trend.items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(
+                    HistoryUtility.toggleRead(
                         container: dataController.container,
                         items: trend.items
                     )
@@ -97,7 +97,7 @@ struct TrendView: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: trend.items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(
+                    HistoryUtility.toggleRead(
                         container: dataController.container,
                         items: trend.items
                     )

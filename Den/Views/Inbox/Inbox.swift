@@ -70,7 +70,7 @@ struct Inbox: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleReadUnread(container: dataController.container, items: items)
+                    HistoryUtility.toggleRead(container: dataController.container, items: items)
                 }
             }
         } else {
@@ -79,7 +79,7 @@ struct Inbox: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty && !items.isEmpty) {
-                    HistoryUtility.toggleReadUnread(container: dataController.container, items: items)
+                    HistoryUtility.toggleRead(container: dataController.container, items: items)
                 }
             }
         }

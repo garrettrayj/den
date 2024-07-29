@@ -164,29 +164,35 @@ body {
 
 /** Buttons */
 
+.button,
 button {
     appearance: none;
     background: none;
     border-radius: 6px;
     border: 0 none;
+    display: flex;
     margin: 0;
     padding: 4px;
     -webkit-tap-highlight-color: transparent;
 }
 
+.button i,
 button i {
     background: -apple-system-control-accent;
 }
 
+.button:hover,
 button:hover {
     background: rgba(0,0,0,0.05);
 }
 
+.button:active,
 button:active {
     background: rgba(0,0,0,0.1);
 }
 
 @supports (-webkit-touch-callout: none) { /* iOS */
+    .button,
     button {
         padding: 4px 8px;
     }

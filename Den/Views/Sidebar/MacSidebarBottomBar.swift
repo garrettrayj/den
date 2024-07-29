@@ -39,7 +39,8 @@ struct MacSidebarBottomBar: View {
                         .labelStyle(.iconOnly)
                         .imageScale(.large)
                         .fontWeight(.medium)
-                        .buttonStyle(.borderless)
+                        .buttonStyle(.plain)
+                        .foregroundStyle(.secondary)
                         .disabled(feedCount == 0)
                 }
             }
