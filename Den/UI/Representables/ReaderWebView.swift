@@ -20,11 +20,14 @@ struct ReaderWebView {
     @ObservedObject var browserViewModel: BrowserViewModel
 
     func makeWebView(context: Context) -> WKWebView {
-        let wkWebView = DenWebView()
+        let configuration = WKWebViewConfiguration()
+        configuration.mediaTypesRequiringUserActionForPlayback = .all
+        configuration.defaultWebpagePreferences.preferredContentMode = .mobile
+        
+        let wkWebView = DenWebView(frame: .zero, configuration: configuration)
         wkWebView.isInspectable = true
         wkWebView.uiDelegate = context.coordinator
         wkWebView.navigationDelegate = context.coordinator
-        wkWebView.configuration.defaultWebpagePreferences.preferredContentMode = .mobile
 
         browserViewModel.readerWebView = wkWebView
 

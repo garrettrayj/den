@@ -20,15 +20,19 @@ struct BrowserWebView {
     @ObservedObject var browserViewModel: BrowserViewModel
     
     func makeWebView(context: Context) -> WKWebView {
-        let wkWebView = DenWebView()
+        let configuration = WKWebViewConfiguration()
+        configuration.mediaTypesRequiringUserActionForPlayback = .all
+        configuration.userContentController.add(context.coordinator, name: "reader")
+        
+        if let mercuryScript, let parseForReaderScript {
+            configuration.userContentController.addUserScript(mercuryScript)
+            configuration.userContentController.addUserScript(parseForReaderScript)
+        }
+        
+        let wkWebView = DenWebView(frame: .zero, configuration: configuration)
         wkWebView.isInspectable = true
         wkWebView.navigationDelegate = context.coordinator
         wkWebView.uiDelegate = context.coordinator
-        wkWebView.configuration.mediaTypesRequiringUserActionForPlayback = .all
-        wkWebView.configuration.userContentController.add(context.coordinator, name: "reader")
-
-        addMercuryScript(wkWebView.configuration.userContentController)
-        addParseForReaderScript(wkWebView.configuration.userContentController)
 
         browserViewModel.browserWebView = wkWebView
 
@@ -43,38 +47,34 @@ struct BrowserWebView {
         )
     }
 
-    private func addMercuryScript(_ contentController: WKUserContentController) {
+    private var mercuryScript: WKUserScript? {
         guard
             let path = Bundle.main.path(forResource: "Mercury", ofType: "js"),
             let script = try? String(contentsOfFile: path, encoding: .utf8)
         else {
-            return
+            return nil
         }
 
-        let userScript = WKUserScript(
+        return WKUserScript(
             source: script,
             injectionTime: .atDocumentStart,
             forMainFrameOnly: true
         )
-
-        contentController.addUserScript(userScript)
     }
 
-    private func addParseForReaderScript(_ contentController: WKUserContentController) {
+    private var parseForReaderScript: WKUserScript? {
         guard
             let path = Bundle.main.path(forResource: "ParseForReader", ofType: "js"),
             let script = try? String(contentsOfFile: path)
         else {
-            return
+            return nil
         }
 
-        let userScript = WKUserScript(
+        return WKUserScript(
             source: script,
             injectionTime: .atDocumentStart,
             forMainFrameOnly: true
         )
-
-        contentController.addUserScript(userScript)
     }
 }
 
