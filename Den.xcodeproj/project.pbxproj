@@ -113,7 +113,6 @@
 		685EB3872AF95CB1001683E3 /* AboutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3862AF95CB1001683E3 /* AboutSection.swift */; };
 		685EB3892AFAA102001683E3 /* OrganizerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3882AFAA102001683E3 /* OrganizerRow.swift */; };
 		685EB3982AFB58BB001683E3 /* NewBlocklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */; };
-		685EB39A2AFB5997001683E3 /* DeleteBlocklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3992AFB5997001683E3 /* DeleteBlocklistButton.swift */; };
 		685ECB1126EE611000A3B184 /* SidebarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685ECB1026EE611000A3B184 /* SidebarPage.swift */; };
 		686067D9280CAF29000068DE /* SmallThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686067D8280CAF29000068DE /* SmallThumbnail.swift */; };
 		6860692D2831501B000068DE /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 686068E52831501B000068DE /* _locales */; };
@@ -506,7 +505,6 @@
 		685EB3862AF95CB1001683E3 /* AboutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSection.swift; sourceTree = "<group>"; };
 		685EB3882AFAA102001683E3 /* OrganizerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerRow.swift; sourceTree = "<group>"; };
 		685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBlocklistButton.swift; sourceTree = "<group>"; };
-		685EB3992AFB5997001683E3 /* DeleteBlocklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBlocklistButton.swift; sourceTree = "<group>"; };
 		685ECB1026EE611000A3B184 /* SidebarPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarPage.swift; sourceTree = "<group>"; };
 		686067D8280CAF29000068DE /* SmallThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallThumbnail.swift; sourceTree = "<group>"; };
 		686068E52831501B000068DE /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
@@ -841,7 +839,6 @@
 				684152692AD9E74100ABE5E2 /* BlocklistsSection.swift */,
 				686114FB2B3F624400BC2235 /* BlocklistStatusView.swift */,
 				68C3DE292C02B6AE000C9897 /* DebuggingTools.swift */,
-				685EB3992AFB5997001683E3 /* DeleteBlocklistButton.swift */,
 				687FEED12A3A57220042977E /* GeneralSection.swift */,
 				685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */,
 				6841525F2AD9E15B00ABE5E2 /* NewBlocklistSheet.swift */,
@@ -1787,7 +1784,6 @@
 				68C3DE2A2C02B6AE000C9897 /* DebuggingTools.swift in Sources */,
 				68C4134B24727F2B00D1DC7B /* DeckColumn.swift in Sources */,
 				68ED798529C29B2700D85B4F /* DeckLayout.swift in Sources */,
-				685EB39A2AFB5997001683E3 /* DeleteBlocklistButton.swift in Sources */,
 				6856DB452AB8EE7F0094615E /* DeleteFeedButton.swift in Sources */,
 				68CE433C2B4FCA8A00C69B7B /* DeleteLabel.swift in Sources */,
 				6856DB3F2AB8DC3D0094615E /* DeletePageButton.swift in Sources */,

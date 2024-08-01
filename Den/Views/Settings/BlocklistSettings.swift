@@ -88,7 +88,23 @@ struct BlocklistSettings: View {
                     }
                     .disabled(isRefreshing)
                     
-                    DeleteBlocklistButton(blocklist: blocklist)
+                    Button(role: .destructive) {
+                        Task {
+                            await BlocklistManager.removeContentRulesList(
+                                identifier: blocklist.id?.uuidString
+                            )
+                            
+                            viewContext.delete(blocklist)
+                            
+                            do {
+                                try viewContext.save()
+                            } catch {
+                                CrashUtility.handleCriticalError(error as NSError)
+                            }
+                        }
+                    } label: {
+                        DeleteLabel()
+                    }
                 }
             }
             .buttonStyle(.borderless)

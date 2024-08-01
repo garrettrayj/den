@@ -1095,6 +1095,9 @@
         }
       }
     },
+    "Leave a Review" : {
+      "comment" : "Button label."
+    },
     "Light" : {
       "comment" : "User color scheme picker option.",
       "localizations" : {

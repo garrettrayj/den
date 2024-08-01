@@ -12,8 +12,7 @@ import SwiftUI
 import StoreKit
 
 struct AboutSection: View {
-    // https://github.com/apple/swift/issues/72181
-    // @Environment(\.requestReview) private var requestReview
+    @Environment(\.requestReview) private var requestReview
     
     var body: some View {
         Section {
@@ -38,7 +37,6 @@ struct AboutSection: View {
                 }
             }
             
-            /*
             Button {
                 requestReview()
             } label: {
@@ -48,7 +46,6 @@ struct AboutSection: View {
                     Image(systemName: "square.and.pencil")
                 }
             }
-            */
             
             NavigationLink {
                 Acknowledgements()

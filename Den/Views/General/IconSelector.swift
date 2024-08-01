@@ -20,6 +20,7 @@ struct IconSelector: View {
 
     @FocusState private var textFieldFocus: Bool
     
+    @ScaledMetric var previewSize = 24
     @ScaledMetric var gridSize = 40
 
     var body: some View {
@@ -58,9 +59,8 @@ struct IconSelector: View {
                     Image(systemName: selection)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: gridSize, height: gridSize)
+                        .frame(width: previewSize, height: previewSize)
                         .foregroundStyle(.tint)
-                        .padding(.trailing)
 
                     if showingManualEntry {
                         TextField(text: $selection) {
