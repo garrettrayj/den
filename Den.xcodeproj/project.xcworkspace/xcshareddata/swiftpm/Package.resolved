@@ -1,5 +1,5 @@
 {
-  "originHash" : "9728492d9bf90588fbb094b763e2ee8715e4c9de092d1a8094ebc764e0b5f33f",
+  "originHash" : "bdb1527119b6918fc6a25f8fd3a0c1e8c56f1d16ec302631bd301dd502370ade",
   "pins" : [
     {
       "identity" : "aexml",
@@ -65,12 +65,30 @@
       }
     },
     {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser",
+      "state" : {
+        "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
+        "version" : "1.5.0"
+      }
+    },
+    {
       "identity" : "swift-html-entities",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Kitura/swift-html-entities.git",
       "state" : {
         "revision" : "d8ca73197f59ce260c71bd6d7f6eb8bbdccf508b",
         "version" : "4.0.1"
+      }
+    },
+    {
+      "identity" : "swift-package-list",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FelixHerrmann/swift-package-list",
+      "state" : {
+        "revision" : "01f2e9860c122dd8c3ae2a7e642b85bbb053efe3",
+        "version" : "4.2.0"
       }
     },
     {

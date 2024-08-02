@@ -10,9 +10,12 @@
 
 import SwiftUI
 import StoreKit
+import QuickLook
 
 struct AboutSection: View {
     @Environment(\.requestReview) private var requestReview
+    
+    @State private var acknowledgementsURL: URL?
     
     var body: some View {
         Section {
@@ -47,15 +50,19 @@ struct AboutSection: View {
                 }
             }
             
-            NavigationLink {
-                Acknowledgements()
+            Button {
+                acknowledgementsURL = Bundle.main.url(
+                    forResource: "Acknowledgements",
+                    withExtension: "pdf"
+                )
             } label: {
                 Label {
-                    Text("Acknowledgements")
+                    Text("Acknowledgements", comment: "Button label.")
                 } icon: {
                     Image(systemName: "rosette")
                 }
             }
+            .quickLookPreview($acknowledgementsURL)
         } header: {
             Text("About \(Bundle.main.name)", comment: "Settings section header.")
         } footer: {
