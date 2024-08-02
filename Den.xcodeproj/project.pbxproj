@@ -1475,6 +1475,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				68CD8B892C5C94A400AF0124 /* PBXTargetDependency */,
 			);
 			name = "Safari Extension";
 			productName = "SafariExtension Extension (iOS)";
@@ -1490,11 +1491,11 @@
 				68C41306247263C700D1DC7B /* Frameworks */,
 				68C41307247263C700D1DC7B /* Resources */,
 				6860694F2831533E000068DE /* Embed Foundation Extensions */,
-				68906F822A761D1F00803350 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				68CD8B872C5C949A00AF0124 /* PBXTargetDependency */,
 				6860694E2831533E000068DE /* PBXTargetDependency */,
 				68C9FEB82BFD7173006B8BD6 /* PBXTargetDependency */,
 			);
@@ -1523,6 +1524,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				68CD8B8B2C5C94B400AF0124 /* PBXTargetDependency */,
 			);
 			name = "Widget Extension";
 			packageProductDependencies = (
@@ -1600,6 +1602,7 @@
 				681DE1052922CFD400D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				68EBB58F2BC3BD1B0014305F /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */,
 				68FB95112BE7F47E004EFA73 /* XCRemoteSwiftPackageReference "FeedKit" */,
+				68CD8B852C5C946600AF0124 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
 			productRefGroup = 68C4130A247263C700D1DC7B /* Products */;
 			projectDirPath = "";
@@ -1668,24 +1671,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		68906F822A761D1F00803350 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
 		68E6C5432A690B1E00CA46B2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -2054,6 +2039,18 @@
 			isa = PBXTargetDependency;
 			target = 68CC011C2BDF0D9C00E723DC /* Widget Extension */;
 			targetProxy = 68C9FEB72BFD7173006B8BD6 /* PBXContainerItemProxy */;
+		};
+		68CD8B872C5C949A00AF0124 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 68CD8B862C5C949A00AF0124 /* SwiftLintBuildToolPlugin */;
+		};
+		68CD8B892C5C94A400AF0124 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 68CD8B882C5C94A400AF0124 /* SwiftLintBuildToolPlugin */;
+		};
+		68CD8B8B2C5C94B400AF0124 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 68CD8B8A2C5C94B400AF0124 /* SwiftLintBuildToolPlugin */;
 		};
 		68E83C002A6004590014DC64 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2594,6 +2591,14 @@
 				minimumVersion = 4.5.0;
 			};
 		};
+		68CD8B852C5C946600AF0124 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.55.1;
+			};
+		};
 		68EBB58F2BC3BD1B0014305F /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageWebPCoder";
@@ -2660,6 +2665,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 68B34A6A24880ADE0066B215 /* XCRemoteSwiftPackageReference "AEXML" */;
 			productName = AEXML;
+		};
+		68CD8B862C5C949A00AF0124 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68CD8B852C5C946600AF0124 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		68CD8B882C5C94A400AF0124 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68CD8B852C5C946600AF0124 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		68CD8B8A2C5C94B400AF0124 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68CD8B852C5C946600AF0124 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
 		68EBB5902BC3BD1B0014305F /* SDWebImageWebPCoder */ = {
 			isa = XCSwiftPackageProductDependency;
