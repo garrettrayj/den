@@ -337,11 +337,9 @@
 		68FB95072BE4ACEA004EFA73 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB95062BE4ACEA004EFA73 /* UserDefaults+Extensions.swift */; };
 		68FB95082BE4ACEA004EFA73 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB95062BE4ACEA004EFA73 /* UserDefaults+Extensions.swift */; };
 		68FB95092BE4D263004EFA73 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6845BD4D24F6824C0008B296 /* CloudKit.framework */; };
-		68FB950C2BE605D3004EFA73 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB950A2BE605D3004EFA73 /* Array+Extensions.swift */; };
 		68FB950E2BE6A688004EFA73 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 68FB950D2BE6A688004EFA73 /* SDWebImageSVGCoder */; };
 		68FB95102BE6A691004EFA73 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 68FB950F2BE6A691004EFA73 /* SDWebImageWebPCoder */; };
 		68FB95132BE7F47E004EFA73 /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 68FB95122BE7F47E004EFA73 /* FeedKit */; };
-		68FB95172BE8051E004EFA73 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB950A2BE605D3004EFA73 /* Array+Extensions.swift */; };
 		68FB951A2BE805C9004EFA73 /* LatestItemsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB95182BE805C9004EFA73 /* LatestItemsProvider.swift */; };
 		68FB951D2BE8066C004EFA73 /* LatestItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB951B2BE8066C004EFA73 /* LatestItemsView.swift */; };
 		68FB95202BE80706004EFA73 /* LatestItemsEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FB951E2BE80706004EFA73 /* LatestItemsEntry.swift */; };
@@ -711,7 +709,6 @@
 		68F6FB9E29ADE0E2001F74B9 /* PageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLayout.swift; sourceTree = "<group>"; };
 		68F6FBA029AF5937001F74B9 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		68FB95062BE4ACEA004EFA73 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
-		68FB950A2BE605D3004EFA73 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		68FB95182BE805C9004EFA73 /* LatestItemsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestItemsProvider.swift; sourceTree = "<group>"; };
 		68FB951B2BE8066C004EFA73 /* LatestItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestItemsView.swift; sourceTree = "<group>"; };
 		68FB951E2BE80706004EFA73 /* LatestItemsEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestItemsEntry.swift; sourceTree = "<group>"; };
@@ -1387,7 +1384,6 @@
 		68FB95152BE804A2004EFA73 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				68FB950A2BE605D3004EFA73 /* Array+Extensions.swift */,
 				680253772A1C80F90034B0E4 /* Collection+Extensions.swift */,
 				687C27782631F6A000099FCA /* FileManager+Extensions.swift */,
 				68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */,
@@ -1689,7 +1685,6 @@
 				68E5B5032C0CF86E00641CC7 /* AppearanceSection.swift in Sources */,
 				687F4890269165EE00EA2498 /* AppErrorSheet.swift in Sources */,
 				68CC013A2BDFD70600E723DC /* AppGroup.swift in Sources */,
-				68FB95172BE8051E004EFA73 /* Array+Extensions.swift in Sources */,
 				6845BCF424EBE4750008B296 /* AtomFeed+Extensions.swift in Sources */,
 				684DFA0124B6515A0023D6DB /* AtomFeedEntry+Extensions.swift in Sources */,
 				68B6CBE62910BD0E00B5E3AB /* AtomFeedUpdater.swift in Sources */,
@@ -1940,7 +1935,6 @@
 			files = (
 				685CD8A92C2A7C340019E412 /* AccentColor.swift in Sources */,
 				68CC01392BDFD6EC00E723DC /* AppGroup.swift in Sources */,
-				68FB950C2BE605D3004EFA73 /* Array+Extensions.swift in Sources */,
 				68A5A13E2BE192B900FEA8D3 /* Blocklist+CoreDataClass.swift in Sources */,
 				68A5A1422BE192B900FEA8D3 /* BlocklistStatus+CoreDataClass.swift in Sources */,
 				68A5A13F2BE192B900FEA8D3 /* Bookmark+CoreDataClass.swift in Sources */,
