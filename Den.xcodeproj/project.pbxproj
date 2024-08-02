@@ -906,8 +906,8 @@
 		6856DB202AB630D80094615E /* DropDelegates */ = {
 			isa = PBXGroup;
 			children = (
-				683C353E2A9E4A1600568E9A /* PageNavDropDelegate.swift */,
 				6856DB2A2AB649CD0094615E /* BookmarksNavDropDelegate.swift */,
+				683C353E2A9E4A1600568E9A /* PageNavDropDelegate.swift */,
 			);
 			path = DropDelegates;
 			sourceTree = "<group>";
@@ -1124,7 +1124,6 @@
 		68C41300247263C700D1DC7B = {
 			isa = PBXGroup;
 			children = (
-				687A19EE2C5CCC1800070AB7 /* ci_scripts */,
 				68C4130B247263C700D1DC7B /* Den */,
 				68CE43412B5289C400C69B7B /* Localizations */,
 				68895CFA2A62A0B700E25385 /* Scripts */,
@@ -1134,6 +1133,7 @@
 				68E83BFA2A6004590014DC64 /* UITests */,
 				686069122831501B000068DE /* WebExtension */,
 				68CC01222BDF0D9C00E723DC /* WidgetExtension */,
+				687A19EE2C5CCC1800070AB7 /* ci_scripts */,
 				68D286272A634183007AD876 /* .gitignore */,
 				689EDBF8269188580055811A /* .swiftlint.yml */,
 				6818F0772B63363C00BE06FC /* LICENSE */,
@@ -1246,8 +1246,8 @@
 				687D9CB724A9CA2A00EB7F46 /* ItemPreviewCompressed.swift */,
 				68FC256E27640AA00073979F /* ItemPreviewExpanded.swift */,
 				68F56B6628782886006EC915 /* ItemView.swift */,
-				6856DB4D2ABA29B80094615E /* ToggleReadButton.swift */,
 				680F63EE2C43CBAC00C70C26 /* ToggleBookmarkedButton.swift */,
+				6856DB4D2ABA29B80094615E /* ToggleReadButton.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -1283,8 +1283,8 @@
 			isa = PBXGroup;
 			children = (
 				686DB8AF2C448C64002354E9 /* BrowserNavControlGroup.swift */,
-				68E9F6442AE178E500A27E19 /* BrowserViewMenu.swift */,
 				68E558352ACC02EC0010E424 /* BrowserView.swift */,
+				68E9F6442AE178E500A27E19 /* BrowserViewMenu.swift */,
 				684152412AD7B4DB00ABE5E2 /* BrowserZoom.swift */,
 				68A104592BAD64DB008BF8E6 /* DownloadsButton.swift */,
 				68EBB58D2BBAEFE60014305F /* DownloadsPopover.swift */,
@@ -1305,7 +1305,6 @@
 		68E6C55D2A6C76C700CA46B2 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				68CD8B832C53BAFF00AF0124 /* GoToFeedNavLink.swift */,
 				6829A50B28C6479900F75C5A /* AllRead.swift */,
 				687F488F269165EE00EA2498 /* AppErrorSheet.swift */,
 				683041B127542E2000BE7631 /* BoardView.swift */,
@@ -1316,7 +1315,7 @@
 				686115022B44268400BC2235 /* CopyAddressButton.swift */,
 				68CE433B2B4FCA8A00C69B7B /* DeleteLabel.swift */,
 				6818F0A82B839DD100BE06FC /* Favicon.swift */,
-				68FF63F52921DB900012A275 /* ToggleReadFilterButton.swift */,
+				68CD8B832C53BAFF00AF0124 /* GoToFeedNavLink.swift */,
 				68D486BD26C9896300AF5B59 /* IconSelector.swift */,
 				6856DB3B2AB7FB510094615E /* IconSelectorButton.swift */,
 				68B8E79929CAC95300E9AF42 /* ImageDepression.swift */,
@@ -1329,6 +1328,7 @@
 				6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */,
 				68FB95292BEBEE99004EFA73 /* ShareButton.swift */,
 				686115002B439E8200BC2235 /* SystemBrowserButton.swift */,
+				68FF63F52921DB900012A275 /* ToggleReadFilterButton.swift */,
 				687FEF172A421B190042977E /* WebAddressTextField.swift */,
 				680F494F29AA56BE0083B664 /* WithItems.swift */,
 				68CC300E2B4CC65000A038AA /* WithTrends.swift */,
@@ -1708,14 +1708,15 @@
 				68599B662AB0E25C0057FEA8 /* Bookmarks.swift in Sources */,
 				6818F0AD2B8502C900BE06FC /* BookmarksLayout.swift in Sources */,
 				6818F0B12B85041D00BE06FC /* BookmarksLayoutPicker.swift in Sources */,
+				6856DB2B2AB649CD0094615E /* BookmarksNavDropDelegate.swift in Sources */,
 				680F63ED2C43CA1F00C70C26 /* BookmarksNavLink.swift in Sources */,
 				6818F0A72B83982000BE06FC /* BookmarksSpreadLayout.swift in Sources */,
 				6818F0A32B8397AD00BE06FC /* BookmarksTableLayout.swift in Sources */,
-				686DB8B02C448C70002354E9 /* BrowserNavControlGroup.swift in Sources */,
 				68599B722AB18BA80057FEA8 /* BookmarkView.swift in Sources */,
 				68EBB50C2BB315220014305F /* BrowserDownload.swift in Sources */,
-				68E9F6452AE178E500A27E19 /* BrowserViewMenu.swift in Sources */,
+				686DB8B02C448C70002354E9 /* BrowserNavControlGroup.swift in Sources */,
 				68E558362ACC02EC0010E424 /* BrowserView.swift in Sources */,
+				68E9F6452AE178E500A27E19 /* BrowserViewMenu.swift in Sources */,
 				6820507E2ACB530600C937BE /* BrowserViewModel.swift in Sources */,
 				682050792ACB504A00C937BE /* BrowserWebView.swift in Sources */,
 				684152422AD7B4DB00ABE5E2 /* BrowserZoom.swift in Sources */,
@@ -1775,10 +1776,10 @@
 				687F222C2A5B615100B76919 /* FeedURLResponse.swift in Sources */,
 				68701DE3273BD42D00C6BB69 /* FeedView.swift in Sources */,
 				687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */,
-				68FF63F62921DB900012A275 /* ToggleReadFilterButton.swift in Sources */,
 				687FEED22A3A57220042977E /* GeneralSection.swift in Sources */,
 				68E9F6472AE1825D00A27E19 /* GoBackButton.swift in Sources */,
 				68E9F6492AE1826A00A27E19 /* GoForwardButton.swift in Sources */,
+				68CD8B842C53BB0800AF0124 /* GoToFeedNavLink.swift in Sources */,
 				68ED797F29C29A6800D85B4F /* GroupedLayout.swift in Sources */,
 				6887D40925B35B83004A170D /* History+CoreDataClass.swift in Sources */,
 				68701DFB273E57DB00C6BB69 /* HistoryUtility.swift in Sources */,
@@ -1852,14 +1853,12 @@
 				681087D329FEEE1100F2630C /* PreviewHeadline.swift in Sources */,
 				68EF17AB2AED81AF00BCC08B /* PreviewImageStateModifier.swift in Sources */,
 				68F6FB9B29ADDC83001F74B9 /* PreviewStyle.swift in Sources */,
-				68CD8B842C53BB0800AF0124 /* GoToFeedNavLink.swift in Sources */,
 				68599B7B2AB27D3C0057FEA8 /* PreviewTeaser.swift in Sources */,
 				68EA52442688528E00B7C8E5 /* Profile+CoreDataClass.swift in Sources */,
 				68BE3B6B2C0D18F90022629D /* QuickActionManager.swift in Sources */,
 				688466F42AE264340071B86A /* ReaderViewMenu.swift in Sources */,
 				684152222AD2763400ABE5E2 /* ReaderWebView.swift in Sources */,
 				686F6B0C2B38D3CC0099EB49 /* ReaderZoom.swift in Sources */,
-				6856DB4E2ABA29B80094615E /* ToggleReadButton.swift in Sources */,
 				683E3F49293BC19800B16814 /* RefreshButton.swift in Sources */,
 				68FB95282BEAB479004EFA73 /* RefreshInterval.swift in Sources */,
 				682591FE29D81E3000E5EF3B /* RefreshManager.swift in Sources */,
@@ -1892,13 +1891,14 @@
 				687FEF102A40A6890042977E /* SubDetailPanel.swift in Sources */,
 				686115012B439E8200BC2235 /* SystemBrowserButton.swift in Sources */,
 				68599B632AB08D150057FEA8 /* Tag+CoreDataClass.swift in Sources */,
-				6856DB2B2AB649CD0094615E /* BookmarksNavDropDelegate.swift in Sources */,
 				68E558342ACBE9220010E424 /* ThinLinearProgressViewStyle.swift in Sources */,
 				68ED798329C29A8B00D85B4F /* TimelineLayout.swift in Sources */,
 				68E9F6422AE1528800A27E19 /* ToggleBlocklistsButton.swift in Sources */,
 				680F63EF2C43CBB200C70C26 /* ToggleBookmarkedButton.swift in Sources */,
 				6899FC822AE40B1400367E8B /* ToggleJavaScriptButton.swift in Sources */,
+				6856DB4E2ABA29B80094615E /* ToggleReadButton.swift in Sources */,
 				6899FC7F2AE3515500367E8B /* ToggleReaderButton.swift in Sources */,
+				68FF63F62921DB900012A275 /* ToggleReadFilterButton.swift in Sources */,
 				6856DB252AB635700094615E /* TransferableBookmark.swift in Sources */,
 				683C35412A9E570900568E9A /* TransferableFeed.swift in Sources */,
 				6856DAFC2AB587410094615E /* TransferableItem.swift in Sources */,
