@@ -20,6 +20,7 @@ class UITestCase: XCTestCase {
         continueAfterFailure = false
     }
 
+    @MainActor
     func launchApp(inMemory: Bool) -> XCUIApplication {
         if ProcessInfo.processInfo.arguments.contains("-dark-appearance") {
             XCUIDevice.shared.appearance = .dark
@@ -55,6 +56,7 @@ class UITestCase: XCTestCase {
         return app
     }
 
+    @MainActor
     func attachScreenshot(of element: XCUIElement, named name: String) {
         let appearance = XCUIDevice.shared.appearance.name
         let locale = Locale.current.identifier
@@ -72,6 +74,7 @@ class UITestCase: XCTestCase {
         add(attachment)
     }
     
+    @MainActor
     func hideSidebar(_ app: XCUIApplication) {
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()

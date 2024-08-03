@@ -108,8 +108,8 @@ struct SidebarPage: View {
                         IconSelector(selection: $page.wrappedSymbol)
                     }
                 )
+                .accessibilityIdentifier("SidebarPage")
             }
-            .accessibilityIdentifier("SidebarPage")
             .tag(DetailPanel.page(page.objectID.uriRepresentation()))
         }
     }

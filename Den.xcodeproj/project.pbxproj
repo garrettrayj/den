@@ -2564,8 +2564,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.6;
+				kind = exactVersion;
+				version = 2.7.2;
 			};
 		};
 		68B34A6A24880ADE0066B215 /* XCRemoteSwiftPackageReference "AEXML" */ = {

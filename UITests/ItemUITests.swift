@@ -15,11 +15,7 @@ final class ItemUITests: UITestCase {
     func testItemView() throws {
         let app = launchApp(inMemory: false)
 
-        #if os(macOS)
-        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
-        #else
-        app.staticTexts["Science"].tap()
-        #endif
+        app.staticTexts.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
         
         hideSidebar(app)
 
@@ -34,11 +30,7 @@ final class ItemUITests: UITestCase {
     func testItemReader() throws {
         let app = launchApp(inMemory: false)
 
-        #if os(macOS)
-        app.textFields.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
-        #else
-        app.staticTexts["Science"].tap()
-        #endif
+        app.staticTexts.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
         
         hideSidebar(app)
 
@@ -46,9 +38,9 @@ final class ItemUITests: UITestCase {
         sleep(4)
         
         #if os(macOS)
-        app.popUpButtons["FormatMenu"].buttons.firstMatch.tap()
+        app.popUpButtons["BrowserViewMenu"].buttons.firstMatch.tap()
         #else
-        app.buttons["FormatMenu"].tap()
+        app.buttons["BrowserViewMenu"].tap()
         #endif
         sleep(5)
 

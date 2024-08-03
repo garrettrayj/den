@@ -48,17 +48,11 @@ final class PageUITests: UITestCase {
         
         app.buttons["CreatePage"].tap()
         
-        #if os(macOS)
-        if !app.textFields["SidebarPage"].waitForExistence(timeout: 2) {
+        let pageLink = app.staticTexts.matching(identifier: "SidebarPage").element(boundBy: 0)
+        if !pageLink.waitForExistence(timeout: 2) {
             XCTFail("Page button did not appear in time")
         }
-        app.textFields["SidebarPage"].firstMatch.tap()
-        #else
-        if !app.collectionViews.staticTexts["Untitled"].waitForExistence(timeout: 2) {
-            XCTFail("Page button did not appear in time")
-        }
-        app.collectionViews.staticTexts["Untitled"].tap()
-        #endif
+        pageLink.tap()
 
         hideSidebar(app)
 
@@ -73,17 +67,12 @@ final class PageUITests: UITestCase {
     func testPageGroupedLayout() throws {
         let app = launchApp(inMemory: false)
 
-        #if os(macOS)
-        app.textFields["Science"].tap()
-        #else
-        app.staticTexts["Science"].tap()
-        #endif
+        app.staticTexts.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
         
         hideSidebar(app)
         
         #if os(macOS)
-        app.toolbars.popUpButtons.element(boundBy: 1).tap()
-        app.menuItems["GroupedLayout"].tap()
+        app.radioButtons["GroupedLayout"].tap()
         #else
         app.buttons["PageLayoutPicker"].tap()
         app.buttons["GroupedLayout"].tap()
@@ -98,17 +87,12 @@ final class PageUITests: UITestCase {
     func testPageTimelineLayout() throws {
         let app = launchApp(inMemory: false)
 
-        #if os(macOS)
-        app.textFields["Science"].tap()
-        #else
-        app.staticTexts["Science"].tap()
-        #endif
+        app.staticTexts.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
         
         hideSidebar(app)
         
         #if os(macOS)
-        app.toolbars.popUpButtons.element(boundBy: 1).tap()
-        app.menuItems["TimelineLayout"].tap()
+        app.radioButtons["TimelineLayout"].tap()
         #else
         app.buttons["PageLayoutPicker"].tap()
         app.buttons["TimelineLayout"].tap()
@@ -123,17 +107,12 @@ final class PageUITests: UITestCase {
     func testPageDeckLayout() throws {
         let app = launchApp(inMemory: false)
 
-        #if os(macOS)
-        app.textFields["Science"].tap()
-        #else
-        app.staticTexts["Science"].tap()
-        #endif
+        app.staticTexts.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
         
         hideSidebar(app)
 
         #if os(macOS)
-        app.toolbars.popUpButtons.element(boundBy: 1).tap()
-        app.menuItems["DeckLayout"].tap()
+        app.radioButtons["DeckLayout"].tap()
         #else
         app.buttons["PageLayoutPicker"].tap()
         app.buttons["DeckLayout"].tap()
