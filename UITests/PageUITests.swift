@@ -11,6 +11,7 @@
 import XCTest
 
 final class PageUITests: UITestCase {
+    @MainActor
     func testNewPage() throws {
         let app = launchApp(inMemory: true)
 
@@ -29,6 +30,7 @@ final class PageUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "new-page")
     }
     
+    @MainActor
     func testPageEmpty() throws {
         let app = launchApp(inMemory: true)
 
@@ -67,6 +69,7 @@ final class PageUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "page-empty")
     }
 
+    @MainActor
     func testPageGroupedLayout() throws {
         let app = launchApp(inMemory: false)
 
@@ -91,6 +94,7 @@ final class PageUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "page-grouped-layout")
     }
 
+    @MainActor
     func testPageTimelineLayout() throws {
         let app = launchApp(inMemory: false)
 
@@ -115,6 +119,7 @@ final class PageUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "page-timeline-layout")
     }
 
+    @MainActor
     func testPageDeckLayout() throws {
         let app = launchApp(inMemory: false)
 

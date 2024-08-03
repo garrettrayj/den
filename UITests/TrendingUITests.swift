@@ -11,6 +11,7 @@
 import XCTest
 
 final class TrendingUITests: UITestCase {
+    @MainActor
     func testTrending() throws {
         let app = launchApp(inMemory: false)
 
@@ -23,6 +24,7 @@ final class TrendingUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "trending")
     }
     
+    @MainActor
     func testTrendingEmpty() throws {
         let app = launchApp(inMemory: true)
 

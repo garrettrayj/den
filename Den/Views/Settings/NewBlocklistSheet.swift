@@ -13,8 +13,6 @@ import SwiftUI
 struct NewBlocklistSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
-    
-    @EnvironmentObject private var dataController: DataController
 
     @State private var name: String = ""
     @State private var urlString: String = ""
@@ -118,7 +116,6 @@ struct NewBlocklistSheet: View {
         }
         
         await BlocklistManager.refreshContentRulesList(
-            container: dataController.container,
             blocklistObjectID: blocklist.objectID
         )
 

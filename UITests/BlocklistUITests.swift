@@ -11,6 +11,7 @@
 import XCTest
 
 final class BlocklistUITests: UITestCase {
+    @MainActor
     func testNewBlocklist() throws {
         let app = launchApp(inMemory: false)
 
@@ -36,6 +37,7 @@ final class BlocklistUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "blocklist-new")
     }
 
+    @MainActor
     func testBlocklistSettings() throws {
         let app = launchApp(inMemory: false)
 

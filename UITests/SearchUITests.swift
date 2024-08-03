@@ -11,6 +11,7 @@
 import XCTest
 
 final class SearchUITests: UITestCase {
+    @MainActor
     func testSearch() throws {
         let app = launchApp(inMemory: false)
 
@@ -45,6 +46,7 @@ final class SearchUITests: UITestCase {
         #endif
     }
 
+    @MainActor
     func testSearchNoResults() throws {
         let app = launchApp(inMemory: true)
 

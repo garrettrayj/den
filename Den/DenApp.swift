@@ -28,16 +28,16 @@ struct DenApp: App {
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
 
-    @StateObject private var dataController = DataController()
     @StateObject private var downloadManager = DownloadManager()
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var refreshManager = RefreshManager()
+    
+    let dataController = DataController.shared
 
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
-                .environmentObject(dataController)
                 .environmentObject(downloadManager)
                 .environmentObject(networkMonitor)
                 .environmentObject(refreshManager)
@@ -49,7 +49,6 @@ struct DenApp: App {
             InspectorCommands()
             CommandGroup(after: .toolbar) {
                 RefreshButton()
-                    .environmentObject(dataController)
                     .environmentObject(networkMonitor)
                     .environmentObject(refreshManager)
             }
@@ -93,7 +92,6 @@ struct DenApp: App {
         Settings {
             SettingsSheet()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
-                .environmentObject(dataController)
                 .environmentObject(refreshManager)
                 .frame(width: 440)
                 .frame(minHeight: 560)
@@ -122,7 +120,7 @@ struct DenApp: App {
     #if os(iOS)
     private func handleAppRefresh() async {
         Logger.main.debug("Performing background refresh task...")
-        await refreshManager.refresh(container: dataController.container, inBackground: true)
+        await refreshManager.refresh(inBackground: true)
         await scheduleRefresh()
     }
     

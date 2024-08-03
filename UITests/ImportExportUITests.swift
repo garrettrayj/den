@@ -11,10 +11,12 @@
 import XCTest
 
 final class ImportExportUITests: UITestCase {
+    @MainActor
     func testImport() throws {
         throw XCTSkip("Missing test")
     }
     
+    @MainActor
     func testExport() throws {
         throw XCTSkip("Missing test")
     }

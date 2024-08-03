@@ -16,7 +16,6 @@ import FeedKit
 struct FeedUpdateTask {
     // swiftlint:disable cyclomatic_complexity function_body_length
     static func execute(
-        container: NSPersistentContainer,
         feedObjectID: NSManagedObjectID,
         url: URL,
         updateMeta: Bool
@@ -58,7 +57,7 @@ struct FeedUpdateTask {
             break
         }
 
-        let context = container.newBackgroundContext()
+        let context = DataController.shared.container.newBackgroundContext()
         context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
         
         context.performAndWait {

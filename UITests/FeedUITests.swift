@@ -11,6 +11,7 @@
 import XCTest
 
 final class FeedUITests: UITestCase {
+    @MainActor
     func testFeedViewCompressed() throws {
         let app = launchApp(inMemory: false)
 
@@ -37,6 +38,7 @@ final class FeedUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "feed-view-compressed")
     }
     
+    @MainActor
     func testFeedViewExpanded() throws {
         let app = launchApp(inMemory: false)
 
@@ -82,6 +84,7 @@ final class FeedUITests: UITestCase {
         #endif
     }
 
+    @MainActor
     func testFeedInspector() throws {
         let app = launchApp(inMemory: false)
 
@@ -106,6 +109,7 @@ final class FeedUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "feed-inspector")
     }
 
+    @MainActor
     func testFeedViewNoData() throws {
         let app = launchApp(inMemory: true)
 

@@ -13,8 +13,6 @@ import SwiftUI
 struct Inbox: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
-    @EnvironmentObject private var dataController: DataController
-    
     @AppStorage("HideRead") private var hideRead: Bool = false
     
     @FetchRequest(sortDescriptors: [])
@@ -57,7 +55,7 @@ struct Inbox: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty && !items.isEmpty) {
-                HistoryUtility.toggleRead(container: dataController.container, items: items)
+                HistoryUtility.toggleRead(items: items)
             }
         }
         #else
@@ -70,7 +68,7 @@ struct Inbox: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(container: dataController.container, items: items)
+                    HistoryUtility.toggleRead(items: items)
                 }
             }
         } else {
@@ -79,7 +77,7 @@ struct Inbox: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty && !items.isEmpty) {
-                    HistoryUtility.toggleRead(container: dataController.container, items: items)
+                    HistoryUtility.toggleRead(items: items)
                 }
             }
         }

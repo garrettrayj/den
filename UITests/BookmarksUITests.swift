@@ -11,14 +11,17 @@
 import XCTest
 
 final class BookmarksUITests: UITestCase {
+    @MainActor
     func testNewTagSheet() throws {
         throw XCTSkip("Missing test")
     }
     
+    @MainActor
     func testTagEmpty() throws {
         throw XCTSkip("Missing test")
     }
     
+    @MainActor
     func testTagView() throws {
         throw XCTSkip("Missing test")
     }

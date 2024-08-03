@@ -17,9 +17,7 @@ import SwiftUI
 
 struct DebuggingTools: View {
     @Environment(\.displayScale) private var displayScale
-    
-    @EnvironmentObject private var dataController: DataController
-    
+
     @AppStorage("Maintained") var maintained: Double?
     
     #if os(iOS)
@@ -51,7 +49,7 @@ struct DebuggingTools: View {
                 Button {
                     maintenanceInProgress = true
                     Task {
-                        await MaintenanceTask.execute(container: dataController.container)
+                        await MaintenanceTask.execute()
                         maintenanceInProgress = false
                     }
                 } label: {

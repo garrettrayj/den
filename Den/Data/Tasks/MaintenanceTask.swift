@@ -12,8 +12,8 @@ import CoreData
 import OSLog
 
 struct MaintenanceTask {
-    static func execute(container: NSPersistentContainer) async {
-        let context = container.newBackgroundContext()
+    static func execute() async {
+        let context = DataController.shared.container.newBackgroundContext()
         context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
         
         context.performAndWait {
@@ -29,8 +29,8 @@ struct MaintenanceTask {
             }
         }
         
-        await BlocklistManager.cleanupContentRulesLists(container: container)
-        await BlocklistManager.refreshAllContentRulesLists(container: container)
+        await BlocklistManager.cleanupContentRulesLists()
+        await BlocklistManager.refreshAllContentRulesLists()
     }
     
     private static func trimHistory(context: NSManagedObjectContext) {

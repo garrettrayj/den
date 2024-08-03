@@ -11,6 +11,7 @@
 import XCTest
 
 final class AppLaunchUITests: UITestCase {
+    @MainActor
     func testPosterScreenshot() throws {
         let app = launchApp(inMemory: false)
 

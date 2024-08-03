@@ -11,6 +11,7 @@
 import XCTest
 
 final class ItemUITests: UITestCase {
+    @MainActor
     func testItemView() throws {
         let app = launchApp(inMemory: false)
 
@@ -29,6 +30,7 @@ final class ItemUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "item-browser-view")
     }
     
+    @MainActor
     func testItemReader() throws {
         let app = launchApp(inMemory: false)
 

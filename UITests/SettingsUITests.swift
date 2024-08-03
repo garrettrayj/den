@@ -12,6 +12,7 @@ import XCTest
 
 final class SettingsUITests: UITestCase {
     #if os(macOS)
+    @MainActor
     func testAppSettings() throws {
         let app = launchApp(inMemory: false)
 
@@ -20,6 +21,7 @@ final class SettingsUITests: UITestCase {
         attachScreenshot(of: app.windows.element(boundBy: 1), named: "settings")
     }
     #else
+    @MainActor
     func testSettings() throws {
         let app = launchApp(inMemory: false)
 

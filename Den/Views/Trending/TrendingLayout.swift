@@ -13,8 +13,6 @@ import SwiftUI
 struct TrendingLayout: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
-    @EnvironmentObject private var dataController: DataController
-    
     let trends: FetchedResults<Trend>
     
     @AppStorage("HideRead") private var hideRead: Bool = false
@@ -56,10 +54,7 @@ struct TrendingLayout: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                HistoryUtility.toggleRead(
-                    container: dataController.container,
-                    items: trends.items
-                )
+                HistoryUtility.toggleRead(items: trends.items)
             }
         }
         #else
@@ -72,10 +67,7 @@ struct TrendingLayout: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                    HistoryUtility.toggleRead(
-                        container: dataController.container,
-                        items: trends.items
-                    )
+                    HistoryUtility.toggleRead(items: trends.items)
                 }
             }
         } else {
@@ -84,10 +76,7 @@ struct TrendingLayout: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                    HistoryUtility.toggleRead(
-                        container: dataController.container,
-                        items: trends.items
-                    )
+                    HistoryUtility.toggleRead(items: trends.items)
                 }
             }
         }

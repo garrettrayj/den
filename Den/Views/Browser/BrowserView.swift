@@ -14,9 +14,7 @@ import WebKit
 struct BrowserView: View {
     @Environment(\.self) private var environment
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
-    @EnvironmentObject private var dataController: DataController
-    
+
     var url: URL
     var useBlocklists: Bool?
     var useReaderAutomatically: Bool?
@@ -46,9 +44,7 @@ struct BrowserView: View {
         ZStack {
             BrowserWebView(browserViewModel: browserViewModel)
                 .task {
-                    browserViewModel.contentRuleLists = await BlocklistManager.getContentRuleLists(
-                        container: dataController.container
-                    )
+                    browserViewModel.contentRuleLists = await BlocklistManager.getContentRuleLists()
                     browserViewModel.useBlocklists = useBlocklists ?? true
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
                     browserViewModel.allowJavaScript = allowJavaScript ?? true

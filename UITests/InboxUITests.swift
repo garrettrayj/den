@@ -11,6 +11,7 @@
 import XCTest
 
 final class InboxUITests: UITestCase {
+    @MainActor
     func testInbox() throws {
         let app = launchApp(inMemory: false)
 
@@ -25,6 +26,7 @@ final class InboxUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "inbox")
     }
 
+    @MainActor
     func testInboxEmpty() throws {
         let app = launchApp(inMemory: true)
 

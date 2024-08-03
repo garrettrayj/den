@@ -29,12 +29,12 @@ final class RefreshManager: ObservableObject {
     #if os(macOS)
     private var timer: Timer?
     
-    func startAutoRefresh(container: NSPersistentContainer, interval: TimeInterval) {
+    func startAutoRefresh(interval: TimeInterval) {
         Logger.main.debug("Starting auto refresh with \(Int(interval)) second interval")
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { _ in
             Task {
-                await self.refresh(container: container)
+                await self.refresh()
             }
         }
         autoRefreshActive = true
@@ -47,14 +47,14 @@ final class RefreshManager: ObservableObject {
     }
     #endif
     
-    func refresh(container: NSPersistentContainer, inBackground: Bool = false) async {
+    func refresh(inBackground: Bool = false) async {
         guard progress.totalUnitCount == 0 else { return }
 
         if !inBackground {
             await MainActor.run { refreshing = true }
         }
         
-        let feedUpdates = updateInfoForAllFeeds(container: container)
+        let feedUpdates = updateInfoForAllFeeds()
         
         progress.totalUnitCount = Int64(feedUpdates.count)
 
@@ -70,7 +70,6 @@ final class RefreshManager: ObservableObject {
                 
                 taskGroup.addTask {
                     await FeedUpdateTask.execute(
-                        container: container,
                         feedObjectID: feedUpdate.objectID,
                         url: feedUpdate.url,
                         updateMeta: feedUpdate.updateMeta
@@ -85,8 +84,8 @@ final class RefreshManager: ObservableObject {
         
         progress.completedUnitCount += 1
 
-        await CleanupTask.execute(container: container)
-        await AnalyzeTask.execute(container: container)
+        await CleanupTask.execute()
+        await AnalyzeTask.execute()
 
         UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "Refreshed")
         WidgetCenter.shared.reloadAllTimelines()
@@ -99,10 +98,9 @@ final class RefreshManager: ObservableObject {
         progress.totalUnitCount = 0
     }
 
-    func refresh(container: NSPersistentContainer, feed: Feed) async {
+    func refresh(feed: Feed) async {
         if let url = feed.url {
             await FeedUpdateTask.execute(
-                container: container,
                 feedObjectID: feed.objectID,
                 url: url,
                 updateMeta: true
@@ -113,24 +111,24 @@ final class RefreshManager: ObservableObject {
         feed.page?.objectWillChange.send()
     }
     
-    private func updateInfoForAllFeeds(container: NSPersistentContainer) -> [FeedUpdateInfo] {
+    private func updateInfoForAllFeeds() -> [FeedUpdateInfo] {
         var feedUpdates: [FeedUpdateInfo] = []
         
-        let context = container.newBackgroundContext()
+        let context = DataController.shared.container.newBackgroundContext()
         
         context.performAndWait {
             let request = Page.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
             guard let pages = try? context.fetch(request) as [Page] else { return }
             
-            feedUpdates = pages.flatMap { $0.feedsArray }.compactMap { feed in
-                guard let url = feed.url else { return nil }
+            for feed in pages.flatMap({ $0.feedsArray }) {
+                guard let url = feed.url else { continue }
                 
-                return FeedUpdateInfo(
+                feedUpdates.append(FeedUpdateInfo(
                     objectID: feed.objectID,
                     url: url,
                     updateMeta: feed.needsMetaUpdate
-                )
+                ))
             }
         }
         

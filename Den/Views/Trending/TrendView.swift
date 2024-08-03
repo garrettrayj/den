@@ -14,8 +14,6 @@ struct TrendView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
-    @EnvironmentObject private var dataController: DataController
-    
     @ObservedObject var trend: Trend
     
     @AppStorage("HideRead") private var hideRead: Bool = false
@@ -67,10 +65,7 @@ struct TrendView: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: trend.items.unread.isEmpty) {
-                HistoryUtility.toggleRead(
-                    container: dataController.container,
-                    items: trend.items
-                )
+                HistoryUtility.toggleRead(items: trend.items)
                 if hideRead { dismiss() }
             }
         }
@@ -84,10 +79,7 @@ struct TrendView: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: trend.items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(
-                        container: dataController.container,
-                        items: trend.items
-                    )
+                    HistoryUtility.toggleRead(items: trend.items)
                     if hideRead { dismiss() }
                 }
             }
@@ -97,10 +89,7 @@ struct TrendView: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: trend.items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(
-                        container: dataController.container,
-                        items: trend.items
-                    )
+                    HistoryUtility.toggleRead(items: trend.items)
                     if hideRead { dismiss() }
                 }
             }

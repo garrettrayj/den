@@ -12,9 +12,7 @@ import SwiftUI
 
 struct SearchLayout: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
-    @EnvironmentObject private var dataController: DataController
-    
+
     let query: String
     let items: FetchedResults<Item>
     
@@ -94,7 +92,7 @@ struct SearchLayout: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleRead(container: dataController.container, items: items)
+                HistoryUtility.toggleRead(items: items)
             }
         }
         #else
@@ -108,7 +106,7 @@ struct SearchLayout: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(container: dataController.container, items: items)
+                    HistoryUtility.toggleRead(items: items)
                 }
             }
         } else {
@@ -117,7 +115,7 @@ struct SearchLayout: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(container: dataController.container, items: items)
+                    HistoryUtility.toggleRead(items: items)
                 }
             }
             ToolbarItem(placement: .status) {

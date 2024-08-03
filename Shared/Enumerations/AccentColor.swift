@@ -33,7 +33,7 @@ enum AccentColor: String, CaseIterable {
         case .red:
             return .red
         case .coral:
-            return .init(.displayP3, red: 1, green: 127 / 255, blue: 80 / 255)
+            return .init("Coral")
         case .orange:
             return .orange
         case .yellow:

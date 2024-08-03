@@ -11,10 +11,14 @@
 import CoreData
 import OSLog
 
-class DataController: ObservableObject {
-    let container = NSPersistentCloudKitContainer(name: "Den")
+struct DataController {
+    static let shared = DataController()
+    
+    let container: NSPersistentCloudKitContainer
     
     init(inMemory: Bool = CommandLine.arguments.contains("-in-memory")) {
+        container = NSPersistentCloudKitContainer(name: "Den")
+        
         let cloudStoreDescription: NSPersistentStoreDescription
         let localStoreDescription: NSPersistentStoreDescription
 

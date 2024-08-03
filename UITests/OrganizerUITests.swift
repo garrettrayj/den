@@ -11,6 +11,7 @@
 import XCTest
 
 final class OrganizerUITests: UITestCase {
+    @MainActor
     func testOrganizer() throws {
         let app = launchApp(inMemory: false)
 
@@ -48,6 +49,7 @@ final class OrganizerUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "organizer")
     }
 
+    @MainActor
     func testOrganizerEmpty() throws {
         let app = launchApp(inMemory: true)
 
@@ -90,6 +92,7 @@ final class OrganizerUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "organizer-empty")
     }
     
+    @MainActor
     func testOrganizerInfo() throws {
         let app = launchApp(inMemory: false)
 
@@ -118,6 +121,7 @@ final class OrganizerUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "organizer-info")
     }
     
+    @MainActor
     func testOrganizerConfig() throws {
         let app = launchApp(inMemory: false)
 

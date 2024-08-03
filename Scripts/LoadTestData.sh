@@ -8,7 +8,7 @@
 #
 #  SPDX-License-Identifier: MIT
 #
-#  Install app data from .xcappdata package. Invoked in Scheme > Test > Pre-actions.
+#  Install app data for tests. Invoked in Scheme > Test > Pre-actions.
 
 # Create logs folder
 logsFolder=${PROJECT_DIR}/Scripts/Logs

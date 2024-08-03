@@ -14,8 +14,6 @@ struct PageView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.managedObjectContext) private var viewContext
     
-    @EnvironmentObject private var dataController: DataController
-
     @ObservedObject var page: Page
     
     @State private var showingDeleteAlert = false
@@ -117,7 +115,7 @@ struct PageView: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleRead(container: dataController.container, items: items)
+                HistoryUtility.toggleRead(items: items)
             }
         }
     }
@@ -149,7 +147,7 @@ struct PageView: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(container: dataController.container, items: items)
+                    HistoryUtility.toggleRead(items: items)
                 }
             }
         } else {
@@ -163,7 +161,7 @@ struct PageView: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(container: dataController.container, items: items)
+                    HistoryUtility.toggleRead(items: items)
                 }
             }
         }

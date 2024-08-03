@@ -11,12 +11,14 @@
 import XCTest
 
 final class SidebarUITests: UITestCase {
+    @MainActor
     func testSidebarGetStarted() throws {
         let app = launchApp(inMemory: true)
 
         attachScreenshot(of: app.windows.firstMatch, named: "sidebar-get-started")
     }
 
+    @MainActor
     func testSidebarAppMenu() throws {
         let app = launchApp(inMemory: false)
 

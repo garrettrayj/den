@@ -14,8 +14,6 @@ import SwiftUI
 struct FeedView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.managedObjectContext) private var viewContext
-    
-    @EnvironmentObject private var dataController: DataController
 
     @ObservedObject var feed: Feed
     
@@ -110,7 +108,7 @@ struct FeedView: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleRead(container: dataController.container, items: items)
+                HistoryUtility.toggleRead(items: items)
             }
         }
     }
@@ -142,7 +140,7 @@ struct FeedView: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(container: dataController.container, items: items)
+                    HistoryUtility.toggleRead(items: items)
                 }
             }
         } else {
@@ -154,7 +152,7 @@ struct FeedView: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(container: dataController.container, items: items)
+                    HistoryUtility.toggleRead(items: items)
                 }
             }
         }

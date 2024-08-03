@@ -12,8 +12,8 @@ import CoreData
 import OSLog
 
 struct CleanupTask {
-    static func execute(container: NSPersistentContainer) async {
-        let context = container.newBackgroundContext()
+    static func execute() async {
+        let context = DataController.shared.container.newBackgroundContext()
         
         context.performAndWait {
             guard let feedDatas = try? context.fetch(FeedData.fetchRequest()) as [FeedData] else {
