@@ -40,6 +40,9 @@ final class InboxUITests: UITestCase {
         app.collectionViews.buttons["NewPage"].tap()
         #endif
         
+        if !app.buttons["CreatePage"].waitForExistence(timeout: 2) {
+            XCTFail("Inbox button did not appear in time")
+        }
         app.buttons["CreatePage"].tap()
 
         #if os(iOS)

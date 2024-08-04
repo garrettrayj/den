@@ -21,9 +21,9 @@ struct GeneralSection: View {
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
     
-    private let formatter = {
+    private let refreshIntervalFormatter = {
         let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .spellOut
+        formatter.unitsStyle = .full
         formatter.allowedUnits = [.hour, .minute]
 
         return formatter
@@ -54,7 +54,9 @@ struct GeneralSection: View {
                     if interval == .zero {
                         Text("None", comment: "Empty picker option.").tag(interval)
                     } else {
-                        if let formatted = formatter.string(from: TimeInterval(interval.rawValue)) {
+                        if let formatted = refreshIntervalFormatter.string(
+                            from: TimeInterval(interval.rawValue)
+                        ) {
                             Text(formatted.localizedCapitalized).tag(interval)
                         }
                     }

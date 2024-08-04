@@ -19,7 +19,8 @@ final class FeedUITests: UITestCase {
         app.disclosureTriangles.element(boundBy: 3).tap()
         app.textFields.matching(identifier: "SidebarFeed").firstMatch.tap()
         #else
-        app.collectionViews["Sidebar"].cells.element(boundBy: 6).buttons.firstMatch.tap()
+        app.collectionViews["Sidebar"].cells.element(boundBy: 7)
+            .buttons.allElementsBoundByIndex.last?.tap()
         app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
         #endif
         
@@ -46,8 +47,13 @@ final class FeedUITests: UITestCase {
         app.disclosureTriangles.element(boundBy: 3).tap()
         app.textFields.matching(identifier: "SidebarFeed").firstMatch.tap()
         #else
-        app.collectionViews["Sidebar"].cells.element(boundBy: 6).buttons.firstMatch.tap()
-        app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
+        app.collectionViews["Sidebar"].cells.element(boundBy: 7)
+            .buttons.allElementsBoundByIndex.last?.tap()
+        let sidebarFeed = app.staticTexts.matching(identifier: "SidebarFeed").firstMatch
+        if !sidebarFeed.waitForExistence(timeout: 3) {
+            XCTFail("Feed title did not appear in time")
+        }
+        sidebarFeed.tap()
         #endif
 
         hideSidebar(app)
@@ -57,7 +63,7 @@ final class FeedUITests: UITestCase {
             XCTFail("Feed title did not appear in time")
         }
         #else
-        if !app.buttons["Futurity"].waitForExistence(timeout: 2) {
+        if !app.buttons["Futurity"].waitForExistence(timeout: 3) {
             XCTFail("Feed title did not appear in time")
         }
         #endif
@@ -92,7 +98,8 @@ final class FeedUITests: UITestCase {
         app.disclosureTriangles.element(boundBy: 3).tap()
         app.textFields.matching(identifier: "SidebarFeed").firstMatch.tap()
         #else
-        app.collectionViews["Sidebar"].cells.element(boundBy: 6).buttons.firstMatch.tap()
+        app.collectionViews["Sidebar"].cells.element(boundBy: 7)
+            .buttons.allElementsBoundByIndex.last?.tap()
         app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
         #endif
 
@@ -122,7 +129,8 @@ final class FeedUITests: UITestCase {
         app.disclosureTriangles.element(boundBy: 3).tap()
         app.textFields.matching(identifier: "SidebarFeed").firstMatch.tap()
         #else
-        app.collectionViews["Sidebar"].cells.element(boundBy: 6).buttons.firstMatch.tap()
+        app.collectionViews["Sidebar"].cells.element(boundBy: 7)
+            .buttons.allElementsBoundByIndex.last?.tap()
         app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
         #endif
 

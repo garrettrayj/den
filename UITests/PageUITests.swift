@@ -46,6 +46,9 @@ final class PageUITests: UITestCase {
         app.collectionViews.buttons["NewPage"].tap()
         #endif
         
+        if !app.buttons["CreatePage"].waitForExistence(timeout: 2) {
+            XCTFail("Inbox button did not appear in time")
+        }
         app.buttons["CreatePage"].tap()
         
         let pageLink = app.staticTexts.matching(identifier: "SidebarPage").element(boundBy: 0)
