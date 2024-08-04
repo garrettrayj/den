@@ -1,5 +1,5 @@
 #!/bin/sh
-
+#
 #  SaveTestData.sh
 #  Den
 #
@@ -7,21 +7,35 @@
 #  Copyright © 2023 Garrett Johnson
 #
 #  SPDX-License-Identifier: MIT
+#
+#  Creates test fixture data from current installation databases and preferences.
+#  Script should be run from project root with `Scripts/SaveTestData.sh`.
+#  iCloud MUST be disabled for Den in macOS settings.
+#
+
 set -e
 
-rm -rf ./TestData/Library
-mkdir -p ./TestData/Library
+# Group Container
 
-groupDirectory="$HOME/Library/Group Containers/group.net.devsci.den"
-groupAppSupportDirectory="$groupDirectory/Library/Application Support"
+sourceGroupDirectory="$HOME/Library/Group Containers/group.net.devsci.den"
+sourceGroupAppSupportDirectory="$sourceGroupDirectory/Library/Application Support"
+destinationGroupAppSupportDirectory="./TestData/GroupContainer/Library/Application Support"
 
-mkdir -p "./TestData/Group/Library/Application Support/"
-cp "$groupAppSupportDirectory/Den.sqlite" "./TestData/Group/Library/Application Support/"
-cp "$groupAppSupportDirectory/Den.sqlite-wal" "./TestData/Group/Library/Application Support/"
-cp "$groupAppSupportDirectory/Den-Local.sqlite" "./TestData/Group/Library/Application Support/"
-cp "$groupAppSupportDirectory/Den-Local.sqlite-wal" "./TestData/Group/Library/Application Support/"
+rm -rf "$destinationGroupAppSupportDirectory"
+mkdir -p "$destinationGroupAppSupportDirectory"
 
-appPreferences="$HOME/Library/Containers/net.devsci.den/Data/Library/Preferences/net.devsci.den.plist"
+cp "$sourceGroupAppSupportDirectory/Den.sqlite" "$destinationGroupAppSupportDirectory/"
+cp "$sourceGroupAppSupportDirectory/Den.sqlite-wal" "$destinationGroupAppSupportDirectory/"
+cp "$sourceGroupAppSupportDirectory/Den-Local.sqlite" "$destinationGroupAppSupportDirectory/"
+cp "$sourceGroupAppSupportDirectory/Den-Local.sqlite-wal" "$destinationGroupAppSupportDirectory/"
 
-mkdir -p "./TestData/App/Library/Preferences/"
-cp "$appPreferences" "./TestData/App/Library/Preferences/net.devsci.den.plist"
+# App Container
+
+sourceAppPreferencesDirectory="$HOME/Library/Containers/net.devsci.den/Data/Library/Preferences"
+sourceAppPreferences="$sourceAppPreferencesDirectory/net.devsci.den.plist"
+destinationAppPreferencesDirectory="./TestData/AppContainer/Library/Preferences"
+
+rm -rf "$destinationAppPreferencesDirectory"
+mkdir -p "$destinationAppPreferencesDirectory"
+
+cp $sourceAppPreferences "$destinationAppPreferencesDirectory/"

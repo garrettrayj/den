@@ -57,17 +57,14 @@
       </CommandLineArguments>
       <TestPlans>
          <TestPlanReference
-            reference = "container:TestPlans/Development.xctestplan"
+            reference = "container:TestPlans/Default.xctestplan"
             default = "YES">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:TestPlans/iOSComprehensiveUI.xctestplan">
+            reference = "container:TestPlans/MobileComprehensive.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:TestPlans/macOSComprehensiveUI.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:TestPlans/Marketing.xctestplan">
+            reference = "container:TestPlans/MacComprehensive.xctestplan">
          </TestPlanReference>
       </TestPlans>
       <Testables>

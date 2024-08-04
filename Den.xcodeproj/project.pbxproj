@@ -400,7 +400,6 @@
 		680253772A1C80F90034B0E4 /* Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
 		680744BF28E95CD80008A09D /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
 		6809EFCA24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedKitFeed+Extensions.swift"; sourceTree = "<group>"; };
-		680B13432A79D2F40001AA39 /* Marketing.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Marketing.xctestplan; sourceTree = "<group>"; };
 		680BBC8C2ADEC74600F32046 /* BlocklistStatus+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocklistStatus+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680BBC902ADF761400F32046 /* BlocklistSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistSettings.swift; sourceTree = "<group>"; };
 		680E57DC24D29F2200196F6D /* Page+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Page+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -658,9 +657,9 @@
 		68D2864B2A679AEE007AD876 /* UIDeviceOrientation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDeviceOrientation+Extensions.swift"; sourceTree = "<group>"; };
 		68D2864D2A679C1B007AD876 /* XCUIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIDevice+Extensions.swift"; sourceTree = "<group>"; };
 		68D2864F2A68740F007AD876 /* UITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestCase.swift; sourceTree = "<group>"; };
-		68D286512A687A58007AD876 /* iOSComprehensiveUI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = iOSComprehensiveUI.xctestplan; path = TestPlans/iOSComprehensiveUI.xctestplan; sourceTree = SOURCE_ROOT; };
-		68D286532A68A080007AD876 /* Development.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Development.xctestplan; sourceTree = "<group>"; };
-		68D286542A68A5DF007AD876 /* macOSComprehensiveUI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = macOSComprehensiveUI.xctestplan; sourceTree = "<group>"; };
+		68D286512A687A58007AD876 /* MobileComprehensive.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = MobileComprehensive.xctestplan; path = TestPlans/MobileComprehensive.xctestplan; sourceTree = SOURCE_ROOT; };
+		68D286532A68A080007AD876 /* Default.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Default.xctestplan; sourceTree = "<group>"; };
+		68D286542A68A5DF007AD876 /* MacComprehensive.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MacComprehensive.xctestplan; sourceTree = "<group>"; };
 		68D486BD26C9896300AF5B59 /* IconSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSelector.swift; sourceTree = "<group>"; };
 		68D58E6824955321007ED1AC /* OPMLReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLReader.swift; sourceTree = "<group>"; };
 		68DA79292B03CB4F0088DA33 /* ContentUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentUnavailable.swift; sourceTree = "<group>"; };
@@ -1259,10 +1258,9 @@
 		68D286522A6884AA007AD876 /* TestPlans */ = {
 			isa = PBXGroup;
 			children = (
-				68D286532A68A080007AD876 /* Development.xctestplan */,
-				68D286512A687A58007AD876 /* iOSComprehensiveUI.xctestplan */,
-				68D286542A68A5DF007AD876 /* macOSComprehensiveUI.xctestplan */,
-				680B13432A79D2F40001AA39 /* Marketing.xctestplan */,
+				68D286532A68A080007AD876 /* Default.xctestplan */,
+				68D286512A687A58007AD876 /* MobileComprehensive.xctestplan */,
+				68D286542A68A5DF007AD876 /* MacComprehensive.xctestplan */,
 			);
 			path = TestPlans;
 			sourceTree = "<group>";

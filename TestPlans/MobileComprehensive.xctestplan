@@ -6,9 +6,6 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "-disable-cloud"
-          },
-          {
             "argument" : "-dark-appearance"
           },
           {
@@ -24,9 +21,6 @@
       "name" : "en_US-Dark-Portrait",
       "options" : {
         "commandLineArgumentEntries" : [
-          {
-            "argument" : "-disable-cloud"
-          },
           {
             "argument" : "-dark-appearance"
           },
@@ -44,9 +38,6 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "-disable-cloud"
-          },
-          {
             "argument" : "-light-appearance"
           },
           {
@@ -62,9 +53,6 @@
       "name" : "en_US-Light-Portrait",
       "options" : {
         "commandLineArgumentEntries" : [
-          {
-            "argument" : "-disable-cloud"
-          },
           {
             "argument" : "-light-appearance"
           },
@@ -82,9 +70,6 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "-disable-cloud"
-          },
-          {
             "argument" : "-dark-appearance"
           },
           {
@@ -100,9 +85,6 @@
       "name" : "en_GB-Dark-Portrait",
       "options" : {
         "commandLineArgumentEntries" : [
-          {
-            "argument" : "-disable-cloud"
-          },
           {
             "argument" : "-dark-appearance"
           },
@@ -120,9 +102,6 @@
       "options" : {
         "commandLineArgumentEntries" : [
           {
-            "argument" : "-disable-cloud"
-          },
-          {
             "argument" : "-light-appearance"
           },
           {
@@ -138,9 +117,6 @@
       "name" : "en_GB-Light-Portrait",
       "options" : {
         "commandLineArgumentEntries" : [
-          {
-            "argument" : "-disable-cloud"
-          },
           {
             "argument" : "-light-appearance"
           },
@@ -164,7 +140,7 @@
       "target" : {
         "containerPath" : "container:Den.xcodeproj",
         "identifier" : "68E83BF82A6004590014DC64",
-        "name" : "UITests"
+        "name" : "UI Tests"
       }
     }
   ],

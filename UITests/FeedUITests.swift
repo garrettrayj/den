@@ -21,7 +21,11 @@ final class FeedUITests: UITestCase {
         #else
         app.collectionViews["Sidebar"].cells.element(boundBy: 7)
             .buttons.allElementsBoundByIndex.last?.tap()
-        app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
+        let sidebarFeed = app.staticTexts.matching(identifier: "SidebarFeed").firstMatch
+        if !sidebarFeed.waitForExistence(timeout: 3) {
+            XCTFail("Feed nav link did not appear in time")
+        }
+        sidebarFeed.tap()
         #endif
         
         hideSidebar(app)
@@ -51,7 +55,7 @@ final class FeedUITests: UITestCase {
             .buttons.allElementsBoundByIndex.last?.tap()
         let sidebarFeed = app.staticTexts.matching(identifier: "SidebarFeed").firstMatch
         if !sidebarFeed.waitForExistence(timeout: 3) {
-            XCTFail("Feed title did not appear in time")
+            XCTFail("Feed nav link did not appear in time")
         }
         sidebarFeed.tap()
         #endif
@@ -100,7 +104,11 @@ final class FeedUITests: UITestCase {
         #else
         app.collectionViews["Sidebar"].cells.element(boundBy: 7)
             .buttons.allElementsBoundByIndex.last?.tap()
-        app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
+        let sidebarFeed = app.staticTexts.matching(identifier: "SidebarFeed").firstMatch
+        if !sidebarFeed.waitForExistence(timeout: 3) {
+            XCTFail("Feed nav link did not appear in time")
+        }
+        sidebarFeed.tap()
         #endif
 
         hideSidebar(app)
@@ -131,7 +139,11 @@ final class FeedUITests: UITestCase {
         #else
         app.collectionViews["Sidebar"].cells.element(boundBy: 7)
             .buttons.allElementsBoundByIndex.last?.tap()
-        app.staticTexts.matching(identifier: "SidebarFeed").firstMatch.tap()
+        let sidebarFeed = app.staticTexts.matching(identifier: "SidebarFeed").firstMatch
+        if !sidebarFeed.waitForExistence(timeout: 3) {
+            XCTFail("Feed nav link did not appear in time")
+        }
+        sidebarFeed.tap()
         #endif
 
         hideSidebar(app)

@@ -1,5 +1,5 @@
 #!/bin/sh
-
+#
 #  LoadTestData.sh
 #  Den
 #
@@ -8,11 +8,13 @@
 #
 #  SPDX-License-Identifier: MIT
 #
-#  Install app data for tests. Invoked in Scheme > Test > Pre-actions.
+#  Loads fixture data for UI tests. Invoked in Den scheme's test pre-actions.
+#  Use `Scripts/SaveTestData.sh` to export fixture data before running tests.
+#
 
 # Create logs folder
-logsFolder=${PROJECT_DIR}/Scripts/Logs
-mkdir -p $logsFolder
+logsFolder="$PROJECT_DIR/Scripts/Logs"
+mkdir -p "$logsFolder"
 
 # Create log file
 scriptNameWithExtension=$(basename "$0")
@@ -23,28 +25,37 @@ set -e
 
 runDate=$(date '+%Y-%m-%d %H:%M:%S')
 
+sourceGroupContainer="$PROJECT_DIR/TestData/GroupContainer"
+sourceAppContainer="$PROJECT_DIR/TestData/AppContainer"
+
 if [ "$__IS_NOT_MACOS" == "NO" ]
 then
-    echo "$runDate Load MacOS Test Data"
-    rm -rf "$HOME/Library/Group Containers/group.net.devsci.den/Library/"*
-    rm -rf "$HOME/Library/Containers/net.devsci.den/Data/Library/"*
+    echo "$runDate Load test data for macOS"
     
-    cp -a "$PROJECT_DIR/TestData/Group/Library/." "$HOME/Library/Group Containers/group.net.devsci.den/Library/"
-    cp -a "$PROJECT_DIR/TestData/App/Library/." "$HOME/Library/Containers/net.devsci.den/Data/Library/"
+    # Copy group container data
+    destinationGroupContainer="$HOME/Library/Group Containers/group.net.devsci.den"
+    rm -rf "$destinationGroupContainer/Library/"*
+    cp -a "$sourceGroupContainer/Library/." "$destinationGroupContainer/Library/"
+    
+    # Copy app container data
+    destinationAppContainer="$HOME/Library/Containers/net.devsci.den"
+    rm -rf "$destinationAppContainer/Data/Library/"*
+    cp -a "$sourceAppContainer/Library/." "$destinationAppContainer/Library/"
 else
-    echo "$runDate Load Simulator Test Data"
-    echo $PROJECT_DIR
+    echo "$runDate Load test data for iOS simulator"
     uuidRegex="([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})"
     device=$(xcrun simctl list | grep Booted | grep -E -o -i $uuidRegex | head -1)
-    appContainer=$(xcrun simctl get_app_container $device net.devsci.den data)
-    groupDirectory=$(xcrun simctl get_app_container $device net.devsci.den groups | awk -F'\t' '{print $2}')
+    echo "Device: $device"
+
+    # Copy group container data
+    destinationGroupContainer=$(xcrun simctl get_app_container $device net.devsci.den groups | awk -F'\t' '{print $2}')
+    echo "Group Container: $destinationGroupContainer"
+    rm -rf "$destinationGroupContainer/Library/"*
+    cp -a "$sourceGroupContainer/Library/." "$destinationGroupContainer/Library/"
     
-    echo "Device:    $device"
-    echo "Container: $appContainer"
-    echo "Group Dir: $groupDirectory"
-    
-    rm -rf $groupDirectory/Library/*
-    
-    cp -a "$PROJECT_DIR/TestData/App/Library/." "$appContainer/Library/"
-    cp -a "$PROJECT_DIR/TestData/Group/Library/." "$groupDirectory/Library/"
+    # Copy app container data
+    destinationAppContainer=$(xcrun simctl get_app_container $device net.devsci.den data)
+    echo "App Container: $destinationAppContainer"
+    rm -rf "$destinationAppContainer/Library/"*
+    cp -a "$sourceAppContainer/Library/." "$destinationAppContainer/Library/"
 fi

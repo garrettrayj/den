@@ -4,3 +4,4 @@ localazy.keys.json
 Scripts/Logs/
 TestData/*
 !TestData/.keep
+default.profraw
