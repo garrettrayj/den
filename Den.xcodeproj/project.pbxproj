@@ -732,8 +732,19 @@
 		68FF63F52921DB900012A275 /* ToggleReadFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleReadFilterButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		68A6C5D62C633287001B9782 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				SnapshotHelper.swift,
+			);
+			target = 68C9B65D2C61FA78000062BD /* Screenshots */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		687A19EE2C5CCC1800070AB7 /* ci_scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ci_scripts; sourceTree = "<group>"; };
+		68A6C5D42C633272001B9782 /* fastlane */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (68A6C5D62C633287001B9782 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = fastlane; sourceTree = "<group>"; };
 		68C9B65F2C61FA78000062BD /* Screenshots */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Screenshots; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -1153,6 +1164,7 @@
 				686069122831501B000068DE /* WebExtension */,
 				68CC01222BDF0D9C00E723DC /* WidgetExtension */,
 				687A19EE2C5CCC1800070AB7 /* ci_scripts */,
+				68A6C5D42C633272001B9782 /* fastlane */,
 				68D286272A634183007AD876 /* .gitignore */,
 				689EDBF8269188580055811A /* .swiftlint.yml */,
 				6818F0772B63363C00BE06FC /* LICENSE */,
@@ -2417,7 +2429,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2020-2024 Garrett Johnson";
-				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = "$(inherited)";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den.screenshots;
@@ -2446,7 +2458,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2020-2024 Garrett Johnson";
-				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = "$(inherited)";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den.screenshots;

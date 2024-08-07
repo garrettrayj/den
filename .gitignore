@@ -5,3 +5,5 @@ Scripts/Logs/
 TestData/*
 !TestData/.keep
 default.profraw
+fastlane/screenshots
+fastlane/report.xml
