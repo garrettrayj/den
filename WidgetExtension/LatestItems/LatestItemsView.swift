@@ -115,18 +115,23 @@ struct LatestItemsView: View {
     
     private var denIcon: some View {
         Rectangle()
-            .fill(.secondary)
+            .fill(accentColor.color ?? .coral)
             .mask(alignment: .center) {
-                Image("SimpleIcon").resizable().scaledToFit()
+                Image("WidgetIcon").resizable().scaledToFit()
             }
             .frame(width: smallIconSize, height: smallIconSize)
-            .offset(y: -1)
+            .offset(y: -2)
     }
     
     private var unreadCount: some View {
         Text(verbatim: "\(entry.unread)")
             .font(.footnote.weight(.medium))
             .foregroundStyle(.secondary)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 2)
+            .background {
+                Capsule().fill(.quaternary)
+            }
     }
     
     @ViewBuilder
