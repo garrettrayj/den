@@ -25,7 +25,7 @@ struct ItemActionView<Content: View>: View {
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
     var body: some View {
-        Group {
+        ZStack {
             if useSystemBrowser {
                 Button {
                     guard let url = item.link else { return }
@@ -48,6 +48,7 @@ struct ItemActionView<Content: View>: View {
                 showDivider: !isLastInList && !isStandalone
             )
         )
+        .drawingGroup()
         .accessibilityIdentifier("ItemAction")
         .contextMenu {
             #if os(iOS)

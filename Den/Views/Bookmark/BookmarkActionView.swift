@@ -20,7 +20,7 @@ struct BookmarkActionView<Content: View>: View {
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
     var body: some View {
-        Group {
+        ZStack {
             if useSystemBrowser {
                 Button {
                     guard let url = bookmark.link else { return }
@@ -35,6 +35,7 @@ struct BookmarkActionView<Content: View>: View {
             }
         }
         .buttonStyle(PreviewButtonStyle(read: .constant(false), roundedBottom: true, roundedTop: true))
+        .drawingGroup()
         .accessibilityIdentifier("BookmarkAction")
         .contextMenu {
             UnbookmarkButton(bookmark: bookmark)
