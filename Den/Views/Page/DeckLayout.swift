@@ -23,33 +23,54 @@ struct DeckLayout: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ScrollView(.horizontal) {
-                LazyHStack(alignment: .top, spacing: 8) {
-                    ForEach(page.feedsArray) { feed in
-                        ScrollView(.vertical, showsIndicators: false) {
-                            DeckColumn(
-                                feed: feed,
-                                hideRead: hideRead,
-                                items: items.forFeed(feed)
-                            )
-                            .padding(.vertical)
-                        }
-                        .scrollClipDisabled()
-                        .containerRelativeFrame(
-                            .horizontal,
-                            count: max(1, Int(geometry.size.width / idealColumnWidth)),
-                            spacing: 8
-                        )
-                        .padding(.bottom, geometry.safeAreaInsets.bottom)
-                    }
-                }
-                .scrollTargetLayout()
+            if #available(macOS 15.0, iOS 18.0, *) {
+                deckContent(geometry: geometry)
+                    #if os(macOS)
+                    .toolbarBackgroundVisibility(.visible, for: .windowToolbar)
+                    // Fix toolbar bottom border
+                    .padding(.top, 1)
+                    .offset(y: -1)
+                    #else
+                    .toolbarBackgroundVisibility(.visible, for: .navigationBar, .bottomBar)
+                    #endif
+            } else {
+                deckContent(geometry: geometry)
+                    .toolbarBackground(.visible)
+                    #if os(macOS)
+                    // Fix toolbar bottom border
+                    .padding(.top, 1)
+                    .offset(y: -1)
+                    #endif
             }
-            .scrollTargetBehavior(.viewAligned)
-            .scrollClipDisabled()
-            .contentMargins(.horizontal, 16)
-            .ignoresSafeArea(edges: .bottom)
-            .toolbarBackground(.visible)
         }
+    }
+    
+    private func deckContent(geometry: GeometryProxy) -> some View {
+        ScrollView(.horizontal) {
+            HStack(alignment: .top, spacing: 8) {
+                ForEach(page.feedsArray) { feed in
+                    ScrollView(.vertical, showsIndicators: false) {
+                        DeckColumn(
+                            feed: feed,
+                            hideRead: hideRead,
+                            items: items.forFeed(feed)
+                        )
+                        .padding(.vertical)
+                    }
+                    .scrollClipDisabled()
+                    .containerRelativeFrame(
+                        .horizontal,
+                        count: max(1, Int(geometry.size.width / idealColumnWidth)),
+                        spacing: 8
+                    )
+                    .contentMargins(.bottom, geometry.safeAreaInsets.bottom)
+                }
+            }
+            .scrollTargetLayout()
+        }
+        .scrollTargetBehavior(.viewAligned)
+        .scrollClipDisabled()
+        .contentMargins(.horizontal, 16)
+        .ignoresSafeArea(edges: .bottom)
     }
 }
