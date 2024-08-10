@@ -13,6 +13,19 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
+## Mac
+
+### mac screenshots
+
+```sh
+[bundle exec] fastlane mac screenshots
+```
+
+
+
+----
+
+
 ## iOS
 
 ### ios screenshots
@@ -22,6 +35,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 ```
 
 Generate new localized screenshots
+
+### ios beta
+
+```sh
+[bundle exec] fastlane ios beta
+```
+
+
 
 ----
 
