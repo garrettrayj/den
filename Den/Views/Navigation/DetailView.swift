@@ -64,6 +64,10 @@ struct DetailView: View {
                 }
             }
         }
+        #if os(iOS)
+        .toolbarTitleDisplayMode(.inline)
+        .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
+        #endif
     }
     
     private func getObjectFromURL(url: URL) -> NSManagedObject? {

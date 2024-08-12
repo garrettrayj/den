@@ -27,8 +27,8 @@ struct FeedNavLink: View {
                 Spacer()
                 ButtonChevron()
             }
+            .drawingGroup()
         }
-        .drawingGroup()
         .accessibilityIdentifier("FeedNavLink")
     }
 }

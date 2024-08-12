@@ -65,7 +65,7 @@ struct BrowserWebView {
     private var parseForReaderScript: WKUserScript? {
         guard
             let path = Bundle.main.path(forResource: "ParseForReader", ofType: "js"),
-            let script = try? String(contentsOfFile: path)
+            let script = try? String(contentsOfFile: path, encoding: .utf8)
         else {
             return nil
         }

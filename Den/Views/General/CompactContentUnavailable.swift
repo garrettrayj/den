@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct CompactContentUnavailable<LabelContent: View, DescriptionContent: View, ActionsContent: View>: View {
+    @Environment(\.colorScheme) private var colorScheme
     #if os(macOS)
     @Environment(\.controlActiveState) private var controlStateActive
     #endif
@@ -43,6 +44,39 @@ struct CompactContentUnavailable<LabelContent: View, DescriptionContent: View, A
     }
 
     var body: some View {
+        #if os(macOS)
+        if colorScheme == .dark {
+            content
+                .background(.fill.quinary)
+                .overlay {
+                    clipShape.strokeBorder(.separator).padding(.top, -1)
+                }
+                .clipShape(clipShape)
+        } else {
+            content
+                .background(.background)
+                .overlay {
+                    clipShape.strokeBorder(.separator).padding(.top, -1)
+                }
+                .clipShape(clipShape)
+        }
+        #else
+        content
+            .background(Color(.secondarySystemGroupedBackground))
+            .clipShape(clipShape)
+        #endif
+    }
+    
+    private var clipShape: some InsettableShape {
+        UnevenRoundedRectangle(cornerRadii: .init(
+            topLeading: 0,
+            bottomLeading: 8,
+            bottomTrailing: 8,
+            topTrailing: 0
+        ))
+    }
+    
+    private var content: some View {
         VStack(spacing: 4) {
             label().labelStyle(CompactContentUnavailableLabelStyle())
             description?().font(.caption).foregroundStyle(descriptionForegroundStyle)
@@ -51,19 +85,6 @@ struct CompactContentUnavailable<LabelContent: View, DescriptionContent: View, A
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity)
         .padding()
-        #if os(macOS)
-        .background(.background)
-        #else
-        .background(Color(.secondarySystemGroupedBackground))
-        #endif
-        .clipShape(
-            UnevenRoundedRectangle(cornerRadii: .init(
-                topLeading: 0,
-                bottomLeading: 8,
-                bottomTrailing: 8,
-                topTrailing: 0
-            ))
-        )
     }
 }
 

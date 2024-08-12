@@ -96,14 +96,17 @@ struct BrowserView: View {
             browserViewModel.setReaderZoom(browserViewModel.readerZoom)
         }
         .background(alignment: .bottom) {
-            // Buttons in background to fix keyboard shortcuts
-            ToggleReaderButton(browserViewModel: browserViewModel)
-            
-            if browserViewModel.showingReader {
-                ReaderZoom(browserViewModel: browserViewModel)
-            } else {
-                BrowserZoom(browserViewModel: browserViewModel)
+            ZStack {
+                // Buttons in background to fix keyboard shortcuts
+                ToggleReaderButton(browserViewModel: browserViewModel)
+                
+                if browserViewModel.showingReader {
+                    ReaderZoom(browserViewModel: browserViewModel)
+                } else {
+                    BrowserZoom(browserViewModel: browserViewModel)
+                }
             }
+            .offset(y: 100)
         }
     }
 }

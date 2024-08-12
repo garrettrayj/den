@@ -11,17 +11,41 @@
 import SwiftUI
 
 struct BasicHoverButtonStyle: ButtonStyle {
+    @Environment(\.colorScheme) private var colorScheme
+    
     func makeBody(configuration: Self.Configuration) -> some View {
-        ZStack {
-            configuration.label.modifier(HoverHighlightModifier())
-        }
+        
         #if os(macOS)
-        .background(.background)
+        if colorScheme == .dark {
+            content(configuration: configuration)
+                .background(.fill.quinary)
+                .overlay {
+                    clipShape.strokeBorder(.separator)
+                }
+                .clipShape(clipShape)
+                .background(.background)
+                .background(.windowBackground)
+        } else {
+            content(configuration: configuration)
+                .background(.background)
+                .overlay {
+                    clipShape.strokeBorder(.separator)
+                }
+                .clipShape(clipShape)
+        }
         #else
-        .background(Color(.secondarySystemGroupedBackground))
+        content(configuration: configuration)
+            .background(Color(.secondarySystemGroupedBackground))
+            .clipShape(clipShape)
         #endif
-        .clipShape(
-            RoundedRectangle(cornerRadius: 8)
-        )
+        
+    }
+    
+    private var clipShape: some InsettableShape {
+        RoundedRectangle(cornerRadius: 8)
+    }
+    
+    private func content(configuration: Self.Configuration) -> some View {
+        configuration.label.modifier(HoverHighlightModifier())
     }
 }

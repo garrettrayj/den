@@ -19,7 +19,6 @@ html {
 
 body {
     accent-color: $TINT_COLOR;
-    background: -apple-system-background;
     font: -apple-system-tall-body;
     font-size: 18px;
     margin: 24px auto 52px;

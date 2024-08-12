@@ -13,6 +13,7 @@ import OSLog
 import SwiftUI
 
 struct RootView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.scenePhase) private var scenePhase
     
@@ -54,14 +55,7 @@ struct RootView: View {
             .navigationSplitViewColumnWidth(sidebarWidth)
             #endif
         } detail: {
-            DetailView(
-                detailPanel: $detailPanel,
-                path: $navigationStore.path
-            )
-            #if os(iOS)
-            .toolbarTitleDisplayMode(.inline)
-            .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
-            #endif
+            DetailView(detailPanel: $detailPanel, path: $navigationStore.path)
         }
         .background {
             // Buttons in background for keyboard shortcuts
@@ -72,6 +66,10 @@ struct RootView: View {
             .disabled(pages.isEmpty)
             .opacity(0)
         }
+        #if os(macOS)
+        .background(.background.opacity(colorScheme == .dark ? 1 : 0), ignoresSafeAreaEdges: .all)
+        .background(.windowBackground.opacity(colorScheme == .dark ? 1 : 0), ignoresSafeAreaEdges: .all)
+        #endif
         .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
         .onOpenURL { url in
             if url.scheme == "den+widget" {
@@ -140,10 +138,7 @@ struct RootView: View {
             }
         }
         .sheet(isPresented: $showingNewFeedSheet) {
-            NewFeedSheet(
-                webAddress: $newFeedWebAddress,
-                initialPageObjectURL: $newFeedPageObjectURL
-            )
+            NewFeedSheet(webAddress: $newFeedWebAddress, initialPageObjectURL: $newFeedPageObjectURL)
         }
         .onReceive(NotificationCenter.default.publisher(for: .appErrored, object: nil)) { output in
             if let message = output.userInfo?["message"] as? String {

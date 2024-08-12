@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct PreviewButtonStyle: ButtonStyle {
+    @Environment(\.colorScheme) private var colorScheme
     #if os(macOS)
     @Environment(\.controlActiveState) private var controlStateActive
     #endif
@@ -21,8 +22,45 @@ struct PreviewButtonStyle: ButtonStyle {
     var roundedBottom: Bool = false
     var roundedTop: Bool = false
     var showDivider: Bool = false
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        #if os(macOS)
+        if colorScheme == .dark {
+            content(configuration: configuration)
+                .background(.fill.quinary)
+                .overlay {
+                    clipShape.strokeBorder(.separator).padding(.top, roundedTop ? 0 : -1)
+                }
+                .clipShape(clipShape)
+        } else {
+            content(configuration: configuration)
+                .background(.background)
+                .overlay {
+                    clipShape.strokeBorder(.separator).padding(.top, roundedTop ? 0 : -1)
+                }
+                .clipShape(clipShape)
+        }
+        #else
+        content(configuration: configuration)
+            .padding(.bottom, showDivider ? 1 : 0)
+            .overlay(alignment: .bottom) { if showDivider { Divider() } }
+            .background(Color(.secondarySystemGroupedBackground))
+            .clipShape(clipShape)
+        #endif
+    }
     
-    var foregroundStyle: some ShapeStyle {
+    private var clipShape: some InsettableShape {
+        UnevenRoundedRectangle(
+            cornerRadii: .init(
+                topLeading: roundedTop ? 8 : 0,
+                bottomLeading: roundedBottom ? 8 : 0,
+                bottomTrailing: roundedBottom ? 8 : 0,
+                topTrailing: roundedTop ? 8 : 0
+            )
+        )
+    }
+    
+    private var foregroundStyle: some ShapeStyle {
         #if os(macOS)
         if controlStateActive == .inactive || !isEnabled {
             return .tertiary
@@ -41,35 +79,8 @@ struct PreviewButtonStyle: ButtonStyle {
         }
         #endif
     }
-
-    func makeBody(configuration: Self.Configuration) -> some View {
-        ZStack {
-            if showDivider {
-                configuration.label
-                    .foregroundStyle(foregroundStyle)
-                    .modifier(HoverHighlightModifier())
-                    .padding(.bottom, 1)
-                    .overlay(alignment: .bottom) { Divider() }
-            } else {
-                configuration.label
-                    .foregroundStyle(foregroundStyle)
-                    .modifier(HoverHighlightModifier())
-            }
-        }
-        #if os(macOS)
-        .background(.background)
-        #else
-        .background(Color(.secondarySystemGroupedBackground))
-        #endif
-        .clipShape(
-            UnevenRoundedRectangle(
-                cornerRadii: .init(
-                    topLeading: roundedTop ? 8 : 0,
-                    bottomLeading: roundedBottom ? 8 : 0,
-                    bottomTrailing: roundedBottom ? 8 : 0,
-                    topTrailing: roundedTop ? 8 : 0
-                )
-            )
-        )
+    
+    private func content(configuration: Self.Configuration) -> some View {
+        configuration.label.foregroundStyle(foregroundStyle).modifier(HoverHighlightModifier())
     }
 }
