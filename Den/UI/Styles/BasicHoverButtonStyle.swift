@@ -28,9 +28,6 @@ struct BasicHoverButtonStyle: ButtonStyle {
         } else {
             content(configuration: configuration)
                 .background(.background)
-                .overlay {
-                    clipShape.strokeBorder(.separator)
-                }
                 .clipShape(clipShape)
         }
         #else

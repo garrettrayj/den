@@ -107,6 +107,7 @@ struct OrganizerOptionsPanel: View {
                     Text("Management", comment: "Organizer configuration panel section header.")
                 }
             }
+            .scrollContentBackground(.hidden)
         }
     }
 

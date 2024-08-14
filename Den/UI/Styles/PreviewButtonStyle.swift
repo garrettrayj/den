@@ -34,10 +34,9 @@ struct PreviewButtonStyle: ButtonStyle {
                 .clipShape(clipShape)
         } else {
             content(configuration: configuration)
+                .padding(.bottom, showDivider ? 1 : 0)
+                .overlay(alignment: .bottom) { if showDivider { Divider() } }
                 .background(.background)
-                .overlay {
-                    clipShape.strokeBorder(.separator).padding(.top, roundedTop ? 0 : -1)
-                }
                 .clipShape(clipShape)
         }
         #else

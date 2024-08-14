@@ -23,12 +23,14 @@ struct OrganizerInfoPanel: View {
             }
             if let feedData = feed.feedData {
                 LabeledContent {
-                    if feed.isSecure {
-                        Image(systemName: feed.urlSchemeSymbol)
-                        Text("Yes", comment: "Boolean value.")
-                    } else {
-                        Image(systemName: feed.urlSchemeSymbol)
-                        Text("No", comment: "Boolean value.")
+                    HStack {
+                        if feed.isSecure {
+                            Image(systemName: feed.urlSchemeSymbol)
+                            Text("Yes", comment: "Boolean value.")
+                        } else {
+                            Image(systemName: feed.urlSchemeSymbol)
+                            Text("No", comment: "Boolean value.")
+                        }
                     }
                 } label: {
                     Text("Secure", comment: "Organizer info panel row label.")

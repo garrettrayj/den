@@ -55,9 +55,6 @@ struct CompactContentUnavailable<LabelContent: View, DescriptionContent: View, A
         } else {
             content
                 .background(.background)
-                .overlay {
-                    clipShape.strokeBorder(.separator).padding(.top, -1)
-                }
                 .clipShape(clipShape)
         }
         #else

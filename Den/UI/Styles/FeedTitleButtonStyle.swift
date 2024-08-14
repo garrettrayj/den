@@ -30,15 +30,16 @@ struct FeedTitleButtonStyle: ButtonStyle {
                 .background(.windowBackground)
         } else {
             content(configuration: configuration)
+                .padding(.bottom, 1)
+                .overlay(Divider(), alignment: .bottom)
                 .background(.background)
-                .overlay {
-                    clipShape.strokeBorder(.separator)
-                }
                 .clipShape(clipShape)
                 .background(.windowBackground)
         }
         #else
         content(configuration: configuration)
+            .padding(.bottom, 1)
+            .overlay(Divider(), alignment: .bottom)
             .background(Color(.secondarySystemGroupedBackground))
             .clipShape(clipShape)
             .background(Color(.systemGroupedBackground))
@@ -51,10 +52,6 @@ struct FeedTitleButtonStyle: ButtonStyle {
             .foregroundStyle(foregroundStyle)
             .padding(12)
             .modifier(HoverHighlightModifier())
-            #if os(iOS)
-            .padding(.bottom, 1)
-            .overlay(Divider(), alignment: .bottom)
-            #endif
     }
     
     private var clipShape: some InsettableShape {

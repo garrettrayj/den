@@ -134,8 +134,6 @@ struct FeedInspector: View {
         }
         .formStyle(.grouped)
         .inspectorColumnWidth(width)
-        #if os(iOS)
-        .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
-        #endif
+        .scrollContentBackground(.hidden)
     }
 }

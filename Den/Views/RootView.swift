@@ -49,7 +49,7 @@ struct RootView: View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Sidebar(detailPanel: $detailPanel, pages: pages)
             #if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 300)
+            .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 272)
             #else
             // On iOS, sidebar width changes are appplied when app is relaunched.
             .navigationSplitViewColumnWidth(sidebarWidth)
