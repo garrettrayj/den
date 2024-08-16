@@ -44,6 +44,7 @@ struct OrganizerOptionsPanel: View {
                     Toggle(sources: sources, isOn: \.showExcerpts) {
                         Text("Show Excerpts", comment: "Toggle label.")
                     }
+                    .disabled(selection.filter({ $0.largePreviews }).isEmpty)
                     Toggle(sources: sources, isOn: \.showBylines) {
                         Text("Show Bylines", comment: "Toggle label.")
                     }

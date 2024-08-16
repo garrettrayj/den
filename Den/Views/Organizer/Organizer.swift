@@ -15,6 +15,7 @@ struct Organizer: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @State private var selection = Set<Feed>()
+    @State private var listID = 0
     
     #if os(macOS)
     @SceneStorage("ShowingOrganizerInspector") private var showingInspector = true
@@ -57,6 +58,7 @@ struct Organizer: View {
                         }
                     }
                 }
+                .id(listID)
                 .accessibilityIdentifier("OrganizerList")
                 #if os(macOS)
                 .listStyle(.inset(alternatesRowBackgrounds: true))
@@ -121,6 +123,7 @@ struct Organizer: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
+                listID += 1
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }

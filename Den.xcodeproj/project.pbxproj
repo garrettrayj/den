@@ -673,6 +673,7 @@
 		68D286542A68A5DF007AD876 /* MacComprehensive.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MacComprehensive.xctestplan; sourceTree = "<group>"; };
 		68D486BD26C9896300AF5B59 /* IconSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSelector.swift; sourceTree = "<group>"; };
 		68D58E6824955321007ED1AC /* OPMLReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLReader.swift; sourceTree = "<group>"; };
+		68D82FCA2C6EDC6B003B4CD1 /* crowdin.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = crowdin.yml; sourceTree = "<group>"; };
 		68DA79292B03CB4F0088DA33 /* ContentUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentUnavailable.swift; sourceTree = "<group>"; };
 		68DA792B2B03DD3C0088DA33 /* ContentUnavailableLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentUnavailableLabelStyle.swift; sourceTree = "<group>"; };
 		68DA792D2B03E9990088DA33 /* CompactContentUnavailableLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactContentUnavailableLabelStyle.swift; sourceTree = "<group>"; };
@@ -1164,6 +1165,7 @@
 				68E1EA252C65FA34000C10E0 /* fastlane */,
 				68D286272A634183007AD876 /* .gitignore */,
 				689EDBF8269188580055811A /* .swiftlint.yml */,
+				68D82FCA2C6EDC6B003B4CD1 /* crowdin.yml */,
 				6818F0772B63363C00BE06FC /* LICENSE */,
 				68E5B4E42C09EF6E00641CC7 /* localazy.json */,
 				6845BD0F24EFB38C0008B296 /* README.md */,
