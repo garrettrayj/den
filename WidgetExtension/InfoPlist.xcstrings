@@ -10,12 +10,6 @@
             "state" : "new",
             "value" : "Den Widget Extension"
           }
-        },
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Den Widget Extension"
-          }
         }
       }
     },
@@ -28,12 +22,6 @@
             "state" : "new",
             "value" : "Den Widget Extension"
           }
-        },
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Widget Extension"
-          }
         }
       }
     },
@@ -44,12 +32,6 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copyright © 2020-2024 Garrett Johnson"
-          }
-        },
-        "en-AU" : {
-          "stringUnit" : {
-            "state" : "translated",
             "value" : "Copyright © 2020-2024 Garrett Johnson"
           }
         }

@@ -46,10 +46,7 @@ struct NewBlocklistSheet: View {
                     
                     TextField(
                         text: $urlString,
-                        prompt: Text(
-                            "https⁣://example.com/blocklist.json",
-                            comment: "Blocklist URL field prompt."
-                        )
+                        prompt: Text(verbatim: "https⁣://example.com/blocklist.json")
                         // Prompt contains an invisible separator after "https" to prevent link coloring
                     ) {
                         Label {

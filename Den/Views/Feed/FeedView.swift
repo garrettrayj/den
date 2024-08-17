@@ -31,7 +31,7 @@ struct FeedView: View {
                         Image(systemName: "trash")
                     }
                 }
-                .navigationTitle("")
+                .navigationTitle(Text(verbatim: ""))
             } else {
                 WithItems(
                     scopeObject: feed,

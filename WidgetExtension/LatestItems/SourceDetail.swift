@@ -16,42 +16,41 @@ import SwiftUI
 struct SourceDetail: AppEntity {
     let id: String
     let entityType: NSManagedObject.Type?
-    let title: String
+    let title: LocalizedStringResource
     let symbol: String?
 
-    static let typeDisplayRepresentation: TypeDisplayRepresentation = "Source"
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = .init(
+        name: .init("Source", comment: "Widget configuration option label.")
+    )
     static let defaultQuery = SourceQuery()
-            
+
     var displayRepresentation: DisplayRepresentation {
         if entityType == Page.self {
-            if let symbol = symbol {
-                DisplayRepresentation(
-                    title: "\(title)",
-                    subtitle: "Folder",
-                    image: .init(systemName: symbol)
-                )
-            } else {
-                DisplayRepresentation(
-                    title: "\(title)",
-                    subtitle: "Folder",
-                    image: .init(systemName: "folder")
-                )
-            }
+            DisplayRepresentation(
+                title: title,
+                subtitle: .init(
+                    "Folder",
+                    comment: "Latest items widget folder source type subtitle."
+                ),
+                image: {
+                    if let symbol = symbol {
+                        return .init(systemName: symbol)
+                    } else {
+                        return nil
+                    }
+                }()
+            )
         } else if entityType == Feed.self {
             DisplayRepresentation(
-                title: "\(title)",
+                title: title,
                 image: .init(systemName: "dot.radiowaves.up.forward")
             )
         } else {
-            if let symbol = symbol {
-                DisplayRepresentation(
-                    title: "\(title)",
-                    subtitle: "All Feeds",
-                    image: .init(systemName: symbol)
-                )
-            } else {
-                DisplayRepresentation(title: "\(title)", subtitle: "All Feeds")
-            }
+            DisplayRepresentation(
+                title: .init("Inbox", comment: "Latest items widget source title."),
+                subtitle: .init("All Feeds", comment: "Latest items widget Inbox source subtitle."),
+                image: .init(systemName: "tray")
+            )
         }
     }
 }

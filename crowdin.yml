@@ -1,26 +1,22 @@
 "project_id": "705247"
 "base_path": "."
 "base_url": "https://api.crowdin.com"
+"preserve_hierarchy": true
 
-#
-# Files configuration
-#
 files: [
   {
-    #
-    # Source files filter
-    # e.g. "/resources/en/*.json"
-    #
     "source": "Den/InfoPlist.xcstrings",
-
-    #
-    # Where translations will be placed
-    # e.g. "/resources/%two_letters_code%/%original_file_name%"
-    #
-    "translation": "Den/InfoPlist.xcstrings"
+    "translation": "Den/InfoPlist.xcstrings",
+    "multilingual": true
   },
   {
-    "source": "Den/Localizable.xcstrings",
-    "translation": "Den/Localizable.xcstrings"
-  }
+    "source": "Shared/Localizable.xcstrings",
+    "translation": "Shared/Localizable.xcstrings",
+    "multilingual": true
+  },
+  {
+    "source": "WidgetExtension/InfoPlist.xcstrings",
+    "translation": "WidgetExtension/InfoPlist.xcstrings",
+    "multilingual": true
+  },
 ]

@@ -18,7 +18,7 @@ struct BrowserNavControlGroup: View {
             GoBackButton(browserViewModel: browserViewModel)
             GoForwardButton(browserViewModel: browserViewModel)
         } label: {
-            Text("Back/Forward")
+            Text("Back/Forward", comment: "Control group label.")
         }
     }
 }

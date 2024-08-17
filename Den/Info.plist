@@ -2,25 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIApplicationShortcutItems</key>
-	<array>
-		<dict>
-			<key>UIApplicationShortcutItemType</key>
-			<string>InboxAction</string>
-			<key>UIApplicationShortcutItemIconSymbolName</key>
-			<string>tray</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Inbox</string>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemType</key>
-			<string>TrendingAction</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Trending</string>
-			<key>UIApplicationShortcutItemIconSymbolName</key>
-			<string>chart.line.uptrend.xyaxis</string>
-		</dict>
-	</array>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>net.devsci.den.refresh</string>
@@ -74,6 +55,25 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>tray</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Inbox</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>InboxAction</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>chart.line.uptrend.xyaxis</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Trending</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>TrendingAction</string>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

@@ -54,11 +54,12 @@ struct BookmarksTableLayout: View {
                         VStack(alignment: .leading, spacing: 8) {
                             row.bookmark.titleText.font(.headline)
                             
-                            Text(
-                                "Tagged: \(row.created.formatted())",
-                                comment: "Tagged date/time label."
-                            )
-                            .font(.caption)
+                            LabeledContent {
+                                Text(row.created.formatted())
+                            } label: {
+                                Text("Added", comment: "Compact bookmarks table row date/time label.")
+                            }
+                            .font(.caption2)
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -75,7 +76,7 @@ struct BookmarksTableLayout: View {
             .width(max: horizontalSizeClass == .compact ? nil : 180)
 
             TableColumn(
-                Text("Title", comment: "Tagged items table header."),
+                Text("Title", comment: "Bookmarks table header."),
                 value: \.title
             ) { row in
                 row.bookmark.titleText
@@ -83,7 +84,7 @@ struct BookmarksTableLayout: View {
             .width(ideal: 460)
 
             TableColumn(
-                Text("Tagged", comment: "Tagged items table header."),
+                Text("Added", comment: "Bookmarks table header."),
                 value: \.created
             ) { row in
                 Text(row.created.formatted())
@@ -146,11 +147,15 @@ struct BookmarksTableLayout: View {
             SystemBrowserButton(url: row.link)
             CopyAddressButton(url: row.link)
             ShareButton(item: row.link)
+            if let feedObjectURL = row.bookmark.feed?.objectID.uriRepresentation() {
+                Divider()
+                GoToFeedNavLink(feedObjectURL: feedObjectURL)
+            }
         } else {
             Button {
                 deleteSelection(items: items)
             } label: {
-                Text("Untag", comment: "Button label.")
+                Text("Unbookmark", comment: "Button label.")
             }
         }
     }

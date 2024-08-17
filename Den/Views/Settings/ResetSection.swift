@@ -71,15 +71,9 @@ struct ResetSection: View {
                         Image(systemName: "clear")
                     }
                     Spacer()
-                    Group {
-                        if history.count == 1 {
-                            Text("1 Record", comment: "History count (singular).")
-                        } else {
-                            Text("\(history.count) Records", comment: "History count (zero/plural).")
-                        }
-                    }
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
+                    Text("\(history.count) Records", comment: "History count.")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
                 }
             }
             .disabled(history.isEmpty)

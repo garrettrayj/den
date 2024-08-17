@@ -16,47 +16,21 @@ struct NoFeeds: View {
     var body: some View {
         ContentUnavailable {
             Label {
-                Text("No Feeds", comment: "Empty page title.")
+                Text("No Feeds", comment: "Content unavailable title.")
             } icon: {
                 Image(systemName: symbol)
             }
         } description: {
-            #if os(macOS)
             Text(
                 """
-                Open a feed link, drag a URL onto the page list, \
-                or go to “\(Image(systemName: "ellipsis.circle" )) > New Feed” \
-                to enter a web address. \
-                \nUse the Safari extension to discover feeds on websites.
+                Open a syndication link or drag a feed web address onto a folder in the sidebar. \
+                Use the Safari extension to discover feeds on websites.
                 """,
-                comment: "No feeds guidance (Mac)."
+                comment: "No feeds guidance."
             )
             .imageScale(.small)
-            #else
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                Text(
-                    """
-                    Open a feed link or go to “\(Image(systemName: "ellipsis.circle" )) > New Feed” \
-                    to enter a web address. \
-                    Use the Safari extension to discover feeds on websites.
-                    """,
-                    comment: "No feeds guidance (iPhone)."
-                )
-                .imageScale(.small)
-            } else {
-                Text(
-                    """
-                    Open a feed link, drag a URL onto the page list, \
-                    or go to “\(Image(systemName: "ellipsis.circle" )) > New Feed” \
-                    to enter a web address. \
-                    Use the Safari extension to discover feeds on websites.
-                    """,
-                    comment: "No feeds guidance (iPad)."
-                )
-                .imageScale(.small)
-                .frame(maxWidth: 480)
-            }
-            #endif
+        } actions: {
+            NewFeedButton()
         }
     }
 }

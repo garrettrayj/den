@@ -16,7 +16,7 @@ struct SourceQuery: EntityQuery {
         id: "inbox",
         entityType: nil,
         title: "Inbox",
-        symbol: "tray"
+        symbol: nil
     )
     
     func entities(for identifiers: [SourceDetail.ID]) async throws -> [SourceDetail] {
@@ -38,7 +38,7 @@ struct SourceQuery: EntityQuery {
                 sources.append(SourceDetail(
                     id: pageID.uuidString,
                     entityType: Page.self,
-                    title: page.wrappedName,
+                    title: .init(stringLiteral: page.wrappedName),
                     symbol: page.wrappedSymbol
                 ))
                 
@@ -47,7 +47,7 @@ struct SourceQuery: EntityQuery {
                     sources.append(SourceDetail(
                         id: feedID.uuidString,
                         entityType: Feed.self,
-                        title: feed.wrappedTitle,
+                        title: .init(stringLiteral: page.wrappedName),
                         symbol: nil
                     ))
                 }

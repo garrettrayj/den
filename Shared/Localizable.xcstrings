@@ -1,18 +1,28 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
+    "%lld Feeds" : {
+      "comment" : "Feed count.",
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ""
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Feed"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Feeds"
+                }
+              }
+            }
           }
         }
       }
-    },
-    "%lld Feeds" : {
-      "comment" : "Feed count (plural)."
     },
     "%lld items in %lld feeds. %lld unread" : {
       "comment" : "Trend status line.",
@@ -40,19 +50,33 @@
       }
     },
     "%lld Records" : {
-      "comment" : "History count (zero/plural)."
+      "comment" : "History count.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Record"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Records"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "%lld s" : {
       "comment" : "Seconds time display."
     },
     "%lld%%" : {
       "comment" : "Zoom level label."
-    },
-    "1 Feed" : {
-      "comment" : "Feed count (singular)."
-    },
-    "1 Record" : {
-      "comment" : "History count (singular)."
     },
     "A critical error occurred. Restart to try again." : {
       "comment" : "Crash view guidance."
@@ -61,13 +85,24 @@
       "comment" : "Settings section header."
     },
     "Accent Color" : {
-      "comment" : "Picker label."
+      "comment" : "Picker label.",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accent Colour"
+          }
+        }
+      }
     },
     "Acknowledgements" : {
       "comment" : "Button label."
     },
     "Actual Size" : {
       "comment" : "Button label."
+    },
+    "Added" : {
+      "comment" : "Bookmarks table header.\nCompact bookmarks table row date/time label."
     },
     "Address cannot be blank." : {
       "comment" : "URL field validation message."
@@ -87,17 +122,28 @@
     "All data will be deleted. Default settings will be restored." : {
       "comment" : "Alert message."
     },
+    "All Feeds" : {
+      "comment" : "Latest items widget Inbox source subtitle."
+    },
     "All feeds will removed." : {
       "comment" : "Delete page alert message."
     },
     "All Read" : {
-      "comment" : "Content unavailable title."
+      "comment" : "Card note title.\nContent unavailable title."
     },
     "Allow JavaScript" : {
       "comment" : "Toggle label."
     },
     "Analyzing…" : {
-      "comment" : "Status message (analysis in progress)."
+      "comment" : "Status message (analysis in progress).",
+      "localizations" : {
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Analysing…"
+          }
+        }
+      }
     },
     "Appearance" : {
       "comment" : "Settings section header."
@@ -108,7 +154,10 @@
     "Available" : {
       "comment" : "Background refresh status."
     },
-    "Background behavior has been explicitly disabled for this app or the whole system. Refresh task is unavailable." : {
+    "Back/Forward" : {
+      "comment" : "Control group label."
+    },
+    "Background behavior has been explicitly disabled for this app or the whole system." : {
       "comment" : "Background refresh status guidance."
     },
     "Background Refresh Status" : {
@@ -128,6 +177,12 @@
     },
     "Blue" : {
       "comment" : "Accent color option."
+    },
+    "Bookmark" : {
+      "comment" : "Button label."
+    },
+    "Bookmarks" : {
+      "comment" : "Button label.\nNavigation title."
     },
     "Brown" : {
       "comment" : "Accent color option."
@@ -150,6 +205,9 @@
     "Clear History" : {
       "comment" : "Button label."
     },
+    "Clear Search Suggestions" : {
+      "comment" : "Button label."
+    },
     "Close" : {
       "comment" : "Button label."
     },
@@ -161,6 +219,9 @@
     },
     "Copy Address" : {
       "comment" : "Button label."
+    },
+    "Coral" : {
+      "comment" : "Accent color option."
     },
     "Cyan" : {
       "comment" : "Accent color option."
@@ -174,11 +235,11 @@
     "Deck" : {
       "comment" : "Layout option label."
     },
-    "Default" : {
-      "comment" : "Accent color option."
-    },
     "Delete" : {
       "comment" : "Button label."
+    },
+    "Delete bookmark" : {
+      "comment" : "Button help text."
     },
     "Delete Feed?" : {
       "comment" : "Alert title."
@@ -191,6 +252,9 @@
     },
     "Denied" : {
       "comment" : "Background refresh status."
+    },
+    "Deselect All" : {
+      "comment" : "Button label."
     },
     "Disable JavaScript" : {
       "comment" : "Button label."
@@ -249,14 +313,14 @@
     "Feeds will refresh automatically while the app is running." : {
       "comment" : "Refresh settings guidance."
     },
-    "Filter Read" : {
-      "comment" : "Button label."
+    "File Name Unknown" : {
+      "comment" : "Download file name unavailable."
     },
     "Filter rules must be in content blocker JSON format." : {
       "comment" : "New blocklist guidance."
     },
     "Folder" : {
-      "comment" : "Picker label."
+      "comment" : "Latest items widget folder source type subtitle.\nPicker label."
     },
     "Folder Deleted" : {
       "comment" : "Object removed message."
@@ -266,9 +330,6 @@
     },
     "Format" : {
       "comment" : "Organizer info panel row label."
-    },
-    "Formatting" : {
-      "comment" : "Button label."
     },
     "General" : {
       "comment" : "Settings section header."
@@ -282,6 +343,9 @@
     "Go Forward" : {
       "comment" : "Button label."
     },
+    "Go to Feed" : {
+      "comment" : "Button label."
+    },
     "Green" : {
       "comment" : "Accent color option."
     },
@@ -292,25 +356,22 @@
       "comment" : "Button label."
     },
     "Hide Inspector" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.\nButton label."
     },
-    "Hide Read Items" : {
+    "Hide Read" : {
+      "comment" : "Button label."
+    },
+    "Hide read items" : {
       "comment" : "Button help text."
     },
     "Hide Reader" : {
       "comment" : "Button label."
     },
-    "https⁣://example.com/blocklist.json" : {
-      "comment" : "Blocklist URL field prompt."
-    },
-    "https⁣://example.com/feed" : {
-      "comment" : "Web address text field prompt."
-    },
     "Import OPML" : {
       "comment" : "Button label."
     },
     "Inbox" : {
-      "comment" : "Button label.\nNavigation title."
+      "comment" : "Button label.\nLatest items widget source title.\nNavigation title.\nWidget placeholder title.\nWidget snapshot title.\nWidget title."
     },
     "Inbox Empty" : {
       "comment" : "Content unavailable title."
@@ -327,8 +388,8 @@
     "Last Run" : {
       "comment" : "Maintenance date label."
     },
-    "Layout" : {
-      "comment" : "Picker label."
+    "Latest Items" : {
+      "comment" : "Widget display name."
     },
     "Leave a Review" : {
       "comment" : "Button label."
@@ -340,7 +401,7 @@
       "comment" : "Feed inspector section header.\nOrganizer configuration panel section header."
     },
     "List" : {
-      "comment" : "Tag layout option."
+      "comment" : "Bookmarks layout option."
     },
     "Load Demo" : {
       "comment" : "Button label."
@@ -351,17 +412,26 @@
     "Management" : {
       "comment" : "Organizer configuration panel section header."
     },
-    "Mark All Read" : {
+    "Mark all items read" : {
       "comment" : "Button help text."
     },
-    "Mark All Unread" : {
+    "Mark all items unread" : {
       "comment" : "Button help text."
+    },
+    "Mark All Read" : {
+      "comment" : "Button label."
+    },
+    "Mark All Unread" : {
+      "comment" : "Button label."
     },
     "Mark Read" : {
       "comment" : "Button label."
     },
     "Mark Unread" : {
       "comment" : "Button label."
+    },
+    "Menu" : {
+      "comment" : "Menu label."
     },
     "Mint" : {
       "comment" : "Accent color option."
@@ -393,11 +463,11 @@
     "New Folder" : {
       "comment" : "Button label.\nNavigation title."
     },
-    "New Tag" : {
-      "comment" : "Button label.\nNavigation title."
-    },
     "No" : {
       "comment" : "Blocklist compile/load status message.\nBoolean value."
+    },
+    "No Bookmarks" : {
+      "comment" : "Content unavailable title."
     },
     "No common subjects were found in titles." : {
       "comment" : "Trending empty message."
@@ -406,13 +476,13 @@
       "comment" : "Feed unavailable title.\nOrganizer row status."
     },
     "No Feeds" : {
-      "comment" : "Content unavailable title.\nEmpty page title.\nFeed count (zero)."
+      "comment" : "Content unavailable title."
+    },
+    "No Folders Available" : {
+      "comment" : "New Feed sheet error message."
     },
     "No Items" : {
       "comment" : "Content unavailable title."
-    },
-    "No Pages Available" : {
-      "comment" : "New Feed error message."
     },
     "No Pending Tasks" : {
       "comment" : "Debugging tools message."
@@ -426,11 +496,11 @@
     "No Selection" : {
       "comment" : "Inspector selection message."
     },
-    "No Tags" : {
-      "comment" : "Menu options unavailable message."
-    },
     "No Trends" : {
       "comment" : "Content unavailable title."
+    },
+    "No Unread Items" : {
+      "comment" : "Widget empty message."
     },
     "No Unread Results" : {
       "comment" : "No unread search results title."
@@ -438,22 +508,36 @@
     "None" : {
       "comment" : "Empty picker option."
     },
-    "Open a feed link or go to “%@ > New Feed” to enter a web address. Use the Safari extension to discover feeds on websites." : {
-      "comment" : "No feeds guidance (iPhone)."
-    },
-    "Open a feed link, drag a URL onto the page list, or go to “%@ > New Feed” to enter a web address. \nUse the Safari extension to discover feeds on websites." : {
-      "comment" : "No feeds guidance (Mac)."
-    },
-    "Open a feed link, drag a URL onto the page list, or go to “%@ > New Feed” to enter a web address. Use the Safari extension to discover feeds on websites." : {
-      "comment" : "No feeds guidance (iPad)."
+    "Open a syndication link or drag a feed web address onto a folder in the sidebar. Use the Safari extension to discover feeds on websites." : {
+      "comment" : "No feeds guidance.",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "device" : {
+              "iphone" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Open a syndication link or use the Safari extension to discover feeds on websites."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "Open a syndication link or drag a feed web address onto a folder in the sidebar. Use the Safari extension to discover feeds on websites."
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "Open File" : {
       "comment" : "Button label."
     },
-    "Open in Browser" : {
+    "Open Link" : {
       "comment" : "Button label."
     },
-    "Open in System Browser" : {
+    "Open link in system browser" : {
       "comment" : "Button help text."
     },
     "Open Validator" : {
@@ -474,14 +558,11 @@
     "Pink" : {
       "comment" : "Accent color option."
     },
-    "Preferences" : {
-      "comment" : "Menu label."
-    },
     "Press %@ R to Refresh" : {
       "comment" : "Status message."
     },
     "Previews" : {
-      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header.\nTag layout option."
+      "comment" : "Bookmarks layout option.\nFeed inspector section header.\nOrganizer configuration panel section header."
     },
     "Pull to Refresh" : {
       "comment" : "Status message."
@@ -495,7 +576,7 @@
     "Refresh" : {
       "comment" : "Button label."
     },
-    "Refresh Feeds" : {
+    "Refresh feeds" : {
       "comment" : "Button help text."
     },
     "Refresh Interval" : {
@@ -510,17 +591,14 @@
     "Reload" : {
       "comment" : "Button label."
     },
-    "Reload Page" : {
-      "comment" : "Button help text."
-    },
-    "Remove Bookmark" : {
+    "Reload page" : {
       "comment" : "Button help text."
     },
     "Remove from List" : {
       "comment" : "Button label."
     },
     "Reset" : {
-      "comment" : "Button label."
+      "comment" : "Button label.\nSettings section header."
     },
     "Reset Everything" : {
       "comment" : "Button label."
@@ -553,19 +631,19 @@
       "comment" : "Organizer info panel row label."
     },
     "Select All" : {
+      "comment" : "Button label."
+    },
+    "Select all/none" : {
       "comment" : "Button help text."
     },
     "Select Icon" : {
       "comment" : "Navigation title."
     },
-    "Select None" : {
-      "comment" : "Button help text."
-    },
     "Select Preset…" : {
       "comment" : "Button label."
     },
-    "Select Tags" : {
-      "comment" : "Menu help text."
+    "Select view layout" : {
+      "comment" : "Button help text."
     },
     "Server" : {
       "comment" : "Organizer info panel row label."
@@ -579,17 +657,17 @@
     "Share" : {
       "comment" : "Button help text."
     },
+    "Show browser view options" : {
+      "comment" : "Menu help text."
+    },
     "Show Bylines" : {
       "comment" : "Toggle label."
     },
-    "Show Downloads" : {
+    "Show downloads" : {
       "comment" : "Button help text."
     },
     "Show Excerpts" : {
       "comment" : "Toggle label."
-    },
-    "Show Format Menu" : {
-      "comment" : "Menu help text."
     },
     "Show Images" : {
       "comment" : "Toggle label."
@@ -598,34 +676,37 @@
       "comment" : "Button label."
     },
     "Show Inspector" : {
-      "comment" : "Button help text."
+      "comment" : "Button help text.\nButton label."
     },
-    "Show Menu" : {
+    "Show menu" : {
       "comment" : "Menu help text."
     },
-    "Show Next Page" : {
+    "Show next page" : {
       "comment" : "Button help text."
     },
-    "Show Previous Page" : {
+    "Show previous page" : {
       "comment" : "Button help text."
     },
-    "Show Read Items" : {
+    "Show Read" : {
+      "comment" : "Button label."
+    },
+    "Show read items" : {
       "comment" : "Button help text."
     },
     "Show Reader" : {
       "comment" : "Button label."
     },
-    "Show Reader / Show Format Menu" : {
-      "comment" : "Menu help text."
-    },
-    "Show Reader Formatting" : {
+    "Show reader view options" : {
       "comment" : "Menu help text."
     },
     "Show Unread Counts" : {
       "comment" : "Toggle label."
     },
     "Showing results for “%@”" : {
-      "comment" : "Bottom bar status.\nNavigation subtitle."
+      "comment" : "Search status."
+    },
+    "Source" : {
+      "comment" : "Widget configuration option label."
     },
     "Status" : {
       "comment" : "Blocklist status section header.\nOrganizer info panel row label."
@@ -636,29 +717,14 @@
     "Stop" : {
       "comment" : "Button label."
     },
-    "Stop Loading Page" : {
-      "comment" : "Button help text."
-    },
-    "Switch Layout" : {
+    "Stop loading page" : {
       "comment" : "Button help text."
     },
     "Symbol" : {
       "comment" : "Text field label."
     },
     "System" : {
-      "comment" : "User color scheme picker option."
-    },
-    "Tag Deleted" : {
-      "comment" : "Object removed message."
-    },
-    "Tagged" : {
-      "comment" : "Tagged items table header."
-    },
-    "Tagged: %@" : {
-      "comment" : "Tagged date/time label."
-    },
-    "Tags" : {
-      "comment" : "Menu label.\nSidebar section header."
+      "comment" : "Accent color option.\nUser color scheme picker option."
     },
     "Teal" : {
       "comment" : "Accent color option."
@@ -676,10 +742,7 @@
       "comment" : "Layout option label."
     },
     "Title" : {
-      "comment" : "Tagged items table header."
-    },
-    "Toggle Inspector" : {
-      "comment" : "Button label."
+      "comment" : "Bookmarks table header."
     },
     "Trend Removed" : {
       "comment" : "Object removed message."
@@ -702,20 +765,17 @@
     "Unavailable" : {
       "comment" : "Blocklist response code placeholder."
     },
-    "Unknown" : {
-      "comment" : "Background refresh status.\nDownload file name unavailable."
+    "Unbookmark" : {
+      "comment" : "Button label."
     },
     "Unknown Error" : {
       "comment" : "Feed unavailable title."
-    },
-    "Untag" : {
-      "comment" : "Button label."
     },
     "Untagged" : {
       "comment" : "Object removed message."
     },
     "Untitled" : {
-      "comment" : "Default content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nFolder name placeholder.\nTag name placeholder."
+      "comment" : "Bookmark site title placeholder.\nDefault content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nFolder name placeholder."
     },
     "Updated" : {
       "comment" : "Blocklist status row label."
@@ -742,7 +802,7 @@
       "comment" : "About row label."
     },
     "View" : {
-      "comment" : "Picker label."
+      "comment" : "Button label.\nPicker label."
     },
     "Viewing" : {
       "comment" : "Feed inspector section header.\nOrganizer configuration panel section header."

@@ -60,7 +60,7 @@ struct NewFeedSheet: View {
 
                     PagePicker(selection: $targetPage)
                 } else {
-                    Text("No Pages Available", comment: "New Feed error message.").font(.title2)
+                    Text("No Folders Available", comment: "New Feed sheet error message.").font(.title2)
                 }
             }
             .formStyle(.grouped)

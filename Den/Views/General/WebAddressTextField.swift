@@ -20,7 +20,7 @@ struct WebAddressTextField: View {
     var body: some View {
         TextField(
             text: $text,
-            prompt: Text("https⁣://example.com/feed", comment: "Web address text field prompt.")
+            prompt: Text(verbatim: "https⁣://example.com/feed")
             // Prompt contains an invisible separator after "https" to prevent link coloring
         ) {
             Label {

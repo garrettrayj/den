@@ -30,7 +30,7 @@ struct PageView: View {
                     Image(systemName: "trash")
                 }
             }
-            .navigationTitle("")
+            .navigationTitle(Text(verbatim: ""))
         } else {
             WithItems(scopeObject: page) { items in
                 Group {
