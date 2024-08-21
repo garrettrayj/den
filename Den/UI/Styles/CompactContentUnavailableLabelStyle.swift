@@ -11,43 +11,16 @@
 import SwiftUI
 
 struct CompactContentUnavailableLabelStyle: LabelStyle {
-    #if os(macOS)
-    @Environment(\.controlActiveState) private var controlStateActive
-    #endif
     @Environment(\.isEnabled) private var isEnabled
 
     func makeBody(configuration: Configuration) -> some View {
         VStack(spacing: 8) {
             configuration.icon
-                .foregroundStyle(iconForegroundStyle)
+                .foregroundStyle(.secondary)
             configuration.title
-                .foregroundStyle(titleForegroundStyle)
+                .foregroundStyle(.secondary)
         }
         .imageScale(.large)
         .font(.callout)
-    }
-    
-    private var iconForegroundStyle: HierarchicalShapeStyle {
-        #if os(macOS)
-        if controlStateActive == .inactive || !isEnabled {
-            return .quaternary
-        } else {
-            return .tertiary
-        }
-        #else
-        return .secondary
-        #endif
-    }
-    
-    private var titleForegroundStyle: HierarchicalShapeStyle {
-        #if os(macOS)
-        if controlStateActive == .inactive || !isEnabled {
-            return .tertiary
-        } else {
-            return .secondary
-        }
-        #else
-        return .secondary
-        #endif
     }
 }

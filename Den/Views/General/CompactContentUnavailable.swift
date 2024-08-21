@@ -10,11 +10,12 @@
 
 import SwiftUI
 
-struct CompactContentUnavailable<LabelContent: View, DescriptionContent: View, ActionsContent: View>: View {
+struct CompactContentUnavailable<
+    LabelContent: View,
+    DescriptionContent: View,
+    ActionsContent: View
+>: View {
     @Environment(\.colorScheme) private var colorScheme
-    #if os(macOS)
-    @Environment(\.controlActiveState) private var controlStateActive
-    #endif
     @Environment(\.isEnabled) private var isEnabled
 
     private var label: () -> LabelContent
@@ -29,18 +30,6 @@ struct CompactContentUnavailable<LabelContent: View, DescriptionContent: View, A
         self.label = label
         self.description = description
         self.actions = actions
-    }
-    
-    private var descriptionForegroundStyle: HierarchicalShapeStyle {
-        #if os(macOS)
-        if controlStateActive == .inactive || !isEnabled {
-            return .tertiary
-        } else {
-            return .secondary
-        }
-        #else
-        return .secondary
-        #endif
     }
 
     var body: some View {
@@ -76,7 +65,7 @@ struct CompactContentUnavailable<LabelContent: View, DescriptionContent: View, A
     private var content: some View {
         VStack(spacing: 4) {
             label().labelStyle(CompactContentUnavailableLabelStyle())
-            description?().font(.caption).foregroundStyle(descriptionForegroundStyle)
+            description?().font(.caption).foregroundStyle(.secondary)
             actions?().font(.caption).padding(.top, 4)
         }
         .multilineTextAlignment(.center)

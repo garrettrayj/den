@@ -12,9 +12,6 @@ import SwiftUI
 
 struct FeedTitleButtonStyle: ButtonStyle {
     @Environment(\.colorScheme) private var colorScheme
-    #if os(macOS)
-    @Environment(\.controlActiveState) private var controlActiveState
-    #endif
     @Environment(\.isEnabled) private var isEnabled
 
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
@@ -49,7 +46,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
     private func content(configuration: Self.Configuration) -> some View {
         configuration.label
             .font(.title3)
-            .foregroundStyle(foregroundStyle)
+            .foregroundStyle(isEnabled ? .primary : .tertiary)
             .padding(12)
             .modifier(HoverHighlightModifier())
     }
@@ -58,21 +55,5 @@ struct FeedTitleButtonStyle: ButtonStyle {
         UnevenRoundedRectangle(
             cornerRadii: .init(topLeading: 8, bottomLeading: 0, bottomTrailing: 0, topTrailing: 8)
         )
-    }
-    
-    private var foregroundStyle: some ShapeStyle {
-        #if os(macOS)
-        if controlActiveState == .inactive || !isEnabled {
-            return .tertiary
-        } else {
-            return .primary
-        }
-        #else
-        if !isEnabled {
-            return .tertiary
-        } else {
-            return .primary
-        }
-        #endif
     }
 }

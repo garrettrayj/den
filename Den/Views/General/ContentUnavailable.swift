@@ -11,9 +11,6 @@
 import SwiftUI
 
 struct ContentUnavailable<LabelContent: View, DescriptionContent: View, ActionsContent: View>: View {
-    #if os(macOS)
-    @Environment(\.controlActiveState) private var controlStateActive
-    #endif
     @Environment(\.isEnabled) private var isEnabled
 
     private var label: () -> LabelContent
@@ -29,24 +26,12 @@ struct ContentUnavailable<LabelContent: View, DescriptionContent: View, ActionsC
         self.description = description
         self.actions = actions
     }
-    
-    private var descriptionForegroundStyle: HierarchicalShapeStyle {
-        #if os(macOS)
-        if controlStateActive == .inactive || !isEnabled {
-            return .tertiary
-        } else {
-            return .secondary
-        }
-        #else
-        return .secondary
-        #endif
-    }
 
     var body: some View {
         VStack(spacing: 16) {
             Spacer(minLength: 0)
             label().labelStyle(ContentUnavailableLabelStyle())
-            description?().foregroundStyle(descriptionForegroundStyle).frame(maxWidth: 800)
+            description?().foregroundStyle(.secondary).frame(maxWidth: 800)
             actions?().padding(.top, 4)
             Spacer(minLength: 0)
         }

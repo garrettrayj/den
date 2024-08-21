@@ -11,9 +11,6 @@
 import SwiftUI
 
 struct FeedLayoutSection<Header: View>: View {
-    #if os(macOS)
-    @Environment(\.controlActiveState) private var controlActiveState
-    #endif
     @Environment(\.isEnabled) private var isEnabled
     
     @ObservedObject var feed: Feed
@@ -47,7 +44,7 @@ struct FeedLayoutSection<Header: View>: View {
         } header: {
             HStack {
                 HStack {
-                    header.font(.title3).foregroundStyle(headerForeground)
+                    header.font(.title3).foregroundStyle(isEnabled ? .primary : .tertiary)
                     Spacer()
                 }
                 .modifier(SafeAreaModifier(geometry: geometry))
@@ -56,21 +53,5 @@ struct FeedLayoutSection<Header: View>: View {
             .padding(.vertical, 12)
             .background(.fill.quaternary)
         }
-    }
-    
-    private var headerForeground: HierarchicalShapeStyle {
-        #if os(macOS)
-        if controlActiveState == .inactive || !isEnabled {
-            return .tertiary
-        } else {
-            return .primary
-        }
-        #else
-        if !isEnabled {
-            return .tertiary
-        } else {
-            return .primary
-        }
-        #endif
     }
 }

@@ -12,9 +12,6 @@ import SwiftUI
 
 struct PreviewButtonStyle: ButtonStyle {
     @Environment(\.colorScheme) private var colorScheme
-    #if os(macOS)
-    @Environment(\.controlActiveState) private var controlStateActive
-    #endif
     @Environment(\.isEnabled) private var isEnabled
 
     @Binding var read: Bool
@@ -48,6 +45,10 @@ struct PreviewButtonStyle: ButtonStyle {
         #endif
     }
     
+    private func content(configuration: Self.Configuration) -> some View {
+        configuration.label.foregroundStyle(foregroundStyle).modifier(HoverHighlightModifier())
+    }
+    
     private var clipShape: some InsettableShape {
         UnevenRoundedRectangle(
             cornerRadii: .init(
@@ -60,15 +61,6 @@ struct PreviewButtonStyle: ButtonStyle {
     }
     
     private var foregroundStyle: some ShapeStyle {
-        #if os(macOS)
-        if controlStateActive == .inactive || !isEnabled {
-            return .tertiary
-        } else if read {
-            return .secondary
-        } else {
-            return .primary
-        }
-        #else
         if !isEnabled {
             return .tertiary
         } else if read {
@@ -76,10 +68,5 @@ struct PreviewButtonStyle: ButtonStyle {
         } else {
             return .primary
         }
-        #endif
-    }
-    
-    private func content(configuration: Self.Configuration) -> some View {
-        configuration.label.foregroundStyle(foregroundStyle).modifier(HoverHighlightModifier())
     }
 }
