@@ -187,6 +187,9 @@
     "Brown" : {
       "comment" : "Accent color option."
     },
+    "Built-In Browser" : {
+      "comment" : "Viewer option."
+    },
     "Cache Control" : {
       "comment" : "Organizer info panel row label."
     },
@@ -369,6 +372,9 @@
     },
     "Import OPML" : {
       "comment" : "Button label."
+    },
+    "In-App Safari" : {
+      "comment" : "Viewer option."
     },
     "Inbox" : {
       "comment" : "Button label.\nLatest items widget source title.\nNavigation title.\nWidget placeholder title.\nWidget snapshot title.\nWidget title."
@@ -570,6 +576,9 @@
     "Purple" : {
       "comment" : "Accent color option."
     },
+    "Reader" : {
+      "comment" : "Viewer mode label."
+    },
     "Red" : {
       "comment" : "Accent color option."
     },
@@ -726,6 +735,9 @@
     "System" : {
       "comment" : "Accent color option.\nUser color scheme picker option."
     },
+    "System Browser" : {
+      "comment" : "Viewer option."
+    },
     "Teal" : {
       "comment" : "Accent color option."
     },
@@ -795,14 +807,14 @@
     "Use Reader Automatically" : {
       "comment" : "Toggle label."
     },
-    "Use System Browser" : {
-      "comment" : "Toggle label."
-    },
     "Version" : {
       "comment" : "About row label."
     },
     "View" : {
       "comment" : "Button label.\nPicker label."
+    },
+    "Viewer" : {
+      "comment" : "Picker label."
     },
     "Viewing" : {
       "comment" : "Feed inspector section header.\nOrganizer configuration panel section header."

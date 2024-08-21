@@ -8,9 +8,11 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import SafariServices
 import SwiftUI
 
 struct ItemActionView<Content: View>: View {
+    @Environment(\.self) private var environment
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
 
@@ -22,11 +24,13 @@ struct ItemActionView<Content: View>: View {
 
     @ViewBuilder var content: Content
     
-    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
+    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
+    @AppStorage("Viewer") private var viewer: ViewerOption = .builtInViewer
 
     var body: some View {
         ZStack {
-            if useSystemBrowser {
+            #if os(macOS)
+            if viewer == .systemBrowser {
                 Button {
                     guard let url = item.link else { return }
                     openURL(url)
@@ -39,6 +43,34 @@ struct ItemActionView<Content: View>: View {
                     content.modifier(DraggableItemModifier(item: item))
                 }
             }
+            #else
+            if viewer == .systemBrowser {
+                Button {
+                    guard let url = item.link else { return }
+                    openURL(url)
+                    HistoryUtility.markItemRead(context: viewContext, item: item)
+                } label: {
+                    content.modifier(DraggableItemModifier(item: item))
+                }
+            } else if viewer == .inAppSafari {
+                Button {
+                    guard let url = item.link else { return }
+                    InAppSafari.open(
+                        url: url,
+                        environment: environment,
+                        accentColor: accentColor,
+                        entersReaderIfAvailable: item.feedData?.feed?.readerMode ?? false
+                    )
+                    HistoryUtility.markItemRead(context: viewContext, item: item)
+                } label: {
+                    content.modifier(DraggableItemModifier(item: item))
+                }
+            } else {
+                NavigationLink(value: SubDetailPanel.item(item.objectID.uriRepresentation())) {
+                    content.modifier(DraggableItemModifier(item: item))
+                }
+            }
+            #endif
         }
         .buttonStyle(
             PreviewButtonStyle(

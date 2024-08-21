@@ -20,6 +20,7 @@ struct GeneralSection: View {
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
+    @AppStorage("Viewer") private var viewer: ViewerOption = .builtInViewer
     
     private let refreshIntervalFormatter = {
         let formatter = DateComponentsFormatter()
@@ -42,13 +43,21 @@ struct GeneralSection: View {
                 UserDefaults.group.set(showUnreadCounts, forKey: "ShowUnreadCounts")
                 WidgetCenter.shared.reloadAllTimelines()
             }
-            Toggle(isOn: $useSystemBrowser) {
+            
+            Picker(selection: $viewer) {
+                Text("Built-In Browser", comment: "Viewer option.").tag(ViewerOption.builtInViewer)
+                Text("System Browser", comment: "Viewer option.").tag(ViewerOption.systemBrowser)
+                #if os(iOS)
+                Text("In-App Safari", comment: "Viewer option.").tag(ViewerOption.inAppSafari)
+                #endif
+            } label: {
                 Label {
-                    Text("Use System Browser", comment: "Toggle label.")
+                    Text("Viewer", comment: "Picker label.")
                 } icon: {
-                    Image(systemName: "arrow.up.right.square")
+                    Image(systemName: "newspaper")
                 }
             }
+            
             Picker(selection: $refreshInterval) {
                 ForEach(RefreshInterval.allCases, id: \.self) { interval in
                     if interval == .zero {
@@ -83,9 +92,6 @@ struct GeneralSection: View {
                 BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: "net.devsci.den.refresh")
                 #endif
             }
-            #if os(iOS)
-            .pickerStyle(.navigationLink)
-            #endif
         } header: {
             Text("General", comment: "Settings section header.")
         } footer: {
