@@ -1,5 +1,5 @@
 //
-//  BasicHoverButtonStyle.swift
+//  ContentBlockButtonStyle.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/12/23.
@@ -10,14 +10,13 @@
 
 import SwiftUI
 
-struct BasicHoverButtonStyle: ButtonStyle {
+struct ContentBlockButtonStyle: ButtonStyle {
     @Environment(\.colorScheme) private var colorScheme
     
     func makeBody(configuration: Self.Configuration) -> some View {
-        
         #if os(macOS)
         if colorScheme == .dark {
-            content(configuration: configuration)
+            configuration.label
                 .background(.fill.quinary)
                 .overlay {
                     clipShape.strokeBorder(.separator)
@@ -26,12 +25,12 @@ struct BasicHoverButtonStyle: ButtonStyle {
                 .background(.background)
                 .background(.windowBackground)
         } else {
-            content(configuration: configuration)
+            configuration.label
                 .background(.background)
                 .clipShape(clipShape)
         }
         #else
-        content(configuration: configuration)
+        configuration.label
             .background(Color(.secondarySystemGroupedBackground))
             .clipShape(clipShape)
         #endif
@@ -40,9 +39,5 @@ struct BasicHoverButtonStyle: ButtonStyle {
     
     private var clipShape: some InsettableShape {
         RoundedRectangle(cornerRadius: 8)
-    }
-    
-    private func content(configuration: Self.Configuration) -> some View {
-        configuration.label.modifier(HoverHighlightModifier())
     }
 }

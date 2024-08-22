@@ -200,8 +200,7 @@
 		688FD931247A34830006A2DE /* FeedInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD930247A34830006A2DE /* FeedInspector.swift */; };
 		68906F8F2A78F58900803350 /* NavigationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68906F8E2A78F58900803350 /* NavigationStore.swift */; };
 		689460852596A7BB00ED4064 /* DenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689460822596A7BB00ED4064 /* DenApp.swift */; };
-		6895C98C2A87085100BD4C21 /* HoverHighlightModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6895C98B2A87085100BD4C21 /* HoverHighlightModifier.swift */; };
-		6895C98E2A880D6600BD4C21 /* BasicHoverButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6895C98D2A880D6600BD4C21 /* BasicHoverButtonStyle.swift */; };
+		6895C98E2A880D6600BD4C21 /* ContentBlockButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6895C98D2A880D6600BD4C21 /* ContentBlockButtonStyle.swift */; };
 		6897D52626B91C0100833DDA /* HTMLEntities in Frameworks */ = {isa = PBXBuildFile; productRef = 6897D52526B91C0100833DDA /* HTMLEntities */; };
 		6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 6897D52B26B91C3C00833DDA /* SwiftSoup */; };
 		6899FC7F2AE3515500367E8B /* ToggleReaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6899FC7E2AE3515500367E8B /* ToggleReaderButton.swift */; };
@@ -602,8 +601,7 @@
 		68906F8E2A78F58900803350 /* NavigationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationStore.swift; sourceTree = "<group>"; };
 		689460822596A7BB00ED4064 /* DenApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DenApp.swift; sourceTree = "<group>"; };
 		68958DCC2ABF7BD5007B9D9D /* TestData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestData; sourceTree = "<group>"; };
-		6895C98B2A87085100BD4C21 /* HoverHighlightModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverHighlightModifier.swift; sourceTree = "<group>"; };
-		6895C98D2A880D6600BD4C21 /* BasicHoverButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicHoverButtonStyle.swift; sourceTree = "<group>"; };
+		6895C98D2A880D6600BD4C21 /* ContentBlockButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentBlockButtonStyle.swift; sourceTree = "<group>"; };
 		6899FC7E2AE3515500367E8B /* ToggleReaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleReaderButton.swift; sourceTree = "<group>"; };
 		6899FC812AE40B1400367E8B /* ToggleJavaScriptButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleJavaScriptButton.swift; sourceTree = "<group>"; };
 		689EDBF8269188580055811A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -1014,7 +1012,6 @@
 				6856DB262AB636070094615E /* DraggableBookmarkModifier.swift */,
 				6856DAFD2AB589390094615E /* DraggableFeedModifier.swift */,
 				6856DB1D2AB593500094615E /* DraggableItemModifier.swift */,
-				6895C98B2A87085100BD4C21 /* HoverHighlightModifier.swift */,
 				68B8E79729CABD5100E9AF42 /* ImageBorderModifier.swift */,
 				68EF17AA2AED81AF00BCC08B /* PreviewImageStateModifier.swift */,
 				68A2188E29DC2E86005F42C7 /* SafeAreaModifier.swift */,
@@ -1085,7 +1082,7 @@
 		688FD91B24780C800006A2DE /* Styles */ = {
 			isa = PBXGroup;
 			children = (
-				6895C98D2A880D6600BD4C21 /* BasicHoverButtonStyle.swift */,
+				6895C98D2A880D6600BD4C21 /* ContentBlockButtonStyle.swift */,
 				68DA792D2B03E9990088DA33 /* CompactContentUnavailableLabelStyle.swift */,
 				68DA792B2B03DD3C0088DA33 /* ContentUnavailableLabelStyle.swift */,
 				68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */,
@@ -1804,7 +1801,7 @@
 				68B6CBE62910BD0E00B5E3AB /* AtomFeedUpdater.swift in Sources */,
 				68B6CBE82910C54500B5E3AB /* AtomItemLoader.swift in Sources */,
 				68CE43402B51BA9400C69B7B /* BackgroundSeparatorShapeStyle.swift in Sources */,
-				6895C98E2A880D6600BD4C21 /* BasicHoverButtonStyle.swift in Sources */,
+				6895C98E2A880D6600BD4C21 /* ContentBlockButtonStyle.swift in Sources */,
 				684152642AD9E18D00ABE5E2 /* Blocklist+CoreDataClass.swift in Sources */,
 				684152122AD0036600ABE5E2 /* BlocklistManager.swift in Sources */,
 				6818F07B2B64CC6900BE06FC /* BlocklistManifest.swift in Sources */,
@@ -1897,7 +1894,6 @@
 				68ED797F29C29A6800D85B4F /* GroupedLayout.swift in Sources */,
 				6887D40925B35B83004A170D /* History+CoreDataClass.swift in Sources */,
 				68701DFB273E57DB00C6BB69 /* HistoryUtility.swift in Sources */,
-				6895C98C2A87085100BD4C21 /* HoverHighlightModifier.swift in Sources */,
 				68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */,
 				68D486BE26C9896300AF5B59 /* IconSelector.swift in Sources */,
 				6856DB3C2AB7FB510094615E /* IconSelectorButton.swift in Sources */,

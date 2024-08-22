@@ -46,7 +46,7 @@ struct PreviewButtonStyle: ButtonStyle {
     }
     
     private func content(configuration: Self.Configuration) -> some View {
-        configuration.label.foregroundStyle(foregroundStyle).modifier(HoverHighlightModifier())
+        configuration.label.foregroundStyle(foregroundStyle)
     }
     
     private var clipShape: some InsettableShape {

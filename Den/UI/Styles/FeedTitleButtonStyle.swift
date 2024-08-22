@@ -48,7 +48,6 @@ struct FeedTitleButtonStyle: ButtonStyle {
             .font(.title3)
             .foregroundStyle(isEnabled ? .primary : .tertiary)
             .padding(12)
-            .modifier(HoverHighlightModifier())
     }
     
     private var clipShape: some InsettableShape {
