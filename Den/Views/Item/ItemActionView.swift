@@ -30,7 +30,7 @@ struct ItemActionView<Content: View>: View {
     var body: some View {
         ZStack {
             #if os(macOS)
-            if viewer == .systemBrowser {
+            if viewer == .webBrowser {
                 Button {
                     guard let url = item.link else { return }
                     openURL(url)
@@ -44,7 +44,7 @@ struct ItemActionView<Content: View>: View {
                 }
             }
             #else
-            if viewer == .systemBrowser {
+            if viewer == .webBrowser {
                 Button {
                     guard let url = item.link else { return }
                     openURL(url)
@@ -52,7 +52,7 @@ struct ItemActionView<Content: View>: View {
                 } label: {
                     content.modifier(DraggableItemModifier(item: item))
                 }
-            } else if viewer == .inAppSafari {
+            } else if viewer == .safariView {
                 Button {
                     guard let url = item.link else { return }
                     InAppSafari.open(
@@ -91,10 +91,34 @@ struct ItemActionView<Content: View>: View {
             #else
             ToggleReadButton(item: item)
             ToggleBookmarkedButton(item: item)
+            Divider()
             #endif
             if let url = item.link {
-                SystemBrowserButton(url: url)
-                CopyAddressButton(url: url)
+                if viewer != .builtInViewer {
+                    NavigationLink(value: SubDetailPanel.item(item.objectID.uriRepresentation())) {
+                        Label {
+                            Text("Open in Viewer", comment: "Button label.")
+                        } icon: {
+                            Image(systemName: "doc.text")
+                        }
+                    }
+                }
+                #if os(iOS)
+                if viewer != .safariView {
+                    SafariViewButton(
+                        url: url,
+                        entersReaderIfAvailable: item.feedData?.feed?.readerMode ?? false
+                    ) {
+                        HistoryUtility.markItemRead(context: viewContext, item: item)
+                    }
+                }
+                #endif
+                if viewer != .webBrowser {
+                    SystemBrowserButton(url: url) {
+                        HistoryUtility.markItemRead(context: viewContext, item: item)
+                    }
+                }
+                CopyLinkButton(url: url)
                 ShareButton(item: url)
             }
             if showGoToFeed, let feedObjectURL = item.feedData?.feed?.objectID.uriRepresentation() {

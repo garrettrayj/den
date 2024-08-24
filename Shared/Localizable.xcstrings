@@ -187,7 +187,7 @@
     "Brown" : {
       "comment" : "Accent color option."
     },
-    "Built-In Browser" : {
+    "Built-In Viewer" : {
       "comment" : "Viewer option."
     },
     "Cache Control" : {
@@ -223,6 +223,9 @@
     "Copy Address" : {
       "comment" : "Button label."
     },
+    "Copy Link" : {
+      "comment" : "Button label."
+    },
     "Coral" : {
       "comment" : "Accent color option."
     },
@@ -237,6 +240,9 @@
     },
     "Deck" : {
       "comment" : "Layout option label."
+    },
+    "Default Browser" : {
+      "comment" : "Viewer option."
     },
     "Delete" : {
       "comment" : "Button label."
@@ -372,9 +378,6 @@
     },
     "Import OPML" : {
       "comment" : "Button label."
-    },
-    "In-App Safari" : {
-      "comment" : "Viewer option."
     },
     "Inbox" : {
       "comment" : "Button label.\nLatest items widget source title.\nNavigation title.\nWidget placeholder title.\nWidget snapshot title.\nWidget title."
@@ -540,11 +543,23 @@
     "Open File" : {
       "comment" : "Button label."
     },
-    "Open Link" : {
+    "Open in Browser" : {
       "comment" : "Button label."
     },
-    "Open link in system browser" : {
+    "Open in default web browser" : {
       "comment" : "Button help text."
+    },
+    "Open in Safari view" : {
+      "comment" : "Button help text."
+    },
+    "Open in Safari View" : {
+      "comment" : "Button label."
+    },
+    "Open in Viewer" : {
+      "comment" : "Button label."
+    },
+    "Open Items In" : {
+      "comment" : "Picker label."
     },
     "Open Validator" : {
       "comment" : "Button label."
@@ -626,6 +641,9 @@
     },
     "Rules Applied" : {
       "comment" : "Blocklist status row label."
+    },
+    "Safari View" : {
+      "comment" : "Viewer option."
     },
     "Save" : {
       "comment" : "Button Label.\nButton label."
@@ -734,9 +752,6 @@
     },
     "System" : {
       "comment" : "Accent color option.\nUser color scheme picker option."
-    },
-    "System Browser" : {
-      "comment" : "Viewer option."
     },
     "Teal" : {
       "comment" : "Accent color option."

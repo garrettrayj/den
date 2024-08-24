@@ -14,18 +14,20 @@ struct SystemBrowserButton: View {
     @Environment(\.openURL) private var openURL
     
     let url: URL
+    var callback: (() -> Void)?
     
     var body: some View {
         Button {
             openURL(url)
+            callback?()
         } label: {
             Label {
-                Text("Open Link", comment: "Button label.")
+                Text("Open in Browser", comment: "Button label.")
             } icon: {
-                Image(systemName: "link.circle")
+                Image(systemName: "globe")
             }
         }
-        .help(Text("Open link in system browser", comment: "Button help text."))
-        .accessibilityIdentifier("OpenInBrowser")
+        .help(Text("Open in default web browser", comment: "Button help text."))
+        .accessibilityIdentifier("OpenInWebBrowser")
     }
 }

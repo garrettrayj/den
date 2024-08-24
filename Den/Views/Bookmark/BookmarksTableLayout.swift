@@ -11,11 +11,13 @@
 import SwiftUI
 
 struct BookmarksTableLayout: View {
+    @Environment(\.self) private var environment
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
     
-    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
+    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
+    @AppStorage("Viewer") private var viewer: ViewerOption = .builtInViewer
     
     struct Row: Hashable, Identifiable {
         var id: UUID
@@ -111,13 +113,41 @@ struct BookmarksTableLayout: View {
         } primaryAction: { items in
             let bookmark = bookmarks.filter { $0.id == items.first }.first
             
-            if useSystemBrowser {
+            if viewer == .webBrowser {
                 guard let url = bookmark?.link else { return }
                 openURL(url)
             } else {
                 bookmarkToShow = bookmark
                 showingBookmark = true
             }
+            
+            #if os(macOS)
+            if viewer == .webBrowser {
+                guard let url = bookmark?.link else { return }
+                openURL(url)
+            } else {
+                bookmarkToShow = bookmark
+                showingBookmark = true
+            }
+            #else
+            if viewer == .webBrowser {
+                guard let url = bookmark?.link else { return }
+                openURL(url)
+            } else if viewer == .safariView {
+                guard let url = bookmark?.link else { return }
+                
+                InAppSafari.open(
+                    url: url,
+                    environment: environment,
+                    accentColor: accentColor,
+                    entersReaderIfAvailable: bookmark?.feed?.readerMode ?? false
+                )
+            } else {
+                bookmarkToShow = bookmark
+                showingBookmark = true
+            }
+            #endif
+            
         }
     }
     
@@ -144,8 +174,31 @@ struct BookmarksTableLayout: View {
     private func contextMenu(items: Set<Row.ID>) -> some View {
         if items.count == 1, let row = rows.filter({ $0.id == items.first }).first {
             UnbookmarkButton(bookmark: row.bookmark)
-            SystemBrowserButton(url: row.link)
-            CopyAddressButton(url: row.link)
+            Divider()
+            if viewer != .builtInViewer {
+                Button {
+                    bookmarkToShow = row.bookmark
+                    showingBookmark = true
+                } label: {
+                    Label {
+                        Text("Open in Viewer", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "doc.text")
+                    }
+                }
+            }
+            #if os(iOS)
+            if viewer != .safariView {
+                SafariViewButton(
+                    url: row.link,
+                    entersReaderIfAvailable: row.bookmark.feed?.readerMode ?? false
+                )
+            }
+            #endif
+            if viewer != .webBrowser {
+                SystemBrowserButton(url: row.link)
+            }
+            CopyLinkButton(url: row.link)
             ShareButton(item: row.link)
             if let feedObjectURL = row.bookmark.feed?.objectID.uriRepresentation() {
                 Divider()

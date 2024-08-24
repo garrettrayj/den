@@ -25,7 +25,7 @@ struct BookmarkActionView<Content: View>: View {
     var body: some View {
         ZStack {
             #if os(macOS)
-            if viewer == .systemBrowser {
+            if viewer == .webBrowser {
                 Button {
                     guard let url = bookmark.link else { return }
                     openURL(url)
@@ -38,14 +38,14 @@ struct BookmarkActionView<Content: View>: View {
                 }
             }
             #else
-            if viewer == .systemBrowser {
+            if viewer == .webBrowser {
                 Button {
                     guard let url = bookmark.link else { return }
                     openURL(url)
                 } label: {
                     content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
                 }
-            } else if viewer == .inAppSafari {
+            } else if viewer == .safariView {
                 Button {
                     guard let url = bookmark.link else { return }
                     
@@ -70,9 +70,31 @@ struct BookmarkActionView<Content: View>: View {
         .accessibilityIdentifier("BookmarkAction")
         .contextMenu {
             UnbookmarkButton(bookmark: bookmark)
+            Divider()
             if let url = bookmark.link {
-                SystemBrowserButton(url: url)
-                CopyAddressButton(url: url)
+                if viewer != .builtInViewer {
+                    NavigationLink(
+                        value: SubDetailPanel.bookmark(bookmark.objectID.uriRepresentation())
+                    ) {
+                        Label {
+                            Text("Open in Viewer", comment: "Button label.")
+                        } icon: {
+                            Image(systemName: "doc.text")
+                        }
+                    }
+                }
+                #if os(iOS)
+                if viewer != .safariView {
+                    SafariViewButton(
+                        url: url,
+                        entersReaderIfAvailable: bookmark.feed?.readerMode ?? false
+                    )
+                }
+                #endif
+                if viewer != .webBrowser {
+                    SystemBrowserButton(url: url)
+                }
+                CopyLinkButton(url: url)
                 ShareButton(item: url)
             }
             if let feedObjectURL = bookmark.feed?.objectID.uriRepresentation() {

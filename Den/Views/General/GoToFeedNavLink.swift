@@ -18,7 +18,7 @@ struct GoToFeedNavLink: View {
             Label {
                 Text("Go to Feed", comment: "Button label.")
             } icon: {
-                Image(systemName: "arrowshape.turn.up.forward")
+                Image(systemName: "dot.radiowaves.up.forward")
             }
         }
     }

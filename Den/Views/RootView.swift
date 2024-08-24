@@ -13,8 +13,10 @@ import OSLog
 import SwiftUI
 
 struct RootView: View {
+    @Environment(\.self) private var environment
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
     
     @EnvironmentObject private var refreshManager: RefreshManager
@@ -36,6 +38,7 @@ struct RootView: View {
     @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
+    @AppStorage("Viewer") private var viewer: ViewerOption = .builtInViewer
     
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.userOrder, order: .forward),
@@ -190,7 +193,7 @@ struct RootView: View {
                 request.predicate = NSPredicate(format: "id = %@", itemID)
                 
                 if let item = try? viewContext.fetch(request).first {
-                    navigationStore.path.append(SubDetailPanel.item(item.objectID.uriRepresentation()))
+                    goToItem(item: item)
                 }
             }
         }
@@ -210,5 +213,34 @@ struct RootView: View {
         }
         
         await MaintenanceTask.execute()
+    }
+    
+    private func goToItem(item: Item) {
+        #if os(macOS)
+        if viewer == .webBrowser {
+            guard let url = item.link else { return }
+            openURL(url)
+            HistoryUtility.markItemRead(context: viewContext, item: item)
+        } else {
+            navigationStore.path.append(SubDetailPanel.item(item.objectID.uriRepresentation()))
+        }
+        #else
+        if viewer == .webBrowser {
+            guard let url = item.link else { return }
+            openURL(url)
+            HistoryUtility.markItemRead(context: viewContext, item: item)
+        } else if viewer == .safariView {
+            guard let url = item.link else { return }
+            InAppSafari.open(
+                url: url,
+                environment: environment,
+                accentColor: accentColor,
+                entersReaderIfAvailable: item.feedData?.feed?.readerMode ?? false
+            )
+            HistoryUtility.markItemRead(context: viewContext, item: item)
+        } else {
+            navigationStore.path.append(SubDetailPanel.item(item.objectID.uriRepresentation()))
+        }
+        #endif
     }
 }

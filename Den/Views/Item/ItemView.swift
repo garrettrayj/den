@@ -76,10 +76,10 @@ struct ItemView: View {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem {
-                ToggleBookmarkedButton(item: item)
+                formatMenu
             }
             ToolbarItem {
-                formatMenu
+                StopReloadButton(browserViewModel: browserViewModel)
             }
             ToolbarItem(placement: .bottomBar) {
                 GoBackButton(browserViewModel: browserViewModel)
@@ -101,15 +101,16 @@ struct ItemView: View {
                     Spacer()
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    SystemBrowserButton(url: url)
+                    ToggleBookmarkedButton(item: item)
                 }
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
+                ToolbarItem(placement: .bottomBar) {
+                    SystemBrowserButton(url: url)
+                }
             }
-            ToolbarItem(placement: .bottomBar) {
-                StopReloadButton(browserViewModel: browserViewModel)
-            }
+            
             if scenePhase == .active && !downloadManager.browserDownloads.isEmpty {
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
@@ -121,6 +122,9 @@ struct ItemView: View {
                 }
             }
         } else {
+            ToolbarItem(placement: .topBarLeading) {
+                Spacer()
+            }
             ToolbarItem(placement: .topBarLeading) {
                 ToggleBookmarkedButton(item: item)
             }
@@ -146,10 +150,10 @@ struct ItemView: View {
             
             if let url = browserViewModel.url {
                 ToolbarItem {
-                    SystemBrowserButton(url: url)
+                    ShareButton(item: url)
                 }
                 ToolbarItem {
-                    ShareButton(item: url)
+                    SystemBrowserButton(url: url)
                 }
             }
         }

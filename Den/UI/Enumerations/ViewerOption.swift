@@ -12,8 +12,8 @@ import Foundation
 
 enum ViewerOption: String {
     case builtInViewer
-    case systemBrowser
+    case webBrowser
     #if os(iOS)
-    case inAppSafari
+    case safariView
     #endif
 }

@@ -45,16 +45,16 @@ struct GeneralSection: View {
             }
             
             Picker(selection: $viewer) {
-                Text("Built-In Browser", comment: "Viewer option.").tag(ViewerOption.builtInViewer)
-                Text("System Browser", comment: "Viewer option.").tag(ViewerOption.systemBrowser)
+                Text("Built-In Viewer", comment: "Viewer option.").tag(ViewerOption.builtInViewer)
                 #if os(iOS)
-                Text("In-App Safari", comment: "Viewer option.").tag(ViewerOption.inAppSafari)
+                Text("Safari View", comment: "Viewer option.").tag(ViewerOption.safariView)
                 #endif
+                Text("Default Browser", comment: "Viewer option.").tag(ViewerOption.webBrowser)
             } label: {
                 Label {
-                    Text("Viewer", comment: "Picker label.")
+                    Text("Open Items In", comment: "Picker label.")
                 } icon: {
-                    Image(systemName: "newspaper")
+                    Image(systemName: "doc.text")
                 }
             }
             

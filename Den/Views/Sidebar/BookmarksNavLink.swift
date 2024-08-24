@@ -18,7 +18,7 @@ struct BookmarksNavLink: View {
         Label {
             Text("Bookmarks", comment: "Button label.")
         } icon: {
-            Image(systemName: "bookmark")
+            Image(systemName: "book")
         }
         .tag(DetailPanel.bookmarks)
         .onDrop(
