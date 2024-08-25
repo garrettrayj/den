@@ -12,12 +12,11 @@ import SwiftUI
 
 struct SidebarFeed: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.showUnreadCounts) private var showUnreadCounts
     
     @ObservedObject var feed: Feed
     
     var unreadCount: Int
-    
-    @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
     var body: some View {
         Label {

@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct InboxNavLink: View {
-    @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
+    @Environment(\.showUnreadCounts) private var showUnreadCounts
     
     var body: some View {
         WithItems { items in

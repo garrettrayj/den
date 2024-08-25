@@ -21,6 +21,10 @@ private struct PreferredViewerKey: EnvironmentKey {
     static let defaultValue: ViewerOption = .builtInViewer
 }
 
+private struct ShowUnreadCountsKey: EnvironmentKey {
+    static let defaultValue: Bool = true
+}
+
 extension EnvironmentValues {
     var accentColor: Color? {
         get { self[AccentColorKey.self] }
@@ -61,5 +65,10 @@ extension EnvironmentValues {
     var preferredViewer: ViewerOption {
         get { self[PreferredViewerKey.self] }
         set { self[PreferredViewerKey.self] = newValue }
+    }
+    
+    var showUnreadCounts: Bool {
+        get { self[ShowUnreadCountsKey.self] }
+        set { self[ShowUnreadCountsKey.self] = newValue }
     }
 }

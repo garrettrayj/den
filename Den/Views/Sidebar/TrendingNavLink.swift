@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct TrendingNavLink: View {
-    @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
+    @Environment(\.showUnreadCounts) private var showUnreadCounts
 
     var body: some View {
         WithTrends { trends in

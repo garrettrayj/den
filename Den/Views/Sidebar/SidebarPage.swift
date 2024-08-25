@@ -12,6 +12,7 @@ import SwiftUI
 
 struct SidebarPage: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.showUnreadCounts) private var showUnreadCounts
     
     @ObservedObject var page: Page
     
@@ -21,8 +22,6 @@ struct SidebarPage: View {
     @SceneStorage("NewFeedPageObjectURL") private var newFeedPageObjectURL: URL?
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
-    
-    @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     
     var isExpandedBinding: Binding<Bool> {
         Binding<Bool> {

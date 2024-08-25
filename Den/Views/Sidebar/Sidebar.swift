@@ -30,6 +30,8 @@ struct Sidebar: View {
     @SceneStorage("ShowingExporter") private var showingExporter: Bool = false
     @SceneStorage("ShowingSettings") private var showingSettings: Bool = false
 
+    @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.submitted, order: .reverse)])
     private var searches: FetchedResults<Search>
     
@@ -46,6 +48,7 @@ struct Sidebar: View {
         .buttonStyle(.borderless)
         .badgeProminence(.decreased)
         .lineLimit(1)
+        .environment(\.showUnreadCounts, showUnreadCounts)
         .refreshable {
             await refreshManager.refresh()
         }
