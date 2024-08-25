@@ -11,14 +11,17 @@
 import SwiftUI
 
 struct DeckColumn: View {
-    @Environment(\.hideRead) private var hideRead
-    
     @ObservedObject var feed: Feed
 
+    let hideRead: Bool
     let items: [Item]
-    
-    var filteredItems: [Item] {
-        items.visibilityFiltered(hideRead ? false : nil)
+    let filteredItems: [Item]
+
+    init(feed: Feed, hideRead: Bool, items: [Item]) {
+        self.feed = feed
+        self.hideRead = hideRead
+        self.items = items
+        self.filteredItems = items.visibilityFiltered(hideRead ? false : nil)
     }
 
     var body: some View {

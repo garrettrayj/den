@@ -12,6 +12,7 @@ import SwiftUI
 
 struct GroupedLayout: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.hideRead) private var hideRead
 
     @ObservedObject var page: Page
     
@@ -34,6 +35,7 @@ struct GroupedLayout: View {
                             ForEach(feeds) { feed in
                                 FeedItemGroup(
                                     feed: feed,
+                                    hideRead: hideRead,
                                     items: items.forFeed(feed)
                                 )
                             }

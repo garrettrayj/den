@@ -12,6 +12,7 @@ import SwiftUI
 
 struct DeckLayout: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.hideRead) private var hideRead
 
     @ObservedObject var page: Page
 
@@ -50,6 +51,7 @@ struct DeckLayout: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         DeckColumn(
                             feed: feed,
+                            hideRead: hideRead,
                             items: items.forFeed(feed)
                         )
                         .padding(.vertical)
