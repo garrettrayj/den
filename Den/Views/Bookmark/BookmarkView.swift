@@ -77,12 +77,10 @@ struct BookmarkView: View {
         #else
         if horizontalSizeClass == .compact {
             ToolbarItem {
-                UnbookmarkButton(bookmark: bookmark) {
-                    dismiss()
-                }
+                formatMenu
             }
             ToolbarItem {
-                formatMenu
+                StopReloadButton(browserViewModel: browserViewModel)
             }
             ToolbarItem(placement: .bottomBar) {
                 GoBackButton(browserViewModel: browserViewModel)
@@ -104,14 +102,16 @@ struct BookmarkView: View {
                     Spacer()
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    SystemBrowserButton(url: url)
+                    UnbookmarkButton(bookmark: bookmark) {
+                        dismiss()
+                    }
                 }
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
-            }
-            ToolbarItem(placement: .bottomBar) {
-                StopReloadButton(browserViewModel: browserViewModel)
+                ToolbarItem(placement: .bottomBar) {
+                    SystemBrowserButton(url: url)
+                }
             }
             // Scene phase check is required because downloadManager environment object
             // is not available when app moves to background.
@@ -150,10 +150,10 @@ struct BookmarkView: View {
             }
             if let url = browserViewModel.url {
                 ToolbarItem {
-                    SystemBrowserButton(url: url)
+                    ShareButton(item: url)
                 }
                 ToolbarItem {
-                    ShareButton(item: url)
+                    SystemBrowserButton(url: url)
                 }
             }
         }

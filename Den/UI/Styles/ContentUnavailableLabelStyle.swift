@@ -15,7 +15,7 @@ struct ContentUnavailableLabelStyle: LabelStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         VStack(spacing: 16) {
-            configuration.icon.foregroundStyle(.secondary)
+            configuration.icon.foregroundStyle(.tertiary)
             configuration.title.foregroundStyle(.secondary)
         }
         .imageScale(.large)

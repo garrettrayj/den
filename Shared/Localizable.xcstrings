@@ -194,7 +194,7 @@
       "comment" : "Organizer info panel row label."
     },
     "Cancel" : {
-      "comment" : "Button Label.\nButton label."
+      "comment" : "Button label."
     },
     "Change Icon" : {
       "comment" : "Button label."
@@ -646,7 +646,7 @@
       "comment" : "Viewer option."
     },
     "Save" : {
-      "comment" : "Button Label.\nButton label."
+      "comment" : "Button label."
     },
     "Scheduled Background Tasks" : {
       "comment" : "Debugging tools section header."
