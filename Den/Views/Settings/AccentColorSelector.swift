@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct AccentColorSelector: View {
-    @Binding var selection: AccentColor
+    @Binding var selection: AccentColorOption
     
     var body: some View {
         #if os(macOS)
@@ -21,7 +21,7 @@ struct AccentColorSelector: View {
                 alignment: .center,
                 spacing: 4
             ) {
-                ForEach(AccentColor.allCases, id: \.self) { option in
+                ForEach(AccentColorOption.allCases, id: \.self) { option in
                     Button {
                         selection = option
                     } label: {
@@ -52,7 +52,7 @@ struct AccentColorSelector: View {
         .buttonStyle(.plain)
         #else
         Picker(selection: $selection) {
-            ForEach(AccentColor.allCases, id: \.self) { option in
+            ForEach(AccentColorOption.allCases, id: \.self) { option in
                 Group {
                     if option == .system {
                         Label {

@@ -17,6 +17,7 @@ struct ItemActionView<Content: View>: View {
     #if os(iOS)
     @Environment(\.openURLInSafariView) private var openURLInSafariView
     #endif
+    @Environment(\.preferredViewer) private var preferredViewer
 
     @ObservedObject var item: Item
 
@@ -26,26 +27,14 @@ struct ItemActionView<Content: View>: View {
 
     @ViewBuilder var content: Content
     
-    @AppStorage("Viewer") private var viewer: ViewerOption = .builtInViewer
-
     var body: some View {
         ZStack {
-            #if os(macOS)
-            if viewer == .webBrowser {
-                Button {
-                    guard let url = item.link else { return }
-                    openURL(url)
-                    HistoryUtility.markItemRead(context: viewContext, item: item)
-                } label: {
-                    content.modifier(DraggableItemModifier(item: item))
-                }
-            } else {
+            switch preferredViewer {
+            case .builtInViewer:
                 NavigationLink(value: SubDetailPanel.item(item.objectID.uriRepresentation())) {
                     content.modifier(DraggableItemModifier(item: item))
                 }
-            }
-            #else
-            if viewer == .webBrowser {
+            case .webBrowser:
                 Button {
                     guard let url = item.link else { return }
                     openURL(url)
@@ -53,7 +42,8 @@ struct ItemActionView<Content: View>: View {
                 } label: {
                     content.modifier(DraggableItemModifier(item: item))
                 }
-            } else if viewer == .safariView {
+            #if os(iOS)
+            case .safariView:
                 Button {
                     guard let url = item.link else { return }
                     openURLInSafariView(url, item.feedData?.feed?.readerMode)
@@ -61,12 +51,8 @@ struct ItemActionView<Content: View>: View {
                 } label: {
                     content.modifier(DraggableItemModifier(item: item))
                 }
-            } else {
-                NavigationLink(value: SubDetailPanel.item(item.objectID.uriRepresentation())) {
-                    content.modifier(DraggableItemModifier(item: item))
-                }
-            }
             #endif
+            }
         }
         .buttonStyle(
             PreviewButtonStyle(
@@ -90,7 +76,7 @@ struct ItemActionView<Content: View>: View {
             Divider()
             #endif
             if let url = item.link {
-                if viewer != .builtInViewer {
+                if preferredViewer != .builtInViewer {
                     NavigationLink(value: SubDetailPanel.item(item.objectID.uriRepresentation())) {
                         Label {
                             Text("Open in Viewer", comment: "Button label.")
@@ -100,13 +86,13 @@ struct ItemActionView<Content: View>: View {
                     }
                 }
                 #if os(iOS)
-                if viewer != .safariView {
+                if preferredViewer != .safariView {
                     SafariViewButton(url: url, entersReaderIfAvailable: item.feedData?.feed?.readerMode) {
                         HistoryUtility.markItemRead(context: viewContext, item: item)
                     }
                 }
                 #endif
-                if viewer != .webBrowser {
+                if preferredViewer != .webBrowser {
                     SystemBrowserButton(url: url) {
                         HistoryUtility.markItemRead(context: viewContext, item: item)
                     }

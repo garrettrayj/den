@@ -16,7 +16,7 @@ struct LatestItemsView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
-    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
+    @AppStorage("AccentColor") private var accentColor: AccentColorOption = .coral
     
     @ScaledMetric(relativeTo: .largeTitle) var smallIconSize = 16
     @ScaledMetric(relativeTo: .largeTitle) var largeIconSize = 32

@@ -13,13 +13,13 @@ import OSLog
 import SwiftUI
 
 struct RootView: View {
-    @Environment(\.self) private var environment
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
     #if os(iOS)
     @Environment(\.openURLInSafariView) private var openURLInSafariView
     #endif
+    @Environment(\.preferredViewer) private var preferredViewer
     @Environment(\.scenePhase) private var scenePhase
     
     @EnvironmentObject private var refreshManager: RefreshManager
@@ -38,10 +38,7 @@ struct RootView: View {
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet = false
     
     @AppStorage("Maintained") private var maintenanceTimestamp: Double?
-    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
-    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
-    @AppStorage("Viewer") private var viewer: ViewerOption = .builtInViewer
     
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.userOrder, order: .forward),
@@ -216,28 +213,19 @@ struct RootView: View {
     }
     
     private func goToItem(item: Item) {
-        #if os(macOS)
-        if viewer == .webBrowser {
-            guard let url = item.link else { return }
-            openURL(url)
-            HistoryUtility.markItemRead(context: viewContext, item: item)
-        } else {
+        switch preferredViewer {
+        case .builtInViewer:
             navigationStore.path.append(SubDetailPanel.item(item.objectID.uriRepresentation()))
-        }
-        #else
-        if viewer == .webBrowser {
+        case .webBrowser:
             guard let url = item.link else { return }
             openURL(url)
             HistoryUtility.markItemRead(context: viewContext, item: item)
-        } else if viewer == .safariView {
+        #if os(iOS)
+        case .safariView:
             guard let url = item.link else { return }
-            
             openURLInSafariView(url, item.feedData?.feed?.readerMode)
-            
             HistoryUtility.markItemRead(context: viewContext, item: item)
-        } else {
-            navigationStore.path.append(SubDetailPanel.item(item.objectID.uriRepresentation()))
-        }
         #endif
+        }
     }
 }

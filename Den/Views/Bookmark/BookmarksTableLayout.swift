@@ -17,8 +17,7 @@ struct BookmarksTableLayout: View {
     #if os(iOS)
     @Environment(\.openURLInSafariView) private var openURLInSafariView
     #endif
-    
-    @AppStorage("Viewer") private var viewer: ViewerOption = .builtInViewer
+    @Environment(\.preferredViewer) private var preferredViewer
     
     struct Row: Hashable, Identifiable {
         var id: UUID
@@ -114,36 +113,19 @@ struct BookmarksTableLayout: View {
         } primaryAction: { items in
             let bookmark = bookmarks.filter { $0.id == items.first }.first
             
-            if viewer == .webBrowser {
-                guard let url = bookmark?.link else { return }
-                openURL(url)
-            } else {
+            switch preferredViewer {
+            case .builtInViewer:
                 bookmarkToShow = bookmark
                 showingBookmark = true
-            }
-            
-            #if os(macOS)
-            if viewer == .webBrowser {
+            case .webBrowser:
                 guard let url = bookmark?.link else { return }
                 openURL(url)
-            } else {
-                bookmarkToShow = bookmark
-                showingBookmark = true
-            }
-            #else
-            if viewer == .webBrowser {
+            #if os(iOS)
+            case .safariView:
                 guard let url = bookmark?.link else { return }
-                openURL(url)
-            } else if viewer == .safariView {
-                guard let url = bookmark?.link else { return }
-                
                 openURLInSafariView(url, bookmark?.feed?.readerMode)
-            } else {
-                bookmarkToShow = bookmark
-                showingBookmark = true
-            }
             #endif
-            
+            }
         }
     }
     
@@ -171,7 +153,7 @@ struct BookmarksTableLayout: View {
         if items.count == 1, let row = rows.filter({ $0.id == items.first }).first {
             UnbookmarkButton(bookmark: row.bookmark)
             Divider()
-            if viewer != .builtInViewer {
+            if preferredViewer != .builtInViewer {
                 Button {
                     bookmarkToShow = row.bookmark
                     showingBookmark = true
@@ -184,14 +166,14 @@ struct BookmarksTableLayout: View {
                 }
             }
             #if os(iOS)
-            if viewer != .safariView {
+            if preferredViewer != .safariView {
                 SafariViewButton(
                     url: row.link,
                     entersReaderIfAvailable: row.bookmark.feed?.readerMode ?? false
                 )
             }
             #endif
-            if viewer != .webBrowser {
+            if preferredViewer != .webBrowser {
                 SystemBrowserButton(url: row.link)
             }
             CopyLinkButton(url: row.link)

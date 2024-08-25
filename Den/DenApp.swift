@@ -34,7 +34,8 @@ struct DenApp: App {
     
     let dataController = DataController.shared
     
-    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
+    @AppStorage("AccentColor") private var accentColor: AccentColorOption = .coral
+    @AppStorage("PreferredViewer") private var preferredViewer: ViewerOption = .builtInViewer
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
 
     var body: some Scene {
@@ -42,6 +43,7 @@ struct DenApp: App {
             RootView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environment(\.accentColor, accentColor.color)
+                .environment(\.preferredViewer, preferredViewer)
                 .environmentObject(downloadManager)
                 .environmentObject(networkMonitor)
                 .environmentObject(refreshManager)

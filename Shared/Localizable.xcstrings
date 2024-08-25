@@ -828,9 +828,6 @@
     "View" : {
       "comment" : "Button label.\nPicker label."
     },
-    "Viewer" : {
-      "comment" : "Picker label."
-    },
     "Viewing" : {
       "comment" : "Feed inspector section header.\nOrganizer configuration panel section header."
     },

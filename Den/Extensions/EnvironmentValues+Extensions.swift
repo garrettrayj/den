@@ -17,6 +17,10 @@ private struct AccentColorKey: EnvironmentKey {
     static let defaultValue: Color? = nil
 }
 
+private struct PreferredViewerKey: EnvironmentKey {
+    static let defaultValue: ViewerOption = .builtInViewer
+}
+
 extension EnvironmentValues {
     var accentColor: Color? {
         get { self[AccentColorKey.self] }
@@ -53,4 +57,9 @@ extension EnvironmentValues {
         }
     }
     #endif
+    
+    var preferredViewer: ViewerOption {
+        get { self[PreferredViewerKey.self] }
+        set { self[PreferredViewerKey.self] = newValue }
+    }
 }

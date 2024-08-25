@@ -1,5 +1,5 @@
 //
-//  AccentColor.swift
+//  AccentColorOption.swift
 //  Den
 //
 //  Created by Garrett Johnson on 3/2/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-enum AccentColor: String, CaseIterable {
+enum AccentColorOption: String, CaseIterable {
     case system
     case red
     case coral

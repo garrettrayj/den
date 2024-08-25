@@ -20,7 +20,7 @@ struct GeneralSection: View {
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
-    @AppStorage("Viewer") private var viewer: ViewerOption = .builtInViewer
+    @AppStorage("PreferredViewer") private var viewerSetting: ViewerOption = .builtInViewer
     
     private let refreshIntervalFormatter = {
         let formatter = DateComponentsFormatter()
@@ -44,7 +44,7 @@ struct GeneralSection: View {
                 WidgetCenter.shared.reloadAllTimelines()
             }
             
-            Picker(selection: $viewer) {
+            Picker(selection: $viewerSetting) {
                 Text("Built-In Viewer", comment: "Viewer option.").tag(ViewerOption.builtInViewer)
                 #if os(iOS)
                 Text("Safari View", comment: "Viewer option.").tag(ViewerOption.safariView)
