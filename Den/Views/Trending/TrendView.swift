@@ -12,11 +12,10 @@ import SwiftUI
 
 struct TrendView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.hideRead) private var hideRead
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     @ObservedObject var trend: Trend
-    
-    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         Group {
@@ -43,7 +42,6 @@ struct TrendView: View {
                     } else {
                         TrendLayout(
                             trend: trend,
-                            hideRead: $hideRead,
                             items: trend.items.visibilityFiltered(hideRead ? false : nil)
                         )
                     }

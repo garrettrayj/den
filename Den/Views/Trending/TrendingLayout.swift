@@ -11,11 +11,10 @@
 import SwiftUI
 
 struct TrendingLayout: View {
+    @Environment(\.hideRead) private var hideRead
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     let trends: FetchedResults<Trend>
-    
-    @AppStorage("HideRead") private var hideRead: Bool = false
     
     var body: some View {
         Group {

@@ -11,13 +11,12 @@
 import SwiftUI
 
 struct FeedLayout: View {
+    @Environment(\.hideRead) private var hideRead
     @Environment(\.openURL) private var openURL
 
     @ObservedObject var feed: Feed
 
     @State private var feedAddressCopied: Bool = false
-    
-    @AppStorage("HideRead") private var hideRead: Bool = false
 
     let items: FetchedResults<Item>
 
@@ -39,7 +38,6 @@ struct FeedLayout: View {
                         if !items.featured.isEmpty {
                             FeedLayoutSection(
                                 feed: feed,
-                                hideRead: $hideRead,
                                 geometry: geometry,
                                 items: items.featured
                             ) {
@@ -54,7 +52,6 @@ struct FeedLayout: View {
                         if !items.extra.isEmpty {
                             FeedLayoutSection(
                                 feed: feed,
-                                hideRead: $hideRead,
                                 geometry: geometry,
                                 items: items.extra
                             ) {

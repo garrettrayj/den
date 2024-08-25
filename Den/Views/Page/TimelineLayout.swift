@@ -11,11 +11,11 @@
 import SwiftUI
 
 struct TimelineLayout: View {
+    @Environment(\.hideRead) private var hideRead
+    
     @ObservedObject var page: Page
 
     let items: FetchedResults<Item>
-    
-    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         if items.isEmpty {

@@ -11,11 +11,10 @@
 import SwiftUI
 
 struct FeedLayoutSection<Header: View>: View {
+    @Environment(\.hideRead) private var hideRead
     @Environment(\.isEnabled) private var isEnabled
     
     @ObservedObject var feed: Feed
-    
-    @Binding var hideRead: Bool
     
     let geometry: GeometryProxy
     let items: [Item]

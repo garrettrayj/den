@@ -11,9 +11,8 @@
 import SwiftUI
 
 struct Inbox: View {
+    @Environment(\.hideRead) private var hideRead
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
-    @AppStorage("HideRead") private var hideRead: Bool = false
     
     @FetchRequest(sortDescriptors: [])
     private var feeds: FetchedResults<Feed>

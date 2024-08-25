@@ -17,6 +17,10 @@ private struct AccentColorKey: EnvironmentKey {
     static let defaultValue: Color? = nil
 }
 
+private struct HideReadKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
 private struct PreferredViewerKey: EnvironmentKey {
     static let defaultValue: ViewerOption = .builtInViewer
 }
@@ -33,6 +37,11 @@ extension EnvironmentValues {
     
     var accentHexString: String? {
         self.accentColor?.hexString(environment: self)
+    }
+    
+    var hideRead: Bool {
+        get { self[HideReadKey.self] }
+        set { self[HideReadKey.self] = newValue }
     }
     
     #if os(iOS)

@@ -37,6 +37,7 @@ struct RootView: View {
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet = false
     
+    @AppStorage("HideRead") private var hideRead: Bool = false
     @AppStorage("Maintained") private var maintenanceTimestamp: Double?
     @AppStorage("RefreshInterval") private var refreshInterval: RefreshInterval = .zero
     
@@ -72,6 +73,7 @@ struct RootView: View {
         #if os(macOS)
         .background(.background.opacity(colorScheme == .dark ? 1 : 0), ignoresSafeAreaEdges: .all)
         #endif
+        .environment(\.hideRead, hideRead)
         .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
         .onOpenURL { url in
             if url.scheme == "den+widget" {

@@ -18,8 +18,6 @@ struct GroupedLayout: View {
     @ScaledMetric private var idealColumnWidth = Columnizer.idealColumnWidth
 
     let items: FetchedResults<Item>
-    
-    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -36,7 +34,6 @@ struct GroupedLayout: View {
                             ForEach(feeds) { feed in
                                 FeedItemGroup(
                                     feed: feed,
-                                    hideRead: hideRead,
                                     items: items.forFeed(feed)
                                 )
                             }
