@@ -18,13 +18,12 @@ struct FeedTitleButtonStyle: ButtonStyle {
         #if os(macOS)
         if colorScheme == .dark {
             content(configuration: configuration)
-                .background(.fill.quinary)
+                .background(.fill.quaternary)
                 .overlay {
                     clipShape.strokeBorder(.separator)
                 }
                 .clipShape(clipShape)
                 .background(.background)
-                .background(.windowBackground)
         } else {
             content(configuration: configuration)
                 .padding(.bottom, 1)

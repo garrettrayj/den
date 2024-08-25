@@ -12,7 +12,7 @@ import SwiftUI
 import WebKit
 
 struct BrowserView: View {
-    @Environment(\.self) private var environment
+    @Environment(\.accentHexString) private var accentHexString
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     var url: URL
@@ -22,7 +22,6 @@ struct BrowserView: View {
 
     @ObservedObject var browserViewModel: BrowserViewModel
 
-    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
     @AppStorage("BrowserZoom") private var browserZoom: PageZoomLevel = .oneHundredPercent
     @AppStorage("ReaderZoom") private var readerZoom: PageZoomLevel = .oneHundredPercent
 
@@ -48,7 +47,7 @@ struct BrowserView: View {
                     browserViewModel.useBlocklists = useBlocklists ?? true
                     browserViewModel.useReaderAutomatically = useReaderAutomatically ?? false
                     browserViewModel.allowJavaScript = allowJavaScript ?? true
-                    browserViewModel.userTintHex = accentColor.color?.hexString(environment: environment)
+                    browserViewModel.userTintHex = accentHexString
                     browserViewModel.setBrowserZoom(browserZoom)
                     
                     browserViewModel.loadURL(url: url)

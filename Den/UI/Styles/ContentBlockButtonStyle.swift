@@ -17,7 +17,7 @@ struct ContentBlockButtonStyle: ButtonStyle {
         #if os(macOS)
         if colorScheme == .dark {
             configuration.label
-                .background(.fill.quinary)
+                .background(.fill.quaternary)
                 .overlay {
                     clipShape.strokeBorder(.separator)
                 }

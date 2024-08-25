@@ -12,14 +12,15 @@ import SafariServices
 import SwiftUI
 
 struct BookmarkActionView<Content: View>: View {
-    @Environment(\.self) private var environment
+    #if os(iOS)
+    @Environment(\.openURLInSafariView) private var openURLInSafariView
+    #endif
     @Environment(\.openURL) private var openURL
 
     @ObservedObject var bookmark: Bookmark
 
     @ViewBuilder var content: Content
     
-    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
     @AppStorage("Viewer") private var viewer: ViewerOption = .builtInViewer
 
     var body: some View {
@@ -49,12 +50,7 @@ struct BookmarkActionView<Content: View>: View {
                 Button {
                     guard let url = bookmark.link else { return }
                     
-                    InAppSafari.open(
-                        url: url,
-                        environment: environment,
-                        accentColor: accentColor,
-                        entersReaderIfAvailable: bookmark.feed?.readerMode ?? false
-                    )
+                    openURLInSafariView(url, bookmark.feed?.readerMode)
                 } label: {
                     content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
                 }

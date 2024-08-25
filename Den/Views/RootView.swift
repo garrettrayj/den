@@ -17,6 +17,9 @@ struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
+    #if os(iOS)
+    @Environment(\.openURLInSafariView) private var openURLInSafariView
+    #endif
     @Environment(\.scenePhase) private var scenePhase
     
     @EnvironmentObject private var refreshManager: RefreshManager
@@ -71,7 +74,6 @@ struct RootView: View {
         }
         #if os(macOS)
         .background(.background.opacity(colorScheme == .dark ? 1 : 0), ignoresSafeAreaEdges: .all)
-        .background(.windowBackground.opacity(colorScheme == .dark ? 1 : 0), ignoresSafeAreaEdges: .all)
         #endif
         .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
         .onOpenURL { url in
@@ -152,8 +154,6 @@ struct RootView: View {
         .sheet(isPresented: $showingAppErrorSheet) {
             AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
         }
-        .preferredColorScheme(userColorScheme.colorScheme)
-        .tint(accentColor.color)
     }
     
     private func openWidgetURL(url: URL) {
@@ -231,12 +231,9 @@ struct RootView: View {
             HistoryUtility.markItemRead(context: viewContext, item: item)
         } else if viewer == .safariView {
             guard let url = item.link else { return }
-            InAppSafari.open(
-                url: url,
-                environment: environment,
-                accentColor: accentColor,
-                entersReaderIfAvailable: item.feedData?.feed?.readerMode ?? false
-            )
+            
+            openURLInSafariView(url, item.feedData?.feed?.readerMode)
+            
             HistoryUtility.markItemRead(context: viewContext, item: item)
         } else {
             navigationStore.path.append(SubDetailPanel.item(item.objectID.uriRepresentation()))

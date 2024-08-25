@@ -12,22 +12,15 @@
 import SwiftUI
 
 struct SafariViewButton: View {
-    @Environment(\.self) private var environment
+    @Environment(\.openURLInSafariView) private var openURLInSafariView
     
     let url: URL
-    let entersReaderIfAvailable: Bool
+    var entersReaderIfAvailable: Bool?
     var callback: (() -> Void)?
-    
-    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
     
     var body: some View {
         Button {
-            InAppSafari.open(
-                url: url,
-                environment: environment,
-                accentColor: accentColor,
-                entersReaderIfAvailable: entersReaderIfAvailable
-            )
+            openURLInSafariView(url, entersReaderIfAvailable)
             callback?()
         } label: {
             Label {

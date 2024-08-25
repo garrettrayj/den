@@ -24,7 +24,7 @@ struct PreviewButtonStyle: ButtonStyle {
         #if os(macOS)
         if colorScheme == .dark {
             content(configuration: configuration)
-                .background(.fill.quinary)
+                .background(.fill.quaternary)
                 .overlay {
                     clipShape.strokeBorder(.separator).padding(.top, roundedTop ? 0 : -1)
                 }

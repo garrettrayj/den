@@ -33,14 +33,20 @@ struct DenApp: App {
     @StateObject private var refreshManager = RefreshManager()
     
     let dataController = DataController.shared
+    
+    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
+    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
 
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
+                .environment(\.accentColor, accentColor.color)
                 .environmentObject(downloadManager)
                 .environmentObject(networkMonitor)
                 .environmentObject(refreshManager)
+                .preferredColorScheme(userColorScheme.colorScheme)
+                .tint(accentColor.color)
         }
         .handlesExternalEvents(matching: ["*"])
         .commands {
@@ -95,6 +101,8 @@ struct DenApp: App {
                 .environmentObject(refreshManager)
                 .frame(width: 440)
                 .frame(minHeight: 560)
+                .preferredColorScheme(userColorScheme.colorScheme)
+                .tint(accentColor.color)
         }
         #endif
     }

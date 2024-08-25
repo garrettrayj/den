@@ -36,7 +36,7 @@ struct CompactContentUnavailable<
         #if os(macOS)
         if colorScheme == .dark {
             content
-                .background(.fill.quinary)
+                .background(.fill.quaternary)
                 .overlay {
                     clipShape.strokeBorder(.separator).padding(.top, -1)
                 }

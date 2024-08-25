@@ -12,9 +12,11 @@ import SafariServices
 import SwiftUI
 
 struct ItemActionView<Content: View>: View {
-    @Environment(\.self) private var environment
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
+    #if os(iOS)
+    @Environment(\.openURLInSafariView) private var openURLInSafariView
+    #endif
 
     @ObservedObject var item: Item
 
@@ -24,7 +26,6 @@ struct ItemActionView<Content: View>: View {
 
     @ViewBuilder var content: Content
     
-    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
     @AppStorage("Viewer") private var viewer: ViewerOption = .builtInViewer
 
     var body: some View {
@@ -55,12 +56,7 @@ struct ItemActionView<Content: View>: View {
             } else if viewer == .safariView {
                 Button {
                     guard let url = item.link else { return }
-                    InAppSafari.open(
-                        url: url,
-                        environment: environment,
-                        accentColor: accentColor,
-                        entersReaderIfAvailable: item.feedData?.feed?.readerMode ?? false
-                    )
+                    openURLInSafariView(url, item.feedData?.feed?.readerMode)
                     HistoryUtility.markItemRead(context: viewContext, item: item)
                 } label: {
                     content.modifier(DraggableItemModifier(item: item))
@@ -105,10 +101,7 @@ struct ItemActionView<Content: View>: View {
                 }
                 #if os(iOS)
                 if viewer != .safariView {
-                    SafariViewButton(
-                        url: url,
-                        entersReaderIfAvailable: item.feedData?.feed?.readerMode ?? false
-                    ) {
+                    SafariViewButton(url: url, entersReaderIfAvailable: item.feedData?.feed?.readerMode) {
                         HistoryUtility.markItemRead(context: viewContext, item: item)
                     }
                 }

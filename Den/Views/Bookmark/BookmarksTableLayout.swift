@@ -11,12 +11,13 @@
 import SwiftUI
 
 struct BookmarksTableLayout: View {
-    @Environment(\.self) private var environment
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) private var openURL
+    #if os(iOS)
+    @Environment(\.openURLInSafariView) private var openURLInSafariView
+    #endif
     
-    @AppStorage("AccentColor") private var accentColor: AccentColor = .coral
     @AppStorage("Viewer") private var viewer: ViewerOption = .builtInViewer
     
     struct Row: Hashable, Identifiable {
@@ -136,12 +137,7 @@ struct BookmarksTableLayout: View {
             } else if viewer == .safariView {
                 guard let url = bookmark?.link else { return }
                 
-                InAppSafari.open(
-                    url: url,
-                    environment: environment,
-                    accentColor: accentColor,
-                    entersReaderIfAvailable: bookmark?.feed?.readerMode ?? false
-                )
+                openURLInSafariView(url, bookmark?.feed?.readerMode)
             } else {
                 bookmarkToShow = bookmark
                 showingBookmark = true
