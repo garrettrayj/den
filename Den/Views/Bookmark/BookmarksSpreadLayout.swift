@@ -23,6 +23,7 @@ struct BookmarksSpreadLayout: View {
                         BookmarkPreviewCompressed(bookmark: bookmark)
                     }
                 }
+                .drawingGroup()
             }
         }
     }

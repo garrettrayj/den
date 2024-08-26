@@ -55,6 +55,7 @@ struct DeckLayout: View {
                             items: items.forFeed(feed)
                         )
                         .padding(.vertical)
+                        .drawingGroup()
                     }
                     .scrollClipDisabled()
                     .containerRelativeFrame(

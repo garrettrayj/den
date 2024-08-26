@@ -30,6 +30,7 @@ struct TrendingLayout: View {
                                 feeds: trend.feeds
                             )
                         }
+                        .drawingGroup()
                     }
                 }
             }

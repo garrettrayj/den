@@ -44,6 +44,7 @@ struct GroupedLayout: View {
                 }
                 .padding([.horizontal, .top])
                 .padding(.bottom, 8)
+                .drawingGroup()
             }
         }
     }

@@ -62,7 +62,6 @@ struct ItemActionView<Content: View>: View {
                 showDivider: !isLastInList && !isStandalone
             )
         )
-        .drawingGroup()
         .accessibilityIdentifier("ItemAction")
         .contextMenu {
             #if os(iOS)

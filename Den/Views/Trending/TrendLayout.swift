@@ -32,6 +32,7 @@ struct TrendLayout: View {
                             }
                         }
                     }
+                    .drawingGroup()
                 }
             }
         }

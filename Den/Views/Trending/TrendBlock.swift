@@ -76,7 +76,6 @@ struct TrendBlock: View {
             .foregroundStyle(trend.read ? .secondary : .primary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
-            .drawingGroup()
         }
         .buttonStyle(ContentBlockButtonStyle())
         .contextMenu {

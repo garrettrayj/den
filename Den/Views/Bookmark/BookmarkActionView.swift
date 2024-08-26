@@ -48,7 +48,6 @@ struct BookmarkActionView<Content: View>: View {
             }
         }
         .buttonStyle(PreviewButtonStyle(read: .constant(false), roundedBottom: true, roundedTop: true))
-        .drawingGroup()
         .accessibilityIdentifier("BookmarkAction")
         .contextMenu {
             UnbookmarkButton(bookmark: bookmark)
