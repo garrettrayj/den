@@ -11,7 +11,7 @@
 import Foundation
 
 /// Extend UUID Set to be RawRepresentable for compatibility with SceneStorage
-extension Set: @retroactive RawRepresentable where Element == UUID {
+extension Set: RawRepresentable where Element == UUID {
     public init?(rawValue: String) {
         guard
             let data = rawValue.data(using: .utf8),

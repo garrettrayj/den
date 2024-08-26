@@ -14,11 +14,12 @@ import SwiftUI
 struct DetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
+    @ObservedObject var navigationStore: NavigationStore
+    
     @Binding var detailPanel: DetailPanel?
-    @Binding var path: NavigationPath
 
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $navigationStore.path) {
             Group {
                 switch detailPanel ?? .welcome {
                 case .bookmarks:

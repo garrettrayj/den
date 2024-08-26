@@ -78,6 +78,7 @@ struct BrowserWebView {
     }
 }
 
+@MainActor
 final class BrowserWebViewCoordinator: NSObject {
     let browserViewModel: BrowserViewModel
     let downloadManager: DownloadManager

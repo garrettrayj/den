@@ -59,7 +59,7 @@ struct RootView: View {
             .navigationSplitViewColumnWidth(sidebarWidth)
             #endif
         } detail: {
-            DetailView(detailPanel: $detailPanel, path: $navigationStore.path)
+            DetailView(navigationStore: navigationStore, detailPanel: $detailPanel)
         }
         .background {
             // Buttons in background for keyboard shortcuts
