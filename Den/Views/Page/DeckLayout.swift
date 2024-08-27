@@ -25,12 +25,12 @@ struct DeckLayout: View {
             if #available(macOS 15.0, iOS 18.0, *) {
                 deckContent(geometry: geometry)
                     #if os(macOS)
-                    .toolbarBackgroundVisibility(.visible, for: .windowToolbar)
+                    // .toolbarBackgroundVisibility(.visible, for: .windowToolbar)
                     // Fix toolbar bottom border
                     .padding(.top, 1)
                     .offset(y: -1)
                     #else
-                    .toolbarBackgroundVisibility(.visible, for: .navigationBar, .bottomBar)
+                    // .toolbarBackgroundVisibility(.visible, for: .navigationBar, .bottomBar)
                     #endif
             } else {
                 deckContent(geometry: geometry)

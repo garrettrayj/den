@@ -102,7 +102,7 @@
       "comment" : "Button label."
     },
     "Added" : {
-      "comment" : "Bookmarks table header.\nCompact bookmarks table row date/time label."
+      "comment" : "Bookmarks table header."
     },
     "Address cannot be blank." : {
       "comment" : "URL field validation message."
@@ -129,7 +129,7 @@
       "comment" : "Delete page alert message."
     },
     "All Read" : {
-      "comment" : "Card note title.\nContent unavailable title."
+      "comment" : "Content unavailable title."
     },
     "Allow JavaScript" : {
       "comment" : "Toggle label."
@@ -365,7 +365,7 @@
       "comment" : "Button label."
     },
     "Hide Inspector" : {
-      "comment" : "Button help text.\nButton label."
+      "comment" : "Button help text."
     },
     "Hide Read" : {
       "comment" : "Button label."
@@ -380,7 +380,7 @@
       "comment" : "Button label."
     },
     "Inbox" : {
-      "comment" : "Button label.\nLatest items widget source title.\nNavigation title.\nWidget placeholder title.\nWidget snapshot title.\nWidget title."
+      "comment" : "Button label.\nLatest items widget source title.\nNavigation title.\nWidget placeholder title.\nWidget title."
     },
     "Inbox Empty" : {
       "comment" : "Content unavailable title."
@@ -622,7 +622,7 @@
       "comment" : "Button label."
     },
     "Reset" : {
-      "comment" : "Button label.\nSettings section header."
+      "comment" : "Button label."
     },
     "Reset Everything" : {
       "comment" : "Button label."
@@ -703,7 +703,7 @@
       "comment" : "Button label."
     },
     "Show Inspector" : {
-      "comment" : "Button help text.\nButton label."
+      "comment" : "Button help text."
     },
     "Show menu" : {
       "comment" : "Menu help text."
@@ -802,7 +802,7 @@
       "comment" : "Object removed message."
     },
     "Untitled" : {
-      "comment" : "Bookmark site title placeholder.\nDefault content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nFolder name placeholder."
+      "comment" : "Default content filter name.\nDefault feed title.\nDefault item title.\nDefault page name.\nDefault tag name.\nDefault trend title.\nFolder name placeholder."
     },
     "Updated" : {
       "comment" : "Blocklist status row label."

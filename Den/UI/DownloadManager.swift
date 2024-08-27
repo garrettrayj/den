@@ -43,7 +43,7 @@ extension DownloadManager: WKDownloadDelegate {
         _ download: WKDownload,
         willPerformHTTPRedirection response: HTTPURLResponse,
         newRequest request: URLRequest,
-        decisionHandler: @escaping @MainActor (WKDownload.RedirectPolicy) -> Void
+        decisionHandler: @escaping (WKDownload.RedirectPolicy) -> Void
     ) {
         decisionHandler(.allow)
     }
@@ -52,7 +52,7 @@ extension DownloadManager: WKDownloadDelegate {
         _ download: WKDownload,
         decideDestinationUsing response: URLResponse,
         suggestedFilename: String,
-        completionHandler: @escaping @MainActor (URL?) -> Void
+        completionHandler: @escaping (URL?) -> Void
     ) {
         let fileManager = FileManager.default
         
