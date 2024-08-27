@@ -22,6 +22,7 @@ struct LatestItemsView: View {
     @ScaledMetric(relativeTo: .largeTitle) var largeIconSize = 32
     @ScaledMetric(relativeTo: .largeTitle) var thumbnailSize = 64
     
+    @ScaledMetric(relativeTo: .footnote) var unreadCountFontSize = 11
     @ScaledMetric(relativeTo: .title) var widgetTitleFontSize = 15
     @ScaledMetric(relativeTo: .headline) var itemTitleFontSize = 14
     @ScaledMetric(relativeTo: .caption) var itemSourceFontSize = 10
@@ -125,12 +126,12 @@ struct LatestItemsView: View {
     
     private var unreadCount: some View {
         Text(verbatim: "\(entry.unread)")
-            .font(.footnote.weight(.medium))
+            .font(.system(size: unreadCountFontSize, weight: .medium))
             .foregroundStyle(.secondary)
             .padding(.horizontal, 6)
             .padding(.vertical, 2)
             .background {
-                Capsule().fill(.quaternary)
+                Capsule().fill(.quinary)
             }
     }
     
@@ -228,7 +229,6 @@ struct LatestItemsView: View {
                         .font(
                             .system(size: itemTitleFontSize, weight: .bold)
                             .leading(.tight)
-                            .width(.condensed)
                         )
                         .padding(.bottom, -4)
                 }
