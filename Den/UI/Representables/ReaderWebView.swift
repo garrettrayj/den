@@ -64,7 +64,7 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction,
-        decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void
+        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
         if navigationAction.shouldPerformDownload {
             decisionHandler(.download)
@@ -98,7 +98,7 @@ extension ReaderWebViewCoordinator: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationResponse: WKNavigationResponse,
-        decisionHandler: @escaping @MainActor (WKNavigationResponsePolicy) -> Void
+        decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
     ) {
         if navigationResponse.canShowMIMEType {
             decisionHandler(.allow)

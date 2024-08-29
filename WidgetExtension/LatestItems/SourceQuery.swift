@@ -38,7 +38,7 @@ struct SourceQuery: EntityQuery {
                 sources.append(SourceDetail(
                     id: pageID.uuidString,
                     entityType: Page.self,
-                    title: .init(stringLiteral: page.wrappedName),
+                    title: page.wrappedName,
                     symbol: page.wrappedSymbol
                 ))
                 
@@ -47,7 +47,7 @@ struct SourceQuery: EntityQuery {
                     sources.append(SourceDetail(
                         id: feedID.uuidString,
                         entityType: Feed.self,
-                        title: .init(stringLiteral: page.wrappedName),
+                        title: feed.wrappedTitle,
                         symbol: nil
                     ))
                 }

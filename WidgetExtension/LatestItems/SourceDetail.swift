@@ -16,7 +16,7 @@ import SwiftUI
 struct SourceDetail: AppEntity {
     let id: String
     let entityType: NSManagedObject.Type?
-    let title: LocalizedStringResource
+    let title: String
     let symbol: String?
 
     static let typeDisplayRepresentation: TypeDisplayRepresentation = .init(
@@ -27,7 +27,7 @@ struct SourceDetail: AppEntity {
     var displayRepresentation: DisplayRepresentation {
         if entityType == Page.self {
             DisplayRepresentation(
-                title: title,
+                title: .init(stringLiteral: title),
                 subtitle: .init(
                     "Folder",
                     comment: "Latest items widget folder source type subtitle."
@@ -42,7 +42,7 @@ struct SourceDetail: AppEntity {
             )
         } else if entityType == Feed.self {
             DisplayRepresentation(
-                title: title,
+                title: .init(stringLiteral: title),
                 image: .init(systemName: "dot.radiowaves.up.forward")
             )
         } else {
