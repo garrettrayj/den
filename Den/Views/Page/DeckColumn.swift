@@ -43,6 +43,7 @@ struct DeckColumn: View {
                             }
                         }
                     }
+                    .drawingGroup()
                 }
             } header: {
                 FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())

@@ -23,7 +23,6 @@ struct ContentBlockButtonStyle: ButtonStyle {
                 }
                 .clipShape(clipShape)
                 .background(.background)
-                .background(.windowBackground)
         } else {
             configuration.label
                 .background(.background)

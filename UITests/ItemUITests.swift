@@ -18,6 +18,13 @@ final class ItemUITests: UITestCase {
         app.staticTexts.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
         
         hideSidebar(app)
+        
+        #if os(macOS)
+        app.radioButtons["GroupedLayout"].tap()
+        #else
+        app.buttons["PageLayoutPicker"].tap()
+        app.buttons["GroupedLayout"].tap()
+        #endif
 
         app.buttons["ItemAction"].firstMatch.tap()
 
@@ -33,6 +40,13 @@ final class ItemUITests: UITestCase {
         app.staticTexts.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
         
         hideSidebar(app)
+        
+        #if os(macOS)
+        app.radioButtons["GroupedLayout"].tap()
+        #else
+        app.buttons["PageLayoutPicker"].tap()
+        app.buttons["GroupedLayout"].tap()
+        #endif
 
         app.buttons["ItemAction"].firstMatch.tap()
         sleep(4)

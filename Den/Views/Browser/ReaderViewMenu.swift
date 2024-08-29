@@ -26,7 +26,6 @@ struct ReaderViewMenu: View {
         } primaryAction: {
             browserViewModel.toggleReader()
         }
-        .help(Text("Show reader view options", comment: "Menu help text."))
         .accessibilityIdentifier("ReaderViewMenu")
     }
 }

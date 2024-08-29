@@ -23,30 +23,29 @@ struct PreviewButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         #if os(macOS)
         if colorScheme == .dark {
-            content(configuration: configuration)
+            configuration.label
+                .foregroundStyle(foregroundStyle)
                 .background(.fill.quaternary)
                 .overlay {
                     clipShape.strokeBorder(.separator).padding(.top, roundedTop ? 0 : -1)
                 }
                 .clipShape(clipShape)
         } else {
-            content(configuration: configuration)
+            configuration.label
+                .foregroundStyle(foregroundStyle)
                 .padding(.bottom, showDivider ? 1 : 0)
                 .overlay(alignment: .bottom) { if showDivider { Divider() } }
                 .background(.background)
                 .clipShape(clipShape)
         }
         #else
-        content(configuration: configuration)
+        configuration.label
+            .foregroundStyle(foregroundStyle)
             .padding(.bottom, showDivider ? 1 : 0)
             .overlay(alignment: .bottom) { if showDivider { Divider() } }
             .background(Color(.secondarySystemGroupedBackground))
             .clipShape(clipShape)
         #endif
-    }
-    
-    private func content(configuration: Self.Configuration) -> some View {
-        configuration.label.foregroundStyle(foregroundStyle)
     }
     
     private var clipShape: some InsettableShape {
