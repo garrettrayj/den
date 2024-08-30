@@ -40,7 +40,7 @@ then
     # Copy app container data
     destinationAppContainer="$HOME/Library/Containers/net.devsci.den"
     rm -rf "$destinationAppContainer/Data/Library/"*
-    cp -a "$sourceAppContainer/Library/." "$destinationAppContainer/Library/"
+    cp -a "$sourceAppContainer/Library/." "$destinationAppContainer/Data/Library/"
 else
     echo "$runDate Load test data for iOS simulator"
     uuidRegex="([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})"

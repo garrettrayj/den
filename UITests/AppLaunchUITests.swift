@@ -23,9 +23,16 @@ final class AppLaunchUITests: UITestCase {
         app.disclosureTriangles.element(boundBy: 3).tap()
         app.staticTexts.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
         #else
-        app.collectionViews["Sidebar"].cells.element(boundBy: 7).buttons.firstMatch.tap()
         if UIDevice.current.userInterfaceIdiom == .pad {
+            app.collectionViews["Sidebar"].cells.element(boundBy: 7).buttons.firstMatch.tap()
             app.staticTexts.matching(identifier: "SidebarPage").element(boundBy: 3).tap()
+        } else {
+            app.collectionViews["Sidebar"]
+                .cells
+                .element(boundBy: 7)
+                .buttons
+                .element(boundBy: 1)
+                .tap()
         }
         #endif
 
