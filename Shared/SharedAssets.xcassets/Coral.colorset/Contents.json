@@ -10,20 +10,6 @@
           "red" : "0xFF"
         }
       },
-      "display-gamut" : "sRGB",
-      "idiom" : "universal"
-    },
-    {
-      "color" : {
-        "color-space" : "display-p3",
-        "components" : {
-          "alpha" : "1.000",
-          "blue" : "0x5B",
-          "green" : "0x86",
-          "red" : "0xEE"
-        }
-      },
-      "display-gamut" : "display-P3",
       "idiom" : "universal"
     }
   ],

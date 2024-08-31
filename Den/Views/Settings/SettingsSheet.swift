@@ -28,9 +28,9 @@ struct SettingsSheet: View {
                     DebuggingTools()
                 } label: {
                     Label {
-                        Text("Debugging Tools", comment: "Button label.")
+                        Text("Advanced", comment: "Button label.")
                     } icon: {
-                        Image(systemName: "ladybug")
+                        Image(systemName: "gearshape.2")
                     }
                 }
             }

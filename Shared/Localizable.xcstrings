@@ -116,6 +116,9 @@
     "Address must not contain spaces." : {
       "comment" : "URL field validation message."
     },
+    "Advanced" : {
+      "comment" : "Button label."
+    },
     "Age" : {
       "comment" : "Organizer info panel row label."
     },
@@ -236,7 +239,7 @@
       "comment" : "User color scheme picker option."
     },
     "Debugging Tools" : {
-      "comment" : "Button label.\nNavigation title."
+      "comment" : "Navigation title."
     },
     "Deck" : {
       "comment" : "Layout option label."
