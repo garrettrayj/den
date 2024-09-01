@@ -4,9 +4,7 @@
 #  Den
 #
 #  Created by Garrett Johnson on 7/18/21.
-#  Copyright © 2021 Garrett Johnson
-#
-#  SPDX-License-Identifier: MIT
+#  Copyright © 2021 Garrett Johnson. All rights reserved.
 #
 
 set -e

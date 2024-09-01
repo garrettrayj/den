@@ -3,9 +3,7 @@
 //  Widget Extension
 //
 //  Created by Garrett Johnson on 5/1/24.
-//  Copyright © 2024 Garrett Johnson
-//
-//  SPDX-License-Identifier: MIT
+//  Copyright © 2024 Garrett Johnson. All rights reserved.
 //
 
 import WidgetKit

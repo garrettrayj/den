@@ -5,8 +5,6 @@
 //  Created by Garrett Johnson on 8/22/24.
 //  Copyright © 2024 
 //
-//  SPDX-License-Identifier: MIT
-//
 
 #if os(iOS)
 import SwiftUI

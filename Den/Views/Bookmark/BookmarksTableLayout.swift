@@ -3,9 +3,7 @@
 //  Den
 //
 //  Created by Garrett Johnson on 2/19/24.
-//  Copyright © 2024 Garrett Johnson
-//
-//  SPDX-License-Identifier: MIT
+//  Copyright © 2024 Garrett Johnson. All rights reserved.
 //
 
 import SwiftUI

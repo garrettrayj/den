@@ -412,7 +412,6 @@
 		680F63EC2C43CA1A00C70C26 /* BookmarksNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksNavLink.swift; sourceTree = "<group>"; };
 		680F63EE2C43CBAC00C70C26 /* ToggleBookmarkedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBookmarkedButton.swift; sourceTree = "<group>"; };
 		681087D229FEEE1100F2630C /* PreviewHeadline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHeadline.swift; sourceTree = "<group>"; };
-		6818F0772B63363C00BE06FC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6818F07A2B64CC6900BE06FC /* BlocklistManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistManifest.swift; sourceTree = "<group>"; };
 		6818F0822B703D3700BE06FC /* BlocklistPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistPresets.swift; sourceTree = "<group>"; };
 		6818F0842B7325C000BE06FC /* FeedFaviconPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFaviconPlaceholder.swift; sourceTree = "<group>"; };
@@ -1141,7 +1140,6 @@
 				68D286272A634183007AD876 /* .gitignore */,
 				689EDBF8269188580055811A /* .swiftlint.yml */,
 				68D82FCA2C6EDC6B003B4CD1 /* crowdin.yml */,
-				6818F0772B63363C00BE06FC /* LICENSE */,
 				6845BD0F24EFB38C0008B296 /* README.md */,
 				687A19E92C5CC61600070AB7 /* swift-package-list-config.json */,
 				68C4130A247263C700D1DC7B /* Products */,

@@ -4,9 +4,7 @@
 #  Den
 #
 #  Created by Garrett Johnson on 7/29/23.
-#  Copyright © 2023 Garrett Johnson
-#
-#  SPDX-License-Identifier: MIT
+#  Copyright © 2023 Garrett Johnson. All rights reserved.
 #
 #  Creates test fixture data from current installation databases and preferences.
 #  Script should be run from project root with `Scripts/SaveTestData.sh`.

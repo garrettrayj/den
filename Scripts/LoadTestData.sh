@@ -4,9 +4,7 @@
 #  Den
 #
 #  Created by Garrett Johnson on 7/15/23.
-#  Copyright © 2023 Garrett Johnson
-#
-#  SPDX-License-Identifier: MIT
+#  Copyright © 2023 Garrett Johnson. All rights reserved.
 #
 #  Loads fixture data for UI tests. Invoked in Den scheme's test pre-actions.
 #  Use `Scripts/SaveTestData.sh` to export fixture data before running tests.

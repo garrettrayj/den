@@ -3,9 +3,7 @@
 //  Shared
 //
 //  Created by Garrett Johnson on 4/29/24.
-//  Copyright © 2024 Garrett Johnson
-//
-//  SPDX-License-Identifier: MIT
+//  Copyright © 2024 Garrett Johnson. All rights reserved.
 //
 
 import Foundation
