@@ -24,17 +24,19 @@ struct BookmarkPreviewCompressed: View {
                     }
                     .font(.callout)
                     .imageScale(.small)
-                    
                     PreviewHeadline(title: bookmark.titleText)
-                    if !bookmark.hideByline, let author = bookmark.author {
-                        PreviewAuthor(author: author)
-                    }
                     if let date = bookmark.published {
                         PreviewDateline(date: date)
                     }
+                    if !bookmark.wrappedHideByline, let author = bookmark.author {
+                        PreviewAuthor(author: author)
+                    }
+                    if let teaser = bookmark.teaser, teaser != "" && !bookmark.wrappedHideTeaser {
+                        PreviewTeaser(teaser: teaser)
+                    }
                 }
                 Spacer(minLength: 0)
-                if !bookmark.hideImage, let url = bookmark.image {
+                if !bookmark.wrappedHideImage, let url = bookmark.image {
                     SmallThumbnail(url: url, isRead: false).padding(.leading, 12)
                 }
             }

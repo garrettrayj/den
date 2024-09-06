@@ -13,15 +13,12 @@ struct ItemPreviewExpanded: View {
     @ObservedObject var feed: Feed
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            VStack(alignment: .leading, spacing: 4) {
-                PreviewHeadline(title: item.titleText)
-                if !feed.hideBylines, let author = item.author {
-                    PreviewAuthor(author: author)
-                }
-                ItemMeta(item: item)
+        VStack(alignment: .leading, spacing: 4) {
+            PreviewHeadline(title: item.titleText)
+            ItemMeta(item: item)
+            if !feed.hideBylines, let author = item.author {
+                PreviewAuthor(author: author)
             }
-            
             if !feed.hideImages, let url = item.image {
                 LargeThumbnail(
                     url: url,
@@ -30,7 +27,6 @@ struct ItemPreviewExpanded: View {
                     sourceHeight: CGFloat(item.imageHeight)
                 )
             }
-            
             if let teaser = item.teaser, teaser != "" && !feed.hideTeasers {
                 PreviewTeaser(teaser: teaser)
             }

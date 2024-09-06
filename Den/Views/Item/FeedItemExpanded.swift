@@ -14,17 +14,13 @@ struct FeedItemExpanded: View {
 
     var body: some View {
         ItemActionView(item: item, isLastInList: true, isStandalone: true) {
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
                 FeedTitleLabel(feed: feed).font(.callout).imageScale(.small)
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    PreviewHeadline(title: item.titleText)
-                    if !feed.hideBylines, let author = item.author {
-                        PreviewAuthor(author: author)
-                    }
-                    ItemMeta(item: item)
+                PreviewHeadline(title: item.titleText)
+                ItemMeta(item: item)
+                if !feed.hideBylines, let author = item.author {
+                    PreviewAuthor(author: author)
                 }
-                
                 if !feed.hideImages, let url = item.image {
                     LargeThumbnail(
                         url: url,
@@ -33,7 +29,6 @@ struct FeedItemExpanded: View {
                         sourceHeight: CGFloat(item.imageHeight)
                     )
                 }
-                
                 if let teaser = item.teaser, teaser != "" && !feed.hideTeasers {
                     PreviewTeaser(teaser: teaser)
                 }

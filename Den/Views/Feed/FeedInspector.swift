@@ -55,16 +55,14 @@ struct FeedInspector: View {
                 }
                 .accessibilityIdentifier("LargePreviews")
 
-                if feed.largePreviews {
-                    Toggle(isOn: $feed.showExcerpts) {
-                        Text("Show Excerpts", comment: "Toggle label.")
-                    }
-                    .onChange(of: feed.hideTeasers) {
-                        do {
-                            try viewContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
+                Toggle(isOn: $feed.showExcerpts) {
+                    Text("Show Excerpts", comment: "Toggle label.")
+                }
+                .onChange(of: feed.hideTeasers) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
 

@@ -15,7 +15,7 @@ struct BookmarksSpreadLayout: View {
         GeometryReader { geometry in
             ScrollView {
                 BoardView(width: geometry.size.width, list: Array(bookmarks)) { bookmark in
-                    if bookmark.largePreview {
+                    if bookmark.wrappedLargePreview {
                         BookmarkPreviewExpanded(bookmark: bookmark)
                     } else {
                         BookmarkPreviewCompressed(bookmark: bookmark)

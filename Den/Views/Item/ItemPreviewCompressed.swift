@@ -16,10 +16,13 @@ struct ItemPreviewCompressed: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
                 PreviewHeadline(title: item.titleText)
+                ItemMeta(item: item)
                 if !feed.hideBylines, let author = item.author {
                     PreviewAuthor(author: author)
                 }
-                ItemMeta(item: item)
+                if let teaser = item.teaser, teaser != "" && !feed.hideTeasers {
+                    PreviewTeaser(teaser: teaser)
+                }
             }
             
             Spacer(minLength: 0)

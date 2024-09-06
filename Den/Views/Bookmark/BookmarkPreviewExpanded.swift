@@ -13,7 +13,7 @@ struct BookmarkPreviewExpanded: View {
 
     var body: some View {
         BookmarkActionView(bookmark: bookmark) {
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
                 Label {
                     bookmark.siteText
                 } icon: {
@@ -22,18 +22,14 @@ struct BookmarkPreviewExpanded: View {
                     }
                 }
                 .font(.callout).imageScale(.small)
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    PreviewHeadline(title: bookmark.titleText)
-                    if bookmark.hideByline == false, let author = bookmark.author {
-                        PreviewAuthor(author: author)
-                    }
-                    if let date = bookmark.published {
-                        PreviewDateline(date: date)
-                    }
+                PreviewHeadline(title: bookmark.titleText)
+                if let date = bookmark.published {
+                    PreviewDateline(date: date)
                 }
-                
-                if bookmark.hideImage != true, let url = bookmark.image {
+                if bookmark.wrappedHideByline == false, let author = bookmark.author {
+                    PreviewAuthor(author: author)
+                }
+                if bookmark.wrappedHideImage != true, let url = bookmark.image {
                     LargeThumbnail(
                         url: url,
                         isRead: false,
@@ -41,8 +37,7 @@ struct BookmarkPreviewExpanded: View {
                         sourceHeight: CGFloat(bookmark.imageHeight)
                     )
                 }
-                
-                if let teaser = bookmark.teaser, teaser != "" && !bookmark.hideTeaser {
+                if let teaser = bookmark.teaser, teaser != "" && !bookmark.wrappedHideTeaser {
                     PreviewTeaser(teaser: teaser)
                 }
             }

@@ -36,6 +36,38 @@ final public class Bookmark: NSManagedObject {
         get { site?.trimmingCharacters(in: .whitespaces) ?? "" }
         set { site = newValue }
     }
+    
+    var wrappedHideByline: Bool {
+        if let feedHideBylines = feed?.hideBylines {
+            return feedHideBylines
+        } else {
+            return hideByline
+        }
+    }
+    
+    var wrappedHideTeaser: Bool {
+        if let feedHideTeaser = feed?.hideTeasers {
+            return feedHideTeaser
+        } else {
+            return hideTeaser
+        }
+    }
+    
+    var wrappedHideImage: Bool {
+        if let feedHideImage = feed?.hideImages {
+            return feedHideImage
+        } else {
+            return hideImage
+        }
+    }
+    
+    var wrappedLargePreview: Bool {
+        if let feedLargePreview = feed?.largePreviews {
+            return feedLargePreview
+        } else {
+            return largePreview
+        }
+    }
 
     static func create(
         in managedObjectContext: NSManagedObjectContext,

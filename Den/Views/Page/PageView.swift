@@ -145,7 +145,7 @@ struct PageView: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(items: items)
+                    HistoryUtility.toggleRead(items: items, context: viewContext)
                 }
             }
         } else {
@@ -159,7 +159,7 @@ struct PageView: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(items: items)
+                    HistoryUtility.toggleRead(items: items, context: viewContext)
                 }
             }
         }

@@ -105,7 +105,7 @@ struct SearchLayout: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(items: items)
+                    HistoryUtility.toggleRead(items: items, context: viewContext)
                 }
             }
         } else {
@@ -114,7 +114,7 @@ struct SearchLayout: View {
             }
             ToolbarItem {
                 MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(items: items)
+                    HistoryUtility.toggleRead(items: items, context: viewContext)
                 }
             }
             ToolbarItem(placement: .status) {

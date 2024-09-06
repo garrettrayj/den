@@ -23,31 +23,34 @@ struct LargeThumbnail: View {
     @ScaledMetric private var thumbnailHeight = 900
     
     var body: some View {
-        if let aspectRatio = aspectRatio {
-            if aspectRatio < 1/3 || sourceWidth! < thumbnailWidth {
-                ImageDepression(padding: 8) {
+        Group {
+            if let aspectRatio = aspectRatio {
+                if aspectRatio < 1/3 || sourceWidth! < thumbnailWidth {
+                    ImageDepression(padding: 8) {
+                        webImage
+                            .scaledToFit()
+                            .modifier(ImageBorderModifier(cornerRadius: 4))
+                            .frame(maxWidth: sourceWidth!, maxHeight: sourceHeight!)
+                    }
+                    .aspectRatio(16/9, contentMode: .fit)
+                } else {
                     webImage
-                        .scaledToFit()
-                        .modifier(ImageBorderModifier(cornerRadius: 4))
-                        .frame(maxWidth: sourceWidth!, maxHeight: sourceHeight!)
+                        .aspectRatio(aspectRatio, contentMode: .fit)
+                        .background(.fill.tertiary)
+                        .modifier(ImageBorderModifier(cornerRadius: 6))
                 }
-                .aspectRatio(16/9, contentMode: .fit)
             } else {
-                webImage
-                    .aspectRatio(aspectRatio, contentMode: .fit)
-                    .background(.fill.tertiary)
-                    .modifier(ImageBorderModifier(cornerRadius: 6))
+                ZStack {
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .aspectRatio(16/9, contentMode: .fit)
+                .background(alignment: .center) {
+                    webImage.scaledToFill()
+                }
+                .modifier(ImageBorderModifier(cornerRadius: 6))
             }
-        } else {
-            ZStack {
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .aspectRatio(16/9, contentMode: .fit)
-            .background(alignment: .center) {
-                webImage.scaledToFill()
-            }
-            .modifier(ImageBorderModifier(cornerRadius: 6))
         }
+        .padding(.vertical, 4)
     }
     
     private var aspectRatio: CGFloat? {
