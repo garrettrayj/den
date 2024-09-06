@@ -12,9 +12,13 @@ import SwiftUI
 struct DetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
+    @EnvironmentObject private var refreshManager: RefreshManager
+    
     @ObservedObject var navigationStore: NavigationStore
     
     @Binding var detailPanel: DetailPanel?
+    
+    @State private var viewID = UUID()
 
     var body: some View {
         NavigationStack(path: $navigationStore.path) {
@@ -61,6 +65,12 @@ struct DetailView: View {
                         TrendView(trend: trend).id(objectURL)
                     }
                 }
+            }
+        }
+        .id(viewID)
+        .onChange(of: refreshManager.refreshing) {
+            if refreshManager.refreshing == false {
+                viewID = UUID()
             }
         }
         #if os(iOS)

@@ -12,6 +12,8 @@ import SwiftUI
 struct WithTrendsUnreadCount<Content: View>: View {
     @Environment(\.managedObjectContext) private var viewContext
     
+    @EnvironmentObject private var refreshManager: RefreshManager
+    
     @ViewBuilder let content: (Int) -> Content
     
     @State private var viewID = UUID()
@@ -28,6 +30,11 @@ struct WithTrendsUnreadCount<Content: View>: View {
             .id(viewID)
             .onReceive(viewContext.publisher(for: \.hasChanges).filter({ $0 == false })) { _ in
                 viewID = UUID()
+            }
+            .onChange(of: refreshManager.refreshing) {
+                if refreshManager.refreshing == false {
+                    viewID = UUID()
+                }
             }
     }
 }

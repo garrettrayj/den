@@ -11,6 +11,8 @@ import SwiftUI
 
 struct WithItemsUnreadCount<Content: View>: View {
     @Environment(\.managedObjectContext) private var viewContext
+    
+    @EnvironmentObject private var refreshManager: RefreshManager
 
     var scopeObject: NSManagedObject?
     
@@ -50,6 +52,11 @@ struct WithItemsUnreadCount<Content: View>: View {
             .id(viewID)
             .onReceive(viewContext.publisher(for: \.hasChanges).filter({ $0 == false })) { _ in
                 viewID = UUID()
+            }
+            .onChange(of: refreshManager.refreshing) {
+                if refreshManager.refreshing == false {
+                    viewID = UUID()
+                }
             }
     }
 }
