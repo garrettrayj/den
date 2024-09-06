@@ -12,6 +12,7 @@ struct TrendView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.hideRead) private var hideRead
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.managedObjectContext) private var viewContext
     
     @ObservedObject var trend: Trend
 
@@ -61,7 +62,7 @@ struct TrendView: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: trend.items.unread.isEmpty) {
-                HistoryUtility.toggleRead(items: trend.items)
+                HistoryUtility.toggleRead(items: trend.items, context: viewContext)
                 if hideRead { dismiss() }
             }
         }

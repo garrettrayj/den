@@ -39,14 +39,14 @@ struct SidebarPage: View {
     }
 
     var body: some View {
-        WithItems(scopeObject: page) { items in
-            DisclosureGroup(isExpanded: isExpandedBinding) {
-                ForEach(page.feedsArray, id: \.self) { feed in
-                    SidebarFeed(feed: feed, unreadCount: items.forFeed(feed).featured.unread.count)
-                }
-                .onMove(perform: moveFeeds)
-                .onDelete(perform: deleteFeeds)
-            } label: {
+        DisclosureGroup(isExpanded: isExpandedBinding) {
+            ForEach(page.feedsArray, id: \.self) { feed in
+                SidebarFeed(feed: feed)
+            }
+            .onMove(perform: moveFeeds)
+            .onDelete(perform: deleteFeeds)
+        } label: {
+            WithItemsUnreadCount(scopeObject: page) { unreadCount in
                 Label {
                     #if os(macOS)
                     TextField(text: $page.wrappedName) {
@@ -67,7 +67,7 @@ struct SidebarPage: View {
                 } icon: {
                     Image(systemName: page.wrappedSymbol)
                 }
-                .badge(showUnreadCounts ? items.unread.count : 0)
+                .badge(showUnreadCounts ? unreadCount : 0)
                 .contentShape(Rectangle())
                 .onDrop(
                     of: [.denFeed, .url, .text],
@@ -80,10 +80,6 @@ struct SidebarPage: View {
                     )
                 )
                 .contextMenu {
-                    MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                        HistoryUtility.toggleRead(items: items)
-                    }
-                    Divider()
                     IconSelectorButton(
                         showingIconSelector: $showingIconSelector,
                         symbol: $page.wrappedSymbol
@@ -105,10 +101,25 @@ struct SidebarPage: View {
                         IconSelector(selection: $page.wrappedSymbol)
                     }
                 )
+                .contextMenu {
+                    MarkAllReadUnreadButton(allRead: unreadCount == 0) {
+                        HistoryUtility.changeRead(
+                            context: viewContext,
+                            newReadFlag: unreadCount > 0,
+                            scopeObject: page
+                        )
+                    }
+                    Divider()
+                    IconSelectorButton(
+                        showingIconSelector: $showingIconSelector,
+                        symbol: $page.wrappedSymbol
+                    )
+                    DeletePageButton(page: page)
+                }
                 .accessibilityIdentifier("SidebarPage")
             }
-            .tag(DetailPanel.page(page.objectID.uriRepresentation()))
         }
+        .tag(DetailPanel.page(page.objectID.uriRepresentation()))
     }
     
     private func moveFeeds( from source: IndexSet, to destination: Int) {

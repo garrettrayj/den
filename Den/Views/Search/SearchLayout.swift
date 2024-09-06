@@ -11,6 +11,7 @@ import SwiftUI
 struct SearchLayout: View {
     @Environment(\.hideRead) private var hideRead
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.managedObjectContext) private var viewContext
 
     let query: String
     let items: FetchedResults<Item>
@@ -90,7 +91,7 @@ struct SearchLayout: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleRead(items: items)
+                HistoryUtility.toggleRead(items: items, context: viewContext)
             }
         }
         #else

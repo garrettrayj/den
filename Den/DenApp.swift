@@ -112,7 +112,7 @@ struct DenApp: App {
     }
 
     private func setupImageHandling() {
-        // SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 1024
+        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 1024
         
         // Add additional image format support
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)

@@ -12,20 +12,15 @@ struct InboxNavLink: View {
     @Environment(\.showUnreadCounts) private var showUnreadCounts
     
     var body: some View {
-        WithItems { items in
+        WithItemsUnreadCount { unreadCount in
             Label {
                 Text("Inbox", comment: "Button label.")
             } icon: {
-                Image(systemName: items.count > 0 ? "tray.full" : "tray")
+                Image(systemName: unreadCount > 0 ? "tray.full" : "tray")
             }
-            .badge(showUnreadCounts ? items.unread.count : 0)
+            .badge(showUnreadCounts ? unreadCount : 0)
             .tag(DetailPanel.inbox)
             .accessibilityIdentifier("InboxNavLink")
-            .contextMenu {
-                MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                    HistoryUtility.toggleRead(items: items)
-                }
-            }
         }
     }
 }

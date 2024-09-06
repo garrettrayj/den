@@ -113,7 +113,7 @@ struct PageView: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleRead(items: items)
+                HistoryUtility.toggleRead(items: items, context: viewContext)
             }
         }
     }

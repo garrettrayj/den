@@ -12,6 +12,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct TrendBlock: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @ObservedObject var trend: Trend
     
     let items: [Item]
@@ -71,6 +73,7 @@ struct TrendBlock: View {
                 .font(.footnote)
                 .foregroundStyle(.secondary)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .foregroundStyle(trend.read ? .secondary : .primary)
             .padding(12)
             .drawingGroup()
@@ -78,7 +81,7 @@ struct TrendBlock: View {
         .buttonStyle(ContentBlockButtonStyle())
         .contextMenu {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleRead(items: items)
+                HistoryUtility.toggleRead(items: items, context: viewContext)
             }
         }
     }

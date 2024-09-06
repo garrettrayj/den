@@ -12,10 +12,7 @@ import SwiftUI
 import WidgetKit
 
 struct HistoryUtility {
-    static func markItemRead(
-        context: NSManagedObjectContext,
-        item: Item
-    ) {
+    static func markItemRead(context: NSManagedObjectContext, item: Item) {
         guard item.read == false else { return }
 
         let history = History.create(in: context)
@@ -33,10 +30,7 @@ struct HistoryUtility {
         }
     }
 
-    static func markItemUnread(
-        context: NSManagedObjectContext,
-        item: Item
-    ) {
+    static func markItemUnread(context: NSManagedObjectContext, item: Item) {
         guard item.read == true else { return }
 
         for history in item.history {
@@ -54,60 +48,98 @@ struct HistoryUtility {
         }
     }
 
-    static func toggleRead(items: any Collection<Item>) {
+    static func toggleRead(items: any Collection<Item>, context: NSManagedObjectContext) {
         if items.unread.isEmpty == true {
-            clearHistory(items: items)
+            clearHistory(items: items, context: context)
         } else {
-            logHistory(items: items.unread)
+            logHistory(items: items.unread, context: context)
+        }
+    }
+    
+    static func changeRead(
+        context: NSManagedObjectContext,
+        newReadFlag: Bool,
+        includeExtras: Bool = false,
+        scopeObject: NSManagedObject? = nil
+    ) {
+        var predicates: [NSPredicate] = []
+
+        if let feed = scopeObject as? Feed {
+            if let feedData = feed.feedData {
+                predicates.append(NSPredicate(format: "feedData = %@", feedData))
+            } else {
+                // Impossible query because there should be no items without FeedData
+                predicates.append(NSPredicate(format: "1 = 2"))
+            }
+        } else if let page = scopeObject as? Page {
+            predicates.append(NSPredicate(
+                format: "feedData IN %@",
+                page.feedsArray.compactMap { $0.feedData }
+            ))
+        }
+        
+        predicates.append(NSPredicate(format: "read = %@", NSNumber(value: !newReadFlag)))
+
+        if !includeExtras {
+            predicates.append(NSPredicate(format: "extra = %@", NSNumber(value: false)))
+        }
+
+        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
+        let request = Item.fetchRequest()
+        request.predicate = compoundPredicate
+        
+        guard let items = try? context.fetch(request) else { return }
+        
+        if newReadFlag == true {
+            logHistory(items: items, context: context)
+        } else {
+            clearHistory(items: items, context: context)
         }
     }
 
-    static func logHistory(items: any Collection<Item>) {
-        let itemObjectIDs = items.map { $0.objectID }
+    static func logHistory(items: any Collection<Item>, context: NSManagedObjectContext) {
+        var affectedTrends = Set<Trend>()
         
-        let context = DataController.shared.container.newBackgroundContext()
-        context.performAndWait {
-            for itemObjectID in itemObjectIDs {
-                guard let item = context.object(with: itemObjectID) as? Item else { continue }
-                let history = History.create(in: context)
-                history.link = item.link
-                history.visited = .now
-                
-                item.read = true
-                item.trends.forEach { $0.updateReadStatus() }
-            }
+        for item in items {
+            let history = History.create(in: context)
+            history.link = item.link
+            history.visited = .now
+            item.read = true
+            affectedTrends.formUnion(item.trends)
+        }
+        
+        for trend in affectedTrends {
+            trend.updateReadStatus()
+        }
 
-            do {
-                try context.save()
-                WidgetCenter.shared.reloadAllTimelines()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
+        do {
+            try context.save()
+            WidgetCenter.shared.reloadAllTimelines()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 
-    static func clearHistory(items: any Collection<Item>) {
-        let itemObjectIDs = items.map { $0.objectID }
+    static func clearHistory(items: any Collection<Item>, context: NSManagedObjectContext) {
+        var affectedTrends = Set<Trend>()
         
-        let context = DataController.shared.container.newBackgroundContext()
-        context.performAndWait {
-            for itemObjectID in itemObjectIDs {
-                guard let item = context.object(with: itemObjectID) as? Item else { continue }
-
-                item.read = false
-                item.trends.forEach { $0.updateReadStatus() }
-                
-                for history in item.history {
-                    context.delete(history)
-                }
+        for item in items {
+            for history in item.history {
+                context.delete(history)
             }
+            item.read = false
+            affectedTrends.formUnion(item.trends)
+        }
+        
+        for trend in affectedTrends {
+            trend.updateReadStatus()
+        }
 
-            do {
-                try context.save()
-                WidgetCenter.shared.reloadAllTimelines()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
+        do {
+            try context.save()
+            WidgetCenter.shared.reloadAllTimelines()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 }

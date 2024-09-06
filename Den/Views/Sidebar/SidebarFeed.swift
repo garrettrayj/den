@@ -14,37 +14,37 @@ struct SidebarFeed: View {
     
     @ObservedObject var feed: Feed
     
-    var unreadCount: Int
-    
     var body: some View {
-        Label {
-            #if os(macOS)
-            TextField(text: $feed.wrappedTitle) {
-                feed.displayTitle
-            }
-            .onSubmit {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
+        WithItemsUnreadCount(scopeObject: feed) { unreadCount in
+            Label {
+                #if os(macOS)
+                TextField(text: $feed.wrappedTitle) {
+                    feed.displayTitle
+                }
+                .onSubmit {
+                    if viewContext.hasChanges {
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
                     }
                 }
+                #else
+                feed.displayTitle
+                #endif
+            } icon: {
+                Favicon(url: feed.feedData?.favicon) {
+                    FeedFaviconPlaceholder()
+                }
             }
-            #else
-            feed.displayTitle
-            #endif
-        } icon: {
-            Favicon(url: feed.feedData?.favicon) {
-                FeedFaviconPlaceholder()
+            .badge(showUnreadCounts ? unreadCount : 0)
+            .tag(DetailPanel.feed(feed.objectID.uriRepresentation()))
+            .modifier(DraggableFeedModifier(feed: feed))
+            .contextMenu {
+                DeleteFeedButton(feed: feed)
             }
+            .accessibilityIdentifier("SidebarFeed")
         }
-        .badge(showUnreadCounts ? unreadCount : 0)
-        .tag(DetailPanel.feed(feed.objectID.uriRepresentation()))
-        .modifier(DraggableFeedModifier(feed: feed))
-        .contextMenu {
-            DeleteFeedButton(feed: feed)
-        }
-        .accessibilityIdentifier("SidebarFeed")
     }
 }

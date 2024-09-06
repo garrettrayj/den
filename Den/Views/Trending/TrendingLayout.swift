@@ -11,6 +11,7 @@ import SwiftUI
 struct TrendingLayout: View {
     @Environment(\.hideRead) private var hideRead
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.managedObjectContext) private var viewContext
     
     let trends: FetchedResults<Trend>
     
@@ -51,7 +52,7 @@ struct TrendingLayout: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                HistoryUtility.toggleRead(items: trends.items)
+                HistoryUtility.toggleRead(items: trends.items, context: viewContext)
             }
         }
         #else

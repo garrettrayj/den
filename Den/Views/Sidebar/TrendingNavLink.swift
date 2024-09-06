@@ -12,20 +12,15 @@ struct TrendingNavLink: View {
     @Environment(\.showUnreadCounts) private var showUnreadCounts
 
     var body: some View {
-        WithTrends { trends in
+        WithTrendsUnreadCount { unreadCount in
             Label {
                 Text("Trending", comment: "Button label.")
+                    .badge(showUnreadCounts ? unreadCount : 0)
             } icon: {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
-            .badge(showUnreadCounts ? trends.containingUnread.count : 0)
             .tag(DetailPanel.trending)
             .accessibilityIdentifier("TrendingNavLink")
-            .contextMenu {
-                MarkAllReadUnreadButton(allRead: trends.containingUnread.isEmpty) {
-                    HistoryUtility.toggleRead(items: trends.items)
-                }
-            }
         }
     }
 }

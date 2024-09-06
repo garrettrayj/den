@@ -11,6 +11,7 @@ import SwiftUI
 struct Inbox: View {
     @Environment(\.hideRead) private var hideRead
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(sortDescriptors: [])
     private var feeds: FetchedResults<Feed>
@@ -52,7 +53,7 @@ struct Inbox: View {
         }
         ToolbarItem {
             MarkAllReadUnreadButton(allRead: items.unread.isEmpty && !items.isEmpty) {
-                HistoryUtility.toggleRead(items: items)
+                HistoryUtility.toggleRead(items: items, context: viewContext)
             }
         }
         #else

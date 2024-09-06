@@ -26,6 +26,7 @@ struct RootView: View {
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
     @State private var detailPanel: DetailPanel?
+    @State private var viewID = UUID()
     
     @StateObject private var navigationStore = NavigationStore()
     
@@ -50,14 +51,16 @@ struct RootView: View {
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Sidebar(detailPanel: $detailPanel, pages: pages)
-            #if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 280)
-            #else
-            // On iOS, sidebar width changes are appplied when app is relaunched.
-            .navigationSplitViewColumnWidth(sidebarWidth)
-            #endif
+                .id(viewID)
+                #if os(macOS)
+                .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 280)
+                #else
+                // On iOS, sidebar width changes are appplied when app is relaunched.
+                .navigationSplitViewColumnWidth(sidebarWidth)
+                #endif
         } detail: {
             DetailView(navigationStore: navigationStore, detailPanel: $detailPanel)
+                .id(viewID)
         }
         .background {
             // Buttons in background for keyboard shortcuts
@@ -102,6 +105,11 @@ struct RootView: View {
                 refreshManager.startAutoRefresh(interval: TimeInterval(refreshInterval.rawValue))
             }
             #endif
+        }
+        .onChange(of: refreshManager.refreshing) {
+            if refreshManager.refreshing == false {
+                viewID = UUID()
+            }
         }
         #if os(iOS)
         .onChange(of: scenePhase) {

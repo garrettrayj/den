@@ -93,7 +93,7 @@ struct BrowserView: View {
             browserViewModel.setReaderZoom(browserViewModel.readerZoom)
         }
         .background(alignment: .bottom) {
-            ZStack {
+            Group {
                 // Buttons in background to fix keyboard shortcuts
                 ToggleReaderButton(browserViewModel: browserViewModel)
                 
