@@ -21,7 +21,7 @@ struct BookmarkActionView<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
-        Group {
+        ZStack {
             switch preferredViewer {
             case .builtInViewer:
                 NavigationLink(value: SubDetailPanel.bookmark(bookmark.objectID.uriRepresentation())) {

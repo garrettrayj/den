@@ -55,47 +55,6 @@ struct HistoryUtility {
             logHistory(items: items.unread, context: context)
         }
     }
-    
-    static func changeRead(
-        context: NSManagedObjectContext,
-        newReadFlag: Bool,
-        includeExtras: Bool = false,
-        scopeObject: NSManagedObject? = nil
-    ) {
-        var predicates: [NSPredicate] = []
-
-        if let feed = scopeObject as? Feed {
-            if let feedData = feed.feedData {
-                predicates.append(NSPredicate(format: "feedData = %@", feedData))
-            } else {
-                // Impossible query because there should be no items without FeedData
-                predicates.append(NSPredicate(format: "1 = 2"))
-            }
-        } else if let page = scopeObject as? Page {
-            predicates.append(NSPredicate(
-                format: "feedData IN %@",
-                page.feedsArray.compactMap { $0.feedData }
-            ))
-        }
-        
-        predicates.append(NSPredicate(format: "read = %@", NSNumber(value: !newReadFlag)))
-
-        if !includeExtras {
-            predicates.append(NSPredicate(format: "extra = %@", NSNumber(value: false)))
-        }
-
-        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
-        let request = Item.fetchRequest()
-        request.predicate = compoundPredicate
-        
-        guard let items = try? context.fetch(request) else { return }
-        
-        if newReadFlag == true {
-            logHistory(items: items, context: context)
-        } else {
-            clearHistory(items: items, context: context)
-        }
-    }
 
     static func logHistory(items: any Collection<Item>, context: NSManagedObjectContext) {
         var affectedTrends = Set<Trend>()

@@ -26,7 +26,7 @@ struct ItemActionView<Content: View>: View {
     @ViewBuilder var content: Content
     
     var body: some View {
-        Group {
+        ZStack {
             switch preferredViewer {
             case .builtInViewer:
                 NavigationLink(value: SubDetailPanel.item(item.objectID.uriRepresentation())) {
