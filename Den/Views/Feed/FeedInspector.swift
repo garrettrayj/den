@@ -43,29 +43,6 @@ struct FeedInspector: View {
             }
             
             Section {
-                Toggle(isOn: $feed.largePreviews) {
-                    Text("Expanded Previews", comment: "Toggle label.")
-                }
-                .onChange(of: feed.previewStyle) {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-                .accessibilityIdentifier("LargePreviews")
-
-                Toggle(isOn: $feed.showExcerpts) {
-                    Text("Show Excerpts", comment: "Toggle label.")
-                }
-                .onChange(of: feed.hideTeasers) {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-
                 Toggle(isOn: $feed.showBylines) {
                     Text("Show Bylines", comment: "Toggle label.")
                 }
@@ -76,7 +53,18 @@ struct FeedInspector: View {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
-
+                
+                Toggle(isOn: $feed.showExcerpts) {
+                    Text("Show Excerpts", comment: "Toggle label.")
+                }
+                .onChange(of: feed.hideTeasers) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+                
                 Toggle(isOn: $feed.showImages) {
                     Text("Show Images", comment: "Toggle label.")
                 }
@@ -87,6 +75,18 @@ struct FeedInspector: View {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
+                
+                Toggle(isOn: $feed.largePreviews) {
+                    Text("Large Images", comment: "Toggle label.")
+                }
+                .onChange(of: feed.previewStyle) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+                .accessibilityIdentifier("LargeImages")
             } header: {
                 Text("Previews", comment: "Feed inspector section header.")
             }

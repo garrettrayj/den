@@ -295,9 +295,6 @@
     "ETag" : {
       "comment" : "Organizer info panel row label."
     },
-    "Expanded Previews" : {
-      "comment" : "Toggle label."
-    },
     "Export OPML" : {
       "comment" : "Button label."
     },
@@ -396,6 +393,9 @@
     },
     "Item Removed" : {
       "comment" : "Object removed message."
+    },
+    "Large Images" : {
+      "comment" : "Toggle label."
     },
     "Last Run" : {
       "comment" : "Maintenance date label."

@@ -36,17 +36,20 @@ struct OrganizerOptionsPanel: View {
                 }
                 
                 Section {
-                    Toggle(sources: sources, isOn: \.largePreviews) {
-                        Text("Expanded Previews", comment: "Toggle label.")
-                    }
-                    Toggle(sources: sources, isOn: \.showExcerpts) {
-                        Text("Show Excerpts", comment: "Toggle label.")
-                    }
                     Toggle(sources: sources, isOn: \.showBylines) {
                         Text("Show Bylines", comment: "Toggle label.")
                     }
+                    
+                    Toggle(sources: sources, isOn: \.showExcerpts) {
+                        Text("Show Excerpts", comment: "Toggle label.")
+                    }
+                    
                     Toggle(sources: sources, isOn: \.showImages) {
                         Text("Show Images", comment: "Toggle label.")
+                    }
+                    
+                    Toggle(sources: sources, isOn: \.largePreviews) {
+                        Text("Large Images", comment: "Toggle label.")
                     }
                 } header: {
                     Text("Previews", comment: "Organizer configuration panel section header.")
