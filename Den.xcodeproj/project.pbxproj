@@ -105,7 +105,6 @@
 		685C58F52B581A6B009E005E /* OpenValidatorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685C58F42B581A6B009E005E /* OpenValidatorButton.swift */; };
 		685CD8A82C2A7C340019E412 /* AccentColorOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685CD8A72C2A7C340019E412 /* AccentColorOption.swift */; };
 		685CD8A92C2A7C340019E412 /* AccentColorOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685CD8A72C2A7C340019E412 /* AccentColorOption.swift */; };
-		685E611F2B598F73009CABFE /* ApexSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685E611E2B598F73009CABFE /* ApexSection.swift */; };
 		685E61232B5EE701009CABFE /* MacSidebarBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685E61222B5EE701009CABFE /* MacSidebarBottomBar.swift */; };
 		685EB37F2AF2AF22001683E3 /* BookmarksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB37E2AF2AF22001683E3 /* BookmarksUITests.swift */; };
 		685EB3812AF2B079001683E3 /* ImportExportUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3802AF2B079001683E3 /* ImportExportUITests.swift */; };
@@ -212,7 +211,6 @@
 		68A104542BA96C0A008BF8E6 /* DownloadStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A104532BA96C0A008BF8E6 /* DownloadStatus.swift */; };
 		68A104582BACC42C008BF8E6 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A104572BACC42C008BF8E6 /* DownloadManager.swift */; };
 		68A1045A2BAD64DB008BF8E6 /* DownloadsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A104592BAD64DB008BF8E6 /* DownloadsButton.swift */; };
-		68A2188D29D9D4AE005F42C7 /* PagesSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2188C29D9D4AE005F42C7 /* PagesSection.swift */; };
 		68A2188F29DC2E86005F42C7 /* SafeAreaModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2188E29DC2E86005F42C7 /* SafeAreaModifier.swift */; };
 		68A5A13B2BE18EF800FEA8D3 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */; };
 		68A5A13C2BE18F5200FEA8D3 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687C27782631F6A000099FCA /* FileManager+Extensions.swift */; };
@@ -495,7 +493,6 @@
 		685ABADD290F187C0080110A /* FeedUpdateTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUpdateTask.swift; sourceTree = "<group>"; };
 		685C58F42B581A6B009E005E /* OpenValidatorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenValidatorButton.swift; sourceTree = "<group>"; };
 		685CD8A72C2A7C340019E412 /* AccentColorOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentColorOption.swift; sourceTree = "<group>"; };
-		685E611E2B598F73009CABFE /* ApexSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApexSection.swift; sourceTree = "<group>"; };
 		685E61222B5EE701009CABFE /* MacSidebarBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacSidebarBottomBar.swift; sourceTree = "<group>"; };
 		685EB37E2AF2AF22001683E3 /* BookmarksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUITests.swift; sourceTree = "<group>"; };
 		685EB3802AF2B079001683E3 /* ImportExportUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportUITests.swift; sourceTree = "<group>"; };
@@ -602,7 +599,6 @@
 		68A104532BA96C0A008BF8E6 /* DownloadStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadStatus.swift; sourceTree = "<group>"; };
 		68A104572BACC42C008BF8E6 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		68A104592BAD64DB008BF8E6 /* DownloadsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsButton.swift; sourceTree = "<group>"; };
-		68A2188C29D9D4AE005F42C7 /* PagesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesSection.swift; sourceTree = "<group>"; };
 		68A2188E29DC2E86005F42C7 /* SafeAreaModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaModifier.swift; sourceTree = "<group>"; };
 		68A5A1572BE2778000FEA8D3 /* LatestItemsConfigurationIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestItemsConfigurationIntent.swift; sourceTree = "<group>"; };
 		68AC3A162910EEB500D60273 /* WorkingTrend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkingTrend.swift; sourceTree = "<group>"; };
@@ -1417,14 +1413,12 @@
 		68FC2566275E07E20073979F /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
-				685E611E2B598F73009CABFE /* ApexSection.swift */,
 				680F63EC2C43CA1A00C70C26 /* BookmarksNavLink.swift */,
 				6851F0EA2AAEC1B5000F7CBC /* ExportButton.swift */,
 				687FEEF62A3E431E0042977E /* ImportButton.swift */,
 				6868A3132895CA860051D43E /* InboxNavLink.swift */,
 				685E61222B5EE701009CABFE /* MacSidebarBottomBar.swift */,
 				686F6B012B37E6830099EB49 /* OrganizerButton.swift */,
-				68A2188C29D9D4AE005F42C7 /* PagesSection.swift */,
 				683E3F48293BC19800B16814 /* RefreshButton.swift */,
 				6851F0EC2AAEC1C6000F7CBC /* SettingsButton.swift */,
 				68FC2562275E07770073979F /* Sidebar.swift */,
@@ -1691,7 +1685,6 @@
 				68352D1629B16C5F0073CEFD /* AccentColorSelector.swift in Sources */,
 				6829A50C28C6479900F75C5A /* AllRead.swift in Sources */,
 				68B6CBE22910B84E00B5E3AB /* AnalyzeTask.swift in Sources */,
-				685E611F2B598F73009CABFE /* ApexSection.swift in Sources */,
 				68BE3B692C0D14150022629D /* AppDelegate.swift in Sources */,
 				68E5B5032C0CF86E00641CC7 /* AppearanceSection.swift in Sources */,
 				687F4890269165EE00EA2498 /* AppErrorSheet.swift in Sources */,
@@ -1854,7 +1847,6 @@
 				68F6FB9D29ADDF6D001F74B9 /* PageLayoutPicker.swift in Sources */,
 				683C353F2A9E4A1600568E9A /* PageNavDropDelegate.swift in Sources */,
 				6862A59E2A26D90F000CAB19 /* PagePicker.swift in Sources */,
-				68A2188D29D9D4AE005F42C7 /* PagesSection.swift in Sources */,
 				68C413462472773100D1DC7B /* PageView.swift in Sources */,
 				684152452AD7B4ED00ABE5E2 /* PageZoomLevel.swift in Sources */,
 				68D17EE82A459E7000AF8A73 /* PasteboardUtility.swift in Sources */,

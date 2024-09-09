@@ -104,9 +104,6 @@ final class RefreshManager: ObservableObject {
                 updateMeta: true
             )
         }
-        
-        feed.objectWillChange.send()
-        feed.page?.objectWillChange.send()
     }
     
     private func updateInfoForAllFeeds() -> [FeedUpdateInfo] {

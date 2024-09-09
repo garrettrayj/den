@@ -33,13 +33,31 @@ struct Sidebar: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\.submitted, order: .reverse)])
     private var searches: FetchedResults<Search>
     
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Item.feedData?.feedId, ascending: true)],
+        predicate: NSPredicate(format: "extra = %@", NSNumber(value: false))
+    )
+    private var items: FetchedResults<Item>
+    
     var body: some View {
         List(selection: $detailPanel) {
             if pages.isEmpty {
                 Start()
             } else {
-                ApexSection()
-                PagesSection(pages: pages)
+                Section {
+                    InboxNavLink(items: items)
+                    TrendingNavLink()
+                    BookmarksNavLink()
+                }
+                Section {
+                    ForEach(pages) { page in
+                        SidebarPage(page: page, items: items.forPage(page))
+                    }
+                    .onMove(perform: movePages)
+                    .onDelete(perform: deletePages)
+                } header: {
+                    Text("Folders", comment: "Sidebar section header.")
+                }
             }
         }
         .listStyle(.sidebar)
@@ -144,6 +162,39 @@ struct Sidebar: View {
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
+        }
+    }
+    
+    private func movePages(from source: IndexSet, to destination: Int) {
+        var revisedItems = Array(pages)
+
+        // Change the order of the items in the array
+        revisedItems.move(fromOffsets: source, toOffset: destination)
+
+        // Update the userOrder attribute in revisedItems to persist the new order.
+        // This is done in reverse order to minimize changes to the indices.
+        for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
+            revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
+        }
+
+        do {
+            try viewContext.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
+    }
+
+    private func deletePages(at offsets: IndexSet) {
+        for index in offsets {
+            let page = pages[index]
+            page.feedsArray.compactMap { $0.feedData }.forEach { viewContext.delete($0) }
+            viewContext.delete(page)
+        }
+
+        do {
+            try viewContext.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
     

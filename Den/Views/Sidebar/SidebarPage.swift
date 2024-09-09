@@ -14,6 +14,8 @@ struct SidebarPage: View {
     
     @ObservedObject var page: Page
     
+    let items: [Item]
+    
     @State private var showingIconSelector = false
     
     @SceneStorage("ExpandedPages") var expandedPages: Set<UUID> = []
@@ -39,76 +41,74 @@ struct SidebarPage: View {
     }
 
     var body: some View {
-        WithItems(scopeObject: page) { items in
-            DisclosureGroup(isExpanded: isExpandedBinding) {
-                ForEach(page.feedsArray, id: \.self) { feed in
-                    SidebarFeed(feed: feed, unreadCount: items.forFeed(feed).featured.unread.count)
-                }
-                .onMove(perform: moveFeeds)
-                .onDelete(perform: deleteFeeds)
-            } label: {
-                Label {
-                    #if os(macOS)
-                    TextField(text: $page.wrappedName) {
-                        page.displayName
-                    }
-                    .onSubmit {
-                        if viewContext.hasChanges {
-                            do {
-                                try viewContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
-                        }
-                    }
-                    #else
-                    page.displayName
-                    #endif
-                } icon: {
-                    Image(systemName: page.wrappedSymbol)
-                }
-                .badge(showUnreadCounts ? items.unread.count : 0)
-                .contentShape(Rectangle())
-                .onDrop(
-                    of: [.denFeed, .url, .text],
-                    delegate: PageNavDropDelegate(
-                        context: viewContext,
-                        page: page,
-                        newFeedPageObjectURL: $newFeedPageObjectURL,
-                        newFeedWebAddress: $newFeedWebAddress,
-                        showingNewFeedSheet: $showingNewFeedSheet
-                    )
-                )
-                .contextMenu {
-                    MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                        HistoryUtility.toggleRead(items: items, context: viewContext)
-                    }
-                    Divider()
-                    IconSelectorButton(
-                        showingIconSelector: $showingIconSelector,
-                        symbol: $page.wrappedSymbol
-                    )
-                    DeletePageButton(page: page)
-                }
-                .sheet(
-                    isPresented: $showingIconSelector,
-                    onDismiss: {
-                        if viewContext.hasChanges {
-                            do {
-                                try viewContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
-                        }
-                    },
-                    content: {
-                        IconSelector(selection: $page.wrappedSymbol)
-                    }
-                )
-                .accessibilityIdentifier("SidebarPage")
+        DisclosureGroup(isExpanded: isExpandedBinding) {
+            ForEach(page.feedsArray, id: \.self) { feed in
+                SidebarFeed(feed: feed, unreadCount: items.forFeed(feed).featured.unread.count)
             }
-            .tag(DetailPanel.page(page.objectID.uriRepresentation()))
+            .onMove(perform: moveFeeds)
+            .onDelete(perform: deleteFeeds)
+        } label: {
+            Label {
+                #if os(macOS)
+                TextField(text: $page.wrappedName) {
+                    page.displayName
+                }
+                .onSubmit {
+                    if viewContext.hasChanges {
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
+                    }
+                }
+                #else
+                page.displayName
+                #endif
+            } icon: {
+                Image(systemName: page.wrappedSymbol)
+            }
+            .badge(showUnreadCounts ? items.unread.count : 0)
+            .contentShape(Rectangle())
+            .onDrop(
+                of: [.denFeed, .url, .text],
+                delegate: PageNavDropDelegate(
+                    context: viewContext,
+                    page: page,
+                    newFeedPageObjectURL: $newFeedPageObjectURL,
+                    newFeedWebAddress: $newFeedWebAddress,
+                    showingNewFeedSheet: $showingNewFeedSheet
+                )
+            )
+            .contextMenu {
+                MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
+                    HistoryUtility.toggleRead(items: items, context: viewContext)
+                }
+                Divider()
+                IconSelectorButton(
+                    showingIconSelector: $showingIconSelector,
+                    symbol: $page.wrappedSymbol
+                )
+                DeletePageButton(page: page)
+            }
+            .sheet(
+                isPresented: $showingIconSelector,
+                onDismiss: {
+                    if viewContext.hasChanges {
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
+                    }
+                },
+                content: {
+                    IconSelector(selection: $page.wrappedSymbol)
+                }
+            )
+            .accessibilityIdentifier("SidebarPage")
         }
+        .tag(DetailPanel.page(page.objectID.uriRepresentation()))
     }
     
     private func moveFeeds( from source: IndexSet, to destination: Int) {

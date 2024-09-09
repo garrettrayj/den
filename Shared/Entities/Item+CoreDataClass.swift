@@ -127,6 +127,15 @@ final public class Item: NSManagedObject {
 }
 
 extension Collection where Element == Item {
+    func forPage(_ page: Page) -> [Item] {
+        let pageFeedDatas = page.feedsArray.compactMap({ $0.feedData })
+        
+        return self.filter {
+            guard let feedData = $0.feedData else { return false }
+            return pageFeedDatas.contains(feedData)
+        }
+    }
+    
     func forFeed(_ feed: Feed) -> [Item] {
         self.filter { $0.feedData?.id == feed.feedData?.id }
     }
