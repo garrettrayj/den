@@ -23,11 +23,7 @@ struct TrendingLayout: View {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
                         BoardView(width: geometry.size.width, list: visibleTrends) { trend in
-                            TrendBlock(
-                                trend: trend,
-                                items: trend.items,
-                                feeds: trend.feeds
-                            )
+                            TrendBlock(trend: trend)
                         }
                     }
                 }

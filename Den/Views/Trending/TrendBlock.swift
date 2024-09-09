@@ -16,9 +16,6 @@ struct TrendBlock: View {
     
     @ObservedObject var trend: Trend
     
-    let items: [Item]
-    let feeds: [Feed]
-    
     @ScaledMetric var gridSize = 20
 
     private var symbol: String? {
@@ -33,7 +30,7 @@ struct TrendBlock: View {
     }
     
     private var favicons: [URL] {
-        feeds.compactMap { $0.feedData?.favicon }.uniqueElements()
+        trend.feeds.compactMap { $0.feedData?.favicon }.uniqueElements()
     }
 
     var body: some View {
@@ -42,16 +39,14 @@ struct TrendBlock: View {
                 trend.titleText.font(.title2)
 
                 if !favicons.isEmpty {
-                    LazyVGrid(
-                        columns: [
-                            GridItem(.adaptive(minimum: gridSize), spacing: 4, alignment: .center)
-                        ],
-                        alignment: .center,
-                        spacing: 4
-                    ) {
-                        ForEach(favicons, id: \.self) { favicon in
-                            Favicon(url: favicon) {
-                                FeedFaviconPlaceholder()
+                    Grid {
+                        ForEach(favicons.chunked(by: 10), id: \.self) { chunked in
+                            GridRow {
+                                ForEach(chunked, id: \.self) { favicon in
+                                    Favicon(url: favicon) {
+                                        FeedFaviconPlaceholder()
+                                    }
+                                }
                             }
                         }
                     }
@@ -64,24 +59,24 @@ struct TrendBlock: View {
                     }
                     Text(
                         """
-                        \(items.count) items in \(trend.feeds.count) feeds. \
-                        \(items.unread.count) unread
+                        \(trend.items.count) items in \(trend.feeds.count) feeds. \
+                        \(trend.items.unread.count) unread
                         """,
                         comment: "Trend status line."
                     )
+                    Spacer(minLength: 0)
                 }
                 .font(.footnote)
                 .foregroundStyle(.secondary)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
             .foregroundStyle(trend.read ? .secondary : .primary)
             .padding(12)
             .drawingGroup()
         }
         .buttonStyle(ContentBlockButtonStyle())
         .contextMenu {
-            MarkAllReadUnreadButton(allRead: items.unread.isEmpty) {
-                HistoryUtility.toggleRead(items: items, context: viewContext)
+            MarkAllReadUnreadButton(allRead: trend.items.unread.isEmpty) {
+                HistoryUtility.toggleRead(items: trend.items, context: viewContext)
             }
         }
     }
