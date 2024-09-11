@@ -63,8 +63,11 @@ final public class Item: NSManagedObject {
             for (title, tag) in newValue {
                 encodableValue.append([title, tag.rawValue])
             }
-            if let data = try? JSONSerialization.data(withJSONObject: encodableValue) {
-                tags = String(decoding: data, as: UTF8.self)
+            if
+                let data = try? JSONSerialization.data(withJSONObject: encodableValue),
+                let json = String(data: data, encoding: .utf8)
+            {
+                tags = json
             }
         }
     }

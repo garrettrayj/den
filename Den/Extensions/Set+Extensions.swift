@@ -20,8 +20,11 @@ extension Set: @retroactive RawRepresentable where Element == UUID {
     }
     
     public var rawValue: String {
-        guard let data = try? JSONEncoder().encode(self) else { return "[]" }
+        guard
+            let data = try? JSONEncoder().encode(self),
+            let jsonString = String(data: data, encoding: .utf8)
+        else { return "[]" }
         
-        return String(decoding: data, as: UTF8.self)
+        return jsonString
     }
 }

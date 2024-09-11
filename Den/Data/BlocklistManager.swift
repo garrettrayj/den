@@ -131,14 +131,15 @@ final class BlocklistManager {
             let url,
             let blocklistUUIDString,
             let (data, urlResponse) = try? await URLSession.shared.data(from: url),
-            let httpResponse = urlResponse as? HTTPURLResponse
+            let httpResponse = urlResponse as? HTTPURLResponse,
+            let json = String(data: data, encoding: .utf8)
         else {
             return
         }
         
         let compiledSuccessfully = await compileContentRulesList(
             identifier: blocklistUUIDString,
-            json: String(decoding: data, as: UTF8.self)
+            json: json
         )
         
         context.performAndWait {

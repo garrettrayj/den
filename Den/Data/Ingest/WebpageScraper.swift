@@ -14,7 +14,8 @@ struct WebpageScraper {
     static func extractMetadata(webpage: URL, data: Data?) -> WebpageMetadata? {
         guard
             let data = data,
-            let document = try? SwiftSoup.parse(String(decoding: data, as: UTF8.self))
+            let htmlString = String(data: data, encoding: .utf8),
+            let document = try? SwiftSoup.parse(htmlString)
         else { return nil }
 
         let metadata = WebpageMetadata()
