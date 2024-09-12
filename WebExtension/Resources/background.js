@@ -21,6 +21,8 @@ browser.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         .tabs
         .sendMessage(tabId, {"subject": "scan"})
         .then(function(results) {
-            updateBadge(tabId, results.data.length)
+            if (results !== undefined) {
+                updateBadge(tabId, results.data.length)
+            }
         });
 });

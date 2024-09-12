@@ -16,7 +16,7 @@ function scanActiveTab() {
                 .tabs
                 .sendMessage(tabs[0].id, {"subject": "scan"})
                 .then(function(results) {
-                    if (results.data.length > 0) {
+                    if (results !== undefined && results.data.length > 0) {
                         createResultsList(results.data);
                     }
                 });
