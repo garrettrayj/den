@@ -72,11 +72,11 @@ final class FeedUITests: UITestCase {
 
         #if os(macOS)
         app.buttons["ToggleInspector"].firstMatch.tap()
-        app.switches["LargePreviews"].tap()
+        app.switches["LargeImages"].tap()
         app.buttons["ToggleInspector"].firstMatch.tap()
         #else
         app.buttons["ToggleInspector"].tap()
-        app.switches["LargePreviews"].switches.firstMatch.tap()
+        app.switches["LargeImages"].switches.firstMatch.tap()
         app.buttons["ToggleInspector"].forceTap()
         #endif
 
@@ -85,10 +85,10 @@ final class FeedUITests: UITestCase {
         
         #if os(macOS)
         app.buttons["ToggleInspector"].firstMatch.tap()
-        app.switches["LargePreviews"].tap()
+        app.switches["LargeImages"].tap()
         #else
         app.buttons["ToggleInspector"].forceTap()
-        app.switches["LargePreviews"].switches.firstMatch.tap()
+        app.switches["LargeImages"].switches.firstMatch.tap()
         #endif
     }
 
