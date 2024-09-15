@@ -13,7 +13,19 @@ struct OrganizerRow: View {
     
     var body: some View {
         HStack {
-            FeedTitleLabel(feed: feed)
+            Favicon(url: feed.feedData?.favicon) {
+                FeedFaviconPlaceholder()
+            }
+            #if os(macOS)
+            TextField(
+                text: $feed.wrappedTitle,
+                prompt: Text("Untitled", comment: "Default feed title.")
+            ) {
+                Text("Title", comment: "Text field label.")
+            }
+            #else
+            feed.displayTitle
+            #endif
             Spacer()
             Group {
                 if let feedData = feed.feedData {

@@ -17,6 +17,17 @@ struct FeedInspector: View {
 
     var body: some View {
         Form {
+            #if os(macOS)
+            Section {
+                TextField(text: $feed.wrappedTitle) {
+                    Text("Title", comment: "Text field label.")
+                }
+                .labelsHidden()
+            } header: {
+                Text("Title", comment: "Feed inspector section header.")
+            }
+            #endif
+            
             Section {
                 Picker(selection: $feed.itemLimit) {
                     ForEach(1...100, id: \.self) { choice in
@@ -127,6 +138,18 @@ struct FeedInspector: View {
             } header: {
                 Text("Viewing", comment: "Feed inspector section header.")
             }
+            
+            #if os(macOS)
+            Section {
+                PagePicker(
+                    selection: $feed.page,
+                    labelText: Text("Move", comment: "Picker label.")
+                )
+                DeleteFeedButton(feed: feed).buttonStyle(.borderless)
+            } header: {
+                Text("Management", comment: "Feed inspector section header.")
+            }
+            #endif
         }
         .formStyle(.grouped)
         .inspectorColumnWidth(width)

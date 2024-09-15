@@ -9,15 +9,10 @@
 import SwiftUI
 
 struct OpenValidatorButton: View {
-    @Environment(\.openURL) private var openURL
-    
-    @ObservedObject var feed: Feed
+    var url: URL
     
     var body: some View {
-        Button {
-            guard let url = feed.validatorURL else { return }
-            openURL(url)
-        } label: {
+        Link(destination: url) {
             Label {
                 Text("Open Validator", comment: "Button label.")
             } icon: {

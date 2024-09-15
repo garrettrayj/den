@@ -97,8 +97,10 @@ struct OrganizerInfoPanel: View {
                 }
             }
             
-            Section {
-                OpenValidatorButton(feed: feed)
+            if let validatorURL = feed.validatorURL {
+                Section {
+                    OpenValidatorButton(url: validatorURL).buttonStyle(.borderless)
+                }
             }
         }
         .scrollContentBackground(.hidden)

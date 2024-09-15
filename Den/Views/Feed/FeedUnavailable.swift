@@ -89,8 +89,8 @@ struct FeedUnavailable: View {
     @ViewBuilder
     private var actions: some View {
         if feed.feedData?.wrappedError != nil {
-            if feed.feedData?.wrappedError == .parsing {
-                OpenValidatorButton(feed: feed)
+            if feed.feedData?.wrappedError == .parsing, let validatorURL = feed.validatorURL {
+                OpenValidatorButton(url: validatorURL)
             }
         }
     }
