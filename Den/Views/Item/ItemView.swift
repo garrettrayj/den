@@ -65,10 +65,10 @@ struct ItemView: View {
         }
         if let url = browserViewModel.url {
             ToolbarItem {
-                SystemBrowserButton(url: url)
+                ShareButton(item: url)
             }
             ToolbarItem {
-                ShareButton(item: url)
+                SystemBrowserButton(url: url)
             }
         }
         #else

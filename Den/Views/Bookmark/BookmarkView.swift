@@ -66,10 +66,10 @@ struct BookmarkView: View {
         }
         if let url = browserViewModel.url {
             ToolbarItem {
-                SystemBrowserButton(url: url)
+                ShareButton(item: url).help(Text("Share", comment: "Button help text."))
             }
             ToolbarItem {
-                ShareButton(item: url).help(Text("Share", comment: "Button help text."))
+                SystemBrowserButton(url: url)
             }
         }
         #else

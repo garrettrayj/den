@@ -60,6 +60,7 @@ struct Sidebar: View {
                 }
             }
         }
+        .navigationTitle(Bundle.main.name)
         .listStyle(.sidebar)
         .buttonStyle(.borderless)
         .badgeProminence(.decreased)
@@ -228,7 +229,7 @@ struct Sidebar: View {
         }
         #if os(iOS)
         ToolbarItem(placement: .status) {
-            SidebarStatus(feedCount: pages.feeds.count).layoutPriority(0)
+            SidebarStatus(feedCount: pages.feeds.count)
         }
         ToolbarItem(placement: .bottomBar) {
             RefreshButton().disabled(pages.feeds.count == 0)
