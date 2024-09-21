@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DraggableFeedModifier: ViewModifier {
-    @ObservedObject var feed: Feed
+    let feed: Feed
 
     func body(content: Content) -> some View {
         content

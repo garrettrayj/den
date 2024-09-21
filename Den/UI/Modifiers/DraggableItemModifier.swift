@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DraggableItemModifier: ViewModifier {
-    @ObservedObject var item: Item
+    let item: Item
 
     func body(content: Content) -> some View {
         if let linkURL = item.link {

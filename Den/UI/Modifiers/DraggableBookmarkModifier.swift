@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DraggableBookmarkModifier: ViewModifier {
-    @ObservedObject var bookmark: Bookmark
+    let bookmark: Bookmark
 
     func body(content: Content) -> some View {
         if let linkURL = bookmark.link {

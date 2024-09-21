@@ -16,12 +16,7 @@ struct FeedNavLink: View {
             HStack {
                 FeedTitleLabel(feed: feed)
                     .modifier(DraggableFeedModifier(feed: feed))
-                    .help(
-                        Text(
-                            "Drag to move feed to another page.",
-                            comment: "Draggable help text."
-                        )
-                    )
+                    .help(Text("Drag to move feed to another page.", comment: "Draggable help text."))
                 Spacer()
                 ButtonChevron()
             }

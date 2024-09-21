@@ -97,13 +97,12 @@ final class RefreshManager: ObservableObject {
     }
 
     func refresh(feed: Feed) async {
-        if let url = feed.url {
-            await FeedUpdateTask.execute(
-                feedObjectID: feed.objectID,
-                url: url,
-                updateMeta: true
-            )
-        }
+        guard let url = feed.url else { return }
+        
+        await FeedUpdateTask.execute(feedObjectID: feed.objectID, url: url, updateMeta: true)
+        
+        feed.objectWillChange.send()
+        feed.page?.objectWillChange.send()
     }
     
     private func updateInfoForAllFeeds() -> [FeedUpdateInfo] {

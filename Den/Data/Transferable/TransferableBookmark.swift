@@ -10,8 +10,8 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct TransferableBookmark: Codable, Transferable {
-    var objectURI: URL
-    var linkURL: URL
+    let objectURI: URL
+    let linkURL: URL
 
     static var transferRepresentation: some TransferRepresentation {
         CodableRepresentation(contentType: .denBookmark)

@@ -16,7 +16,7 @@ struct OpenValidatorButton: View {
             Label {
                 Text("Open Validator", comment: "Button label.")
             } icon: {
-                Image(systemName: "stethoscope").foregroundStyle(.tint)
+                Image(systemName: "stethoscope")
             }
         }
     }

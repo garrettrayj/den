@@ -10,7 +10,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct TransferableFeed: Codable, Transferable {
-    var objectURI: URL
+    let objectURI: URL
 
     static var transferRepresentation: some TransferRepresentation {
         CodableRepresentation(contentType: .denFeed)
