@@ -13,7 +13,6 @@ import SDWebImageSwiftUI
 struct Favicon<Placeholder: View>: View {
     @Environment(\.displayScale) private var displayScale
     @Environment(\.imageScale) private var imageScale
-    @Environment(\.isEnabled) private var isEnabled
     
     let url: URL?
     
@@ -35,7 +34,6 @@ struct Favicon<Placeholder: View>: View {
         }
         .frame(width: size, height: size)
         .clipShape(RoundedRectangle(cornerRadius: 2))
-        .opacity(isEnabled ? 1.0 : 0.4)
     }
 
     private var size: CGFloat {

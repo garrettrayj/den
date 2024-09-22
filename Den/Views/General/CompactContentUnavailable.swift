@@ -14,7 +14,6 @@ struct CompactContentUnavailable<
     ActionsContent: View
 >: View {
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.isEnabled) private var isEnabled
 
     private var label: () -> LabelContent
     private var description: (() -> DescriptionContent)?

@@ -88,24 +88,22 @@ struct FeedLayout: View {
             }
 
             if let url = feed.url {
-                HStack {
-                    Button {
-                        PasteboardUtility.copyURL(url: url)
-                        feedAddressCopied = true
-                    } label: {
-                        Label {
-                            Text(url.absoluteString).lineLimit(1)
-                        } icon: {
-                            Image(systemName: "doc.on.doc")
-                        }
-
-                        if feedAddressCopied {
-                            Text("Copied", comment: "Copied to pasteboard message.")
-                                .foregroundStyle(.secondary)
-                        }
+                Button {
+                    PasteboardUtility.copyURL(url: url)
+                    feedAddressCopied = true
+                } label: {
+                    Label {
+                        Text(url.absoluteString).lineLimit(1)
+                    } icon: {
+                        Image(systemName: "doc.on.doc")
                     }
-                    .accessibilityIdentifier("CopyFeedAddress")
+
+                    if feedAddressCopied {
+                        Text("Copied", comment: "Copied to pasteboard message.")
+                            .foregroundStyle(.secondary)
+                    }
                 }
+                .accessibilityIdentifier("CopyFeedAddress")
             }
 
             if let copyright = feed.feedData?.copyright {

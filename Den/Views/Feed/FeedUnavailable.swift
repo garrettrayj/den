@@ -52,10 +52,9 @@ struct FeedUnavailable: View {
                     Text(verbatim: """
                     \(feedData.httpStatus) \
                     \(
-                        HTTPURLResponse.localizedString(
-                            forStatusCode: Int(feedData.httpStatus)
-                        )
-                        .localizedCapitalized
+                        HTTPURLResponse
+                            .localizedString(forStatusCode: Int(feedData.httpStatus))
+                            .localizedCapitalized
                     )
                     """)
                 } else {

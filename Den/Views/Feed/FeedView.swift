@@ -31,10 +31,7 @@ struct FeedView: View {
                 }
                 .navigationTitle(Text(verbatim: ""))
             } else {
-                WithItems(
-                    scopeObject: feed,
-                    includeExtras: true
-                ) { items in
+                WithItems(scopeObject: feed, includeExtras: true) { items in
                     FeedLayout(
                         feed: feed,
                         items: items

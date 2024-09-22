@@ -21,7 +21,9 @@ struct BookmarkPreviewExpanded: View {
                         BookmarkFaviconPlaceholder()
                     }
                 }
-                .font(.callout).imageScale(.small)
+                .font(.callout)
+                .imageScale(.small)
+                
                 PreviewHeadline(title: bookmark.titleText)
                 if let date = bookmark.published {
                     PreviewDateline(date: date)

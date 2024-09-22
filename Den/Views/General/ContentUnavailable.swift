@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct ContentUnavailable<LabelContent: View, DescriptionContent: View, ActionsContent: View>: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     private var label: () -> LabelContent
     private var description: (() -> DescriptionContent)?
     private var actions: (() -> ActionsContent)?
@@ -54,31 +52,19 @@ extension ContentUnavailable {
         @ViewBuilder label: @escaping () -> LabelContent,
         @ViewBuilder description: @escaping () -> DescriptionContent
     ) where ActionsContent == EmptyView {
-        self.init(
-            label: label,
-            description: description,
-            actions: nil
-        )
+        self.init(label: label, description: description, actions: nil)
     }
 
     init(
         @ViewBuilder label: @escaping () -> LabelContent,
         @ViewBuilder actions: @escaping () -> ActionsContent
     ) where DescriptionContent == EmptyView {
-        self.init(
-            label: label,
-            description: nil,
-            actions: actions
-        )
+        self.init(label: label, description: nil, actions: actions)
     }
     
     init(
         @ViewBuilder label: @escaping () -> LabelContent
     ) where DescriptionContent == EmptyView, ActionsContent == EmptyView {
-        self.init(
-            label: label,
-            description: nil,
-            actions: nil
-        )
+        self.init(label: label, description: nil, actions: nil)
     }
 }
