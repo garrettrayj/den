@@ -73,6 +73,14 @@
 			<key>UIApplicationShortcutItemType</key>
 			<string>TrendingAction</string>
 		</dict>
+        <dict>
+            <key>UIApplicationShortcutItemIconSymbolName</key>
+            <string>book</string>
+            <key>UIApplicationShortcutItemTitle</key>
+            <string>Bookmarks</string>
+            <key>UIApplicationShortcutItemType</key>
+            <string>BookmarksAction</string>
+        </dict>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

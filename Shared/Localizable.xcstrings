@@ -422,7 +422,7 @@
       "comment" : "Debugging tools section header."
     },
     "Management" : {
-      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header."
+      "comment" : "Organizer configuration panel section header."
     },
     "Mark all items read" : {
       "comment" : "Button help text."
@@ -766,7 +766,7 @@
       "comment" : "Layout option label."
     },
     "Title" : {
-      "comment" : "Bookmarks table header.\nFeed inspector section header.\nText field label."
+      "comment" : "Bookmarks table header."
     },
     "Trend Removed" : {
       "comment" : "Object removed message."

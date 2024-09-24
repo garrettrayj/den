@@ -108,10 +108,15 @@ struct RootView: View {
             switch scenePhase {
             case .active:
                 if let shortcutItem = QuickActionManager.shared.shortcutItem {
-                    if shortcutItem.type == "InboxAction" {
+                    switch shortcutItem.type {
+                    case "InboxAction":
                         detailPanel = .inbox
-                    } else if shortcutItem.type == "TrendingAction" {
+                    case "TrendingAction":
                         detailPanel = .trending
+                    case "BookmarksAction":
+                        detailPanel = .bookmarks
+                    default:
+                        break
                     }
                     QuickActionManager.shared.shortcutItem = nil
                 }

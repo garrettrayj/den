@@ -10,7 +10,6 @@ import SwiftUI
 
 struct PreviewButtonStyle: ButtonStyle {
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.isEnabled) private var isEnabled
 
     @Binding var read: Bool
 
@@ -58,9 +57,7 @@ struct PreviewButtonStyle: ButtonStyle {
     }
     
     private var foregroundStyle: some ShapeStyle {
-        if !isEnabled {
-            return .tertiary
-        } else if read {
+        if read {
             return .secondary
         } else {
             return .primary

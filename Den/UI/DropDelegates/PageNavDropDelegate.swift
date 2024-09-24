@@ -46,60 +46,54 @@ struct PageNavDropDelegate: DropDelegate {
             guard case .success(let transferableFeed) = result else { return }
 
             Task {
-                await MainActor.run {
-                    guard
-                        let objectID = context.persistentStoreCoordinator?.managedObjectID(
-                            forURIRepresentation: transferableFeed.objectURI
-                        ),
-                        let feed = try? context.existingObject(with: objectID) as? Feed,
-                        feed.page != page
-                    else { return }
-
-                    feed.page = page
-                    feed.userOrder = page.feedsUserOrderMax + 1
-
-                    do {
-                        try context.save()
-                        page.objectWillChange.send()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
+                await moveFeedToPage(transferableFeed.objectURI)
             }
+        }
+    }
+    
+    private func moveFeedToPage(_ feedObjectURI: URL) {
+        guard
+            let objectID = context.persistentStoreCoordinator?.managedObjectID(
+                forURIRepresentation: feedObjectURI
+            ),
+            let feed = try? context.existingObject(with: objectID) as? Feed,
+            feed.page != page
+        else { return }
+
+        feed.page = page
+        feed.userOrder = page.feedsUserOrderMax + 1
+
+        do {
+            try context.save()
+            page.objectWillChange.send()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 
     private func handleNewFeed(_ provider: NSItemProvider) {
         if provider.canLoadObject(ofClass: URL.self) {
             _ = provider.loadObject(ofClass: URL.self, completionHandler: { url, _ in
+                guard let url else { return }
+                
                 Task {
-                    await MainActor.run {
-                        if let url = url {
-                            newFeedPageObjectURL = page.objectID.uriRepresentation()
-                            newFeedWebAddress = url.absoluteStringForNewFeed
-                            showingNewFeedSheet = true
-                        }
-                    }
+                    await showNewFeedSheet(url.absoluteString)
                 }
             })
-
-            return
-        }
-
-        if provider.canLoadObject(ofClass: String.self) {
+        } else if provider.canLoadObject(ofClass: String.self) {
             _ = provider.loadObject(ofClass: String.self, completionHandler: { droppedString, _ in
+                guard let droppedString else { return }
+                
                 Task {
-                    await MainActor.run {
-                        if let droppedString = droppedString {
-                            newFeedPageObjectURL = page.objectID.uriRepresentation()
-                            newFeedWebAddress = droppedString
-                            showingNewFeedSheet = true
-                        }
-                    }
+                    await showNewFeedSheet(droppedString)
                 }
             })
-
-            return
         }
+    }
+    
+    private func showNewFeedSheet(_ urlString: String) {
+        newFeedPageObjectURL = page.objectID.uriRepresentation()
+        newFeedWebAddress = urlString
+        showingNewFeedSheet = true
     }
 }

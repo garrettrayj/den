@@ -31,7 +31,6 @@ struct ContentBlockButtonStyle: ButtonStyle {
             .background(Color(.secondarySystemGroupedBackground))
             .clipShape(clipShape)
         #endif
-        
     }
     
     private var clipShape: some InsettableShape {

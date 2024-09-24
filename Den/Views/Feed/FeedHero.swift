@@ -35,10 +35,8 @@ struct FeedHero: View {
                         .overlay(.thinMaterial)
                 }
                 .clipped()
-                
                 Divider()
             }
-            
         } placeholder: {
             VStack {
                 ImageErrorPlaceholder()

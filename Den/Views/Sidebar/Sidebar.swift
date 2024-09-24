@@ -34,7 +34,7 @@ struct Sidebar: View {
     private var searches: FetchedResults<Search>
     
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.feedData?.feedId, ascending: true)],
+        sortDescriptors: [SortDescriptor(\.feedData?.feedId)],
         predicate: NSPredicate(format: "extra = %@", NSNumber(value: false))
     )
     private var items: FetchedResults<Item>

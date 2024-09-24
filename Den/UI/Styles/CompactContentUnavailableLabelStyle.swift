@@ -9,14 +9,10 @@
 import SwiftUI
 
 struct CompactContentUnavailableLabelStyle: LabelStyle {
-    @Environment(\.isEnabled) private var isEnabled
-
     func makeBody(configuration: Configuration) -> some View {
         VStack(spacing: 8) {
-            configuration.icon
-                .foregroundStyle(.secondary)
-            configuration.title
-                .foregroundStyle(.secondary)
+            configuration.icon.foregroundStyle(.secondary)
+            configuration.title.foregroundStyle(.secondary)
         }
         .imageScale(.large)
         .font(.callout)

@@ -30,24 +30,26 @@ struct BookmarksNavDropDelegate: DropDelegate {
             guard case .success(let transferableItem) = result else { return }
 
             Task {
-                await MainActor.run {
-                    guard
-                        let objectID = context.persistentStoreCoordinator?.managedObjectID(
-                            forURIRepresentation: transferableItem.objectURI
-                        ),
-                        let item = try? context.existingObject(with: objectID) as? Item
-                    else { return }
-
-                    _ = Bookmark.create(in: context, item: item)
-                    item.bookmarked = true
-
-                    do {
-                        try context.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
+                await createBookmark(transferableItem.objectURI)
             }
+        }
+    }
+    
+    private func createBookmark(_ itemObjectURI: URL) {
+        guard
+            let objectID = context.persistentStoreCoordinator?.managedObjectID(
+                forURIRepresentation: itemObjectURI
+            ),
+            let item = try? context.existingObject(with: objectID) as? Item
+        else { return }
+
+        _ = Bookmark.create(in: context, item: item)
+        item.bookmarked = true
+
+        do {
+            try context.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 }

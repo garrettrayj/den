@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct PreviewImageStateModifier: ViewModifier {
-    @Environment(\.isEnabled) private var isEnabled
-    
     let isRead: Bool
     
     func body(content: Content) -> some View {
@@ -20,9 +18,7 @@ struct PreviewImageStateModifier: ViewModifier {
     }
     
     private var grayscale: CGFloat {
-        if !isEnabled {
-            return 0.4
-        } else if isRead {
+        if isRead {
             return 0.2
         } else {
             return 0
@@ -30,9 +26,7 @@ struct PreviewImageStateModifier: ViewModifier {
     }
     
     private var overlay: some ShapeStyle {
-        if !isEnabled {
-            return .background.opacity(0.6)
-        } else if isRead {
+        if isRead {
             return .background.opacity(0.4)
         } else {
             return .background.opacity(0)

@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct ContentUnavailableLabelStyle: LabelStyle {
-    @Environment(\.isEnabled) private var isEnabled
-
     func makeBody(configuration: Configuration) -> some View {
         VStack(spacing: 16) {
             configuration.icon.foregroundStyle(.tertiary)
