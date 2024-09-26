@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct BlocklistsSection: View {
+    @State private var showingSheet = false
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var blocklists: FetchedResults<Blocklist>
 
@@ -34,7 +36,19 @@ struct BlocklistsSection: View {
                 .accessibilityIdentifier("BlocklistNavLink")
             }
             
-            NewBlocklistButton()
+            Button {
+                showingSheet = true
+            } label: {
+                Label {
+                    Text("New Blocklist", comment: "Button label.")
+                } icon: {
+                    Image(systemName: "plus")
+                }
+            }
+            .accessibilityIdentifier("NewBlocklist")
+            .sheet(isPresented: $showingSheet) {
+                NewBlocklistSheet()
+            }
         } header: {
             Text("Blocklists", comment: "Settings section header.")
         }

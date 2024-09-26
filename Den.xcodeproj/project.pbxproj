@@ -111,7 +111,6 @@
 		685EB3852AF2B2F7001683E3 /* BlocklistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3842AF2B2F7001683E3 /* BlocklistUITests.swift */; };
 		685EB3872AF95CB1001683E3 /* AboutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3862AF95CB1001683E3 /* AboutSection.swift */; };
 		685EB3892AFAA102001683E3 /* OrganizerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3882AFAA102001683E3 /* OrganizerRow.swift */; };
-		685EB3982AFB58BB001683E3 /* NewBlocklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */; };
 		685ECB1126EE611000A3B184 /* SidebarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685ECB1026EE611000A3B184 /* SidebarPage.swift */; };
 		686067D9280CAF29000068DE /* SmallThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686067D8280CAF29000068DE /* SmallThumbnail.swift */; };
 		6860692D2831501B000068DE /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 686068E52831501B000068DE /* _locales */; };
@@ -500,7 +499,6 @@
 		685EB3842AF2B2F7001683E3 /* BlocklistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocklistUITests.swift; sourceTree = "<group>"; };
 		685EB3862AF95CB1001683E3 /* AboutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSection.swift; sourceTree = "<group>"; };
 		685EB3882AFAA102001683E3 /* OrganizerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerRow.swift; sourceTree = "<group>"; };
-		685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBlocklistButton.swift; sourceTree = "<group>"; };
 		685ECB1026EE611000A3B184 /* SidebarPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarPage.swift; sourceTree = "<group>"; };
 		686067D8280CAF29000068DE /* SmallThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallThumbnail.swift; sourceTree = "<group>"; };
 		686068E52831501B000068DE /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
@@ -834,7 +832,6 @@
 				686114FB2B3F624400BC2235 /* BlocklistStatusView.swift */,
 				68C3DE292C02B6AE000C9897 /* DebuggingTools.swift */,
 				687FEED12A3A57220042977E /* GeneralSection.swift */,
-				685EB3972AFB58BB001683E3 /* NewBlocklistButton.swift */,
 				6841525F2AD9E15B00ABE5E2 /* NewBlocklistSheet.swift */,
 				684152782ADC7C8700ABE5E2 /* ResetSection.swift */,
 				684152752ADC6ABD00ABE5E2 /* SettingsSheet.swift */,
@@ -1825,7 +1822,6 @@
 				684152382AD559C300ABE5E2 /* MercuryObject.swift in Sources */,
 				68906F8F2A78F58900803350 /* NavigationStore.swift in Sources */,
 				68ED797B29BD97DE00D85B4F /* NetworkMonitor.swift in Sources */,
-				685EB3982AFB58BB001683E3 /* NewBlocklistButton.swift in Sources */,
 				684152602AD9E15B00ABE5E2 /* NewBlocklistSheet.swift in Sources */,
 				683E3F45293BC02A00B16814 /* NewFeedButton.swift in Sources */,
 				68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */,

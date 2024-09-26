@@ -10,6 +10,7 @@ import SwiftUI
 
 struct NewBlocklistSheet: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.displayScale) private var displayScale
     @Environment(\.managedObjectContext) private var viewContext
 
     @State private var name: String = ""
@@ -62,6 +63,17 @@ struct NewBlocklistSheet: View {
                         "Filter rules must be in content blocker JSON format.",
                         comment: "New blocklist guidance."
                     )
+                }
+                
+                if isCreating {
+                    HStack {
+                        Spacer()
+                        ProgressView()
+                            #if os(macOS)
+                            .scaleEffect(1 / displayScale)
+                            #endif
+                        Spacer()
+                    }
                 }
             }
             .disabled(isCreating)
