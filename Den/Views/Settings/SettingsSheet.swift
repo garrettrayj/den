@@ -23,7 +23,7 @@ struct SettingsSheet: View {
                 #endif
                 
                 NavigationLink {
-                    DebuggingTools()
+                    AdvancedSection()
                 } label: {
                     Label {
                         Text("Advanced", comment: "Button label.")

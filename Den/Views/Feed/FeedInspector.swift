@@ -18,13 +18,15 @@ struct FeedInspector: View {
     var body: some View {
         Form {
             #if os(macOS)
+            // Text comments are ommited to avoid localization files changing
+            // when app is built for different platforms.
             Section {
                 TextField(text: $feed.wrappedTitle) {
-                    Text("Title", comment: "Text field label.")
+                    Text("Title")
                 }
                 .labelsHidden()
             } header: {
-                Text("Title", comment: "Feed inspector section header.")
+                Text("Title")
             }
             #endif
             

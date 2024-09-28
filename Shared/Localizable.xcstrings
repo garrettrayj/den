@@ -154,19 +154,13 @@
     "Application Error" : {
       "comment" : "Crash view title."
     },
-    "Available" : {
-      "comment" : "Background refresh status."
-    },
     "Back/Forward" : {
       "comment" : "Control group label."
     },
-    "Background behavior has been explicitly disabled for this app or the whole system." : {
-      "comment" : "Background refresh status guidance."
+    "Background Tasks" : {
+      "comment" : "Advanced settings section header."
     },
-    "Background Refresh Status" : {
-      "comment" : "Debugging tools section header."
-    },
-    "Background refresh task is available." : {
+    "Background updates are available for the app." : {
       "comment" : "Background refresh status guidance."
     },
     "Background updates are unavailable and the user cannot enable them again." : {
@@ -261,9 +255,6 @@
     },
     "Den Help" : {
       "comment" : "Button label."
-    },
-    "Denied" : {
-      "comment" : "Background refresh status."
     },
     "Deselect All" : {
       "comment" : "Button label."
@@ -419,10 +410,10 @@
       "comment" : "Button label."
     },
     "Maintenance" : {
-      "comment" : "Debugging tools section header."
+      "comment" : "Advanced settings section header."
     },
     "Management" : {
-      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header."
+      "comment" : "Organizer configuration panel section header."
     },
     "Mark all items read" : {
       "comment" : "Button help text."
@@ -639,9 +630,6 @@
     "Response Time" : {
       "comment" : "Organizer info panel row label."
     },
-    "Restricted" : {
-      "comment" : "Background refresh status."
-    },
     "Rules Applied" : {
       "comment" : "Blocklist status row label."
     },
@@ -650,9 +638,6 @@
     },
     "Save" : {
       "comment" : "Button label."
-    },
-    "Scheduled Background Tasks" : {
-      "comment" : "Debugging tools section header."
     },
     "Search" : {
       "comment" : "Navigation title.\nSearch field prompt."
@@ -756,6 +741,9 @@
     "The operating system decides when background refresh will occur. Refresh interval sets the minimum amount of time between background refresh tasks." : {
       "comment" : "Refresh settings guidance."
     },
+    "The user explicitly disabled background behavior for this app or for the whole system." : {
+      "comment" : "Background refresh status guidance."
+    },
     "Theme" : {
       "comment" : "Picker label."
     },
@@ -766,7 +754,7 @@
       "comment" : "Layout option label."
     },
     "Title" : {
-      "comment" : "Bookmarks table header.\nFeed inspector section header.\nText field label."
+      "comment" : "Bookmarks table header."
     },
     "Trend Removed" : {
       "comment" : "Object removed message."

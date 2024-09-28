@@ -1,5 +1,5 @@
 //
-//  DebuggingTools.swift
+//  AdvancedSection.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/25/24.
@@ -13,7 +13,7 @@ import SwiftUI
 @preconcurrency import BackgroundTasks
 #endif
 
-struct DebuggingTools: View {
+struct AdvancedSection: View {
     @Environment(\.displayScale) private var displayScale
 
     @AppStorage("Maintained") var maintained: Double?
@@ -55,7 +55,8 @@ struct DebuggingTools: View {
                         Text("Perform Maintenance", comment: "Button label.")
                     } icon: {
                         if maintenanceInProgress {
-                            ProgressView().progressViewStyle(.circular)
+                            ProgressView()
+                                .progressViewStyle(.circular)
                                 #if os(macOS)
                                 .scaleEffect(1/displayScale)
                                 #endif
@@ -65,48 +66,10 @@ struct DebuggingTools: View {
                     }
                 }
             } header: {
-                Text("Maintenance", comment: "Debugging tools section header.")
+                Text("Maintenance", comment: "Advanced settings section header.")
             }
             
             #if os(iOS)
-            Section {
-                switch UIApplication.shared.backgroundRefreshStatus {
-                case .restricted:
-                    Text("Restricted", comment: "Background refresh status.")
-                case .denied:
-                    Text("Denied", comment: "Background refresh status.")
-                case .available:
-                    Text("Available", comment: "Background refresh status.")
-                @unknown default:
-                    EmptyView()
-                }
-            } header: {
-                Text("Background Refresh Status", comment: "Debugging tools section header.")
-            } footer: {
-                switch UIApplication.shared.backgroundRefreshStatus {
-                case .restricted:
-                    Text(
-                        "Background updates are unavailable and the user cannot enable them again.",
-                        comment: "Background refresh status guidance."
-                    )
-                case .denied:
-                    Text(
-                        """
-                        Background behavior has been explicitly disabled for this app \
-                        or the whole system.
-                        """,
-                        comment: "Background refresh status guidance."
-                    )
-                case .available:
-                    Text(
-                        "Background refresh task is available.",
-                        comment: "Background refresh status guidance."
-                    )
-                @unknown default:
-                    EmptyView()
-                }
-            }
-            
             Section {
                 if pendingTaskRequests.isEmpty {
                     Text("No Pending Tasks", comment: "Debugging tools message.")
@@ -139,7 +102,30 @@ struct DebuggingTools: View {
                 }
                 .disabled(pendingTaskRequests.isEmpty)
             } header: {
-                Text("Scheduled Background Tasks", comment: "Debugging tools section header.")
+                Text("Background Tasks", comment: "Advanced settings section header.")
+            } footer: {
+                switch UIApplication.shared.backgroundRefreshStatus {
+                case .restricted:
+                    Text(
+                        "Background updates are unavailable and the user cannot enable them again.",
+                        comment: "Background refresh status guidance."
+                    )
+                case .denied:
+                    Text(
+                        """
+                        The user explicitly disabled background behavior \
+                        for this app or for the whole system.
+                        """,
+                        comment: "Background refresh status guidance."
+                    )
+                case .available:
+                    Text(
+                        "Background updates are available for the app.",
+                        comment: "Background refresh status guidance."
+                    )
+                @unknown default:
+                    EmptyView()
+                }
             }
             .task {
                 pendingTaskRequests = await BGTaskScheduler.shared.pendingTaskRequests()
