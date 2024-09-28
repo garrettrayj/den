@@ -18,15 +18,16 @@ struct SmallThumbnail: View {
     
     @ScaledMetric private var size = 80
     
-    private var thumbnailPixelSize: CGSize {
-        CGSize(width: size * displayScale, height: size * displayScale)
-    }
-
     var body: some View {
         WebImage(
             url: url,
             options: [.decodeFirstFrameOnly],
-            context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+            context: [
+                .imageThumbnailPixelSize: CGSize(
+                    width: size * displayScale,
+                    height: size * displayScale
+                )
+            ]
         ) { image in
             image.resizable().scaledToFill()
         } placeholder: {

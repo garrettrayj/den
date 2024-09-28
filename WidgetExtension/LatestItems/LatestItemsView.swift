@@ -18,7 +18,6 @@ struct LatestItemsView: View {
     
     @ScaledMetric(relativeTo: .largeTitle) var smallIconSize = 16
     @ScaledMetric(relativeTo: .largeTitle) var largeIconSize = 32
-    @ScaledMetric(relativeTo: .largeTitle) var thumbnailSize = 64
     
     @ScaledMetric(relativeTo: .footnote) var unreadCountFontSize = 12
     @ScaledMetric(relativeTo: .title) var widgetTitleFontSize = 15
