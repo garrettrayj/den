@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct OrganizerRow: View {
+    @Environment(\.operatingSystem) private var operatingSystem
+
     @ObservedObject var feed: Feed
     
     var body: some View {
@@ -16,16 +18,16 @@ struct OrganizerRow: View {
             Favicon(url: feed.feedData?.favicon) {
                 FeedFaviconPlaceholder()
             }
-            #if os(macOS)
-            TextField(
-                text: $feed.wrappedTitle,
-                prompt: Text("Untitled", comment: "Default feed title.")
-            ) {
-                Text("Title", comment: "Text field label.")
+            if operatingSystem == .macOS {
+                TextField(
+                    text: $feed.wrappedTitle,
+                    prompt: Text("Untitled", comment: "Default feed title.")
+                ) {
+                    Text("Title", comment: "Text field label.")
+                }
+            } else {
+                feed.displayTitle
             }
-            #else
-            feed.displayTitle
-            #endif
             Spacer()
             Group {
                 if let feedData = feed.feedData {

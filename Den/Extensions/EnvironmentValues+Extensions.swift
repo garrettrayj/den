@@ -69,6 +69,14 @@ extension EnvironmentValues {
     }
     #endif
     
+    var operatingSystem: OperatingSystem {
+        #if os(macOS)
+        .macOS
+        #else
+        .iOS
+        #endif
+    }
+    
     var preferredViewer: ViewerOption {
         get { self[PreferredViewerKey.self] }
         set { self[PreferredViewerKey.self] = newValue }

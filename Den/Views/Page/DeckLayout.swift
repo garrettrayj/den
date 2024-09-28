@@ -46,11 +46,12 @@ struct DeckLayout: View {
             .scrollClipDisabled()
             .contentMargins(.horizontal, 16)
             .ignoresSafeArea(edges: .bottom)
-            .toolbarBackground(.visible, for: .automatic, .bottomBar)
             #if os(macOS)
             // Fix toolbar bottom border
             .padding(.top, 1)
             .offset(y: -1)
+            #else
+            .toolbarBackground(.visible, for: .automatic, .bottomBar)
             #endif
         }
     }

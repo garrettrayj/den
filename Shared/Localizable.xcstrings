@@ -754,7 +754,7 @@
       "comment" : "Layout option label."
     },
     "Title" : {
-      "comment" : "Bookmarks table header."
+      "comment" : "Bookmarks table header.\nFeed inspector section header.\nText field label."
     },
     "Trend Removed" : {
       "comment" : "Object removed message."

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FeedInspector: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.operatingSystem) private var operatingSystem
 
     @ObservedObject var feed: Feed
     
@@ -17,18 +18,16 @@ struct FeedInspector: View {
 
     var body: some View {
         Form {
-            #if os(macOS)
-            // Text comments are ommited to avoid localization files changing
-            // when app is built for different platforms.
-            Section {
-                TextField(text: $feed.wrappedTitle) {
-                    Text("Title")
+            if operatingSystem == .macOS {
+                Section {
+                    TextField(text: $feed.wrappedTitle) {
+                        Text("Title", comment: "Text field label.")
+                    }
+                    .labelsHidden()
+                } header: {
+                    Text("Title", comment: "Feed inspector section header.")
                 }
-                .labelsHidden()
-            } header: {
-                Text("Title")
             }
-            #endif
             
             Section {
                 Picker(selection: $feed.itemLimit) {
