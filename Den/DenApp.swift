@@ -70,7 +70,7 @@ struct DenApp: App {
                 Button {
                     if let url = Bundle.main.url(
                         forResource: "Acknowledgements",
-                        withExtension: "pdf"
+                        withExtension: "html"
                     ) {
                         NSWorkspace.shared.open(url)
                     }

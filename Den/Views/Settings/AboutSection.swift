@@ -51,7 +51,7 @@ struct AboutSection: View {
             Button {
                 acknowledgementsURL = Bundle.main.url(
                     forResource: "Acknowledgements",
-                    withExtension: "pdf"
+                    withExtension: "html"
                 )
             } label: {
                 Label {

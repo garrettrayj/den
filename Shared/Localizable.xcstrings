@@ -413,7 +413,7 @@
       "comment" : "Advanced settings section header."
     },
     "Management" : {
-      "comment" : "Organizer configuration panel section header."
+      "comment" : "Feed inspector section header.\nOrganizer configuration panel section header."
     },
     "Mark all items read" : {
       "comment" : "Button help text."

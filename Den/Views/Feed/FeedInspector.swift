@@ -140,17 +140,17 @@ struct FeedInspector: View {
                 Text("Viewing", comment: "Feed inspector section header.")
             }
             
-            #if os(macOS)
-            Section {
-                PagePicker(
-                    selection: $feed.page,
-                    labelText: Text("Move", comment: "Picker label.")
-                )
-                DeleteFeedButton(feed: feed).buttonStyle(.borderless)
-            } header: {
-                Text("Management", comment: "Feed inspector section header.")
+            if operatingSystem == .macOS {
+                Section {
+                    PagePicker(
+                        selection: $feed.page,
+                        labelText: Text("Move", comment: "Picker label.")
+                    )
+                    DeleteFeedButton(feed: feed).buttonStyle(.borderless)
+                } header: {
+                    Text("Management", comment: "Feed inspector section header.")
+                }
             }
-            #endif
         }
         .formStyle(.grouped)
         .inspectorColumnWidth(width)

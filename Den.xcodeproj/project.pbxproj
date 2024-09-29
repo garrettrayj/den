@@ -106,6 +106,7 @@
 		685CD8A82C2A7C340019E412 /* AccentColorOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685CD8A72C2A7C340019E412 /* AccentColorOption.swift */; };
 		685CD8A92C2A7C340019E412 /* AccentColorOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685CD8A72C2A7C340019E412 /* AccentColorOption.swift */; };
 		685D258E2CA8A706007320DB /* OperatingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D258C2CA8A700007320DB /* OperatingSystem.swift */; };
+		685D25922CA9B449007320DB /* Acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = 685D25912CA9B440007320DB /* Acknowledgements.html */; };
 		685E61232B5EE701009CABFE /* MacSidebarBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685E61222B5EE701009CABFE /* MacSidebarBottomBar.swift */; };
 		685EB37F2AF2AF22001683E3 /* BookmarksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB37E2AF2AF22001683E3 /* BookmarksUITests.swift */; };
 		685EB3812AF2B079001683E3 /* ImportExportUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685EB3802AF2B079001683E3 /* ImportExportUITests.swift */; };
@@ -495,6 +496,7 @@
 		685C58F42B581A6B009E005E /* OpenValidatorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenValidatorButton.swift; sourceTree = "<group>"; };
 		685CD8A72C2A7C340019E412 /* AccentColorOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentColorOption.swift; sourceTree = "<group>"; };
 		685D258C2CA8A700007320DB /* OperatingSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatingSystem.swift; sourceTree = "<group>"; };
+		685D25912CA9B440007320DB /* Acknowledgements.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Acknowledgements.html; sourceTree = "<group>"; };
 		685E61222B5EE701009CABFE /* MacSidebarBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacSidebarBottomBar.swift; sourceTree = "<group>"; };
 		685EB37E2AF2AF22001683E3 /* BookmarksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksUITests.swift; sourceTree = "<group>"; };
 		685EB3802AF2B079001683E3 /* ImportExportUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportUITests.swift; sourceTree = "<group>"; };
@@ -861,6 +863,7 @@
 		6845BCFC24EC004B0008B296 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				685D25912CA9B440007320DB /* Acknowledgements.html */,
 				68CAC50B292954C7002D9EB9 /* Demo.opml */,
 				684152342AD5546E00ABE5E2 /* Mercury.js */,
 				6841522F2AD5501E00ABE5E2 /* ParseForReader.js */,
@@ -1493,7 +1496,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				687A19E82C5CC3DF00070AB7 /* PBXTargetDependency */,
 				68CD8B872C5C949A00AF0124 /* PBXTargetDependency */,
 				6860694E2831533E000068DE /* PBXTargetDependency */,
 				68C9FEB82BFD7173006B8BD6 /* PBXTargetDependency */,
@@ -1601,7 +1603,6 @@
 				68EBB58F2BC3BD1B0014305F /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */,
 				68FB95112BE7F47E004EFA73 /* XCRemoteSwiftPackageReference "FeedKit" */,
 				68CD8B852C5C946600AF0124 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
-				687A19E62C5CC35300070AB7 /* XCRemoteSwiftPackageReference "swift-package-list" */,
 			);
 			productRefGroup = 68C4130A247263C700D1DC7B /* Products */;
 			projectDirPath = "";
@@ -1639,6 +1640,7 @@
 				68C41318247263C700D1DC7B /* AppAssets.xcassets in Resources */,
 				68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */,
 				68D82FDB2C707875003B4CD1 /* InfoPlist.xcstrings in Resources */,
+				685D25922CA9B449007320DB /* Acknowledgements.html in Resources */,
 				68E5B5012C0C5F4800641CC7 /* LaunchScreen.storyboard in Resources */,
 				68D82FE02C7078A8003B4CD1 /* Localizable.xcstrings in Resources */,
 				684152352AD5546E00ABE5E2 /* Mercury.js in Resources */,
@@ -2011,10 +2013,6 @@
 			isa = PBXTargetDependency;
 			target = 6860690D2831501B000068DE /* Safari Extension */;
 			targetProxy = 6860694D2831533E000068DE /* PBXContainerItemProxy */;
-		};
-		687A19E82C5CC3DF00070AB7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 687A19E72C5CC3DF00070AB7 /* SwiftPackageListPlugin */;
 		};
 		68C9FEB82BFD7173006B8BD6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2562,14 +2560,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		687A19E62C5CC35300070AB7 /* XCRemoteSwiftPackageReference "swift-package-list" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/FelixHerrmann/swift-package-list";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.2.0;
-			};
-		};
 		6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Kitura/swift-html-entities.git";
@@ -2643,11 +2633,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 68EE91E928D54C66000C00D2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
-		};
-		687A19E72C5CC3DF00070AB7 /* SwiftPackageListPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 687A19E62C5CC35300070AB7 /* XCRemoteSwiftPackageReference "swift-package-list" */;
-			productName = "plugin:SwiftPackageListPlugin";
 		};
 		6897D52526B91C0100833DDA /* HTMLEntities */ = {
 			isa = XCSwiftPackageProductDependency;
