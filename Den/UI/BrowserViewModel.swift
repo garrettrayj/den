@@ -200,10 +200,6 @@ final class BrowserViewModel: NSObject, ObservableObject {
             html += "<div id=\"den-excerpt\">\(excerpt)</div>"
         }
         
-        if let byline = mercuryObject?.author {
-            html += "<p id=\"den-author\">\(byline)</p>"
-        }
-
         if let date = mercuryObject?.date_published {
             html += """
             <p id="den-dateline">
@@ -213,6 +209,10 @@ final class BrowserViewModel: NSObject, ObservableObject {
                 </span>
             </p>
             """
+        }
+        
+        if let byline = mercuryObject?.author {
+            html += "<p id=\"den-author\">\(byline)</p>"
         }
 
         if

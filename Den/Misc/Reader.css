@@ -49,6 +49,7 @@ body {
 #den-author {
     font: -apple-system-subheadline;
     font-size: 14px;
+    font-style: italic;
     font-weight: 500;
     margin: 4px 0;
 }
