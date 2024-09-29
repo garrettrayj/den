@@ -553,7 +553,6 @@
 		687925A02A60C1DB00188A83 /* InboxUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxUITests.swift; sourceTree = "<group>"; };
 		687925A22A60C1DB00188A83 /* SearchUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUITests.swift; sourceTree = "<group>"; };
 		687925A32A60C1DB00188A83 /* FeedUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedUITests.swift; sourceTree = "<group>"; };
-		687A19E92C5CC61600070AB7 /* swift-package-list-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "swift-package-list-config.json"; sourceTree = "<group>"; };
 		687A1A4F2C5E4A0B00070AB7 /* SharedAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SharedAssets.xcassets; sourceTree = "<group>"; };
 		687C27782631F6A000099FCA /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		687D9CAF24A8CABD00EB7F46 /* OPMLGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLGenerator.swift; sourceTree = "<group>"; };
@@ -1143,7 +1142,6 @@
 				689EDBF8269188580055811A /* .swiftlint.yml */,
 				68D82FCA2C6EDC6B003B4CD1 /* crowdin.yml */,
 				6845BD0F24EFB38C0008B296 /* README.md */,
-				687A19E92C5CC61600070AB7 /* swift-package-list-config.json */,
 				68C4130A247263C700D1DC7B /* Products */,
 				6845BD4C24F6824C0008B296 /* Frameworks */,
 			);
