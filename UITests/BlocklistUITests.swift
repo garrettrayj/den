@@ -60,6 +60,8 @@ final class BlocklistUITests: UITestCase {
         
         app.buttons["BlocklistPresets"].tap()
         
+        sleep(3)
+        
         app.buttons["BlocklistPresetOption"].firstMatch.tap()
         
         app.buttons["AddBlocklist"].tap()

@@ -108,7 +108,7 @@ final class OrganizerUITests: UITestCase {
         hideSidebar(app)
 
         #if os(macOS)
-        app.outlines["OrganizerList"].staticTexts["TIME"].tap()
+        app.outlines["OrganizerList"].textFields["TIME"].tap()
         #else
         app.collectionViews["OrganizerList"].staticTexts["TIME"].tap()
         app.buttons["ToggleInspector"].tap()
@@ -140,7 +140,7 @@ final class OrganizerUITests: UITestCase {
         hideSidebar(app)
         
         #if os(macOS)
-        app.outlines["OrganizerList"].staticTexts["TIME"].tap()
+        app.outlines["OrganizerList"].textFields["TIME"].tap()
         app.radioButtons["OrganizerConfig"].tap()
         #else
         app.collectionViews["OrganizerList"].staticTexts["TIME"].tap()

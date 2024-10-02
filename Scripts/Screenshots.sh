@@ -17,11 +17,10 @@ targetFolder="$HOME/Desktop/DenScreenshots"
 
 # List of iOS simulators to capture. Run `xcrun simctl list` to view options.
 simulators=(
-    "iPhone 15"
-    "iPhone 15 Plus"
-    "iPad Pro (11-inch) (4th generation)"
-    "iPad Pro (12.9-inch) (6th generation)"
-    "iPad Pro (12.9-inch) (2nd generation)"
+    "iPhone 16"
+    "iPhone 16 Pro Max"
+    "iPad Pro 11-inch (M4)"
+    "iPad Pro 13-inch (M4)"
 )
 
 function capture_ios {
