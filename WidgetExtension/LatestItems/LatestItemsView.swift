@@ -9,6 +9,7 @@
 import SwiftUI
 import WidgetKit
 
+// swiftlint:disable type_body_length
 struct LatestItemsView: View {
     @Environment(\.widgetFamily) private var widgetFamily
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -129,22 +130,47 @@ struct LatestItemsView: View {
     
     @ViewBuilder
     private var sourceIcon: some View {
-        if entry.sourceType == Feed.self {
-            if let favicon = entry.faviconImage {
-                favicon.resizable().clipShape(RoundedRectangle(
-                    cornerRadius: widgetFamily == .systemSmall ? 4 : 2
-                ))
+        if #available(iOS 18.0, *) {
+            if entry.sourceType == Feed.self {
+                if let favicon = entry.faviconImage {
+                    favicon
+                        .resizable()
+                        .widgetAccentedRenderingMode(.fullColor)
+                        .clipShape(
+                            RoundedRectangle(cornerRadius: widgetFamily == .systemSmall ? 4 : 2)
+                        )
+                } else {
+                    Image(systemName: "dot.radiowaves.up.forward")
+                        .resizable()
+                        .widgetAccentedRenderingMode(.accented)
+                }
+            } else if entry.sourceType == Page.self {
+                if let symbol = entry.symbol {
+                    Image(systemName: symbol).resizable().widgetAccentedRenderingMode(.accented)
+                }
+            } else if entry.unread > 0 {
+                Image(systemName: "tray.full").resizable().widgetAccentedRenderingMode(.accented)
             } else {
-                Image(systemName: "dot.radiowaves.up.forward").resizable()
+                Image(systemName: "tray").resizable().widgetAccentedRenderingMode(.accented)
             }
-        } else if entry.sourceType == Page.self {
-            if let symbol = entry.symbol {
-                Image(systemName: symbol).resizable()
-            }
-        } else if entry.unread > 0 {
-            Image(systemName: "tray.full").resizable()
         } else {
-            Image(systemName: "tray").resizable()
+            if entry.sourceType == Feed.self {
+                if let favicon = entry.faviconImage {
+                    favicon.resizable().clipShape(RoundedRectangle(
+                        cornerRadius: widgetFamily == .systemSmall ? 4 : 2
+                    ))
+                } else {
+                    Image(systemName: "dot.radiowaves.up.forward").resizable()
+                }
+            } else if entry.sourceType == Page.self {
+                if let symbol = entry.symbol {
+                    Image(systemName: symbol).resizable()
+                }
+            } else if entry.unread > 0 {
+                Image(systemName: "tray.full").resizable()
+            } else {
+                Image(systemName: "tray").resizable()
+            }
         }
     }
     
@@ -200,15 +226,23 @@ struct LatestItemsView: View {
                     if entry.configuration.source?.entityType != Feed.self {
                         HStack(spacing: 4) {
                             if let favicon = item.faviconImage {
-                                favicon
-                                    .resizable()
-                                    .scaledToFit()
-                                    .grayscale(1)
-                                    .opacity(0.5)
-                                    .frame(width: itemSourceFontSize, height: itemSourceFontSize)
+                                Group {
+                                    if #available(iOS 18, *) {
+                                        favicon
+                                            .resizable()
+                                            .widgetAccentedRenderingMode(.fullColor)
+                                    } else {
+                                        favicon.resizable()
+                                    }
+                                }
+                                .scaledToFit()
+                                .grayscale(1)
+                                .opacity(0.5)
+                                .frame(width: itemSourceFontSize, height: itemSourceFontSize)
                             } else {
                                 Image(systemName: "dot.radiowaves.up.forward").imageScale(.small)
                             }
+                            
                             Text(item.feedTitle)
                         }
                         .font(.system(size: itemSourceFontSize, weight: .medium))
@@ -243,14 +277,20 @@ struct LatestItemsView: View {
     private func itemThumbnail(image: Image) -> some View {
         ZStack {
             GeometryReader { geometry in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 8)
-                            .strokeBorder(.separator.quinary, lineWidth: 1)
+                Group {
+                    if #available(iOS 18.0, *) {
+                        image
+                            .resizable()
+                            .widgetAccentedRenderingMode(.fullColor)
+                    } else {
+                        image.resizable()
                     }
+                }
+                .scaledToFill()
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 8).strokeBorder(.separator.quinary, lineWidth: 1)
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -259,3 +299,4 @@ struct LatestItemsView: View {
         .padding(.leading, 8)
     }
 }
+// swiftlint:enable type_body_length
