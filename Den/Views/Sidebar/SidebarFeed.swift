@@ -16,14 +16,17 @@ struct SidebarFeed: View {
     
     var unreadCount: Int
     
+    @FocusState private var titleFieldFocused: Bool
+    
     var body: some View {
         Label {
             #if os(macOS)
             TextField(text: $feed.wrappedTitle) {
                 feed.displayTitle
             }
-            .onSubmit {
-                if viewContext.hasChanges {
+            .focused($titleFieldFocused)
+            .onChange(of: titleFieldFocused) { _, isFocused in
+                if !isFocused && viewContext.hasChanges {
                     do {
                         try viewContext.save()
                     } catch {

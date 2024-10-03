@@ -15,6 +15,8 @@ struct FeedInspector: View {
     @ObservedObject var feed: Feed
     
     @ScaledMetric(relativeTo: .largeTitle) var width = 300
+    
+    @FocusState private var titleFieldFocused: Bool
 
     var body: some View {
         Form {
@@ -24,6 +26,16 @@ struct FeedInspector: View {
                         Text("Title", comment: "Text field label.")
                     }
                     .labelsHidden()
+                    .focused($titleFieldFocused)
+                    .onChange(of: titleFieldFocused) { _, isFocused in
+                        if !isFocused && viewContext.hasChanges {
+                            do {
+                                try viewContext.save()
+                            } catch {
+                                CrashUtility.handleCriticalError(error as NSError)
+                            }
+                        }
+                    }
                 } header: {
                     Text("Title", comment: "Feed inspector section header.")
                 }

@@ -18,6 +18,8 @@ struct SidebarPage: View {
     
     @State private var showingIconSelector = false
     
+    @FocusState private var nameFieldFocused: Bool
+    
     @SceneStorage("ExpandedPages") var expandedPages: Set<UUID> = []
     @SceneStorage("NewFeedPageObjectURL") private var newFeedPageObjectURL: URL?
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
@@ -53,8 +55,9 @@ struct SidebarPage: View {
                 TextField(text: $page.wrappedName) {
                     page.displayName
                 }
-                .onSubmit {
-                    if viewContext.hasChanges {
+                .focused($nameFieldFocused)
+                .onChange(of: nameFieldFocused) { _, isFocused in
+                    if !isFocused && viewContext.hasChanges {
                         do {
                             try viewContext.save()
                         } catch {

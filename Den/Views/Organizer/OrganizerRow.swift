@@ -9,9 +9,12 @@
 import SwiftUI
 
 struct OrganizerRow: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.operatingSystem) private var operatingSystem
-
+    
     @ObservedObject var feed: Feed
+    
+    @FocusState private var titleFieldFocused: Bool
     
     var body: some View {
         HStack {
@@ -24,6 +27,16 @@ struct OrganizerRow: View {
                     prompt: Text("Untitled", comment: "Default feed title.")
                 ) {
                     Text("Title", comment: "Text field label.")
+                }
+                .focused($titleFieldFocused)
+                .onChange(of: titleFieldFocused) { _, isFocused in
+                    if !isFocused && viewContext.hasChanges {
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
+                    }
                 }
             } else {
                 feed.displayTitle
