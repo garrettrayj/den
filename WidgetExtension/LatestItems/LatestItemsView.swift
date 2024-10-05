@@ -13,6 +13,7 @@ import WidgetKit
 struct LatestItemsView: View {
     @Environment(\.widgetFamily) private var widgetFamily
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.widgetRenderingMode) var widgetRenderingMode
     
     @AppStorage("ShowUnreadCounts") private var showUnreadCounts = true
     @AppStorage("AccentColor") private var accentColor: AccentColorOption = .coral
@@ -52,6 +53,7 @@ struct LatestItemsView: View {
             }
         }
         .widgetURL(entry.url())
+        .tint(accentColor.color)
     }
     
     private var statusLayout: some View {
@@ -113,13 +115,27 @@ struct LatestItemsView: View {
     }
     
     private var denIcon: some View {
-        Rectangle()
-            .fill(accentColor.color ?? .coral)
-            .mask(alignment: .center) {
-                Image("WidgetIcon").resizable().scaledToFit()
+        Group {
+            if #available(iOS 18.0, macOS 15.0, *) {
+                if widgetRenderingMode == .fullColor {
+                    Rectangle()
+                        .fill(.tint)
+                        .mask(alignment: .center) {
+                            Image("WidgetIcon").resizable().scaledToFit()
+                        }
+                } else {
+                    Image("WidgetIcon").resizable().widgetAccentedRenderingMode(.accentedDesaturated)
+                }
+            } else {
+                Rectangle()
+                    .fill(.tint)
+                    .mask(alignment: .center) {
+                        Image("WidgetIcon").resizable().scaledToFit()
+                    }
             }
-            .frame(width: smallIconSize, height: smallIconSize)
-            .offset(y: -2)
+        }
+        .frame(width: smallIconSize, height: smallIconSize)
+        .offset(y: -2)
     }
     
     private var unreadCount: some View {
@@ -130,7 +146,7 @@ struct LatestItemsView: View {
     
     @ViewBuilder
     private var sourceIcon: some View {
-        if #available(iOS 18.0, *) {
+        if #available(iOS 18.0, macOS 15.0, *) {
             if entry.sourceType == Feed.self {
                 if let favicon = entry.faviconImage {
                     favicon
@@ -227,7 +243,7 @@ struct LatestItemsView: View {
                         HStack(spacing: 4) {
                             if let favicon = item.faviconImage {
                                 Group {
-                                    if #available(iOS 18, *) {
+                                    if #available(iOS 18, macOS 15.0, *) {
                                         favicon
                                             .resizable()
                                             .widgetAccentedRenderingMode(.fullColor)
@@ -278,7 +294,7 @@ struct LatestItemsView: View {
         ZStack {
             GeometryReader { geometry in
                 Group {
-                    if #available(iOS 18.0, *) {
+                    if #available(iOS 18.0, macOS 15.0, *) {
                         image
                             .resizable()
                             .widgetAccentedRenderingMode(.fullColor)
