@@ -60,7 +60,13 @@ struct NewPageSheet: View {
                         let page = Page.create(in: viewContext, userOrder: pages.maxUserOrder + 1)
                         page.wrappedName = name
                         page.wrappedSymbol = symbol
-                        dismiss()
+                        
+                        do {
+                            try viewContext.save()
+                            dismiss()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
                     } label: {
                         Text("Save", comment: "Button label.")
                     }

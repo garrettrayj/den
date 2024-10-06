@@ -98,22 +98,12 @@ struct Sidebar: View {
             MacSidebarBottomBar(feedCount: pages.feeds.count)
         }
         #endif
-        .sheet(
-            isPresented: $showingSettings,
-            onDismiss: {
-                saveChanges()
-            },
-            content: {
-                SettingsSheet()
-            }
-        )
-        .sheet(
-            isPresented: $showingNewPageSheet,
-            onDismiss: saveChanges,
-            content: {
-                NewPageSheet()
-            }
-        )
+        .sheet(isPresented: $showingSettings) {
+            SettingsSheet()
+        }
+        .sheet(isPresented: $showingNewPageSheet) {
+            NewPageSheet()
+        }
         .fileImporter(
             isPresented: $showingImporter,
             allowedContentTypes: [.init(importedAs: "public.opml"), .xml],
@@ -156,16 +146,6 @@ struct Sidebar: View {
         }
     }
 
-    private func saveChanges() {
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
-        }
-    }
-    
     private func movePages(from source: IndexSet, to destination: Int) {
         var revisedItems = Array(pages)
 

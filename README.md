@@ -44,7 +44,7 @@ Stop ads and other annoyances.
 Discover feeds on webpages.
 
 <h3>+ Widgets</h3>
-See the latest items from your inbox, a page, or a feed.
+See the latest items from your inbox, a folder, or a feed.
 
 ---
 
