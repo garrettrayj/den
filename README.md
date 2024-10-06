@@ -3,48 +3,59 @@
 Den for RSS
 </h1>
 
-Create custom landscape views of what's happening with a modern iOS and Mac news aggregator.
+Create landscape views of what's happening with a modern, no-nonsense, news aggregator.
 
 <img src="http://den.io/images/home-hero.webp" alt="Screenshot" height="auto" />
 
-Den is made for people who want a less-is-more browsing experience. What sets it apart from other RSS apps is broadsheet layouts that show more content, especially on larger screens. Having everything plainly laid out makes finding interesting articles, comparing sources, and noticing trends refreshingly simple.
+Den is designed for those who value simplicity and functionality in a news app. With an intuitive, native interface and broadsheet layouts, Den stands apart by showcasing more content—especially on larger screens—making it easy to stay on top of the news that matters to you. Effortlessly discover interesting articles, compare sources, and spot trends all in one place.
 
 <a href="https://apps.apple.com/app/apple-store/id1528917651?pt=106763870&ct=GitHub&mt=8" class="app-store-link"><img src="https://den.io/images/download-on-the-app-store-black.svg" width="179" height="60" alt="Download on the App Store"></a>
 
-<h2>Features</h2>
+## Key Features
 
-<h3>+ Cloud Sync</h3>
-Feeds, history, and settings on all your devices without signing up for yet another account.
+### + Cloud Sync
 
-<h3>+ RSS, Atom, and JSON Feed</h3>
-Support for the formats used by most feeds.
+Seamlessly access your feeds, history, and settings across all your devices—no extra account required.
 
-<h3>+ Import and Export</h3>
-Backup and restore feeds using common OPML files.
+### + Wide Format Support
 
-<h3>+ Reader Mode</h3>
-Remove clutter when viewing items.
+Den supports RSS, Atom, and JSON feeds, ensuring compatibility with most sources.
 
-<h3>+ Trending</h3>
-Browse by common subjects found through natural language processing.
+### + Import & Export
 
-<h3>+ Bookmarks</h3>
-Save articles for reading later.
+Easily back up and restore your feeds using standard OPML files.
 
-<h3>+ Search</h3>
-Find the latest on a topic by looking for keywords in titles.
+### + Reader Mode
 
-<h3>+ Organizer</h3>
-View feed response information and change options in bulk.
+Eliminate distractions with clutter-free article views for a streamlined reading experience.
 
-<h3>+ Blocklists</h3>
-Stop ads and other annoyances.
+### + Trending Topics
 
-<h3>+ Web Extension</h3>
-Discover feeds on webpages.
+Discover trending news and subjects, surfaced through powerful natural language processing.
 
-<h3>+ Widgets</h3>
-See the latest items from your inbox, a folder, or a feed.
+### + Bookmarks
+
+Save articles to read later and never lose track of what caught your eye.
+
+### + Search Functionality
+
+Stay up to date by searching for the latest news on specific topics or keywords.
+
+### + Feed Organizer
+
+Manage your feed settings in bulk with ease.
+
+### + Blocklists
+
+Enjoy an ad-free experience by blocking ads and other unwanted content.
+
+### + Web Extension
+
+Automatically discover feeds as you browse the web.
+
+### + Widgets
+
+Stay updated right from your home screen by displaying the latest news from your inbox, a folder, or a specific feed.
 
 ---
 
