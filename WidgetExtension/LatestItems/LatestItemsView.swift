@@ -9,7 +9,6 @@
 import SwiftUI
 import WidgetKit
 
-// swiftlint:disable type_body_length
 struct LatestItemsView: View {
     @Environment(\.widgetFamily) private var widgetFamily
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -59,7 +58,7 @@ struct LatestItemsView: View {
     private var statusLayout: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(alignment: .top) {
-                sourceIcon
+                WidgetHeaderIcon(entry: entry)
                     .scaledToFit()
                     .frame(width: largeIconSize, height: largeIconSize)
                 Spacer()
@@ -68,7 +67,7 @@ struct LatestItemsView: View {
                     unreadCount
                 }
                 
-                denIcon
+                WidgetAppIcon()
             }
             Spacer()
             entry.title
@@ -84,7 +83,7 @@ struct LatestItemsView: View {
                 Label {
                     entry.title.font(.system(size: widgetTitleFontSize, weight: .bold))
                 } icon: {
-                    sourceIcon
+                    WidgetHeaderIcon(entry: entry)
                         .scaledToFit()
                         .frame(width: smallIconSize, height: smallIconSize)
                         .foregroundStyle(accentColor.color ?? .accentColor)
@@ -97,7 +96,7 @@ struct LatestItemsView: View {
                     unreadCount
                 }
                 
-                denIcon
+                WidgetAppIcon()
             }
             
             if entry.items.isEmpty {
@@ -114,80 +113,10 @@ struct LatestItemsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
     
-    private var denIcon: some View {
-        Group {
-            if #available(iOS 18.0, macOS 15.0, *) {
-                if widgetRenderingMode == .fullColor {
-                    Rectangle()
-                        .fill(.tint)
-                        .mask(alignment: .center) {
-                            Image("WidgetIcon").resizable().scaledToFit()
-                        }
-                } else {
-                    Image("WidgetIcon").resizable().widgetAccentedRenderingMode(.accentedDesaturated)
-                }
-            } else {
-                Rectangle()
-                    .fill(.tint)
-                    .mask(alignment: .center) {
-                        Image("WidgetIcon").resizable().scaledToFit()
-                    }
-            }
-        }
-        .frame(width: smallIconSize, height: smallIconSize)
-        .offset(y: -2)
-    }
-    
     private var unreadCount: some View {
         Text(verbatim: "\(entry.unread)")
             .font(.system(size: unreadCountFontSize, weight: .medium))
             .foregroundStyle(.secondary)
-    }
-    
-    @ViewBuilder
-    private var sourceIcon: some View {
-        if #available(iOS 18.0, macOS 15.0, *) {
-            if entry.sourceType == Feed.self {
-                if let favicon = entry.faviconImage {
-                    favicon
-                        .resizable()
-                        .widgetAccentedRenderingMode(.fullColor)
-                        .clipShape(
-                            RoundedRectangle(cornerRadius: widgetFamily == .systemSmall ? 4 : 2)
-                        )
-                } else {
-                    Image(systemName: "dot.radiowaves.up.forward")
-                        .resizable()
-                        .widgetAccentedRenderingMode(.accented)
-                }
-            } else if entry.sourceType == Page.self {
-                if let symbol = entry.symbol {
-                    Image(systemName: symbol).resizable().widgetAccentedRenderingMode(.accented)
-                }
-            } else if entry.unread > 0 {
-                Image(systemName: "tray.full").resizable().widgetAccentedRenderingMode(.accented)
-            } else {
-                Image(systemName: "tray").resizable().widgetAccentedRenderingMode(.accented)
-            }
-        } else {
-            if entry.sourceType == Feed.self {
-                if let favicon = entry.faviconImage {
-                    favicon.resizable().clipShape(RoundedRectangle(
-                        cornerRadius: widgetFamily == .systemSmall ? 4 : 2
-                    ))
-                } else {
-                    Image(systemName: "dot.radiowaves.up.forward").resizable()
-                }
-            } else if entry.sourceType == Page.self {
-                if let symbol = entry.symbol {
-                    Image(systemName: symbol).resizable()
-                }
-            } else if entry.unread > 0 {
-                Image(systemName: "tray.full").resizable()
-            } else {
-                Image(systemName: "tray").resizable()
-            }
-        }
     }
     
     private var singleColumnView: some View {
@@ -315,4 +244,3 @@ struct LatestItemsView: View {
         .padding(.leading, 8)
     }
 }
-// swiftlint:enable type_body_length

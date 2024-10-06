@@ -296,6 +296,8 @@
 		68D82FE12C7078A8003B4CD1 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 68D82FDF2C7078A8003B4CD1 /* Localizable.xcstrings */; };
 		68D82FF12C71D50A003B4CD1 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D82FF02C71D502003B4CD1 /* UIApplication+Extensions.swift */; };
 		68D82FF52C725E86003B4CD1 /* ViewerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D82FF32C725DAD003B4CD1 /* ViewerOption.swift */; };
+		68D999E62CB23A8E00651ACA /* WidgetHeaderIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D999E42CB23A8E00651ACA /* WidgetHeaderIcon.swift */; };
+		68D999E72CB23A8E00651ACA /* WidgetAppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D999E52CB23A8E00651ACA /* WidgetAppIcon.swift */; };
 		68DA792A2B03CB4F0088DA33 /* ContentUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA79292B03CB4F0088DA33 /* ContentUnavailable.swift */; };
 		68DA792C2B03DD3C0088DA33 /* ContentUnavailableLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA792B2B03DD3C0088DA33 /* ContentUnavailableLabelStyle.swift */; };
 		68DA792E2B03E9990088DA33 /* CompactContentUnavailableLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA792D2B03E9990088DA33 /* CompactContentUnavailableLabelStyle.swift */; };
@@ -669,6 +671,8 @@
 		68D82FDF2C7078A8003B4CD1 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		68D82FF02C71D502003B4CD1 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		68D82FF32C725DAD003B4CD1 /* ViewerOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerOption.swift; sourceTree = "<group>"; };
+		68D999E42CB23A8E00651ACA /* WidgetHeaderIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetHeaderIcon.swift; sourceTree = "<group>"; };
+		68D999E52CB23A8E00651ACA /* WidgetAppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetAppIcon.swift; sourceTree = "<group>"; };
 		68DA79292B03CB4F0088DA33 /* ContentUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentUnavailable.swift; sourceTree = "<group>"; };
 		68DA792B2B03DD3C0088DA33 /* ContentUnavailableLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentUnavailableLabelStyle.swift; sourceTree = "<group>"; };
 		68DA792D2B03E9990088DA33 /* CompactContentUnavailableLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactContentUnavailableLabelStyle.swift; sourceTree = "<group>"; };
@@ -1212,6 +1216,7 @@
 		68CC01222BDF0D9C00E723DC /* WidgetExtension */ = {
 			isa = PBXGroup;
 			children = (
+				68D999E32CB23A1900651ACA /* Common */,
 				68A5A1562BE2767B00FEA8D3 /* LatestItems */,
 				68CC012B2BDF0D9C00E723DC /* Info.plist */,
 				68D82FDD2C707896003B4CD1 /* InfoPlist.xcstrings */,
@@ -1278,6 +1283,15 @@
 				68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		68D999E32CB23A1900651ACA /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				68D999E42CB23A8E00651ACA /* WidgetHeaderIcon.swift */,
+				68D999E52CB23A8E00651ACA /* WidgetAppIcon.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		68E1EA1B2C65FA0F000C10E0 /* ci_scripts */ = {
@@ -1970,6 +1984,8 @@
 				68A5A1492BE192B900FEA8D3 /* Search+CoreDataClass.swift in Sources */,
 				6871CFF02BE341570039FD3E /* SourceDetail.swift in Sources */,
 				6871CFF22BE341630039FD3E /* SourceQuery.swift in Sources */,
+				68D999E62CB23A8E00651ACA /* WidgetHeaderIcon.swift in Sources */,
+				68D999E72CB23A8E00651ACA /* WidgetAppIcon.swift in Sources */,
 				68A5A14D2BE1938400FEA8D3 /* String+Extensions.swift in Sources */,
 				68A5A1482BE192B900FEA8D3 /* Tag+CoreDataClass.swift in Sources */,
 				68A5A1402BE192B900FEA8D3 /* Trend+CoreDataClass.swift in Sources */,
