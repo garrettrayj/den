@@ -129,7 +129,6 @@ struct Sidebar: View {
                 let date = Date().formatted(date: .numeric, time: .omitted).sanitizedForFileName()
                 return "Den Export \(date)"
             }()
-                
         ) { _ in
             opmlFile = nil
         }
