@@ -32,7 +32,37 @@ final class BlocklistUITests: UITestCase {
         
         app.buttons["NewBlocklist"].tap()
 
-        attachScreenshot(of: app.windows.firstMatch, named: "blocklist-new")
+        attachScreenshot(of: app.windows["Den"].firstMatch, named: "blocklist-new")
+    }
+    
+    @MainActor
+    func testBlocklistPresets() throws {
+        let app = launchApp(inMemory: false)
+
+        #if os(macOS)
+        app.menuBarItems["Den"].menuItems["Settings…"].tap()
+        #else
+        if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
+            XCTFail("Sidebar menu button did not appear in time")
+        }
+        app.buttons["SidebarMenu"].tap()
+        if !app.buttons["Settings"].waitForExistence(timeout: 2) {
+            XCTFail("Settings button did not appear in time")
+        }
+        app.buttons["Settings"].tap()
+
+        if !app.staticTexts["Settings"].waitForExistence(timeout: 2) {
+            XCTFail("Settings header did not appear in time")
+        }
+        #endif
+        
+        app.buttons["NewBlocklist"].tap()
+        
+        app.buttons["BlocklistPresets"].tap()
+        
+        sleep(3)
+
+        attachScreenshot(of: app.windows["Den"].firstMatch, named: "blocklist-presets")
     }
 
     @MainActor
@@ -74,6 +104,6 @@ final class BlocklistUITests: UITestCase {
         
         app.buttons["BlocklistNavLink"].firstMatch.tap()
 
-        attachScreenshot(of: app.windows.firstMatch, named: "blocklist-settings")
+        attachScreenshot(of: app.windows["Den"].firstMatch, named: "blocklist-settings")
     }
 }

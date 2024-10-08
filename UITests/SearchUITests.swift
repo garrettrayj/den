@@ -68,7 +68,7 @@ final class SearchUITests: UITestCase {
 
         #if os(iOS)
         if UIDevice.current.userInterfaceIdiom == .phone {
-            attachScreenshot(of: app, named: "SearchNoResults")
+            attachScreenshot(of: app, named: "search-no-results")
         } else {
             attachScreenshot(of: app.windows.firstMatch, named: "search-no-results")
         }
