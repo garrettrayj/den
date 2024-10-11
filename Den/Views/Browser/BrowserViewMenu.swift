@@ -30,7 +30,7 @@ struct BrowserViewMenu: View {
                 } primaryAction: {
                     browserViewModel.toggleReader()
                 }
-                .help(Text("Show browser view options", comment: "Menu help text."))
+                .help(Text("Show reader", comment: "Menu help text."))
             } else {
                 Menu {
                     ToggleBlocklistsButton(browserViewModel: browserViewModel)

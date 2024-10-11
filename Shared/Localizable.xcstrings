@@ -178,6 +178,9 @@
     "Bookmark" : {
       "comment" : "Button label."
     },
+    "Bookmark/unbookmark" : {
+      "comment" : "Button help text."
+    },
     "Bookmarks" : {
       "comment" : "Button label.\nNavigation title."
     },
@@ -243,9 +246,6 @@
     },
     "Delete" : {
       "comment" : "Button label."
-    },
-    "Delete bookmark" : {
-      "comment" : "Button help text."
     },
     "Delete Feed?" : {
       "comment" : "Alert title."
@@ -612,6 +612,9 @@
     "Reload page" : {
       "comment" : "Button help text."
     },
+    "Remove bookmark" : {
+      "comment" : "Button help text."
+    },
     "Remove from List" : {
       "comment" : "Button label."
     },
@@ -704,6 +707,9 @@
     },
     "Show read items" : {
       "comment" : "Button help text."
+    },
+    "Show reader" : {
+      "comment" : "Menu help text."
     },
     "Show Reader" : {
       "comment" : "Button label."

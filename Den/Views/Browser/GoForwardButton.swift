@@ -22,6 +22,7 @@ struct GoForwardButton: View {
             }
         }
         .disabled(!browserViewModel.canGoForward)
+        .keyboardShortcut("]", modifiers: .command)
         .help(Text("Show next page", comment: "Button help text."))
         .accessibilityIdentifier("BrowserGoForward")
     }

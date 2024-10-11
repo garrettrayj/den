@@ -61,14 +61,14 @@ struct ItemView: View {
             StopReloadButton(browserViewModel: browserViewModel)
         }
         ToolbarItem {
-            ToggleBookmarkedButton(item: item)
+            ToggleBookmarkedButton(item: item).keyboardShortcut("d", modifiers: .command)
         }
         if let url = browserViewModel.url {
             ToolbarItem {
                 ShareButton(item: url)
             }
             ToolbarItem {
-                SystemBrowserButton(url: url)
+                SystemBrowserButton(url: url).keyboardShortcut("o", modifiers: .command)
             }
         }
         #else
@@ -99,13 +99,13 @@ struct ItemView: View {
                     Spacer()
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    ToggleBookmarkedButton(item: item)
+                    ToggleBookmarkedButton(item: item).keyboardShortcut("d", modifiers: .command)
                 }
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    SystemBrowserButton(url: url)
+                    SystemBrowserButton(url: url).keyboardShortcut("o", modifiers: .command)
                 }
             }
             
@@ -124,7 +124,7 @@ struct ItemView: View {
                 Spacer()
             }
             ToolbarItem(placement: .topBarLeading) {
-                ToggleBookmarkedButton(item: item)
+                ToggleBookmarkedButton(item: item).keyboardShortcut("d", modifiers: .command)
             }
             ToolbarItem(placement: .topBarLeading) {
                 formatMenu
@@ -151,7 +151,7 @@ struct ItemView: View {
                     ShareButton(item: url)
                 }
                 ToolbarItem {
-                    SystemBrowserButton(url: url)
+                    SystemBrowserButton(url: url).keyboardShortcut("o", modifiers: .command)
                 }
             }
         }

@@ -22,6 +22,7 @@ struct GoBackButton: View {
             }
         }
         .disabled(!browserViewModel.canGoBack)
+        .keyboardShortcut("[", modifiers: .command)
         .help(Text("Show previous page", comment: "Button help text."))
         .accessibilityIdentifier("BrowserGoBack")
     }

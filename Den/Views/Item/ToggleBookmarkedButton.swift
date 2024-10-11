@@ -43,5 +43,6 @@ struct ToggleBookmarkedButton: View {
         }
         .contentTransition(.symbolEffect(.replace))
         .accessibilityIdentifier("ToggleBookmarked")
+        .help(Text("Bookmark/unbookmark", comment: "Button help text."))
     }
 }

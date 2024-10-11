@@ -34,6 +34,7 @@ struct StopReloadButton: View {
                     Image(systemName: "arrow.clockwise")
                 }
             }
+            .keyboardShortcut("r", modifiers: [.control, .command])
             .help(Text("Reload page", comment: "Button help text."))
             .accessibilityIdentifier("BrowserReload")
         }
