@@ -40,7 +40,6 @@ struct FeedItemGroup: View {
                         }
                     }
                 }
-                .drawingGroup()
             }
         } header: {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())

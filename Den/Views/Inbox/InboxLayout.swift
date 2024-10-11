@@ -23,7 +23,6 @@ struct InboxLayout: View {
                         }
                     }
                 }
-                .drawingGroup()
             }
         }
     }

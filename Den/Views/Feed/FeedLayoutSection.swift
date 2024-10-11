@@ -36,7 +36,6 @@ struct FeedLayoutSection<Header: View>: View {
                     }
                 }
                 .modifier(SafeAreaModifier(geometry: geometry))
-                .drawingGroup()
             }
         } header: {
             HStack {

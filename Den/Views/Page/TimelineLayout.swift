@@ -41,7 +41,6 @@ struct TimelineLayout: View {
                             }
                         }
                     }
-                    .drawingGroup()
                 }
             }
         }

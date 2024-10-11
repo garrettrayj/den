@@ -69,7 +69,6 @@ struct SearchLayout: View {
                                 }
                             }
                         }
-                        .drawingGroup()
                     }
                     .edgesIgnoringSafeArea(.horizontal)
                     #if os(macOS)
