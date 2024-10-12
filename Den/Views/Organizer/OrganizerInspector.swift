@@ -72,8 +72,5 @@ struct OrganizerInspector: View {
             }
         }
         .inspectorColumnWidth(width)
-        #if os(iOS)
-        .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
-        #endif
     }
 }

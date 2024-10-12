@@ -99,7 +99,7 @@ struct OrganizerInfoPanel: View {
             
             if let validatorURL = feed.validatorURL {
                 Section {
-                    OpenValidatorButton(url: validatorURL).buttonStyle(.borderless)
+                    OpenValidatorButton(url: validatorURL)
                 }
             }
         }
