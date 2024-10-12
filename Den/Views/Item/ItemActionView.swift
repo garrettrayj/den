@@ -54,13 +54,14 @@ struct ItemActionView<Content: View>: View {
         }
         .buttonStyle(
             PreviewButtonStyle(
-                read: $item.read,
+                read: item.read,
                 roundedBottom: isLastInList || isStandalone,
                 roundedTop: isStandalone,
                 showDivider: !isLastInList && !isStandalone
             )
         )
         .accessibilityIdentifier("ItemAction")
+        .drawingGroup()
         .contextMenu {
             #if os(iOS)
             ControlGroup {

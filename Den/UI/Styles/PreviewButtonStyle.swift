@@ -11,7 +11,7 @@ import SwiftUI
 struct PreviewButtonStyle: ButtonStyle {
     @Environment(\.colorScheme) private var colorScheme
 
-    @Binding var read: Bool
+    let read: Bool
 
     var roundedBottom: Bool = false
     var roundedTop: Bool = false

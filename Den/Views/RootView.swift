@@ -25,7 +25,7 @@ struct RootView: View {
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
-    @State private var detailPanel: DetailPanel?
+    @State private var detailPanel: DetailPanel = .welcome
     
     @StateObject private var navigationStore = NavigationStore()
     
@@ -57,7 +57,7 @@ struct RootView: View {
                 .navigationSplitViewColumnWidth(sidebarWidth)
                 #endif
         } detail: {
-            DetailView(navigationStore: navigationStore, detailPanel: $detailPanel)
+            DetailView(navigationStore: navigationStore, detailPanel: detailPanel)
         }
         .background {
             // Buttons in background for keyboard shortcuts
@@ -85,9 +85,16 @@ struct RootView: View {
             }
         }
         .task {
-            if let detailPanelData {
-                detailPanel = try? JSONDecoder().decode(DetailPanel.self, from: detailPanelData)
+            if
+                let detailPanelData,
+                let savedDetailPanel = try? JSONDecoder().decode(
+                    DetailPanel.self,
+                    from: detailPanelData
+                )
+            {
+                detailPanel = savedDetailPanel
             }
+            
             if let navigationData {
                 navigationStore.restore(from: navigationData)
             }

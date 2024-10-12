@@ -16,12 +16,12 @@ struct DetailView: View {
     
     @ObservedObject var navigationStore: NavigationStore
     
-    @Binding var detailPanel: DetailPanel?
+    let detailPanel: DetailPanel
 
     var body: some View {
         NavigationStack(path: $navigationStore.path) {
             Group {
-                switch detailPanel ?? .welcome {
+                switch detailPanel {
                 case .bookmarks:
                     Bookmarks()
                 case .feed(let objectURL):

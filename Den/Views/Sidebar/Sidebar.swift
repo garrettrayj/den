@@ -14,7 +14,7 @@ struct Sidebar: View {
 
     @EnvironmentObject private var refreshManager: RefreshManager
 
-    @Binding var detailPanel: DetailPanel?
+    @Binding var detailPanel: DetailPanel
     
     @State private var exporterIsPresented: Bool = false
     @State private var opmlFile: OPMLFile?

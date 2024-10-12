@@ -73,6 +73,7 @@ struct TrendBlock: View {
             .padding(12)
         }
         .buttonStyle(ContentBlockButtonStyle())
+        .drawingGroup()
         .contextMenu {
             MarkAllReadUnreadButton(allRead: trend.items.unread.isEmpty) {
                 HistoryUtility.toggleRead(items: trend.items, context: viewContext)

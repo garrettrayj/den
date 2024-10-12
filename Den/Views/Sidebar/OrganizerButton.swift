@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct OrganizerButton: View {
-    @Binding var detailPanel: DetailPanel?
+    @Binding var detailPanel: DetailPanel
     
     var body: some View {
         Button {
