@@ -16,7 +16,7 @@ struct DetailView: View {
     
     @ObservedObject var navigationStore: NavigationStore
     
-    let detailPanel: DetailPanel
+    let detailPanel: DetailPanel?
 
     var body: some View {
         NavigationStack(path: $navigationStore.path) {
@@ -40,7 +40,7 @@ struct DetailView: View {
                     SearchView()
                 case .trending:
                     Trending()
-                case .welcome:
+                default:
                     Welcome()
                 }
             }

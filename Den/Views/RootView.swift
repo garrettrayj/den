@@ -25,7 +25,7 @@ struct RootView: View {
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     @State private var appErrorMessage: String?
     @State private var showingAppErrorSheet = false
-    @State private var detailPanel: DetailPanel = .welcome
+    @State private var detailPanel: DetailPanel?
     
     @StateObject private var navigationStore = NavigationStore()
     
