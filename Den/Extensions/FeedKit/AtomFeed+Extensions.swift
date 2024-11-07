@@ -12,16 +12,23 @@ import FeedKit
 
 extension AtomFeed: WebFeed {
     var webpage: URL? {
-        guard
-            let urlString = self.links?.first(where: { atomLink in
-                atomLink.attributes?.rel == "alternate" || atomLink.attributes?.rel == nil
-            })?.attributes?.href?.trimmingCharacters(in: .whitespacesAndNewlines),
+        if
+            let link = self.links?.first(where: {
+                $0.attributes?.rel == "alternate" || $0.attributes?.rel == nil
+            }),
+            let urlString = link.attributes?.href?.trimmingCharacters(
+                in: .whitespacesAndNewlines
+            ),
             let webpage = URL(string: urlString)
-        else {
-            return nil
+        {
+            return webpage
         }
-
-        return webpage
+        
+        if let id = self.id, let webpage = URL(string: id) {
+            return webpage
+        }
+        
+        return nil
     }
     
     var entriesSortedByDateAndTitle: [AtomFeedEntry]? {
