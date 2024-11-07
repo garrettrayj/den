@@ -16,15 +16,16 @@ extension AtomFeed: WebFeed {
             let link = self.links?.first(where: {
                 $0.attributes?.rel == "alternate" || $0.attributes?.rel == nil
             }),
-            let urlString = link.attributes?.href?.trimmingCharacters(
-                in: .whitespacesAndNewlines
-            ),
+            let urlString = link.attributes?.href?.trimmingCharacters(in: .whitespacesAndNewlines),
             let webpage = URL(string: urlString)
         {
             return webpage
         }
         
-        if let id = self.id, let webpage = URL(string: id) {
+        if
+            let id = self.id?.trimmingCharacters(in: .whitespacesAndNewlines),
+            let webpage = URL(string: id)
+        {
             return webpage
         }
         
