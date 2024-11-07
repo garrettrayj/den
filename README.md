@@ -13,48 +13,37 @@ Den is designed for those who value simplicity and functionality in a news app. 
 
 ## Key Features
 
-### + Cloud Sync
-
+**+ Cloud Sync**\
 Seamlessly access your feeds, history, and settings across all your devices—no extra account required.
 
-### + Wide Format Support
-
+**+ Wide Format Support**\
 Den supports RSS, Atom, and JSON feeds, ensuring compatibility with most sources.
 
-### + Import & Export
-
+**+ Import & Export**\
 Easily back up and restore your feeds using standard OPML files.
 
-### + Reader Mode
-
+**+ Reader Mode**\
 Eliminate distractions with clutter-free article views for a streamlined reading experience.
 
-### + Trending Topics
-
+**+ Trending Topics**\
 Discover trending news and subjects, surfaced through powerful natural language processing.
 
-### + Bookmarks
-
+**+ Bookmarks**\
 Save articles to read later and never lose track of what caught your eye.
 
-### + Search Functionality
-
+**+ Search Functionality**\
 Stay up to date by searching for the latest news on specific topics or keywords.
 
-### + Feed Organizer
-
+**+ Feed Organizer**\
 Manage your feed settings in bulk with ease.
 
-### + Blocklists
-
+**+ Blocklists**\
 Enjoy an ad-free experience by blocking ads and other unwanted content.
 
-### + Web Extension
-
+**+ Web Extension**\
 Automatically discover feeds as you browse the web.
 
-### + Widgets
-
+**+ Widgets**\
 Stay updated right from your home screen by displaying the latest news from your inbox, a folder, or a specific feed.
 
 ---
