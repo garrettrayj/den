@@ -121,8 +121,12 @@ struct LatestItemsView: View {
     
     private var singleColumnView: some View {
         VStack(spacing: 12) {
-            ForEach(entry.items.prefix(maxColumnItems)) { item in
-                itemView(item: item)
+            ForEach(0..<maxColumnItems, id: \.self) { idx in
+                if entry.items.indices.contains(idx) {
+                    itemView(item: entry.items[idx])
+                } else {
+                    ZStack {}.frame(maxHeight: .infinity)
+                }
             }
         }
     }
