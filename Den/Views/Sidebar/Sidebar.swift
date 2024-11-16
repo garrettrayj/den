@@ -56,7 +56,7 @@ struct Sidebar: View {
                     .onMove(perform: movePages)
                     .onDelete(perform: deletePages)
                 } header: {
-                    Text("Folders", comment: "Sidebar section header.")
+                    Text("Following", comment: "Sidebar section header.")
                 }
             }
         }
