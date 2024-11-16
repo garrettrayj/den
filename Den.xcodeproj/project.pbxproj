@@ -71,7 +71,6 @@
 		6845BD0F24EFB38C0008B296 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6845BD4D24F6824C0008B296 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		6860690E2831501B000068DE /* Den Web Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Den Web Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		68895CFA2A62A0B700E25385 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
 		68958DCC2ABF7BD5007B9D9D /* TestData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestData; sourceTree = "<group>"; };
 		689EDBF8269188580055811A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		68C41309247263C700D1DC7B /* Den.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Den.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +119,7 @@
 		687227FA2CE83F0400BB82B1 /* WidgetExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6872280A2CE83F0400BB82B1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = WidgetExtension; sourceTree = "<group>"; };
 		6872280C2CE83F0A00BB82B1 /* ci_scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ci_scripts; sourceTree = "<group>"; };
 		6872291C2CE83F5F00BB82B1 /* Den */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (68722A0D2CE83F5F00BB82B1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Den; sourceTree = "<group>"; };
+		68722A6E2CE8412300BB82B1 /* Scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Scripts; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,7 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				6872291C2CE83F5F00BB82B1 /* Den */,
-				68895CFA2A62A0B700E25385 /* Scripts */,
+				68722A6E2CE8412300BB82B1 /* Scripts */,
 				687227712CE83E2800BB82B1 /* Shared */,
 				68958DCC2ABF7BD5007B9D9D /* TestData */,
 				687227AA2CE83EF200BB82B1 /* TestPlans */,
