@@ -205,7 +205,7 @@ final class BrowserViewModel: NSObject, ObservableObject {
             <p id="den-dateline">
                 \(date.formatted(date: .complete, time: .shortened))
                 <span id="den-dateline-relative">
-                (\(date.formatted(.relative(presentation: .numeric))))
+                \(date.formatted(.relative(presentation: .numeric)))
                 </span>
             </p>
             """
