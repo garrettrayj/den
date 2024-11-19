@@ -12,6 +12,6 @@ struct PreviewHeadline: View {
     let title: Text
 
     var body: some View {
-        title.font(.headline).lineLimit(6)
+        title.font(.headline).lineLimit(6).fixedSize(horizontal: false, vertical: true)
     }
 }

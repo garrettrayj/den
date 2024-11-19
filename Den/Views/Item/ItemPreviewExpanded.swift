@@ -15,9 +15,11 @@ struct ItemPreviewExpanded: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             PreviewHeadline(title: item.titleText)
-            ItemMeta(item: item)
-            if !feed.hideBylines, let author = item.author {
-                PreviewAuthor(author: author)
+            VStack(alignment: .leading, spacing: 2) {
+                ItemMeta(item: item)
+                if !feed.hideBylines, let author = item.author {
+                    PreviewAuthor(author: author)
+                }
             }
             if !feed.hideImages, let url = item.image {
                 LargeThumbnail(

@@ -22,14 +22,16 @@ struct BookmarkPreviewCompressed: View {
                             BookmarkFaviconPlaceholder()
                         }
                     }
-                    .font(.callout)
+                    .font(.subheadline.weight(.medium))
                     .imageScale(.small)
-                    PreviewHeadline(title: bookmark.titleText)
-                    if let date = bookmark.published {
-                        PreviewDateline(date: date)
-                    }
-                    if !bookmark.wrappedHideByline, let author = bookmark.author {
-                        PreviewAuthor(author: author)
+                    VStack(alignment: .leading, spacing: 2) {
+                        PreviewHeadline(title: bookmark.titleText)
+                        if let date = bookmark.published {
+                            PreviewDateline(date: date)
+                        }
+                        if !bookmark.wrappedHideByline, let author = bookmark.author {
+                            PreviewAuthor(author: author)
+                        }
                     }
                     if let teaser = bookmark.teaser, teaser != "" && !bookmark.wrappedHideTeaser {
                         PreviewTeaser(teaser: teaser)

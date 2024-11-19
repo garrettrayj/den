@@ -23,7 +23,7 @@ struct PreviewDateline: View {
 
     var body: some View {
         TimelineView(.everyMinute) { _ in
-            Text(dateFormatter.string(from: date)).font(.caption2).lineLimit(1)
+            Text(dateFormatter.string(from: date)).font(.subheadline.italic()).lineLimit(1)
         }
     }
 }

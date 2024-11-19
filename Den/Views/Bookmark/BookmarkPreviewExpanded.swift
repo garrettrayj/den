@@ -21,15 +21,17 @@ struct BookmarkPreviewExpanded: View {
                         BookmarkFaviconPlaceholder()
                     }
                 }
-                .font(.callout)
+                .font(.subheadline.weight(.medium))
                 .imageScale(.small)
                 
-                PreviewHeadline(title: bookmark.titleText)
-                if let date = bookmark.published {
-                    PreviewDateline(date: date)
-                }
-                if bookmark.wrappedHideByline == false, let author = bookmark.author {
-                    PreviewAuthor(author: author)
+                VStack(alignment: .leading, spacing: 2) {
+                    PreviewHeadline(title: bookmark.titleText)
+                    if let date = bookmark.published {
+                        PreviewDateline(date: date)
+                    }
+                    if bookmark.wrappedHideByline == false, let author = bookmark.author {
+                        PreviewAuthor(author: author)
+                    }
                 }
                 if bookmark.wrappedHideImage != true, let url = bookmark.image {
                     LargeThumbnail(

@@ -61,7 +61,6 @@ struct ItemActionView<Content: View>: View {
             )
         )
         .accessibilityIdentifier("ItemAction")
-        .drawingGroup()
         .contextMenu {
             #if os(iOS)
             ControlGroup {

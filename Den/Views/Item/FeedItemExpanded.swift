@@ -15,11 +15,13 @@ struct FeedItemExpanded: View {
     var body: some View {
         ItemActionView(item: item, isLastInList: true, isStandalone: true) {
             VStack(alignment: .leading, spacing: 4) {
-                FeedTitleLabel(feed: feed).font(.callout).imageScale(.small)
+                FeedTitleLabel(feed: feed).font(.subheadline.weight(.medium)).imageScale(.small)
                 PreviewHeadline(title: item.titleText)
-                ItemMeta(item: item)
-                if !feed.hideBylines, let author = item.author {
-                    PreviewAuthor(author: author)
+                VStack(alignment: .leading, spacing: 2) {
+                    ItemMeta(item: item)
+                    if !feed.hideBylines, let author = item.author {
+                        PreviewAuthor(author: author)
+                    }
                 }
                 if !feed.hideImages, let url = item.image {
                     LargeThumbnail(
