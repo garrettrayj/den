@@ -22,7 +22,7 @@ struct SystemBrowserButton: View {
             Label {
                 Text("Open in Browser", comment: "Button label.")
             } icon: {
-                Image(systemName: "arrow.up.forward.app")
+                Image(systemName: "safari")
             }
         }
         .help(Text("Open in default web browser", comment: "Button help text."))
