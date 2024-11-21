@@ -12,6 +12,6 @@ struct PreviewTeaser: View {
     let teaser: String
 
     var body: some View {
-        Text(teaser).font(.body.leading(.tight)).lineLimit(4)
+        Text(teaser).font(.subheadline.leading(.tight)).lineLimit(4)
     }
 }
