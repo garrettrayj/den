@@ -21,7 +21,7 @@ struct BookmarkPreviewExpanded: View {
                         BookmarkFaviconPlaceholder()
                     }
                 }
-                .font(.subheadline.weight(.medium))
+                .font(.callout)
                 .imageScale(.small)
                 
                 VStack(alignment: .leading, spacing: 2) {

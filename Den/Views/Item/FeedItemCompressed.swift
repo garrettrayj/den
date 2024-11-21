@@ -16,7 +16,7 @@ struct FeedItemCompressed: View {
         ItemActionView(item: item, isLastInList: true, isStandalone: true) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
-                    FeedTitleLabel(feed: feed).font(.subheadline.weight(.medium)).imageScale(.small)
+                    FeedTitleLabel(feed: feed).font(.callout).imageScale(.small)
                     PreviewHeadline(title: item.titleText)
                     VStack(alignment: .leading, spacing: 2) {
                         ItemMeta(item: item)
