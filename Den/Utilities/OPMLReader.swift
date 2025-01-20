@@ -43,11 +43,12 @@ final class OPMLReader {
         }
     }
 
-    // swiftlint:disable cyclomatic_complexity
     private func parseDocument(xmlDoc: AEXMLDocument) {
-        let folderElements = xmlDoc.root["body"].children
+        let rootFolderElements = xmlDoc.root["body"].children.filter {
+            $0.attributes["xmlUrl"] == nil
+        }
 
-        folderElements.forEach { folderElement in
+        rootFolderElements.forEach { folderElement in
             guard
                 let name = folderElement.attributes["title"] ?? folderElement.attributes["text"]
             else { return }
@@ -63,46 +64,67 @@ final class OPMLReader {
             }
 
             feeds.forEach { feedElement in
-                guard
-                    let title = feedElement.attributes["title"],
-                    let xmlURLString = feedElement.attributes["xmlUrl"],
-                    let xmlURL = URL(string: xmlURLString)
-                else {
-                    return
+                if let feed = createFeed(fromElement: feedElement) {
+                    folder.feeds.append(feed)
                 }
-
-                var feed = Feed(title: title, url: xmlURL)
-
-                if let previewLimit = feedElement.attributes["den:previewLimit"] {
-                    feed.previewLimit = Int(previewLimit)
-                }
-                if let previewStyle = feedElement.attributes["den:previewStyle"] {
-                    feed.previewStyle = PreviewStyle(from: previewStyle)
-                }
-                if let showExcerpts = feedElement.attributes["den:showExcerpts"] {
-                    feed.showExcerpts = Bool(showExcerpts)
-                }
-                if let showBylines = feedElement.attributes["den:showBylines"] {
-                    feed.showBylines = Bool(showBylines)
-                }
-                if let showImages = feedElement.attributes["den:showImages"] {
-                    feed.showImages = Bool(showImages)
-                }
-                if let readerMode = feedElement.attributes["den:useReaderAutomatically"] {
-                    feed.readerMode = Bool(readerMode)
-                }
-                if let useBlocklists = feedElement.attributes["den:useBlocklists"] {
-                    feed.useBlocklists = Bool(useBlocklists)
-                }
-                if let allowJavaScript = feedElement.attributes["den:allowJavaScript"] {
-                    feed.allowJavaScript = Bool(allowJavaScript)
-                }
-
-                folder.feeds.append(feed)
             }
 
             outlineFolders.append(folder)
         }
+        
+        let rootFeedElements = xmlDoc.root["body"].children.filter {
+            $0.attributes["xmlUrl"] != nil
+        }
+        
+        if !rootFeedElements.isEmpty {
+            var otherFolder = Folder(name: "Other")
+            
+            rootFeedElements.forEach { feedElement in
+                if let feed = createFeed(fromElement: feedElement) {
+                    otherFolder.feeds.append(feed)
+                }
+            }
+            
+            outlineFolders.append(otherFolder)
+        }
     }
-    // swiftlint:enable cyclomatic_complexity
+
+    private func createFeed(fromElement element: AEXMLElement) -> Feed? {
+        guard
+            let title = element.attributes["title"],
+            let xmlURLString = element.attributes["xmlUrl"],
+            let xmlURL = URL(string: xmlURLString)
+        else {
+            return nil
+        }
+
+        var feed = Feed(title: title, url: xmlURL)
+
+        if let previewLimit = element.attributes["den:previewLimit"] {
+            feed.previewLimit = Int(previewLimit)
+        }
+        if let previewStyle = element.attributes["den:previewStyle"] {
+            feed.previewStyle = PreviewStyle(from: previewStyle)
+        }
+        if let showExcerpts = element.attributes["den:showExcerpts"] {
+            feed.showExcerpts = Bool(showExcerpts)
+        }
+        if let showBylines = element.attributes["den:showBylines"] {
+            feed.showBylines = Bool(showBylines)
+        }
+        if let showImages = element.attributes["den:showImages"] {
+            feed.showImages = Bool(showImages)
+        }
+        if let readerMode = element.attributes["den:useReaderAutomatically"] {
+            feed.readerMode = Bool(readerMode)
+        }
+        if let useBlocklists = element.attributes["den:useBlocklists"] {
+            feed.useBlocklists = Bool(useBlocklists)
+        }
+        if let allowJavaScript = element.attributes["den:allowJavaScript"] {
+            feed.allowJavaScript = Bool(allowJavaScript)
+        }
+        
+        return feed
+    }
 }
